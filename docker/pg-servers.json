@@ -1,0 +1,14 @@
+{
+  "Servers": {
+    "2": {
+      "Name": "Read Model",
+      "Group": "Read Models",
+      "Host": "readmodel-sql",
+      "Port": 5433,
+      "Username": "root",
+      "PassFile": "/pgadmin4/pgpass",
+      "SSLMode": "prefer",
+      "MaintenanceDB": "postgres"
+    }
+  }
+}

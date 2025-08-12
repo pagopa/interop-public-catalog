@@ -1,0 +1,39 @@
+{
+  "name": "pagopa-interop-public-commons",
+  "private": true,
+  "version": "1.0.0",
+  "description": "PagoPA Interoperability common utilities",
+  "main": "dist",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:autofix": "eslint . --ext .ts,.tsx --fix",
+    "format:check": "prettier --check src",
+    "format:write": "prettier --write src",
+    "build": "tsc",
+    "check": "tsc --project tsconfig.check.json"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@apidevtools/swagger-parser": "10.1.1",
+    "@zodios/core": "10.9.6",
+    "axios": "1.8.2",
+    "connection-string": "4.4.0",
+    "pg-promise": "11.8.0",
+    "ts-pattern": "5.2.0",
+    "winston": "3.16.0",
+    "yaml": "2.4.5",
+    "zod": "3.23.8",
+    "zod-validation-error": "3.3.0",
+    "drizzle-orm": "0.39.3"
+  },
+  "devDependencies": {
+    "@types/node": "20.19.9",
+    "eslint": "8.57.1",
+    "prettier": "2.8.8",
+    "typescript": "5.4.5"
+  }
+}

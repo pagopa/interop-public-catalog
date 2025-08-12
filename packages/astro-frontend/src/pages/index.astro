@@ -1,0 +1,16 @@
+---
+import Main from "../components/Main";
+import Layout from "../layouts/Layout.astro";
+
+const articles = await fetch(new URL("/api/articles", Astro.url)).then(
+	(response) => response.json(),
+);
+---
+
+<Layout>
+	<Main />
+
+	<ul>
+		{articles.data.map((a: { title: string }) => <li>{a.title}</li>)}
+	</ul>
+</Layout>
