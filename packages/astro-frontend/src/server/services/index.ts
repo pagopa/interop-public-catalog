@@ -5,7 +5,7 @@ import { strapiServiceBuilder } from "./strapiService.js";
 
 const sqlConfig = ReadModelSQLDbConfig.parse(import.meta.env);
 
-export const sqlService = readModelServiceBuilder(
+export const sqlService = await readModelServiceBuilder(
   initDB({
     username: sqlConfig.readModelSQLDbUsername,
     password: sqlConfig.readModelSQLDbPassword,
@@ -15,7 +15,7 @@ export const sqlService = readModelServiceBuilder(
     schema: sqlConfig.readModelSQLDbSchemaTenant,
     useSSL: sqlConfig.readModelSQLDbUseSSL,
   })
-);
+).catch((e) => e);
 
 const strapiConfig = StrapiApiConfig.parse(import.meta.env);
 

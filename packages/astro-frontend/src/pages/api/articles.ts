@@ -8,7 +8,6 @@ export const GET: APIRoute = async () => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (e) {
-    //  TODO: Remove
     return new Response(
       JSON.stringify({ data: [{ title: "Strapi is not connected..." }] }),
       {

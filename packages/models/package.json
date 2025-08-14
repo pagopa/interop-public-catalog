@@ -1,8 +1,8 @@
 {
-  "name": "pagopa-interop-public-commons",
-  "private": true,
+  "name": "pagopa-interop-public-models",
   "version": "1.0.0",
-  "description": "PagoPA Interoperability common utilities",
+  "private": true,
+  "description": "PagoPA Interoperability models",
   "main": "dist",
   "type": "module",
   "exports": {
@@ -16,23 +16,24 @@
     "build": "tsc",
     "check": "tsc --project tsconfig.check.json"
   },
+  "keywords": [],
+  "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@zodios/core": "10.9.6",
+    "@protobuf-ts/plugin": "2.9.4",
+    "@protobuf-ts/protoc": "2.9.4",
+    "@protobuf-ts/runtime": "2.9.4",
     "axios": "1.8.2",
-    "connection-string": "4.4.0",
-    "pg-promise": "11.8.0",
     "ts-pattern": "5.2.0",
-    "winston": "3.16.0",
-    "yaml": "2.4.5",
     "zod": "3.23.8",
-    "zod-validation-error": "3.3.0",
-    "drizzle-orm": "0.39.3"
+    "zod-validation-error": "3.3.0"
   },
   "devDependencies": {
     "@types/node": "20.19.9",
     "eslint": "8.57.1",
+    "mkdirp": "3.0.1",
     "prettier": "2.8.8",
+    "tsc-esm-fix": "2.20.27",
     "typescript": "5.4.5"
   }
 }
