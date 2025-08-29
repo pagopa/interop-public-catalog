@@ -5,7 +5,7 @@ import { sqlService } from "../server/services";
 
 const articles = await fetch(new URL("/api/articles", Astro.url)).then(
 	(response) => response.json(),
-);
+).catch((_e) => ({ data: [{ title: "Strapi is not connected..." }] }));
 
 const currentTime = await sqlService.getCurrentTime?.();
 ---
