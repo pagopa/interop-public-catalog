@@ -3,7 +3,7 @@ import { genericError } from "pagopa-interop-public-models";
 import { QueryResult } from "pg";
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, max-params
-export async function readModelServiceBuilder(dbInstance: DB) {
+export async function publicModelServiceBuilder(dbInstance: DB) {
   try {
     const db = await dbInstance.connect();
 

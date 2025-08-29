@@ -1,2 +1,2 @@
 # hostname:port:database:username:password
-readmodel-sql:5433:root:root:root
+publicmodel-sql:5433:root:root:root

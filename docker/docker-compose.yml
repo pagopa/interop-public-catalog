@@ -3,13 +3,13 @@
 version: "3"
 name: pagopa-interop-public
 volumes:
-  readmodel-volume:
+  publicmodel-volume:
 
 services:
   # POSTGRESQL to mock AuroraDB
-  readmodel-sql:
+  publicmodel-sql:
     volumes:
-      - ./readmodel-db:/docker-entrypoint-initdb.d
+      - ./publicmodel-db:/docker-entrypoint-initdb.d
     image: postgres:14
     ports:
       - 6001:5433

@@ -1,19 +1,19 @@
-import { initDB, ReadModelSQLDbConfig } from "pagopa-interop-public-commons";
+import { initDB, PublicModelSQLDbConfig } from "pagopa-interop-public-commons";
 import { StrapiApiConfig } from "../config/strapiConfig.js";
-import { readModelServiceBuilder } from "./readModelService.js";
+import { publicModelServiceBuilder } from "./publicModelServiceBuilder.js";
 import { strapiServiceBuilder } from "./strapiService.js";
 
-const sqlConfig = ReadModelSQLDbConfig.parse(import.meta.env);
+const sqlConfig = PublicModelSQLDbConfig.parse(import.meta.env);
 
-export const sqlService = await readModelServiceBuilder(
+export const sqlService = await publicModelServiceBuilder(
   initDB({
-    username: sqlConfig.readModelSQLDbUsername,
-    password: sqlConfig.readModelSQLDbPassword,
-    host: sqlConfig.readModelSQLDbHost,
-    port: sqlConfig.readModelSQLDbPort,
-    database: sqlConfig.readModelSQLDbName,
-    schema: sqlConfig.readModelSQLDbSchemaTenant,
-    useSSL: sqlConfig.readModelSQLDbUseSSL,
+    username: sqlConfig.publicModelSQLDbUsername,
+    password: sqlConfig.publicModelSQLDbPassword,
+    host: sqlConfig.publicModelSQLDbHost,
+    port: sqlConfig.publicModelSQLDbPort,
+    database: sqlConfig.publicModelSQLDbName,
+    schema: sqlConfig.publicModelSQLDbSchemaCatalog,
+    useSSL: sqlConfig.publicModelSQLDbUseSSL,
   })
 ).catch((e) => e);
 

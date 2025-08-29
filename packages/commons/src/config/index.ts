@@ -1,2 +1,2 @@
 export * from "./loggerConfig.js";
-export * from "./readmodelSQLDbConfig.js";
+export * from "./publicmodelSQLDbConfig.js";
