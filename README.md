@@ -1,8 +1,6 @@
-> NOTE: this repo is still a work in progress
+# Interoperability Public Monorepo
 
-# Interoperability Monorepo
-
-## How to start
+## Get started
 
 To get started, you will need:
 
@@ -16,49 +14,47 @@ Then install the dependencies with
 pnpm install
 ```
 
-## How to run a single service in watch mode
+## First run
+
+After installing dependencies you will need to build both the commons and models's packages.
+
+Ensure that you are at root level in the project, then run:
+
+```
+pnpm build
+```
+
+This will build all the packages in packages/.
+
+Otherwise, you can go into a specific package folder and run it there. Or:
+
+```
+pnpm -w install
+```
+
+(this will always run the root level scripts in the corresponding package.json)
+
+## Run a single service in watch mode
 
 ```
 pnpm start:<service-name>
-# example: pnpm start:catalog
+# example: pnpm start:astro-fe
 ```
 
-## How to run the tests
+## Building and running docker containers
+
+A docker-compose.yml is provided in the `docker` folder.
+
+Currently it provides two services: a PostgreSQL instance and a pg-admin Web GUI to interface it, available at: http://localhost:8082 .
+
+From root you have these package.json scripts available:
+
+- `pnpm run infra:start`: will update the containers and start them
+- `pnpm run infra:stop`: will stop the containers
+- `pnpm run infra:destroy`: will delete the containers
+
+## Run tests
 
 ```
 pnpm test
 ```
-
-## How to work locally with the read model
-
-First, start a consumer service by running (for example):
-
-```
-pnpm start:catalog-consumer
-```
-
-This will start a local instance of Debezium (alongside with its requirements Zookeeper and Kafka) and a local MongoDB instance which will contain the read model.
-
-Then, start a process service by running (for example):
-
-```
-pnpm start:catalog
-```
-
-This will start a local Postgres instance for storing the events and the service itself.
-
-You can test everything is working by posting an event to the service, for example:
-
-```bash
-curl -X POST http://localhost:3000/eservices \
-  -d '{ "name": "Example name", "description": "Example description", "technology": "REST", "attributes": { "certified": [], "declared": [], "verified": [] } }' \
-  -H "Content-Type: application/json" \
-  -H 'X-Correlation-Id: test' \
-  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJvcmdhbml6YXRpb25JZCI6IjRENTU2OTZGLTE2QzAtNDk2OC04NTRCLTJCMTY2Mzk3RkMzMCIsInVzZXItcm9sZXMiOiJhZG1pbiIsInJvbGUiOiJhZG1pbiIsInVpZCI6IjBmZGEwMzNjLThlOGUtNDhhOS1hMGZjLWFiYmExZjcxMWZlZiIsIm9yZ2FuaXphdGlvbiI6eyJyb2xlcyI6W3sicm9sZSI6IkFkbWluIn1dfSwiZXh0ZXJuYWxJZCI6eyJvcmlnaW4iOiJJUEEiLCJ2YWx1ZSI6IjEyMzQ1NiJ9fQ.308Ulfu4JXXMhqsWo26MIWWhv8tp3sdl-pU5gN_SIX4" 
-```
-
-You should see the event being processed by the consumer and the read model being updated.
-
-You can verify this by using Mongo Express, which is being started alongside the consumer and is available at http://localhost:8081/db/readmodel.
-
-Similarly, there is a Postgres web client that can be used to inspect the event stores at http://localhost:8082.

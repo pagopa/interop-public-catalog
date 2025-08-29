@@ -16,8 +16,6 @@
     "lint:openapi": "turbo lint:openapi",
     "format:check": "turbo format:check",
     "format:write": "turbo format:write",
-    "generate-model": "turbo generate-model",
-    "generate-protobuf": "turbo generate-protobuf",
     "infra:start": "./scripts/infra-start.sh",
     "infra:stop": "./scripts/infra-stop.sh",
     "infra:destroy": "./scripts/infra-destroy.sh",

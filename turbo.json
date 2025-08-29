@@ -20,16 +20,12 @@
       "cache": false
     },
     "build": {
-      "dependsOn": ["generate-model", "^build"],
+      "dependsOn": ["^build"],
       "outputs": ["dist/**"]
     },
     "check": {
-      "dependsOn": ["generate-model", "^build", "^check"],
+      "dependsOn": ["^build", "^check"],
       "outputs": ["dist/**"]
-    },
-    "generate-model": {
-      "dependsOn": ["^generate-model"],
-      "outputs": ["src/generated/**"]
     },
     "test": {
       "dependsOn": [
