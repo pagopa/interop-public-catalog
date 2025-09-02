@@ -47,15 +47,6 @@ CREATE TABLE IF NOT EXISTS publicmodel_catalog.eservice_descriptor_template_vers
   FOREIGN KEY (eservice_id, metadata_version) REFERENCES publicmodel_catalog.eservice (id, metadata_version) DEFERRABLE INITIALLY DEFERRED
 );
 
-CREATE TABLE IF NOT EXISTS publicmodel_catalog.eservice_descriptor_rejection_reason (
-  eservice_id UUID NOT NULL REFERENCES publicmodel_catalog.eservice (id) ON DELETE CASCADE,
-  metadata_version INTEGER NOT NULL,
-  descriptor_id UUID NOT NULL REFERENCES publicmodel_catalog.eservice_descriptor (id) ON DELETE CASCADE,
-  rejection_reason VARCHAR NOT NULL,
-  rejected_at TIMESTAMP WITH TIME ZONE NOT NULL,
-  FOREIGN KEY (eservice_id, metadata_version) REFERENCES publicmodel_catalog.eservice (id, metadata_version) DEFERRABLE INITIALLY DEFERRED
-);
-
 CREATE TABLE IF NOT EXISTS publicmodel_catalog.eservice_descriptor_attribute (
   attribute_id UUID NOT NULL,
   eservice_id UUID NOT NULL REFERENCES publicmodel_catalog.eservice (id) ON DELETE CASCADE,

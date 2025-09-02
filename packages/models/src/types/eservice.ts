@@ -52,14 +52,6 @@ export const EServiceAttributes = z.object({
 });
 export type EserviceAttributes = z.infer<typeof EServiceAttributes>;
 
-export const DescriptorRejectionReason = z.object({
-  rejectionReason: z.string(),
-  rejectedAt: z.coerce.date(),
-});
-export type DescriptorRejectionReason = z.infer<
-  typeof DescriptorRejectionReason
->;
-
 export const EServiceTemplateVersionRef = z.object({
   id: EServiceTemplateVersionId,
 });
@@ -84,7 +76,6 @@ export const Descriptor = z.object({
   deprecatedAt: z.coerce.date().optional(),
   archivedAt: z.coerce.date().optional(),
   attributes: EServiceAttributes,
-  rejectionReasons: z.array(DescriptorRejectionReason).optional(),
   templateVersionRef: EServiceTemplateVersionRef.optional(),
 });
 export type Descriptor = z.infer<typeof Descriptor>;
