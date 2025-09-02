@@ -1,0 +1,2 @@
+# hostname:port:database:username:password
+publicmodel-sql:5433:root:root:root

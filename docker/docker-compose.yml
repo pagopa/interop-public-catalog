@@ -1,0 +1,47 @@
+# Docker Compose for local development environment
+
+version: "3"
+name: pagopa-interop-public
+volumes:
+  publicmodel-volume:
+
+services:
+  # POSTGRESQL to mock AuroraDB
+  publicmodel-sql:
+    volumes:
+      - ./publicmodel-db:/docker-entrypoint-initdb.d
+    image: postgres:14
+    ports:
+      - 6001:5433
+    environment:
+      PGPORT: 5433
+      POSTGRES_DB: root
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+    command: -c 'max_connections=512' -c 'wal_level=logical'
+
+
+  # Web GUI for PostgreSQL
+  pg-admin:
+    image: dpage/pgadmin4:2024-04-01-1
+    ports:
+      - 8082:80
+    environment:
+      PGADMIN_DEFAULT_EMAIL: root@example.com
+      PGADMIN_DEFAULT_PASSWORD: example
+      PGADMIN_CONFIG_SERVER_MODE: "False"
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: "False"
+    restart: always
+    volumes:
+      - ./pg-servers.json:/pgadmin4/servers.json
+      - ./pg-pass:/pgadmin4/pgpass
+    # see https://stackoverflow.com/a/69475874/846273
+    entrypoint: >
+      /bin/sh -c "
+      mkdir -m 700 /var/lib/pgadmin/storage/root_example.com;
+      chown -R pgadmin:pgadmin /var/lib/pgadmin/storage/root_example.com;
+      cp -prv /pgadmin4/pgpass /var/lib/pgadmin/storage/root_example.com/;
+      chmod 600 /var/lib/pgadmin/storage/root_example.com/pgpass;
+      /entrypoint.sh
+      "
+
