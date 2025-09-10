@@ -1,12 +1,18 @@
+// {
+//   "extends": "../../tsconfig.json",
+//   "compilerOptions": {
+//     "outDir": "dist",
+//     "jsx": "react-jsx",
+//     "jsxImportSource": "react"
+//   },
+//   "include": [
+//     "src",
+//     ".astro/types.d.ts"
+//   ]
+// }
+
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "outDir": "dist",
-    "jsx": "react-jsx",
-    "jsxImportSource": "react"
-  },
-  "include": [
-    "src",
-    ".astro/types.d.ts"
-  ]
+  "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist"]
 }
