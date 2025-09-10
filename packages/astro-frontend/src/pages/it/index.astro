@@ -17,7 +17,7 @@ const eservices = await fetch(catalogUrl)
 ---
 
 <Layout>
-	<Main />
+	<Main client:only="react" />
 
 	<h1>Search Term: "{q}" Search Results (Total: {eservices.total}, Shown: {eservices.items.length})</h1>
 
