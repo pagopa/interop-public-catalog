@@ -2,7 +2,7 @@ BEGIN;
 
 -- Requires: 030_search_fts_trgm.sql (extensions + italian_unaccent + normalize_text + indexes)
 
-CREATE OR REPLACE FUNCTION public.search_eservices(
+CREATE OR REPLACE FUNCTION publicmodel_catalog.search_eservices(
   q text,
   lim integer DEFAULT 50,
   off integer DEFAULT 0

@@ -107,3 +107,19 @@ export const EService = z.object({
 });
 
 export type EService = z.infer<typeof EService>;
+
+export const EServiceQuery = z.object({
+  limit: z.coerce.number().int().gt(1).lte(50),
+  offset: z.coerce.number().int().min(0),
+  q: z.string().trim().min(1).max(200).optional(),
+});
+export type EServiceQuery = z.infer<typeof EServiceQuery>;
+
+export const EServiceSearchResult = z.object({
+  total: z.number().int().nonnegative(),
+  items: z.array(EService),
+  limit: z.number().int(),
+  offset: z.number().int(),
+  q: z.string().optional(),
+});
+export type EServiceSearchResult = z.infer<typeof EServiceSearchResult>;

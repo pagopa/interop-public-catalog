@@ -3,18 +3,53 @@ export const prerender = false;
 
 import Main from "../components/Main";
 import Layout from "../layouts/Layout.astro";
-import { sqlService } from "../server/services";
 
-const articles = await fetch(new URL("/api/articles", Astro.url)).then(
-	(response) => response.json(),
-).catch((_e) => ({ data: [{ title: "Strapi is not connected..." }] }));
+const articles = await fetch(new URL("/api/articles", Astro.url))
+	.then((response) => response.json())
+	.catch((_e) => ({ data: [{ title: "Strapi is not connected..." }] }));
 
-const currentTime = await sqlService.getCurrentTime?.();
+const catalogUrl = new URL("/api/catalog", Astro.url);
+const q = "comune";
+catalogUrl.searchParams.set("q", q);
+const eservices = await fetch(catalogUrl)
+	.then((response) => response.json())
+	.catch((_e) => ({ items: [{ title: "PG is not connected..." }] }));
 ---
 
 <Layout>
-	<time>{JSON.stringify(currentTime)}</time>
 	<Main />
+
+	<h1>Search Term: "{q}" Search Results (Total: {eservices.total})</h1>
+
+	<ul>
+		{
+			eservices.items.map(
+				(eservice: {
+					id: string;
+					name: string;
+					tenant_name: string;
+					description: string;
+					technology: string;
+					mode: boolean;
+					created_at: string;
+				}) => (
+					<li>
+						<strong>{eservice.name}</strong>
+						{eservice.tenant_name && (
+							<span> — {eservice.tenant_name}</span>
+						)}
+						<p>{eservice.description}</p>
+						<small>
+							Tech: {eservice.technology} | Mode: {eservice.mode}{" "}
+							| Created: {eservice.created_at}
+						</small>
+					</li>
+				),
+			)
+		}
+	</ul>
+
+	<h2>Articles</h2>
 
 	<ul>
 		{articles.data.map((a: { title: string }) => <li>{a.title}</li>)}

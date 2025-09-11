@@ -5,17 +5,18 @@ import { strapiServiceBuilder } from "./strapiService.js";
 
 const sqlConfig = PublicModelSQLDbConfig.parse(import.meta.env);
 
-export const sqlService = await publicModelServiceBuilder(
-  initDB({
-    username: sqlConfig.publicModelSQLDbUsername,
-    password: sqlConfig.publicModelSQLDbPassword,
-    host: sqlConfig.publicModelSQLDbHost,
-    port: sqlConfig.publicModelSQLDbPort,
-    database: sqlConfig.publicModelSQLDbName,
-    schema: sqlConfig.publicModelSQLDbSchemaCatalog,
-    useSSL: sqlConfig.publicModelSQLDbUseSSL,
-  })
-).catch((e) => e);
+export const sqlService: ReturnType<typeof publicModelServiceBuilder> =
+  publicModelServiceBuilder(
+    initDB({
+      username: sqlConfig.publicModelSQLDbUsername,
+      password: sqlConfig.publicModelSQLDbPassword,
+      host: sqlConfig.publicModelSQLDbHost,
+      port: sqlConfig.publicModelSQLDbPort,
+      database: sqlConfig.publicModelSQLDbName,
+      schema: sqlConfig.publicModelSQLDbSchemaCatalog,
+      useSSL: sqlConfig.publicModelSQLDbUseSSL,
+    })
+  );
 
 const strapiConfig = StrapiApiConfig.parse(import.meta.env);
 
