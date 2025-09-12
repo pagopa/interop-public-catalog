@@ -20,19 +20,28 @@ END$$;
 CREATE OR REPLACE FUNCTION public.normalize_text(t text)
 RETURNS text
 LANGUAGE sql IMMUTABLE PARALLEL SAFE AS $$
-  SELECT trim(regexp_replace(lower(unaccent(coalesce(t,''))), '[^a-z0-9]+', ' ', 'g'))
+  SELECT trim(
+    regexp_replace(
+      lower(
+        -- collapse dotted abbreviations like a.b.c.d. -> abcd
+        regexp_replace(unaccent(coalesce(t,'')), '\.', '', 'g')
+      ),
+        -- turn alphanumerics into spaces e.g. ab,cd -> ab cd
+         '[^a-z0-9]+', ' ', 'g'
+    )
+  )
 $$;
 
 -- 3) FTS generated columns (weighted)
 ALTER TABLE publicmodel_catalog.eservice
   ADD COLUMN IF NOT EXISTS search_vector tsvector GENERATED ALWAYS AS (
-    setweight(to_tsvector('public.italian_unaccent', coalesce(name,'')), 'A') ||
-    setweight(to_tsvector('public.italian_unaccent', coalesce(description,'')), 'B')
+    setweight(to_tsvector('public.italian_unaccent', public.normalize_text(name)), 'A') ||
+    setweight(to_tsvector('public.italian_unaccent', public.normalize_text(description)), 'B')
   ) STORED;
 
 ALTER TABLE publicmodel_tenant.tenant
   ADD COLUMN IF NOT EXISTS search_vector tsvector GENERATED ALWAYS AS (
-    setweight(to_tsvector('public.italian_unaccent', coalesce(name,'')), 'A')
+    setweight(to_tsvector('public.italian_unaccent', public.normalize_text(name)), 'A')
   ) STORED;
 
 -- 4) FTS indexes

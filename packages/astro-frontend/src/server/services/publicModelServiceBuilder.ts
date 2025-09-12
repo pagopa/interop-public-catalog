@@ -64,7 +64,7 @@ export async function searchCatalog(
     WITH params AS (
       SELECT
         CASE WHEN btrim(coalesce(${q}, '')) <> ''
-             THEN websearch_to_tsquery('public.italian_unaccent'::regconfig, ${q})
+             THEN websearch_to_tsquery('public.italian_unaccent'::regconfig, public.normalize_text(${q}))
              ELSE NULL::tsquery
         END AS tsq,
         public.normalize_text(coalesce(${q}, '')) AS nq
@@ -120,7 +120,7 @@ export async function searchCatalog(
     WITH params AS (
       SELECT
         CASE WHEN btrim(coalesce(${q}, '')) <> ''
-             THEN websearch_to_tsquery('public.italian_unaccent'::regconfig, ${q})
+             THEN websearch_to_tsquery('public.italian_unaccent'::regconfig, public.normalize_text(${q}))
              ELSE NULL::tsquery
         END AS tsq,
         public.normalize_text(coalesce(${q}, '')) AS nq
