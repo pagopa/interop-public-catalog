@@ -83,9 +83,9 @@ export async function searchCatalog(
       JOIN publicmodel_tenant.tenant t ON t.id = e.producer_id
       CROSS JOIN params p
       WHERE
-           similarity(public.normalize_text(e.name),        p.nq) > 0.60
-        OR similarity(public.normalize_text(e.description), p.nq) > 0.60
-        OR similarity(public.normalize_text(t.name),        p.nq) > 0.60
+        public.normalize_text(e.name) % p.nq
+        OR public.normalize_text(e.description) % p.nq
+        OR public.normalize_text(t.name) % p.nq
     ),
     -- trigrams as fallback
     picked AS (
@@ -141,9 +141,9 @@ export async function searchCatalog(
       JOIN publicmodel_tenant.tenant t ON t.id = e.producer_id
       CROSS JOIN params p
       WHERE
-           similarity(public.normalize_text(e.name),        p.nq) > 0.60
-        OR similarity(public.normalize_text(e.description), p.nq) > 0.60
-        OR similarity(public.normalize_text(t.name),        p.nq) > 0.60
+        public.normalize_text(e.name) % p.nq
+        OR public.normalize_text(e.description) % p.nq
+        OR public.normalize_text(t.name) % p.nq
     ),
     -- trigrams as fallback
     picked AS (
