@@ -99,7 +99,9 @@ export async function searchCatalog(
         e.id, e.name, e.description, e.technology, e.mode,
         e.created_at::text AS created_at,
         t.name AS tenant_name,
-        COALESCE(ts_rank((e.search_vector || setweight(t.search_vector,'B')), p.tsq), 0)::real AS fts_rank,
+        -- gives priority to tenant name matches when ordering
+        -- based on coverage + density (ts_rank_cd)
+        COALESCE(ts_rank_cd((t.search_vector || setweight(e.search_vector,'B')), p.tsq), 0)::real AS fts_rank,
         GREATEST(
           similarity(public.normalize_text(e.name),        p.nq),
           similarity(public.normalize_text(e.description), p.nq),
