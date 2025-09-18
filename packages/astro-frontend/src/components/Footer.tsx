@@ -8,7 +8,7 @@ import {
 } from "design-react-kit";
 import React from "react";
 
-export const Footer: React.FC = () => (
+const Footer: React.FC = () => (
   <footer className="it-footer">
     <div className="it-footer-main border-white border-bottom">
       <Container>
@@ -105,6 +105,8 @@ export const Footer: React.FC = () => (
     </div>
   </footer>
 );
+
+export default Footer;
 
 // export const FooterCompatto: Story = {
 //   render: ({ townName, townTagLine }) => (

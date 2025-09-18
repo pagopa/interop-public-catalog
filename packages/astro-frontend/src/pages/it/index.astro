@@ -3,6 +3,7 @@ export const prerender = false;
 
 import Header from "../../components/Header";
 import Main from "../../components/Main";
+import Footer from "../../components/Footer";
 import Layout from "../../layouts/Layout.astro";
 
 const articles = await fetch(new URL("/api/articles", Astro.url))
@@ -56,4 +57,6 @@ const eservices = await fetch(catalogUrl)
 	<ul>
 		{articles.data.map((a: { title: string }) => <li>{a.title}</li>)}
 	</ul>
+
+	<Footer client:load />
 </Layout>
