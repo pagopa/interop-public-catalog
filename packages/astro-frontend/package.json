@@ -44,7 +44,7 @@
   "devDependencies": {
     "@anatine/zod-mock": "3.14.0",
     "@pagopa/eslint-config": "3.0.0",
-    "@types/node": "20.19.13",
+    "@types/node": "20.19.17",
     "@types/qs": "6.9.15",
     "@types/supertest": "6.0.3",
     "eslint": "8.57.1",
