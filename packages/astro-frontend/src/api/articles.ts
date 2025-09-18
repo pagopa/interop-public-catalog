@@ -1,5 +1,5 @@
 import { APIRoute } from "astro";
-import { strapiService } from "../../server/services/index.js";
+import { strapiService } from "../server/services/index.js";
 
 export const GET: APIRoute = async () => {
   try {
