@@ -11,4 +11,11 @@ export default defineConfig({
   adapter: node({
     mode: "standalone", // or 'middleware'
   }),
+  i18n: {
+    locales: ["it", "en"],
+    defaultLocale: "it",
+    routing: {
+      prefixDefaultLocale: true,
+    },
+  },
 });
