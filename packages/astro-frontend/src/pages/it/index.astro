@@ -1,0 +1,20 @@
+---
+import Main from "../../components/Main";
+import Layout from "../../layouts/Layout.astro";
+import { sqlService } from "../../server/services";
+
+const articles = await fetch(new URL("/api/articles", Astro.url))
+  .then((response) => response.json())
+  .catch((_e) => ({ data: [{ title: "Strapi is not connected..." }] }));
+
+const currentTime = await sqlService.getCurrentTime?.();
+---
+
+<Layout>
+  <time>{JSON.stringify(currentTime)}</time>
+  <Main />
+
+  <ul>
+    {articles.data.map((a: { title: string }) => <li>{a.title}</li>)}
+  </ul>
+</Layout>
