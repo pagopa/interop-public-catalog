@@ -3,7 +3,6 @@ import {
   Button,
   Card,
   CardBody,
-  CardTag,
   CardTagsHeader,
   CardText,
   CardTitle,
@@ -22,7 +21,7 @@ type UseCaseCardProps = {
   replicableBy: string[];
 };
 
-export const UseCaseCard: React.FC<UseCaseCardProps> = ({
+const UseCaseCard: React.FC<UseCaseCardProps> = ({
   categoryTag,
   isNew = false,
   title,
@@ -66,3 +65,5 @@ export const UseCaseCard: React.FC<UseCaseCardProps> = ({
     </Col>
   </Row>
 );
+
+export default UseCaseCard;
