@@ -18,4 +18,9 @@ export default defineConfig({
       prefixDefaultLocale: true,
     },
   },
+  vite: {
+    ssr: {
+      noExternal: ["design-react-kit", "bootstrap-italia"],
+    },
+  },
 });

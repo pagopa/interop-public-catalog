@@ -1,6 +1,7 @@
 ---
 export const prerender = false;
 
+import Header from "../../components/Header";
 import Main from "../../components/Main";
 import Layout from "../../layouts/Layout.astro";
 
@@ -17,7 +18,8 @@ const eservices = await fetch(catalogUrl)
 ---
 
 <Layout>
-	<Main />
+	<Header client:load />
+	<Main client:load />
 
 	<h1>Search Term: "{q}" Search Results (Total: {eservices.total}, Shown: {eservices.items.length})</h1>
 
