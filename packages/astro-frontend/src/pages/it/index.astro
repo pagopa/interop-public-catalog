@@ -5,6 +5,7 @@ import Header from "../../components/Header";
 import Main from "../../components/Main";
 import Footer from "../../components/Footer";
 import UseCaseCard from "../../components/UseCaseCard";
+import EServiceCard from "../../components/EServiceCard";
 import Layout from "../../layouts/Layout.astro";
 
 const articles = await fetch(new URL("/api/articles", Astro.url))
@@ -23,6 +24,7 @@ const eservices = await fetch(catalogUrl)
 	<Header client:load />
 	<Main client:load />
 	<UseCaseCard title="cammello" description="ciao" isNew replicableBy={['a', 'b', 'c']} categoryTag="sette" />
+	<EServiceCard client:load title="Il mio e-service" description="Lorem ipsum dolor sit amet" />
 
 	<h1>Search Term: "{q}" Search Results (Total: {eservices.total}, Shown: {eservices.items.length})</h1>
 
