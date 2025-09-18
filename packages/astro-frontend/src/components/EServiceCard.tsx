@@ -3,7 +3,6 @@ import {
   Card,
   CardBody,
   CardReadMore,
-  CardTag,
   CardTagsHeader,
   CardText,
   CardTitle,
@@ -19,10 +18,7 @@ type EServiceCardProps = {
   description: string | React.ReactNode;
 };
 
-export const EServiceCard: React.FC<EServiceCardProps> = ({
-  title,
-  description,
-}) => (
+const EServiceCard: React.FC<EServiceCardProps> = ({ title, description }) => (
   <Row>
     <Col xs="3">
       <Card className="card-bg" spacing>
@@ -46,3 +42,5 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
     </Col>
   </Row>
 );
+
+export default EServiceCard;
