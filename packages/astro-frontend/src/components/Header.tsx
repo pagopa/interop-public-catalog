@@ -137,7 +137,7 @@ const SlimHeader: React.FC<{
   );
 };
 
-export const Header: React.FC = () => (
+const Header: React.FC = () => (
   <Headers>
     <SlimHeader
       brandText1="Ente di appartenenza"
@@ -149,3 +149,5 @@ export const Header: React.FC = () => (
     </div>
   </Headers>
 );
+
+export default Header;
