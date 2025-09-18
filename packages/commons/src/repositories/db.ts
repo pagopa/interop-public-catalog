@@ -1,11 +1,5 @@
-import { ConnectionString } from "connection-string";
-import pgPromise, { IDatabase } from "pg-promise";
-import {
-  IClient,
-  IConnectionParameters,
-} from "pg-promise/typescript/pg-subset.js";
-
-export type DB = IDatabase<unknown>;
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Pool } from "pg";
 
 export function initDB({
   username,
@@ -23,23 +17,20 @@ export function initDB({
   database: string;
   schema: string;
   useSSL: boolean;
-}): DB {
-  const pgp = pgPromise({
-    schema,
+}): ReturnType<typeof drizzle> {
+  const pool = new Pool({
+    user: username,
+    password,
+    host,
+    port,
+    database,
+    ssl: useSSL ? { rejectUnauthorized: false } : undefined,
   });
 
-  const conData = new ConnectionString(
-    `postgresql://${username}:${password}@${host}:${port}/${database}`
-  );
+  // set default schema on connection
+  pool.on("connect", (client) => {
+    void client.query(`SET search_path TO public, ${schema}`);
+  });
 
-  const dbConfig: IConnectionParameters<IClient> = {
-    database: conData.path !== undefined ? conData.path[0] : "",
-    host: conData.hostname,
-    password: conData.password,
-    port: conData.port,
-    user: conData.user,
-    ssl: useSSL ? { rejectUnauthorized: false } : undefined,
-  };
-
-  return pgp(dbConfig);
+  return drizzle(pool);
 }

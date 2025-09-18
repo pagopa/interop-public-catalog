@@ -18,6 +18,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/node": "9.4.3",
     "@astrojs/react": "^4.3.0",
     "@types/pg": "8.15.5",
     "@types/react": "^19.1.9",
@@ -26,6 +27,7 @@
     "astro": "^5.12.8",
     "axios": "1.12.0",
     "dotenv-flow": "4.1.0",
+    "drizzle-orm": "0.39.3",
     "pagopa-interop-public-commons": "workspace:*",
     "pagopa-interop-public-models": "workspace:*",
     "pg": "8.16.3",
