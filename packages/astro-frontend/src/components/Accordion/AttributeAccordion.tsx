@@ -12,7 +12,7 @@ type AttributeAccordionProps = {
   onToggle: () => void;
 };
 
-export const AttributeAccordion: React.FC<AttributeAccordionProps> = ({
+const AttributeAccordion: React.FC<AttributeAccordionProps> = ({
   attributeName,
   attributeDescription,
   isOpen,
@@ -25,3 +25,5 @@ export const AttributeAccordion: React.FC<AttributeAccordionProps> = ({
     <AccordionBody active={isOpen}>{attributeDescription}</AccordionBody>
   </AccordionItem>
 );
+
+export default AttributeAccordion;

@@ -1,12 +1,12 @@
 import { Accordion } from "design-react-kit";
 import React, { useState } from "react";
-import { AttributeAccordion } from "./AttributeAccordion";
+import AttributeAccordion from "./AttributeAccordion"; // TODO check why getting an error
 
 type AttributeAccordionListProps = {
   attributes: Array<{ name: string; description: string }>;
 };
 
-export const AttributeAccordionList: React.FC<AttributeAccordionListProps> = ({
+const AttributeAccordionList: React.FC<AttributeAccordionListProps> = ({
   attributes,
 }) => {
   const [collapseElementOpen, setCollapseElement] = useState("");
@@ -32,3 +32,5 @@ export const AttributeAccordionList: React.FC<AttributeAccordionListProps> = ({
     </Accordion>
   );
 };
+
+export default AttributeAccordionList;
