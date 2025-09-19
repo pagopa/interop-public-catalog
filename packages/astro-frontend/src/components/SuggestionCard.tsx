@@ -21,7 +21,7 @@ type SuggestionCardProps = {
   };
 };
 
-export const SuggestionCard: React.FC<SuggestionCardProps> = ({
+const SuggestionCard: React.FC<SuggestionCardProps> = ({
   title,
   description,
   icon,
@@ -52,3 +52,5 @@ export const SuggestionCard: React.FC<SuggestionCardProps> = ({
     </Col>
   </Row>
 );
+
+export default SuggestionCard;
