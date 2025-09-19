@@ -1,12 +1,11 @@
 import React from "react";
-import { LinkListItem, List, ListItem } from "design-react-kit";
 import { HowToListCard, type HowToListCardProps } from "./HowToListCard";
 
 type HowToListProps = {
   howToList: HowToListCardProps[];
 };
 
-export const HowToList: React.FC<HowToListProps> = ({ howToList }) => (
+const HowToList: React.FC<HowToListProps> = ({ howToList }) => (
   // <ul className="flex-fill px-4 flex-horizontal d-flex list-group-flush list-inline">
   <ul className="px-4 list-group list-group-horizontal">
     {howToList.map((card, index) => (
@@ -24,3 +23,5 @@ export const HowToList: React.FC<HowToListProps> = ({ howToList }) => (
     ))}
   </ul>
 );
+
+export default HowToList;

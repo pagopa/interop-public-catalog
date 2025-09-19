@@ -17,7 +17,7 @@ export type HowToListCardProps = {
   readMoreHRef: string;
 };
 
-export const HowToListCard: React.FC<HowToListCardProps> = ({
+const HowToListCard: React.FC<HowToListCardProps> = ({
   icon,
   title,
   description,
@@ -42,3 +42,5 @@ export const HowToListCard: React.FC<HowToListCardProps> = ({
     </Col>
   </Row>
 );
+
+export default HowToListCard;
