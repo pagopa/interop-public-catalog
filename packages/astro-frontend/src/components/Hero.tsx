@@ -10,7 +10,7 @@ import React from "react";
 
 type HeroProps = unknown;
 
-export const Hero: React.FC<HeroProps> = (props) => (
+const Hero: React.FC<HeroProps> = (props) => (
   <HeroDRK overlay="dark">
     <HeroBackground
       alt="imagealt"
@@ -37,3 +37,5 @@ export const Hero: React.FC<HeroProps> = (props) => (
     </HeroBody>
   </HeroDRK>
 );
+
+export default Hero;
