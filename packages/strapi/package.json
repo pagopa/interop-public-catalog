@@ -1,18 +1,22 @@
 {
-  "name": "strapi",
+  "name": "pagopa-interop-public-strapi",
   "version": "0.1.0",
   "private": true,
   "description": "A Strapi application",
   "scripts": {
+    "test": "vitest",
+    "test:api": "vitest --config vitest.api.config.ts",
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:autofix": "eslint . --ext .ts,.tsx --fix",
+    "format:check": "prettier --check src",
+    "format:write": "prettier --write src",
+    "start": "strapi develop",
     "build": "strapi build",
     "console": "strapi console",
-    "deploy": "strapi deploy",
-    "dev": "strapi develop",
-    "develop": "strapi develop",
-    "start": "strapi start",
     "strapi": "strapi",
     "upgrade": "npx @strapi/upgrade latest",
-    "upgrade:dry": "npx @strapi/upgrade latest --dry"
+    "upgrade:dry": "npx @strapi/upgrade latest --dry",
+    "check": "tsc --project tsconfig.check.json"
   },
   "dependencies": {
     "@strapi/plugin-cloud": "5.23.5",
@@ -26,10 +30,15 @@
     "styled-components": "^6.0.0"
   },
   "devDependencies": {
-    "@types/node": "^20",
+    "@types/node": "20.19.17",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "typescript": "^5"
+    "@pagopa/eslint-config": "3.0.0",
+    "eslint": "8.57.1",
+    "prettier": "2.8.8",
+    "tsx": "4.19.1",
+    "typescript": "5.4.5",
+    "vitest": "1.6.1"
   },
   "engines": {
     "node": ">=18.0.0 <=22.x.x",
