@@ -1,5 +1,5 @@
 import React from "react";
-import { HowToListCard, type HowToListCardProps } from "./HowToListCard";
+import HowToListCard, { type HowToListCardProps } from "./HowToListCard.js";
 
 type HowToListProps = {
   howToList: HowToListCardProps[];
