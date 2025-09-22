@@ -1,6 +1,6 @@
 import { Accordion } from "design-react-kit";
 import React, { useState } from "react";
-import AttributeAccordion from "./AttributeAccordion"; // TODO check why getting an error
+import AttributeAccordion from "./AttributeAccordion.js"; // TODO check why getting an error
 
 type AttributeAccordionListProps = {
   attributes: Array<{ name: string; description: string }>;
