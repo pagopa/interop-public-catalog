@@ -23,6 +23,7 @@ const AttributeAccordionList: React.FC<AttributeAccordionListProps> = ({
     <Accordion>
       {attributes.map((attribute, index) => (
         <AttributeAccordion
+          key={index}
           attributeName={attribute.name}
           attributeDescription={attribute.description}
           isOpen={collapseElementOpen === `${index}`}
