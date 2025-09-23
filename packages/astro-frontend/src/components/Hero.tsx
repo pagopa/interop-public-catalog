@@ -5,10 +5,10 @@ import {
   Hero as HeroDRK,
   HeroTitle,
   Input,
-} from "design-react-kit";
-import React from "react";
+} from 'design-react-kit'
+import React from 'react'
 
-type HeroProps = unknown;
+type HeroProps = unknown
 
 const Hero: React.FC<HeroProps> = (props) => (
   <HeroDRK overlay="dark">
@@ -18,13 +18,10 @@ const Hero: React.FC<HeroProps> = (props) => (
       title="image title"
     />
     <HeroBody>
-      <HeroTitle tag="h2">
-        Esplora le API della Pubblica Amministrazione
-      </HeroTitle>
+      <HeroTitle tag="h2">Esplora le API della Pubblica Amministrazione</HeroTitle>
       <p className="d-none d-lg-block">
-        Cerca nel catalogo, accedi ai dati tramite la Piattaforma Digitale
-        Nazionale Dati (PDND) e crea servizi innovativi per il tuo ente e per le
-        persone.
+        Cerca nel catalogo, accedi ai dati tramite la Piattaforma Digitale Nazionale Dati (PDND) e
+        crea servizi innovativi per il tuo ente e per le persone.
       </p>
       <Input
         buttonRight={<Button color="secondary">Cerca</Button>}
@@ -36,6 +33,6 @@ const Hero: React.FC<HeroProps> = (props) => (
       />
     </HeroBody>
   </HeroDRK>
-);
+)
 
-export default Hero;
+export default Hero

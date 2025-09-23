@@ -1,23 +1,21 @@
-import { Accordion } from "design-react-kit";
-import React, { useState } from "react";
-import AttributeAccordion from "./AttributeAccordion.js"; // TODO check why getting an error
+import { Accordion } from 'design-react-kit'
+import React, { useState } from 'react'
+import AttributeAccordion from './AttributeAccordion.js' // TODO check why getting an error
 
 type AttributeAccordionListProps = {
-  attributes: Array<{ name: string; description: string }>;
-};
+  attributes: Array<{ name: string; description: string }>
+}
 
-const AttributeAccordionList: React.FC<AttributeAccordionListProps> = ({
-  attributes,
-}) => {
-  const [collapseElementOpen, setCollapseElement] = useState("");
+const AttributeAccordionList: React.FC<AttributeAccordionListProps> = ({ attributes }) => {
+  const [collapseElementOpen, setCollapseElement] = useState('')
 
   const handleToggle = (index: string): void => {
     if (collapseElementOpen === index) {
-      setCollapseElement("");
+      setCollapseElement('')
     } else {
-      setCollapseElement(index);
+      setCollapseElement(index)
     }
-  };
+  }
 
   return (
     <Accordion>
@@ -31,7 +29,7 @@ const AttributeAccordionList: React.FC<AttributeAccordionListProps> = ({
         />
       ))}
     </Accordion>
-  );
-};
+  )
+}
 
-export default AttributeAccordionList;
+export default AttributeAccordionList

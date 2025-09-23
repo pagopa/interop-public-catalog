@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react'
 import {
   Col,
   Dropdown,
@@ -19,10 +19,10 @@ import {
   HeaderToggler,
   Collapse,
   HeaderLinkZone,
-} from "design-react-kit";
+} from 'design-react-kit'
 
 const CenterHeader: React.FC = () => (
-  <HeaderDRK type="center" theme={"dark"} small={true}>
+  <HeaderDRK type="center" theme={'dark'} small={true}>
     <HeaderContent>
       <HeaderBrand>
         <h2>Lorem Ipsum Lorem Ipsum</h2>
@@ -30,17 +30,17 @@ const CenterHeader: React.FC = () => (
       </HeaderBrand>
     </HeaderContent>
   </HeaderDRK>
-);
+)
 
 const NavHeader: React.FC = () => {
-  const [isOpenSide, setIsOpenSide] = useState(false);
+  const [isOpenSide, setIsOpenSide] = useState(false)
   return (
-    <HeaderDRK type="navbar" theme={"dark"}>
+    <HeaderDRK type="navbar" theme={'dark'}>
       <HeaderContent expand="lg" megamenu>
         <HeaderToggler
           onClick={(): void => {
             /* set logic open state  */
-            setIsOpenSide(!isOpenSide);
+            setIsOpenSide(!isOpenSide)
           }}
           aria-controls="nav1"
           aria-expanded="false"
@@ -54,7 +54,7 @@ const NavHeader: React.FC = () => {
           isOpen={isOpenSide}
           onOverlayClick={(): void => {
             /* set close logic here */
-            setIsOpenSide(!isOpenSide);
+            setIsOpenSide(!isOpenSide)
           }}
         >
           <div className="menu-wrapper">
@@ -78,16 +78,16 @@ const NavHeader: React.FC = () => {
         </Collapse>
       </HeaderContent>
     </HeaderDRK>
-  );
-};
+  )
+}
 
 const SlimHeader: React.FC<{
-  brandText1: string;
-  brandText2: string;
+  brandText1: string
+  brandText2: string
 }> = ({ brandText1, brandText2 }) => {
-  const [isOpenCollapse, setIsOpenCollapse] = useState(false);
+  const [isOpenCollapse, setIsOpenCollapse] = useState(false)
   return (
-    <HeaderDRK type="slim" theme={"dark"}>
+    <HeaderDRK type="slim" theme={'dark'}>
       <HeaderContent>
         <HeaderBrand>{brandText1}</HeaderBrand>
         <span className="navbar-brand d-none d-lg-inline mx-2">e</span>
@@ -96,7 +96,7 @@ const SlimHeader: React.FC<{
           <HeaderToggler
             isOpen={isOpenCollapse}
             onClick={(): void => {
-              setIsOpenCollapse(!isOpenCollapse);
+              setIsOpenCollapse(!isOpenCollapse)
             }}
           >
             <span>{brandText1}</span>
@@ -134,20 +134,17 @@ const SlimHeader: React.FC<{
         </HeaderRightZone>
       </HeaderContent>
     </HeaderDRK>
-  );
-};
+  )
+}
 
 const Header: React.FC = () => (
   <Headers>
-    <SlimHeader
-      brandText1="Ente di appartenenza"
-      brandText2="Ente di appartenenza"
-    />
+    <SlimHeader brandText1="Ente di appartenenza" brandText2="Ente di appartenenza" />
     <div className="it-nav-wrapper">
       <CenterHeader />
       <NavHeader />
     </div>
   </Headers>
-);
+)
 
-export default Header;
+export default Header

@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react'
 import {
   Card,
   CardBody,
@@ -11,12 +11,12 @@ import {
   Col,
   Icon,
   Row,
-} from "design-react-kit";
+} from 'design-react-kit'
 
 type EServiceCardProps = {
-  title: string | React.ReactNode;
-  description: string | React.ReactNode;
-};
+  title: string | React.ReactNode
+  description: string | React.ReactNode
+}
 
 const EServiceCard: React.FC<EServiceCardProps> = ({ title, description }) => (
   <Row>
@@ -32,15 +32,11 @@ const EServiceCard: React.FC<EServiceCardProps> = ({ title, description }) => (
           </CardTagsHeader>
           <CardTitle tag="h5">{title}</CardTitle>
           <CardText>{description}</CardText>
-          <CardReadMore
-            href="#"
-            iconName="it-arrow-right"
-            text="Leggi di più"
-          />
+          <CardReadMore href="#" iconName="it-arrow-right" text="Leggi di più" />
         </CardBody>
       </Card>
     </Col>
   </Row>
-);
+)
 
-export default EServiceCard;
+export default EServiceCard
