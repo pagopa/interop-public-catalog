@@ -10,16 +10,16 @@ import {
   ChipLabel,
   Col,
   Row,
-} from "design-react-kit";
-import React from "react";
+} from 'design-react-kit'
+import React from 'react'
 
 type UseCaseCardProps = {
-  title: string;
-  description: string | React.ReactNode;
-  categoryTag: string;
-  isNew?: boolean;
-  replicableBy: string[];
-};
+  title: string
+  description: string | React.ReactNode
+  categoryTag: string
+  isNew?: boolean
+  replicableBy: string[]
+}
 
 const UseCaseCard: React.FC<UseCaseCardProps> = ({
   categoryTag,
@@ -43,20 +43,16 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({
           {/* <div className="it-card-footer"> */}
           <div
             style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "flex-start",
-              flexDirection: "column",
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              flexDirection: 'column',
             }}
           >
             <span>
-              <strong>Replicabile da:</strong> {replicableBy.join(", ")}
+              <strong>Replicabile da:</strong> {replicableBy.join(', ')}
             </span>
-            <Button
-              color="primary"
-              size="sm"
-              style={{ display: "block", marginTop: "16px" }}
-            >
+            <Button color="primary" size="sm" style={{ display: 'block', marginTop: '16px' }}>
               Scopri di più
             </Button>
           </div>
@@ -64,6 +60,6 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({
       </Card>
     </Col>
   </Row>
-);
+)
 
-export default UseCaseCard;
+export default UseCaseCard

@@ -1,12 +1,5 @@
-import {
-  Col,
-  Container,
-  Icon,
-  LinkList,
-  LinkListItem,
-  Row,
-} from "design-react-kit";
-import React from "react";
+import { Col, Container, Icon, LinkList, LinkListItem, Row } from 'design-react-kit'
+import React from 'react'
 
 const Footer: React.FC = () => (
   <footer className="it-footer">
@@ -38,12 +31,8 @@ const Footer: React.FC = () => (
             <Col sm={2} /* lg={2} md={2} */ className="pb-2">
               <h4>Catalogo delle API</h4>
               <LinkList className="footer-list clearfix">
-                {["Esplora il catalogo", "Come usare le API"].map((label) => (
-                  <LinkListItem
-                    key={label}
-                    href="#"
-                    title={`Vai alla pagina: ${label}`}
-                  >
+                {['Esplora il catalogo', 'Come usare le API'].map((label) => (
+                  <LinkListItem key={label} href="#" title={`Vai alla pagina: ${label}`}>
                     {label}
                   </LinkListItem>
                 ))}
@@ -55,13 +44,9 @@ const Footer: React.FC = () => (
                 {[
                   "Cos'è l'interoperabilità",
                   "Racconta l'interoperabilità",
-                  "Domande frequenti e supporto",
+                  'Domande frequenti e supporto',
                 ].map((label) => (
-                  <LinkListItem
-                    key={label}
-                    href="#"
-                    title={`Vai alla pagina: ${label}`}
-                  >
+                  <LinkListItem key={label} href="#" title={`Vai alla pagina: ${label}`}>
                     {label}
                   </LinkListItem>
                 ))}
@@ -104,9 +89,9 @@ const Footer: React.FC = () => (
       </Container>
     </div>
   </footer>
-);
+)
 
-export default Footer;
+export default Footer
 
 // export const FooterCompatto: Story = {
 //   render: ({ townName, townTagLine }) => (

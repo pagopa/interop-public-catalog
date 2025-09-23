@@ -1,25 +1,16 @@
-import {
-  Button,
-  Card,
-  CardBody,
-  CardText,
-  CardTitle,
-  Col,
-  Icon,
-  Row,
-} from "design-react-kit";
-import React from "react";
+import { Button, Card, CardBody, CardText, CardTitle, Col, Icon, Row } from 'design-react-kit'
+import React from 'react'
 
 type SuggestionCardProps = {
-  title: string | React.ReactNode;
-  description: string | React.ReactNode;
-  icon: string;
+  title: string | React.ReactNode
+  description: string | React.ReactNode
+  icon: string
   actionButton: {
-    label: string;
-    onClick: () => void;
-    icon?: string;
-  };
-};
+    label: string
+    onClick: () => void
+    icon?: string
+  }
+}
 
 const SuggestionCard: React.FC<SuggestionCardProps> = ({
   title,
@@ -43,14 +34,13 @@ const SuggestionCard: React.FC<SuggestionCardProps> = ({
               onClick={actionButton.onClick}
               icon={actionButton.icon ? true : false}
             >
-              {actionButton.label}{" "}
-              <Icon color="white" icon={actionButton.icon || ""} />
+              {actionButton.label} <Icon color="white" icon={actionButton.icon || ''} />
             </Button>
           </div>
         </CardBody>
       </Card>
     </Col>
   </Row>
-);
+)
 
-export default SuggestionCard;
+export default SuggestionCard

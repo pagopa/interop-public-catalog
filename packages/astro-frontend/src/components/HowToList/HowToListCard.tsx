@@ -1,21 +1,12 @@
-import {
-  Card,
-  CardBody,
-  CardReadMore,
-  CardText,
-  CardTitle,
-  Col,
-  Icon,
-  Row,
-} from "design-react-kit";
-import React from "react";
+import { Card, CardBody, CardReadMore, CardText, CardTitle, Col, Icon, Row } from 'design-react-kit'
+import React from 'react'
 
 export type HowToListCardProps = {
-  icon: string;
-  title: string;
-  description: string;
-  readMoreHRef: string;
-};
+  icon: string
+  title: string
+  description: string
+  readMoreHRef: string
+}
 
 const HowToListCard: React.FC<HowToListCardProps> = ({
   icon,
@@ -32,15 +23,11 @@ const HowToListCard: React.FC<HowToListCardProps> = ({
           </div>
           <CardTitle tag="h5">{title}</CardTitle>
           <CardText>{description}</CardText>
-          <CardReadMore
-            href={readMoreHRef}
-            iconName="it-arrow-right"
-            text="Leggi di più"
-          />
+          <CardReadMore href={readMoreHRef} iconName="it-arrow-right" text="Leggi di più" />
         </CardBody>
       </Card>
     </Col>
   </Row>
-);
+)
 
-export default HowToListCard;
+export default HowToListCard

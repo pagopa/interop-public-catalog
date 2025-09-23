@@ -1,16 +1,12 @@
-import {
-  AccordionBody,
-  AccordionHeader,
-  AccordionItem,
-} from "design-react-kit";
-import React from "react";
+import { AccordionBody, AccordionHeader, AccordionItem } from 'design-react-kit'
+import React from 'react'
 
 type AttributeAccordionProps = {
-  attributeName: string;
-  attributeDescription: string;
-  isOpen: boolean;
-  onToggle: () => void;
-};
+  attributeName: string
+  attributeDescription: string
+  isOpen: boolean
+  onToggle: () => void
+}
 
 const AttributeAccordion: React.FC<AttributeAccordionProps> = ({
   attributeName,
@@ -24,6 +20,6 @@ const AttributeAccordion: React.FC<AttributeAccordionProps> = ({
     </AccordionHeader>
     <AccordionBody active={isOpen}>{attributeDescription}</AccordionBody>
   </AccordionItem>
-);
+)
 
-export default AttributeAccordion;
+export default AttributeAccordion
