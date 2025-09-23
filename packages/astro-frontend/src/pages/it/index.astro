@@ -10,6 +10,7 @@ import EServiceCard from "../../components/EServiceCard";
 import SuggestionCard from "../../components/SuggestionCard";
 import AttributeAccordionList from "../../components/Accordion/AttributeAccordionList";
 import Hero from "../../components/Hero";
+import HowToList from "../../components/HowToList/HowToList";
 
 const articles = await fetch(new URL("/api/articles", Astro.url))
   .then((response) => response.json())
@@ -30,6 +31,7 @@ const eservices = await fetch(catalogUrl)
 	<EServiceCard client:load title="Il mio e-service" description="Lorem ipsum dolor sit amet" />
 	<SuggestionCard client:load icon="it-card" title="abc" description="fjies" actionButton={{icon: 'it-card', label: 'ciao', onClick: () => {console.log('ciao')}}} />
 	<AttributeAccordionList client:load attributes={[{ name: "attr1", description: "desc1" },{ name: "attr2", description: "desc2" },{ name: "attr3", description: "desc3" }]} />
+	<HowToList howToList={[{title: 'abc', description: 'cde', icon: 'it-card', readMoreHref: '#0' }]} />
 	<Hero />
 
   <h1>
