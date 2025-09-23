@@ -1,12 +1,13 @@
 ---
 export const prerender = false;
 
+import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header";
 import Main from "../../components/Main";
 import Footer from "../../components/Footer";
 import UseCaseCard from "../../components/UseCaseCard";
 import EServiceCard from "../../components/EServiceCard";
-import Layout from "../../layouts/Layout.astro";
+import SuggestionCard from "../../components/SuggestionCard";
 
 const articles = await fetch(new URL("/api/articles", Astro.url))
 	.then((response) => response.json())
@@ -25,6 +26,7 @@ const eservices = await fetch(catalogUrl)
 	<Main client:load />
 	<UseCaseCard title="cammello" description="ciao" isNew replicableBy={['a', 'b', 'c']} categoryTag="sette" />
 	<EServiceCard client:load title="Il mio e-service" description="Lorem ipsum dolor sit amet" />
+	<SuggestionCard client:load icon="it-card" title="abc" description="fjies" actionButton={{icon: 'it-card', label: 'ciao', onClick: () => {console.log('ciao')}}} />
 
 	<h1>Search Term: "{q}" Search Results (Total: {eservices.total}, Shown: {eservices.items.length})</h1>
 
