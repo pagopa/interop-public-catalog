@@ -8,17 +8,19 @@ import Footer from "../../components/Footer";
 import UseCaseCard from "../../components/UseCaseCard";
 import EServiceCard from "../../components/EServiceCard";
 import SuggestionCard from "../../components/SuggestionCard";
+import AttributeAccordionList from "../../components/Accordion/AttributeAccordionList";
+import Hero from "../../components/Hero";
 
 const articles = await fetch(new URL("/api/articles", Astro.url))
-	.then((response) => response.json())
-	.catch((_e) => ({ data: [{ title: "Strapi is not connected..." }] }));
+  .then((response) => response.json())
+  .catch((_e) => ({ data: [{ title: "Strapi is not connected..." }] }));
 
 const catalogUrl = new URL("/api/catalog", Astro.url);
 const q = "comune";
 catalogUrl.searchParams.set("q", q);
 const eservices = await fetch(catalogUrl)
-	.then((response) => response.json())
-	.catch((_e) => ({ items: [{ title: "PG is not connected..." }] }));
+  .then((response) => response.json())
+  .catch((_e) => ({ items: [{ title: "PG is not connected..." }] }));
 ---
 
 <Layout>
@@ -27,42 +29,46 @@ const eservices = await fetch(catalogUrl)
 	<UseCaseCard title="cammello" description="ciao" isNew replicableBy={['a', 'b', 'c']} categoryTag="sette" />
 	<EServiceCard client:load title="Il mio e-service" description="Lorem ipsum dolor sit amet" />
 	<SuggestionCard client:load icon="it-card" title="abc" description="fjies" actionButton={{icon: 'it-card', label: 'ciao', onClick: () => {console.log('ciao')}}} />
+	<AttributeAccordionList client:load attributes={[{ name: "attr1", description: "desc1" },{ name: "attr2", description: "desc2" },{ name: "attr3", description: "desc3" }]} />
+	<Hero />
 
-	<h1>Search Term: "{q}" Search Results (Total: {eservices.total}, Shown: {eservices.items.length})</h1>
+  <h1>
+    Search Term: "{q}" Search Results (Total: {eservices.total}, Shown: {
+      eservices.items.length
+    })
+  </h1>
 
-	<ul>
-		{
-			eservices.items.map(
-				(eservice: {
-					id: string;
-					name: string;
-					tenant_name: string;
-					description: string;
-					technology: string;
-					mode: boolean;
-					created_at: string;
-				}) => (
-					<li>
-						<strong>{eservice.name}</strong>
-						{eservice.tenant_name && (
-							<span> — {eservice.tenant_name}</span>
-						)}
-						<p>{eservice.description}</p>
-						<small>
-							Tech: {eservice.technology} | Mode: {eservice.mode}{" "}
-							| Created: {eservice.created_at}
-						</small>
-					</li>
-				),
-			)
-		}
-	</ul>
+  <ul>
+    {
+      eservices.items.map(
+        (eservice: {
+          id: string;
+          name: string;
+          tenant_name: string;
+          description: string;
+          technology: string;
+          mode: boolean;
+          created_at: string;
+        }) => (
+          <li>
+            <strong>{eservice.name}</strong>
+            {eservice.tenant_name && <span> — {eservice.tenant_name}</span>}
+            <p>{eservice.description}</p>
+            <small>
+              Tech: {eservice.technology} | Mode: {eservice.mode} | Created:{" "}
+              {eservice.created_at}
+            </small>
+          </li>
+        )
+      )
+    }
+  </ul>
 
-	<h2>Articles</h2>
+  <h2>Articles</h2>
 
-	<ul>
-		{articles.data.map((a: { title: string }) => <li>{a.title}</li>)}
-	</ul>
+  <ul>
+    {articles.data.map((a: { title: string }) => <li>{a.title}</li>)}
+  </ul>
 
-	<Footer client:load />
+  <Footer client:load />
 </Layout>
