@@ -1,0 +1,34 @@
+FROM node:22-alpine
+
+RUN corepack enable
+
+WORKDIR /opt/app
+
+COPY package.json ./
+COPY pnpm-lock.yaml ./
+COPY pnpm-workspace.yaml ./
+COPY .npmrc ./
+
+COPY packages/commons/package.json ./packages/commons/
+COPY packages/strapi/package.json ./packages/strapi/
+COPY packages/models/package.json ./packages/models/
+
+RUN pnpm install --frozen-lockfile
+
+COPY tsconfig.json ./
+COPY turbo.json ./
+
+COPY packages/commons/ ./packages/commons/
+COPY packages/strapi/ ./packages/strapi/
+COPY packages/models/ ./packages/models/
+
+RUN chown -R node:node /opt/app
+
+USER node
+ENV PATH=/opt/app/node_modules/.bin:$PATH
+
+RUN pnpm build
+
+EXPOSE 1337
+
+CMD ["pnpm", "--filter", "./packages/strapi", "start"]
