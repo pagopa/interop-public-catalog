@@ -1,14 +1,14 @@
 import { Card, CardBody, CardReadMore, CardText, CardTitle, Icon } from 'design-react-kit'
 import React from 'react'
 
-export type HowToListCardProps = {
+export type HowToDoListCardProps = {
   icon: string
   title: string
   description: string
   readMoreHRef: string
 }
 
-const HowToListCard: React.FC<HowToListCardProps> = ({
+const HowToDoListCard: React.FC<HowToDoListCardProps> = ({
   icon,
   title,
   description,
@@ -27,4 +27,4 @@ const HowToListCard: React.FC<HowToListCardProps> = ({
   </Card>
 )
 
-export default HowToListCard
+export default HowToDoListCard

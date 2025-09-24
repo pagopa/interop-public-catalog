@@ -6,13 +6,13 @@ import {
   // ListGroupItemHeading,
   Section,
 } from 'design-react-kit'
-import HowToListCard, { type HowToListCardProps } from './HowToDoListCard.js'
+import HowToDoListCard, { type HowToDoListCardProps } from './HowToDoListCard.js'
 
-type HowToListProps = {
-  howToList: HowToListCardProps[]
+type HowToDoListProps = {
+  howToList: HowToDoListCardProps[]
 }
 
-const HowToList: React.FC<HowToListProps> = ({ howToList }) => (
+const HowToDoList: React.FC<HowToDoListProps> = ({ howToList }) => (
   // <section className="primary-bg-c1">
   <Section color="muted">
     <h3>Come funziona</h3>
@@ -26,7 +26,7 @@ const HowToList: React.FC<HowToListProps> = ({ howToList }) => (
             borderRight: index !== howToList.length - 1 ? '1px solid #BFDFFF' : 'none',
           }}
         >
-          <HowToListCard {...card} />
+          <HowToDoListCard {...card} />
         </li>
       ))}
     </ul>
@@ -52,4 +52,4 @@ const HowToList: React.FC<HowToListProps> = ({ howToList }) => (
 //   </Section>
 // );
 
-export default HowToList
+export default HowToDoList
