@@ -1,5 +1,5 @@
-import { FC, JSX } from "react";
+import { FC, JSX } from 'react'
 
-const Main: FC = (): JSX.Element => <div id="container">Hello!</div>;
+const Main: FC = (): JSX.Element => <div id="container">Hello!</div>
 
-export default Main;
+export default Main
