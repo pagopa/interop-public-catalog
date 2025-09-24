@@ -8,8 +8,6 @@ import {
   CardTitle,
   Chip,
   ChipLabel,
-  Col,
-  Row,
 } from 'design-react-kit'
 import React from 'react'
 
@@ -28,38 +26,39 @@ const UseCaseCard: React.FC<UseCaseCardProps> = ({
   description,
   replicableBy,
 }) => (
-  <Row>
-    <Col lg="6" xs="12">
-      <Card className="card-bg card-big no-after" spacing>
-        <CardBody>
-          <CardTagsHeader>
-            <Chip className="my-0">
-              <ChipLabel>{categoryTag}</ChipLabel>
-            </Chip>
-            {isNew && <Badge color="success">Nuovo</Badge>}
-          </CardTagsHeader>
-          <CardTitle tag="h5">{title}</CardTitle>
-          <CardText>{description}</CardText>
-          {/* <div className="it-card-footer"> */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'flex-start',
-              flexDirection: 'column',
-            }}
-          >
-            <span>
-              <strong>Replicabile da:</strong> {replicableBy.join(', ')}
-            </span>
-            <Button color="primary" size="sm" style={{ display: 'block', marginTop: '16px' }}>
-              Scopri di più
-            </Button>
-          </div>
-        </CardBody>
-      </Card>
-    </Col>
-  </Row>
+  <Card className="card-bg card-big no-after" spacing>
+    <CardBody>
+      <CardTagsHeader>
+        <Chip className="my-0">
+          <ChipLabel>{categoryTag}</ChipLabel>
+        </Chip>
+        {isNew && <Badge color="success">Nuovo</Badge>}
+      </CardTagsHeader>
+      <CardTitle tag="h5">{title}</CardTitle>
+      <CardText>{description}</CardText>
+      {/* <div className="it-card-footer"> */}
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'flex-start',
+          flexDirection: 'column',
+        }}
+      >
+        <span>
+          <strong>Replicabile da:</strong> {replicableBy.join(', ')}
+        </span>
+        <Button
+          color="primary"
+          size="sm"
+          style={{ display: 'block', marginTop: '16px' }}
+          onClick={(): void => console.log('Scopri di più')}
+        >
+          Scopri di più
+        </Button>
+      </div>
+    </CardBody>
+  </Card>
 )
 
 export default UseCaseCard

@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardText, CardTitle, Col, Icon, Row } from 'design-react-kit'
+import { Button, Card, CardBody, CardText, CardTitle, Icon } from 'design-react-kit'
 import React from 'react'
 
 type SuggestionCardProps = {
@@ -18,29 +18,25 @@ const SuggestionCard: React.FC<SuggestionCardProps> = ({
   icon,
   actionButton,
 }) => (
-  <Row className={`flex-fill`}>
-    <Col xs="12">
-      <Card className={`card-big card-bg`} spacing>
-        <CardBody>
-          <div className="top-icon">
-            <Icon icon={icon} />
-          </div>
-          <CardTitle tag="h5">{title}</CardTitle>
-          <CardText>{description}</CardText>
-          <div className="it-card-footer">
-            <Button
-              color="primary"
-              size="sm"
-              onClick={actionButton.onClick}
-              icon={actionButton.icon ? true : false}
-            >
-              {actionButton.label} <Icon color="white" icon={actionButton.icon || ''} />
-            </Button>
-          </div>
-        </CardBody>
-      </Card>
-    </Col>
-  </Row>
+  <Card className={`card-big card-bg`} spacing>
+    <CardBody>
+      <div className="top-icon">
+        <Icon icon={icon} />
+      </div>
+      <CardTitle tag="h5">{title}</CardTitle>
+      <CardText>{description}</CardText>
+      <div className="it-card-footer">
+        <Button
+          color="primary"
+          size="sm"
+          onClick={actionButton.onClick}
+          icon={actionButton.icon ? true : false}
+        >
+          {actionButton.label} <Icon color="white" icon={actionButton.icon || ''} />
+        </Button>
+      </div>
+    </CardBody>
+  </Card>
 )
 
 export default SuggestionCard
