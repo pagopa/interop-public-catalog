@@ -2,15 +2,13 @@
 export const prerender = false
 
 import Layout from '../../layouts/Layout.astro'
-import Header from '../../components/Header'
-import Main from '../../components/Main'
-import Footer from '../../components/Footer'
 import UseCaseCard from '../../components/UseCaseCard'
 import EServiceCard from '../../components/EServiceCard'
-import SuggestionCard from '../../components/SuggestionCard'
-import AttributeAccordionList from '../../components/Accordion/AttributeAccordionList'
+import SuggestionSection from '../../components/SuggestionsSection/SuggestionsSection.jsx'
 import Hero from '../../components/Hero'
-import HowToList from '../../components/HowToList/HowToList'
+import HowToDoList from '../../components/HowToDoList/HowToDoList'
+import { Button, Col, Icon, Row, Section } from 'design-react-kit'
+import { TenantCard } from '../../components/TenantCard'
 
 const articles = await fetch(new URL('/api/articles', Astro.url))
   .then((response) => response.json())
@@ -25,41 +23,150 @@ const eservices = await fetch(catalogUrl)
 ---
 
 <Layout>
-  <Header client:load />
-  <Main client:load />
-  <UseCaseCard
-    title="cammello"
-    description="ciao"
-    isNew
-    replicableBy={['a', 'b', 'c']}
-    categoryTag="sette"
-  />
-  <EServiceCard client:load title="Il mio e-service" description="Lorem ipsum dolor sit amet" />
-  <SuggestionCard
+  <Hero client:load />
+  <HowToDoList
     client:load
-    icon="it-card"
-    title="abc"
-    description="fjies"
-    actionButton={{
-      icon: 'it-card',
-      label: 'ciao',
-      onClick: () => {
-        console.log('ciao')
+    title="Come funziona"
+    howToList={[
+      {
+        icon: '/Group.svg',
+        title: 'how to 1',
+        description: 'how to description 1',
+        readMoreHRef: '',
       },
-    }}
-  />
-  <AttributeAccordionList
-    client:load
-    attributes={[
-      { name: 'attr1', description: 'desc1' },
-      { name: 'attr2', description: 'desc2' },
-      { name: 'attr3', description: 'desc3' },
+      {
+        icon: '/Group.svg',
+        title: 'how to 2',
+        description: 'how to description 2',
+        readMoreHRef: '',
+      },
+      {
+        icon: '/Group.svg',
+        title: 'how to 3',
+        description: 'how to description 3',
+        readMoreHRef: '',
+      },
     ]}
   />
-  <HowToList
-    howToList={[{ title: 'abc', description: 'cde', icon: 'it-card', readMoreHRef: '#0' }]}
+
+  <Section client:load className="d-flex flex-column justify-content-center align-items-center">
+    <div class="d-flex flex-column justify-content-center align-items-center mx-6 bg-transparent">
+      <div class="d-flex flex-column justify-content-between text-center mb-3">
+        <h3>Come puoi usare le API?</h3>
+        <span>
+          Seleziona la tipologia di Pubblica Amministrazione per cui operi e scopri come integrare
+          le API nei processi del tuo ente per semplificare grazie all'interoperabilità i servizi
+          che offre.
+        </span>
+      </div>
+      <Row class="g-3">
+        <Col>
+          <TenantCard tenantName="Ente di appartenenza" icon="/Group.svg" />
+        </Col>
+        <Col>
+          <TenantCard tenantName="Ente di appartenenza" icon="/Group.svg" />
+        </Col>
+        <Col>
+          <TenantCard tenantName="Ente di appartenenza" icon="/Group.svg" />
+        </Col>
+        <Col>
+          <TenantCard tenantName="Ente di appartenenza" icon="/Group.svg" />
+        </Col>
+        <Col>
+          <TenantCard tenantName="Ente di appartenenza" icon="/Group.svg" />
+        </Col>
+      </Row>
+    </div>
+
+    <div
+      class="d-flex flex-column justify-content-center align-items-center primary-bg-c1 rounded-5 mt-n3"
+    >
+      <div class="d-flex flex-column justify-content-between text-center px-6 py-5">
+        <h3>Lasciati ispirare dalle buone pratiche</h3>
+        <span>
+          Una raccolta di esempi significativi e facili da replicare di come l'interoperabilità può
+          semplificare i processi della Pubblica Amministrazione.
+        </span>
+      </div>
+      <Col xs="8">
+        <Row>
+          <UseCaseCard
+            title="cammello"
+            description="ciao"
+            isNew
+            replicableBy={['a', 'b', 'c']}
+            categoryTag="sette"
+          />
+        </Row>
+        <Row>
+          <UseCaseCard
+            title="cammello"
+            description="ciao"
+            isNew
+            replicableBy={['a', 'b', 'c']}
+            categoryTag="sette"
+          />
+        </Row>
+        <Row>
+          <UseCaseCard
+            title="cammello"
+            description="ciao"
+            isNew
+            replicableBy={['a', 'b', 'c']}
+            categoryTag="sette"
+          />
+        </Row>
+      </Col>
+
+      <Button color="primary" outline className="mb-5 mt-3"> Esplora altre buone pratiche </Button>
+    </div>
+  </Section>
+
+  <Section>
+    <div class="d-flex flex-row justify-content-between align-items-center">
+      <h3>API in evidenza</h3>
+      <a>
+        <span class="tranform-uppercase">Esplora il catalogo</span>
+        <Icon iconName="it-arrow-right" />
+      </a>
+    </div>
+    <Row>
+      <Col>
+        <EServiceCard title="eservice 1" description="eservice description 1" />
+      </Col>
+      <Col>
+        <EServiceCard title="eservice 2" description="eservice description 2" />
+      </Col>
+      <Col>
+        <EServiceCard title="eservice 3" description="eservice description 3" />
+      </Col>
+    </Row>
+  </Section>
+
+  <SuggestionSection
+    client:load
+    title="Cosa fare per..."
+    suggestions={[
+      {
+        icon: '/Group.svg',
+        title: 'Ottenere l’accesso ai dati',
+        description:
+          'Iscriversi a PDND è semplice e veloce, avrai bisogno di firmare e inoltrare un accordo di adesione.',
+        actionButton: {
+          label: 'Aderisci a alla PDND',
+          onClick: (): void => {},
+          icon: 'it-arrow-right',
+        },
+      },
+      {
+        icon: '/Group.svg',
+        title: 'Raccontare l’ecosistema',
+        description:
+          'Ottieni gli strumenti e le risorse per raccontare al meglio l’ecosistema di interoperabilità.',
+        actionButton: { label: 'Consulta il press kit', onClick: (): void => {} },
+      },
+    ]}
   />
-  <Hero />
 
   <h1>
     Search Term: "{q}" Search Results (Total: {eservices.total}, Shown: {eservices.items.length})
@@ -95,6 +202,4 @@ const eservices = await fetch(catalogUrl)
   <ul>
     {articles.data.map((a: { title: string }) => <li>{a.title}</li>)}
   </ul>
-
-  <Footer client:load />
 </Layout>
