@@ -1,7 +1,7 @@
 import { Button, Card, CardBody, CardText, CardTitle, Icon } from 'design-react-kit'
 import React from 'react'
 
-type SuggestionCardProps = {
+export type SuggestionCardProps = {
   title: string | React.ReactNode
   description: string | React.ReactNode
   icon: string
@@ -32,7 +32,8 @@ const SuggestionCard: React.FC<SuggestionCardProps> = ({
           onClick={actionButton.onClick}
           icon={actionButton.icon ? true : false}
         >
-          {actionButton.label} <Icon color="white" icon={actionButton.icon || ''} />
+          {actionButton.label}
+          {actionButton.icon && <Icon color="white" icon={actionButton.icon} className="ms-2" />}
         </Button>
       </div>
     </CardBody>
