@@ -1,0 +1,8 @@
+.mx-6 {
+  margin-left: calc(1rem * 4.5);
+  margin-right: calc(1rem * 4.5);
+}
+
+.mt-n3 {
+  margin-top: calc(1rem * -4.5);
+}
