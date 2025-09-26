@@ -11,8 +11,8 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
   const { previousPages, nextPages } = usePagination(currentPage, totalPages)
 
   const mapPagesToPagerElements = (pages: Page[]): React.ReactNode =>
-    pages.map((page) => (
-      <PagerItem className="d-none d-sm-block">
+    pages.map((page, index) => (
+      <PagerItem className="d-none d-sm-block" key={index}>
         {page.isSpan ? (
           <PagerLink tag="span">{page.value}</PagerLink>
         ) : (
