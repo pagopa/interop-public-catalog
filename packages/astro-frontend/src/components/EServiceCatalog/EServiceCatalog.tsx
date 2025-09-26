@@ -1,4 +1,14 @@
-import { Container, Row, Col } from 'design-react-kit'
+import {
+  Container,
+  Row,
+  Col,
+  Icon,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  LinkList,
+  LinkListItem,
+} from 'design-react-kit'
 import React from 'react'
 import EServiceCard from '../EServiceCard.js'
 
@@ -10,7 +20,7 @@ type EService = {
 }
 
 type EServiceCatalogProps = {
-  eservices: Array<EService>
+  eservices: EService[]
 }
 
 const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
@@ -27,10 +37,39 @@ const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
 
   return (
     <Container className="py-5">
-      {rows.map((rowItems) => (
-        <Row>
-          {rowItems.map((eservice) => (
-            <Col xs="4">
+      <div className="d-flex justify-content-between align-items-center">
+        <div>
+          <span className="pe-3 border-end">totale risultati</span>
+          <a className="ms-3">
+            Copia URL dei risultati <Icon icon="it-copy" size="sm" className="ms-2" />
+          </a>
+        </div>
+        <div>
+          <Dropdown>
+            <DropdownToggle caret className="text-primary">
+              Ordina per
+            </DropdownToggle>
+            <DropdownMenu>
+              <Row>
+                <Col size="12">
+                  <LinkList>
+                    <LinkListItem inDropdown href="#">
+                      <span>ITA</span>
+                    </LinkListItem>
+                    <LinkListItem inDropdown href="#">
+                      <span>ENG</span>
+                    </LinkListItem>
+                  </LinkList>
+                </Col>
+              </Row>
+            </DropdownMenu>
+          </Dropdown>
+        </div>
+      </div>
+      {rows.map((rowItems, rowIndex) => (
+        <Row key={rowIndex}>
+          {rowItems.map((eservice, eserviceIndex) => (
+            <Col xs="4" key={eserviceIndex}>
               <EServiceCard title={eservice.name} description={eservice.description} />
             </Col>
           ))}
