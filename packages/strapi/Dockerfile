@@ -1,4 +1,4 @@
-# Creating multi-stage build for production
+# Creating multi-stage build
 FROM node:22-alpine AS build
 RUN corepack enable
 
@@ -26,7 +26,7 @@ COPY packages/models/ ./packages/models/
 
 RUN pnpm run build
 
-# Creating final production image
+# Creating final image
 FROM node:22-alpine
 RUN corepack enable
 WORKDIR /opt/app

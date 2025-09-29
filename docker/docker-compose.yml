@@ -49,7 +49,7 @@ services:
     container_name: strapi
     build:
       context: ..
-      dockerfile: packages/strapi/Dockerfile.dev
+      dockerfile: packages/strapi/Dockerfile
     restart: unless-stopped
     env_file: ../packages/strapi/.env
     environment:
