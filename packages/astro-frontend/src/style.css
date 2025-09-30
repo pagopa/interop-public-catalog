@@ -11,3 +11,7 @@
 .mt-n3 {
   margin-top: calc(1rem * -4.5);
 }
+
+.no-hover:hover {
+  background-color: transparent !important;
+}
