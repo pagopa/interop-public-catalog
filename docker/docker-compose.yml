@@ -45,3 +45,22 @@ services:
       /entrypoint.sh
       "
 
+  strapi:
+    container_name: strapi
+    build:
+      context: ..
+      dockerfile: packages/strapi/Dockerfile
+    restart: unless-stopped
+    env_file: ../packages/strapi/.env
+    environment:
+      DATABASE_CLIENT: postgres
+      DATABASE_HOST: publicmodel-sql
+      DATABASE_PORT: 5433
+      DATABASE_NAME: strapi
+      DATABASE_USERNAME: root
+      DATABASE_PASSWORD: root
+    ports:
+      - "6002:1337"
+    depends_on:
+      - publicmodel-sql
+
