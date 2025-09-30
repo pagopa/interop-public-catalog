@@ -2,6 +2,8 @@
 examples/**/types/generated
 .nx/cache
 .nx/workspace-data
+.strapi/
+.strapi-updater.json
 
 # Ignore yarn.lock inside templates
 templates/yarn.lock
