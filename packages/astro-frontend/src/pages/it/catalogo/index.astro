@@ -2,12 +2,11 @@
 export const prerender = false
 
 import Layout from '../../../layouts/Layout.astro'
-import Header from '../../../components/Header'
-import Footer from '../../../components/Footer'
 import Pagination from '../../../components/Pagination/Pagination'
 import EServiceCatalog from '../../../components/EServiceCatalog/EServiceCatalog'
 import { Breadcrumb, BreadcrumbItem, Button, Container, Icon, Section } from 'design-react-kit'
 import SuggestionCard from '../../../components/SuggestionsSection/SuggestionCard'
+import Filters from '../../../components/EServiceCatalog/Filters'
 ---
 
 <Layout>
@@ -17,25 +16,26 @@ import SuggestionCard from '../../../components/SuggestionsSection/SuggestionCar
         <a href="#"> Home </a>
         <span class="separator"> / </span>
       </BreadcrumbItem>
-      <BreadcrumbItem>
-        <a href="#"> Subsection </a>
-        <span class="separator"> / </span>
+      <BreadcrumbItem active>
+        <a href="#"> Esplora il catalogo </a>
       </BreadcrumbItem>
-      <BreadcrumbItem active> Current section </BreadcrumbItem>
     </Breadcrumb>
 
     <h1>Esplora il catalogo</h1>
-    <span
-      >Cerca tra tutte le API rese disponibili attraverso la Piattaforma Digitale Nazionale Dati
+    <span>
+      Cerca tra tutte le API rese disponibili attraverso la Piattaforma Digitale Nazionale Dati
       (PDND). Verifica i requisiti per accedere alle API di tuo interesse e costruisci la tua
-      integrazione per l’accesso ai dati.</span
-    >
+      integrazione per l’accesso ai dati.
+    </span>
+  </Section>
 
-    <Container className="primary-bg-c1 p-3">
-      <div>Qua ci staranno i filtri</div>
+  <Section color="muted">
+    <Container className="p-3">
+      <Filters client:load />
     </Container>
 
     <EServiceCatalog
+      client:load
       eservices={[
         {
           name: 'eservice 1',
@@ -132,19 +132,21 @@ import SuggestionCard from '../../../components/SuggestionsSection/SuggestionCar
     <Pagination client:load currentPage={3} totalPages={7} />
   </Section>
 
-  <Section color="muted">
-    <h3>Cerchi l’elenco completo degli aderenti e delle API disponibili su PDND?</h3>
-    <div class="d-flex flex-row">
-      <div class="me-2">
+  <div class="p-5">
+    <div class="primary-bg-c1 p-5">
+      <h3>Cerchi l’elenco completo degli aderenti e delle API disponibili su PDND?</h3>
+      <div class="d-flex flex-row">
+        <div class="me-2">
+          <Button color="primary" outline size="sm" onClick={(): void => {}} icon
+            >Ottieni l’elenco delle API <Icon color="white" icon="it-arrow-right" /></Button
+          >
+        </div>
         <Button color="primary" outline size="sm" onClick={(): void => {}} icon
-          >Ottieni l’elenco delle API <Icon color="white" icon="it-arrow-right" /></Button
+          >Ottieni l’elenco degli aderenti <Icon color="white" icon="it-arrow-right" /></Button
         >
       </div>
-      <Button color="primary" outline size="sm" onClick={(): void => {}} icon
-        >Ottieni l’elenco degli aderenti <Icon color="white" icon="it-arrow-right" /></Button
-      >
     </div>
-  </Section>
+  </div>
 
   <Section color="primary">
     <h3 class="text-white">Cosa fare per...</h3>
