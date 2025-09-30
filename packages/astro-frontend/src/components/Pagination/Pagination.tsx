@@ -38,11 +38,13 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
 
       {mapPagesToPagerElements(previousPages)}
 
-      <PagerItem>
-        <PagerLink aria-current="page" href="#">
-          {currentPage}
-        </PagerLink>
-      </PagerItem>
+      {totalPages !== 1 && (
+        <PagerItem>
+          <PagerLink aria-current="page" href="#">
+            {currentPage}
+          </PagerLink>
+        </PagerItem>
+      )}
 
       {mapPagesToPagerElements(nextPages)}
 
