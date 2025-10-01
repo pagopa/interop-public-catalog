@@ -29,7 +29,7 @@ jobs:
           PACKAGES=$(find packages -type f -path "*/Dockerfile" | awk -F'/' '{print $2}' | jq -R -s -c 'split("\n")[:-1]')
           echo "packages=$PACKAGES" >> $GITHUB_OUTPUT
 
-  build_push_image:
+  build_push_image_branch_and_tag:
     name: ${{ matrix.package }}
     needs: [find_dockerfiles]
     runs-on: ubuntu-latest
@@ -100,7 +100,62 @@ jobs:
           context: .
           file: packages/${{ matrix.package }}/Dockerfile
           build-args: |
-            NODE_REGISTRY=${{ vars.NODE_REGISTRY }}
+            NODE_REGISTRY=${{ vars.NODE_REGISTRY_DEV }}
           push: true
-          tags: ${{ github.ref_type == 'branch' && steps.meta_branch.outputs.tags || steps.meta_tag.outputs.tags }}
+          tags: ${{ github.ref_type == 'branch' && steps.meta_branch.outputs.tags || steps.meta_tag.outputs.tags}}
           labels: ${{ github.ref_type == 'branch' && steps.meta_branch.outputs.labels || steps.meta_tag.outputs.labels }}
+
+  build_push_image_tag_only:
+    name: ${{ matrix.package }}
+    needs: [find_dockerfiles]
+    runs-on: ubuntu-latest
+    environment: ecr
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        package: ${{ fromJson(needs.find_dockerfiles.outputs.packages) }}
+    env:
+        DOCKER_BUILD_SUMMARY: "false"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
+          role-session-name: interop-public-catalog-build-push-${{ github.run_number }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # v2
+
+      - name: (tag) Docker metadata
+        id: meta_tag
+        if: ${{ github.ref_type == 'tag' }}
+        uses: docker/metadata-action@c1e51972afc2121e065aed6d45c65596fe445f3f
+        with:
+          images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ matrix.package }}
+          flavor: |
+            latest=false
+            prefix=
+            suffix=
+          tags: |
+            type=ref,event=tag
+
+      - name: Build and push Docker image
+        id: build_push
+        uses: docker/build-push-action@55146d969b0dff1a5c12630229609757af5b1081
+        with:
+          context: .
+          file: packages/${{ matrix.package }}/Dockerfile
+          build-args: |
+            NODE_REGISTRY=${{ vars.NODE_REGISTRY_PROD }}
+          push: true
+          tags: ${{ steps.meta_tag.outputs.tags }}
+          labels: ${{ steps.meta_tag.outputs.labels }}
