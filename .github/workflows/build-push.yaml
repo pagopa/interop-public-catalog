@@ -29,11 +29,11 @@ jobs:
           PACKAGES=$(find packages -type f -path "*/Dockerfile" | awk -F'/' '{print $2}' | jq -R -s -c 'split("\n")[:-1]')
           echo "packages=$PACKAGES" >> $GITHUB_OUTPUT
 
-  build_push_image_branch_and_tag:
+  build_push_image:
     name: ${{ matrix.package }}
     needs: [find_dockerfiles]
     runs-on: ubuntu-latest
-    environment: ecr
+    environment: ecr-dev
     permissions:
       contents: read
       id-token: write
@@ -99,17 +99,16 @@ jobs:
         with:
           context: .
           file: packages/${{ matrix.package }}/Dockerfile
-          build-args: |
-            NODE_REGISTRY=${{ vars.NODE_REGISTRY_DEV }}
           push: true
           tags: ${{ github.ref_type == 'branch' && steps.meta_branch.outputs.tags || steps.meta_tag.outputs.tags}}
           labels: ${{ github.ref_type == 'branch' && steps.meta_branch.outputs.labels || steps.meta_tag.outputs.labels }}
 
   build_push_image_tag_only:
+    if: ${{ github.ref_type == 'tag' }}
     name: ${{ matrix.package }}
     needs: [find_dockerfiles]
     runs-on: ubuntu-latest
-    environment: ecr
+    environment: ecr-prod
     permissions:
       contents: read
       id-token: write
@@ -154,8 +153,6 @@ jobs:
         with:
           context: .
           file: packages/${{ matrix.package }}/Dockerfile
-          build-args: |
-            NODE_REGISTRY=${{ vars.NODE_REGISTRY_PROD }}
           push: true
           tags: ${{ steps.meta_tag.outputs.tags }}
           labels: ${{ steps.meta_tag.outputs.labels }}
