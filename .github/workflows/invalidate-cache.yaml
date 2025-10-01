@@ -1,0 +1,33 @@
+name: "Invalidate CloudFront distribution cache"
+
+on:
+  workflow_dispatch:
+    inputs:
+      cloudfront_distribution_id:
+        description: "ID of the CloudFront distribution to invalidate"
+        required: true
+      invalidation_paths:
+        description: "Paths to invalidate (space separated)"
+        required: true
+
+jobs:
+  invalidate_cache:
+    name: Invalidate CloudFront Cache
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
+        with:
+          aws-region: ${{ vars.AWS_REGION }}
+          role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
+          role-session-name: interop-public-catalog-invalidate-cloudfront-distribution-cache-${{ github.run_number }}
+
+      - name: Invalidate CloudFront Cache
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ github.event.inputs.cloudfront_distribution_id }} \
+            --paths ${{ github.event.inputs.invalidation_paths }}
