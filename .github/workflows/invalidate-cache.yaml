@@ -28,6 +28,8 @@ jobs:
 
       - name: Invalidate CloudFront Cache
         run: |
+          set -euo pipefail
+
           aws cloudfront create-invalidation \
             --distribution-id ${{ github.event.inputs.cloudfront_distribution_id }} \
             --paths ${{ github.event.inputs.invalidation_paths }}
