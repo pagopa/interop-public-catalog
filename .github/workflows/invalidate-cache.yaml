@@ -12,7 +12,7 @@ on:
 
 jobs:
   invalidate_cache:
-    name: Invalidate CloudFront Cache
+    name: Invalidate CloudFront distirbution cache
     runs-on: ubuntu-latest
 
     steps:
