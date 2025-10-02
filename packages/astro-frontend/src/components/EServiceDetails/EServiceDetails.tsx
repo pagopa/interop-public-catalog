@@ -16,13 +16,22 @@ const EServiceDetails: React.FC<EServiceDetailsProps> = ({ eservice }) => {
   const anchores = [{ name: 'sette' }, { name: 'otto' }]
 
   const attributesGroups = [
-    [
-      { name: 'Requisito 1', description: 'Descrizione Requisito 1' },
-      { name: 'Requisito 2', description: 'Descrizione Requisito 2' },
-      { name: 'Requisito 3', description: 'Descrizione Requisito 3' },
-    ],
-    [{ name: 'Requisito 2', description: 'Descrizione Requisito 2' }],
-    [{ name: 'Requisito 1', description: 'Descrizione Requisito 1' }],
+    {
+      attributeType: 'CERTIFIED' as const,
+      attributesGroup: [
+        { name: 'Requisito 1', description: 'Descrizione Requisito 1' },
+        { name: 'Requisito 2', description: 'Descrizione Requisito 2' },
+        { name: 'Requisito 3', description: 'Descrizione Requisito 3' },
+      ],
+    },
+    {
+      attributeType: 'VERIFIED' as const,
+      attributesGroup: [{ name: 'Requisito 2', description: 'Descrizione Requisito 2' }],
+    },
+    {
+      attributeType: 'DECLARED' as const,
+      attributesGroup: [{ name: 'Requisito 1', description: 'Descrizione Requisito 1' }],
+    },
   ]
 
   return (

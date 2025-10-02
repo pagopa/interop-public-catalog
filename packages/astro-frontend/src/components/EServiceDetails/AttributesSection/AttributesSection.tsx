@@ -3,7 +3,10 @@ import React from 'react'
 import AttributeAccordionsGroup from './AttributeAccordionGroup/AttributeAccordionGroup.js'
 
 type AttributesSectionProps = {
-  attributesGroups: Array<Array<{ name: string; description: string }>>
+  attributesGroups: Array<{
+    attributeType: 'CERTIFIED' | 'DECLARED' | 'VERIFIED'
+    attributesGroup: Array<{ name: string; description: string }>
+  }>
 }
 
 export const AttributesSection: React.FC<AttributesSectionProps> = ({ attributesGroups }) => {
@@ -18,9 +21,9 @@ export const AttributesSection: React.FC<AttributesSectionProps> = ({ attributes
           </Col>
           <Col xs="11" className="p-0" key={`${index}-group`}>
             <AttributeAccordionsGroup
-              title="Attributi certificati"
+              attributeType={group.attributeType}
               tooltipText="Questo è il testo della tooltip dell'icon"
-              attributes={group}
+              attributes={group.attributesGroup}
             />
           </Col>
         </Row>
