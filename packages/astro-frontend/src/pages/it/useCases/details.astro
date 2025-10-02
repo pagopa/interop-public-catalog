@@ -1,0 +1,39 @@
+---
+export const prerender = false
+
+import Layout from '../../../layouts/Layout.astro'
+import { Badge, Breadcrumb, BreadcrumbItem, Button, Icon, Section } from 'design-react-kit'
+import UseCaseDetails from '../../../components/UseCaseDetails/UseCaseDetails'
+---
+
+<Layout>
+  <Section>
+    <Breadcrumb>
+      <BreadcrumbItem>
+        <a href="#"> Home </a>
+        <span class="separator"> / </span>
+      </BreadcrumbItem>
+      <BreadcrumbItem>
+        <a href="#"> Esempi pratici </a>
+        <span class="separator"> / </span>
+      </BreadcrumbItem>
+      <BreadcrumbItem active> Dettaglio esempi pratici </BreadcrumbItem>
+    </Breadcrumb>
+
+    <div class="d-flex flex-row align-items-center justify-content-between">
+      <Badge color="secondary" pill> Bonus economici </Badge>
+      <Button href="#" role="link" tag="a" size="xs" className="text-primary" icon>
+        Accedi a PDND
+        <Icon icon="it-github" size="xs" className="ms-2" color="primary" />
+      </Button>
+    </div>
+    <h1>Nome del caso d'uso</h1>
+    <span>
+      <strong>Per:</strong>{/* {replicableBy.join(', ')} */} PAC, Comuni, Regioni
+    </span>
+  </Section>
+
+  <Section color="muted">
+    <UseCaseDetails client:load useCase={{ id: '1' }} />
+  </Section>
+</Layout>
