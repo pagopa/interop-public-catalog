@@ -2,8 +2,19 @@
 export const prerender = false
 
 import Layout from '../../../layouts/Layout.astro'
-import { Badge, Breadcrumb, BreadcrumbItem, Button, Icon, Section } from 'design-react-kit'
+import {
+  Badge,
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
+  Col,
+  Container,
+  Icon,
+  Row,
+  Section,
+} from 'design-react-kit'
 import UseCaseDetails from '../../../components/UseCaseDetails/UseCaseDetails'
+import UseCaseCard from '../../../components/UseCaseCard'
 ---
 
 <Layout>
@@ -33,7 +44,33 @@ import UseCaseDetails from '../../../components/UseCaseDetails/UseCaseDetails'
     </span>
   </Section>
 
-  <Section color="muted">
+  <Section color="muted" wrapperClassName="py-5">
     <UseCaseDetails client:load useCase={{ id: '1' }} />
+  </Section>
+
+  <Section wrapperClassName="py-5">
+    <Container>
+      <h3 class="mb-4 text-center">Altre buone pratiche</h3>
+      <Row>
+        <Col>
+          <UseCaseCard
+            title="cammello"
+            description="ciao"
+            isNew
+            replicableBy={['a', 'b', 'c']}
+            categoryTag="sette"
+          />
+        </Col>
+        <Col>
+          <UseCaseCard
+            title="cammello"
+            description="ciao"
+            isNew
+            replicableBy={['a', 'b', 'c']}
+            categoryTag="sette"
+          />
+        </Col>
+      </Row>
+    </Container>
   </Section>
 </Layout>
