@@ -2,13 +2,13 @@
 export const prerender = false
 
 import Layout from '../../layouts/Layout.astro'
-import UseCaseCard from '../../components/UseCaseCard'
-import EServiceCard from '../../components/EServiceCard'
-import SuggestionSection from '../../components/SuggestionsSection/SuggestionsSection.jsx'
-import Hero from '../../components/Hero'
-import HowToDoList from '../../components/HowToDoList/HowToDoList'
+import UseCaseCard from '../../components/shared/UseCaseCard'
+import EServiceCard from '../../components/shared/EServiceCard'
+import SuggestionSection from '../../components/shared/SuggestionsSection/SuggestionsSection.js'
+import Hero from '../../components/Homepage/Hero'
+import HowToDoList from '../../components/Homepage/HowToDoList/HowToDoList'
 import { Button, Col, Icon, Row, Section } from 'design-react-kit'
-import { TenantCard } from '../../components/TenantCard'
+import TenantCard from '../../components/Homepage/TenantCard'
 
 const articles = await fetch(new URL('/api/articles', Astro.url))
   .then((response) => response.json())

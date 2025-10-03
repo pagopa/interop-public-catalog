@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  CardReadMore,
-  CardTitle,
-  Icon,
-} from 'design-react-kit'
+import { Card, CardBody, CardFooter, CardReadMore, CardTitle, Icon } from 'design-react-kit'
 import React from 'react'
 
 type TenantCardProps = {
@@ -14,7 +6,7 @@ type TenantCardProps = {
   icon: string
 }
 
-export const TenantCard: React.FC<TenantCardProps> = ({ tenantName, icon }) => (
+const TenantCard: React.FC<TenantCardProps> = ({ tenantName, icon }) => (
   <Card className="card-bg rounded-5">
     <CardBody>
       <div className="top-icon">
@@ -27,3 +19,5 @@ export const TenantCard: React.FC<TenantCardProps> = ({ tenantName, icon }) => (
     </CardFooter>
   </Card>
 )
+
+export default TenantCard

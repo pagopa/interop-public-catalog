@@ -20,18 +20,23 @@ import {
   Collapse,
   HeaderLinkZone,
 } from 'design-react-kit'
+// import { getLangFromUrl, useTranslations } from '../i18n/utils'
 
-const CenterHeader: React.FC = () => (
-  <HeaderDRK type="center" theme={'dark'} small={true}>
-    <HeaderContent>
-      <HeaderBrand>
-        <h2>Lorem Ipsum Lorem Ipsum</h2>
-        <h3>Inserire qui la tag line</h3>
-      </HeaderBrand>
-    </HeaderContent>
-  </HeaderDRK>
-)
-
+const CenterHeader: React.FC = () => {
+  const a = 'a'
+  // const lang = getLangFromUrl(window.location.href);
+  // const t = useTranslations(lang);
+  return (
+    <HeaderDRK type="center" theme={'dark'} small={true}>
+      <HeaderContent>
+        <HeaderBrand>
+          <h2>Catalogo delle API</h2>
+          <h3>Le API della Pubblica Amministrazione</h3>
+        </HeaderBrand>
+      </HeaderContent>
+    </HeaderDRK>
+  )
+}
 const NavHeader: React.FC = () => {
   const [isOpenSide, setIsOpenSide] = useState(false)
   return (
@@ -59,7 +64,7 @@ const NavHeader: React.FC = () => {
         >
           <div className="menu-wrapper">
             <Nav navbar>
-              <NavItem active>
+              <NavItem>
                 <NavLink href="#" active>
                   <span>link 1 active </span>
                 </NavLink>

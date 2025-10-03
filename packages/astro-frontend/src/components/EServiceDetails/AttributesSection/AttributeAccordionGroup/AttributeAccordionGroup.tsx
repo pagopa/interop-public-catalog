@@ -1,6 +1,6 @@
-import { Accordion, Icon, UncontrolledTooltip } from 'design-react-kit'
+import { Accordion as AccordionDRK, Icon, UncontrolledTooltip } from 'design-react-kit'
 import React, { useRef, useState } from 'react'
-import AttributeAccordion from './AttributeAccordion.js'
+import Accordion from '../../../shared/Accordion.js'
 
 type AttributeAccordionsGroupProps = {
   attributeType: 'CERTIFIED' | 'DECLARED' | 'VERIFIED'
@@ -56,20 +56,21 @@ const AttributeAccordionsGroup: React.FC<AttributeAccordionsGroupProps> = ({
           gruppo.
         </p>
       </div>
-      <Accordion>
+      <AccordionDRK>
         {attributes.map((attribute, index) => (
           <>
-            <AttributeAccordion
+            <Accordion
               key={index}
-              attributeName={attribute.name}
-              attributeDescription={attribute.description}
+              label={attribute.name}
+              content={attribute.description}
               isOpen={collapseElementOpen === `${index}`}
               onToggle={(): void => handleToggle(`${index}`)}
+              withoutBorder
             />
             {index < attributes.length - 1 && <p className="my-2">oppure</p>}
           </>
         ))}
-      </Accordion>
+      </AccordionDRK>
     </div>
   )
 }
