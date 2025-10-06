@@ -39,7 +39,9 @@
     "typeface-lora": "1.1.13",
     "typeface-roboto-mono": "1.1.13",
     "typeface-titillium-web": "1.1.13",
-    "zod": "3.23.8"
+    "zod": "3.23.8",
+    "accessible-autocomplete": "^3.0.1"
+
   },
   "devDependencies": {
     "@anatine/zod-mock": "3.14.0",

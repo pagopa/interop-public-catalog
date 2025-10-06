@@ -1,4 +1,5 @@
 import {
+  Autocomplete,
   Button,
   Chip,
   ChipLabel,
@@ -14,15 +15,13 @@ import {
   Select,
 } from 'design-react-kit'
 import React from 'react'
+import { WrapperAutoComplete } from '../WrapperAutocomplete/WrapperAutocomplete.js'
 
 type FiltersProps = unknown
 
 const Filters: React.FC<FiltersProps> = (props) => {
   const [name, setName] = React.useState('')
-  const [region, setRegion] = React.useState('')
   const [termsAndConditions, setTermsAndConditions] = React.useState(false)
-
-  const options = ['A', 'B', 'C']
 
   const filters = [
     '1',
@@ -66,19 +65,8 @@ const Filters: React.FC<FiltersProps> = (props) => {
             </FormGroup>
           </Col>
           <Col>
-            <FormGroup className="form-group">
-              {/* <Autocomplete
-              id='completeValidation-region"'
-              label="Regione"
-              source={options}
-              // source={suggest}
-              tNoResults={() => 'Nessun risultato'}
-              valid={options.includes(region)}
-              validationText="Per favore inserisci una regione valida."
-              onConfirm={(region) => {
-                setRegion(region)
-              }}
-            /> */}
+            <FormGroup>
+              <WrapperAutoComplete client:only id="form-group-autocomplete" />
             </FormGroup>
           </Col>
           <Col>
