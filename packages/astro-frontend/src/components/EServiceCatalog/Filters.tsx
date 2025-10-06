@@ -45,16 +45,16 @@ const Filters: React.FC<FiltersProps> = (props) => {
 
   return (
     <>
-      <h5 className="mb-3">Cerca nel catalogo</h5>
+      <h5 className="mb-5">Cerca nel catalogo</h5>
       <Form>
         <Row>
           <Col>
             <FormGroup>
               <Input
+                label="Cerca per parola chiave"
                 id="completeValidation-name"
                 type="text"
                 value={name}
-                label="Nome"
                 validationText="Validato!"
                 valid={name != ''}
                 onChange={(e) => setName(e.target.value)}
@@ -68,7 +68,7 @@ const Filters: React.FC<FiltersProps> = (props) => {
           </Col>
           <Col>
             <FormGroup>
-              <Select id="selectExampleClassic" label="Field Label" onChange={() => {}}>
+              <Select id="selectExampleClassic" label="Filtra per tema" onChange={() => {}}>
                 <option label="Opzione 1">Value 1</option>
                 <option label="Opzione 2">Value 2</option>
                 <option label="Opzione 3">Value 3</option>
@@ -79,7 +79,11 @@ const Filters: React.FC<FiltersProps> = (props) => {
           </Col>
           <Col>
             <FormGroup>
-              <Select id="selectExampleClassic" label="Field Label" onChange={() => {}}>
+              <Select
+                id="selectExampleClassic"
+                label="Filtra per ente fruitore"
+                onChange={() => {}}
+              >
                 <option label="Opzione 1">Value 1</option>
                 <option label="Opzione 2">Value 2</option>
                 <option label="Opzione 3">Value 3</option>
@@ -90,14 +94,14 @@ const Filters: React.FC<FiltersProps> = (props) => {
           </Col>
           <Col>
             <Button color="primary" type="submit" size="xs">
-              Invia
+              Applica
             </Button>
           </Col>
         </Row>
       </Form>
       <Form>
         <Row>
-          <Col xs="3">
+          {/* <Col xs="3">
             <FormGroup>
               <Select id="selectExampleClassic" label="Field Label" onChange={() => {}}>
                 <option label="Opzione 1">Value 1</option>
@@ -107,7 +111,7 @@ const Filters: React.FC<FiltersProps> = (props) => {
                 <option label="Opzione 5">Value 5</option>
               </Select>
             </FormGroup>
-          </Col>
+          </Col> */}
           <Col xs="3">
             <FormGroup check>
               <Input
@@ -118,7 +122,7 @@ const Filters: React.FC<FiltersProps> = (props) => {
                 valid={termsAndConditions}
               />
               <Label check for="checkbox1">
-                Checkbox di esempio
+                Mostra solo Open Data
               </Label>
             </FormGroup>
           </Col>

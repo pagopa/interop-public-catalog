@@ -272,7 +272,8 @@ export const BaseAutoComplete = ({ id }: BaseAutoCompleteProps) => {
     )
   }
   return (
-    <FormGroup id={id}>
+    <FormGroup id={id} className="select-wrapper">
+      <label>Filtra per ente erogatore</label>
       <Autocomplete
         id={id}
         showAllValues
