@@ -1,13 +1,10 @@
 import {
-  Autocomplete,
   Button,
   Chip,
   ChipLabel,
   Col,
-  Container,
   Form,
   FormGroup,
-  FormText,
   Icon,
   Input,
   Label,
@@ -15,7 +12,7 @@ import {
   Select,
 } from 'design-react-kit'
 import React from 'react'
-import { WrapperAutoComplete } from '../WrapperAutocomplete/WrapperAutocomplete.js'
+import { BaseAutoComplete } from '../BaseAutoComplete/index.js'
 
 type FiltersProps = unknown
 
@@ -66,7 +63,7 @@ const Filters: React.FC<FiltersProps> = (props) => {
           </Col>
           <Col>
             <FormGroup>
-              <WrapperAutoComplete client:only id="form-group-autocomplete" />
+              <BaseAutoComplete id="autocomplete" />
             </FormGroup>
           </Col>
           <Col>
