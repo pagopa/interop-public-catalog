@@ -15,7 +15,7 @@ const AttributeAccordion: React.FC<AttributeAccordionProps> = ({
   onToggle,
 }) => (
   <AccordionItem>
-    <AccordionHeader active={isOpen} onToggle={onToggle}>
+    <AccordionHeader active={isOpen} onToggle={onToggle} className="border-0">
       {attributeName}
     </AccordionHeader>
     <AccordionBody active={isOpen}>{attributeDescription}</AccordionBody>
