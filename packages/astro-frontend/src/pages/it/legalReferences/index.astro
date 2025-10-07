@@ -1,0 +1,76 @@
+---
+export const prerender = false
+
+import Layout from '../../../layouts/Layout.astro'
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Col,
+  Icon,
+  List,
+  ListItem,
+  Row,
+  Section,
+} from 'design-react-kit'
+
+const anchores = [{ name: 'sette' }, { name: 'otto' }]
+---
+
+<Layout>
+  <Section>
+    <Breadcrumb>
+      <BreadcrumbItem>
+        <a href="#"> Home </a>
+        <span class="separator"> / </span>
+      </BreadcrumbItem>
+      <BreadcrumbItem>
+        <a href="#"> Riferimenti normativi </a>
+      </BreadcrumbItem>
+    </Breadcrumb>
+
+    <Row>
+      <Col xs="12" md="8">
+        <h1>Riferimenti normativi</h1>
+        <p>
+          La Piattaforma Digitale Nazionale Dati (PDND) si basa su un solido impianto normativo,
+          volto a garantire l’interoperabilità tra le pubbliche amministrazioni nel rispetto dei
+          principi di trasparenza, protezione dei dati personali, semplificazione e digitalizzazione
+          dei servizi pubblici.
+        </p>
+      </Col>
+    </Row>
+  </Section>
+
+  <Section color="muted" wrapperClassName="py-5">
+    <Row>
+      <Col xs="4">
+        <strong>Indice della pagina</strong>
+        <List className="border-end mt-4">
+          {
+            anchores.map((anchor) => (
+              <ListItem key={anchor.name} className="border-0" tag="a">
+                <span class="text"> {anchor.name} </span>
+              </ListItem>
+            ))
+          }
+        </List>
+      </Col>
+      <Col xs="8">
+        <h3 class="mb-3">Principali riferimenti normativi</h3>
+
+        <div class="d-flex flex-column align-items-start mb-5">
+          <p class="mb-3 fw-bold">
+            Codice dell’Amministrazione Digitale (CAD) - Decreto Legislativo 7 marzo 2005, n. 82
+          </p>
+          <p>
+            Riconosce il diritto dei cittadini a interagire digitalmente con la PA e stabilisce il
+            principio di interoperabilità come cardine dell’azione amministrativa.
+          </p>
+          <a class="text-uppercase text-primary text-decoration-none">
+            Leggi tutto <Icon icon="it-github" size="xs" className="ms-2" color="primary" />
+          </a>
+        </div>
+      </Col>
+    </Row>
+  </Section>
+</Layout>
