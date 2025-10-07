@@ -3,6 +3,10 @@ import 'bootstrap-italia/dist/css/bootstrap-italia.min.css'
 import 'typeface-titillium-web'
 import 'typeface-roboto-mono'
 import 'typeface-lora'
+import '../style.css'
+
+import Header from '../components/Header.jsx'
+import Footer from '../components/Footer.jsx'
 ---
 
 <!doctype html>
@@ -15,7 +19,9 @@ import 'typeface-lora'
     <title>Integration test w/ Strapi</title>
   </head>
   <body>
+    <Header />
     <slot />
+    <Footer />
   </body>
 </html>
 
