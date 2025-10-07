@@ -7,7 +7,6 @@ import {
   FormGroup,
   Icon,
   Input,
-  Label,
   Row,
   Select,
 } from 'design-react-kit'

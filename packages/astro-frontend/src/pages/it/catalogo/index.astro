@@ -26,13 +26,12 @@ import Filters from '../../../components/EServiceCatalog/Filters'
       Cerca tra tutte le API rese disponibili attraverso la Piattaforma Digitale Nazionale Dati
       (PDND). Verifica i requisiti per accedere alle API di tuo interesse e costruisci la tua
       integrazione per l’accesso ai dati.
-    </span>{
-    }
+    </span>
   </Section>
 
   <Section color="muted">
     <Container className="p-3">
-     <Filters client:only="react" /> 
+      <Filters client:load />
     </Container>
 
     <EServiceCatalog
