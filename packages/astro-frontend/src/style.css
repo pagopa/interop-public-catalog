@@ -15,3 +15,8 @@
 .no-hover:hover {
   background-color: transparent !important;
 }
+
+.image-xxl {
+  width: calc(1rem * 7.5);
+  height: calc(1rem * 7.5);
+}
