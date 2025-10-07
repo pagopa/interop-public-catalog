@@ -10,7 +10,7 @@ import {
   LinkListItem,
 } from 'design-react-kit'
 import React from 'react'
-import EServiceCard from '../EServiceCard.js'
+import EServiceCard from '../shared/EServiceCard.js'
 import { chunkEServiceArray } from '../../utils/utils.js'
 
 export type EService = {

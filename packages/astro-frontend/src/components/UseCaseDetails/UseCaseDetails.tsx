@@ -1,6 +1,6 @@
 import { Col, List, ListItem, Row } from 'design-react-kit'
 import React from 'react'
-import EServiceCard from '../EServiceCard.js'
+import EServiceCard from '../shared/EServiceCard.js'
 import { chunkEServiceArray } from '../../utils/utils.js'
 import { EService } from '../EServiceCatalog/EServiceCatalog.js'
 

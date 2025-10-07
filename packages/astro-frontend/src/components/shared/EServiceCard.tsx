@@ -7,6 +7,8 @@ import {
   CardTagsHeader,
   CardText,
   CardTitle,
+  Chip,
+  ChipLabel,
   Icon,
 } from 'design-react-kit'
 
