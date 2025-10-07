@@ -12,7 +12,7 @@ import {
   Select,
 } from 'design-react-kit'
 import React from 'react'
-import { BaseAutoComplete } from '../BaseAutoComplete/index.js'
+import { MultipleAutoComplete } from '../MultipleAutoComplete/MultipleAutoComplete.js'
 
 type FiltersProps = unknown
 
@@ -101,7 +101,8 @@ const Filters: React.FC<FiltersProps> = () => {
           </Col>
           <Col>
             <FormGroup>
-              <BaseAutoComplete id="autocomplete" />
+              {/* <BaseAutoComplete id="autocomplete" /> */}
+              <MultipleAutoComplete label="Filtra per ente erogatore" />
             </FormGroup>
           </Col>
           <Col>
