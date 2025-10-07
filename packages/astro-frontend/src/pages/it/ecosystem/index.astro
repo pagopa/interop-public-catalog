@@ -1,0 +1,132 @@
+---
+export const prerender = false
+
+import RatingSection from '../../../components/shared/RatingSection'
+import SuggestionsSection from '../../../components/shared/SuggestionsSection/SuggestionsSection'
+import Layout from '../../../layouts/Layout.astro'
+
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
+  Col,
+  Container,
+  Icon,
+  Row,
+  Section,
+} from 'design-react-kit'
+---
+
+<Layout>
+  <Section color="muted">
+    <Breadcrumb>
+      <BreadcrumbItem>
+        <a href="#"> Home </a>
+        <span class="separator"> / </span>
+      </BreadcrumbItem>
+      <BreadcrumbItem>
+        <a href="#"> Cos’è l’interoperabilità </a>
+      </BreadcrumbItem>
+    </Breadcrumb>
+
+    <Row className="d-flex flex-row-reverse">
+      <Col xs="12" md="4">
+        <img src="/Group.svg" class="rounded mx-auto d-block image-xxl mb-3" alt="404" />
+      </Col>
+      <Col xs="12" md="8">
+        <h1>Cos’è l’interoperabilità</h1>
+        <p class="mb-5">
+          Nel contesto della PDND (Piattaforma Digitale Nazionale Dati), l’interoperabilità è la
+          capacità delle diverse pubbliche amministrazioni e dei loro sistemi informativi di
+          scambiarsi dati e servizi digitali in modo sicuro, standardizzato e trasparente, così da
+          evitare duplicazioni, semplificare i processi e migliorare l’erogazione di servizi ai
+          cittadini e alle imprese.
+        </p>
+
+        <Row>
+          <Col>
+            <div class="border-start border-3 mb-3">
+              <h5>Lalala</h5>
+              <p>cucucu</p>
+            </div>
+            <div class="border-start border-3">
+              <h5>Lalala</h5>
+              <p>cucucu</p>
+            </div>
+          </Col>
+          <Col>
+            <div class="border-start border-3 mb-3">
+              <h5>Lalala</h5>
+              <p>cucucu</p>
+            </div>
+            <div class="border-start border-3">
+              <h5>Lalala</h5>
+              <p>cucucu</p>
+            </div>
+          </Col>
+        </Row>
+      </Col>
+    </Row>
+  </Section>
+
+  <Section color="muted" wrapperClassName="py-5">
+    <Container className="primary-bg-c1 rounded-5 p-5">
+      <h2 class="mb-4">I punti di accesso</h2>
+      <p>
+        L’ecosistema dell’interoperabilità si fonda su una rete di strumenti, portali e risorse
+        digitali che supportano lo scambio di dati tra le pubbliche amministrazioni. Scopri i
+        principali punti di accesso che rendono possibile l’integrazione e la collaborazione.
+      </p>
+      <Row>
+        <Col><div>lalala</div></Col>
+        <Col><div>lalala</div></Col>
+        <Col><div>lalala</div></Col>
+        <Col><div>lalala</div></Col>
+      </Row>
+    </Container>
+  </Section>
+
+  <Section color="white" wrapperClassName="py-5">
+    <div></div>
+  </Section>
+
+  <Section color="muted" wrapperClassName="py-5">
+    <Row>
+      <Col xs="12" md="8">
+        <h2 class="mb-4">Riferimenti normativi</h2>
+        <p>
+          I riferimenti normativi offrono un quadro chiaro delle regole e degli standard da seguire
+          per garantire una corretta integrazione dei servizi digitali. Consulta le linee guida e le
+          normative che regolano l'interoperabilità nel contesto della PDND, in coerenza con il
+          Codice dell'Amministrazione Digitale (CAD) stabilite da AgID (Agenzia per l'Italia
+          Digitale).
+        </p>
+      </Col>
+      <Col xs="12" md="4" className="d-flex align-items-center justify-content-end">
+        <Button color="primary" outline
+          >Consulta i riferimenti normativi <Icon icon="it-arrow-right" /></Button
+        >
+      </Col>
+    </Row>
+  </Section>
+
+  <RatingSection />
+
+  <SuggestionsSection
+    title="Suggerimenti"
+    suggestions={[
+      {
+        icon: '/Group.svg',
+        title: 'lalala',
+        description: 'lalala',
+        actionButton: { label: 'Action', onClick: (): void => {} },
+      },
+      {
+        icon: '/Group.svg',
+        title: 'lalala',
+        description: 'lalala',
+        actionButton: { label: 'Action', onClick: (): void => {} },
+      },
+    ]}
+  />
+</Layout>
