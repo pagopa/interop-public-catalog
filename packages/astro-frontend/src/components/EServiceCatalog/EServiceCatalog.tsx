@@ -11,8 +11,9 @@ import {
 } from 'design-react-kit'
 import React from 'react'
 import EServiceCard from '../EServiceCard.js'
+import { chunkEServiceArray } from '../../utils/utils.js'
 
-type EService = {
+export type EService = {
   name: string
   description: string
   eserviceId: string
@@ -25,15 +26,8 @@ type EServiceCatalogProps = {
 
 const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
   // if (!eservices) return <div>Non ci sono E-Service da mostrare</div>
-  const chunkArray = (eservices: EService[], eservicesPerRow: number): EService[][] => {
-    const chunkedArray: EService[][] = []
-    for (let i = 0; i < (eservices.length <= 12 ? eservices.length : 12); i += eservicesPerRow) {
-      chunkedArray.push(eservices.slice(i, i + eservicesPerRow))
-    }
-    return chunkedArray
-  }
 
-  const rows = chunkArray(eservices, 3)
+  const rows = chunkEServiceArray(eservices, 3)
 
   return (
     <Container className="py-5">

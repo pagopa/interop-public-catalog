@@ -1,32 +1,38 @@
 import React from 'react'
 import {
+  Badge,
   Card,
   CardBody,
   CardReadMore,
   CardTagsHeader,
   CardText,
   CardTitle,
-  Chip,
-  ChipLabel,
   Icon,
 } from 'design-react-kit'
 
 type EServiceCardProps = {
   title: string | React.ReactNode
   description: string | React.ReactNode
+  isOpenData?: boolean
 }
 
-const EServiceCard: React.FC<EServiceCardProps> = ({ title, description }) => (
+const EServiceCard: React.FC<EServiceCardProps> = ({ title, description, isOpenData }) => (
   <Card className="card-bg" spacing>
     <CardBody>
       <CardTagsHeader>
         <span>Nome dell'ente</span>
-        <Chip className="my-0">
+        {/* <Chip className="my-0">
           <Icon icon="it-github" size="xs" />
           <ChipLabel>Accesso riservato</ChipLabel>
-        </Chip>
+        </Chip> */}
+        <Badge color="secondary" pill>
+          {!isOpenData ? <Icon icon="it-lock" size="xs" className="me-2" /> : ''} Bonus
+          economici{' '}
+        </Badge>
       </CardTagsHeader>
-      <CardTitle tag="h5">{title}</CardTitle>
+      <CardTitle tag="h5" className="text-primary">
+        {title}
+      </CardTitle>
       <CardText>{description}</CardText>
       <CardReadMore href="#" iconName="it-arrow-right" text="Leggi di più" />
     </CardBody>
