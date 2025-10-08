@@ -9,10 +9,13 @@ import { Breadcrumb, BreadcrumbItem } from 'design-react-kit'
 import SuggestionsSection from '../../../components/shared/SuggestionsSection/SuggestionSection.astro'
 import BootstrapItaliaIcon from '../../../components/shared/BootstrapItaliaIcon.astro'
 import AccessPointsSection from '../../../components/Ecosystem/AccessPointsSection.astro'
+import { useEcosystemTranslations } from '../../../i18n/ecosystem.i18n'
+
+const t = useEcosystemTranslations()
 ---
 
 <Layout>
-  <section class="section section-muted">
+  <section class="section section-muted py-5">
     <Breadcrumb>
       <BreadcrumbItem>
         <a href="#"> Home </a>
@@ -25,41 +28,35 @@ import AccessPointsSection from '../../../components/Ecosystem/AccessPointsSecti
 
     <div class="row">
       <div class="col-xs-12 col-md-8">
-        <h1>Cos’è l’interoperabilità</h1>
+        <h1>{t('title')}</h1>
         <p class="mb-5">
-          Nel contesto della PDND (Piattaforma Digitale Nazionale Dati), l’interoperabilità è la
-          capacità delle diverse pubbliche amministrazioni e dei loro sistemi informativi di
-          scambiarsi dati e servizi digitali in modo sicuro, standardizzato e trasparente, così da
-          evitare duplicazioni, semplificare i processi e migliorare l’erogazione di servizi ai
-          cittadini e alle imprese.
+          {t('subtitle')}
         </p>
 
         <div class="row">
           <div class="col-xs-12 col-md-6">
             <div class="border-start border-3 mb-5 px-3">
-              <h5>Principio del “Once only”</h5>
+              <h5>{t('ecosystem.characteristic_1.label')}</h5>
               <p>
-                Le persone possono evitare di fornire informazioni già comunicate in precedenza alla
-                PA.
+                {t('ecosystem.characteristic_1.description')}
               </p>
             </div>
             <div class="border-start border-3 px-3">
-              <h5>Servizi più semplici ed efficienti</h5>
-              <p>Meno burocrazia complessiva, nuovi processi più efficienti e snelli.</p>
+              <h5>{t('ecosystem.characteristic_2.label')}</h5>
+              <p>{t('ecosystem.characteristic_2.description')}</p>
             </div>
           </div>
           <div class="col-xs-12 col-md-6">
             <div class="border-start border-3 mb-5 px-3">
-              <h5>Dati certificati alla fonte</h5>
+              <h5>{t('ecosystem.characteristic_3.label')}</h5>
               <p>
-                Qualità del dato grazie all'allineamento in tempo reale e alla digitalizzazione
-                delle anagrafi.
+                {t('ecosystem.characteristic_3.description')}
               </p>
             </div>
             <div class="border-start border-3 px-3">
-              <h5>Sicurezza nello scambio dei dati</h5>
+              <h5>{t('ecosystem.characteristic_4.label')}</h5>
               <p>
-                La PDND autorizza lo scambio di dati sicuro, nel rispetto della titolarità del dato.
+                {t('ecosystem.characteristic_4.description')}
               </p>
             </div>
           </div>
@@ -76,11 +73,10 @@ import AccessPointsSection from '../../../components/Ecosystem/AccessPointsSecti
   <section class="section py-5">
     <div class="row">
       <div class="col-xs-12 col-md-8">
-        <h2>I livelli di interoperabilità</h2>
+        <h2>{t('interoperabily_types.title')}</h2>
         <p class="mb-5">
-          <a href="#">L'European interoperability framework</a> definisce 4 tipi di interoperabilità
-          che insieme concorrono alla sua attuazione. Queste sono le dimensioni da considerare nei paesi
-          europei per progettare e valutare i servizi pubblici digitali.
+          <a href="#">{t('interoperabily_types.subtitle_link')}</a>
+          {t('interoperabily_types.subtitle')}
         </p>
       </div>
     </div>
@@ -92,10 +88,9 @@ import AccessPointsSection from '../../../components/Ecosystem/AccessPointsSecti
             <img src="/Group.svg" class="rounded d-block image-xl" alt="404" />
           </div>
           <div>
-            <h5>Principio del “Once only”</h5>
+            <h5>{t('interoperabily_types.type_1.label')}</h5>
             <p>
-              Le persone possono evitare di fornire informazioni già comunicate in precedenza alla
-              PA.
+              {t('interoperabily_types.type_1.description')}
             </p>
           </div>
         </div>
@@ -104,8 +99,8 @@ import AccessPointsSection from '../../../components/Ecosystem/AccessPointsSecti
             <img src="/Group.svg" class="rounded d-block image-xl" alt="404" />
           </div>
           <div>
-            <h5>Servizi più semplici ed efficienti</h5>
-            <p>Meno burocrazia complessiva, nuovi processi più efficienti e snelli.</p>
+            <h5>{t('interoperabily_types.type_2.label')}</h5>
+            <p>{t('interoperabily_types.type_2.description')}</p>
           </div>
         </div>
       </div>
@@ -115,10 +110,9 @@ import AccessPointsSection from '../../../components/Ecosystem/AccessPointsSecti
             <img src="/Group.svg" class="rounded d-block image-xl" alt="404" />
           </div>
           <div>
-            <h5>Dati certificati alla fonte</h5>
+            <h5>{t('interoperabily_types.type_3.label')}</h5>
             <p>
-              Qualità del dato grazie all'allineamento in tempo reale e alla digitalizzazione delle
-              anagrafi.
+              {t('interoperabily_types.type_3.description')}
             </p>
           </div>
         </div>
@@ -127,9 +121,9 @@ import AccessPointsSection from '../../../components/Ecosystem/AccessPointsSecti
             <img src="/Group.svg" class="rounded d-block image-xl" alt="404" />
           </div>
           <div>
-            <h5>Sicurezza nello scambio dei dati</h5>
+            <h5>{t('interoperabily_types.type_4.label')}</h5>
             <p>
-              La PDND autorizza lo scambio di dati sicuro, nel rispetto della titolarità del dato.
+              {t('interoperabily_types.type_4.description')}
             </p>
           </div>
         </div>
@@ -140,23 +134,15 @@ import AccessPointsSection from '../../../components/Ecosystem/AccessPointsSecti
   <section class="section py-5 section-muted">
     <div class="row">
       <div class="col-xs-12 col-md-8">
-        <h2 class="mb-4">Riferimenti normativi</h2>
+        <h2 class="mb-4">{t('ecosystem_legal_references.title')}</h2>
         <p>
-          I riferimenti normativi offrono un quadro chiaro delle regole e degli standard da seguire
-          per garantire una corretta integrazione dei servizi digitali. Consulta le linee guida e le
-          normative che regolano l'interoperabilità nel contesto della PDND, in coerenza con il
-          Codice dell'Amministrazione Digitale (CAD) stabilite da AgID (Agenzia per l'Italia
-          Digitale).
+          {t('ecosystem_legal_references.subtitle')}
         </p>
       </div>
       <div class="col-xs-12 col-md-4 d-flex align-items-center justify-content-end">
         <button class="btn btn-outline-primary btn-icon" type="button">
-          Consulta i riferimenti normativi <BootstrapItaliaIcon
-            name="it-arrow-right"
-            size="sm"
-            color="primary"
-            padded
-          />
+          {t('ecosystem_legal_references.button')}
+          <BootstrapItaliaIcon name="it-arrow-right" size="sm" color="primary" padded />
         </button>
       </div>
     </div>
