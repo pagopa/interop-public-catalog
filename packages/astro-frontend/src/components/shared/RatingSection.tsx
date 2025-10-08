@@ -1,9 +1,9 @@
-import { Button, Form, FormGroup, Input, Label } from 'design-react-kit'
+import { Button, Form, FormGroup, Input, Label, Section } from 'design-react-kit'
 import React from 'react'
 
 const RatingSection: React.FC = () => {
   return (
-    <div>
+    <Section color="neutral" wrapperClassName="py-5">
       <h4 className="text-white">Questa pagina ti è stata utile?</h4>
       <Form>
         <FormGroup check inline className="form-check-group">
@@ -19,7 +19,7 @@ const RatingSection: React.FC = () => {
           </Label>
         </FormGroup>
       </Form>
-    </div>
+    </Section>
   )
 }
 

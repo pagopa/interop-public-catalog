@@ -23,7 +23,6 @@ import {
 // import { getLangFromUrl, useTranslations } from '../i18n/utils'
 
 const CenterHeader: React.FC = () => {
-  const a = 'a'
   // const lang = getLangFromUrl(window.location.href);
   // const t = useTranslations(lang);
   return (

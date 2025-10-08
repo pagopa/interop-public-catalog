@@ -46,7 +46,7 @@ const UseCaseDetails: React.FC<UseCaseDetailsProps> = ({ useCase }) => {
           ))}
         </List>
       </Col>
-      <Col xs="8" className="d-flex flex-column">
+      <Col xs="8">
         <div className="d-flex flex-column mb-5">
           <p className="mb-3 fw-bold">Descrizione</p>
           <p>
