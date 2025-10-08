@@ -2,23 +2,17 @@
 export const prerender = false
 
 import RatingSection from '../../../components/shared/RatingSection'
-import SuggestionsSection from '../../../components/shared/SuggestionsSection/SuggestionsSection'
 import Layout from '../../../layouts/Layout.astro'
 
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
-  Col,
-  Container,
-  Icon,
-  Row,
-  Section,
-} from 'design-react-kit'
+import { Breadcrumb, BreadcrumbItem } from 'design-react-kit'
+
+import SuggestionsSection from '../../../components/shared/SuggestionsSection/SuggestionSection.astro'
+import BootstrapItaliaIcon from '../../../components/shared/BootstrapItaliaIcon.astro'
+import AccessPointsSection from '../../../components/Ecosystem/AccessPointsSection.astro'
 ---
 
 <Layout>
-  <Section color="muted">
+  <section class="section section-muted">
     <Breadcrumb>
       <BreadcrumbItem>
         <a href="#"> Home </a>
@@ -29,11 +23,8 @@ import {
       </BreadcrumbItem>
     </Breadcrumb>
 
-    <Row className="d-flex flex-row-reverse">
-      <Col xs="12" md="4">
-        <img src="/Group.svg" class="rounded mx-auto d-block image-xxl mb-3" alt="404" />
-      </Col>
-      <Col xs="12" md="8">
+    <div class="row">
+      <div class="col-xs-12 col-md-8">
         <h1>Cos’è l’interoperabilità</h1>
         <p class="mb-5">
           Nel contesto della PDND (Piattaforma Digitale Nazionale Dati), l’interoperabilità è la
@@ -43,56 +34,112 @@ import {
           cittadini e alle imprese.
         </p>
 
-        <Row>
-          <Col>
-            <div class="border-start border-3 mb-3">
-              <h5>Lalala</h5>
-              <p>cucucu</p>
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <div class="border-start border-3 mb-5 px-3">
+              <h5>Principio del “Once only”</h5>
+              <p>
+                Le persone possono evitare di fornire informazioni già comunicate in precedenza alla
+                PA.
+              </p>
             </div>
-            <div class="border-start border-3">
-              <h5>Lalala</h5>
-              <p>cucucu</p>
+            <div class="border-start border-3 px-3">
+              <h5>Servizi più semplici ed efficienti</h5>
+              <p>Meno burocrazia complessiva, nuovi processi più efficienti e snelli.</p>
             </div>
-          </Col>
-          <Col>
-            <div class="border-start border-3 mb-3">
-              <h5>Lalala</h5>
-              <p>cucucu</p>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <div class="border-start border-3 mb-5 px-3">
+              <h5>Dati certificati alla fonte</h5>
+              <p>
+                Qualità del dato grazie all'allineamento in tempo reale e alla digitalizzazione
+                delle anagrafi.
+              </p>
             </div>
-            <div class="border-start border-3">
-              <h5>Lalala</h5>
-              <p>cucucu</p>
+            <div class="border-start border-3 px-3">
+              <h5>Sicurezza nello scambio dei dati</h5>
+              <p>
+                La PDND autorizza lo scambio di dati sicuro, nel rispetto della titolarità del dato.
+              </p>
             </div>
-          </Col>
-        </Row>
-      </Col>
-    </Row>
-  </Section>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-4 order-first order-md-last">
+        <img src="/Group.svg" class="rounded mx-auto d-block image-xxl mb-3" alt="404" />
+      </div>
+    </div>
+  </section>
 
-  <Section color="muted" wrapperClassName="py-5">
-    <Container className="primary-bg-c1 rounded-5 p-5">
-      <h2 class="mb-4">I punti di accesso</h2>
-      <p>
-        L’ecosistema dell’interoperabilità si fonda su una rete di strumenti, portali e risorse
-        digitali che supportano lo scambio di dati tra le pubbliche amministrazioni. Scopri i
-        principali punti di accesso che rendono possibile l’integrazione e la collaborazione.
-      </p>
-      <Row>
-        <Col><div>lalala</div></Col>
-        <Col><div>lalala</div></Col>
-        <Col><div>lalala</div></Col>
-        <Col><div>lalala</div></Col>
-      </Row>
-    </Container>
-  </Section>
+  <AccessPointsSection />
 
-  <Section color="white" wrapperClassName="py-5">
-    <div></div>
-  </Section>
+  <section class="section py-5">
+    <div class="row">
+      <div class="col-xs-12 col-md-8">
+        <h2>I livelli di interoperabilità</h2>
+        <p class="mb-5">
+          <a href="#">L'European interoperability framework</a> definisce 4 tipi di interoperabilità
+          che insieme concorrono alla sua attuazione. Queste sono le dimensioni da considerare nei paesi
+          europei per progettare e valutare i servizi pubblici digitali.
+        </p>
+      </div>
+    </div>
 
-  <Section color="muted" wrapperClassName="py-5">
-    <Row>
-      <Col xs="12" md="8">
+    <div class="row">
+      <div class="col-xs-12 col-md-6">
+        <div class="mb-5 d-flex flex-row gap-3">
+          <div class="p-4">
+            <img src="/Group.svg" class="rounded d-block image-xl" alt="404" />
+          </div>
+          <div>
+            <h5>Principio del “Once only”</h5>
+            <p>
+              Le persone possono evitare di fornire informazioni già comunicate in precedenza alla
+              PA.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex flex-row gap-3">
+          <div class="p-4">
+            <img src="/Group.svg" class="rounded d-block image-xl" alt="404" />
+          </div>
+          <div>
+            <h5>Servizi più semplici ed efficienti</h5>
+            <p>Meno burocrazia complessiva, nuovi processi più efficienti e snelli.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-12 col-md-6">
+        <div class="mb-5 d-flex flex-row gap-3">
+          <div class="p-4">
+            <img src="/Group.svg" class="rounded d-block image-xl" alt="404" />
+          </div>
+          <div>
+            <h5>Dati certificati alla fonte</h5>
+            <p>
+              Qualità del dato grazie all'allineamento in tempo reale e alla digitalizzazione delle
+              anagrafi.
+            </p>
+          </div>
+        </div>
+        <div class="d-flex flex-row gap-3">
+          <div class="p-4">
+            <img src="/Group.svg" class="rounded d-block image-xl" alt="404" />
+          </div>
+          <div>
+            <h5>Sicurezza nello scambio dei dati</h5>
+            <p>
+              La PDND autorizza lo scambio di dati sicuro, nel rispetto della titolarità del dato.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section py-5 section-muted">
+    <div class="row">
+      <div class="col-xs-12 col-md-8">
         <h2 class="mb-4">Riferimenti normativi</h2>
         <p>
           I riferimenti normativi offrono un quadro chiaro delle regole e degli standard da seguire
@@ -101,32 +148,21 @@ import {
           Codice dell'Amministrazione Digitale (CAD) stabilite da AgID (Agenzia per l'Italia
           Digitale).
         </p>
-      </Col>
-      <Col xs="12" md="4" className="d-flex align-items-center justify-content-end">
-        <Button color="primary" outline
-          >Consulta i riferimenti normativi <Icon icon="it-arrow-right" /></Button
-        >
-      </Col>
-    </Row>
-  </Section>
+      </div>
+      <div class="col-xs-12 col-md-4 d-flex align-items-center justify-content-end">
+        <button class="btn btn-outline-primary btn-icon" type="button">
+          Consulta i riferimenti normativi <BootstrapItaliaIcon
+            name="it-arrow-right"
+            size="sm"
+            color="primary"
+            padded
+          />
+        </button>
+      </div>
+    </div>
+  </section>
 
   <RatingSection />
 
-  <SuggestionsSection
-    title="Suggerimenti"
-    suggestions={[
-      {
-        icon: '/Group.svg',
-        title: 'lalala',
-        description: 'lalala',
-        actionButton: { label: 'Action', onClick: (): void => {} },
-      },
-      {
-        icon: '/Group.svg',
-        title: 'lalala',
-        description: 'lalala',
-        actionButton: { label: 'Action', onClick: (): void => {} },
-      },
-    ]}
-  />
+  <SuggestionsSection />
 </Layout>
