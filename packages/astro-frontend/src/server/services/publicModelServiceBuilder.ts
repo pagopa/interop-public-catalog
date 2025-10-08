@@ -1,11 +1,7 @@
-import { drizzle, NodePgQueryResultHKT } from "drizzle-orm/node-postgres";
-import { ExtractTablesWithRelations, sql } from "drizzle-orm";
-import {
-  EServiceSearchResult,
-  EService,
-  EServiceQuery,
-} from "pagopa-interop-public-models";
-import { PgTransaction } from "drizzle-orm/pg-core";
+import { drizzle, NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
+import { ExtractTablesWithRelations, sql } from 'drizzle-orm'
+import { EServiceSearchResult, EService, EServiceQuery } from 'pagopa-interop-public-models'
+import { PgTransaction } from 'drizzle-orm/pg-core'
 
 type Transaction = (
   tx: PgTransaction<
@@ -14,19 +10,19 @@ type Transaction = (
     ExtractTablesWithRelations<Record<string, unknown>>
   >
 ) => Promise<{
-  total: number;
-  items: EService[];
-}>;
+  total: number
+  items: EService[]
+}>
 
 export async function searchCatalog(
   db: ReturnType<typeof drizzle>,
   { limit, offset, q }: EServiceQuery
 ): Promise<EServiceSearchResult> {
   if (!(limit >= 1 && limit <= 50)) {
-    throw new Error("limit must be >= 1 and <= 50");
+    throw new Error('limit must be >= 1 and <= 50')
   }
   if (offset < 0) {
-    throw new Error("offset must be >= 0");
+    throw new Error('offset must be >= 0')
   }
 
   const textlessSearchTx: Transaction = async (tx) => {
@@ -43,23 +39,21 @@ export async function searchCatalog(
     JOIN publicmodel_tenant.tenant t ON t.id = e.producer_id
     ORDER BY e.created_at DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
-  `);
+  `)
 
     const totalRes = await tx.execute(sql`
     SELECT count(*)::bigint AS total
     FROM publicmodel_catalog.eservice e
     JOIN publicmodel_tenant.tenant t ON t.id = e.producer_id
-  `);
+  `)
 
-    const items = pageRes.rows as EService[];
-    const total = (totalRes?.rows[0]?.total as number) || 0;
+    const items = pageRes.rows as EService[]
+    const total = (totalRes?.rows[0]?.total as number) || 0
 
-    return { items, total };
-  };
+    return { items, total }
+  }
 
-  const textSearchTx: Transaction = async (
-    tx
-  ): Promise<{ total: number; items: EService[] }> => {
+  const textSearchTx: Transaction = async (tx): Promise<{ total: number; items: EService[] }> => {
     const pageRes = await tx.execute(sql`
     WITH params AS (
       SELECT
@@ -116,7 +110,7 @@ export async function searchCatalog(
     FROM scored s
     ORDER BY score DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
-  `);
+  `)
 
     const totalRes = await tx.execute(sql`
     WITH params AS (
@@ -154,18 +148,18 @@ export async function searchCatalog(
     )
     SELECT count(*)::bigint AS total
     FROM picked;
-  `);
+  `)
 
-    const items = pageRes.rows as EService[];
-    const total = (totalRes?.rows[0]?.total as number) || 0;
+    const items = pageRes.rows as EService[]
+    const total = (totalRes?.rows[0]?.total as number) || 0
 
-    return { items, total };
-  };
+    return { items, total }
+  }
 
   const { items, total } = await db.transaction(
     q?.trim() ? textSearchTx : textlessSearchTx,
-    { isolationLevel: "repeatable read" } // prevents mismatch between reads
-  );
+    { isolationLevel: 'repeatable read' } // prevents mismatch between reads
+  )
 
   return {
     total,
@@ -173,12 +167,12 @@ export async function searchCatalog(
     limit,
     offset,
     q,
-  };
+  }
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
 export function publicModelServiceBuilder(db: ReturnType<typeof drizzle>) {
   return {
     searchCatalog: searchCatalog.bind(null, db),
-  };
+  }
 }
