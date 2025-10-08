@@ -1,0 +1,71 @@
+---
+import { useEcosystemTranslations } from '../../i18n/ecosystem.i18n'
+import BootstrapItaliaIcon from '../shared/BootstrapItaliaIcon.astro'
+
+const t = useEcosystemTranslations()
+
+const accessPoints = [
+  {
+    title: t('access_points_section.access_point_1.title'),
+    subtitle: t('access_points_section.access_point_1.subtitle'),
+    description: t('access_points_section.access_point_1.description'),
+    href: '#', // TODO: inserire link reale "Esplora il catalogo"
+  },
+  {
+    title: t('access_points_section.access_point_2.title'),
+    subtitle: t('access_points_section.access_point_2.subtitle'),
+    description: t('access_points_section.access_point_2.description'),
+    href: '#', // TODO: inserire link reale "Esplora il catalogo"
+  },
+  {
+    title: t('access_points_section.access_point_3.title'),
+    subtitle: t('access_points_section.access_point_3.subtitle'),
+    description: t('access_points_section.access_point_3.description'),
+    href: '#', // TODO: inserire link reale "Esplora il catalogo"
+  },
+  {
+    title: t('access_points_section.access_point_4.title'),
+    subtitle: t('access_points_section.access_point_4.subtitle'),
+    description: t('access_points_section.access_point_4.description'),
+    href: '#', // TODO: inserire link reale "Esplora il catalogo"
+  },
+] as const
+---
+
+<section class="section section-muted">
+  <div class="section-content">
+    <div class="container primary-bg-c2 rounded-5 p-5 border border-secondary">
+      <h2 class="mb-4">{t('access_points_section.title')}</h2>
+      <p>
+        L’ecosistema dell’interoperabilità si fonda su una rete di strumenti, portali e risorse
+        digitali che supportano lo scambio di dati tra le pubbliche amministrazioni. Scopri i
+        principali punti di accesso che rendono possibile l’integrazione e la collaborazione.
+      </p>
+      <div class="it-card-group it-card-group-4-cols">
+        {
+          accessPoints.map((accessPoint) => (
+            <article class="it-card rounded shadow-sm align-items-start">
+              <h5 class="it-card-title text-primary">{accessPoint.title}</h5>
+              <div class="it-card-body text-start">
+                <p class="it-card-text">{accessPoint.subtitle}</p>
+                <p class="it-card-text fw-bold">A cosa serve</p>
+                <p class="it-card-text">{accessPoint.description}</p>
+              </div>
+              <footer class="it-card-related it-card-footer mt-auto">
+                <div class="it-card-taxonomy">
+                  <a
+                    href={accessPoint.href}
+                    class="it-card-link text-primary text-decoration-none fw-bold"
+                  >
+                    {t('access_points_section.actions.go_to_site')}
+                    <BootstrapItaliaIcon name="it-external-link" size="sm" color="primary" />
+                  </a>
+                </div>
+              </footer>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
