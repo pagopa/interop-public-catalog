@@ -1,0 +1,52 @@
+---
+import searchImage from '../../../assets/images/024-search.svg'
+import networkImage from '../../../assets/images/077-network.svg'
+import BootstrapItaliaIcon from '../BootstrapItaliaIcon.astro'
+import { useUiTranslations } from '../../../i18n/ui.i18n'
+
+const t = useUiTranslations()
+
+const suggestions = [
+  {
+    title: t('suggestion_section.suggestion_1.title'),
+    description: t('suggestion_section.suggestion_1.description'),
+    buttonLabel: t('suggestion_section.suggestion_1.button'),
+    href: '#', // TODO: inserire link reale "Esplora il catalogo"
+    image: searchImage,
+  },
+  {
+    title: t('suggestion_section.suggestion_2.title'),
+    description: t('suggestion_section.suggestion_2.description'),
+    buttonLabel: t('suggestion_section.suggestion_2.button'),
+    href: '#', // TODO: inserire link reale "Esplora il catalogo"
+    image: networkImage,
+  },
+] as const
+---
+
+<section class="section bg-primary">
+  <div class="section-content">
+    <h2 class="text-white mb-4">{t('suggestion_section.title')}</h2>
+    <div class="it-card-group it-card-group-2-cols">
+      {
+        suggestions.map((suggestion) => (
+          <article class="it-card it-card-banner rounded shadow-sm align-items-start px-5">
+            <h3 class="it-card-title px-0">{suggestion.title}</h3>
+            <div class="it-card-banner-icon-wrapper align-items-start">
+              <img src={suggestion.image.src} alt="" role="presentation" width="96" height="96" />
+            </div>
+            <div class="it-card-body px-0 text-start py-3">
+              <p class="it-card-text">{suggestion.description}</p>
+            </div>
+            <footer class="it-card-footer mx-0 py-3" aria-label="Link correlati:">
+              <button type="button" class="btn btn-primary btn-icon">
+                {suggestion.buttonLabel}
+                <BootstrapItaliaIcon name="it-external-link" size="sm" color="white" padded />
+              </button>
+            </footer>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
