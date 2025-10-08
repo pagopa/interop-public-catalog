@@ -1,8 +1,7 @@
 import Autocomplete from '@mui/material/Autocomplete'
-import Checkbox from '@mui/material/Checkbox'
-import { FormGroup } from 'design-react-kit'
+// import Checkbox from '@mui/material/Checkbox'
+import { FormGroup, Input, Label } from 'design-react-kit'
 import './MultiSelectChips.css'
-import TextField from '@mui/material/TextField'
 import React from 'react'
 
 const options = ['Option 1', 'Option 2 ', 'Option 3', 'Option 4', 'Option 5']
@@ -30,7 +29,7 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({ labe
         sx={(theme) => ({
           display: 'inline-block',
           '& input': {
-            width: 200,
+            width: 400,
           },
         })}
         onChange={handleChange}
@@ -38,10 +37,14 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({ labe
         renderOption={(props, option, { selected }) => {
           const { key, ...optionProps } = props
           return (
-            <li key={key} {...optionProps}>
-              <Checkbox style={{ marginRight: 8 }} checked={selected} />
-              <label>{option}</label>
-            </li>
+            <FormGroup check>
+              <li key={key} {...optionProps} style={{}}>
+                <Input id={`checkbox-${key}`} type="checkbox" checked={selected} />
+                <label className="label" style={{ fontFamily: 'Titillium Web' }}>
+                  {option}
+                </label>
+              </li>
+            </FormGroup>
           )
         }}
         renderInput={(params) => (
