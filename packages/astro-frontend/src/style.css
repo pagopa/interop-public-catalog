@@ -20,3 +20,7 @@
   width: calc(1rem * 7.5);
   height: calc(1rem * 7.5);
 }
+
+.primary-bg-c0 {
+  background-color: #F2F7FC !important;
+}

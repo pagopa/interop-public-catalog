@@ -1,0 +1,180 @@
+---
+export const prerender = false
+
+import RatingSection from '../../../components/shared/RatingSection'
+import Layout from '../../../layouts/Layout.astro'
+
+import { Breadcrumb, BreadcrumbItem } from 'design-react-kit'
+
+import SuggestionsSection from '../../../components/shared/SuggestionsSection/SuggestionSection.astro'
+import BootstrapItaliaIcon from '../../../components/shared/BootstrapItaliaIcon.astro'
+import AccessPointsSection from '../../../components/Ecosystem/AccessPointsSection.astro'
+import { useEcosystemTranslations } from '../../../i18n/ecosystem.i18n'
+
+const t = useEcosystemTranslations()
+---
+
+<Layout>
+  <section class="section section-muted py-5">
+    <div class="section-content">
+      <div class="container">
+        <Breadcrumb>
+          <BreadcrumbItem>
+            <a href="#"> Home </a>
+            <span class="separator"> / </span>
+          </BreadcrumbItem>
+          <BreadcrumbItem>
+            <a href="#"> Cos’è l’interoperabilità </a>
+          </BreadcrumbItem>
+        </Breadcrumb>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-8">
+            <h1>{t('title')}</h1>
+            <p class="mb-5">
+              {t('subtitle')}
+            </p>
+
+            <div class="row">
+              <div class="col-xs-12 col-md-6 order-xs-1">
+                <div class="border-start border-3 px-3">
+                  <h5>{t('ecosystem.characteristic_1.label')}</h5>
+                  <p>
+                    {t('ecosystem.characteristic_1.description')}
+                  </p>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6 order-xs-3">
+                <div class="border-start border-3 px-3">
+                  <h5>{t('ecosystem.characteristic_3.label')}</h5>
+                  <p>
+                    {t('ecosystem.characteristic_3.description')}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-xs-12 col-md-6 order-xs-2">
+                <div class="border-start border-3 px-3">
+                  <h5>{t('ecosystem.characteristic_2.label')}</h5>
+                  <p>{t('ecosystem.characteristic_2.description')}</p>
+                </div>
+              </div>
+              <div class="col-xs-12 col-md-6 order-xs-4">
+                <div class="border-start border-3 px-3">
+                  <h5>{t('ecosystem.characteristic_4.label')}</h5>
+                  <p>
+                    {t('ecosystem.characteristic_4.description')}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-4 order-first order-md-last">
+            <img src="/Group.svg" class="rounded mx-auto d-block image-xxl mb-3" alt="404" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <AccessPointsSection />
+
+  <section class="section py-5">
+    <div class="section-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-md-8">
+            <h2>{t('interoperabily_types.title')}</h2>
+            <p class="mb-5">
+              <a href="#">{t('interoperabily_types.subtitle_link')}</a>
+              {t('interoperabily_types.subtitle')}
+            </p>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-6 order-xs-1">
+            <div class="d-flex flex-row gap-3">
+              <div class="p-4">
+                <img src="/Group.svg" class="rounded d-block image-xl" alt="404" />
+              </div>
+              <div>
+                <h5>{t('interoperabily_types.type_1.label')}</h5>
+                <p>
+                  {t('interoperabily_types.type_1.description')}
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-12 col-md-6 order-xs-3">
+            <div class="d-flex flex-row gap-3">
+              <div class="p-4">
+                <img src="/Group.svg" class="rounded d-block image-xl" alt="404" />
+              </div>
+              <div>
+                <h5>{t('interoperabily_types.type_3.label')}</h5>
+                <p>
+                  {t('interoperabily_types.type_3.description')}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12 col-md-6 order-xs-2">
+            <div class="d-flex flex-row gap-3">
+              <div class="p-4">
+                <img src="/Group.svg" class="rounded d-block image-xl" alt="404" />
+              </div>
+              <div>
+                <h5>{t('interoperabily_types.type_2.label')}</h5>
+                <p>{t('interoperabily_types.type_2.description')}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-6 order-xs-4">
+            <div class="d-flex flex-row gap-3">
+              <div class="p-4">
+                <img src="/Group.svg" class="rounded d-block image-xl" alt="404" />
+              </div>
+              <div>
+                <h5>{t('interoperabily_types.type_4.label')}</h5>
+                <p>
+                  {t('interoperabily_types.type_4.description')}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section py-5 section-muted">
+    <div class="section-content">
+      <div class="container">
+        <div class="row">
+          <div class="col-xs-12 col-md-8">
+            <h2 class="mb-4">{t('ecosystem_legal_references.title')}</h2>
+            <p>
+              {t('ecosystem_legal_references.subtitle')}
+            </p>
+          </div>
+          <div class="col-xs-12 col-md-4 d-flex align-items-center justify-content-center">
+            <button class="btn btn-outline-primary btn-icon" type="button">
+              {t('ecosystem_legal_references.button')}
+              <BootstrapItaliaIcon name="it-arrow-right" size="sm" color="primary" padded />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <RatingSection />
+
+  <SuggestionsSection />
+</Layout>
