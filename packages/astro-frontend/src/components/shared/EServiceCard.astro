@@ -1,3 +1,20 @@
+---
+
+interface Props {
+  title: string
+  description: string
+  isOpenData?: boolean
+}
+
+
+const { name, description, isOpenData } = Astro.props
+---
+
+
+
+
+
+<!-- 
 import React from 'react'
 import {
   Badge,
@@ -41,4 +58,4 @@ const EServiceCard: React.FC<EServiceCardProps> = ({ title, description, isOpenD
   </Card>
 )
 
-export default EServiceCard
+export default EServiceCard -->

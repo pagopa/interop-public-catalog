@@ -1,0 +1,36 @@
+---
+import BootstrapItaliaIcon from './BootstrapItaliaIcon.astro'
+
+interface Props {
+  title: string
+  className?: string
+  sectionLink?: { text: string; href: string }
+}
+const { title, className, sectionLink } = Astro.props
+const randomId = Math.random().toString(36).substring(2, 15)
+---
+
+<section class={`section py-4 ${className}`} aria-labelledby={randomId}>
+  <div class="section-content">
+    <div class="container">
+      <div class="row mb-3">
+        <div class="col-12 mt-4 d-lg-flex justify-content-between align-items-center">
+          {/* Section Title */}
+          <h2 class="h3" id={randomId}>{title}</h2>
+          {/* Section Link */}
+          {
+            sectionLink && (
+              <small>
+                <a href={sectionLink.href} class="text-uppercase fw-semibold">
+                  {sectionLink.text}
+                  <BootstrapItaliaIcon name="it-arrow-right" size="sm" color="primary" padded />
+                </a>
+              </small>
+            )
+          }
+        </div>
+      </div>
+      <slot />
+    </div>
+  </div>
+</section>

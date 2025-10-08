@@ -20,3 +20,11 @@
   width: calc(1rem * 7.5);
   height: calc(1rem * 7.5);
 }
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}

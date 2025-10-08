@@ -185,16 +185,26 @@ type BootstrapItaliaIconName =
   | 'it-designers-italia'
   | 'it-team-digitale'
 
-type IconColorBase = 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'light' | 'white'
+type BootstrapIconColorBase =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'light'
+  | 'white'
+type BootstrapIconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
-type Props = {
+export type Props = {
   name: BootstrapItaliaIconName
-  color?: IconColorBase
+  color?: BootstrapIconColorBase
   padded?: boolean
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  size?: BootstrapIconSize
+  ariaLabel?: string
+  ariaHidden?: boolean
 }
 
-const { name, color, size, padded } = Astro.props
+const { name, color, size, padded, ariaLabel, ariaHidden } = Astro.props
 
 const className = [
   'icon',
@@ -207,6 +217,12 @@ const className = [
   .join(' ')
 ---
 
-<svg style="bottom: 1px;" class={className} aria-hidden="true" focusable="false">
+<svg
+  aria-label={ariaLabel}
+  aria-hidden={ariaHidden}
+  style="bottom: 1px;"
+  class={className}
+  focusable="false"
+>
   <use href={`/sprites.svg#${name}`} xlink:href={`/sprites.svg#${name}`}></use>
 </svg>

@@ -1,0 +1,35 @@
+---
+import EServiceCard from '../shared/EServiceCard.astro'
+import Section from '../shared/Section.astro'
+
+
+const highlightedEServices = [
+  {
+    title: 'ANPR',
+    description: 'L\'Anagrafe Nazionale della Popolazione Residente (ANPR) è il sistema che raccoglie i dati anagrafici di tutti i cittadini italiani.',
+  },
+  {
+    title: 'PagoPA',
+    description: 'PagoPA è il sistema di pagamenti elettronici della Pubblica Amministrazione italiana, che consente ai cittadini di effettuare pagamenti in modo semplice e sicuro.',
+  },
+  {
+    title: 'SPID',
+    description: 'SPID (Sistema Pubblico di Identità Digitale) è il sistema di autenticazione che permette ai cittadini di accedere ai servizi online della Pubblica Amministrazione e dei privati aderenti con un\'unica identità digitale.',
+  },
+] as const
+
+---
+
+<Section title="API in evidenza" sectionLink={{ text: 'Esplora il catalogo', href: '#' }}>
+  <div class="container">
+    <div class="row">
+      {
+        highlightedEServices.map((eservice) => (
+          <div class="col-12 col-lg-4 mb-4">
+            <EServiceCard title={eservice.title} description={eservice.description} />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Section>

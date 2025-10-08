@@ -4,6 +4,7 @@ import BootstrapItaliaIcon from '../shared/BootstrapItaliaIcon.astro'
 import searchImage from '../../assets/images/024-search.svg'
 import networkImage from '../../assets/images/077-network.svg'
 import jigsawImage from '../../assets/images/088-jigsaw.svg'
+import Section from '../shared/Section.astro'
 
 const t = useHomepageTranslations()
 
@@ -35,55 +36,46 @@ const howItWorksSteps = [
 ] as const
 ---
 
-<section class="section section-muted py-4" aria-labelledby="how-it-works-section-title">
-  <div class="section-content">
-    <div class="container">
-      <div class="row mb-3">
-        <div class="col-12 mt-4">
-          <h2 class="h3" id="how-it-works-section-title">{t('how_it_works.title')}</h2>
-        </div>
-      </div>
-      <ul class="list-group list-group-horizontal-lg">
-        {
-          howItWorksSteps.map((step, index) => (
+<Section className="section-muted" title={t('how_it_works.title')}>
+  <ul class="list-group list-group-horizontal-lg">
+    {
+      howItWorksSteps.map((step, index) => (
+        <>
+          <li class="flex-fill list-group-item bg-transparent border-0">
+            {/* Card */}
+            <article class="it-card bg-transparent d-flex flex-column h-100">
+              <div class="it-card-banner-icon-wrapper mb-2">
+                <img src={step.image.src} alt="" role="presentation" width="96" height="96" />
+              </div>
+              {/* Card Body */}
+              <h3 class="it-card-title h5">{step.title}</h3>
+              <div class="it-card-body mb-2">
+                <p class="it-card-text">{step.description}</p>
+              </div>
+              {/* Card Footer */}
+              <footer class="it-card-related it-card-footer mt-auto">
+                <div class="it-card-taxonomy">
+                  <a
+                    href={step.href}
+                    class="it-card-category it-card-link text-uppercase text-primary"
+                  >
+                    {step.linkLabel}
+                    <BootstrapItaliaIcon name="it-arrow-right" size="sm" color="primary" />
+                  </a>
+                </div>
+              </footer>
+            </article>
+          </li>
+          {index < howItWorksSteps.length - 1 && (
             <>
-              <li class="flex-fill list-group-item bg-transparent border-0">
-                {/* Card */}
-                <article class="it-card bg-transparent d-flex flex-column h-100">
-                  <div class="it-card-banner-icon-wrapper mb-2">
-                    <img src={step.image.src} alt="" role="presentation" width="96" height="96" />
-                  </div>
-                  {/* Card Body */}
-                  <h3 class="it-card-title h5">{step.title}</h3>
-                  <div class="it-card-body mb-2">
-                    <p class="it-card-text">{step.description}</p>
-                  </div>
-                  {/* Card Footer */}
-                  <footer class="it-card-related it-card-footer mt-auto">
-                    <div class="it-card-taxonomy">
-                      <a
-                        href={step.href}
-                        class="it-card-category it-card-link text-uppercase text-primary text-decoration-none"
-                      >
-                        {step.linkLabel}
-                        <BootstrapItaliaIcon name="it-arrow-right" size="sm" color="primary" />
-                      </a>
-                    </div>
-                  </footer>
-                </article>
-              </li>
-              {index < howItWorksSteps.length - 1 && (
-                <>
-                  {/* Horizontal separator for mobile/tablet */}
-                  <hr class="d-block d-lg-none my-3 border-2 border-primary" />
-                  {/* Vertical separator for large screens */}
-                  <div class="vr d-none d-lg-block mx-2 text-primary" />
-                </>
-              )}{' '}
+              {/* Horizontal separator for mobile/tablet */}
+              <hr class="d-block d-lg-none my-3 border-2 border-primary" />
+              {/* Vertical separator for large screens */}
+              <div class="vr d-none d-lg-block mx-2 text-primary" />
             </>
-          ))
-        }
-      </ul>
-    </div>
-  </div>
-</section>
+          )}
+        </>
+      ))
+    }
+  </ul>
+</Section>

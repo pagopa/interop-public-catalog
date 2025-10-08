@@ -3,7 +3,7 @@ import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { useUiTranslations } from '../../i18n/ui.i18n'
 import heroEServiceCardImage from '../../assets/images/hero-eservice-cards.png'
 import heroBackgroundImage from '../../assets/images/hero-background.png'
-import BootstrapItaliaIcon from '../shared/BootstrapItaliaIcon.astro'
+import TooltipIcon from '../shared/TooltipIcon.astro'
 
 const t = useHomepageTranslations()
 const tUi = useUiTranslations()
@@ -51,18 +51,12 @@ const tUi = useUiTranslations()
           {/* HERO FOOTER */}
           <p>
             {t('info_link')}
-            <button
-              type="button"
-              class="btn btn-link p-0"
-              data-bs-toggle="popover"
-              data-bs-trigger="focus"
-              data-bs-placement="bottom"
-              data-bs-title={t('api_info.title')}
-              data-bs-content={t('api_info.content')}
-              aria-label={t('api_info.title')}
-            >
-              <BootstrapItaliaIcon name="it-info-circle" color="white" size="sm" />
-            </button>
+            <TooltipIcon
+              title={t('api_info.title')}
+              content={t('api_info.content')}
+              iconName="it-info-circle"
+              iconColor="white"
+            />
           </p>
         </div>
       </div>
