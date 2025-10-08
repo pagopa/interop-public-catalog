@@ -95,7 +95,7 @@ const SlimHeader: React.FC<{
     <HeaderDRK type="slim" theme={'dark'}>
       <HeaderContent>
         <HeaderBrand>{brandText1}</HeaderBrand>
-        <span className="navbar-brand d-none d-lg-inline mx-2">e</span>
+        <span className="navbar-brand d-none d-xl-inline mx-2">e</span>
         <HeaderBrand>{brandText2}</HeaderBrand>
         <HeaderLinkZone aria-label="Navigazione accessoria">
           <HeaderToggler
@@ -105,7 +105,7 @@ const SlimHeader: React.FC<{
             }}
           >
             <span>{brandText1}</span>
-            <span className="d-inline d-lg-none mx-2">e</span>
+            <span className="d-inline d-xl-none mx-2">e</span>
             <span>{brandText2}</span>
             <Icon icon="it-expand" />
           </HeaderToggler>

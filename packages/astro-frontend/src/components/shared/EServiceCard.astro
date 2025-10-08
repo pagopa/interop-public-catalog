@@ -1,18 +1,60 @@
 ---
+import BootstrapItaliaIcon from './BootstrapItaliaIcon.astro'
 
 interface Props {
-  title: string
+  name: string
   description: string
+  producerName: string
   isOpenData?: boolean
 }
 
-
-const { name, description, isOpenData } = Astro.props
+const { name, description, producerName } = Astro.props
 ---
 
+<article style="min-height:296px;" class="it-card rounded shadow d-flex flex-column">
+  <header class="px-3 pt-4 d-flex justify-content-between align-items-center">
+    <span>{producerName}</span>
+    <div class="chip chip-disabled bg-muted px-3">
+      <BootstrapItaliaIcon name="it-locked" size="xs" color="secondary" />
+      <label class="chip-label">Accesso riservato</label>
+    </div>
+  </header>
+  <h3 class="it-card-title h5 text-primary line-clamp-2">
+    {name}
+  </h3>
+  <div class="it-card-body flex-grow-1 d-flex flex-column justify-content-end">
+    <p class="it-card-text line-clamp-3">
+      {description}
+    </p>
+  </div>
+  <footer class="it-card-related it-card-footer">
+    <small class="it-card-taxonomy">
+      <a
+        href="#"
+        class="it-card-link text-primary text-uppercase fw-semibold"
+        aria-label={'leggi tutto' + ' ' + name}
+      >
+        leggi tutto
+        <BootstrapItaliaIcon ariaHidden name="it-arrow-right" size="sm" color="primary" padded />
+      </a>
+    </small>
+  </footer>
+</article>
 
-
-
+<style>
+  .line-clamp-2 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  .line-clamp-3 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+</style>
 
 <!-- 
 import React from 'react'

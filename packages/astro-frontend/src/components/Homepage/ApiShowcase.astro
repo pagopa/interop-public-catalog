@@ -2,31 +2,35 @@
 import EServiceCard from '../shared/EServiceCard.astro'
 import Section from '../shared/Section.astro'
 
-
 const highlightedEServices = [
   {
-    title: 'ANPR',
-    description: 'L\'Anagrafe Nazionale della Popolazione Residente (ANPR) è il sistema che raccoglie i dati anagrafici di tutti i cittadini italiani.',
+    name: 'ANPR',
+    producerName: "Nome dell'Ente",
+    description:
+      "L'Anagrafe Nazionale della Popolazione Residente (ANPR) è il sistema che raccoglie i dati anagrafici di tutti i cittadini italiani.",
   },
   {
-    title: 'PagoPA',
-    description: 'PagoPA è il sistema di pagamenti elettronici della Pubblica Amministrazione italiana, che consente ai cittadini di effettuare pagamenti in modo semplice e sicuro.',
+    name: 'PagoPA',
+    producerName: "Nome dell'Ente",
+    description:
+      'PagoPA è il sistema di pagamenti elettronici della Pubblica Amministrazione italiana, che consente ai cittadini di effettuare pagamenti in modo semplice e sicuro.',
   },
   {
-    title: 'SPID',
-    description: 'SPID (Sistema Pubblico di Identità Digitale) è il sistema di autenticazione che permette ai cittadini di accedere ai servizi online della Pubblica Amministrazione e dei privati aderenti con un\'unica identità digitale.',
+    name: 'SPIDdnds ndsaj jkdsaknj dsanjk dksnaj kjdnasknj dsadsakdsanjkd sakjndnkjs akjndsaknj dakjsnkj ads',
+    producerName: "Nome dell'Ente",
+    description:
+      "SPID (Sistema Pubblico di Identità Digitale) è il sistema di autenticazione che permette ai cittadini di accedere ai servizi online della Pubblica Amministrazione e dei privati aderenti con un'unica identità digitale.",
   },
 ] as const
-
 ---
 
 <Section title="API in evidenza" sectionLink={{ text: 'Esplora il catalogo', href: '#' }}>
-  <div class="container">
-    <div class="row">
+  <div class="container px-0">
+    <div class="row g-4">
       {
         highlightedEServices.map((eservice) => (
-          <div class="col-12 col-lg-4 mb-4">
-            <EServiceCard title={eservice.title} description={eservice.description} />
+          <div class="col-12 col-xl-4 mb-4">
+            <EServiceCard {...eservice} />
           </div>
         ))
       }

@@ -28,3 +28,11 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+.bg-primary-c0 {
+  background-color: #f2f7fc !important;
+}
+
+.bg-muted {
+  background-color: #f5f5f5 !important;
+}
