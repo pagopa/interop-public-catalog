@@ -33,3 +33,14 @@ import Footer from '../components/shared/Footer.js'
     height: 100%;
   }
 </style>
+
+{
+  /* Popover initialization, see https://italia.github.io/bootstrap-italia/docs/componenti/popover/  */
+}
+<script>
+  import { Popover } from 'bootstrap-italia'
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+  popoverTriggerList.map(function (popoverTriggerEl) {
+    return new Popover(popoverTriggerEl)
+  })
+</script>

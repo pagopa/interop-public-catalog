@@ -5,10 +5,10 @@ import Layout from '../../layouts/Layout.astro'
 import UseCaseCard from '../../components/shared/UseCaseCard'
 import EServiceCard from '../../components/shared/EServiceCard'
 import SuggestionSection from '../../components/shared/SuggestionsSection/SuggestionsSection.js'
-import Hero from '../../components/Homepage/Hero'
-import HowToDoList from '../../components/Homepage/HowToDoList/HowToDoList'
 import { Button, Col, Icon, Row, Section } from 'design-react-kit'
-import TenantCard from '../../components/Homepage/TenantCard'
+import { useHomepageTranslations } from '../../i18n/homepage.i18n'
+import Hero from '../../components/Homepage/Hero.astro'
+import HowItWorks from '../../components/Homepage/HowItWorks.astro'
 
 const articles = await fetch(new URL('/api/articles', Astro.url))
   .then((response) => response.json())
@@ -20,64 +20,15 @@ catalogUrl.searchParams.set('q', q)
 const eservices = await fetch(catalogUrl)
   .then((response) => response.json())
   .catch((_e) => ({ items: [{ title: 'PG is not connected...' }] }))
+
+const t = useHomepageTranslations()
 ---
 
 <Layout>
-  <Hero client:load />
-  <HowToDoList
-    client:load
-    title="Come funziona"
-    howToList={[
-      {
-        icon: '/Group.svg',
-        title: 'how to 1',
-        description: 'how to description 1',
-        readMoreHRef: '',
-      },
-      {
-        icon: '/Group.svg',
-        title: 'how to 2',
-        description: 'how to description 2',
-        readMoreHRef: '',
-      },
-      {
-        icon: '/Group.svg',
-        title: 'how to 3',
-        description: 'how to description 3',
-        readMoreHRef: '',
-      },
-    ]}
-  />
+  <Hero />
+  <HowItWorks />
 
   <Section client:load className="d-flex flex-column justify-content-center align-items-center">
-    <div class="d-flex flex-column justify-content-center align-items-center mx-6 bg-transparent">
-      <div class="d-flex flex-column justify-content-between text-center mb-3">
-        <h3>Come puoi usare le API?</h3>
-        <span>
-          Seleziona la tipologia di Pubblica Amministrazione per cui operi e scopri come integrare
-          le API nei processi del tuo ente per semplificare grazie all'interoperabilità i servizi
-          che offre.
-        </span>
-      </div>
-      <Row class="g-3">
-        <Col>
-          <TenantCard tenantName="Ente di appartenenza" icon="/Group.svg" />
-        </Col>
-        <Col>
-          <TenantCard tenantName="Ente di appartenenza" icon="/Group.svg" />
-        </Col>
-        <Col>
-          <TenantCard tenantName="Ente di appartenenza" icon="/Group.svg" />
-        </Col>
-        <Col>
-          <TenantCard tenantName="Ente di appartenenza" icon="/Group.svg" />
-        </Col>
-        <Col>
-          <TenantCard tenantName="Ente di appartenenza" icon="/Group.svg" />
-        </Col>
-      </Row>
-    </div>
-
     <div
       class="d-flex flex-column justify-content-center align-items-center primary-bg-c1 rounded-5 mt-n3"
     >
@@ -203,3 +154,14 @@ const eservices = await fetch(catalogUrl)
     {articles.data.map((a: { title: string }) => <li>{a.title}</li>)}
   </ul>
 </Layout>
+
+<style>
+  #hero-search-button {
+    color: #fff;
+    background-color: #06c;
+    border-color: #06c;
+  }
+
+  #hero-search-input {
+  }
+</style>

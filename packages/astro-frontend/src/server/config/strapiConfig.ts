@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod'
 
 export const StrapiApiConfig = z
   .object({
@@ -10,6 +10,6 @@ export const StrapiApiConfig = z
     strapiApiUrl: c.STRAPI_API_URL,
     strapiApiPort: c.STRAPI_API_PORT,
     strapiApiToken: c.STRAPI_API_TOKEN,
-  }));
+  }))
 
-export type StrapiApiConfig = z.infer<typeof StrapiApiConfig>;
+export type StrapiApiConfig = z.infer<typeof StrapiApiConfig>
