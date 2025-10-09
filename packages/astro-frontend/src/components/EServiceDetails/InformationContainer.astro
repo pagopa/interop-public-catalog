@@ -1,0 +1,21 @@
+---
+import BootstrapItaliaIcon, {
+  Props as BootstrapItaliaIconProps,
+} from '../shared/BootstrapItaliaIcon.astro'
+
+interface Props {
+  label: string
+  content: string
+  icon?: { icon: BootstrapItaliaIconProps['name']; tooltipText: string }
+}
+
+const { label, content, icon } = Astro.props
+---
+
+<div class="d-flex flex-row align-items-center">
+  <span class="h6 mb-0 me-3">
+    {label}
+    {icon && <BootstrapItaliaIcon name={icon.icon} color="primary" size="sm" />}
+  </span>
+  <span>{content}</span>
+</div>
