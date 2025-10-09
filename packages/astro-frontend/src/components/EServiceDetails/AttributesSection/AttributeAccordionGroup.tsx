@@ -1,6 +1,7 @@
-import { Accordion as AccordionDRK, Icon, UncontrolledTooltip } from 'design-react-kit'
-import React, { useRef, useState } from 'react'
-import Accordion from '../../../shared/Accordion.js'
+import { Accordion as AccordionDRK } from 'design-react-kit'
+import React, { useState } from 'react'
+import Accordion from '../../shared/Accordion.js'
+import BootstrapItaliaIcon from '../../shared/BootstrapItaliaIcon.astro'
 
 type AttributeAccordionsGroupProps = {
   attributeType: 'CERTIFIED' | 'DECLARED' | 'VERIFIED'
@@ -14,8 +15,6 @@ const AttributeAccordionsGroup: React.FC<AttributeAccordionsGroupProps> = ({
   attributes,
 }) => {
   const [collapseElementOpen, setCollapseElement] = useState('')
-
-  const ref = useRef(null)
 
   const handleToggle = (index: string): void => {
     if (collapseElementOpen === index) {
@@ -42,15 +41,12 @@ const AttributeAccordionsGroup: React.FC<AttributeAccordionsGroupProps> = ({
   }
 
   return (
-    <div className="d-flex flex-column p-3 rounded-3 bg-light">
+    <div className="d-flex flex-column p-3 rounded-3 bg-primary-c0 border border-primary">
       <div className="d-flex flex-column">
-        <div className="d-flex flex-row align-items-center">
-          <h6>{getTitle(attributeType)}</h6>
-          <Icon icon="it-info" size="xs" className="ms-2" ref={ref} />
-          {/* <UncontrolledTooltip placement="right" target={ref}>
-            {tooltipText}
-          </UncontrolledTooltip> */}
-        </div>
+        <h6 className="me-2">
+          {getTitle(attributeType)}
+          <BootstrapItaliaIcon name="it-info-circle" color="primary" size="sm" />
+        </h6>
         <p>
           Per soddisfare questo requisito, devi possedere almeno uno degli attributi presenti nel
           gruppo.
