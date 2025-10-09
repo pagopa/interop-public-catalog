@@ -1,0 +1,104 @@
+---
+import { useHomepageTranslations } from '../../i18n/homepage.i18n'
+import BootstrapItaliaIcon from '../shared/BootstrapItaliaIcon.astro'
+import UseCaseCard from '../shared/UseCaseCard.astro'
+
+const t = useHomepageTranslations(Astro.url.pathname)
+
+const targetsLinkItems = [
+  { text: t('use_cases.target.pa_centrali'), href: '#', imgSrc: '/030-city.svg' },
+  { text: t('use_cases.target.regioni'), href: '#', imgSrc: '/066-hospital.svg' },
+  { text: t('use_cases.target.comuni'), href: '#', imgSrc: '/bank-1.svg' },
+  { text: t('use_cases.target.view_all'), href: '#', imgSrc: '/027-pillars.svg' },
+] as const
+---
+
+<section class="section position-relative pb-4" aria-labelledby="use-cases-section-title">
+  {/* Background - Mobile */}
+  <div
+    aria-hidden="true"
+    style="inset:0;z-index:-1;"
+    class="position-absolute d-xl-none bg-primary-c0"
+  >
+  </div>
+  <div class="position-relative">
+    {/* Background - Desktop */}
+    <div
+      aria-hidden="true"
+      style="inset:0;max-width:865px;z-index:-1;"
+      class="position-absolute mx-auto rounded-5 border border-primary d-none d-xl-block bg-primary-c0"
+    >
+    </div>
+
+    <div style="max-width:865px;" class="mx-auto pt-xl-5 px-xl-5">
+      {/* Section Header - Title and Description*/}
+      <div>
+        <h2 id="use-cases-section-title" class="text-primary h4">{t('use_cases.title')}</h2>
+        <p class="text-secondary">
+          {t('use_cases.description')}
+        </p>
+      </div>
+
+      <div class="it-list-wrapper mt-4">
+        <ul class="it-list row">
+          {
+            targetsLinkItems.map((l) => (
+              <li class="col-12 col-xl-6">
+                <a href={l.href} class="list-item gap-2 px-2">
+                  <img src={l.imgSrc} alt="" role="presentation" height="40" width="40" />
+                  <div class="it-right-zone">
+                    <span style="font-size:1rem;" class="text">
+                      {l.text}
+                    </span>
+                    <BootstrapItaliaIcon name="it-chevron-right" size="sm" color="primary" />
+                  </div>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    {/* Section Content - Use Case Cards */}
+    <div class="container mt-5">
+      <div class="row g-4">
+        <div class="col-12 col-xl-6">
+          <UseCaseCard
+            title="Erogare i bonus ai cittadini in modo equo ed efficiente"
+            intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
+            category="Bonus Economici"
+          />
+        </div>
+        <div class="col-12 col-xl-6">
+          <UseCaseCard
+            title="Iscrizione ai concorsi pubblici più snella"
+            intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
+            category="Titoli di studio"
+          />
+        </div>
+        <div class="col-12 col-xl-6">
+          <UseCaseCard
+            title="Verifica immediata dell’iscrizione all’albo degli avvocati"
+            intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
+            category="Ordini professionali"
+          />
+        </div>
+        <div class="col-12 col-xl-6">
+          <UseCaseCard
+            title="Erogare i bonus ai cittadini in modo equo ed efficiente"
+            intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
+            category="Bonus Economici"
+          />
+        </div>
+      </div>
+    </div>
+
+    {/* Section Footer - Call to Action */}
+    <div class="d-flex justify-content-center mt-5 pb-5">
+      <button type="button" class="btn btn-outline-primary">
+        {t('use_cases.footer_cta')}
+      </button>
+    </div>
+  </div>
+</section>

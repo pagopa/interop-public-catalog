@@ -1,0 +1,84 @@
+---
+export const prerender = false
+
+import Layout from '../../../layouts/Layout.astro'
+import {
+  Badge,
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
+  Col,
+  Icon,
+  Row,
+  Section,
+} from 'design-react-kit'
+import EServiceDetails from '../../../components/EServiceDetails/EServiceDetails'
+import EServiceCard from '../../../components/shared/EServiceCard'
+---
+
+<Layout>
+  <Section>
+    <Breadcrumb>
+      <BreadcrumbItem>
+        <a href="#">Home</a>
+        <span class="separator"> / </span>
+      </BreadcrumbItem>
+      <BreadcrumbItem>
+        <a href="#">Esplora il catalogo</a>
+        <span class="separator"> / </span>
+      </BreadcrumbItem>
+      <BreadcrumbItem active>Dettaglio API</BreadcrumbItem>
+    </Breadcrumb>
+
+    <div class="d-flex flex-row align-items-center justify-content-between">
+      <!-- <Chip class="mt-3">
+      <Icon icon="it-github" size="xs" />
+      <ChipLabel> Accesso riservato </ChipLabel>
+    </Chip> -->
+      <Badge color="secondary" pill> Bonus economici </Badge>
+      <Button href="#" role="link" tag="a" size="xs" className="text-primary" icon>
+        Accedi a PDND
+        <Icon icon="it-github" size="xs" className="ms-2" color="primary" />
+      </Button>
+    </div>
+    <h1>Nome dell'API</h1>
+    <p>
+      Cerca tra tutte le API rese disponibili attraverso la Piattaforma Digitale Nazionale Dati
+      (PDND). Verifica i requisiti per accedere alle API di tuo interesse e costruisci la tua
+      integrazione per l’accesso ai dati.
+    </p>
+  </Section>
+
+  <Section color="muted">
+    <EServiceDetails
+      client:load
+      eservice={{
+        id: 'eservice1',
+        name: 'eservice 1',
+        description: 'eservice description 1',
+        attributes: [],
+      }}
+    />
+  </Section>
+
+  <Section>
+    <div class="d-flex flex-row justify-content-between align-items-center">
+      <h3>API in evidenza</h3>
+      <a>
+        <span class="tranform-uppercase">Esplora il catalogo</span>
+        <Icon iconName="it-arrow-right" />
+      </a>
+    </div>
+    <Row>
+      <Col>
+        <EServiceCard title="eservice 1" description="eservice description 1" />
+      </Col>
+      <Col>
+        <EServiceCard title="eservice 2" description="eservice description 2" />
+      </Col>
+      <Col>
+        <EServiceCard title="eservice 3" description="eservice description 3" />
+      </Col>
+    </Row>
+  </Section>
+</Layout>

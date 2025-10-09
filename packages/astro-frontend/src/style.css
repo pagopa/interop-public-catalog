@@ -21,6 +21,18 @@
   height: calc(1rem * 7.5);
 }
 
-.primary-bg-c0 {
-  background-color: #F2F7FC !important;
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.bg-primary-c0 {
+  background-color: #f2f7fc !important;
+}
+
+.bg-muted {
+  background-color: #f5f5f5 !important;
 }

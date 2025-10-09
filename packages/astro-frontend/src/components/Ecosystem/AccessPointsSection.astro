@@ -2,7 +2,7 @@
 import { useEcosystemTranslations } from '../../i18n/ecosystem.i18n'
 import BootstrapItaliaIcon from '../shared/BootstrapItaliaIcon.astro'
 
-const t = useEcosystemTranslations()
+const t = useEcosystemTranslations(Astro.url.pathname)
 
 const accessPoints = [
   {

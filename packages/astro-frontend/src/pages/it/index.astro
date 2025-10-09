@@ -1,144 +1,16 @@
 ---
-export const prerender = false
-
 import Layout from '../../layouts/Layout.astro'
-import UseCaseCard from '../../components/shared/UseCaseCard'
-import EServiceCard from '../../components/shared/EServiceCard'
-import SuggestionSection from '../../components/shared/SuggestionsSection/SuggestionSection.astro'
-import { Button, Col, Icon, Row, Section } from 'design-react-kit'
-import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import Hero from '../../components/Homepage/Hero.astro'
 import HowItWorks from '../../components/Homepage/HowItWorks.astro'
-
-const articles = await fetch(new URL('/api/articles', Astro.url))
-  .then((response) => response.json())
-  .catch((_e) => ({ data: [{ title: 'Strapi is not connected...' }] }))
-
-const catalogUrl = new URL('/api/catalog', Astro.url)
-const q = 'comune'
-catalogUrl.searchParams.set('q', q)
-const eservices = await fetch(catalogUrl)
-  .then((response) => response.json())
-  .catch((_e) => ({ items: [{ title: 'PG is not connected...' }] }))
-
-const t = useHomepageTranslations()
+import UseCases from '../../components/Homepage/UseCases.astro'
+import ApiShowcase from '../../components/Homepage/ApiShowcase.astro'
+import SuggestionSection from '../../components/shared/SuggestionSection.astro'
 ---
 
 <Layout>
   <Hero />
   <HowItWorks />
-
-  <Section client:load className="d-flex flex-column justify-content-center align-items-center">
-    <div
-      class="d-flex flex-column justify-content-center align-items-center primary-bg-c1 rounded-5 mt-n3"
-    >
-      <div class="d-flex flex-column justify-content-between text-center px-6 py-5">
-        <h3>Lasciati ispirare dalle buone pratiche</h3>
-        <span>
-          Una raccolta di esempi significativi e facili da replicare di come l'interoperabilità può
-          semplificare i processi della Pubblica Amministrazione.
-        </span>
-      </div>
-      <Col xs="8">
-        <Row>
-          <UseCaseCard
-            title="cammello"
-            description="ciao"
-            isNew
-            replicableBy={['a', 'b', 'c']}
-            categoryTag="sette"
-          />
-        </Row>
-        <Row>
-          <UseCaseCard
-            title="cammello"
-            description="ciao"
-            isNew
-            replicableBy={['a', 'b', 'c']}
-            categoryTag="sette"
-          />
-        </Row>
-        <Row>
-          <UseCaseCard
-            title="cammello"
-            description="ciao"
-            isNew
-            replicableBy={['a', 'b', 'c']}
-            categoryTag="sette"
-          />
-        </Row>
-      </Col>
-
-      <Button color="primary" outline className="mb-5 mt-3"> Esplora altre buone pratiche </Button>
-    </div>
-  </Section>
-
-  <Section>
-    <div class="d-flex flex-row justify-content-between align-items-center">
-      <h3>API in evidenza</h3>
-      <a>
-        <span class="tranform-uppercase">Esplora il catalogo</span>
-        <Icon iconName="it-arrow-right" />
-      </a>
-    </div>
-    <Row>
-      <Col>
-        <EServiceCard title="eservice 1" description="eservice description 1" />
-      </Col>
-      <Col>
-        <EServiceCard title="eservice 2" description="eservice description 2" />
-      </Col>
-      <Col>
-        <EServiceCard title="eservice 3" description="eservice description 3" />
-      </Col>
-    </Row>
-  </Section>
-
+  <UseCases />
+  <ApiShowcase />
   <SuggestionSection />
-
-  <h1>
-    Search Term: "{q}" Search Results (Total: {eservices.total}, Shown: {eservices.items.length})
-  </h1>
-
-  <ul>
-    {
-      eservices.items.map(
-        (eservice: {
-          id: string
-          name: string
-          tenant_name: string
-          description: string
-          technology: string
-          mode: boolean
-          created_at: string
-        }) => (
-          <li>
-            <strong>{eservice.name}</strong>
-            {eservice.tenant_name && <span> — {eservice.tenant_name}</span>}
-            <p>{eservice.description}</p>
-            <small>
-              Tech: {eservice.technology} | Mode: {eservice.mode} | Created: {eservice.created_at}
-            </small>
-          </li>
-        )
-      )
-    }
-  </ul>
-
-  <h2>Articles</h2>
-
-  <ul>
-    {articles.data.map((a: { title: string }) => <li>{a.title}</li>)}
-  </ul>
 </Layout>
-
-<style>
-  #hero-search-button {
-    color: #fff;
-    background-color: #06c;
-    border-color: #06c;
-  }
-
-  #hero-search-input {
-  }
-</style>

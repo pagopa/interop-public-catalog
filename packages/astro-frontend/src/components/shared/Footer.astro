@@ -1,0 +1,106 @@
+---
+import { useUiTranslations } from '../../i18n/ui.i18n'
+
+const tUi = useUiTranslations(Astro.url.pathname)
+
+// Catalogo API section links
+const catalogoApiSectionNavItems = [
+  { label: tUi('nav.explore_catalog'), href: '#' },
+  { label: tUi('nav.examples'), href: '#' },
+] as const
+
+// Resources section links
+const resourcesSectionNavItems = [
+  { label: tUi('nav.what_is'), href: '#' },
+  { label: tUi('nav.faq'), href: '#' },
+] as const
+
+// Footer small print links (legal, privacy, accessibility, etc.)
+const footerSmallPrintLinks = [
+  { label: 'Media policy', href: '#' },
+  { label: 'Note legali', href: '#' },
+  { label: 'Privacy policy', href: '#' },
+  { label: 'Mappa del sito', href: '#' },
+  { label: 'Dichiarazione di accessibilità', href: '#' },
+] as const
+---
+<footer class="it-footer">
+  <!-- Main footer section: logos and navigation -->
+  <div class="it-footer-main it-footer-small-prints">
+    <div class="container py-5">
+      <section>
+        {/* Logos and navigation columns */}
+        <div class="row">
+          <!-- Logos column -->
+          <div class="col-12 col-lg-6 pb-2 d-flex flex-wrap gap-4">
+            <img
+              src="/next-generation-eu-footer-logo.svg"
+              alt="Next Generation EU logo"
+              width="206"
+              height="48"
+            />
+            <img
+              src="/dtd-footer-logo.svg"
+              alt="Dipartimento per la trasformazione digitale logo"
+              width="307"
+              height="46"
+            />
+            <img src="/pagopa-footer-logo.svg" alt="PagoPA logo" width="164" height="46" />
+          </div>
+          <!-- Catalogo API links column -->
+          <div class="col-6 col-lg-3 pb-2">
+            <h4 class="text-uppercase">
+              {tUi('brand.title')}
+            </h4>
+            <div class="link-list-wrapper">
+              <ul class="footer-list link-list clearfix">
+                {
+                  catalogoApiSectionNavItems.map((item) => (
+                    <li>
+                      <a class="list-item" href={item.href}>
+                        {item.label}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+          <!-- Resources links column -->
+          <div class="col-6 col-lg-3">
+            <h4>
+              {tUi('footer.nav_section.resources')}
+            </h4>
+            <div class="link-list-wrapper">
+              <ul class="footer-list link-list clearfix">
+                {
+                  resourcesSectionNavItems.map((item) => (
+                    <li>
+                      <a class="list-item" href={item.href}>
+                        {item.label}
+                      </a>
+                    </li>
+                  ))
+                }
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- Small print section: legal and accessibility links -->
+  <div class="it-footer-small-prints clearfix border-top border-secondary">
+    <div class="container">
+      <ul class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row">
+        {
+          footerSmallPrintLinks.map((link) => (
+            <li class="list-inline-item">
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</footer>

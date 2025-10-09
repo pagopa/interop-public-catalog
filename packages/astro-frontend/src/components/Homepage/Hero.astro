@@ -3,10 +3,10 @@ import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { useUiTranslations } from '../../i18n/ui.i18n'
 import heroEServiceCardImage from '../../assets/images/hero-eservice-cards.png'
 import heroBackgroundImage from '../../assets/images/hero-background.png'
-import BootstrapItaliaIcon from '../shared/BootstrapItaliaIcon.astro'
+import TooltipIcon from '../shared/TooltipIcon.astro'
 
-const t = useHomepageTranslations()
-const tUi = useUiTranslations()
+const t = useHomepageTranslations(Astro.url.pathname)
+const tUi = useUiTranslations(Astro.url.pathname)
 ---
 
 <section id="hero" style="min-height: 560px;" class="it-hero-wrapper">
@@ -18,14 +18,14 @@ const tUi = useUiTranslations()
     </div>
   </div>
   <div class="container position-relative">
-    <div class="row flex-column-reverse flex-lg-row">
-      <div class="col-12 col-lg-6">
+    <div class="row flex-column-reverse flex-xl-row">
+      <div class="col-12 col-xl-6">
         <div class="it-hero-text-wrapper">
           {/* HERO TITLE */}
           <h1>{t('title')}</h1>
 
           {/* HERO SUBTITLE */}
-          <p class="d-none d-lg-block">{t('subtitle')}</p>
+          <p class="d-none d-xl-block font-sans-serif">{t('subtitle')}</p>
 
           {/* HERO SEARCH */}
           <div
@@ -49,29 +49,23 @@ const tUi = useUiTranslations()
           </div>
 
           {/* HERO FOOTER */}
-          <p>
+          <p class="font-sans-serif">
             {t('info_link')}
-            <button
-              type="button"
-              class="btn btn-link p-0"
-              data-bs-toggle="popover"
-              data-bs-trigger="focus"
-              data-bs-placement="bottom"
-              data-bs-title={t('api_info.title')}
-              data-bs-content={t('api_info.content')}
-              aria-label={t('api_info.title')}
-            >
-              <BootstrapItaliaIcon name="it-info-circle" color="white" size="sm" />
-            </button>
+            <TooltipIcon
+              title={t('api_info.title')}
+              content={t('api_info.content')}
+              iconName="it-info-circle"
+              iconColor="white"
+            />
           </p>
         </div>
       </div>
       <div
         style="z-index: 1;"
-        class="col-12 col-lg-6 d-flex align-items-center justify-content-center justify-content-lg-end"
+        class="col-12 col-xl-6 d-flex align-items-center justify-content-center justify-content-xl-end"
       >
         <img
-          class="img-fluid mt-4 pt-4 pt-lg-0 mt-lg-0"
+          class="img-fluid mt-4 pt-4 pt-xl-0 mt-xl-0"
           src={heroEServiceCardImage.src}
           alt=""
           role="presentation"
@@ -80,7 +74,7 @@ const tUi = useUiTranslations()
         />
       </div>
     </div>
-    <div class="d-none d-lg-flex position-absolute bottom-0 end-0 p-4 text-white">
+    <div class="d-none d-xl-flex position-absolute bottom-0 end-0 p-4 text-white">
       <small class="d-flex align-items-center gap-3">
         <svg
           class="scroll-animation-icon"

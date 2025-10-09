@@ -1,0 +1,111 @@
+---
+import { useUiTranslations } from '../../../i18n/ui.i18n'
+import BootstrapItaliaIcon from '../BootstrapItaliaIcon.astro'
+import LanguageSwitchDropdown from './LanguageSwitchDropdown.astro'
+import {
+  DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL,
+  PAGOPA_URL,
+} from '../../../config/constants.js'
+
+const tUi = useUiTranslations(Astro.url.pathname)
+
+// TODO Links
+const NAV_ITEMS = [
+  { label: tUi('nav.explore_catalog'), href: '#' },
+  { label: tUi('nav.examples'), href: '#' },
+  { label: tUi('nav.what_is'), href: '#' },
+  { label: tUi('nav.faq'), href: '#' },
+]
+---
+
+<header class="it-header-wrapper">
+  <div class="it-header-slim-wrapper">
+    <div class="container-xxl">
+      <div class="row">
+        <div class="col-12">
+          <div class="it-header-slim-wrapper-content">
+            <span class="navbar-brand">
+              <a
+                target="_blank"
+                class="text-decoration-underline"
+                href={DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL}
+                >Dipartimento per la trasformazione digitale</a
+              > e <a target="_blank" class="text-decoration-underline" href={PAGOPA_URL}
+                >PagoPA S.p.A.</a
+              >
+            </span>
+            <div class="it-header-slim-right-zone">
+              <LanguageSwitchDropdown />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="it-nav-wrapper">
+    <div class="it-header-center-wrapper">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <div class="it-header-center-content-wrapper">
+              <div class="it-brand-wrapper">
+                <a href="#">
+                  <div class="it-brand-text">
+                    <div class="it-brand-title">{tUi('brand.title')}</div>
+                    <div class="it-brand-tagline d-none d-md-block">
+                      {tUi('header.brand.tagline')}
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="it-header-navbar-wrapper">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <nav class="navbar navbar-expand-lg has-megamenu" aria-label="Navigazione principale">
+              <button
+                class="custom-navbar-toggler"
+                type="button"
+                aria-controls="navC1"
+                aria-label={tUi('header.nav.toggle')}
+                data-bs-toggle="navbarcollapsible"
+                data-bs-target="#navC1"
+              >
+                <BootstrapItaliaIcon name="it-burger" />
+              </button>
+              <div class="navbar-collapsable" id="navC1" tabindex="-1">
+                <div class="close-div">
+                  <button class="btn close-menu" type="button">
+                    <span class="visually-hidden">{tUi('header.nav.hide')}</span>
+                    <BootstrapItaliaIcon name="it-close-big" />
+                  </button>
+                </div>
+                <div class="menu-wrapper">
+                  <ul class="navbar-nav">
+                    {
+                      NAV_ITEMS.map((navItem) => {
+                        const isActive = Astro.url.pathname === navItem.href
+                        return (
+                          <li class:list={['nav-item', isActive && 'active']}>
+                            <a class:list={['nav-link', isActive && 'active']} href={navItem.href}>
+                              <span>{navItem.label}</span>
+                            </a>
+                          </li>
+                        )
+                      })
+                    }
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
