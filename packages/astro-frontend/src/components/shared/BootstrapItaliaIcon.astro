@@ -1,4 +1,6 @@
 ---
+import type { HTMLAttributes } from 'astro/types'
+
 // Taken from https://italia.github.io/bootstrap-italia/docs/utilities/icone/
 type BootstrapItaliaIconName =
   | 'it-arrow-down'
@@ -195,20 +197,19 @@ type BootstrapIconColorBase =
   | 'white'
 type BootstrapIconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
-export type Props = {
+export interface Props extends HTMLAttributes<'svg'> {
   name: BootstrapItaliaIconName
   color?: BootstrapIconColorBase
   padded?: boolean
   size?: BootstrapIconSize
-  ariaLabel?: string
-  ariaHidden?: boolean
 }
 
-const { name, color, size, padded, ariaLabel, ariaHidden } = Astro.props
+const { name, color, size, padded, ...rest } = Astro.props
 
 const className = [
   'icon',
   'position-relative',
+  rest.class,
   color && `icon-${color}`,
   size && `icon-${size}`,
   padded && 'icon-padded',
@@ -217,12 +218,6 @@ const className = [
   .join(' ')
 ---
 
-<svg
-  aria-label={ariaLabel}
-  aria-hidden={ariaHidden}
-  style="bottom: 1px;"
-  class={className}
-  focusable="false"
->
+<svg class={className} style={`bottom: 1px;${rest.style ?? ''}`} focusable="false" {...rest}>
   <use href={`/sprites.svg#${name}`} xlink:href={`/sprites.svg#${name}`}></use>
 </svg>

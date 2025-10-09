@@ -6,7 +6,7 @@ import networkImage from '../../assets/images/077-network.svg'
 import jigsawImage from '../../assets/images/088-jigsaw.svg'
 import Section from '../shared/Section.astro'
 
-const t = useHomepageTranslations()
+const t = useHomepageTranslations(Astro.url.pathname)
 
 const howItWorksSteps = [
   {
@@ -36,7 +36,7 @@ const howItWorksSteps = [
 ] as const
 ---
 
-<Section className="section-muted" title={t('how_it_works.title')}>
+<Section class="section-muted" title={t('how_it_works.title')}>
   <ul class="list-group list-group-horizontal-lg">
     {
       howItWorksSteps.map((step, index) => (

@@ -1,6 +1,6 @@
 export const LANGUAGES = {
-  it: 'Italiano',
-  en: 'English',
+  it: 'ITA',
+  en: 'ENG',
 } as const
 
 export const DEFAULT_LANG: keyof typeof LANGUAGES = 'it'

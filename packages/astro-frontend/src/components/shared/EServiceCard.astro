@@ -1,4 +1,5 @@
 ---
+import { useUiTranslations } from '../../i18n/ui.i18n'
 import BootstrapItaliaIcon from './BootstrapItaliaIcon.astro'
 
 interface Props {
@@ -9,6 +10,8 @@ interface Props {
 }
 
 const { name, description, producerName } = Astro.props
+
+const tUi = useUiTranslations(Astro.url.pathname)
 ---
 
 <article style="min-height:296px;" class="it-card rounded shadow d-flex flex-column">
@@ -16,7 +19,7 @@ const { name, description, producerName } = Astro.props
     <span>{producerName}</span>
     <div class="chip chip-disabled bg-muted px-3">
       <BootstrapItaliaIcon name="it-locked" size="xs" color="secondary" />
-      <label class="chip-label">Accesso riservato</label>
+      <label class="chip-label">{tUi('eservice_card.access_reserved')}</label>
     </div>
   </header>
   <h3 class="it-card-title h5 text-primary line-clamp-2">
@@ -32,10 +35,16 @@ const { name, description, producerName } = Astro.props
       <a
         href="#"
         class="it-card-link text-primary text-uppercase fw-semibold"
-        aria-label={'leggi tutto' + ' ' + name}
+        aria-label={tUi('eservice_card.read_more') + ' ' + name}
       >
-        leggi tutto
-        <BootstrapItaliaIcon ariaHidden name="it-arrow-right" size="sm" color="primary" padded />
+        {tUi('eservice_card.read_more')}
+        <BootstrapItaliaIcon
+          aria-hidden="true"
+          name="it-arrow-right"
+          size="sm"
+          color="primary"
+          padded
+        />
       </a>
     </small>
   </footer>
@@ -55,49 +64,3 @@ const { name, description, producerName } = Astro.props
     -webkit-box-orient: vertical;
   }
 </style>
-
-<!-- 
-import React from 'react'
-import {
-  Badge,
-  Card,
-  CardBody,
-  CardReadMore,
-  CardTagsHeader,
-  CardText,
-  CardTitle,
-  Chip,
-  ChipLabel,
-  Icon,
-} from 'design-react-kit'
-
-type EServiceCardProps = {
-  title: string | React.ReactNode
-  description: string | React.ReactNode
-  isOpenData?: boolean
-}
-
-const EServiceCard: React.FC<EServiceCardProps> = ({ title, description, isOpenData }) => (
-  <Card className="card-bg" spacing>
-    <CardBody>
-      <CardTagsHeader>
-        <span>Nome dell'ente</span>
-        {/* <Chip className="my-0">
-          <Icon icon="it-github" size="xs" />
-          <ChipLabel>Accesso riservato</ChipLabel>
-        </Chip> */}
-        <Badge color="secondary" pill>
-          {!isOpenData ? <Icon icon="it-lock" size="xs" className="me-2" /> : ''} Bonus
-          economici{' '}
-        </Badge>
-      </CardTagsHeader>
-      <CardTitle tag="h5" className="text-primary">
-        {title}
-      </CardTitle>
-      <CardText>{description}</CardText>
-      <CardReadMore href="#" iconName="it-arrow-right" text="Leggi di più" />
-    </CardBody>
-  </Card>
-)
-
-export default EServiceCard -->

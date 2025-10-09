@@ -10,7 +10,7 @@ interface Props {
 
 const { title, category, intendedTargets } = Astro.props
 
-const tUi = useUiTranslations()
+const tUi = useUiTranslations(Astro.url.pathname)
 ---
 
 <article
@@ -51,7 +51,13 @@ const tUi = useUiTranslations()
       aria-label={tUi('actions.learnMore') + ' ' + title}
     >
       {tUi('actions.learnMore')}
-      <BootstrapItaliaIcon ariaHidden name="it-arrow-right" size="sm" color="primary" padded />
+      <BootstrapItaliaIcon
+        aria-hidden="true"
+        name="it-arrow-right"
+        size="sm"
+        color="primary"
+        padded
+      />
     </a>
   </footer>
 </article>

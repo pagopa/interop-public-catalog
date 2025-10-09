@@ -5,8 +5,8 @@ import heroEServiceCardImage from '../../assets/images/hero-eservice-cards.png'
 import heroBackgroundImage from '../../assets/images/hero-background.png'
 import TooltipIcon from '../shared/TooltipIcon.astro'
 
-const t = useHomepageTranslations()
-const tUi = useUiTranslations()
+const t = useHomepageTranslations(Astro.url.pathname)
+const tUi = useUiTranslations(Astro.url.pathname)
 ---
 
 <section id="hero" style="min-height: 560px;" class="it-hero-wrapper">

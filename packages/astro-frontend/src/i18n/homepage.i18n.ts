@@ -38,6 +38,9 @@ export const homepage = {
     'use_cases.target.comuni': 'Comuni',
     'use_cases.target.view_all': 'Visualizza Tutti',
     'use_cases.footer_cta': 'Esplora tutti gli esempi',
+
+    'featured_api.title': 'API in evidenza',
+    'featured_api.explore_catalog': 'Esplora il catalogo',
   },
   en: {
     title: 'Explore Public Administration APIs',
@@ -74,6 +77,9 @@ export const homepage = {
     'use_cases.target.comuni': 'Municipalities',
     'use_cases.target.view_all': 'View All',
     'use_cases.footer_cta': 'Explore all examples',
+
+    'featured_api.title': 'Featured APIs',
+    'featured_api.explore_catalog': 'Explore the catalog',
   },
 } as const satisfies TranslationsMap
 
