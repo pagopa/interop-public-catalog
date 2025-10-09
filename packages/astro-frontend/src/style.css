@@ -29,6 +29,10 @@ body {
   padding: calc(1rem * 2.5);
 }
 
+.mb-default {
+  margin-bottom: calc(1rem * 2.5);
+}
+
 .mt-n-default {
   margin-top: calc(1rem * -2.5);
 }
