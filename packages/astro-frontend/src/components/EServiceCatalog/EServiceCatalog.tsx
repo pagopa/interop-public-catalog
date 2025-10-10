@@ -8,10 +8,11 @@ import {
   DropdownMenu,
   LinkList,
   LinkListItem,
+  Card,
 } from 'design-react-kit'
 import React from 'react'
-import EServiceCard from '../shared/EServiceCard.js'
 import { chunkEServiceArray } from '../../utils/utils.js'
+import EServiceCard from '../shared/EServiceCard.astro'
 
 export type EService = {
   name: string
@@ -64,7 +65,7 @@ const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
         <Row key={rowIndex}>
           {rowItems.map((eservice, eserviceIndex) => (
             <Col xs="4" key={eserviceIndex}>
-              <EServiceCard title={eservice.name} description={eservice.description} />
+              <Card></Card>
             </Col>
           ))}
         </Row>

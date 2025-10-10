@@ -1,8 +1,8 @@
 import { Col, List, ListItem, Row } from 'design-react-kit'
 import React from 'react'
-import EServiceCard from '../shared/EServiceCard.js'
 import { chunkEServiceArray } from '../../utils/utils.js'
 import { EService } from '../EServiceCatalog/EServiceCatalog.js'
+import EServiceCard from '../shared/EServiceCard.astro'
 
 type UseCaseDetailsProps = {
   useCase: { id: string }
@@ -115,7 +115,11 @@ const UseCaseDetails: React.FC<UseCaseDetailsProps> = ({ useCase }) => {
             <Row key={rowIndex}>
               {rowItems.map((api, apiIndex) => (
                 <Col xs="6" key={apiIndex}>
-                  <EServiceCard title={api.name} description={api.description} />
+                  <EServiceCard
+                    name={api.name}
+                    description={api.description}
+                    producerName="producerName"
+                  />
                 </Col>
               ))}
             </Row>
