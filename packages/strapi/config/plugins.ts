@@ -8,6 +8,9 @@ export default ({ env }) => ({
         rootPath: env("CDN_ROOT_PATH"),
         s3Options: {
           region: env("AWS_REGION"),
+          params: {
+            Bucket: env("AWS_BUCKET"),
+          },
         },
       },
       actionOptions: {
