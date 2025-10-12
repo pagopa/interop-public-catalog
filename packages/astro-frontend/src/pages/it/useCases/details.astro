@@ -44,27 +44,21 @@ import UseCaseCard from '../../../components/shared/UseCaseCard.astro'
     </span>
   </Section>
 
-  <Section color="muted" wrapperClassName="py-5">
-    <UseCaseDetails />
-  </Section>
+  <section style="background-color: #fafafa;" class="section">
+    <div class="section-content">
+      <UseCaseDetails />
+    </div>
+  </section>
 
-  <Section wrapperClassName="py-5">
+  <Section class="py-5">
     <Container>
       <h3 class="mb-4 text-center">Altre buone pratiche</h3>
       <Row>
         <Col>
-          <UseCaseCard
-            title="cammello"
-            intendedTargets={['a', 'b', 'c']}
-            category="sette"
-          />
+          <UseCaseCard title="cammello" intendedTargets={['a', 'b', 'c']} category="sette" />
         </Col>
         <Col>
-          <UseCaseCard
-            title="cammello"
-            intendedTargets={['a', 'b', 'c']}
-            category="sette"
-          />
+          <UseCaseCard title="cammello" intendedTargets={['a', 'b', 'c']} category="sette" />
         </Col>
       </Row>
     </Container>

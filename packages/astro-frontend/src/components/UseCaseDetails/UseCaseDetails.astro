@@ -1,6 +1,7 @@
 ---
-import { render } from 'astro:content';
-import { marked } from 'marked';
+import { marked, RendererObject } from 'marked'
+import Section from '../shared/Section.astro'
+import PageIndexNav from '../shared/PageIndexNav.astro'
 
 const md = `
 ## Descrizione
@@ -37,21 +38,53 @@ Il **MIMIT** sta erogando il "**bonus elettrodomestici**" verificando in automat
 
 Questo approccio introduce molti elementi di semplificazione per tutti gli attori coinvolti: riduce la presentazione di domande non pertinenti, consente l'erogazione più veloce del bonus, non richiede al cittadino di anticipare nessuna somma, ma abilita lo **sconto diretto in fase di acquisto**.
 `
+const headings: Array<{ id: string; label: string }> = []
 
-function walkTokens(token){
-    if(token.type === "heading"){
-      console.log(token);
-      
-    }
+function toKebabCase(str: string): string {
+  return str
+    .replace(/([a-z])([A-Z])/g, '$1-$2')
+    .replace(/\s+/g, '-')
+    .replace(/_+/g, '-')
+    .toLowerCase()
 }
 
-marked.use({ walkTokens })
+const renderer: RendererObject<string, string> = {
+  heading({ text }) {
+    const headingId = toKebabCase(text) + '-section-title'
+    headings.push({ id: headingId, label: text })
+    return `<h2 id="${headingId}" class="h5">${text}</h2>`
+  },
+  image({ href, text }) {
+    return `
+      <figure style="background-color: #f2f2f2;" class="d-flex align-items-center flex-column py-3">
+        <picture>
+          <img src="${href}" alt="${text}" class="my-4 mx-auto max-h-60" />
+        </picture>
+        <figcaption class="text-center">${text}</figcaption>
+      </figure>
+    `
+  },
+}
 
-const content = marked(md);
-console.log(headings);
+marked.use({
+  renderer,
+})
 
+const content = marked(md)
 ---
 
-<article set:html={content} />
-
-
+<div class="container">
+  <div class="row">
+    <div class="col-3">
+      <PageIndexNav
+        title="Indice della pagina"
+        headings={headings}
+        style="top: 1rem;"
+        class="position-sticky"
+      />
+    </div>
+    <div class="col-9">
+      <article id="use-case-details-content" set:html={content} />
+    </div>
+  </div>
+</div>

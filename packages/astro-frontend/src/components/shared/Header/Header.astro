@@ -13,8 +13,8 @@ const tUi = useUiTranslations(Astro.url.pathname)
 
 // TODO: Links
 const topNavNavItems = [
-  { label: tUi('header.top_nav.semantic'), href: "#" },
-  { label: tUi('header.top_nav.open_data'), href: "#" },
+  { label: tUi('header.top_nav.semantic'), href: '#' },
+  { label: tUi('header.top_nav.open_data'), href: '#' },
 ]
 ---
 
@@ -40,9 +40,15 @@ const topNavNavItems = [
               <nav>
                 <div class="link-list-wrapper collapse">
                   <ul class="link-list">
-                    {topNavNavItems.map((item) => (
-                      <li><a class="list-item" href={item.href}>{item.label}</a></li>
-                    ))}
+                    {
+                      topNavNavItems.map((item) => (
+                        <li>
+                          <a class="list-item" href={item.href}>
+                            {item.label}
+                          </a>
+                        </li>
+                      ))
+                    }
                   </ul>
                 </div>
               </nav>
