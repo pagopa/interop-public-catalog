@@ -10,14 +10,13 @@ interface Props {
   ariaLabel?: string
 }
 
-const { title, content, iconName, iconColor, iconSize = 'sm', ariaLabel = title } = Astro.props
+const { title, content, iconName, iconColor, iconSize, ariaLabel = title } = Astro.props
 ---
 
 <button
   type="button"
-  class="btn btn-link p-0"
+  class="btn btn-link p-0 d-inline-flex align-items-center ms-2"
   data-bs-toggle="popover"
-  data-bs-trigger="focus"
   data-bs-placement="bottom"
   data-bs-title={title}
   data-bs-content={content}

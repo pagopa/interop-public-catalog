@@ -6,14 +6,14 @@ import UseCaseCard from '../shared/UseCaseCard.astro'
 const t = useHomepageTranslations(Astro.url.pathname)
 
 const targetsLinkItems = [
-  { text: t('use_cases.target.pa_centrali'), href: '#', imgSrc: '/030-city.svg' },
-  { text: t('use_cases.target.regioni'), href: '#', imgSrc: '/066-hospital.svg' },
-  { text: t('use_cases.target.comuni'), href: '#', imgSrc: '/bank-1.svg' },
-  { text: t('use_cases.target.view_all'), href: '#', imgSrc: '/027-pillars.svg' },
+  { text: t('use_cases.target.pa_centrali'), href: '#', imgSrc: '/img/030-city.svg' },
+  { text: t('use_cases.target.regioni'), href: '#', imgSrc: '/img/066-hospital.svg' },
+  { text: t('use_cases.target.comuni'), href: '#', imgSrc: '/img/bank-1.svg' },
+  { text: t('use_cases.target.view_all'), href: '#', imgSrc: '/img/027-pillars.svg' },
 ] as const
 ---
 
-<section class="section position-relative pb-4" aria-labelledby="use-cases-section-title">
+<section class="section position-relative pb-0" aria-labelledby="use-cases-section-title">
   {/* Background - Mobile */}
   <div
     aria-hidden="true"
@@ -30,7 +30,7 @@ const targetsLinkItems = [
     >
     </div>
 
-    <div style="max-width:865px;" class="mx-auto pt-xl-5 px-xl-5">
+    <div style="max-width:856px;" class="mx-auto pt-xl-5 px-xl-5">
       {/* Section Header - Title and Description*/}
       <div>
         <h2 id="use-cases-section-title" class="text-primary h4">{t('use_cases.title')}</h2>
@@ -39,12 +39,12 @@ const targetsLinkItems = [
         </p>
       </div>
 
-      <div class="it-list-wrapper mt-4">
-        <ul class="it-list row">
+      <div class="link-list-wrapper multiline mt-4">
+        <ul class="link-list row">
           {
             targetsLinkItems.map((l) => (
               <li class="col-12 col-xl-6">
-                <a href={l.href} class="list-item gap-2 px-2">
+                <a href={l.href} class="list-item active icon-right gap-2 px-2">
                   <img src={l.imgSrc} alt="" role="presentation" height="40" width="40" />
                   <div class="it-right-zone">
                     <span style="font-size:1rem;" class="text">
@@ -61,7 +61,7 @@ const targetsLinkItems = [
     </div>
 
     {/* Section Content - Use Case Cards */}
-    <div class="container mt-5">
+    <div style="max-width:1076px;" class="mx-auto mt-5">
       <div class="row g-4">
         <div class="col-12 col-xl-6">
           <UseCaseCard

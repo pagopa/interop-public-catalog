@@ -31,8 +31,8 @@ const t = useHomepageTranslations(Astro.url.pathname)
   title={t('featured_api.title')}
   sectionLink={{ text: t('featured_api.explore_catalog'), href: '#' }}
 >
-  <div class="container px-0">
-    <div class="row g-4">
+  <div class="container-fluid px-0">
+    <div class="row">
       {
         highlightedEServices.map((eservice) => (
           <div class="col-12 col-xl-4 mb-4">

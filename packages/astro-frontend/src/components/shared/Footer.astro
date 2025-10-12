@@ -24,65 +24,69 @@ const footerSmallPrintLinks = [
   { label: 'Dichiarazione di accessibilità', href: '#' },
 ] as const
 ---
+
 <footer class="it-footer">
   <!-- Main footer section: logos and navigation -->
   <div class="it-footer-main it-footer-small-prints">
-    <div class="container py-5">
+    <div class="container pb-3">
       <section>
         {/* Logos and navigation columns */}
-        <div class="row">
-          <!-- Logos column -->
-          <div class="col-12 col-lg-6 pb-2 d-flex flex-wrap gap-4">
+        <div class="row g-4">
+          <div class="col-12 col-lg-2 pb-2">
             <img
-              src="/next-generation-eu-footer-logo.svg"
+              src="/img/next-generation-eu-footer-logo.svg"
               alt="Next Generation EU logo"
-              width="206"
-              height="48"
+              class="img-fluid"
             />
+          </div>
+          <div class="col-12 col-lg-3 pb-2">
             <img
-              src="/dtd-footer-logo.svg"
+              src="/img/dtd-footer-logo.svg"
               alt="Dipartimento per la trasformazione digitale logo"
-              width="307"
-              height="46"
+              class="img-fluid"
             />
-            <img src="/pagopa-footer-logo.svg" alt="PagoPA logo" width="164" height="46" />
           </div>
-          <!-- Catalogo API links column -->
-          <div class="col-6 col-lg-3 pb-2">
-            <h4 class="text-uppercase">
-              {tUi('brand.title')}
-            </h4>
-            <div class="link-list-wrapper">
-              <ul class="footer-list link-list clearfix">
-                {
-                  catalogoApiSectionNavItems.map((item) => (
-                    <li>
-                      <a class="list-item" href={item.href}>
-                        {item.label}
-                      </a>
-                    </li>
-                  ))
-                }
-              </ul>
+          <div class="col-12 col-lg-2 pb-2">
+            <img src="/img/pagopa-footer-logo.svg" alt="PagoPA logo" class="img-fluid" />
+          </div>
+          <div class="d-none d-lg-flex col-12 col-lg-5 pb-2 justify-content-end gap-5">
+            <!-- Catalogo API links column -->
+            <div>
+              <h4 class="text-uppercase">
+                {tUi('brand.title')}
+              </h4>
+              <div class="link-list-wrapper">
+                <ul class="footer-list link-list clearfix">
+                  {
+                    catalogoApiSectionNavItems.map((item) => (
+                      <li>
+                        <a class="list-item" href={item.href}>
+                          {item.label}
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
             </div>
-          </div>
-          <!-- Resources links column -->
-          <div class="col-6 col-lg-3">
-            <h4>
-              {tUi('footer.nav_section.resources')}
-            </h4>
-            <div class="link-list-wrapper">
-              <ul class="footer-list link-list clearfix">
-                {
-                  resourcesSectionNavItems.map((item) => (
-                    <li>
-                      <a class="list-item" href={item.href}>
-                        {item.label}
-                      </a>
-                    </li>
-                  ))
-                }
-              </ul>
+            <!-- Resources links column -->
+            <div>
+              <h4>
+                {tUi('footer.nav_section.resources')}
+              </h4>
+              <div class="link-list-wrapper">
+                <ul class="footer-list link-list clearfix">
+                  {
+                    resourcesSectionNavItems.map((item) => (
+                      <li>
+                        <a class="list-item" href={item.href}>
+                          {item.label}
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
             </div>
           </div>
         </div>

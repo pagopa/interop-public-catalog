@@ -6,7 +6,7 @@ import react from '@astrojs/react'
 
 // https://astro.build/config
 export default defineConfig({
-  output: 'server', // enable SSR
+  output: 'static',
   integrations: [react()],
   adapter: node({
     mode: 'standalone', // or 'middleware'

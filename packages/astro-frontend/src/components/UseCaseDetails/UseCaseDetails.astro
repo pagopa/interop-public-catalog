@@ -1,0 +1,57 @@
+---
+import { render } from 'astro:content';
+import { marked } from 'marked';
+
+const md = `
+## Descrizione
+
+L'erogazione di qualunque tipo di bonus da parte di **enti pubblici** prevede la verifica puntuale dei requisiti previsti dalla norma che regola l'agevolazione in questione. **ISEE**, **residenza**, stato di famiglia sono tra le certificazioni più richieste, che devono essere presentate dal cittadino, spesso anche in formato cartaceo, e verificate tramite istruttorie lunghe e onerose.
+
+![Example](https://example.com/images/remote-image.png)
+
+## Cosa cambia con la PNDD
+
+L'ente può accedere direttamente alle **banche dati ufficiali** esposte sulla **PNDD** per la verifica di requisiti, semplificando notevolmente la procedura, riducendo i tempi per l'erogazione e i possibili errori.
+
+Le **verifiche automatiche** possono essere implementate già in fase di presentazione della domanda, consentendo al cittadino di recuperare tramite **interoperabilità** il dato richiesto durante la richiesta del servizio, attuando così il principio del **'once-only'**, per cui non deve fornire alla PA i dati già in suo possesso.
+
+## Vantaggi per la Pubblica Amministrazione
+
+*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lectus dui, laoreet nec libero non, vestibulum eleifend leo. Praesent vitae ex sit amet justo lacinia dignissim ac at diam:*
+
+* **Verifica automatica** dei dati (es. anagrafici, reddituali) costantemente aggiornati e certificati da fonti ufficiali
+* **Eliminazione delle istruttorie** per la verifica successiva dei dati forniti
+* **Digitalizzazione** dei processi con conseguente **tracciabilità**
+
+## Vantaggi per le persone
+
+*Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lectus dui, laoreet nec libero non, vestibulum eleifend leo. Praesent vitae ex sit amet justo lacinia dignissim ac at diam:*
+
+* Non è più necessario produrre **autocertificazioni** per i dati forniti
+* I **tempi di formulazione della richiesta e di erogazione del bonus sono più rapidi**
+* **Minor rischio di errori** nella verifica dei requisiti e di esclusione quando titolati a ricevere il bonus
+
+## Un esempio concreto
+
+Il **MIMIT** sta erogando il "**bonus elettrodomestici**" verificando in automatico tramite la PNDD l'**ISEE** dei richiedenti. La domanda può essere presentata solo se il cittadino risulta eleggibile a seguito dei controlli effettuati ex ante tramite l'interrogazione degli e-service dell'**INPS**, che restituiscono il dato certificato e aggiornato in **tempo reale dell'utente**.
+
+Questo approccio introduce molti elementi di semplificazione per tutti gli attori coinvolti: riduce la presentazione di domande non pertinenti, consente l'erogazione più veloce del bonus, non richiede al cittadino di anticipare nessuna somma, ma abilita lo **sconto diretto in fase di acquisto**.
+`
+
+function walkTokens(token){
+    if(token.type === "heading"){
+      console.log(token);
+      
+    }
+}
+
+marked.use({ walkTokens })
+
+const content = marked(md);
+console.log(headings);
+
+---
+
+<article set:html={content} />
+
+

@@ -34,6 +34,7 @@
     "design-react-kit": "5.8.3",
     "dotenv-flow": "4.1.0",
     "drizzle-orm": "0.39.3",
+    "marked": "16.4.0",
     "pagopa-interop-public-commons": "workspace:*",
     "pagopa-interop-public-models": "workspace:*",
     "pg": "8.16.3",

@@ -29,6 +29,8 @@ export const ui = {
     'header.brand.tagline': 'Le API della Pubblica Amministrazione',
     'header.nav.toggle': 'Mostra/Nascondi la navigazione',
     'header.nav.hide': 'Nascondi la navigazione',
+    'header.top_nav.semantic': 'Semantica',
+    'header.top_nav.open_data': 'Dati aperti',
 
     'footer.nav_section.resources': 'Risorse',
 
@@ -61,6 +63,8 @@ export const ui = {
     'header.brand.tagline': 'Public Administration APIs',
     'header.nav.toggle': 'Show/Hide navigation',
     'header.nav.hide': 'Hide navigation',
+    'header.top_nav.semantic': 'Semantic',
+    'header.top_nav.open_data': 'Open data',
 
     'footer.nav_section.resources': 'Resources',
 
