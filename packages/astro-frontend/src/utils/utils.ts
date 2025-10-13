@@ -1,6 +1,5 @@
 import { EService } from '../components/EServiceCatalog/EServiceCatalog.js'
-import { FiltersParams } from '../components/EServiceCatalog/Filters.js'
-import { FilterAutoCompleteValue } from '../components/MultipleAutoComplete/MultipleAutoComplete.js'
+import { FilterParamsKeys, FiltersParams } from '../components/EServiceCatalog/Filters.js'
 
 const chunkEServiceArray = (eservices: EService[], eservicesPerRow: number): EService[][] => {
   const chunkedArray: EService[][] = []
@@ -10,9 +9,7 @@ const chunkEServiceArray = (eservices: EService[], eservicesPerRow: number): ESe
   return chunkedArray
 }
 
-function parseQueryStringToObject(queryString: string): {
-  [key: keyof FiltersParams]: string | string[] | FilterAutoCompleteValue[]
-} {
+function parseQueryStringToParams(queryString: string) {
   const cleanQueryString = queryString.startsWith('?') ? queryString.slice(1) : queryString
 
   const params = new URLSearchParams(cleanQueryString)
@@ -33,4 +30,22 @@ function parseQueryStringToObject(queryString: string): {
   return result
 }
 
-export { chunkEServiceArray, parseQueryStringToObject }
+function addParamsWithinUrl(filtersParams: FiltersParams) {
+  const urlSearchParams = new URLSearchParams()
+
+  Object.keys(filtersParams).forEach((k) => {
+    const key = k as FilterParamsKeys
+    if (filtersParams[key]) {
+      if (key === 'provider') {
+        const filter = JSON.stringify(filtersParams[key].map((item) => [item.label, item.value]))
+        urlSearchParams.append(key, filter)
+      } else urlSearchParams.append(key, JSON.stringify(filtersParams[key]))
+    }
+  })
+
+  const queryString = urlSearchParams.toString()
+  const newUrl = `${window.location.pathname}?${queryString}`
+  window.history.pushState({ path: newUrl }, '', newUrl)
+}
+
+export { chunkEServiceArray, parseQueryStringToParams, addParamsWithinUrl }

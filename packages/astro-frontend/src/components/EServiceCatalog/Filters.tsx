@@ -1,111 +1,81 @@
-import {
-  Button,
-  Chip,
-  ChipLabel,
-  Col,
-  Form,
-  FormGroup,
-  Icon,
-  Input,
-  Row,
-  Select,
-} from 'design-react-kit'
+import { Button, Col, Form, FormGroup, Input, Row, Select } from 'design-react-kit'
 import React, { useEffect } from 'react'
 import {
   FilterAutoCompleteValue,
   MultipleAutoComplete,
 } from '../MultipleAutoComplete/MultipleAutoComplete.js'
-import { BadgeFiltersSelected } from './BadgeFiltersSelected.js'
-import { parseQueryStringToObject } from '../../utils/utils.js'
+import { FiltersChips } from './FiltersChips.js'
+import { addParamsWithinUrl, parseQueryStringToParams } from '../../utils/utils.js'
 
-type FiltersProps = unknown
-
-const optionAutoComplete: FilterAutoCompleteValue[] = [
+const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
   { label: 'Opzione 1', value: 'value-1' },
   { label: 'Opzione 2', value: 'value-2' },
   { label: 'Opzione 3', value: 'value-3' },
   { label: 'Opzione 4', value: 'value-4' },
   { label: 'Opzione 5', value: 'value-5' },
 ]
+
+const optionAutoCompleteConsumer: FilterAutoCompleteValue[] = [
+  { label: 'Opzione A', value: 'value-A' },
+  { label: 'Opzione B', value: 'value-B' },
+  { label: 'Opzione C', value: 'value-C' },
+  { label: 'Opzione D', value: 'value-D' },
+  { label: 'Opzione E', value: 'value-E' },
+]
+
 export type FiltersParams = {
   q?: string
   theme?: string
   provider?: FilterAutoCompleteValue[]
-  consumer?: string
-  [key: string]: string | undefined | string[] | FilterAutoCompleteValue[]
+  consumer?: FilterAutoCompleteValue[]
 }
-const Filters: React.FC<FiltersProps> = () => {
+
+export type FilterParamsKeys = keyof FiltersParams
+
+const Filters = () => {
   const [filtersFormState, setFiltersFormState] = React.useState<FiltersParams>({
     provider: [],
   })
   const [appliedFilters, setAppliedFilters] = React.useState<FiltersParams>({})
 
   useEffect(() => {
-    const initialParams = parseQueryStringToObject(window.location.search)
-
-    setFiltersFormState(initialParams as FiltersParams)
-    setAppliedFilters(initialParams as FiltersParams)
+    const initialParams: FiltersParams = parseQueryStringToParams(window.location.search)
+    setFiltersFormState(initialParams)
+    setAppliedFilters(initialParams)
   }, [])
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    addParamsOnUrl(filtersFormState)
+    addParamsWithinUrl(filtersFormState)
     setAppliedFilters(filtersFormState)
     // Fetch API!
   }
 
-  const addParamsOnUrl = (filtersParams: FiltersParams) => {
-    const urlSearchParams = new URLSearchParams()
-
-    Object.keys(filtersParams).forEach((key: string) => {
-      if (filtersParams[key]) {
-        if (key === 'provider') {
-          const filter = JSON.stringify(filtersParams[key].map((item) => [item.label, item.value]))
-          urlSearchParams.append(key, filter)
-        } else urlSearchParams.append(key, JSON.stringify(filtersParams[key]))
-      }
-    })
-
-    const queryString = urlSearchParams.toString()
-    const newUrl = `${window.location.pathname}?${queryString}`
-    window.history.pushState({ path: newUrl }, '', newUrl)
-  }
-
   const handleValueChange = (
     key: keyof FiltersParams,
-    value: string | string[] | FilterAutoCompleteValue[]
+    value: string | FilterAutoCompleteValue[]
   ) => {
     setFiltersFormState((prev) => ({
       ...prev,
       [key]: value,
     }))
   }
-  const handleRemoveValue = (
-    key: keyof FiltersParams,
-    value: string | string[] | FilterAutoCompleteValue
-  ) => {
-    const { [key]: _, ...newState } = filtersFormState
+  const handleRemoveValue = (key: keyof FiltersParams, value: string | FilterAutoCompleteValue) => {
+    const getUpdatedState = (): FiltersParams => {
+      if (key === 'provider') {
+        const newProviders = filtersFormState.provider!.filter((v) => v.value !== value)
+        return { ...filtersFormState, provider: newProviders }
+      }
 
-    if (key === 'provider') {
-      const newProviders = (filtersFormState.provider as FilterAutoCompleteValue[]).filter(
-        (v) => v.value !== value
-      )
-
-      setFiltersFormState((prev) => ({
-        ...prev,
-        provider: newProviders,
-      }))
-      setAppliedFilters((prev) => ({
-        ...prev,
-        provider: newProviders,
-      }))
-      addParamsOnUrl({ ...filtersFormState, provider: newProviders })
-      return
+      const { [key]: _, ...newState } = filtersFormState
+      return newState
     }
 
-    setFiltersFormState(newState)
-    setAppliedFilters(newState)
-    addParamsOnUrl(newState)
+    const updatedState = getUpdatedState()
+
+    setFiltersFormState(updatedState)
+    setAppliedFilters(updatedState)
+    addParamsWithinUrl(updatedState)
   }
 
   return (
@@ -138,7 +108,7 @@ const Filters: React.FC<FiltersProps> = () => {
             <FormGroup>
               <MultipleAutoComplete
                 label="Filtra per ente erogatore"
-                options={optionAutoComplete}
+                options={optionAutoCompleteProvider}
                 values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
                 handleValuesChange={(values) => handleValueChange('provider', values)}
               />
@@ -160,9 +130,18 @@ const Filters: React.FC<FiltersProps> = () => {
       <Row>
         <Col lg="3">
           <FormGroup>
-            <Select
+            <FormGroup>
+              <MultipleAutoComplete
+                label="Filtra per ente fruitore"
+                options={optionAutoCompleteConsumer}
+                values={filtersFormState.consumer as unknown as FilterAutoCompleteValue[]}
+                handleValuesChange={(values) => handleValueChange('consumer', values)}
+              />
+            </FormGroup>
+            {/* <Select
               id="selectExampleClassic"
               label="Filtra per ente fruitore"
+              value={filtersFormState.consumer ?? ''}
               onChange={(value: string) => handleValueChange('consumer', value)}
             >
               <option label="Opzione 1">Value 1</option>
@@ -170,16 +149,13 @@ const Filters: React.FC<FiltersProps> = () => {
               <option label="Opzione 3">Value 3</option>
               <option label="Opzione 4">Value 4</option>
               <option label="Opzione 5">Value 5</option>
-            </Select>
+            </Select> */}
           </FormGroup>
         </Col>
       </Row>
       {/* </Form> */}
 
-      <BadgeFiltersSelected
-        handleRemoveValue={handleRemoveValue}
-        filters={appliedFilters}
-      ></BadgeFiltersSelected>
+      <FiltersChips handleRemoveValue={handleRemoveValue} filters={appliedFilters}></FiltersChips>
     </>
   )
 }

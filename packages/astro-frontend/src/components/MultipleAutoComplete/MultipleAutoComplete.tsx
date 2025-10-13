@@ -61,7 +61,7 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
           )
         }}
         renderInput={(params) => (
-          <div ref={params.InputProps.ref}>
+          <div ref={params.InputProps.ref} className="select-wrapper">
             <input type="text" {...params.inputProps} placeholder={selectedElementLabel}></input>
           </div>
         )}
