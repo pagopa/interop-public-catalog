@@ -2,6 +2,7 @@ import Autocomplete from '@mui/material/Autocomplete'
 import { FormGroup, Icon, Input } from 'design-react-kit'
 import './MultiSelectChips.css'
 import React from 'react'
+import { useUiTranslations } from '../../i18n/ui.i18n.js'
 
 export type FilterAutoCompleteValue = {
   label: string
@@ -21,11 +22,19 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
   handleValuesChange,
   values,
 }) => {
+  const t = useUiTranslations(window.location.pathname)
+
   const handleChange = (_event: React.SyntheticEvent, values: FilterAutoCompleteValue[]) => {
     handleValuesChange(values)
   }
-  const selectedElementLabel =
-    values && values.length > 0 ? `${values.length} elementi selezionati` : ''
+
+  const getSelectedElementLabel = () => {
+    if (values.length === 0) return t('autocomplete.placeholder')
+
+    return values.length === 1
+      ? ` ${values.length} ${t('autocomplete.selectedElement')}`
+      : ` ${values.length} ${t('autocomplete.selectedElements')}`
+  }
 
   return (
     <FormGroup className="select-wrapper">
@@ -52,9 +61,7 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
             <FormGroup check>
               <li key={key} {...optionProps}>
                 <Input id={`checkbox-${key}`} type="checkbox" checked={selected} />
-                <label className="label" style={{ fontFamily: 'Titillium Web' }}>
-                  {option.label}
-                </label>
+                <label style={{ fontFamily: 'Titillium Web' }}>{option.label}</label>
               </li>
             </FormGroup>
           )
@@ -64,7 +71,11 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
           const icon = isOpen ? 'it-chevron-left' : 'it-chevron-right'
           return (
             <div ref={params.InputProps.ref} className="select-wrapper">
-              <input type="text" {...params.inputProps} placeholder={selectedElementLabel}></input>
+              <input
+                type="text"
+                {...params.inputProps}
+                placeholder={getSelectedElementLabel()}
+              ></input>
               <span
                 style={{
                   position: 'absolute',

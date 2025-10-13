@@ -37,6 +37,9 @@ export const ui = {
     'chip.provider': 'Ente erogatore',
     'chip.consumer': 'Ente fruitore',
     'chip.q': 'Parola chiave',
+    'autocomplete.placeholder': "Scegli un'opzione",
+    'autocomplete.selectedElements': ' elementi selezionati',
+    'autocomplete.selectedElement': ' elemento selezionato',
   },
   en: {
     'actions.search': 'Search',
@@ -72,6 +75,9 @@ export const ui = {
     'chip.provider': 'Provider',
     'chip.consumer': 'Consumer',
     'chip.q': 'Keyword',
+    'autocomplete.placeholder': 'Choose an option',
+    'autocomplete.selectedElements': ' items selected',
+    'autocomplete.selectedElement': ' item selected',
   },
 } as const satisfies TranslationsMap
 
