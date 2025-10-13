@@ -1,5 +1,5 @@
 import Autocomplete from '@mui/material/Autocomplete'
-import { FormGroup, Input } from 'design-react-kit'
+import { FormGroup, Icon, Input } from 'design-react-kit'
 import './MultiSelectChips.css'
 import React from 'react'
 
@@ -24,7 +24,6 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
   const handleChange = (_event: React.SyntheticEvent, values: FilterAutoCompleteValue[]) => {
     handleValuesChange(values)
   }
-
   const selectedElementLabel =
     values && values.length > 0 ? `${values.length} elementi selezionati` : ''
 
@@ -60,12 +59,28 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
             </FormGroup>
           )
         }}
-        renderInput={(params) => (
-          <div ref={params.InputProps.ref} className="select-wrapper">
-            <input type="text" {...params.inputProps} placeholder={selectedElementLabel}></input>
-          </div>
-        )}
+        renderInput={(params) => {
+          const isOpen = params.inputProps['aria-expanded']
+          const icon = isOpen ? 'it-chevron-left' : 'it-chevron-right'
+          return (
+            <div ref={params.InputProps.ref} className="select-wrapper">
+              <input type="text" {...params.inputProps} placeholder={selectedElementLabel}></input>
+              <span
+                style={{
+                  position: 'absolute',
+                  right: '14px',
+                  top: '10%',
+                  pointerEvents: 'none',
+                  transform: 'rotate(90deg)',
+                }}
+              >
+                <Icon className="icon icon-secondary" color="primary" icon={icon} />
+              </span>
+            </div>
+          )
+        }}
       />
+      <div></div>
     </FormGroup>
   )
 }

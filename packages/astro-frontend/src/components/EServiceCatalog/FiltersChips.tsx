@@ -25,12 +25,14 @@ const Chip: React.FC<{ key: string; label: string; handleRemoveValue?: () => voi
 }
 export const FiltersChips: React.FC<FiltersChipsProps> = ({ filters, handleRemoveValue }) => {
   const t = useUiTranslations(window.location.pathname)
+
   if (Object.keys(filters).length === 0) return null
   return (
     <>
       {filters &&
         Object.entries(filters).map(([key, value]) => {
-          if (key === 'provider' && Array.isArray(value)) {
+          console.log('key', key)
+          if ((key === 'provider' || key === 'consumer') && Array.isArray(value)) {
             return value?.map((v) => (
               <Chip
                 key={`${key}-${v.value}`}

@@ -16,7 +16,7 @@ function parseQueryStringToParams(queryString: string) {
   const result: { [key: string]: string | string[] } = {}
 
   for (const [key, value] of params.entries()) {
-    if (key === 'provider') {
+    if (key === 'provider' || key === 'consumer') {
       const parsedValue = JSON.parse(value)
 
       result[key] = parsedValue.map((item: string[][]) => {
@@ -36,7 +36,7 @@ function addParamsWithinUrl(filtersParams: FiltersParams) {
   Object.keys(filtersParams).forEach((k) => {
     const key = k as FilterParamsKeys
     if (filtersParams[key]) {
-      if (key === 'provider') {
+      if (key === 'provider' || key === 'consumer') {
         const filter = JSON.stringify(filtersParams[key].map((item) => [item.label, item.value]))
         urlSearchParams.append(key, filter)
       } else urlSearchParams.append(key, JSON.stringify(filtersParams[key]))

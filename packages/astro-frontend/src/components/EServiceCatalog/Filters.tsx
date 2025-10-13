@@ -1,4 +1,4 @@
-import { Button, Col, Form, FormGroup, Input, Row, Select } from 'design-react-kit'
+import { Button, Col, Form, FormGroup, Input, Row } from 'design-react-kit'
 import React, { useEffect } from 'react'
 import {
   FilterAutoCompleteValue,
@@ -35,6 +35,7 @@ export type FilterParamsKeys = keyof FiltersParams
 const Filters = () => {
   const [filtersFormState, setFiltersFormState] = React.useState<FiltersParams>({
     provider: [],
+    consumer: [],
   })
   const [appliedFilters, setAppliedFilters] = React.useState<FiltersParams>({})
 
@@ -60,11 +61,23 @@ const Filters = () => {
       [key]: value,
     }))
   }
+
+  const handleConsumerChange = (values: FilterAutoCompleteValue[]) => {
+    const previousFilterState = {
+      ...filtersFormState,
+      consumer: values,
+    }
+    setFiltersFormState(previousFilterState)
+    setAppliedFilters(previousFilterState)
+
+    addParamsWithinUrl(previousFilterState)
+  }
+
   const handleRemoveValue = (key: keyof FiltersParams, value: string | FilterAutoCompleteValue) => {
     const getUpdatedState = (): FiltersParams => {
-      if (key === 'provider') {
-        const newProviders = filtersFormState.provider!.filter((v) => v.value !== value)
-        return { ...filtersFormState, provider: newProviders }
+      if (key === 'provider' || key === 'consumer') {
+        const newValues = filtersFormState[key]!.filter((v) => v.value !== value)
+        return { ...filtersFormState, [key]: newValues }
       }
 
       const { [key]: _, ...newState } = filtersFormState
@@ -135,7 +148,7 @@ const Filters = () => {
                 label="Filtra per ente fruitore"
                 options={optionAutoCompleteConsumer}
                 values={filtersFormState.consumer as unknown as FilterAutoCompleteValue[]}
-                handleValuesChange={(values) => handleValueChange('consumer', values)}
+                handleValuesChange={handleConsumerChange}
               />
             </FormGroup>
             {/* <Select
