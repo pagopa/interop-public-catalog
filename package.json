@@ -7,6 +7,7 @@
   "scripts": {
     "start:astro-fe": "turbo start --filter pagopa-interop-public-astro-frontend",
     "start:strapi": "turbo start --filter pagopa-interop-public-strapi",
+    "start:catalog-updater": "turbo start --filter pagopa-interop-public-catalog-updater",
     "test": "turbo test",
     "test:integration": "turbo test:integration",
     "test:api": "turbo test:api",
