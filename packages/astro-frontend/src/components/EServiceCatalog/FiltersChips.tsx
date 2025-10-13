@@ -7,6 +7,7 @@ type FiltersChipsProps = {
   label?: string
   filters: FiltersParams
   handleRemoveValue: (key: keyof FiltersParams, value: string | FilterAutoCompleteValue) => void
+  handleRemoveAll: () => void
 }
 
 const Chip: React.FC<{ key: string; label: string; handleRemoveValue?: () => void }> = ({
@@ -23,7 +24,11 @@ const Chip: React.FC<{ key: string; label: string; handleRemoveValue?: () => voi
     </DRKChip>
   )
 }
-export const FiltersChips: React.FC<FiltersChipsProps> = ({ filters, handleRemoveValue }) => {
+export const FiltersChips: React.FC<FiltersChipsProps> = ({
+  filters,
+  handleRemoveValue,
+  handleRemoveAll,
+}) => {
   const t = useUiTranslations(window.location.pathname)
 
   if (Object.keys(filters).length === 0) return null
@@ -54,6 +59,9 @@ export const FiltersChips: React.FC<FiltersChipsProps> = ({ filters, handleRemov
             )
           }
         })}
+      <Button className="btn-link ms-3 p-0" onClick={handleRemoveAll}>
+        {t('chip.remove_all')}
+      </Button>
     </>
   )
 }

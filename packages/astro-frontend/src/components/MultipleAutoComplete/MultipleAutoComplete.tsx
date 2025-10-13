@@ -12,7 +12,6 @@ type MultipleAutoCompleteProps = {
   label: string
   options: FilterAutoCompleteValue[]
   values: FilterAutoCompleteValue[]
-
   handleValuesChange: (values: FilterAutoCompleteValue[]) => void
 }
 
@@ -29,7 +28,7 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
   }
 
   const getSelectedElementLabel = () => {
-    if (values.length === 0) return t('autocomplete.placeholder')
+    if (!values || values.length === 0) return t('autocomplete.placeholder')
 
     return values.length === 1
       ? ` ${values.length} ${t('autocomplete.selectedElement')}`

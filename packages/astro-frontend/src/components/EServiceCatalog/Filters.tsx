@@ -91,6 +91,12 @@ const Filters = () => {
     addParamsWithinUrl(updatedState)
   }
 
+  const handleRemoveAll = () => {
+    setFiltersFormState({})
+    setAppliedFilters({})
+    addParamsWithinUrl({})
+  }
+
   return (
     <>
       <h5 className="mb-5">Cerca nel catalogo</h5>
@@ -168,7 +174,11 @@ const Filters = () => {
       </Row>
       {/* </Form> */}
 
-      <FiltersChips handleRemoveValue={handleRemoveValue} filters={appliedFilters}></FiltersChips>
+      <FiltersChips
+        handleRemoveValue={handleRemoveValue}
+        filters={appliedFilters}
+        handleRemoveAll={handleRemoveAll}
+      ></FiltersChips>
     </>
   )
 }
