@@ -1,4 +1,6 @@
 import { EService } from '../components/EServiceCatalog/EServiceCatalog.js'
+import { FiltersParams } from '../components/EServiceCatalog/Filters.js'
+import { FilterAutoCompleteValue } from '../components/MultipleAutoComplete/MultipleAutoComplete.js'
 
 const chunkEServiceArray = (eservices: EService[], eservicesPerRow: number): EService[][] => {
   const chunkedArray: EService[][] = []
@@ -8,4 +10,27 @@ const chunkEServiceArray = (eservices: EService[], eservicesPerRow: number): ESe
   return chunkedArray
 }
 
-export { chunkEServiceArray }
+function parseQueryStringToObject(queryString: string): {
+  [key: keyof FiltersParams]: string | string[] | FilterAutoCompleteValue[]
+} {
+  const cleanQueryString = queryString.startsWith('?') ? queryString.slice(1) : queryString
+
+  const params = new URLSearchParams(cleanQueryString)
+  const result: { [key: string]: string | string[] } = {}
+
+  for (const [key, value] of params.entries()) {
+    if (key === 'provider') {
+      const parsedValue = JSON.parse(value)
+
+      result[key] = parsedValue.map((item: string[][]) => {
+        return { label: item[0], value: item[1] }
+      })
+    } else {
+      result[key] = value
+    }
+  }
+
+  return result
+}
+
+export { chunkEServiceArray, parseQueryStringToObject }

@@ -34,6 +34,9 @@ export const ui = {
 
     'eservice_card.access_reserved': 'Accesso riservato',
     'eservice_card.read_more': 'leggi tutto',
+    'chip.provider': 'Ente erogatore',
+    'chip.consumer': 'Ente fruitore',
+    'chip.q': 'Parola chiave',
   },
   en: {
     'actions.search': 'Search',
@@ -66,6 +69,9 @@ export const ui = {
 
     'eservice_card.access_reserved': 'Reserved access',
     'eservice_card.read_more': 'Read more',
+    'chip.provider': 'Provider',
+    'chip.consumer': 'Consumer',
+    'chip.q': 'Keyword',
   },
 } as const satisfies TranslationsMap
 
