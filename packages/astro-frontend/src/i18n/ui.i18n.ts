@@ -4,6 +4,7 @@ import { buildUseTranslations } from './utils.i18n.js'
 export const ui = {
   it: {
     'actions.search': 'Cerca',
+    'actions.copyUrl': 'Copia URL',
     'suggestion_section.title': 'Come fare per',
     'suggestion_section.suggestion_1.title': 'Ottenere l’accesso ai dati',
     'suggestion_section.suggestion_1.description':
@@ -44,6 +45,7 @@ export const ui = {
   },
   en: {
     'actions.search': 'Search',
+    'actions.copyUrl': 'Copy URL',
     'actions.learnMore': 'Learn more',
     'suggestion_section.title': 'How to',
     'suggestion_section.suggestion_1.title': 'Get access to data',
