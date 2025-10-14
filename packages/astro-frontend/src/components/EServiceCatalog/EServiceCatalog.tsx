@@ -8,11 +8,11 @@ import {
   DropdownMenu,
   LinkList,
   LinkListItem,
-  Card,
 } from 'design-react-kit'
 import React from 'react'
+import { EServiceCard } from '../shared/EServiceCard.jsx'
 import { chunkEServiceArray } from '../../utils/utils.js'
-import EServiceCard from '../shared/EServiceCard.astro'
+import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import Pagination from '../shared/Pagination/Pagination.js'
 
 export type EService = {
@@ -66,7 +66,12 @@ const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
         <Row key={rowIndex}>
           {rowItems.map((eservice, eserviceIndex) => (
             <Col xs="4" key={eserviceIndex}>
-              <Card></Card>
+              <EServiceCard
+                currentLocale={getLangFromUrl(window.location.pathname)}
+                name={eservice.name}
+                producerName="Test"
+                description={eservice.description}
+              />
             </Col>
           ))}
         </Row>

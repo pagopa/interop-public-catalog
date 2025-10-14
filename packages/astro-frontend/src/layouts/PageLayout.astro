@@ -1,0 +1,40 @@
+---
+import { Section } from '../components/shared/Section.jsx'
+
+interface Props {
+  title: string
+  breadcrumbItems: Array<{ label: string; href: string; active?: boolean }>
+}
+
+const { title, breadcrumbItems } = Astro.props
+---
+
+<Section as="nav" className="breadcrumb-container pt-4 pb-0">
+  <ol class="breadcrumb">
+    {
+      breadcrumbItems.map((item, idx) => (
+        <li
+          class={`breadcrumb-item ${item.active ? 'active' : ''}`}
+          aria-current={item.active ? 'page' : undefined}
+        >
+          {item.href ? <a href={item.href}>{item.label}</a> : item.label}
+          {idx < breadcrumbItems.length - 1 && <span class="separator">/</span>}
+        </li>
+      ))
+    }
+  </ol>
+</Section>
+
+<Section className="pt-0 pb-5">
+  <div class="it-hero-text-wrapper">
+    <span class="it-category">
+      <slot name="top-hero" />
+    </span>
+    <h1 class="mt-3 h2">{title}</h1>
+    <div style="max-width:860px;" class="mt-4">
+      <slot name="bottom-hero" />
+    </div>
+  </div>
+</Section>
+
+<slot />

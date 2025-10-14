@@ -1,0 +1,152 @@
+---
+import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { EServiceCard } from '../shared/EServiceCard'
+import PageIndexNav from '../shared/PageIndexNav.astro'
+
+// const renderer: RendererObject<string, string> = {
+//   heading({ text }) {
+//     const headingId = toKebabCase(text) + '-section-title'
+//     headings.push({ id: headingId, label: text })
+//     return `<h2 id="${headingId}" class="h5">${text}</h2>`
+//   },
+//   image({ href, text }) {
+//     return `
+//       <figure style="background-color: #f2f2f2;" class="d-flex align-items-center flex-column py-3">
+//         <picture>
+//           <img src="${href}" alt="${text}" class="my-4 mx-auto max-h-60" />
+//         </picture>
+//         <figcaption class="text-center">${text}</figcaption>
+//       </figure>
+//     `
+//   },
+// }
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+
+const HEADING_CLASS = 'h4 mb-3'
+const PARAGRAPH_CLASS = 'mb-4 lead'
+const UNORDERED_LIST_CLASS = 'mb-4 lead'
+---
+
+<div class="row">
+  <div class="d-none d-md-block col-3">
+    <PageIndexNav
+      title="Indice della pagina"
+      headings={[
+        { label: 'Descrizione', id: 'descrizione' },
+        { label: 'Cosa cambia con la PDND', id: 'cosa-cambia' },
+        { label: 'Vantaggi per la Pubblica Amministrazione', id: 'vantaggi-pa' },
+        { label: 'Vantaggi per le persone', id: 'vantaggi-persone' },
+        { label: 'Un esempio concreto', id: 'esempio-concreto' },
+        { label: 'API utilizzate', id: 'api-utilizzate' },
+      ]}
+      style="top: 1rem;"
+      class="position-sticky"
+    />
+  </div>
+  <div class="col-12 col-md-9">
+    <article>
+      <h2 id="descrizione" class={HEADING_CLASS}>Descrizione</h2>
+      <p class={PARAGRAPH_CLASS}>
+        L’erogazione di qualunque tipo di bonus da parte di enti pubblici prevede la verifica
+        puntuale dei requisiti previsti dalla norma che regola l’agevolazione in questione. ISEE,
+        residenza, stato di famiglia sono tra le certificazioni più richieste, che devono essere
+        presentate dal cittadino, spesso anche in formato cartaceo, e verificate tramite istruttorie
+        lunghe e onerose.
+      </p>
+
+      <figure style="background-color: #f2f2f2;" class="d-flex align-items-center flex-column py-3">
+        <picture>
+          <img src="https://placehold.co/600x400" alt="Caption" class="my-3 mx-auto max-h-60" />
+        </picture>
+        <figcaption class="text-center">Caption</figcaption>
+      </figure>
+
+      <h2 id="cosa-cambia" class={HEADING_CLASS}>Cosa cambia con la PDND</h2>
+      <p class={PARAGRAPH_CLASS}>
+        L’ente può accedere direttamente alle banche dati ufficiali esposte sulla PDND per la
+        verifica di requisiti, semplificando notevolmente la procedura, riducendo i tempi per
+        l’erogazione e i possibili errori.
+      </p>
+      <p class={PARAGRAPH_CLASS}>
+        Le verifiche automatiche possono essere implementate già in fase di presentazione della
+        domanda, consentendo al cittadino di recuperare tramite interoperabilità il dato richiesto
+        durante la richiesta del servizio, attuando così il principio del once-only*, per cui non
+        deve fornire alla PA i dati già in suo possesso.
+      </p>
+
+      <h2 id="vantaggi-pa" class={HEADING_CLASS}>Vantaggi per la Pubblica Amministrazione</h2>
+      <p class={PARAGRAPH_CLASS}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lectus dui, laoreet nec libero
+        non, vestibulum eleifend leo. Praesent vitae ex sit amet justo lacinia dignissim ac at diam:
+      </p>
+      <ul class={UNORDERED_LIST_CLASS}>
+        <li>
+          Verifica automatica dei dati (es. anagrafici, reddituali) costantemente aggiornati e
+          certificati da fonti ufficiali
+        </li>
+        <li>Eliminazione delle istruttorie per la verifica successiva dei dati forniti</li>
+        <li>Digitalizzazione dei processi con conseguente tracciabilità</li>
+      </ul>
+
+      <h2 id="vantaggi-persone" class={HEADING_CLASS}>Vantaggi per le persone</h2>
+      <p class={PARAGRAPH_CLASS}>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lectus dui, laoreet nec libero
+        non, vestibulum eleifend leo. Praesent vitae ex sit amet justo lacinia dignissim ac at diam:
+      </p>
+      <ul class={UNORDERED_LIST_CLASS}>
+        <li>Non è più necessario produrre autocertificazioni per i dati forniti</li>
+        <li>I tempi di formulazione della richiesta e di erogazione del bonus sono più rapidi</li>
+        <li>
+          Minor rischio di errori nella verifica dei requisiti e di esclusione quando titolati a
+          ricevere il bonus
+        </li>
+      </ul>
+
+      <h2 id="esempio-concreto" class={HEADING_CLASS}>Un esempio concreto</h2>
+      <p class={PARAGRAPH_CLASS}>
+        Il MIMIT sta erogando il “bonus elettrodomestici” verificando in automatico tramite la PDND
+        l’ISEE dei richiedenti. La domanda può essere presentata solo se il cittadino risulta
+        eleggibile a seguito dei controlli effettuati ex ante tramite l’interrogazione degli
+        e-service dell’INPS, che restituiscono il dato certificato e aggiornato in tempo reale
+        dell’utente. Questo approccio introduce molti elementi di semplificazione per tutti gli
+        attori coinvolti: riduce la presentazione di domande non pertinenti, consente l’elaborazione
+        più veloce del bonus, non richiede al cittadino di anticipare nessuna somma, ma abilita lo
+        sconto diretto in fase di acquisto.
+      </p>
+
+      <h2 id="api-utilizzate" class="h4 mb-4">API utilizzate</h2>
+      <div class="row g-4">
+        <div class="col-12 col-md-6">
+          <EServiceCard
+            currentLocale={currentLocale}
+            name="Consultazione Attestazione ISEE"
+            description="Servizio di consultazione Attestazione ISEE"
+            producerName="Istituto Nazionale Previdenza Sociale - INPS"
+            isOpenData
+          />
+        </div>
+        <div class="col-12 col-md-6">
+          <EServiceCard
+            currentLocale={currentLocale}
+            name="C020-servizioAccertamentoResidenza"
+            description="C020-servizio di Accertamento Residenza"
+            producerName="Ministero dell’Interno"
+          />
+        </div>
+        <div class="col-12 col-md-6">
+          <EServiceCard
+            currentLocale={currentLocale}
+            name="C021-servizioAccertamentoStatoFamiglia"
+            description="C021-servizio Accertamento Stato Famiglia"
+            producerName="Ministero dell’Interno"
+          />
+        </div>
+      </div>
+
+      <div class="mt-4 text-secondary pt-4">
+        <em>Ultimo aggiornamento: {/* {lastUpdate} */} TODO agosto 2025</em>
+      </div>
+    </article>
+  </div>
+</div>

@@ -19,20 +19,6 @@ export function getLangFromUrl(url: string): SupportedLanguage {
 }
 
 /**
- * Returns a localized URL path for the given language.
- * If the URL already contains a supported language, it replaces it; otherwise, it inserts the language segment.
- */
-export function getLocalizedPath(url: string, lang: SupportedLanguage): string {
-  const segments = url.split('/')
-  if (isSupportedLanguage(segments[1])) {
-    segments[1] = lang
-  } else {
-    segments.splice(1, 0, lang)
-  }
-  return segments.join('/')
-}
-
-/**
  * Creates a translation function for a given translation map.
  * - Returns the translation for the provided key and language.
  * - If the translation is missing, falls back to the default language.
@@ -42,9 +28,8 @@ export function buildUseTranslations<
   T extends Record<SupportedLanguage, Record<K, string>>,
   K extends keyof T[SupportedLanguage],
 >(translationMap: T) {
-  return (url: string) => {
+  return (lang: SupportedLanguage) => {
     const isDev = process.env.NODE_ENV === 'development'
-    const lang = getLangFromUrl(url)
 
     return (key: K): string => {
       const translation = translationMap[lang][key]
