@@ -6,7 +6,7 @@ import EServiceCatalog from '../../../components/EServiceCatalog/EServiceCatalog
 import { Breadcrumb, BreadcrumbItem, Button, Container, Icon, Section } from 'design-react-kit'
 import Filters from '../../../components/EServiceCatalog/Filters'
 import SuggestionSection from '../../../components/shared/SuggestionSection.astro'
-import Pagination from '../../../components/shared/Pagination/Pagination'
+
 ---
 
 <Layout>
@@ -35,7 +35,7 @@ import Pagination from '../../../components/shared/Pagination/Pagination'
     </Container>
 
     <EServiceCatalog
-      client:load
+      client:only="react"
       eservices={[
         {
           name: 'eservice 1',
@@ -129,7 +129,6 @@ import Pagination from '../../../components/shared/Pagination/Pagination'
         // },
       ]}
     />
-    <Pagination client:load currentPage={3} totalPages={7} />
   </Section>
 
   <div class="p-5">

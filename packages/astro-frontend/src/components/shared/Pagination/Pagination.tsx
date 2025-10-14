@@ -1,14 +1,18 @@
 import React from 'react'
 import { Pager, PagerItem, PagerLink } from 'design-react-kit'
 import { Page, usePagination } from './hooks/usePagination.js'
+import { getLangFromUrl } from '../../../i18n/utils.i18n.js'
+import { useUiTranslations } from '../../../i18n/ui.i18n.js'
 
 type PaginationProps = {
-  totalPages: number
-  currentPage: number
+  totalCount: number
+  limit: number
 }
 
-const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
-  const { previousPages, nextPages } = usePagination(currentPage, totalPages)
+const Pagination: React.FC<PaginationProps> = ({ totalCount, limit }) => {
+  const { previousPages, nextPages, paginationProps } = usePagination(limit, totalCount)
+  const t = useUiTranslations(getLangFromUrl(window.location.pathname))
+  const { totalPages } = paginationProps
 
   const mapPagesToPagerElements = (pages: Page[]): React.ReactNode =>
     pages.map((page, index) => (
@@ -16,7 +20,9 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
         {page.isSpan ? (
           <PagerLink tag="span">{page.value}</PagerLink>
         ) : (
-          <PagerLink href={page.href}>{page.value}</PagerLink>
+          <PagerLink onClick={() => paginationProps.onPageChange(parseInt(page.value, 10))}>
+            {page.value}
+          </PagerLink>
         )}
       </PagerItem>
     ))
@@ -27,11 +33,15 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
   // }
 
   return (
-    <Pager aria-label="Esempio di paginazione" className="mb-3 justify-content-center">
+    <Pager aria-label="pager" className="mb-3 justify-content-center">
       {previousPages.length > 0 && (
         <PagerItem>
-          <PagerLink className="text" href="#" previous>
-            Precedente
+          <PagerLink
+            onClick={() => paginationProps.onPageChange(paginationProps.actualPage - 1)}
+            className="text"
+            previous
+          >
+            {t('pagination.previous')}
           </PagerLink>
         </PagerItem>
       )}
@@ -40,9 +50,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
 
       {totalPages !== 1 && (
         <PagerItem>
-          <PagerLink aria-current="page" href="#">
-            {currentPage}
-          </PagerLink>
+          <PagerLink aria-current="page">{paginationProps.actualPage}</PagerLink>
         </PagerItem>
       )}
 
@@ -50,8 +58,12 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages, currentPage }) => {
 
       {nextPages.length > 0 && (
         <PagerItem>
-          <PagerLink className="text" href="#" next>
-            Successiva
+          <PagerLink
+            className="text"
+            onClick={() => paginationProps.onPageChange(paginationProps.actualPage + 1)}
+            next
+          >
+            {t('pagination.next')}
           </PagerLink>
         </PagerItem>
       )}

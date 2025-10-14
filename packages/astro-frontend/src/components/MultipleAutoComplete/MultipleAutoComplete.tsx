@@ -3,6 +3,7 @@ import { FormGroup, Icon, Input } from 'design-react-kit'
 import './MultiSelectChips.css'
 import React from 'react'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
+import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 
 export type FilterAutoCompleteValue = {
   label: string
@@ -21,7 +22,8 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
   handleValuesChange,
   values,
 }) => {
-  const t = useUiTranslations(window.location.pathname)
+  const currentLanguage = getLangFromUrl(window.location.pathname)
+  const t = useUiTranslations(currentLanguage)
 
   const handleChange = (_event: React.SyntheticEvent, values: FilterAutoCompleteValue[]) => {
     handleValuesChange(values)

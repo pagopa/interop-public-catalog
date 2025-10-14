@@ -48,6 +48,8 @@ export const ui = {
     'autocomplete.placeholder': "Scegli un'opzione",
     'autocomplete.selectedElements': ' elementi selezionati',
     'autocomplete.selectedElement': ' elemento selezionato',
+    'pagination.previous': 'Precedente',
+    'pagination.next': 'Successiva',
   },
   en: {
     'actions.search': 'Search',
@@ -94,6 +96,8 @@ export const ui = {
     'autocomplete.placeholder': 'Choose an option',
     'autocomplete.selectedElements': ' items selected',
     'autocomplete.selectedElement': ' item selected',
+    'pagination.previous': 'Previous',
+    'pagination.next': 'Next',
   },
 } as const satisfies TranslationsMap
 

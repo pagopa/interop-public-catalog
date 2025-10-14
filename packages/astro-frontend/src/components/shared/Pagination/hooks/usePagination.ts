@@ -1,27 +1,66 @@
+import React from 'react'
+
 export type Page = {
   value: string
-  href: string
   isSpan: boolean
 }
 
 export function usePagination(
-  currentPageValue: number,
-  totalPages: number
-): { previousPages: Page[]; nextPages: Page[]; currentPage: Page } {
+  limit: number,
+  totalCount: number
+): {
+  previousPages: Page[]
+  nextPages: Page[]
+  currentPage: Page
+  paginationProps: {
+    actualPage: number
+    onPageChange: (newPage: number) => void
+    totalPages: number
+  }
+} {
+  let params = new URLSearchParams(document.location.search)
+
+  const [offset, setOffset] = React.useState(parseInt(params.get('offset') ?? '0', 10))
+  const totalPages = Math.ceil((totalCount ?? 0) / limit)
+  const actualPage = Math.ceil(offset / limit) + 1
+
   const previousPages: Page[] = []
   const nextPages: Page[] = []
+
   const currentPage: Page = {
-    value: currentPageValue.toString(),
-    href: '#',
+    value: actualPage.toString(),
     isSpan: false,
   }
 
-  if (currentPageValue < 1 || currentPageValue > totalPages) {
+  const handlePageChange = React.useCallback(
+    (newPage: number) => {
+      if (newPage < 1) throw new Error('new page must be greater than 0')
+      const newOffset = (newPage - 1) * limit
+
+      if (newOffset > 0) {
+        params.set('offset', newOffset.toString())
+      } else {
+        params.delete('offset')
+      }
+      window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`)
+      setOffset(newOffset)
+    },
+    [limit]
+  )
+
+  const paginationProps = {
+    actualPage,
+    totalPages,
+    onPageChange: handlePageChange,
+  }
+
+  if (actualPage < 1 || actualPage > totalPages) {
     throw new Error('Current page value must be between 1 and total pages')
   }
 
   if (totalPages === 1) {
     return {
+      paginationProps,
       previousPages,
       nextPages,
       currentPage,
@@ -31,26 +70,21 @@ export function usePagination(
   for (let i = 1; i <= totalPages; i++) {
     const page: Page = {
       value: i.toString(),
-      href: '#',
       isSpan: false,
     }
 
-    if (i !== currentPageValue) {
+    if (i !== actualPage) {
       if (i === 1) {
         previousPages.push(page)
       }
 
-      if (
-        i >= 2 &&
-        i < currentPageValue - 2 &&
-        !previousPages.some((page) => page.value === '...')
-      ) {
+      if (i >= 2 && i < actualPage - 2 && !previousPages.some((page) => page.value === '...')) {
         page.value = '...'
         page.isSpan = true
         previousPages.push(page)
       }
 
-      if (i !== 1 && i < currentPageValue && i >= currentPageValue - 2) {
+      if (i !== 1 && i < actualPage && i >= actualPage - 2) {
         previousPages.push(page)
       }
 
@@ -58,23 +92,20 @@ export function usePagination(
         nextPages.push(page)
       }
 
-      if (
-        i < totalPages &&
-        i > currentPageValue + 2 &&
-        !nextPages.some((page) => page.value === '...')
-      ) {
+      if (i < totalPages && i > actualPage + 2 && !nextPages.some((page) => page.value === '...')) {
         page.value = '...'
         page.isSpan = true
         nextPages.push(page)
       }
 
-      if (i !== totalPages && i > currentPageValue && i <= currentPageValue + 2) {
+      if (i !== totalPages && i > actualPage && i <= actualPage + 2) {
         nextPages.push(page)
       }
     }
   }
 
   return {
+    paginationProps,
     previousPages,
     nextPages,
     currentPage,

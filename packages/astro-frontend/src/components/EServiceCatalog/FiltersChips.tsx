@@ -2,6 +2,7 @@ import { Button, Chip as DRKChip, ChipLabel, Icon } from 'design-react-kit'
 import { FiltersParams } from './Filters.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import { FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
+import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 
 type FiltersChipsProps = {
   label?: string
@@ -29,7 +30,8 @@ export const FiltersChips: React.FC<FiltersChipsProps> = ({
   handleRemoveValue,
   handleRemoveAll,
 }) => {
-  const t = useUiTranslations(window.location.pathname)
+  const currentLanguage = getLangFromUrl(window.location.pathname)
+  const t = useUiTranslations(currentLanguage)
 
   if (Object.keys(filters).length === 0) return null
   return (
