@@ -1,66 +1,72 @@
 ---
-export const prerender = false
-
 import Layout from '../../../layouts/Layout.astro'
-import {
-  Badge,
-  Breadcrumb,
-  BreadcrumbItem,
-  Button,
-  Col,
-  Container,
-  Icon,
-  Row,
-  Section,
-} from 'design-react-kit'
 import UseCaseDetails from '../../../components/UseCaseDetails/UseCaseDetails.astro'
-import UseCaseCard from '../../../components/shared/UseCaseCard.astro'
+import { UseCaseCard } from '../../../components/shared/UseCaseCard'
+import { Section } from '../../../components/shared/Section'
+import { Chip } from '../../../components/shared/Chip'
+import PageLayout from '../../../layouts/PageLayout.astro'
+import { BootstrapItaliaIcon } from '../../../components/shared/BootstrapItaliaIcon'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
 ---
 
 <Layout>
-  <Section>
-    <Breadcrumb>
-      <BreadcrumbItem>
-        <a href="#"> Home </a>
-        <span class="separator"> / </span>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <a href="#"> Esempi pratici </a>
-        <span class="separator"> / </span>
-      </BreadcrumbItem>
-      <BreadcrumbItem active> Dettaglio esempi pratici </BreadcrumbItem>
-    </Breadcrumb>
-
-    <div class="d-flex flex-row align-items-center justify-content-between">
-      <Badge color="secondary" pill> Bonus economici </Badge>
-      <Button href="#" role="link" tag="a" size="xs" className="text-primary" icon>
-        Accedi a PDND
-        <Icon icon="it-github" size="xs" className="ms-2" color="primary" />
-      </Button>
+  <PageLayout
+    title="Erogare bonus ai cittadini in modo equo ed efficiente"
+    breadcrumbItems={[
+      {
+        label: 'Home',
+        href: '#',
+      },
+      {
+        label: 'Esempi pratici',
+        href: '#',
+      },
+      {
+        label: 'Dettaglio esempi pratici',
+        href: '#',
+        active: true,
+      },
+    ]}
+  >
+    <div slot="top-hero">
+      <div class="d-flex align-items-center justify-content-between">
+        <Chip label="Bonus economici" />
+        <button class="btn btn-link fw-semibold text-decoration-none">
+          <span>Copia URL</span>
+          <BootstrapItaliaIcon name="it-copy" className="ms-2" color="primary" />
+        </button>
+      </div>
     </div>
-    <h1>Nome del caso d'uso</h1>
-    <span>
-      <strong>Per:</strong>{/* {replicableBy.join(', ')} */} PAC, Comuni, Regioni
-    </span>
-  </Section>
 
-  <section style="background-color: #fafafa;" class="section">
-    <div class="section-content">
+    <div slot="bottom-hero">
+      <p><strong>Per:</strong> PAC, Comuni, Regioni</p>
+    </div>
+
+    <Section style={{ backgroundColor: '#fafafa' }}>
       <UseCaseDetails />
-    </div>
-  </section>
+    </Section>
 
-  <Section class="py-5">
-    <Container>
-      <h3 class="mb-4 text-center">Altre buone pratiche</h3>
-      <Row>
-        <Col>
-          <UseCaseCard title="cammello" intendedTargets={['a', 'b', 'c']} category="sette" />
-        </Col>
-        <Col>
-          <UseCaseCard title="cammello" intendedTargets={['a', 'b', 'c']} category="sette" />
-        </Col>
-      </Row>
-    </Container>
-  </Section>
+    <Section
+      style={{ backgroundColor: '#f5f5f5' }}
+      title="Altri esempi pratici"
+      titleClass="text-center"
+    >
+      <div class="d-flex justify-content-center gap-4 mt-4">
+        <UseCaseCard
+          currentLocale={currentLocale}
+          title="cammello"
+          intendedTargets={['a', 'b', 'c']}
+          category="sette"
+        />
+        <UseCaseCard
+          currentLocale={currentLocale}
+          title="cammello"
+          intendedTargets={['a', 'b', 'c']}
+          category="sette"
+        />
+      </div>
+    </Section>
+  </PageLayout>
 </Layout>

@@ -1,3 +1,7 @@
+body {
+  color: #1a1a1a;
+}
+
 .mx-6 {
   margin-left: calc(1rem * 4.5);
   margin-right: calc(1rem * 4.5);
@@ -50,4 +54,30 @@ a:hover {
 .active-link-list-item {
   border-right: 2px solid #003366;
   color: #003366;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.lead {
+  font-size: 1.25rem;
+}
+
+/** Removes the hover effect for  */
+a.list-item:hover {
+  background-color: inherit !important;
+  box-shadow: inherit !important;
 }

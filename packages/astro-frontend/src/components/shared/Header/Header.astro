@@ -1,6 +1,6 @@
 ---
 import { useUiTranslations } from '../../../i18n/ui.i18n'
-import BootstrapItaliaIcon from '../BootstrapItaliaIcon.astro'
+import { BootstrapItaliaIcon } from '../BootstrapItaliaIcon'
 import LanguageSwitchDropdown from './LanguageSwitchDropdown.astro'
 import {
   DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL,
@@ -8,8 +8,10 @@ import {
   CATALOG_API_SECTION_NAV_ITEMS,
   RESOURCES_SECTION_NAV_ITEMS,
 } from '../../../config/constants.js'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
 
-const tUi = useUiTranslations(Astro.url.pathname)
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const tUi = useUiTranslations(currentLocale)
 
 // TODO: Links
 const topNavNavItems = [
@@ -30,8 +32,8 @@ const topNavNavItems = [
                 target="_blank"
                 class="text-decoration-underline"
                 href={DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL}
-                ><span class="d-none d-lg-inline">Dipartimento per la trasformazione digitale</span
-                ><span class="d-lg-none d-inline">DTD</span></a
+                ><span class="d-none d-md-inline">Dipartimento per la trasformazione digitale</span
+                ><span class="d-md-none d-inline">DTD</span></a
               > e <a target="_blank" class="text-decoration-underline" href={PAGOPA_URL}
                 >PagoPA S.p.A.</a
               >
@@ -40,6 +42,9 @@ const topNavNavItems = [
               <nav>
                 <div class="link-list-wrapper collapse">
                   <ul class="link-list">
+                    <li>
+                      <a class="list-item fw-semibold text-decoration-none">Altri cataloghi:</a>
+                    </li>
                     {
                       topNavNavItems.map((item) => (
                         <li>
@@ -86,7 +91,7 @@ const topNavNavItems = [
       <div class="container-xxl">
         <div class="row">
           <div class="col-12">
-            <nav class="navbar navbar-expand-lg">
+            <nav class="navbar navbar-expand-md">
               <button
                 class="custom-navbar-toggler"
                 type="button"
@@ -105,7 +110,7 @@ const topNavNavItems = [
                   </button>
                 </div>
                 {/** Main NavBar - Desktop */}
-                <div class="menu-wrapper d-none d-lg-flex justify-content-between">
+                <div class="menu-wrapper d-none d-md-flex justify-content-between">
                   <ul class="navbar-nav">
                     {
                       CATALOG_API_SECTION_NAV_ITEMS.map((navItem) => {
@@ -140,7 +145,7 @@ const topNavNavItems = [
                   </ul>
                 </div>
                 {/** Main NavBar - Mobile */}
-                <div class="menu-wrapper d-lg-none">
+                <div class="menu-wrapper d-md-none">
                   <ul class="navbar-nav">
                     {
                       [...CATALOG_API_SECTION_NAV_ITEMS, ...RESOURCES_SECTION_NAV_ITEMS].map(

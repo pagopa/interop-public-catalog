@@ -1,74 +1,70 @@
 ---
+import { Section } from '../../../components/shared/Section'
+import { UseCaseCard } from '../../../components/shared/UseCaseCard'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
 import Layout from '../../../layouts/Layout.astro'
-import Pagination from '../../../components/Pagination/Pagination.jsx'
-import { Breadcrumb, BreadcrumbItem, Col, Row, Section } from 'design-react-kit'
-import UseCaseFilters from '../../../components/UseCasesList/UseCasesFilters'
-import UseCaseCard from '../../../components/shared/UseCaseCard.astro'
+import PageLayout from '../../../layouts/PageLayout.astro'
+
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
 ---
 
 <Layout>
+  <PageLayout
+    title="Esempi pratici di utilizzo per il tuo ente"
+    breadcrumbItems={[
+      {
+        label: 'Home',
+        href: '#',
+      },
+      {
+        label: 'Esempi pratici',
+        href: '#',
+        active: true,
+      },
+    ]}
+  >
+    <p class="lead" slot="bottom-hero">
+      Scopri come integrare le API nei processi del tuo ente: lasciati ispirare da una raccolta di
+      esempi significativi e semplici da replicare.
+    </p>
+  </PageLayout>
+
   <Section>
-    <Breadcrumb>
-      <BreadcrumbItem>
-        <a href="#"> Home </a>
-        <span class="separator"> / </span>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <a href="#"> Come usare le API </a>
-      </BreadcrumbItem>
-    </Breadcrumb>
-
-    <h1>Come usare le API</h1>
-    <span>
-      Scopri come le API possono essere integrate nei processi del tuo ente per migliorare grazie
-      all'interoperabilità i servizi che offre. Lasciati ispirare da una raccolta di esempi
-      significativi e semplici da replicare.
-    </span>
-  </Section>
-
-  <Section color="muted">
-    <Row>
-      <Col xs="4">
-        <UseCaseFilters
-          client:load
-          categories={[
-            { name: 'sette', icon: '/Group.svg' },
-            { name: 'otto', icon: '/Group.svg' },
-          ]}
+    <div class="row">
+      <div class="col-4"></div>
+      <div class="col-8 d-flex flex-column gap-4">
+        <UseCaseCard
+          currentLocale={currentLocale}
+          title="cammello"
+          intendedTargets={['a', 'b', 'c']}
+          category="sette"
         />
-      </Col>
-      <Col xs="8" className="d-flex flex-column align-items-center">
-        <Col xs="12">
-          <Row>
-            <UseCaseCard
-              title="cammello"
-              description="ciao"
-              isNew
-              replicableBy={['a', 'b', 'c']}
-              categoryTag="sette"
-            />
-          </Row>
-          <Row>
-            <UseCaseCard
-              title="cammello"
-              description="ciao"
-              isNew
-              replicableBy={['a', 'b', 'c']}
-              categoryTag="sette"
-            />
-          </Row>
-          <Row>
-            <UseCaseCard
-              title="cammello"
-              description="ciao"
-              isNew
-              replicableBy={['a', 'b', 'c']}
-              categoryTag="sette"
-            />
-          </Row>
-        </Col>
-        <Pagination client:load currentPage={3} totalPages={7} />
-      </Col>
-    </Row>
+        <UseCaseCard
+          currentLocale={currentLocale}
+          title="cammello"
+          intendedTargets={['a', 'b', 'c']}
+          category="sette"
+        />
+        <UseCaseCard
+          currentLocale={currentLocale}
+          title="cammello"
+          intendedTargets={['a', 'b', 'c']}
+          category="sette"
+        />
+        <UseCaseCard
+          currentLocale={currentLocale}
+          title="cammello"
+          intendedTargets={['a', 'b', 'c']}
+          category="sette"
+        />
+        <UseCaseCard
+          currentLocale={currentLocale}
+          title="cammello"
+          intendedTargets={['a', 'b', 'c']}
+          category="sette"
+        />
+      </div>
+    </div>
   </Section>
 </Layout>

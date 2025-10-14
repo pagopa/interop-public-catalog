@@ -6,12 +6,14 @@ import Layout from '../../../layouts/Layout.astro'
 
 import { Breadcrumb, BreadcrumbItem } from 'design-react-kit'
 
-import BootstrapItaliaIcon from '../../../components/shared/BootstrapItaliaIcon.astro'
+import { BootstrapItaliaIcon } from '../../../components/shared/BootstrapItaliaIcon'
 import AccessPointsSection from '../../../components/Ecosystem/AccessPointsSection.astro'
 import { useEcosystemTranslations } from '../../../i18n/ecosystem.i18n'
 import SuggestionsSection from '../../../components/shared/SuggestionSection.astro'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
 
-const t = useEcosystemTranslations(Astro.url.pathname)
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const t = useEcosystemTranslations(currentLocale)
 ---
 
 <Layout>

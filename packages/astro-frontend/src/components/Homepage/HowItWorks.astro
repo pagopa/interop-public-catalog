@@ -1,9 +1,11 @@
 ---
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
-import BootstrapItaliaIcon from '../shared/BootstrapItaliaIcon.astro'
-import Section from '../shared/Section.astro'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
+import { Section } from '../shared/Section'
 
-const t = useHomepageTranslations(Astro.url.pathname)
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const t = useHomepageTranslations(currentLocale)
 
 const howItWorksSteps = [
   {
@@ -33,8 +35,8 @@ const howItWorksSteps = [
 ] as const
 ---
 
-<Section class="section-muted py-5" title={t('how_it_works.title')}>
-  <ul class="list-group list-group-horizontal-lg">
+<Section className="section-muted py-5" title={t('how_it_works.title')}>
+  <ul class="list-group list-group-horizontal-md">
     {
       howItWorksSteps.map((step, index) => (
         <>
@@ -45,12 +47,12 @@ const howItWorksSteps = [
                 <img src={step.imageSrc} alt="" role="presentation" width="96" height="96" />
               </div>
               {/* Card Body */}
-              <h3 class="it-card-title h5">{step.title}</h3>
-              <div class="it-card-body mb-2">
+              <h3 class="it-card-title h5 ps-0">{step.title}</h3>
+              <div class="it-card-body mb-2 ps-0">
                 <p class="it-card-text">{step.description}</p>
               </div>
               {/* Card Footer */}
-              <footer class="it-card-related it-card-footer mt-auto">
+              <footer class="it-card-related it-card-footer mt-auto ms-0">
                 <div class="it-card-taxonomy">
                   <a
                     href={step.href}
@@ -66,9 +68,9 @@ const howItWorksSteps = [
           {index < howItWorksSteps.length - 1 && (
             <>
               {/* Horizontal separator for mobile/tablet */}
-              <hr class="d-block d-lg-none mb-4 mt-0 border-2 border-primary" />
+              <hr class="d-block d-md-none mb-4 mt-0 border-2 border-primary" />
               {/* Vertical separator for large screens */}
-              <div class="vr d-none d-lg-block mx-4 text-primary" />
+              <div class="vr d-none d-md-block mx-4 text-primary" />
             </>
           )}
         </>

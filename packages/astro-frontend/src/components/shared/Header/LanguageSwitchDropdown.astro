@@ -1,12 +1,11 @@
 ---
 import { LANGUAGES } from '../../../i18n/config.i18n'
 import { getLangFromUrl, getLocalizedPath } from '../../../i18n/utils.i18n'
-import BootstrapItaliaIcon from '../BootstrapItaliaIcon.astro'
+import { BootstrapItaliaIcon } from '../BootstrapItaliaIcon'
 import { useUiTranslations } from '../../../i18n/ui.i18n.js'
 
 const currentLang = getLangFromUrl(Astro.url.pathname)
-
-const tUi = useUiTranslations(Astro.url.pathname)
+const tUi = useUiTranslations(currentLang)
 ---
 
 <div class="nav-item dropdown">
@@ -19,7 +18,7 @@ const tUi = useUiTranslations(Astro.url.pathname)
   >
     <span class="visually-hidden">{tUi('languageSwitch.selected_lang')}</span>
     <span>{LANGUAGES[currentLang]}</span>
-    <BootstrapItaliaIcon name="it-expand" class="d-none d-lg-block" aria-hidden="true" />
+    <BootstrapItaliaIcon name="it-expand" className="d-none d-md-block" aria-hidden="true" />
   </a>
   <div class="dropdown-menu">
     <div class="row">

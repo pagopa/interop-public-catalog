@@ -42,9 +42,8 @@ export function buildUseTranslations<
   T extends Record<SupportedLanguage, Record<K, string>>,
   K extends keyof T[SupportedLanguage],
 >(translationMap: T) {
-  return (url: string) => {
+  return (lang: SupportedLanguage) => {
     const isDev = process.env.NODE_ENV === 'development'
-    const lang = getLangFromUrl(url)
 
     return (key: K): string => {
       const translation = translationMap[lang][key]

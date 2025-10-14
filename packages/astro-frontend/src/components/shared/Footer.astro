@@ -1,7 +1,9 @@
 ---
 import { useUiTranslations } from '../../i18n/ui.i18n'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
 
-const tUi = useUiTranslations(Astro.url.pathname)
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const tUi = useUiTranslations(currentLocale)
 
 // Catalogo API section links
 const catalogoApiSectionNavItems = [
@@ -32,24 +34,24 @@ const footerSmallPrintLinks = [
       <section>
         {/* Logos and navigation columns */}
         <div class="row g-4">
-          <div class="col-12 col-lg-2 pb-2">
+          <div class="col-12 col-md-2 pb-2">
             <img
               src="/img/next-generation-eu-footer-logo.svg"
               alt="Next Generation EU logo"
               class="img-fluid"
             />
           </div>
-          <div class="col-12 col-lg-3 pb-2">
+          <div class="col-12 col-md-3 pb-2">
             <img
               src="/img/dtd-footer-logo.svg"
               alt="Dipartimento per la trasformazione digitale logo"
               class="img-fluid"
             />
           </div>
-          <div class="col-12 col-lg-2 pb-2">
+          <div class="col-12 col-md-2 pb-2">
             <img src="/img/pagopa-footer-logo.svg" alt="PagoPA logo" class="img-fluid" />
           </div>
-          <div class="d-none d-lg-flex col-12 col-lg-5 pb-2 justify-content-end gap-5">
+          <div class="d-none d-md-flex col-12 col-md-5 pb-2 justify-content-end gap-5">
             <!-- Catalogo API links column -->
             <div>
               <h4 class="text-uppercase">

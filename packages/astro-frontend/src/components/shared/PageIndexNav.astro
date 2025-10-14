@@ -9,10 +9,10 @@ interface Props extends HTMLAttributes<'nav'> {
 const { headings, title, ...rest } = Astro.props
 ---
 
-<nav class:list={['link-list-wrapper', rest.class]} {...rest}>
+<aside class:list={['link-list-wrapper', rest.class]} {...rest}>
   {
     title && (
-      <h2 class="h4" class="link-list-heading">
+      <h2 class="h6" class="link-list-heading">
         {title}
       </h2>
     )
@@ -21,14 +21,14 @@ const { headings, title, ...rest } = Astro.props
     {
       headings.map((heading) => (
         <li>
-          <a href={`#${heading.id}`} class="link-list-item active py-3 fw-semibold lh-base">
+          <a href={`#${heading.id}`} class="link-list-item ps-0 active py-3 fw-semibold lh-base">
             {heading.label}
           </a>
         </li>
       ))
     }
   </ul>
-</nav>
+</aside>
 
 <script is:inline define:vars={{ headings }}>
   const linkActiveClass = 'active-link-list-item'

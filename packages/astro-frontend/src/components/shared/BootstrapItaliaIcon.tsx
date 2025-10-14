@@ -1,7 +1,5 @@
----
-import type { HTMLAttributes } from 'astro/types'
+import React from 'react'
 
-// Taken from https://italia.github.io/bootstrap-italia/docs/utilities/icone/
 type BootstrapItaliaIconName =
   | 'it-arrow-down'
   | 'it-arrow-down-circle'
@@ -107,8 +105,7 @@ type BootstrapItaliaIconName =
   | 'it-wifi'
   | 'it-zoom-in'
   | 'it-zoom-out'
-
-  // Icone File
+  // File icons
   | 'it-file'
   | 'it-files'
   | 'it-file-audio'
@@ -130,8 +127,7 @@ type BootstrapItaliaIconName =
   | 'it-file-video'
   | 'it-file-xlsx'
   | 'it-file-xml'
-
-  // Icone Piattaforme
+  // Platform icons
   | 'it-android'
   | 'it-android-square'
   | 'it-apple'
@@ -182,8 +178,7 @@ type BootstrapItaliaIconName =
   | 'it-whatsapp-square'
   | 'it-youtube'
   | 'it-google'
-
-  // Icone Extra
+  // Extra
   | 'it-designers-italia'
   | 'it-team-digitale'
 
@@ -195,29 +190,44 @@ type BootstrapIconColorBase =
   | 'danger'
   | 'light'
   | 'white'
+
 type BootstrapIconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
-export interface Props extends HTMLAttributes<'svg'> {
+export interface BootstrapItaliaIconProps extends React.SVGProps<SVGSVGElement> {
   name: BootstrapItaliaIconName
   color?: BootstrapIconColorBase
   padded?: boolean
   size?: BootstrapIconSize
 }
 
-const { name, color, size, padded, ...rest } = Astro.props
+export const BootstrapItaliaIcon: React.FC<BootstrapItaliaIconProps> = ({
+  name,
+  color,
+  size,
+  padded,
+  className,
+  style,
+  ...rest
+}) => {
+  const classes = [
+    'icon',
+    'position-relative',
+    color && `icon-${color}`,
+    size && `icon-${size}`,
+    padded && 'icon-padded',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ')
 
-const className = [
-  'icon',
-  'position-relative',
-  rest.class,
-  color && `icon-${color}`,
-  size && `icon-${size}`,
-  padded && 'icon-padded',
-]
-  .filter(Boolean)
-  .join(' ')
----
-
-<svg class={className} style={`bottom: 1px;${rest.style ?? ''}`} focusable="false" {...rest}>
-  <use href={`/img/sprites.svg#${name}`} xlink:href={`/img/sprites.svg#${name}`}></use>
-</svg>
+  return (
+    <svg
+      className={classes}
+      style={{ bottom: 1, ...(style as React.CSSProperties) }}
+      focusable="false"
+      {...rest}
+    >
+      <use href={`/img/sprites.svg#${name}`} xlinkHref={`/img/sprites.svg#${name}`} />
+    </svg>
+  )
+}

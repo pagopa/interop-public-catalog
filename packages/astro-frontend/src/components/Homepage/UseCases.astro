@@ -1,9 +1,11 @@
 ---
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
-import BootstrapItaliaIcon from '../shared/BootstrapItaliaIcon.astro'
-import UseCaseCard from '../shared/UseCaseCard.astro'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
+import { UseCaseCard } from '../shared/UseCaseCard'
 
-const t = useHomepageTranslations(Astro.url.pathname)
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const t = useHomepageTranslations(currentLocale)
 
 const targetsLinkItems = [
   { text: t('use_cases.target.pa_centrali'), href: '#', imgSrc: '/img/030-city.svg' },
@@ -18,7 +20,7 @@ const targetsLinkItems = [
   <div
     aria-hidden="true"
     style="inset:0;z-index:-1;"
-    class="position-absolute d-xl-none bg-primary-c0"
+    class="position-absolute d-md-none bg-primary-c0"
   >
   </div>
   <div class="position-relative">
@@ -26,11 +28,11 @@ const targetsLinkItems = [
     <div
       aria-hidden="true"
       style="inset:0;max-width:865px;z-index:-1;"
-      class="position-absolute mx-auto rounded-5 border border-primary d-none d-xl-block bg-primary-c0"
+      class="position-absolute mx-auto rounded-5 border border-primary d-none d-md-block bg-primary-c0"
     >
     </div>
 
-    <div style="max-width:856px;" class="mx-auto pt-xl-5 px-xl-5">
+    <div style="max-width:856px;" class="mx-auto pt-md-5 px-md-5">
       {/* Section Header - Title and Description*/}
       <div>
         <h2 id="use-cases-section-title" class="text-primary h4">{t('use_cases.title')}</h2>
@@ -39,12 +41,12 @@ const targetsLinkItems = [
         </p>
       </div>
 
-      <div class="link-list-wrapper multiline mt-4">
-        <ul class="link-list row">
+      <div class="it-list-wrapper mt-4">
+        <ul class="it-list row">
           {
-            targetsLinkItems.map((l) => (
-              <li class="col-12 col-xl-6">
-                <a href={l.href} class="list-item active icon-right gap-2 px-2">
+            targetsLinkItems.map((l, i) => (
+              <li class:list={['col-12 col-md-6 px-2 py-2 position-relative']}>
+                <a href={l.href} class="list-item icon-right gap-2 border-0">
                   <img src={l.imgSrc} alt="" role="presentation" height="40" width="40" />
                   <div class="it-right-zone">
                     <span style="font-size:1rem;" class="text">
@@ -53,6 +55,13 @@ const targetsLinkItems = [
                     <BootstrapItaliaIcon name="it-chevron-right" size="sm" color="primary" />
                   </div>
                 </a>
+                {i <= 2 && (
+                  <div
+                    style="height:1px;background-color:var(--bs-border-color);bottom:0px;"
+                    class:list={['position-absolute w-100 px-4', i === 2 && 'd-block d-md-none']}
+                    role="presentation"
+                  />
+                )}
               </li>
             ))
           }
@@ -63,29 +72,33 @@ const targetsLinkItems = [
     {/* Section Content - Use Case Cards */}
     <div style="max-width:1076px;" class="mx-auto mt-5">
       <div class="row g-4">
-        <div class="col-12 col-xl-6">
+        <div class="col-12 col-md-6 d-flex justify-content-center">
           <UseCaseCard
+            currentLocale={currentLocale}
             title="Erogare i bonus ai cittadini in modo equo ed efficiente"
             intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
             category="Bonus Economici"
           />
         </div>
-        <div class="col-12 col-xl-6">
+        <div class="col-12 col-md-6 d-flex justify-content-center">
           <UseCaseCard
+            currentLocale={currentLocale}
             title="Iscrizione ai concorsi pubblici più snella"
             intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
             category="Titoli di studio"
           />
         </div>
-        <div class="col-12 col-xl-6">
+        <div class="col-12 col-md-6 d-flex justify-content-center">
           <UseCaseCard
+            currentLocale={currentLocale}
             title="Verifica immediata dell’iscrizione all’albo degli avvocati"
             intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
             category="Ordini professionali"
           />
         </div>
-        <div class="col-12 col-xl-6">
+        <div class="col-12 col-md-6 d-flex justify-content-center">
           <UseCaseCard
+            currentLocale={currentLocale}
             title="Erogare i bonus ai cittadini in modo equo ed efficiente"
             intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
             category="Bonus Economici"
