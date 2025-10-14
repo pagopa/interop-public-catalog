@@ -1,20 +1,22 @@
 ---
 import { useUiTranslations } from '../../../i18n/ui.i18n'
-import BootstrapItaliaIcon from '../BootstrapItaliaIcon.astro'
+import { BootstrapItaliaIcon } from '../BootstrapItaliaIcon'
 import LanguageSwitchDropdown from './LanguageSwitchDropdown.astro'
 import {
   DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL,
   PAGOPA_URL,
+  CATALOG_API_SECTION_NAV_ITEMS,
+  RESOURCES_SECTION_NAV_ITEMS,
 } from '../../../config/constants.js'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
 
-const tUi = useUiTranslations(Astro.url.pathname)
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const tUi = useUiTranslations(currentLocale)
 
-// TODO Links
-const NAV_ITEMS = [
-  { label: tUi('nav.explore_catalog'), href: '#' },
-  { label: tUi('nav.examples'), href: '#' },
-  { label: tUi('nav.what_is'), href: '#' },
-  { label: tUi('nav.faq'), href: '#' },
+// TODO: Links
+const topNavNavItems = [
+  { label: tUi('header.top_nav.semantic'), href: '#' },
+  { label: tUi('header.top_nav.open_data'), href: '#' },
 ]
 ---
 
@@ -24,16 +26,38 @@ const NAV_ITEMS = [
       <div class="row">
         <div class="col-12">
           <div class="it-header-slim-wrapper-content">
+            {/* Top Navbar */}
             <span class="navbar-brand">
               <a
                 target="_blank"
                 class="text-decoration-underline"
                 href={DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL}
-                >Dipartimento per la trasformazione digitale</a
+                ><span class="d-none d-md-inline">Dipartimento per la trasformazione digitale</span
+                ><span class="d-md-none d-inline">DTD</span></a
               > e <a target="_blank" class="text-decoration-underline" href={PAGOPA_URL}
                 >PagoPA S.p.A.</a
               >
             </span>
+            <div class="nav-mobile">
+              <nav>
+                <div class="link-list-wrapper collapse">
+                  <ul class="link-list">
+                    <li>
+                      <a class="list-item fw-semibold text-decoration-none">Altri cataloghi:</a>
+                    </li>
+                    {
+                      topNavNavItems.map((item) => (
+                        <li>
+                          <a class="list-item" href={item.href}>
+                            {item.label}
+                          </a>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+              </nav>
+            </div>
             <div class="it-header-slim-right-zone">
               <LanguageSwitchDropdown />
             </div>
@@ -67,7 +91,7 @@ const NAV_ITEMS = [
       <div class="container-xxl">
         <div class="row">
           <div class="col-12">
-            <nav class="navbar navbar-expand-lg has-megamenu" aria-label="Navigazione principale">
+            <nav class="navbar navbar-expand-md">
               <button
                 class="custom-navbar-toggler"
                 type="button"
@@ -85,19 +109,63 @@ const NAV_ITEMS = [
                     <BootstrapItaliaIcon name="it-close-big" />
                   </button>
                 </div>
-                <div class="menu-wrapper">
+                {/** Main NavBar - Desktop */}
+                <div class="menu-wrapper d-none d-md-flex justify-content-between">
                   <ul class="navbar-nav">
                     {
-                      NAV_ITEMS.map((navItem) => {
-                        const isActive = Astro.url.pathname === navItem.href
+                      CATALOG_API_SECTION_NAV_ITEMS.map((navItem) => {
+                        const localizedHref = navItem.getHref(currentLocale)
+                        const isActive = Astro.url.pathname === localizedHref
                         return (
                           <li class:list={['nav-item', isActive && 'active']}>
-                            <a class:list={['nav-link', isActive && 'active']} href={navItem.href}>
-                              <span>{navItem.label}</span>
+                            <a
+                              class:list={['nav-link', isActive && 'active']}
+                              aria-current={isActive ? 'page' : undefined}
+                              href={localizedHref}
+                            >
+                              <span>{tUi(navItem.i18nKey)}</span>
                             </a>
                           </li>
                         )
                       })
+                    }
+                  </ul>
+                  <ul class="navbar-nav">
+                    {
+                      RESOURCES_SECTION_NAV_ITEMS.map((navItem) => {
+                        const localizedHref = navItem.getHref(currentLocale)
+                        const isActive = Astro.url.pathname === localizedHref
+                        return (
+                          <li class:list={['nav-item', isActive && 'active']}>
+                            <a class:list={['nav-link', isActive && 'active']} href={localizedHref}>
+                              <span>{tUi(navItem.i18nKey)}</span>
+                            </a>
+                          </li>
+                        )
+                      })
+                    }
+                  </ul>
+                </div>
+                {/** Main NavBar - Mobile */}
+                <div class="menu-wrapper d-md-none">
+                  <ul class="navbar-nav">
+                    {
+                      [...CATALOG_API_SECTION_NAV_ITEMS, ...RESOURCES_SECTION_NAV_ITEMS].map(
+                        (navItem) => {
+                          const localizedHref = navItem.getHref(currentLocale)
+                          const isActive = Astro.url.pathname === localizedHref
+                          return (
+                            <li class:list={['nav-item', isActive && 'active']}>
+                              <a
+                                class:list={['nav-link', isActive && 'active']}
+                                href={localizedHref}
+                              >
+                                <span>{tUi(navItem.i18nKey)}</span>
+                              </a>
+                            </li>
+                          )
+                        }
+                      )
                     }
                   </ul>
                 </div>
@@ -109,3 +177,11 @@ const NAV_ITEMS = [
     </div>
   </div>
 </header>
+
+<script>
+  import { Collapse } from 'bootstrap-italia'
+  const navbarCollapseEl = document.querySelector('.navbarcollapsible')
+  if (navbarCollapseEl) {
+    new Collapse(navbarCollapseEl)
+  }
+</script>

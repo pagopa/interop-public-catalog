@@ -12,7 +12,7 @@ export const homepage = {
 
     'api_info.title': 'Cosa sono le API',
     'api_info.content':
-      'Sono le infrastrutture digitali che permettono agli enti di dialogare, cioè di comunicare e scambiarsi dati.Tramite questo dialogo, ogni ente può usufruire di un servizio pubblico oppure metterlo a disposizione degli altri.',
+      'Le API (Application Programming Interface) sono gli strumenti digitali che permettono agli enti di dialogare, cioè di comunicare e scambiare dati in modo sicuro e automatizzato.',
 
     'how_it_works.title': 'Come funziona',
     'how_it_works.step_1.title': '1. Ricerca le API nel catalogo',
@@ -51,7 +51,7 @@ export const homepage = {
     scroll_hint: 'Scroll to find out more',
     'api_info.title': 'What APIs are',
     'api_info.content':
-      'They are the digital infrastructures that allow organizations to communicate and exchange data.Through this dialogue, each organization can use a public service or make it available to others.',
+      'APIs (Application Programming Interfaces) are digital tools that allow organizations to communicate, i.e., to exchange data in a secure and automated way.',
 
     'how_it_works.title': 'How it works',
     'how_it_works.step_1.title': '1. Search for APIs in the catalog',

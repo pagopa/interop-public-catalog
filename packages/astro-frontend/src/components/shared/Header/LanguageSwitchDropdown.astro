@@ -1,12 +1,12 @@
 ---
 import { LANGUAGES } from '../../../i18n/config.i18n'
-import { getLangFromUrl, getLocalizedPath } from '../../../i18n/utils.i18n'
-import BootstrapItaliaIcon from '../BootstrapItaliaIcon.astro'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
+import { BootstrapItaliaIcon } from '../BootstrapItaliaIcon'
 import { useUiTranslations } from '../../../i18n/ui.i18n.js'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 
 const currentLang = getLangFromUrl(Astro.url.pathname)
-
-const tUi = useUiTranslations(Astro.url.pathname)
+const tUi = useUiTranslations(currentLang)
 ---
 
 <div class="nav-item dropdown">
@@ -19,7 +19,7 @@ const tUi = useUiTranslations(Astro.url.pathname)
   >
     <span class="visually-hidden">{tUi('languageSwitch.selected_lang')}</span>
     <span>{LANGUAGES[currentLang]}</span>
-    <BootstrapItaliaIcon name="it-expand" class="d-none d-lg-block" aria-hidden="true" />
+    <BootstrapItaliaIcon name="it-expand" className="d-none d-md-block" aria-hidden="true" />
   </a>
   <div class="dropdown-menu">
     <div class="row">
@@ -29,10 +29,7 @@ const tUi = useUiTranslations(Astro.url.pathname)
             {
               (Object.keys(LANGUAGES) as (keyof typeof LANGUAGES)[]).map((lang) => (
                 <li>
-                  <a
-                    class="dropdown-item list-item"
-                    href={getLocalizedPath(Astro.url.pathname, lang)}
-                  >
+                  <a class="dropdown-item list-item" href={getRelativeLocaleUrl(lang)}>
                     <span>
                       {LANGUAGES[lang]}{' '}
                       {lang === currentLang && (

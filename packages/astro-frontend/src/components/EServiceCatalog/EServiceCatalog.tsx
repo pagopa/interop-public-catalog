@@ -10,8 +10,9 @@ import {
   LinkListItem,
 } from 'design-react-kit'
 import React from 'react'
-import EServiceCard from '../shared/EServiceCard.js'
+import { EServiceCard } from '../shared/EServiceCard.jsx'
 import { chunkEServiceArray } from '../../utils/utils.js'
+import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 
 export type EService = {
   name: string
@@ -64,7 +65,12 @@ const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
         <Row key={rowIndex}>
           {rowItems.map((eservice, eserviceIndex) => (
             <Col xs="4" key={eserviceIndex}>
-              <EServiceCard title={eservice.name} description={eservice.description} />
+              <EServiceCard
+                currentLocale={getLangFromUrl(window.location.pathname)}
+                name={eservice.name}
+                producerName="Test"
+                description={eservice.description}
+              />
             </Col>
           ))}
         </Row>

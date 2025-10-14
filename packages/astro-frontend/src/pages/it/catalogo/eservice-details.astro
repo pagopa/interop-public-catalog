@@ -13,7 +13,10 @@ import {
   Section,
 } from 'design-react-kit'
 import EServiceDetails from '../../../components/EServiceDetails/EServiceDetails'
-import EServiceCard from '../../../components/shared/EServiceCard'
+import { EServiceCard } from '../../../components/shared/EServiceCard.jsx'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
 ---
 
 <Layout>
@@ -71,13 +74,28 @@ import EServiceCard from '../../../components/shared/EServiceCard'
     </div>
     <Row>
       <Col>
-        <EServiceCard title="eservice 1" description="eservice description 1" />
+        <EServiceCard
+          currentLocale={currentLocale}
+          name="eservice 1"
+          producerName="test"
+          description="eservice description 1"
+        />
       </Col>
       <Col>
-        <EServiceCard title="eservice 2" description="eservice description 2" />
+        <EServiceCard
+          currentLocale={currentLocale}
+          name="eservice 2"
+          producerName="test"
+          description="eservice description 2"
+        />
       </Col>
       <Col>
-        <EServiceCard title="eservice 3" description="eservice description 3" />
+        <EServiceCard
+          currentLocale={currentLocale}
+          name="eservice 3"
+          producerName="test"
+          description="eservice description 3"
+        />
       </Col>
     </Row>
   </Section>

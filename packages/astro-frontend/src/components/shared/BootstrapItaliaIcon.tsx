@@ -1,0 +1,233 @@
+import React from 'react'
+
+type BootstrapItaliaIconName =
+  | 'it-arrow-down'
+  | 'it-arrow-down-circle'
+  | 'it-arrow-down-triangle'
+  | 'it-arrow-left'
+  | 'it-arrow-left-circle'
+  | 'it-arrow-left-triangle'
+  | 'it-arrow-right'
+  | 'it-arrow-right-circle'
+  | 'it-arrow-right-triangle'
+  | 'it-arrow-up'
+  | 'it-arrow-up-circle'
+  | 'it-arrow-up-triangle'
+  | 'it-ban'
+  | 'it-bookmark'
+  | 'it-box'
+  | 'it-burger'
+  | 'it-calendar'
+  | 'it-camera'
+  | 'it-car'
+  | 'it-card'
+  | 'it-cart'
+  | 'it-chart-line'
+  | 'it-check'
+  | 'it-check-circle'
+  | 'it-chevron-left'
+  | 'it-chevron-right'
+  | 'it-clip'
+  | 'it-clock'
+  | 'it-close'
+  | 'it-close-big'
+  | 'it-close-circle'
+  | 'it-code-circle'
+  | 'it-collapse'
+  | 'it-comment'
+  | 'it-copy'
+  | 'it-delete'
+  | 'it-download'
+  | 'it-error'
+  | 'it-exchange-circle'
+  | 'it-expand'
+  | 'it-external-link'
+  | 'it-flag'
+  | 'it-folder'
+  | 'it-fullscreen'
+  | 'it-funnel'
+  | 'it-hearing'
+  | 'it-help'
+  | 'it-help-circle'
+  | 'it-horn'
+  | 'it-inbox'
+  | 'it-info-circle'
+  | 'it-key'
+  | 'it-link'
+  | 'it-list'
+  | 'it-locked'
+  | 'it-logout'
+  | 'it-mail'
+  | 'it-mail-open'
+  | 'it-map-marker'
+  | 'it-map-marker-circle'
+  | 'it-map-marker-minus'
+  | 'it-map-marker-plus'
+  | 'it-maximize'
+  | 'it-maximize-alt'
+  | 'it-minimize'
+  | 'it-minus'
+  | 'it-minus-circle'
+  | 'it-more-actions'
+  | 'it-more-items'
+  | 'it-note'
+  | 'it-open-source'
+  | 'it-pa'
+  | 'it-password-invisible'
+  | 'it-password-visible'
+  | 'it-pencil'
+  | 'it-piattaforme'
+  | 'it-pin'
+  | 'it-plug'
+  | 'it-plus'
+  | 'it-plus-circle'
+  | 'it-presentation'
+  | 'it-print'
+  | 'it-refresh'
+  | 'it-restore'
+  | 'it-rss'
+  | 'it-rss-square'
+  | 'it-search'
+  | 'it-settings'
+  | 'it-share'
+  | 'it-software'
+  | 'it-star-full'
+  | 'it-star-outline'
+  | 'it-telephone'
+  | 'it-tool'
+  | 'it-sign'
+  | 'it-unlocked'
+  | 'it-upload'
+  | 'it-user'
+  | 'it-video'
+  | 'it-warning'
+  | 'it-warning-circle'
+  | 'it-wifi'
+  | 'it-zoom-in'
+  | 'it-zoom-out'
+  // File icons
+  | 'it-file'
+  | 'it-files'
+  | 'it-file-audio'
+  | 'it-file-compressed'
+  | 'it-file-csv'
+  | 'it-file-docx'
+  | 'it-file-json'
+  | 'it-file-image'
+  | 'it-file-odp'
+  | 'it-file-ods'
+  | 'it-file-odt'
+  | 'it-file-pdf'
+  | 'it-file-pdf-ext'
+  | 'it-file-ppt'
+  | 'it-file-sheet'
+  | 'it-file-signed'
+  | 'it-file-slides'
+  | 'it-file-txt'
+  | 'it-file-video'
+  | 'it-file-xlsx'
+  | 'it-file-xml'
+  // Platform icons
+  | 'it-android'
+  | 'it-android-square'
+  | 'it-apple'
+  | 'it-apple-square'
+  | 'it-behance'
+  | 'it-bluesky'
+  | 'it-facebook'
+  | 'it-facebook-square'
+  | 'it-figma'
+  | 'it-figma-square'
+  | 'it-flickr'
+  | 'it-flickr-square'
+  | 'it-github'
+  | 'it-instagram'
+  | 'it-linkedin'
+  | 'it-linkedin-square'
+  | 'it-mastodon'
+  | 'it-mastodon-square'
+  | 'it-medium'
+  | 'it-medium-square'
+  | 'it-moodle'
+  | 'it-moodle-square'
+  | 'it-pinterest'
+  | 'it-pinterest-square'
+  | 'it-quora'
+  | 'it-quora-square'
+  | 'it-reddit'
+  | 'it-reddit-square'
+  | 'it-slack'
+  | 'it-slack-square'
+  | 'it-snapchat'
+  | 'it-snapchat-square'
+  | 'it-stackexchange'
+  | 'it-stackexchange-square'
+  | 'it-stackoverflow'
+  | 'it-stackoverflow-square'
+  | 'it-spotify'
+  | 'it-telegram'
+  | 'it-threads'
+  | 'it-threads-square'
+  | 'it-tiktok'
+  | 'it-tiktok-square'
+  | 'it-twitter'
+  | 'it-twitter-square'
+  | 'it-vimeo'
+  | 'it-vimeo-square'
+  | 'it-whatsapp'
+  | 'it-whatsapp-square'
+  | 'it-youtube'
+  | 'it-google'
+  // Extra
+  | 'it-designers-italia'
+  | 'it-team-digitale'
+
+type BootstrapIconColorBase =
+  | 'primary'
+  | 'secondary'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'light'
+  | 'white'
+
+type BootstrapIconSize = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+
+export interface BootstrapItaliaIconProps extends React.SVGProps<SVGSVGElement> {
+  name: BootstrapItaliaIconName
+  color?: BootstrapIconColorBase
+  padded?: boolean
+  size?: BootstrapIconSize
+}
+
+export const BootstrapItaliaIcon: React.FC<BootstrapItaliaIconProps> = ({
+  name,
+  color,
+  size,
+  padded,
+  className,
+  style,
+  ...rest
+}) => {
+  const classes = [
+    'icon',
+    'position-relative',
+    color && `icon-${color}`,
+    size && `icon-${size}`,
+    padded && 'icon-padded',
+    className,
+  ]
+    .filter(Boolean)
+    .join(' ')
+
+  return (
+    <svg
+      className={classes}
+      style={{ bottom: 1, ...(style as React.CSSProperties) }}
+      focusable="false"
+      {...rest}
+    >
+      <use href={`/img/sprites.svg#${name}`} xlinkHref={`/img/sprites.svg#${name}`} />
+    </svg>
+  )
+}

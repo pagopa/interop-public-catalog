@@ -1,0 +1,76 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import UseCaseDetails from '../../../components/UseCaseDetails/UseCaseDetails.astro'
+import { UseCaseCard } from '../../../components/shared/UseCaseCard'
+import { Section } from '../../../components/shared/Section'
+import { Chip } from '../../../components/shared/Chip'
+import PageLayout from '../../../layouts/PageLayout.astro'
+import { BootstrapItaliaIcon } from '../../../components/shared/BootstrapItaliaIcon'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
+
+export function getStaticPaths() {
+  return [{ params: { id: 'test' } }]
+}
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+---
+
+<Layout>
+  <PageLayout
+    title="Erogare bonus ai cittadini in modo equo ed efficiente"
+    breadcrumbItems={[
+      {
+        label: 'Home',
+        href: '#',
+      },
+      {
+        label: 'Esempi pratici',
+        href: '#',
+      },
+      {
+        label: 'Dettaglio esempi pratici',
+        href: '#',
+        active: true,
+      },
+    ]}
+  >
+    <div slot="top-hero">
+      <div class="d-flex align-items-center justify-content-between">
+        <Chip label="Bonus economici" />
+        <button class="btn btn-link fw-semibold text-decoration-none">
+          <span>Copia URL</span>
+          <BootstrapItaliaIcon name="it-copy" className="ms-2" color="primary" />
+        </button>
+      </div>
+    </div>
+
+    <div slot="bottom-hero">
+      <p><strong>Per:</strong> PAC, Comuni, Regioni</p>
+    </div>
+
+    <Section style={{ backgroundColor: '#fafafa' }}>
+      <UseCaseDetails />
+    </Section>
+
+    <Section
+      style={{ backgroundColor: '#f5f5f5' }}
+      title="Altri esempi pratici"
+      titleClass="text-center"
+    >
+      <div class="d-flex justify-content-center gap-4 mt-4">
+        <UseCaseCard
+          currentLocale={currentLocale}
+          title="cammello"
+          intendedTargets={['a', 'b', 'c']}
+          category="sette"
+        />
+        <UseCaseCard
+          currentLocale={currentLocale}
+          title="cammello"
+          intendedTargets={['a', 'b', 'c']}
+          category="sette"
+        />
+      </div>
+    </Section>
+  </PageLayout>
+</Layout>

@@ -1,44 +1,49 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { useUiTranslations } from '../../i18n/ui.i18n'
-import heroEServiceCardImage from '../../assets/images/hero-eservice-cards.png'
-import heroBackgroundImage from '../../assets/images/hero-background.png'
-import TooltipIcon from '../shared/TooltipIcon.astro'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { TooltipIcon } from '../shared/TooltipIcon.jsx'
 
-const t = useHomepageTranslations(Astro.url.pathname)
-const tUi = useUiTranslations(Astro.url.pathname)
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+
+const t = useHomepageTranslations(currentLocale)
+const tUi = useUiTranslations(currentLocale)
 ---
 
 <section id="hero" style="min-height: 560px;" class="it-hero-wrapper">
   <div class="img-responsive-wrapper">
     <div class="img-responsive">
       <div class="img-wrapper">
-        <img src={heroBackgroundImage.src} alt="" role="presentation" width="1440" height="560" />
+        <img src="/img/hero-background.png" alt="" role="presentation" width="1440" height="560" />
       </div>
     </div>
   </div>
   <div class="container position-relative">
-    <div class="row flex-column-reverse flex-xl-row">
-      <div class="col-12 col-xl-6">
+    <div class="row flex-column-reverse flex-md-row">
+      <div class="col-12 col-md-6">
         <div class="it-hero-text-wrapper">
           {/* HERO TITLE */}
-          <h1>{t('title')}</h1>
+          <h2>{t('title')}</h2>
 
           {/* HERO SUBTITLE */}
-          <p class="d-none d-xl-block font-sans-serif">{t('subtitle')}</p>
+          <p class="d-none d-md-block font-sans-serif">{t('subtitle')}</p>
 
           {/* HERO SEARCH */}
-          <div
+          <form
             id="hero-form-group"
             class="form-group rounded border border-white mb-4 overflow-hidden"
+            action={getRelativeLocaleUrl(currentLocale, '/catalogo')}
+            method="GET"
           >
             <div class="input-group">
-              <label for="hero-form-input">{t('search_placeholder')}</label>
+              <label class="visually-hidden" for="hero-form-input">{t('search_placeholder')}</label>
               <input
                 type="text"
                 class="form-control border-0"
                 id="hero-form-input"
-                name="hero-form-input"
+                name="q"
+                placeholder={t('search_placeholder')}
               />
               <div class="input-group-append">
                 <button id="hero-search-button" class="btn btn-primary" type="button" id="button-3"
@@ -46,7 +51,7 @@ const tUi = useUiTranslations(Astro.url.pathname)
                 >
               </div>
             </div>
-          </div>
+          </form>
 
           {/* HERO FOOTER */}
           <p class="font-sans-serif">
@@ -62,11 +67,11 @@ const tUi = useUiTranslations(Astro.url.pathname)
       </div>
       <div
         style="z-index: 1;"
-        class="col-12 col-xl-6 d-flex align-items-center justify-content-center justify-content-xl-end"
+        class="col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-end"
       >
         <img
-          class="img-fluid mt-4 pt-4 pt-xl-0 mt-xl-0"
-          src={heroEServiceCardImage.src}
+          class="img-fluid mt-4 pt-4 pt-md-0 mt-md-0"
+          src="/img/hero-eservice-cards.png"
           alt=""
           role="presentation"
           width="432"
@@ -74,7 +79,7 @@ const tUi = useUiTranslations(Astro.url.pathname)
         />
       </div>
     </div>
-    <div class="d-none d-xl-flex position-absolute bottom-0 end-0 p-4 text-white">
+    <div class="d-none d-md-flex position-absolute bottom-0 end-0 p-4 text-white">
       <small class="d-flex align-items-center gap-3">
         <svg
           class="scroll-animation-icon"

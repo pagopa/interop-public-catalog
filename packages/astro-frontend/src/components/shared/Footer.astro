@@ -1,88 +1,83 @@
 ---
+import { CATALOG_API_SECTION_NAV_ITEMS, RESOURCES_SECTION_NAV_ITEMS } from '../../config/constants'
 import { useUiTranslations } from '../../i18n/ui.i18n'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
 
-const tUi = useUiTranslations(Astro.url.pathname)
-
-// Catalogo API section links
-const catalogoApiSectionNavItems = [
-  { label: tUi('nav.explore_catalog'), href: '#' },
-  { label: tUi('nav.examples'), href: '#' },
-] as const
-
-// Resources section links
-const resourcesSectionNavItems = [
-  { label: tUi('nav.what_is'), href: '#' },
-  { label: tUi('nav.faq'), href: '#' },
-] as const
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const tUi = useUiTranslations(currentLocale)
 
 // Footer small print links (legal, privacy, accessibility, etc.)
 const footerSmallPrintLinks = [
-  { label: 'Media policy', href: '#' },
-  { label: 'Note legali', href: '#' },
-  { label: 'Privacy policy', href: '#' },
-  { label: 'Mappa del sito', href: '#' },
-  { label: 'Dichiarazione di accessibilità', href: '#' },
+  { label: tUi('footer.nav_section.media_policy'), href: '#' },
+  { label: tUi('footer.nav_section.legal_notes'), href: '#' },
+  { label: tUi('footer.nav_section.privacy_policy'), href: '#' },
+  { label: tUi('footer.nav_section.sitemap'), href: '#' },
+  { label: tUi('footer.nav_section.accessibility_statement'), href: '#' },
 ] as const
 ---
+
 <footer class="it-footer">
   <!-- Main footer section: logos and navigation -->
   <div class="it-footer-main it-footer-small-prints">
-    <div class="container py-5">
+    <div class="container pb-3">
       <section>
         {/* Logos and navigation columns */}
-        <div class="row">
-          <!-- Logos column -->
-          <div class="col-12 col-lg-6 pb-2 d-flex flex-wrap gap-4">
+        <div class="row g-4">
+          <div class="col-12 col-md-2 pb-2">
             <img
-              src="/next-generation-eu-footer-logo.svg"
+              src="/img/next-generation-eu-footer-logo.svg"
               alt="Next Generation EU logo"
-              width="206"
-              height="48"
+              class="img-fluid"
             />
+          </div>
+          <div class="col-12 col-md-3 pb-2">
             <img
-              src="/dtd-footer-logo.svg"
+              src="/img/dtd-footer-logo.svg"
               alt="Dipartimento per la trasformazione digitale logo"
-              width="307"
-              height="46"
+              class="img-fluid"
             />
-            <img src="/pagopa-footer-logo.svg" alt="PagoPA logo" width="164" height="46" />
           </div>
-          <!-- Catalogo API links column -->
-          <div class="col-6 col-lg-3 pb-2">
-            <h4 class="text-uppercase">
-              {tUi('brand.title')}
-            </h4>
-            <div class="link-list-wrapper">
-              <ul class="footer-list link-list clearfix">
-                {
-                  catalogoApiSectionNavItems.map((item) => (
-                    <li>
-                      <a class="list-item" href={item.href}>
-                        {item.label}
-                      </a>
-                    </li>
-                  ))
-                }
-              </ul>
+          <div class="col-12 col-md-2 pb-2">
+            <img src="/img/pagopa-footer-logo.svg" alt="PagoPA logo" class="img-fluid" />
+          </div>
+          <div class="d-none d-md-flex col-12 col-md-5 pb-2 justify-content-end gap-5">
+            <!-- Catalogo API links column -->
+            <div>
+              <h4 class="text-uppercase">
+                {tUi('brand.title')}
+              </h4>
+              <div class="link-list-wrapper">
+                <ul class="footer-list link-list clearfix">
+                  {
+                    CATALOG_API_SECTION_NAV_ITEMS.map((item) => (
+                      <li>
+                        <a class="list-item" href={item.getHref(currentLocale)}>
+                          {tUi(item.i18nKey)}
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
             </div>
-          </div>
-          <!-- Resources links column -->
-          <div class="col-6 col-lg-3">
-            <h4>
-              {tUi('footer.nav_section.resources')}
-            </h4>
-            <div class="link-list-wrapper">
-              <ul class="footer-list link-list clearfix">
-                {
-                  resourcesSectionNavItems.map((item) => (
-                    <li>
-                      <a class="list-item" href={item.href}>
-                        {item.label}
-                      </a>
-                    </li>
-                  ))
-                }
-              </ul>
+            <!-- Resources links column -->
+            <div>
+              <h4>
+                {tUi('footer.nav_section.resources')}
+              </h4>
+              <div class="link-list-wrapper">
+                <ul class="footer-list link-list clearfix">
+                  {
+                    RESOURCES_SECTION_NAV_ITEMS.map((item) => (
+                      <li>
+                        <a class="list-item" href={item.getHref(currentLocale)}>
+                          {tUi(item.i18nKey)}
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
             </div>
           </div>
         </div>
