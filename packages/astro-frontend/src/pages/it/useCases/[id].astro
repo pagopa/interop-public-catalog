@@ -8,11 +8,8 @@ import PageLayout from '../../../layouts/PageLayout.astro'
 import { BootstrapItaliaIcon } from '../../../components/shared/BootstrapItaliaIcon'
 import { getLangFromUrl } from '../../../i18n/utils.i18n'
 
-
 export function getStaticPaths() {
-  return [
-    { params: { id: "test" }},
-  ];
+  return [{ params: { id: 'test' } }]
 }
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)

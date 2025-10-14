@@ -29,10 +29,7 @@ const tUi = useUiTranslations(currentLang)
             {
               (Object.keys(LANGUAGES) as (keyof typeof LANGUAGES)[]).map((lang) => (
                 <li>
-                  <a
-                    class="dropdown-item list-item"
-                    href={getRelativeLocaleUrl(lang)}
-                  >
+                  <a class="dropdown-item list-item" href={getRelativeLocaleUrl(lang)}>
                     <span>
                       {LANGUAGES[lang]}{' '}
                       {lang === currentLang && (

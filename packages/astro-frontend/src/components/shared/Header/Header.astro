@@ -152,8 +152,8 @@ const topNavNavItems = [
                     {
                       [...CATALOG_API_SECTION_NAV_ITEMS, ...RESOURCES_SECTION_NAV_ITEMS].map(
                         (navItem) => {
-                        const localizedHref = navItem.getHref(currentLocale)
-                        const isActive = Astro.url.pathname === localizedHref
+                          const localizedHref = navItem.getHref(currentLocale)
+                          const isActive = Astro.url.pathname === localizedHref
                           return (
                             <li class:list={['nav-item', isActive && 'active']}>
                               <a
