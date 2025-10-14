@@ -16,6 +16,7 @@ function parseQueryStringToParams(queryString: string) {
   const result: { [key: string]: string | string[] } = {}
 
   for (const [key, value] of params.entries()) {
+    if (key === 'offset') continue
     if (key === 'provider' || key === 'consumer') {
       const parsedValue = JSON.parse(value)
 
