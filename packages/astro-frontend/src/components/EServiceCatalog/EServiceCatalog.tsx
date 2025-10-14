@@ -13,6 +13,7 @@ import {
 import React from 'react'
 import { chunkEServiceArray } from '../../utils/utils.js'
 import EServiceCard from '../shared/EServiceCard.astro'
+import Pagination from '../shared/Pagination/Pagination.js'
 
 export type EService = {
   name: string
@@ -70,6 +71,7 @@ const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
           ))}
         </Row>
       ))}
+      <Pagination currentPage={3} totalPages={7}></Pagination>
     </Container>
   )
 }
