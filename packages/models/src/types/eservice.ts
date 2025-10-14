@@ -47,8 +47,6 @@ export const EServiceAttribute = z.object({
   explicit_attribute_verification: z.boolean(),
   kind: z.string(),
   group_id: z.number().int(),
-  name: z.string(),
-  description: z.string(),
 });
 export type EServiceAttribute = z.infer<typeof EServiceAttribute>;
 

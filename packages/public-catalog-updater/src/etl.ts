@@ -1,15 +1,25 @@
 import { Pool } from "pg";
 
 import { TableMap } from "./types.js";
-import { Descriptor, EService, EServiceAttribute, EServiceTemplateVersionRef, Tenant } from "pagopa-interop-public-models";
+import { Attribute, Descriptor, EService, EServiceAttribute, EServiceTemplateVersionRef, Tenant } from "pagopa-interop-public-models";
 
 const jobConfig = {
   sourceDbEndpoint: process.env.SOURCE_DB_ENDPOINT,
   targetDbEndpoint: process.env.TARGET_DB_ENDPOINT,
-  batchSize: Number(process.env.BATCH_SIZE)
+  batchSize: Number(process.env.BATCH_SIZE),
+  sourceDbSchemaAttribute: process.env.SOURCE_SQL_DB_SCHEMA_ATTRIBUTE,
+  sourceDbSchemaTenant: process.env.SOURCE_SQL_DB_SCHEMA_TENANT,
+  sourceDbSchemaCatalog: process.env.SOURCE_SQL_DB_SCHEMA_CATALOG,
+  targetDbSchemaAttribute: process.env.TARGET_SQL_DB_SCHEMA_ATTRIBUTE,
+  targetDbSchemaTenant: process.env.TARGET_SQL_DB_SCHEMA_TENANT,
+  targetDbSchemaCatalog: process.env.TARGET_SQL_DB_SCHEMA_CATALOG,
 }
 
-if (!jobConfig.sourceDbEndpoint || !jobConfig.targetDbEndpoint || !jobConfig.batchSize) {
+if (
+  !jobConfig.sourceDbEndpoint || !jobConfig.targetDbEndpoint || !jobConfig.batchSize ||
+  !jobConfig.sourceDbSchemaAttribute || !jobConfig.sourceDbSchemaCatalog || !jobConfig.sourceDbSchemaTenant ||
+  !jobConfig.targetDbSchemaAttribute || !jobConfig.targetDbSchemaCatalog || !jobConfig.targetDbSchemaTenant
+) {
   throw new Error("Missing job config env");
 }
 
@@ -19,32 +29,38 @@ const targetDb = new Pool({ connectionString: jobConfig.targetDbEndpoint });
 // Mappings
 const tables: TableMap[] = [
   {
-    source: "dev_tenant.tenant",
-    target: "publicmodel_tenant.tenant",
+    source: `${jobConfig.sourceDbSchemaTenant}.tenant`,
+    target: `${jobConfig.targetDbSchemaTenant}.tenant`,
     orderBy: "created_at",
     columns: Object.keys(Tenant.shape),
   },
   {
-    source: "dev_catalog.eservice",
-    target: "publicmodel_catalog.eservice",
+    source: `${jobConfig.sourceDbSchemaAttribute}.attribute`,
+    target: `${jobConfig.targetDbSchemaAttribute}.attribute`,
+    orderBy: "creation_time",
+    columns: Object.keys(Attribute.shape),
+  },
+  {
+    source: `${jobConfig.sourceDbSchemaCatalog}.eservice`,
+    target: `${jobConfig.targetDbSchemaCatalog}.eservice`,
     orderBy: "created_at",
     columns: Object.keys(EService.shape),
   },
   {
-    source: "dev_catalog.eservice_descriptor",
-    target: "publicmodel_catalog.eservice_descriptor",
+    source: `${jobConfig.sourceDbSchemaCatalog}.eservice_descriptor`,
+    target: `${jobConfig.targetDbSchemaCatalog}.eservice_descriptor`,
     orderBy: "created_at",
     columns: Object.keys(Descriptor.shape),
   },
   {
-    source: "dev_catalog.eservice_descriptor_template_version_ref",
-    target: "publicmodel_catalog.eservice_descriptor_template_version_ref",
+    source: `${jobConfig.sourceDbSchemaCatalog}.eservice_descriptor_template_version_ref`,
+    target: `${jobConfig.targetDbSchemaCatalog}.eservice_descriptor_template_version_ref`,
     orderBy: "eservice_id",
     columns: Object.keys(EServiceTemplateVersionRef.shape),
   },
   {
-    source: "dev_catalog.eservice_descriptor_attribute",
-    target: "publicmodel_catalog.eservice_descriptor_attribute",
+    source: `${jobConfig.sourceDbSchemaCatalog}.eservice_descriptor_attribute`,
+    target: `${jobConfig.targetDbSchemaCatalog}.eservice_descriptor_attribute`,
     orderBy: "attribute_id",
     columns: Object.keys(EServiceAttribute.shape),
   },
