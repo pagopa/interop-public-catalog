@@ -33,6 +33,11 @@ export const ui = {
     'header.top_nav.open_data': 'Dati aperti',
 
     'footer.nav_section.resources': 'Risorse',
+    'footer.nav_section.media_policy': 'Media policy',
+    'footer.nav_section.legal_notes': 'Note legali',
+    'footer.nav_section.privacy_policy': 'Privacy policy',
+    'footer.nav_section.sitemap': 'Mappa del sito',
+    'footer.nav_section.accessibility_statement': 'Dichiarazione di accessibilità',
 
     'eservice_card.access_reserved': 'Accesso riservato',
     'eservice_card.read_more': 'leggi tutto',
@@ -67,6 +72,11 @@ export const ui = {
     'header.top_nav.open_data': 'Open data',
 
     'footer.nav_section.resources': 'Resources',
+    'footer.nav_section.media_policy': 'Media policy',
+    'footer.nav_section.legal_notes': 'Legal notes',
+    'footer.nav_section.privacy_policy': 'Privacy policy',
+    'footer.nav_section.sitemap': 'Sitemap',
+    'footer.nav_section.accessibility_statement': 'Accessibility statement',
 
     'eservice_card.access_reserved': 'Reserved access',
     'eservice_card.read_more': 'Read more',

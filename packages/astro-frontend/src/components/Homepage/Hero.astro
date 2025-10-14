@@ -1,8 +1,8 @@
 ---
+import { getRelativeLocaleUrl } from 'astro:i18n'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { useUiTranslations } from '../../i18n/ui.i18n'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
-import { getLocalizedPath } from '../../i18n/utils.i18n'
 import TooltipIcon from '../shared/TooltipIcon.astro'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
@@ -33,7 +33,7 @@ const tUi = useUiTranslations(currentLocale)
           <form
             id="hero-form-group"
             class="form-group rounded border border-white mb-4 overflow-hidden"
-            action={getLocalizedPath('/catalogo', currentLocale)}
+            action={getRelativeLocaleUrl(currentLocale, '/catalogo')}
             method="GET"
           >
             <div class="input-group">

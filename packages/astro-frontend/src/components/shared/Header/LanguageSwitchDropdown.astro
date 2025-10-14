@@ -1,8 +1,9 @@
 ---
 import { LANGUAGES } from '../../../i18n/config.i18n'
-import { getLangFromUrl, getLocalizedPath } from '../../../i18n/utils.i18n'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
 import { BootstrapItaliaIcon } from '../BootstrapItaliaIcon'
 import { useUiTranslations } from '../../../i18n/ui.i18n.js'
+import { getRelativeLocaleUrl } from 'astro:i18n'
 
 const currentLang = getLangFromUrl(Astro.url.pathname)
 const tUi = useUiTranslations(currentLang)
@@ -30,7 +31,7 @@ const tUi = useUiTranslations(currentLang)
                 <li>
                   <a
                     class="dropdown-item list-item"
-                    href={getLocalizedPath(Astro.url.pathname, lang)}
+                    href={getRelativeLocaleUrl(lang)}
                   >
                     <span>
                       {LANGUAGES[lang]}{' '}

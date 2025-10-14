@@ -114,13 +114,14 @@ const topNavNavItems = [
                   <ul class="navbar-nav">
                     {
                       CATALOG_API_SECTION_NAV_ITEMS.map((navItem) => {
-                        const isActive = Astro.url.pathname === navItem.href
+                        const localizedHref = navItem.getHref(currentLocale)
+                        const isActive = Astro.url.pathname === localizedHref
                         return (
                           <li class:list={['nav-item', isActive && 'active']}>
                             <a
                               class:list={['nav-link', isActive && 'active']}
                               aria-current={isActive ? 'page' : undefined}
-                              href={navItem.href}
+                              href={localizedHref}
                             >
                               <span>{tUi(navItem.i18nKey)}</span>
                             </a>
@@ -132,10 +133,11 @@ const topNavNavItems = [
                   <ul class="navbar-nav">
                     {
                       RESOURCES_SECTION_NAV_ITEMS.map((navItem) => {
-                        const isActive = Astro.url.pathname === navItem.href
+                        const localizedHref = navItem.getHref(currentLocale)
+                        const isActive = Astro.url.pathname === localizedHref
                         return (
                           <li class:list={['nav-item', isActive && 'active']}>
-                            <a class:list={['nav-link', isActive && 'active']} href={navItem.href}>
+                            <a class:list={['nav-link', isActive && 'active']} href={localizedHref}>
                               <span>{tUi(navItem.i18nKey)}</span>
                             </a>
                           </li>
@@ -150,12 +152,13 @@ const topNavNavItems = [
                     {
                       [...CATALOG_API_SECTION_NAV_ITEMS, ...RESOURCES_SECTION_NAV_ITEMS].map(
                         (navItem) => {
-                          const isActive = Astro.url.pathname === navItem.href
+                        const localizedHref = navItem.getHref(currentLocale)
+                        const isActive = Astro.url.pathname === localizedHref
                           return (
                             <li class:list={['nav-item', isActive && 'active']}>
                               <a
                                 class:list={['nav-link', isActive && 'active']}
-                                href={navItem.href}
+                                href={localizedHref}
                               >
                                 <span>{tUi(navItem.i18nKey)}</span>
                               </a>

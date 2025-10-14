@@ -1,29 +1,18 @@
 ---
+import { CATALOG_API_SECTION_NAV_ITEMS, RESOURCES_SECTION_NAV_ITEMS } from '../../config/constants'
 import { useUiTranslations } from '../../i18n/ui.i18n'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tUi = useUiTranslations(currentLocale)
 
-// Catalogo API section links
-const catalogoApiSectionNavItems = [
-  { label: tUi('nav.explore_catalog'), href: '#' },
-  { label: tUi('nav.examples'), href: '#' },
-] as const
-
-// Resources section links
-const resourcesSectionNavItems = [
-  { label: tUi('nav.what_is'), href: '#' },
-  { label: tUi('nav.faq'), href: '#' },
-] as const
-
 // Footer small print links (legal, privacy, accessibility, etc.)
 const footerSmallPrintLinks = [
-  { label: 'Media policy', href: '#' },
-  { label: 'Note legali', href: '#' },
-  { label: 'Privacy policy', href: '#' },
-  { label: 'Mappa del sito', href: '#' },
-  { label: 'Dichiarazione di accessibilità', href: '#' },
+  { label: tUi('footer.nav_section.media_policy'), href: '#' },
+  { label: tUi('footer.nav_section.legal_notes'), href: '#' },
+  { label: tUi('footer.nav_section.privacy_policy'), href: '#' },
+  { label: tUi('footer.nav_section.sitemap'), href: '#' },
+  { label: tUi('footer.nav_section.accessibility_statement'), href: '#' },
 ] as const
 ---
 
@@ -60,10 +49,10 @@ const footerSmallPrintLinks = [
               <div class="link-list-wrapper">
                 <ul class="footer-list link-list clearfix">
                   {
-                    catalogoApiSectionNavItems.map((item) => (
+                    CATALOG_API_SECTION_NAV_ITEMS.map((item) => (
                       <li>
-                        <a class="list-item" href={item.href}>
-                          {item.label}
+                        <a class="list-item" href={item.getHref(currentLocale)}>
+                          {tUi(item.i18nKey)}
                         </a>
                       </li>
                     ))
@@ -79,10 +68,10 @@ const footerSmallPrintLinks = [
               <div class="link-list-wrapper">
                 <ul class="footer-list link-list clearfix">
                   {
-                    resourcesSectionNavItems.map((item) => (
+                    RESOURCES_SECTION_NAV_ITEMS.map((item) => (
                       <li>
-                        <a class="list-item" href={item.href}>
-                          {item.label}
+                        <a class="list-item" href={item.getHref(currentLocale)}>
+                          {tUi(item.i18nKey)}
                         </a>
                       </li>
                     ))
