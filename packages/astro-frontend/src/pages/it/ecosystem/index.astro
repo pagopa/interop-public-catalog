@@ -4,18 +4,18 @@ export const prerender = false
 import RatingSection from '../../../components/shared/RatingSection'
 import Layout from '../../../layouts/Layout.astro'
 
-import BootstrapItaliaIcon from '../../../components/shared/BootstrapItaliaIcon.astro'
 import AccessPointsSection from '../../../components/Ecosystem/AccessPointsSection.astro'
 import { useEcosystemTranslations } from '../../../i18n/ecosystem.i18n'
 import SuggestionsSection from '../../../components/shared/SuggestionSection.astro'
 import { getLangFromUrl } from '../../../i18n/utils.i18n'
+import { BootstrapItaliaIcon } from '../../../components/shared/BootstrapItaliaIcon'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useEcosystemTranslations(currentLocale)
 ---
 
 <Layout>
-  <section class="section section-muted py-default">
+  <section class="section section-muted px-0 px-md-auto py-default">
     <div class="section-content">
       <div class="container">
         <nav class="breadcrumb-container" aria-label="Percorso di navigazione">
@@ -85,7 +85,7 @@ const t = useEcosystemTranslations(currentLocale)
 
   <AccessPointsSection />
 
-  <section class="section py-default">
+  <section class="section py-default px-0 px-md-auto">
     <div class="section-content">
       <div class="container">
         <div class="row">
@@ -157,7 +157,7 @@ const t = useEcosystemTranslations(currentLocale)
     </div>
   </section>
 
-  <section class="section py-default bg-muted-dark">
+  <section class="section py-default bg-muted-dark px-0 px-md-auto">
     <div class="section-content">
       <div class="container">
         <div class="row">

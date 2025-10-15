@@ -18,11 +18,11 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useEServiceDetailsTranslations(currentLocale)
 ---
 
-<section class="section section-muted py-5">
+<section class="section section-muted px-0 px-md-auto py-5">
   <div class="section-content">
     <div class="container">
       <div class="row">
-        <div class="col-lg-4 d-none d-lg-block">
+        <div class="col-md-4 d-none d-md-block">
           <PageIndexNav
             title="Indice della pagina"
             headings={[
@@ -37,7 +37,7 @@ const t = useEServiceDetailsTranslations(currentLocale)
           />
         </div>
 
-        <div class="col-xs-12 col-lg-8">
+        <div class="col-xs-12 col-md-8">
           <div class="mb-default">
             <h4 id="descrizione" class="mb-4">{t('description_section.title')}</h4>
             <p>{eservice.description}</p>
@@ -45,7 +45,7 @@ const t = useEServiceDetailsTranslations(currentLocale)
 
           <div class="mb-default">
             <h4 id="dettagli-api" class="mb-4">{t('api_details_section.title')}</h4>
-            <ul class="list-group list-group-horizontal-lg bg-white">
+            <ul class="list-group list-group-horizontal-md bg-white">
               <li class="flex-fill list-group-item bg-transparent border-0 p-3">
                 <div class="py-2 px-3">
                   <div class="d-flex flex-row justify-content-between align-items-center">
@@ -66,9 +66,9 @@ const t = useEServiceDetailsTranslations(currentLocale)
                 </div>
               </li>
               {/* Horizontal separator for mobile/tablet */}
-              <hr class="d-block d-lg-none my-3 border-2" />
+              <hr class="d-block d-md-none my-3 border-2" />
               {/* Vertical separator for large screens */}
-              <div class="vr d-none d-lg-block mx-2 my-3"></div>
+              <div class="vr d-none d-md-block mx-2 my-3"></div>
               <li class="flex-fill list-group-item bg-transparent border-0 p-3">
                 <div class="py-2 px-3">
                   <h6 class="mb-0">{t('api_details_section.creation_date_label')}</h6>
@@ -79,9 +79,9 @@ const t = useEServiceDetailsTranslations(currentLocale)
                 </div>
               </li>
               {/* Horizontal separator for mobile/tablet */}
-              <hr class="d-block d-lg-none my-3 border-2" />
+              <hr class="d-block d-md-none my-3 border-2" />
               {/* Vertical separator for large screens */}
-              <div class="vr d-none d-lg-block mx-2 my-3"></div>
+              <div class="vr d-none d-md-block mx-2 my-3"></div>
               <li class="flex-fill list-group-item bg-transparent border-0 p-3">
                 <div class="py-2 px-3">
                   <h6 class="mb-0">{t('api_details_section.last_update_date_label')}</h6>
@@ -183,10 +183,10 @@ const t = useEServiceDetailsTranslations(currentLocale)
             <h4 id="documentazione" class="mb-4">{t('documentation_section.title')}</h4>
 
             <div class="row px-3 bg-white py-2">
-              <div class="col-xs-12 col-lg-8">
+              <div class="col-xs-12 col-md-8">
                 <span>{t('documentation_section.access_required')}</span>
               </div>
-              <div class="col-xs-12 col-lg-4 text-xs-start text-lg-end">
+              <div class="col-xs-12 col-md-4 text-xs-start text-md-end">
                 <a class="text-decoration-none" href="#">
                   {t('documentation_section.access_link')}
                   <BootstrapItaliaIcon name="it-external-link" color="primary" size="sm" />
@@ -196,10 +196,10 @@ const t = useEServiceDetailsTranslations(currentLocale)
           </div>
 
           <div class="row p-default bg-primary-c0 rounded-3">
-            <div class="col-xs-12 col-lg-8">
+            <div class="col-xs-12 col-md-8">
               <h4>{t('implementation_section.title')}</h4>
             </div>
-            <div class="col-xs-12 col-lg-4 text-xs-start text-lg-end">
+            <div class="col-xs-12 col-md-4 text-xs-start text-md-end">
               <button type="button" class="btn btn-primary btn-icon">
                 {t('implementation_section.authentication_link')}
                 <BootstrapItaliaIcon name="it-external-link" color="white" className={'ms-1'} />
