@@ -1,5 +1,8 @@
-import { EServiceAttribute, EServiceAttributes } from '../../../models/src/types/eservice.js'
-import { EService } from '../components/EServiceCatalog/EServiceCatalog.js'
+import {
+  EService,
+  EServiceAttribute,
+  EServiceAttributes,
+} from '../../../models/src/types/eservice.js'
 
 const chunkEServiceArray = (eservices: EService[], eservicesPerRow: number): EService[][] => {
   const chunkedArray: EService[][] = []
@@ -37,8 +40,8 @@ function mapEServiceAttributesToGroups(attributes: EServiceAttributes): Groups {
     // e lo mappiamo nel formato Group
     for (const group of attributeGroups) {
       groups.push({
-        type: key, // La chiave corrente (e.g., 'certified')
-        group: group, // L'array interno (e.g., Array<{id: string; name: string}>)
+        attributeType: key, // La chiave corrente (e.g., 'certified')
+        attributesGroup: group, // L'array interno (e.g., Array<{id: string; name: string}>)
       })
     }
   }
