@@ -5,7 +5,12 @@ import Layout from '../../../layouts/Layout.astro'
 import { BootstrapItaliaIcon } from '../../../components/shared/BootstrapItaliaIcon.js'
 import EServiceDetails from '../../../components/EServiceDetails/EServiceDetails.astro'
 import RatingSection from '../../../components/shared/RatingSection'
-import { EServiceId, EServiceTemplateId, TenantId } from '../../../../../models/src/brandedIds'
+import {
+  AttributeId,
+  EServiceId,
+  EServiceTemplateId,
+  TenantId,
+} from '../../../../../models/src/brandedIds'
 import { EService, Technology } from '../../../../../models/src/types/eservice'
 import { useUiTranslations } from '../../../i18n/ui.i18n'
 
@@ -129,7 +134,7 @@ const highlightedEServices: EService[] = [
       name: 'eservice 1',
       description: 'eservice description 1',
       attributes: {
-        certified: [],
+        certified: [[{ id: 'certified1' as AttributeId, explicitAttributeVerification: false }]],
         declared: [],
         verified: [],
       },
