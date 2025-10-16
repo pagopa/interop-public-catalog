@@ -31,37 +31,37 @@ const tables: TableMap[] = [
   {
     source: `${jobConfig.sourceDbSchemaTenant}.tenant`,
     target: `${jobConfig.targetDbSchemaTenant}.tenant`,
-    orderBy: "created_at",
+    orderBy: "id",
     columns: Object.keys(Tenant.shape),
   },
   {
     source: `${jobConfig.sourceDbSchemaAttribute}.attribute`,
     target: `${jobConfig.targetDbSchemaAttribute}.attribute`,
-    orderBy: "creation_time",
+    orderBy: "id",
     columns: Object.keys(Attribute.shape),
   },
   {
     source: `${jobConfig.sourceDbSchemaCatalog}.eservice`,
     target: `${jobConfig.targetDbSchemaCatalog}.eservice`,
-    orderBy: "created_at",
+    orderBy: "id",
     columns: Object.keys(EService.shape),
   },
   {
     source: `${jobConfig.sourceDbSchemaCatalog}.eservice_descriptor`,
     target: `${jobConfig.targetDbSchemaCatalog}.eservice_descriptor`,
-    orderBy: "created_at",
+    orderBy: "id",
     columns: Object.keys(Descriptor.shape),
   },
   {
     source: `${jobConfig.sourceDbSchemaCatalog}.eservice_descriptor_template_version_ref`,
     target: `${jobConfig.targetDbSchemaCatalog}.eservice_descriptor_template_version_ref`,
-    orderBy: "eservice_id",
+    orderBy: "eservice_id, descriptor_id",
     columns: Object.keys(EServiceTemplateVersionRef.shape),
   },
   {
     source: `${jobConfig.sourceDbSchemaCatalog}.eservice_descriptor_attribute`,
     target: `${jobConfig.targetDbSchemaCatalog}.eservice_descriptor_attribute`,
-    orderBy: "attribute_id",
+    orderBy: "eservice_id, attribute_id",
     columns: Object.keys(EServiceAttribute.shape),
   },
 ];
