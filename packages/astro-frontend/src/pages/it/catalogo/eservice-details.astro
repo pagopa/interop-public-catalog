@@ -2,7 +2,6 @@
 import Layout from '../../../layouts/Layout.astro'
 import { BootstrapItaliaIcon } from '../../../components/shared/BootstrapItaliaIcon.js'
 import EServiceDetails from '../../../components/EServiceDetails/EServiceDetails.astro'
-import RatingSection from '../../../components/shared/RatingSection'
 import {
   AttributeId,
   EServiceId,
@@ -16,6 +15,7 @@ import { getLangFromUrl } from '../../../i18n/utils.i18n'
 import PageLayout from '../../../layouts/PageLayout.astro'
 import { useEServiceDetailsTranslations } from '../../../i18n/eservice-details'
 import ApiShowcase from '../../../components/Homepage/ApiShowcase.astro'
+import RatingSection from '../../../components/shared/RatingSection.astro'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tUi = useUiTranslations(currentLocale)
