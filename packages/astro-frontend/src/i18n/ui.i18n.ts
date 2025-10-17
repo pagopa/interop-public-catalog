@@ -42,6 +42,15 @@ export const ui = {
 
     'eservice_card.access_reserved': 'Accesso riservato',
     'eservice_card.read_more': 'leggi tutto',
+    'chip.provider': 'Ente erogatore',
+    'chip.consumer': 'Ente fruitore',
+    'chip.q': 'Parola chiave',
+    'chip.remove_all': 'Rimuovi tutti i filtri',
+    'autocomplete.placeholder': "Scegli un'opzione",
+    'autocomplete.selectedElements': ' elementi selezionati',
+    'autocomplete.selectedElement': ' elemento selezionato',
+    'pagination.previous': 'Precedente',
+    'pagination.next': 'Successiva',
   },
   en: {
     'actions.search': 'Search',
@@ -82,6 +91,15 @@ export const ui = {
 
     'eservice_card.access_reserved': 'Reserved access',
     'eservice_card.read_more': 'Read more',
+    'chip.provider': 'Provider',
+    'chip.consumer': 'Consumer',
+    'chip.q': 'Keyword',
+    'chip.remove_all': 'Remove all filters',
+    'autocomplete.placeholder': 'Choose an option',
+    'autocomplete.selectedElements': ' items selected',
+    'autocomplete.selectedElement': ' item selected',
+    'pagination.previous': 'Previous',
+    'pagination.next': 'Next',
   },
 } as const satisfies TranslationsMap
 

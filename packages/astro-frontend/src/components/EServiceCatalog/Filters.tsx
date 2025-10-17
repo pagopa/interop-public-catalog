@@ -1,82 +1,101 @@
+import { Button, Col, Form, FormGroup, Input, Row } from 'design-react-kit'
+import React, { useEffect } from 'react'
 import {
-  Button,
-  Chip,
-  ChipLabel,
-  Col,
-  Form,
-  FormGroup,
-  Icon,
-  Input,
-  Row,
-  Select,
-} from 'design-react-kit'
-import React from 'react'
-import { MultipleAutoComplete } from '../MultipleAutoComplete/MultipleAutoComplete.js'
+  FilterAutoCompleteValue,
+  MultipleAutoComplete,
+} from '../MultipleAutoComplete/MultipleAutoComplete.js'
+import { FiltersChips } from './FiltersChips.js'
+import { addParamsWithinUrl, parseQueryStringToParams } from '../../utils/utils.js'
 
-type FiltersProps = unknown
+const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
+  { label: 'Opzione 1', value: 'value-1' },
+  { label: 'Opzione 2', value: 'value-2' },
+  { label: 'Opzione 3', value: 'value-3' },
+  { label: 'Opzione 4', value: 'value-4' },
+  { label: 'Opzione 5', value: 'value-5' },
+]
 
-type FiltersParams = {
+const optionAutoCompleteConsumer: FilterAutoCompleteValue[] = [
+  { label: 'Opzione A', value: 'value-A' },
+  { label: 'Opzione B', value: 'value-B' },
+  { label: 'Opzione C', value: 'value-C' },
+  { label: 'Opzione D', value: 'value-D' },
+  { label: 'Opzione E', value: 'value-E' },
+]
+
+export type FiltersParams = {
   q?: string
   theme?: string
-  provider?: string
-  subscriber?: string
-  isOpenData?: boolean
-  [key: string]: string | boolean | undefined
+  provider?: FilterAutoCompleteValue[]
+  consumer?: FilterAutoCompleteValue[]
 }
-const Filters: React.FC<FiltersProps> = () => {
-  const [filtersParams, setFilterParams] = React.useState<FiltersParams>({})
+
+export type FilterParamsKeys = keyof FiltersParams
+
+const Filters = () => {
+  const [filtersFormState, setFiltersFormState] = React.useState<FiltersParams>({
+    provider: [],
+    consumer: [],
+  })
+  const [appliedFilters, setAppliedFilters] = React.useState<FiltersParams>({})
+
+  useEffect(() => {
+    const initialParams: FiltersParams = parseQueryStringToParams(window.location.search)
+    setFiltersFormState(initialParams)
+    setAppliedFilters(initialParams)
+  }, [])
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    addParamsOnUrl(filtersParams)
-
+    addParamsWithinUrl(filtersFormState)
+    setAppliedFilters(filtersFormState)
     // Fetch API!
   }
 
-  const addParamsOnUrl = (filtersParams: FiltersParams) => {
-    const urlSearchParams = new URLSearchParams()
-
-    Object.keys(filtersParams).forEach((key: string) => {
-      if (filtersParams[key]) {
-        urlSearchParams.append(key, filtersParams[key] as string)
-      }
-    })
-
-    const queryString = urlSearchParams.toString()
-    const newUrl = `${window.location.pathname}?${queryString}`
-    window.history.pushState({ path: newUrl }, '', newUrl)
-  }
-
-  const handleValueChange = (key: keyof FiltersParams, value: string | boolean) => {
-    console.log('valore cambiato', key, value)
-    setFilterParams((prev) => ({
+  const handleValueChange = (
+    key: keyof FiltersParams,
+    value: string | FilterAutoCompleteValue[]
+  ) => {
+    setFiltersFormState((prev) => ({
       ...prev,
       [key]: value,
     }))
   }
 
-  const filters = [
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-  ]
+  const handleConsumerChange = (values: FilterAutoCompleteValue[]) => {
+    const previousFilterState = {
+      ...filtersFormState,
+      consumer: values,
+    }
+    setFiltersFormState(previousFilterState)
+    setAppliedFilters(previousFilterState)
+
+    addParamsWithinUrl(previousFilterState)
+  }
+
+  const handleRemoveValue = (key: keyof FiltersParams, value: string | FilterAutoCompleteValue) => {
+    const getUpdatedState = (): FiltersParams => {
+      if (key === 'provider' || key === 'consumer') {
+        const newValues = filtersFormState[key]!.filter((v) => v.value !== value)
+        return { ...filtersFormState, [key]: newValues }
+      }
+
+      const { [key]: _, ...newState } = filtersFormState
+      return newState
+    }
+
+    const updatedState = getUpdatedState()
+
+    setFiltersFormState(updatedState)
+    setAppliedFilters(updatedState)
+    addParamsWithinUrl(updatedState)
+  }
+
+  const handleRemoveAll = () => {
+    setFiltersFormState({})
+    setAppliedFilters({})
+    addParamsWithinUrl({})
+  }
 
   return (
     <>
@@ -89,49 +108,29 @@ const Filters: React.FC<FiltersProps> = () => {
                 label="Cerca per parola chiave"
                 id="completeValidation-name"
                 type="text"
-                value={filtersParams.q ?? ''}
+                value={filtersFormState.q ?? ''}
                 validationText="Validato!"
-                valid={filtersParams.q != ''}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                valid={filtersFormState.q != ''}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  e.preventDefault()
                   handleValueChange('q', e.target.value)
-                }
+                }}
+                onKeyDown={(e: React.KeyboardEvent) => {
+                  if (e.key === 'Enter') {
+                    e.preventDefault()
+                  }
+                }}
               />
             </FormGroup>
           </Col>
           <Col>
             <FormGroup>
-              {/* <BaseAutoComplete id="autocomplete" /> */}
-              <MultipleAutoComplete label="Filtra per ente erogatore" />
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              {/* <Select
-                id="selectExampleClassic"
-                label="Filtra per tema"
-                onChange={(e) => handleValueChange('theme', e.target.value)}
-              >
-                <option label="Opzione 1">Value 1</option>
-                <option label="Opzione 2">Value 2</option>
-                <option label="Opzione 3">Value 3</option>
-                <option label="Opzione 4">Value 4</option>
-                <option label="Opzione 5">Value 5</option>
-              </Select> */}
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <Select
-                id="selectExampleClassic"
-                label="Filtra per ente fruitore"
-                onChange={(value: string) => handleValueChange('subscriber', value)}
-              >
-                <option label="Opzione 1">Value 1</option>
-                <option label="Opzione 2">Value 2</option>
-                <option label="Opzione 3">Value 3</option>
-                <option label="Opzione 4">Value 4</option>
-                <option label="Opzione 5">Value 5</option>
-              </Select>
+              <MultipleAutoComplete
+                label="Filtra per ente erogatore"
+                options={optionAutoCompleteProvider}
+                values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
+                handleValuesChange={(values) => handleValueChange('provider', values)}
+              />
             </FormGroup>
           </Col>
           <Col>
@@ -148,44 +147,38 @@ const Filters: React.FC<FiltersProps> = () => {
       </Form>
       {/* <Form> */}
       <Row>
-        {/* <Col xs="3">
+        <Col lg="3">
+          <FormGroup>
             <FormGroup>
-              <Select id="selectExampleClassic" label="Field Label" onChange={() => {}}>
-                <option label="Opzione 1">Value 1</option>
-                <option label="Opzione 2">Value 2</option>
-                <option label="Opzione 3">Value 3</option>
-                <option label="Opzione 4">Value 4</option>
-                <option label="Opzione 5">Value 5</option>
-              </Select>
+              <MultipleAutoComplete
+                label="Filtra per ente fruitore"
+                options={optionAutoCompleteConsumer}
+                values={filtersFormState.consumer as unknown as FilterAutoCompleteValue[]}
+                handleValuesChange={handleConsumerChange}
+              />
             </FormGroup>
-          </Col> */}
-        {/* <Col xs="3">
-          <FormGroup check>
-            <Input
-              id="checkbox1"
-              type="checkbox"
-              checked={termsAndConditions}
-              onChange={() => setTermsAndConditions(!termsAndConditions)}
-              valid={termsAndConditions}
-            />
-            <Label check for="checkbox1">
-              Mostra solo Open Data
-            </Label>
+            {/* <Select
+              id="selectExampleClassic"
+              label="Filtra per ente fruitore"
+              value={filtersFormState.consumer ?? ''}
+              onChange={(value: string) => handleValueChange('consumer', value)}
+            >
+              <option label="Opzione 1">Value 1</option>
+              <option label="Opzione 2">Value 2</option>
+              <option label="Opzione 3">Value 3</option>
+              <option label="Opzione 4">Value 4</option>
+              <option label="Opzione 5">Value 5</option>
+            </Select> */}
           </FormGroup>
-        </Col> */}
+        </Col>
       </Row>
       {/* </Form> */}
-      <div className="d-flex flex-row flex-wrap align-items-center">
-        {filters.map((filter) => (
-          <Chip key={filter} color="primary" className="no-hover">
-            <ChipLabel className="no-hover text-primary">{filter}</ChipLabel>
-            <Button>
-              <Icon icon="it-close" color="primary" />
-            </Button>
-          </Chip>
-        ))}
-        <Button className="btn-link p-0">Rimuovi tutti i filtri</Button>
-      </div>
+
+      <FiltersChips
+        handleRemoveValue={handleRemoveValue}
+        filters={appliedFilters}
+        handleRemoveAll={handleRemoveAll}
+      ></FiltersChips>
     </>
   )
 }

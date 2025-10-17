@@ -1,10 +1,10 @@
 ---
 import Layout from '../../../layouts/Layout.astro'
-import Pagination from '../../../components/Pagination/Pagination'
 import EServiceCatalog from '../../../components/EServiceCatalog/EServiceCatalog'
 import { Breadcrumb, BreadcrumbItem, Button, Container, Icon, Section } from 'design-react-kit'
 import Filters from '../../../components/EServiceCatalog/Filters'
-import SuggestionSection from '../../../components/shared/SuggestionsSection/SuggestionSection.astro'
+import SuggestionSection from '../../../components/shared/SuggestionSection.astro'
+
 ---
 
 <Layout>
@@ -29,11 +29,11 @@ import SuggestionSection from '../../../components/shared/SuggestionsSection/Sug
 
   <Section color="muted">
     <Container className="p-3">
-      <Filters client:load />
+      <Filters client:only="react" />
     </Container>
 
     <EServiceCatalog
-      client:load
+      client:only="react"
       eservices={[
         {
           name: 'eservice 1',
@@ -127,7 +127,6 @@ import SuggestionSection from '../../../components/shared/SuggestionsSection/Sug
         // },
       ]}
     />
-    <Pagination client:load currentPage={3} totalPages={7} />
   </Section>
 
   <div class="p-5">
