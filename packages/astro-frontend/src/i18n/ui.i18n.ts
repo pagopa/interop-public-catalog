@@ -1,5 +1,27 @@
-import { TranslationsMap } from './types.i18n.js'
+import { RouteKey } from '../config/routes.js'
+import { SupportedLanguage, TranslationsMap } from './types.i18n.js'
 import { buildUseTranslations } from './utils.i18n.js'
+
+const breadcrumbLabels = {
+  it: {
+    'breadcrumb_label.HOME': 'Home',
+    'breadcrumb_label.ECOSYSTEM': 'Cos’è l’interoperabilità',
+    'breadcrumb_label.ESERVICE_CATALOG': 'Esplora il catalogo',
+    'breadcrumb_label.ESERVICE_DETAILS': 'Dettaglio API',
+    'breadcrumb_label.FAQ': 'Domande frequenti',
+    'breadcrumb_label.USE_CASE_CATALOG': 'Esempi pratici',
+    'breadcrumb_label.USE_CASE_DETAILS': 'Dettaglio esempi pratici',
+  },
+  en: {
+    'breadcrumb_label.HOME': 'Home',
+    'breadcrumb_label.ECOSYSTEM': 'About us',
+    'breadcrumb_label.ESERVICE_CATALOG': 'Explore the catalog',
+    'breadcrumb_label.ESERVICE_DETAILS': 'API details',
+    'breadcrumb_label.FAQ': 'Frequently asked questions',
+    'breadcrumb_label.USE_CASE_CATALOG': 'Practical examples',
+    'breadcrumb_label.USE_CASE_DETAILS': 'Use case details',
+  },
+} as const satisfies { [K in SupportedLanguage]: Record<`breadcrumb_label.${RouteKey}`, string> }
 
 export const ui = {
   it: {
@@ -41,6 +63,23 @@ export const ui = {
 
     'eservice_card.access_reserved': 'Accesso riservato',
     'eservice_card.read_more': 'leggi tutto',
+
+    // Organization Types
+    'organization_types.tutti_long': 'Tutti gli enti',
+    'organization_types.pac_long': 'Pubbliche Amministrazioni Centrali',
+    'organization_types.comuni_long': 'Comuni',
+    'organization_types.regioni_long': 'Regioni',
+    'organization_types.universita_long': 'Università e AFAM',
+    'organization_types.altre_long': 'Altre Pubbliche Amministrazioni Locali',
+
+    'organization_types.tutti_short': 'Tutti',
+    'organization_types.pac_short': 'PAC',
+    'organization_types.comuni_short': 'Comuni',
+    'organization_types.regioni_short': 'Regioni',
+    'organization_types.universita_short': 'Università',
+    'organization_types.altre_short': 'Altre',
+
+    ...breadcrumbLabels.it,
   },
   en: {
     'actions.search': 'Search',
@@ -80,6 +119,23 @@ export const ui = {
 
     'eservice_card.access_reserved': 'Reserved access',
     'eservice_card.read_more': 'Read more',
+
+    // Organization Types
+    'organization_types.tutti_long': 'All entities',
+    'organization_types.pac_long': 'Central Public Administrations',
+    'organization_types.comuni_long': 'Municipalities',
+    'organization_types.regioni_long': 'Regions',
+    'organization_types.universita_long': 'Universities and AFAM',
+    'organization_types.altre_long': 'Other Local Public Administrations',
+
+    'organization_types.tutti_short': 'All',
+    'organization_types.pac_short': 'PAC',
+    'organization_types.comuni_short': 'Municipalities',
+    'organization_types.regioni_short': 'Regions',
+    'organization_types.universita_short': 'Universities',
+    'organization_types.altre_short': 'Others',
+
+    ...breadcrumbLabels.en,
   },
 } as const satisfies TranslationsMap
 

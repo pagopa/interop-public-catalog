@@ -20,17 +20,14 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
     title="Erogare bonus ai cittadini in modo equo ed efficiente"
     breadcrumbItems={[
       {
-        label: 'Home',
-        href: '#',
+        routeKey: 'HOME',
       },
       {
-        label: 'Esempi pratici',
-        href: '#',
+        routeKey: 'USE_CASE_CATALOG',
       },
       {
-        label: 'Dettaglio esempi pratici',
-        href: '#',
-        active: true,
+        routeKey: 'USE_CASE_DETAILS',
+        current: true,
       },
     ]}
   >
@@ -60,15 +57,15 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
       <div class="d-flex justify-content-center gap-4 mt-4">
         <UseCaseCard
           currentLocale={currentLocale}
-          title="cammello"
-          intendedTargets={['a', 'b', 'c']}
-          category="sette"
+          title="Erogare i bonus ai cittadini in modo equo ed efficiente"
+          intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
+          category="Bonus Economici"
         />
         <UseCaseCard
           currentLocale={currentLocale}
-          title="cammello"
-          intendedTargets={['a', 'b', 'c']}
-          category="sette"
+          title="Iscrizione ai concorsi pubblici più snella"
+          intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
+          category="Bonus Economici"
         />
       </div>
     </Section>

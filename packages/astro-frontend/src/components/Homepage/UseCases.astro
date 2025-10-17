@@ -1,4 +1,6 @@
 ---
+import { ORGANIZATION_TYPES, OrganizationType } from '../../config/constants'
+import { getLocalizedRoute } from '../../config/routes'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
 import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
@@ -7,12 +9,20 @@ import { UseCaseCard } from '../shared/UseCaseCard'
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useHomepageTranslations(currentLocale)
 
-const targetsLinkItems = [
-  { text: t('use_cases.target.pa_centrali'), href: '#', imgSrc: '/img/030-city.svg' },
-  { text: t('use_cases.target.regioni'), href: '#', imgSrc: '/img/066-hospital.svg' },
-  { text: t('use_cases.target.comuni'), href: '#', imgSrc: '/img/bank-1.svg' },
-  { text: t('use_cases.target.view_all'), href: '#', imgSrc: '/img/027-pillars.svg' },
+const organizationsTypesLinks: Array<{ text: string; organizationTypeKey: OrganizationType }> = [
+  { text: t('use_cases.target.pa_centrali'), organizationTypeKey: 'pac' },
+  { text: t('use_cases.target.regioni'), organizationTypeKey: 'regioni' },
+  { text: t('use_cases.target.comuni'), organizationTypeKey: 'comuni' },
+  { text: t('use_cases.target.view_all'), organizationTypeKey: 'tutti' },
 ] as const
+
+function getOrganizationTypeHref(organizationType: OrganizationType) {
+  return `${getLocalizedRoute(currentLocale, 'USE_CASE_CATALOG')}?${new URLSearchParams({ organizationType }).toString()}`
+}
+
+function getOrganizationTypeImgSrc(organizationType: OrganizationType) {
+  return ORGANIZATION_TYPES.find((o) => o.key === organizationType)!.imgSrc
+}
 ---
 
 <section class="section position-relative pb-0" aria-labelledby="use-cases-section-title">
@@ -44,10 +54,19 @@ const targetsLinkItems = [
       <div class="it-list-wrapper mt-4">
         <ul class="it-list row">
           {
-            targetsLinkItems.map((l, i) => (
+            organizationsTypesLinks.map((l, i) => (
               <li class:list={['col-12 col-md-6 px-2 py-2 position-relative']}>
-                <a href={l.href} class="list-item icon-right gap-2 border-0">
-                  <img src={l.imgSrc} alt="" role="presentation" height="40" width="40" />
+                <a
+                  href={getOrganizationTypeHref(l.organizationTypeKey)}
+                  class="list-item icon-right gap-2 border-0"
+                >
+                  <img
+                    src={getOrganizationTypeImgSrc(l.organizationTypeKey)}
+                    alt=""
+                    role="presentation"
+                    height="40"
+                    width="40"
+                  />
                   <div class="it-right-zone">
                     <span style="font-size:1rem;" class="text">
                       {l.text}
@@ -76,7 +95,7 @@ const targetsLinkItems = [
           <UseCaseCard
             currentLocale={currentLocale}
             title="Erogare i bonus ai cittadini in modo equo ed efficiente"
-            intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
+            intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
             category="Bonus Economici"
           />
         </div>
@@ -84,7 +103,7 @@ const targetsLinkItems = [
           <UseCaseCard
             currentLocale={currentLocale}
             title="Iscrizione ai concorsi pubblici più snella"
-            intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
+            intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
             category="Titoli di studio"
           />
         </div>
@@ -92,7 +111,7 @@ const targetsLinkItems = [
           <UseCaseCard
             currentLocale={currentLocale}
             title="Verifica immediata dell’iscrizione all’albo degli avvocati"
-            intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
+            intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
             category="Ordini professionali"
           />
         </div>
@@ -100,7 +119,7 @@ const targetsLinkItems = [
           <UseCaseCard
             currentLocale={currentLocale}
             title="Erogare i bonus ai cittadini in modo equo ed efficiente"
-            intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
+            intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
             category="Bonus Economici"
           />
         </div>
@@ -109,9 +128,13 @@ const targetsLinkItems = [
 
     {/* Section Footer - Call to Action */}
     <div class="d-flex justify-content-center mt-5 pb-5">
-      <button type="button" class="btn btn-outline-primary">
+      <a
+        href={getLocalizedRoute(currentLocale, 'USE_CASE_CATALOG')}
+        id="explore-examples-button"
+        class="btn btn-outline-primary"
+      >
         {t('use_cases.footer_cta')}
-      </button>
+      </a>
     </div>
   </div>
 </section>

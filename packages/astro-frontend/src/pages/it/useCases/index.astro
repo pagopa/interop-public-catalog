@@ -1,6 +1,6 @@
 ---
 import { Section } from '../../../components/shared/Section'
-import { UseCaseCard } from '../../../components/shared/UseCaseCard'
+import { UseCasesCatalog } from '../../../components/UseCasesList/UseCasesCatalog'
 import { getLangFromUrl } from '../../../i18n/utils.i18n'
 import Layout from '../../../layouts/Layout.astro'
 import PageLayout from '../../../layouts/PageLayout.astro'
@@ -13,13 +13,11 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
     title="Esempi pratici di utilizzo per il tuo ente"
     breadcrumbItems={[
       {
-        label: 'Home',
-        href: '#',
+        routeKey: 'HOME',
       },
       {
-        label: 'Esempi pratici',
-        href: '#',
-        active: true,
+        routeKey: 'USE_CASE_CATALOG',
+        current: true,
       },
     ]}
   >
@@ -29,41 +27,7 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
     </p>
   </PageLayout>
 
-  <Section>
-    <div class="row">
-      <div class="col-4"></div>
-      <div class="col-8 d-flex flex-column gap-4">
-        <UseCaseCard
-          currentLocale={currentLocale}
-          title="cammello"
-          intendedTargets={['a', 'b', 'c']}
-          category="sette"
-        />
-        <UseCaseCard
-          currentLocale={currentLocale}
-          title="cammello"
-          intendedTargets={['a', 'b', 'c']}
-          category="sette"
-        />
-        <UseCaseCard
-          currentLocale={currentLocale}
-          title="cammello"
-          intendedTargets={['a', 'b', 'c']}
-          category="sette"
-        />
-        <UseCaseCard
-          currentLocale={currentLocale}
-          title="cammello"
-          intendedTargets={['a', 'b', 'c']}
-          category="sette"
-        />
-        <UseCaseCard
-          currentLocale={currentLocale}
-          title="cammello"
-          intendedTargets={['a', 'b', 'c']}
-          category="sette"
-        />
-      </div>
-    </div>
+  <Section className="bg-muted">
+    <UseCasesCatalog client:only="react" currentLocale={currentLocale} />
   </Section>
 </Layout>

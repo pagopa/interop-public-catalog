@@ -1,12 +1,18 @@
 ---
 import { Section } from '../components/shared/Section.jsx'
+import { getLocalizedRoute, RouteKey } from '../config/routes'
+import { useUiTranslations } from '../i18n/ui.i18n'
+import { getLangFromUrl } from '../i18n/utils.i18n'
 
 interface Props {
   title: string
-  breadcrumbItems: Array<{ label: string; href: string; active?: boolean }>
+  breadcrumbItems: Array<{ routeKey: RouteKey; current?: boolean }>
 }
 
 const { title, breadcrumbItems } = Astro.props
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const tUi = useUiTranslations(currentLocale)
 ---
 
 <Section as="nav" className="breadcrumb-container pt-4 pb-0">
@@ -14,10 +20,16 @@ const { title, breadcrumbItems } = Astro.props
     {
       breadcrumbItems.map((item, idx) => (
         <li
-          class={`breadcrumb-item ${item.active ? 'active' : ''}`}
-          aria-current={item.active ? 'page' : undefined}
+          class={`breadcrumb-item ${item.current ? 'active' : ''}`}
+          aria-current={item.current ? 'page' : undefined}
         >
-          {item.href ? <a href={item.href}>{item.label}</a> : item.label}
+          {!item.current ? (
+            <a href={getLocalizedRoute(currentLocale, item.routeKey)}>
+              {tUi(`breadcrumb_label.${item.routeKey}`)}
+            </a>
+          ) : (
+            tUi(`breadcrumb_label.${item.routeKey}`)
+          )}
           {idx < breadcrumbItems.length - 1 && <span class="separator">/</span>}
         </li>
       ))
