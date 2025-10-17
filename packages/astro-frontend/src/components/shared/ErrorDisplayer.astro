@@ -1,0 +1,32 @@
+---
+interface Props {
+  error: {
+    title: string
+    message: string
+    iconSrc: string
+  }
+}
+
+const { error } = Astro.props
+---
+
+<section class="section px-0 px-md-auto my-5">
+  <div class="section-content">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-xs-12 col-lg-6 d-flex flex-column align-items-center">
+          <img
+            src={error.iconSrc}
+            class="mx-auto d-block mb-3"
+            width="120"
+            height="120"
+            alt="404"
+          />
+          <h1 class="text-center text-primary mb-4">{error.title}</h1>
+          <p class="text-center">{error.message}</p>
+          <a class="btn btn-primary mt-5" href="#" role="button">Vai alla homepage</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

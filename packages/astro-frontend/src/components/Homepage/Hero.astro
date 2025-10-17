@@ -1,0 +1,100 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n'
+import { useHomepageTranslations } from '../../i18n/homepage.i18n'
+import { useUiTranslations } from '../../i18n/ui.i18n'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { TooltipIcon } from '../shared/TooltipIcon.jsx'
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+
+const t = useHomepageTranslations(currentLocale)
+const tUi = useUiTranslations(currentLocale)
+---
+
+<section id="hero" style="min-height: 560px;" class="it-hero-wrapper">
+  <div class="img-responsive-wrapper">
+    <div class="img-responsive">
+      <div class="img-wrapper">
+        <img src="/img/hero-background.png" alt="" role="presentation" width="1440" height="560" />
+      </div>
+    </div>
+  </div>
+  <div class="container position-relative">
+    <div class="row flex-column-reverse flex-md-row">
+      <div class="col-12 col-md-6">
+        <div class="it-hero-text-wrapper">
+          {/* HERO TITLE */}
+          <h2>{t('title')}</h2>
+
+          {/* HERO SUBTITLE */}
+          <p class="d-none d-md-block font-sans-serif">{t('subtitle')}</p>
+
+          {/* HERO SEARCH */}
+          <form
+            id="hero-form-group"
+            class="form-group rounded border border-white mb-4 overflow-hidden"
+            action={getRelativeLocaleUrl(currentLocale, '/catalogo')}
+            method="GET"
+          >
+            <div class="input-group">
+              <label class="visually-hidden" for="hero-form-input">{t('search_placeholder')}</label>
+              <input
+                type="text"
+                class="form-control border-0"
+                id="hero-form-input"
+                name="q"
+                placeholder={t('search_placeholder')}
+              />
+              <div class="input-group-append">
+                <button id="hero-search-button" class="btn btn-primary" type="button" id="button-3"
+                  >{tUi('actions.search')}</button
+                >
+              </div>
+            </div>
+          </form>
+
+          {/* HERO FOOTER */}
+          <p class="font-sans-serif">
+            {t('info_link')}
+            <TooltipIcon
+              title={t('api_info.title')}
+              content={t('api_info.content')}
+              iconName="it-info-circle"
+              iconColor="white"
+            />
+          </p>
+        </div>
+      </div>
+      <div
+        style="z-index: 1;"
+        class="col-12 col-md-6 d-flex align-items-center justify-content-center justify-content-md-end"
+      >
+        <img
+          class="img-fluid mt-4 pt-4 pt-md-0 mt-md-0"
+          src="/img/hero-eservice-cards.png"
+          alt=""
+          role="presentation"
+          width="432"
+          height="400"
+        />
+      </div>
+    </div>
+    <div class="d-none d-md-flex position-absolute bottom-0 end-0 p-4 text-white">
+      <small class="d-flex align-items-center gap-3">
+        <svg
+          class="scroll-animation-icon"
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="28"
+          viewBox="0 0 20 28"
+          fill="none"
+        >
+          <path
+            d="M12 0H8C5.87898 0.00231607 3.84549 0.845914 2.3457 2.3457C0.845915 3.84549 0.00231607 5.87898 0 8V20C0.00231607 22.121 0.845915 24.1545 2.3457 25.6543C3.84549 27.1541 5.87898 27.9977 8 28H12C14.121 27.9977 16.1545 27.1541 17.6543 25.6543C19.1541 24.1545 19.9977 22.121 20 20V8C19.9977 5.87898 19.1541 3.84549 17.6543 2.3457C16.1545 0.845914 14.121 0.00231607 12 0ZM18 20C17.9983 21.5908 17.3657 23.116 16.2408 24.2408C15.116 25.3657 13.5908 25.9983 12 26H8C6.40921 25.9983 4.88405 25.3657 3.75919 24.2408C2.63433 23.116 2.00165 21.5908 2 20V8C2.00165 6.40921 2.63433 4.88405 3.75919 3.75919C4.88405 2.63433 6.40921 2.00165 8 2H12C13.5908 2.00165 15.116 2.63433 16.2408 3.75919C17.3657 4.88405 17.9983 6.40921 18 8V20ZM11 8.41375V19.5863L12.2925 18.2925C12.4801 18.1049 12.7346 17.9994 13 17.9994C13.2654 17.9994 13.5199 18.1049 13.7075 18.2925C13.8951 18.4801 14.0006 18.7346 14.0006 19C14.0006 19.2654 13.8951 19.5199 13.7075 19.7075L10.7075 22.7075C10.6146 22.8005 10.5043 22.8742 10.3829 22.9246C10.2615 22.9749 10.1314 23.0008 10 23.0008C9.86858 23.0008 9.73846 22.9749 9.61706 22.9246C9.49566 22.8742 9.38537 22.8005 9.2925 22.7075L6.2925 19.7075C6.10486 19.5199 5.99944 19.2654 5.99944 19C5.99944 18.7346 6.10486 18.4801 6.2925 18.2925C6.48014 18.1049 6.73464 17.9994 7 17.9994C7.26536 17.9994 7.51986 18.1049 7.7075 18.2925L9 19.5863V8.41375L7.7075 9.7075C7.51986 9.89514 7.26536 10.0006 7 10.0006C6.73464 10.0006 6.48014 9.89514 6.2925 9.7075C6.10486 9.51986 5.99944 9.26536 5.99944 9C5.99944 8.73464 6.10486 8.48014 6.2925 8.2925L9.2925 5.2925C9.38537 5.19952 9.49566 5.12576 9.61706 5.07544C9.73846 5.02512 9.86858 4.99921 10 4.99921C10.1314 4.99921 10.2615 5.02512 10.3829 5.07544C10.5043 5.12576 10.6146 5.19952 10.7075 5.2925L13.7075 8.2925C13.8004 8.38541 13.8741 8.49571 13.9244 8.6171C13.9747 8.7385 14.0006 8.8686 14.0006 9C14.0006 9.1314 13.9747 9.2615 13.9244 9.3829C13.8741 9.50429 13.8004 9.61459 13.7075 9.7075C13.6146 9.80041 13.5043 9.87411 13.3829 9.92439C13.2615 9.97468 13.1314 10.0006 13 10.0006C12.8686 10.0006 12.7385 9.97468 12.6171 9.92439C12.4957 9.87411 12.3854 9.80041 12.2925 9.7075L11 8.41375Z"
+            fill="white"></path>
+        </svg>
+        {t('scroll_hint')}
+      </small>
+    </div>
+  </div>
+</section>

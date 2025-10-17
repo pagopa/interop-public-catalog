@@ -5,7 +5,7 @@
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   },
-  "include": ["src", ".astro/types.d.ts"]
+  "include": ["src", ".astro/types.d.ts", "types.d.ts"],
 }
 
 // {

@@ -1,0 +1,187 @@
+---
+import { useUiTranslations } from '../../../i18n/ui.i18n'
+import { BootstrapItaliaIcon } from '../BootstrapItaliaIcon'
+import LanguageSwitchDropdown from './LanguageSwitchDropdown.astro'
+import {
+  DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL,
+  PAGOPA_URL,
+  CATALOG_API_SECTION_NAV_ITEMS,
+  RESOURCES_SECTION_NAV_ITEMS,
+} from '../../../config/constants.js'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const tUi = useUiTranslations(currentLocale)
+
+// TODO: Links
+const topNavNavItems = [
+  { label: tUi('header.top_nav.semantic'), href: '#' },
+  { label: tUi('header.top_nav.open_data'), href: '#' },
+]
+---
+
+<header class="it-header-wrapper">
+  <div class="it-header-slim-wrapper">
+    <div class="container-xxl">
+      <div class="row">
+        <div class="col-12">
+          <div class="it-header-slim-wrapper-content">
+            {/* Top Navbar */}
+            <span class="navbar-brand">
+              <a
+                target="_blank"
+                class="text-decoration-underline"
+                href={DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL}
+                ><span class="d-none d-md-inline">Dipartimento per la trasformazione digitale</span
+                ><span class="d-md-none d-inline">DTD</span></a
+              > e <a target="_blank" class="text-decoration-underline" href={PAGOPA_URL}
+                >PagoPA S.p.A.</a
+              >
+            </span>
+            <div class="nav-mobile">
+              <nav>
+                <div class="link-list-wrapper collapse">
+                  <ul class="link-list">
+                    <li>
+                      <a class="list-item fw-semibold text-decoration-none">Altri cataloghi:</a>
+                    </li>
+                    {
+                      topNavNavItems.map((item) => (
+                        <li>
+                          <a class="list-item" href={item.href}>
+                            {item.label}
+                          </a>
+                        </li>
+                      ))
+                    }
+                  </ul>
+                </div>
+              </nav>
+            </div>
+            <div class="it-header-slim-right-zone">
+              <LanguageSwitchDropdown />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="it-nav-wrapper">
+    <div class="it-header-center-wrapper">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <div class="it-header-center-content-wrapper">
+              <div class="it-brand-wrapper">
+                <a href="#">
+                  <div class="it-brand-text">
+                    <div class="it-brand-title">{tUi('brand.title')}</div>
+                    <div class="it-brand-tagline d-none d-md-block">
+                      {tUi('header.brand.tagline')}
+                    </div>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="it-header-navbar-wrapper">
+      <div class="container-xxl">
+        <div class="row">
+          <div class="col-12">
+            <nav class="navbar navbar-expand-md">
+              <button
+                class="custom-navbar-toggler"
+                type="button"
+                aria-controls="navC1"
+                aria-label={tUi('header.nav.toggle')}
+                data-bs-toggle="navbarcollapsible"
+                data-bs-target="#navC1"
+              >
+                <BootstrapItaliaIcon name="it-burger" />
+              </button>
+              <div class="navbar-collapsable" id="navC1" tabindex="-1">
+                <div class="close-div">
+                  <button class="btn close-menu" type="button">
+                    <span class="visually-hidden">{tUi('header.nav.hide')}</span>
+                    <BootstrapItaliaIcon name="it-close-big" />
+                  </button>
+                </div>
+                {/** Main NavBar - Desktop */}
+                <div class="menu-wrapper d-none d-md-flex justify-content-between">
+                  <ul class="navbar-nav">
+                    {
+                      CATALOG_API_SECTION_NAV_ITEMS.map((navItem) => {
+                        const localizedHref = navItem.getHref(currentLocale)
+                        const isActive = Astro.url.pathname === localizedHref
+                        return (
+                          <li class:list={['nav-item', isActive && 'active']}>
+                            <a
+                              class:list={['nav-link', isActive && 'active']}
+                              aria-current={isActive ? 'page' : undefined}
+                              href={localizedHref}
+                            >
+                              <span>{tUi(navItem.i18nKey)}</span>
+                            </a>
+                          </li>
+                        )
+                      })
+                    }
+                  </ul>
+                  <ul class="navbar-nav">
+                    {
+                      RESOURCES_SECTION_NAV_ITEMS.map((navItem) => {
+                        const localizedHref = navItem.getHref(currentLocale)
+                        const isActive = Astro.url.pathname === localizedHref
+                        return (
+                          <li class:list={['nav-item', isActive && 'active']}>
+                            <a class:list={['nav-link', isActive && 'active']} href={localizedHref}>
+                              <span>{tUi(navItem.i18nKey)}</span>
+                            </a>
+                          </li>
+                        )
+                      })
+                    }
+                  </ul>
+                </div>
+                {/** Main NavBar - Mobile */}
+                <div class="menu-wrapper d-md-none">
+                  <ul class="navbar-nav">
+                    {
+                      [...CATALOG_API_SECTION_NAV_ITEMS, ...RESOURCES_SECTION_NAV_ITEMS].map(
+                        (navItem) => {
+                          const localizedHref = navItem.getHref(currentLocale)
+                          const isActive = Astro.url.pathname === localizedHref
+                          return (
+                            <li class:list={['nav-item', isActive && 'active']}>
+                              <a
+                                class:list={['nav-link', isActive && 'active']}
+                                href={localizedHref}
+                              >
+                                <span>{tUi(navItem.i18nKey)}</span>
+                              </a>
+                            </li>
+                          )
+                        }
+                      )
+                    }
+                  </ul>
+                </div>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<script>
+  import { Collapse } from 'bootstrap-italia'
+  const navbarCollapseEl = document.querySelector('.navbarcollapsible')
+  if (navbarCollapseEl) {
+    new Collapse(navbarCollapseEl)
+  }
+</script>

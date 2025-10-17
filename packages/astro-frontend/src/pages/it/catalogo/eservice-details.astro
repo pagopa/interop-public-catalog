@@ -1,0 +1,155 @@
+---
+import Layout from '../../../layouts/Layout.astro'
+import { BootstrapItaliaIcon } from '../../../components/shared/BootstrapItaliaIcon.js'
+import EServiceDetails from '../../../components/EServiceDetails/EServiceDetails.astro'
+import {
+  AttributeId,
+  EServiceId,
+  EServiceTemplateId,
+  TenantId,
+} from '../../../../../models/src/brandedIds'
+import { EService, Technology } from '../../../../../models/src/types/eservice'
+import { useUiTranslations } from '../../../i18n/ui.i18n'
+
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
+import PageLayout from '../../../layouts/PageLayout.astro'
+import { useEServiceDetailsTranslations } from '../../../i18n/eservice-details'
+import ApiShowcase from '../../../components/Homepage/ApiShowcase.astro'
+import RatingSection from '../../../components/shared/RatingSection.astro'
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const tUi = useUiTranslations(currentLocale)
+const t = useEServiceDetailsTranslations(currentLocale)
+
+//TODO right data
+const highlightedEServices: EService[] = [
+  {
+    id: 'eservice1' as EServiceId,
+    name: 'ANPR',
+    description:
+      "L'Anagrafe Nazionale della Popolazione Residente (ANPR) è il sistema che raccoglie i dati anagrafici di tutti i cittadini italiani.",
+    attributes: {
+      certified: [],
+      declared: [],
+      verified: [],
+    },
+    // producerName: "Nome dell'Ente",
+    producerId: 'tenant1' as TenantId,
+    technology: 'Rest',
+    descriptors: [],
+    createdAt: new Date(),
+    mode: 'Deliver',
+    isSignalHubEnabled: true,
+    isConsumerDelegable: true,
+    isClientAccessDelegable: true,
+    templateId: 'eserviceTemplate1' as EServiceTemplateId,
+  },
+  {
+    id: 'eservice2' as EServiceId,
+    name: 'PagoPA',
+    description:
+      'PagoPA è il sistema di pagamenti elettronici della Pubblica Amministrazione italiana, che consente ai cittadini di effettuare pagamenti in modo semplice e sicuro.',
+    attributes: {
+      certified: [],
+      declared: [],
+      verified: [],
+    },
+    // producerName: "Nome dell'Ente",
+    producerId: 'tenant2' as TenantId,
+    technology: 'Rest',
+    descriptors: [],
+    createdAt: new Date(),
+    mode: 'Deliver',
+    isSignalHubEnabled: true,
+    isConsumerDelegable: true,
+    isClientAccessDelegable: true,
+    templateId: 'eserviceTemplate2' as EServiceTemplateId,
+  },
+  {
+    id: 'eservice3' as EServiceId,
+    name: 'SPIDdnds ndsaj jkdsaknj dsanjk dksnaj kjdnasknj dsadsakdsanjkd sakjndnkjs akjndsaknj dakjsnkj ads',
+    description:
+      "SPID (Sistema Pubblico di Identità Digitale) è il sistema di autenticazione che permette ai cittadini di accedere ai servizi online della Pubblica Amministrazione e dei privati aderenti con un'unica identità digitale.",
+    attributes: {
+      certified: [],
+      declared: [],
+      verified: [],
+    },
+    // producerName: "Nome dell'Ente",
+    producerId: 'tenant3' as TenantId,
+    technology: 'Rest',
+    descriptors: [],
+    createdAt: new Date(),
+    mode: 'Deliver',
+    isSignalHubEnabled: true,
+    isConsumerDelegable: true,
+    isClientAccessDelegable: true,
+    templateId: 'eserviceTemplate3' as EServiceTemplateId,
+  },
+]
+---
+
+<Layout>
+  <PageLayout
+    title="TODO Nome API"
+    breadcrumbItems={[
+      {
+        label: 'Home',
+        href: '#',
+      },
+      {
+        label: 'Esplora il catalogo',
+        href: '#',
+      },
+      {
+        label: 'Dettaglio API',
+        href: '#',
+        active: true,
+      },
+    ]}
+  >
+    <div class="d-flex flex-row align-items-center justify-content-between" slot="top-hero">
+      <div class="h6">
+        <span class="badge bg-secondary rounded-pill text-white d-inline">
+          <BootstrapItaliaIcon name="it-locked" size="sm" color="white" padded />
+          Accesso riservato
+        </span>
+      </div>
+      <a class="btn btn-link btn-sm btn-icon text-decoration-none" href="#" role="button">
+        {tUi('actions.copyUrl')}
+        <BootstrapItaliaIcon name="it-copy" color="primary" padded />
+      </a>
+    </div>
+
+    <p slot="bottom-hero">
+      Erogatore: <strong><u>Nome dell'ente</u></strong>
+    </p>
+  </PageLayout>
+
+  <EServiceDetails
+    eservice={{
+      id: 'eservice1' as EServiceId,
+      name: 'eservice 1',
+      description: 'eservice description 1',
+      attributes: {
+        certified: [[{ id: 'certified1' as AttributeId, explicitAttributeVerification: false }]],
+        declared: [],
+        verified: [],
+      },
+
+      producerId: 'tenant1' as TenantId,
+      technology: 'Rest' as Technology,
+      descriptors: [],
+      createdAt: new Date(),
+      mode: 'Deliver',
+      isSignalHubEnabled: true,
+      isConsumerDelegable: true,
+      isClientAccessDelegable: true,
+      templateId: 'eserviceTemplate1' as EServiceTemplateId,
+    }}
+  />
+
+  <ApiShowcase title={t('featured_api.title')} highlightedEServices={highlightedEServices} />
+
+  <RatingSection />
+</Layout>

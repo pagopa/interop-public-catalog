@@ -1,21 +1,27 @@
 ---
 import 'bootstrap-italia/dist/css/bootstrap-italia.min.css'
-import 'typeface-titillium-web'
-import 'typeface-roboto-mono'
-import 'typeface-lora'
+import '../style.css'
+
+import Header from '../components/shared/Header/Header.astro'
+import Footer from '../components/shared/Footer.astro'
+import { getLangFromUrl } from '../i18n/utils.i18n'
+
+const currentLang = getLangFromUrl(Astro.url.pathname)
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={currentLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <title>Integration test w/ Strapi</title>
+    <title>Catalogo</title>
   </head>
   <body>
+    <Header />
     <slot />
+    <Footer />
   </body>
 </html>
 
@@ -27,3 +33,28 @@ import 'typeface-lora'
     height: 100%;
   }
 </style>
+
+{
+  /* Popover initialization, see https://italia.github.io/bootstrap-italia/docs/componenti/popover/  */
+}
+<script>
+  import { Popover, loadFonts, Dropdown, Accordion } from 'bootstrap-italia'
+  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+  popoverTriggerList.map(function (popoverTriggerEl) {
+    return new Popover(popoverTriggerEl, {
+      trigger: 'hover focus',
+    })
+  })
+
+  var dropdownTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'))
+  dropdownTriggerList.map(function (dropdownTriggerEl) {
+    return new Dropdown(dropdownTriggerEl)
+  })
+
+  var accordionTriggerList = [].slice.call(document.querySelectorAll('.accordion'))
+  accordionTriggerList.map(function (accordionTriggerEl) {
+    return new Accordion(accordionTriggerEl)
+  })
+
+  loadFonts('/fonts')
+</script>

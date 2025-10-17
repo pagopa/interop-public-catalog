@@ -1,4 +1,4 @@
-import { StrapiArticle, StrapiEntityList } from "../types/stripe.js";
+import { StrapiArticle, StrapiEntityList } from '../types/stripe.js'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, max-params
 export function strapiServiceBuilder(endpoint: string, token: string) {
@@ -13,7 +13,7 @@ export function strapiServiceBuilder(endpoint: string, token: string) {
         }
       );
 
-      return response.json();
+      return response.json()
     },
-  };
+  }
 }

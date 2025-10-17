@@ -1,0 +1,80 @@
+---
+import { useHomepageTranslations } from '../../i18n/homepage.i18n'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
+import { Section } from '../shared/Section'
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const t = useHomepageTranslations(currentLocale)
+
+const howItWorksSteps = [
+  {
+    title: t('how_it_works.step_1.title'),
+    description: t('how_it_works.step_1.description'),
+    linkLabel: t('how_it_works.step_1.link'),
+    icon: 'it-file',
+    href: '#', // TODO: inserire link reale "Esplora il catalogo"
+    imageSrc: '/img/024-search.svg',
+  },
+  {
+    title: t('how_it_works.step_2.title'),
+    description: t('how_it_works.step_2.description'),
+    linkLabel: t('how_it_works.step_2.link'),
+    icon: 'it-layers',
+    href: '#', // TODO: inserire link reale "Vai alla piattaforma PDND"
+    imageSrc: '/img/077-network.svg',
+  },
+  {
+    title: t('how_it_works.step_3.title'),
+    description: t('how_it_works.step_3.description'),
+    linkLabel: t('how_it_works.step_3.link'),
+    icon: 'it-cloud-upload',
+    href: '#', // TODO: inserire link reale "Consulta gli esempi"
+    imageSrc: '/img/088-Jigsaw.svg',
+  },
+] as const
+---
+
+<Section className="section-muted py-5" title={t('how_it_works.title')}>
+  <ul class="list-group list-group-horizontal-md">
+    {
+      howItWorksSteps.map((step, index) => (
+        <>
+          <li class="flex-fill list-group-item bg-transparent border-0 p-0">
+            {/* Card */}
+            <article class="it-card bg-transparent d-flex flex-column h-100">
+              <div class="it-card-banner-icon-wrapper mb-2">
+                <img src={step.imageSrc} alt="" role="presentation" width="96" height="96" />
+              </div>
+              {/* Card Body */}
+              <h3 class="it-card-title h5 ps-0">{step.title}</h3>
+              <div class="it-card-body mb-2 ps-0">
+                <p class="it-card-text">{step.description}</p>
+              </div>
+              {/* Card Footer */}
+              <footer class="it-card-related it-card-footer mt-auto ms-0">
+                <div class="it-card-taxonomy">
+                  <a
+                    href={step.href}
+                    class="it-card-category it-card-link text-uppercase text-primary"
+                  >
+                    {step.linkLabel}
+                    <BootstrapItaliaIcon name="it-arrow-right" size="sm" color="primary" />
+                  </a>
+                </div>
+              </footer>
+            </article>
+          </li>
+          {index < howItWorksSteps.length - 1 && (
+            <>
+              {/* Horizontal separator for mobile/tablet */}
+              <hr class="d-block d-md-none mb-4 mt-0 border-2 border-primary" />
+              {/* Vertical separator for large screens */}
+              <div class="vr d-none d-md-block mx-4 text-primary" />
+            </>
+          )}
+        </>
+      ))
+    }
+  </ul>
+</Section>

@@ -1,0 +1,14 @@
+---
+import ErrorDisplayer from '../../components/shared/ErrorDisplayer.astro'
+import Layout from '../../layouts/Layout.astro'
+---
+
+<Layout>
+  <ErrorDisplayer
+    error={{
+      iconSrc: '/img/016-plug.svg',
+      title: 'Il sistema non è disponibile in questo momento',
+      message: 'Ci scusiamo per l’inconveniente. Ti invitiamo a riprovare più tardi.',
+    }}
+  />
+</Layout>

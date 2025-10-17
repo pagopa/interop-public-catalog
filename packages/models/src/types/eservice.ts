@@ -50,7 +50,7 @@ export const EServiceAttributes = z.object({
   declared: z.array(z.array(EServiceAttribute)),
   verified: z.array(z.array(EServiceAttribute)),
 });
-export type EserviceAttributes = z.infer<typeof EServiceAttributes>;
+export type EServiceAttributes = z.infer<typeof EServiceAttributes>;
 
 export const EServiceTemplateVersionRef = z.object({
   id: EServiceTemplateVersionId,

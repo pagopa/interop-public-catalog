@@ -1,100 +1,90 @@
 ---
-export const prerender = false
-
 import Layout from '../../layouts/Layout.astro'
-import Header from '../../components/Header'
-import Main from '../../components/Main'
-import Footer from '../../components/Footer'
-import UseCaseCard from '../../components/UseCaseCard'
-import EServiceCard from '../../components/EServiceCard'
-import SuggestionCard from '../../components/SuggestionCard'
-import AttributeAccordionList from '../../components/Accordion/AttributeAccordionList'
-import Hero from '../../components/Hero'
-import HowToList from '../../components/HowToList/HowToList'
+import Hero from '../../components/Homepage/Hero.astro'
+import HowItWorks from '../../components/Homepage/HowItWorks.astro'
+import UseCases from '../../components/Homepage/UseCases.astro'
+import ApiShowcase from '../../components/Homepage/ApiShowcase.astro'
+import SuggestionSection from '../../components/shared/SuggestionSection.astro'
+import { EService } from '../../../../models/src/types/eservice'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { useHomepageTranslations } from '../../i18n/homepage.i18n'
+import { EServiceId, EServiceTemplateId, TenantId } from '../../../../models/src/brandedIds'
 
-const articles = await fetch(new URL('/api/articles', Astro.url))
-  .then((response) => response.json())
-  .catch((_e) => ({ data: [{ title: 'Strapi is not connected...' }] }))
+//TODO right data
+const highlightedEServices: EService[] = [
+  {
+    id: 'eservice1' as EServiceId,
+    name: 'ANPR',
+    description:
+      "L'Anagrafe Nazionale della Popolazione Residente (ANPR) è il sistema che raccoglie i dati anagrafici di tutti i cittadini italiani.",
+    attributes: {
+      certified: [],
+      declared: [],
+      verified: [],
+    },
+    // producerName: "Nome dell'Ente",
+    producerId: 'tenant1' as TenantId,
+    technology: 'Rest',
+    descriptors: [],
+    createdAt: new Date(),
+    mode: 'Deliver',
+    isSignalHubEnabled: true,
+    isConsumerDelegable: true,
+    isClientAccessDelegable: true,
+    templateId: 'eserviceTemplate1' as EServiceTemplateId,
+  },
+  {
+    id: 'eservice2' as EServiceId,
+    name: 'PagoPA',
+    description:
+      'PagoPA è il sistema di pagamenti elettronici della Pubblica Amministrazione italiana, che consente ai cittadini di effettuare pagamenti in modo semplice e sicuro.',
+    attributes: {
+      certified: [],
+      declared: [],
+      verified: [],
+    },
+    // producerName: "Nome dell'Ente",
+    producerId: 'tenant2' as TenantId,
+    technology: 'Rest',
+    descriptors: [],
+    createdAt: new Date(),
+    mode: 'Deliver',
+    isSignalHubEnabled: true,
+    isConsumerDelegable: true,
+    isClientAccessDelegable: true,
+    templateId: 'eserviceTemplate2' as EServiceTemplateId,
+  },
+  {
+    id: 'eservice3' as EServiceId,
+    name: 'SPIDdnds ndsaj jkdsaknj dsanjk dksnaj kjdnasknj dsadsakdsanjkd sakjndnkjs akjndsaknj dakjsnkj ads',
+    description:
+      "SPID (Sistema Pubblico di Identità Digitale) è il sistema di autenticazione che permette ai cittadini di accedere ai servizi online della Pubblica Amministrazione e dei privati aderenti con un'unica identità digitale.",
+    attributes: {
+      certified: [],
+      declared: [],
+      verified: [],
+    },
+    // producerName: "Nome dell'Ente",
+    producerId: 'tenant3' as TenantId,
+    technology: 'Rest',
+    descriptors: [],
+    createdAt: new Date(),
+    mode: 'Deliver',
+    isSignalHubEnabled: true,
+    isConsumerDelegable: true,
+    isClientAccessDelegable: true,
+    templateId: 'eserviceTemplate3' as EServiceTemplateId,
+  },
+]
 
-const catalogUrl = new URL('/api/catalog', Astro.url)
-const q = 'comune'
-catalogUrl.searchParams.set('q', q)
-const eservices = await fetch(catalogUrl)
-  .then((response) => response.json())
-  .catch((_e) => ({ items: [{ title: 'PG is not connected...' }] }))
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const t = useHomepageTranslations(currentLocale)
 ---
 
 <Layout>
-  <Header client:load />
-  <Main client:load />
-  <UseCaseCard
-    title="cammello"
-    description="ciao"
-    isNew
-    replicableBy={['a', 'b', 'c']}
-    categoryTag="sette"
-  />
-  <EServiceCard client:load title="Il mio e-service" description="Lorem ipsum dolor sit amet" />
-  <SuggestionCard
-    client:load
-    icon="it-card"
-    title="abc"
-    description="fjies"
-    actionButton={{
-      icon: 'it-card',
-      label: 'ciao',
-      onClick: () => {
-        console.log('ciao')
-      },
-    }}
-  />
-  <AttributeAccordionList
-    client:load
-    attributes={[
-      { name: 'attr1', description: 'desc1' },
-      { name: 'attr2', description: 'desc2' },
-      { name: 'attr3', description: 'desc3' },
-    ]}
-  />
-  <HowToList
-    howToList={[{ title: 'abc', description: 'cde', icon: 'it-card', readMoreHRef: '#0' }]}
-  />
   <Hero />
-
-  <h1>
-    Search Term: "{q}" Search Results (Total: {eservices.total}, Shown: {eservices.items.length})
-  </h1>
-
-  <ul>
-    {
-      eservices.items.map(
-        (eservice: {
-          id: string
-          name: string
-          tenant_name: string
-          description: string
-          technology: string
-          mode: boolean
-          created_at: string
-        }) => (
-          <li>
-            <strong>{eservice.name}</strong>
-            {eservice.tenant_name && <span> — {eservice.tenant_name}</span>}
-            <p>{eservice.description}</p>
-            <small>
-              Tech: {eservice.technology} | Mode: {eservice.mode} | Created: {eservice.created_at}
-            </small>
-          </li>
-        )
-      )
-    }
-  </ul>
-
-  <h2>Articles</h2>
-
-  <ul>
-    {articles.data.map((a: { title: string }) => <li>{a.title}</li>)}
-  </ul>
-
-  <Footer client:load />
+  <HowItWorks />
+  <UseCases />
+  <ApiShowcase title={t('featured_api.title')} highlightedEServices={highlightedEServices} />
+  <SuggestionSection />
 </Layout>
