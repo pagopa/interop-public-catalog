@@ -1,0 +1,53 @@
+---
+interface Props {
+  title: string
+  faqs: Array<{ question: string; answer: string }>
+}
+
+const { title, faqs } = Astro.props
+
+const random = Math.floor(Math.random() * 1000)
+---
+
+<section class="section section-muted px-0 px-md-auto py-5">
+  <div class="section-content">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-9">
+          <h2 class="mb-4">{title}</h2>
+          <div class="accordion" id=`accordionGroup${random}`>
+            {
+              faqs.map(({ question, answer }, index) => (
+                <>
+                  <div class="accordion-item bg-transparent">
+                    <h2 class="accordion-header" id={`heading${random}${index}`}>
+                      <button
+                        class="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target={`#collapse${random}${index}`}
+                        aria-expanded="false"
+                        aria-controls={`collapse${random}${index}`}
+                      >
+                        {question}
+                      </button>
+                    </h2>
+                    <div
+                      id={`collapse${random}${index}`}
+                      class="accordion-collapse collapse"
+                      data-bs-parent={`#accordionGroup${random}`}
+                      role="region"
+                      aria-labelledby={`heading${random}${index}`}
+                    >
+                      <div class="accordion-body">{answer}</div>
+                    </div>
+                  </div>
+                </>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -12,6 +12,31 @@ body {
   padding-right: calc(1rem * 4.5);
 }
 
+.py-default {
+  padding-top: calc(1rem * 2.5);
+  padding-bottom: calc(1rem * 2.5);
+}
+
+.pt-default {
+  padding-top: calc(1rem * 2.5);
+}
+
+.pb-default {
+  padding-bottom: calc(1rem * 2.5);
+}
+
+.p-default {
+  padding: calc(1rem * 2.5);
+}
+
+.mb-default {
+  margin-bottom: calc(1rem * 2.5);
+}
+
+.mt-n-default {
+  margin-top: calc(1rem * -2.5);
+}
+
 .mt-n3 {
   margin-top: calc(1rem * -4.5);
 }
@@ -85,3 +110,4 @@ a.list-item:hover {
 #category-filters-list a.active:hover {
   background-color: #f2f7fc !important;
 }
+
