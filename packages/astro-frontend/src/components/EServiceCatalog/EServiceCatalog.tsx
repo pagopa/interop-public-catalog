@@ -69,6 +69,9 @@ const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
           ))}
         </Row>
       ))}
+      <Row className="mt-4">
+        <Pagination totalCount={1200} limit={10} />
+      </Row>
     </Container>
   )
 }

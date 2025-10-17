@@ -81,6 +81,16 @@ export const ui = {
     'organization_types.altre_short': 'Altre',
 
     ...breadcrumbLabels.it,
+
+    'chip.provider': 'Ente erogatore',
+    'chip.consumer': 'Ente fruitore',
+    'chip.q': 'Parola chiave',
+    'chip.remove_all': 'Rimuovi tutti i filtri',
+    'autocomplete.placeholder': "Scegli un'opzione",
+    'autocomplete.selectedElements': ' elementi selezionati',
+    'autocomplete.selectedElement': ' elemento selezionato',
+    'pagination.previous': 'Precedente',
+    'pagination.next': 'Successiva',
   },
   en: {
     'actions.search': 'Search',
@@ -138,6 +148,16 @@ export const ui = {
     'organization_types.altre_short': 'Others',
 
     ...breadcrumbLabels.en,
+
+    'chip.provider': 'Provider',
+    'chip.consumer': 'Consumer',
+    'chip.q': 'Keyword',
+    'chip.remove_all': 'Remove all filters',
+    'autocomplete.placeholder': 'Choose an option',
+    'autocomplete.selectedElements': ' items selected',
+    'autocomplete.selectedElement': ' item selected',
+    'pagination.previous': 'Previous',
+    'pagination.next': 'Next',
   },
 } as const satisfies TranslationsMap
 

@@ -1,15 +1,57 @@
+import { EService } from '../components/EServiceCatalog/EServiceCatalog.js'
+import { FilterParamsKeys, FiltersParams } from '../components/EServiceCatalog/Filters.js'
 import {
   EService,
   EServiceAttribute,
   EServiceAttributes,
 } from '../../../models/src/types/eservice.js'
 
-const chunkEServiceArray = (eservices: EService[], eservicesPerRow: number): EService[][] => {
+export const chunkEServiceArray = (eservices: EService[], eservicesPerRow: number): EService[][] => {
   const chunkedArray: EService[][] = []
   for (let i = 0; i < (eservices.length <= 12 ? eservices.length : 12); i += eservicesPerRow) {
     chunkedArray.push(eservices.slice(i, i + eservicesPerRow))
   }
   return chunkedArray
+}
+
+export function parseQueryStringToParams(queryString: string) {
+  const cleanQueryString = queryString.startsWith('?') ? queryString.slice(1) : queryString
+
+  const params = new URLSearchParams(cleanQueryString)
+  const result: { [key: string]: string | string[] } = {}
+
+  for (const [key, value] of params.entries()) {
+    if (key === 'offset') continue
+    if (key === 'provider' || key === 'consumer') {
+      const parsedValue = JSON.parse(value)
+
+      result[key] = parsedValue.map((item: string[][]) => {
+        return { label: item[0], value: item[1] }
+      })
+    } else {
+      result[key] = value
+    }
+  }
+
+  return result
+}
+
+export function addParamsWithinUrl(filtersParams: FiltersParams) {
+  const urlSearchParams = new URLSearchParams()
+
+  Object.keys(filtersParams).forEach((k) => {
+    const key = k as FilterParamsKeys
+    if (filtersParams[key]) {
+      if (key === 'provider' || key === 'consumer') {
+        const filter = JSON.stringify(filtersParams[key].map((item) => [item.label, item.value]))
+        urlSearchParams.append(key, filter)
+      } else urlSearchParams.append(key, JSON.stringify(filtersParams[key]))
+    }
+  })
+
+  const queryString = urlSearchParams.toString()
+  const newUrl = `${window.location.pathname}?${queryString}`
+  window.history.pushState({ path: newUrl }, '', newUrl)
 }
 
 type Group = {
@@ -26,7 +68,7 @@ type Groups = Array<Group>
  * @param attributes L'oggetto EServiceAttributes da mappare.
  * @returns Un array Groups mappato.
  */
-function mapEServiceAttributesToGroups(attributes: EServiceAttributes): Groups {
+export function mapEServiceAttributesToGroups(attributes: EServiceAttributes): Groups {
   // Definiamo l'ordine desiderato delle chiavi
   const keys: Array<keyof EServiceAttributes> = ['certified', 'verified', 'declared']
 
@@ -48,5 +90,3 @@ function mapEServiceAttributesToGroups(attributes: EServiceAttributes): Groups {
 
   return groups
 }
-
-export { chunkEServiceArray, mapEServiceAttributesToGroups }
