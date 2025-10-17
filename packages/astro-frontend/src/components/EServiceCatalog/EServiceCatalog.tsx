@@ -13,14 +13,7 @@ import React from 'react'
 import { EServiceCard } from '../shared/EServiceCard.jsx'
 import { chunkEServiceArray } from '../../utils/utils.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
-import Pagination from '../shared/Pagination/Pagination.js'
-
-export type EService = {
-  name: string
-  description: string
-  eserviceId: string
-  descriptorId: string
-}
+import { EService } from '../../../../models/src/types/eservice.js'
 
 type EServiceCatalogProps = {
   eservices: EService[]

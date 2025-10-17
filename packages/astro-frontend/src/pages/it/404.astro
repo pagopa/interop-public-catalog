@@ -1,18 +1,14 @@
 ---
-export const prerender = false
-
+import ErrorDisplayer from '../../components/shared/ErrorDisplayer.astro'
 import Layout from '../../layouts/Layout.astro'
-import { Button, Section } from 'design-react-kit'
 ---
 
 <Layout>
-  <Section>
-    <div class="d-flex flex-column justify-content-center align-items-center">
-      <!-- <Icon src="/Group.svg" alt="404" size="xl" /> -->
-      <img src="/Group.svg" class="rounded mx-auto d-block image-xxl mb-3" alt="404" />
-      <h1 class="text-center text-primary mb-4">Pagina non trovata</h1>
-      <p class="text-center">Utilizza il menu per riprendere la navigazione</p>
-      <Button color="primary" href="/" className="mt-5">Vai alla homepage</Button>
-    </div>
-  </Section>
+  <ErrorDisplayer
+    error={{
+      iconSrc: '/img/070-error 404.svg',
+      title: 'Pagina non trovata',
+      message: 'Utilizza il menu per riprendere la navigazione',
+    }}
+  />
 </Layout>
