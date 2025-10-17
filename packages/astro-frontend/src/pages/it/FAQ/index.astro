@@ -1,127 +1,101 @@
 ---
-export const prerender = false
-
 import Layout from '../../../layouts/Layout.astro'
-import { Breadcrumb, BreadcrumbItem, Col, Row, Section } from 'design-react-kit'
-import FAQListSection from '../../../components/FAQ/FAQListSection'
-import RatingSection from '../../../components/shared/RatingSection'
+import PageLayout from '../../../layouts/PageLayout.astro'
+import FAQListSection from '../../../components/FAQ/FAQListSection.astro'
+import RatingSection from '../../../components/shared/RatingSection.astro'
 ---
 
 <Layout>
-  <Section>
-    <Breadcrumb>
-      <BreadcrumbItem>
-        <a href="#"> Home </a>
-        <span class="separator"> / </span>
-      </BreadcrumbItem>
-      <BreadcrumbItem>
-        <a href="#"> Domande frequenti </a>
-      </BreadcrumbItem>
-    </Breadcrumb>
+  <PageLayout
+    title="Domande frequenti"
+    breadcrumbItems={[
+      {
+        label: 'Home',
+        href: '#',
+      },
+      {
+        label: 'Domande frequenti',
+        href: '#',
+        active: true,
+      },
+    ]}
+  >
+    <p class="lead" slot="bottom-hero">
+      Consulta le domande frequenti relative al Catalogo delle API
+    </p>
+  </PageLayout>
 
-    <h1>Domande frequenti</h1>
-    <p>Consulta le domande frequenti relative al Catalogo delle API</p>
-  </Section>
+  <FAQListSection
+    title="Informazioni generali"
+    faqs={[
+      {
+        question: 'Domanda 1',
+        answer: 'Risposta 1',
+      },
+      {
+        question: 'Domanda 2',
+        answer: 'Risposta 2',
+      },
+      {
+        question: 'Domanda 3',
+        answer: 'Risposta 3',
+      },
+    ]}
+  />
 
-  <Section color="muted" wrapperClassName="py-5">
-    <Row>
-      <Col xs="12" md="8">
-        <FAQListSection
-          client:load
-          title="Informazioni generali"
-          faqs={[
-            {
-              question: 'Domanda 1',
-              answer: 'Risposta 1',
-            },
-            {
-              question: 'Domanda 2',
-              answer: 'Risposta 2',
-            },
-            {
-              question: 'Domanda 3',
-              answer: 'Risposta 3',
-            },
-          ]}
-        />
-      </Col>
-    </Row>
-  </Section>
+  <FAQListSection
+    title="Catalogo e accesso ai dati tramite PDND"
+    faqs={[
+      {
+        question: 'Domanda 1',
+        answer: 'Risposta 1',
+      },
+      {
+        question: 'Domanda 2',
+        answer: 'Risposta 2',
+      },
+      {
+        question: 'Domanda 3',
+        answer: 'Risposta 3',
+      },
+    ]}
+  />
 
-  <Section color="muted" wrapperClassName="py-5">
-    <Row>
-      <Col xs="12" md="8">
-        <FAQListSection
-          client:load
-          title="Catalogo e accesso ai dati tramite PDND"
-          faqs={[
-            {
-              question: 'Domanda 1',
-              answer: 'Risposta 1',
-            },
-            {
-              question: 'Domanda 2',
-              answer: 'Risposta 2',
-            },
-            {
-              question: 'Domanda 3',
-              answer: 'Risposta 3',
-            },
-          ]}
-        />
-      </Col>
-    </Row>
-  </Section>
+  <FAQListSection
+    title="Piattaforma Digitale Nazionale Dati"
+    faqs={[
+      {
+        question: 'Domanda 1',
+        answer: 'Risposta 1',
+      },
+      {
+        question: 'Domanda 2',
+        answer: 'Risposta 2',
+      },
+      {
+        question: 'Domanda 3',
+        answer: 'Risposta 3',
+      },
+    ]}
+  />
 
-  <Section color="muted" wrapperClassName="py-5">
-    <Row>
-      <Col xs="12" md="8">
-        <FAQListSection
-          client:load
-          title="Piattaforma Digitale Nazionale Dati"
-          faqs={[
-            {
-              question: 'Domanda 1',
-              answer: 'Risposta 1',
-            },
-            {
-              question: 'Domanda 2',
-              answer: 'Risposta 2',
-            },
-            {
-              question: 'Domanda 3',
-              answer: 'Risposta 3',
-            },
-          ]}
-        />
-      </Col>
-    </Row>
-  </Section>
-
-  <Section color="muted" wrapperClassName="py-5">
-    <Row>
-      <Col xs="12" md="8">
-        <FAQListSection
-          client:load
-          title="Informazioni per lo sviluppo"
-          faqs={[
-            {
-              question: 'Domanda 1',
-              answer: 'Risposta 1',
-            },
-            {
-              question: 'Domanda 2',
-              answer: 'Risposta 2',
-            },
-            {
-              question: 'Domanda 3',
-              answer: 'Risposta 3',
-            },
-          ]}
-        />
-      </Col>
-    </Row>
-  </Section>
+  <FAQListSection
+    title="Informazioni per lo sviluppo"
+    faqs={[
+      {
+        question: 'Domanda 1',
+        answer: 'Risposta 1',
+      },
+      {
+        question: 'Domanda 2',
+        answer: 'Risposta 2',
+      },
+      {
+        question: 'Domanda 3',
+        answer: 'Risposta 3',
+      },
+    ]}
+  />
 
   <RatingSection />
 </Layout>

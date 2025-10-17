@@ -1,0 +1,94 @@
+---
+import { EServiceAttribute, EServiceAttributes } from '../../../../../models/src/types/eservice'
+import { useEServiceDetailsTranslations } from '../../../i18n/eservice-details'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
+import { TooltipIcon } from '../../shared/TooltipIcon.js'
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const t = useEServiceDetailsTranslations(currentLocale)
+
+interface Props {
+  groupIndex: number
+  attributeType: keyof EServiceAttributes
+  attributes: Array<EServiceAttribute>
+}
+
+const { groupIndex, attributeType, attributes } = Astro.props
+
+function getTitle(attributeType: keyof EServiceAttributes) {
+  if (attributeType === 'certified') {
+    return t('attributes_section.certified_group.title')
+  }
+
+  if (attributeType === 'verified') {
+    return t('attributes_section.verified_group.title')
+  }
+
+  // attributeType === 'declared'
+  return t('attributes_section.declared_group.title')
+}
+
+function getTooltip(attributeType: keyof EServiceAttributes) {
+  if (attributeType === 'certified') {
+    return {
+      title: t('attributes_section.certified_group_tooltip.title'),
+      content: t('attributes_section.certified_group_tooltip.content'),
+    }
+  }
+
+  if (attributeType === 'verified') {
+    return {
+      title: t('attributes_section.verified_group_tooltip.title'),
+      content: t('attributes_section.verified_group_tooltip.content'),
+    }
+  }
+
+  // attributeType === 'declared'
+  return {
+    title: t('attributes_section.declared_group_tooltip.title'),
+    content: t('attributes_section.declared_group_tooltip.content'),
+  }
+}
+
+const tooltip = getTooltip(attributeType)
+---
+
+<div class="p-3 rounded-3 bg-primary-c0 border border-primary">
+  <h6 class="me-2">
+    {getTitle(attributeType)}
+    <TooltipIcon title={tooltip.title} content={tooltip.content} iconName="it-info-circle" />
+  </h6>
+  <p>{t('attributes_section.group_description')}</p>
+  <div class="accordion" id=`accordionGroup${groupIndex}`>
+    {
+      attributes.map(({ id, explicitAttributeVerification }, index) => (
+        <>
+          <div class="accordion-item">
+            <h2 class="accordion-header" id={`heading${groupIndex}${index}`}>
+              <button
+                class="accordion-button border-0 collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target={`#collapse${groupIndex}${index}`}
+                aria-expanded="false"
+                aria-controls={`collapse${groupIndex}${index}`}
+              >
+                {id} {/* TODO name */}
+              </button>
+            </h2>
+            <div
+              id={`collapse${groupIndex}${index}`}
+              class="accordion-collapse collapse"
+              data-bs-parent={`#accordionGroup${groupIndex}`}
+              role="region"
+              aria-labelledby={`heading${groupIndex}${index}`}
+            >
+              <div class="accordion-body">{explicitAttributeVerification /* description */}</div>
+            </div>
+          </div>
+          {index < attributes.length - 1 && <p class="my-2">{t('attributes_section.group.or')}</p>}
+        </>
+      ))
+    }
+  </div>
+</div>
