@@ -1,14 +1,17 @@
 import { StrapiArticle, StrapiEntityList } from '../types/stripe.js'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, max-params
-export function strapiServiceBuilder(url: string, port: number, token: string) {
+export function strapiServiceBuilder(endpoint: string, token: string) {
   return {
     async getArticles(): Promise<StrapiEntityList<StrapiArticle>> {
-      const response = await fetch(`${url}:${port}/api/articles`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const response = await fetch(
+        `${endpoint.endsWith('/') ? endpoint : endpoint + '/'}api/articles`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       return response.json()
     },

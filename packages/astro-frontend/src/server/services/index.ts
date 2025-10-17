@@ -20,7 +20,6 @@ export const sqlService: ReturnType<typeof publicModelServiceBuilder> = publicMo
 const strapiConfig = StrapiApiConfig.parse(import.meta.env)
 
 export const strapiService = strapiServiceBuilder(
-  strapiConfig.strapiApiUrl,
-  strapiConfig.strapiApiPort,
+  strapiConfig.strapiApiEndpoint,
   strapiConfig.strapiApiToken
 )
