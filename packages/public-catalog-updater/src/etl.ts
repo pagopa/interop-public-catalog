@@ -27,6 +27,7 @@ const sourceDb = new Pool({ connectionString: jobConfig.sourceDbEndpoint });
 const targetDb = new Pool({ connectionString: jobConfig.targetDbEndpoint });
 
 // Mappings
+// WARNING: this is order-sensitive. A truncate table with cascade is employed before repopulation.
 const tables: TableMap[] = [
   {
     source: `${jobConfig.sourceDbSchemaTenant}.tenant`,
@@ -81,6 +82,7 @@ async function migrateTable({ source, target, orderBy, columns }: TableMap) {
     await targetDb.query("BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ;");
 
     // Truncate table in targetDb (there shouldn't be performance worries on less than 1-10 million rows)
+    // WARNING: tables must be provided in a syntactically correct order because of "CASCADE"
     await targetDb.query(`TRUNCATE TABLE ${target} CASCADE;`);
 
     await targetDb.query(`ALTER TABLE ${target} DISABLE TRIGGER ALL`)
