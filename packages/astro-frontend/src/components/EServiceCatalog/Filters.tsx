@@ -1,4 +1,4 @@
-import { Button, Col, Form, FormGroup, Input, Row } from 'design-react-kit'
+import { Button, Col, Form, FormGroup, Icon, Input, Row } from 'design-react-kit'
 import React, { useEffect } from 'react'
 import {
   type FilterAutoCompleteValue,
@@ -116,12 +116,14 @@ const Filters = () => {
       <Form>
         <Row>
           <Col>
-            <FormGroup>
+            <FormGroup className="input-filter-key">
               <Input
+                hasIconLeft
+                iconLeft={<Icon aria-hidden icon="it-search" size="sm" className="icon-search" />}
                 label={t('filter.q.label')}
                 id="completeValidation-name"
                 type="text"
-                className="mt-4 "
+                className="mt-4"
                 placeholder={t('filter.q.placeholder')}
                 value={filtersFormState.q ?? ''}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
@@ -137,14 +139,12 @@ const Filters = () => {
             </FormGroup>
           </Col>
           <Col>
-            <FormGroup>
-              <MultipleAutoComplete
-                label={t('filter.providrer.label')}
-                options={optionAutoCompleteProvider}
-                values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
-                handleValuesChange={(values) => handleValueChange('provider', values)}
-              />
-            </FormGroup>
+            <MultipleAutoComplete
+              label={t('filter.providrer.label')}
+              options={optionAutoCompleteProvider}
+              values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
+              handleValuesChange={(values) => handleValueChange('provider', values)}
+            />
           </Col>
           <Col className="mt-4">
             <Button color="primary" type="submit" size="xs" onClick={(e) => onSubmit(e)}>

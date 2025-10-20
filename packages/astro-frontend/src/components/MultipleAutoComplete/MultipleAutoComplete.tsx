@@ -41,8 +41,8 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
 
   return (
     <>
-      <div className="d-flex">
-        <label style={{ marginBottom: -3 }}>{label}</label>
+      <div className="d-flex input-filter-key">
+        <label>{label}</label>
         {tooltipIconRender}
       </div>
       <FormGroup className="form-group">
@@ -51,11 +51,11 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
           multiple
           className="mt-1"
           getOptionLabel={(option) => option.label}
+          fullWidth
           sx={() => ({
             display: 'inline-block',
             '& input': {
               minHeight: '2.5rem',
-              width: 400,
             },
           })}
           value={values || []}
@@ -81,6 +81,7 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
               <div ref={params.InputProps.ref} className="select-wrapper">
                 <input
                   type="text"
+                  style={{ width: '100%' }}
                   {...params.inputProps}
                   placeholder={getSelectedElementLabel()}
                 ></input>
