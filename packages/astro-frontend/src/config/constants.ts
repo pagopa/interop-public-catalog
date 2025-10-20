@@ -1,5 +1,5 @@
 import type { SupportedLanguage } from '../i18n/types.i18n.js'
-import { getLocalizedRoute } from './routes.js'
+import { getLocalizedRoute } from '../i18n/utils.i18n.js'
 
 export const DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL = 'https://innovazione.gov.it/'
 export const PAGOPA_URL = 'https://www.pagopa.gov.it/'
