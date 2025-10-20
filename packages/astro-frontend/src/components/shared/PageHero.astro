@@ -1,15 +1,16 @@
 ---
-import { Section } from '../components/shared/Section.jsx'
-import { getLocalizedRoute, RouteKey } from '../config/routes'
-import { useUiTranslations } from '../i18n/ui.i18n'
-import { getLangFromUrl } from '../i18n/utils.i18n'
+import { Section } from './Section'
+import { getLocalizedRoute, type RouteKey } from '../../config/routes'
+import { useUiTranslations } from '../../i18n/ui.i18n'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
 
 interface Props {
   title: string
+  description?: string
   breadcrumbItems: Array<{ routeKey: RouteKey; current?: boolean }>
 }
 
-const { title, breadcrumbItems } = Astro.props
+const { title, description, breadcrumbItems } = Astro.props as Props
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tUi = useUiTranslations(currentLocale)
@@ -43,10 +44,15 @@ const tUi = useUiTranslations(currentLocale)
       <slot name="top-hero" />
     </span>
     <h1 class="mt-3 h2">{title}</h1>
-    <div style="max-width:860px;" class="mt-4">
+    <div class="mt-4">
+      {
+        description && (
+          <p style="max-width:860px;" class="lead">
+            {description}
+          </p>
+        )
+      }
       <slot name="bottom-hero" />
     </div>
   </div>
 </Section>
-
-<slot />

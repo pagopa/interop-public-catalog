@@ -1,4 +1,4 @@
-import { SupportedLanguage } from '../i18n/types.i18n.js'
+import type { SupportedLanguage } from '../i18n/types.i18n.js'
 import { getLocalizedRoute } from './routes.js'
 
 export const DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL = 'https://innovazione.gov.it/'
@@ -15,7 +15,7 @@ export const CATALOG_API_SECTION_NAV_ITEMS = [
   },
   {
     i18nKey: 'nav.examples',
-    getHref: (locale: SupportedLanguage) => getLocalizedRoute(locale, 'USE_CASE_CATALOG'),
+    getHref: (locale: SupportedLanguage) => getLocalizedRoute(locale, 'GOOD_PRACTICES_CATALOG'),
   },
 ] as const
 

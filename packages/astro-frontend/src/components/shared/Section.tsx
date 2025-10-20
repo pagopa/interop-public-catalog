@@ -27,7 +27,7 @@ export function Section<Tag extends React.ElementType = 'section'>({
   return (
     <TagComponent
       className={`section px-0 px-md-auto${className ? ` ${className}` : ''}`}
-      aria-labelledby={randomId}
+      aria-labelledby={title ? randomId : undefined}
       {...rest}
     >
       <div className="section-content">

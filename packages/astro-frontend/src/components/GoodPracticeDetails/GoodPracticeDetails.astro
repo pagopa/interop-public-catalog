@@ -1,27 +1,11 @@
 ---
 import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { useGoodPracticesTranslations } from '../../i18n/good-practices.i18n'
 import { EServiceCard } from '../shared/EServiceCard'
 import PageIndexNav from '../shared/PageIndexNav.astro'
 
-// const renderer: RendererObject<string, string> = {
-//   heading({ text }) {
-//     const headingId = toKebabCase(text) + '-section-title'
-//     headings.push({ id: headingId, label: text })
-//     return `<h2 id="${headingId}" class="h5">${text}</h2>`
-//   },
-//   image({ href, text }) {
-//     return `
-//       <figure style="background-color: #f2f2f2;" class="d-flex align-items-center flex-column py-3">
-//         <picture>
-//           <img src="${href}" alt="${text}" class="my-4 mx-auto max-h-60" />
-//         </picture>
-//         <figcaption class="text-center">${text}</figcaption>
-//       </figure>
-//     `
-//   },
-// }
-
 const currentLocale = getLangFromUrl(Astro.url.pathname)
+const tGoodPractices = useGoodPracticesTranslations(currentLocale)
 
 const HEADING_CLASS = 'h4 mb-3'
 const PARAGRAPH_CLASS = 'mb-4 lead'
@@ -115,7 +99,9 @@ const UNORDERED_LIST_CLASS = 'mb-4 lead'
         sconto diretto in fase di acquisto.
       </p>
 
-      <h2 id="api-utilizzate" class="h4 mb-4">API utilizzate</h2>
+      <h2 id="api-utilizzate" class="h4 mb-4">
+        {tGoodPractices('details.section.apis.heading')}
+      </h2>
       <div class="row g-4">
         <div class="col-12 col-md-6">
           <EServiceCard
@@ -145,7 +131,7 @@ const UNORDERED_LIST_CLASS = 'mb-4 lead'
       </div>
 
       <div class="mt-4 text-secondary pt-4">
-        <em>Ultimo aggiornamento: {/* {lastUpdate} */} TODO agosto 2025</em>
+        <em>{tGoodPractices('details.lastUpdate')}</em>
       </div>
     </article>
   </div>

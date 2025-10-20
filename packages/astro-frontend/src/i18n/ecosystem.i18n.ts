@@ -1,4 +1,4 @@
-import { TranslationsMap } from './types.i18n.js'
+import type { TranslationsMap } from './types.i18n.js'
 import { buildUseTranslations } from './utils.i18n.js'
 
 export const ecosystem = {
@@ -76,8 +76,8 @@ export const ecosystem = {
 
     'ecosystem_legal_references.title': 'Riferimenti normativi',
     'ecosystem_legal_references.subtitle':
-      "I riferimenti normativi offrono un quadro chiaro delle regole e degli standard da seguire per garantire una corretta integrazione dei servizi digitali. Consulta le linee guida e le normative che regolano l'interoperabilità nel contesto della PDND, in coerenza con il Codice dell'Amministrazione Digitale (CAD) stabilite da AgID (Agenzia per l'Italia Digitale). ",
-    'ecosystem_legal_references.button': 'Consulta i riferimenti normativi',
+      "Consulta le linee guida e le normative che regolano l'interoperabilità nel contesto della PDND, in coerenza con il Codice dell'Amministrazione Digitale (CAD) istituito da AgID (Agenzia per l'Italia Digitale).",
+    'ecosystem_legal_references.button': 'Consulta la normativa',
   },
   en: {
     title: 'What is interoperability?',

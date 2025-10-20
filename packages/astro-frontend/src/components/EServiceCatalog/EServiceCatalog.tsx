@@ -14,6 +14,7 @@ import { EServiceCard } from '../shared/EServiceCard.jsx'
 import { chunkEServiceArray } from '../../utils/utils.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { EService } from '../../../../models/src/types/eservice.js'
+import Pagination from '../shared/Pagination/Pagination.js'
 
 type EServiceCatalogProps = {
   eservices: EService[]

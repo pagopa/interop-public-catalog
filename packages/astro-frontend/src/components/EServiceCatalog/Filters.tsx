@@ -1,9 +1,7 @@
 import { Button, Col, Form, FormGroup, Input, Row } from 'design-react-kit'
 import React, { useEffect } from 'react'
-import {
-  FilterAutoCompleteValue,
-  MultipleAutoComplete,
-} from '../MultipleAutoComplete/MultipleAutoComplete.js'
+import { MultipleAutoComplete } from '../MultipleAutoComplete/MultipleAutoComplete.js'
+import type { FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
 import { FiltersChips } from './FiltersChips.js'
 import { addParamsWithinUrl, parseQueryStringToParams } from '../../utils/utils.js'
 
@@ -45,7 +43,7 @@ const Filters = () => {
     setAppliedFilters(initialParams)
   }, [])
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
     addParamsWithinUrl(filtersFormState)
     setAppliedFilters(filtersFormState)
@@ -134,12 +132,7 @@ const Filters = () => {
             </FormGroup>
           </Col>
           <Col>
-            <Button
-              color="primary"
-              type="submit"
-              size="xs"
-              onClick={(e: React.FormEvent<HTMLFormElement>) => onSubmit(e)}
-            >
+            <Button color="primary" type="submit" size="xs" onClick={(e) => onSubmit(e)}>
               Applica
             </Button>
           </Col>

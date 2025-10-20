@@ -1,5 +1,5 @@
-import { ORGANIZATION_TYPES, OrganizationType } from '../../config/constants.js'
-import { SupportedLanguage } from '../../i18n/types.i18n.js'
+import { ORGANIZATION_TYPES, type OrganizationType } from '../../config/constants.js'
+import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
 
 type OrganizationTypeFilterProps = {

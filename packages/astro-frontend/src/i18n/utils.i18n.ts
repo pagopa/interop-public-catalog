@@ -1,5 +1,5 @@
 import { DEFAULT_LANG, LANGUAGES } from './config.i18n.js'
-import { SupportedLanguage } from './types.i18n.js'
+import type { SupportedLanguage } from './types.i18n.js'
 
 function isSupportedLanguage(lang: string): lang is SupportedLanguage {
   return lang in LANGUAGES

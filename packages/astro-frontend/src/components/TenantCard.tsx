@@ -1,12 +1,4 @@
-import {
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  CardReadMore,
-  CardTitle,
-  Icon,
-} from 'design-react-kit'
+import { Card, CardBody, CardFooter, CardReadMore, CardTitle, Icon } from 'design-react-kit'
 import React from 'react'
 
 type TenantCardProps = {

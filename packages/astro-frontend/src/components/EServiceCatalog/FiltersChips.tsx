@@ -1,7 +1,7 @@
 import { Button, Chip as DRKChip, ChipLabel, Icon } from 'design-react-kit'
-import { FiltersParams } from './Filters.js'
+import type { FiltersParams } from './Filters.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
-import { FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
+import type { FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 
 type FiltersChipsProps = {

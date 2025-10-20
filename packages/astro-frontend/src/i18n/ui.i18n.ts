@@ -1,5 +1,5 @@
-import { RouteKey } from '../config/routes.js'
-import { SupportedLanguage, TranslationsMap } from './types.i18n.js'
+import type { RouteKey } from '../config/routes.js'
+import type { SupportedLanguage, TranslationsMap } from './types.i18n.js'
 import { buildUseTranslations } from './utils.i18n.js'
 
 const breadcrumbLabels = {
@@ -9,8 +9,11 @@ const breadcrumbLabels = {
     'breadcrumb_label.ESERVICE_CATALOG': 'Esplora il catalogo',
     'breadcrumb_label.ESERVICE_DETAILS': 'Dettaglio API',
     'breadcrumb_label.FAQ': 'Domande frequenti',
-    'breadcrumb_label.USE_CASE_CATALOG': 'Esempi pratici',
-    'breadcrumb_label.USE_CASE_DETAILS': 'Dettaglio esempi pratici',
+    'breadcrumb_label.GOOD_PRACTICES_CATALOG': 'Esempi pratici',
+    'breadcrumb_label.GOOD_PRACTICES_DETAILS': 'Dettaglio esempi pratici',
+    'breadcrumb_label.LEGISLATION': 'Normativa',
+    'breadcrumb_label.PRIVACY_POLICY': 'Privacy policy',
+    'breadcrumb_label.NOT_FOUND': 'Non trovato',
   },
   en: {
     'breadcrumb_label.HOME': 'Home',
@@ -18,8 +21,11 @@ const breadcrumbLabels = {
     'breadcrumb_label.ESERVICE_CATALOG': 'Explore the catalog',
     'breadcrumb_label.ESERVICE_DETAILS': 'API details',
     'breadcrumb_label.FAQ': 'Frequently asked questions',
-    'breadcrumb_label.USE_CASE_CATALOG': 'Practical examples',
-    'breadcrumb_label.USE_CASE_DETAILS': 'Use case details',
+    'breadcrumb_label.GOOD_PRACTICES_CATALOG': 'Practical examples',
+    'breadcrumb_label.GOOD_PRACTICES_DETAILS': 'Good practice details',
+    'breadcrumb_label.LEGISLATION': 'Legislation',
+    'breadcrumb_label.PRIVACY_POLICY': 'Privacy policy',
+    'breadcrumb_label.NOT_FOUND': 'Not found',
   },
 } as const satisfies { [K in SupportedLanguage]: Record<`breadcrumb_label.${RouteKey}`, string> }
 

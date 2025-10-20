@@ -1,0 +1,31 @@
+---
+import { Section } from '../../../components/shared/Section'
+import { GoodPracticesCatalog } from '../../../components/GoodPracticesCatalog/GoodPracticesCatalog'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
+import { useGoodPracticesTranslations } from '../../../i18n/good-practices.i18n'
+import Layout from '../../../layouts/Layout.astro'
+import PageHero from '../../../components/shared/PageHero.astro'
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const tGoodPractices = useGoodPracticesTranslations(currentLocale)
+---
+
+<Layout>
+  <PageHero
+    title={tGoodPractices('catalog.title')}
+    description={tGoodPractices('catalog.subtitle')}
+    breadcrumbItems={[
+      {
+        routeKey: 'HOME',
+      },
+      {
+        routeKey: 'GOOD_PRACTICES_CATALOG',
+        current: true,
+      },
+    ]}
+  />
+
+  <Section className="bg-muted">
+    <GoodPracticesCatalog client:only="react" currentLocale={currentLocale} />
+  </Section>
+</Layout>

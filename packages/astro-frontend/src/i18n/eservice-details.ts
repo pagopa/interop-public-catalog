@@ -1,4 +1,4 @@
-import { TranslationsMap } from './types.i18n.js'
+import type { TranslationsMap } from './types.i18n.js'
 import { buildUseTranslations } from './utils.i18n.js'
 
 export const eserviceDetails = {

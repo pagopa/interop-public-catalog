@@ -1,7 +1,7 @@
 import React from 'react'
-import { SupportedLanguage } from '../../i18n/types.i18n.js'
-import { UseCaseCard } from '../shared/UseCaseCard.js'
-import { ORGANIZATION_TYPES, OrganizationType } from '../../config/constants.js'
+import type { SupportedLanguage } from '../../i18n/types.i18n.js'
+import { GoodPracticeCard } from '../shared/GoodPracticeCard.js'
+import { ORGANIZATION_TYPES, type OrganizationType } from '../../config/constants.js'
 import { OrganizationTypeFilter } from './OrganizationTypeFilter.js'
 import { useSearchParams } from '../../hooks/useSearchParams.js'
 import { z } from 'zod'
@@ -41,7 +41,7 @@ const organizationTypeValues = ORGANIZATION_TYPES.map((o) => o.key) as [
   ...OrganizationType[],
 ]
 
-export const UseCasesCatalog: React.FC<{ currentLocale: SupportedLanguage }> = ({
+export const GoodPracticesCatalog: React.FC<{ currentLocale: SupportedLanguage }> = ({
   currentLocale,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams(
@@ -67,7 +67,7 @@ export const UseCasesCatalog: React.FC<{ currentLocale: SupportedLanguage }> = (
       </span>
       <div className="d-flex flex-column gap-4">
         {MOCK_CATEGORIES.map((c) => (
-          <UseCaseCard currentLocale={currentLocale} {...c} />
+          <GoodPracticeCard currentLocale={currentLocale} {...c} />
         ))}
       </div>
     </div>

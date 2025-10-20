@@ -1,4 +1,4 @@
-import { BootstrapItaliaIcon, BootstrapItaliaIconProps } from './BootstrapItaliaIcon.js'
+import { BootstrapItaliaIcon, type BootstrapItaliaIconProps } from './BootstrapItaliaIcon.js'
 
 interface TooltipIconProps {
   title: string

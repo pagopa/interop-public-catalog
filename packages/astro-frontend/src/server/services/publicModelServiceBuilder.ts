@@ -1,5 +1,7 @@
-import { drizzle, NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
-import { ExtractTablesWithRelations, sql } from 'drizzle-orm'
+import { drizzle } from 'drizzle-orm/node-postgres'
+import type { NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
+import type { ExtractTablesWithRelations } from 'drizzle-orm'
+import { sql } from 'drizzle-orm'
 import { EServiceSearchResult, EService, EServiceQuery } from 'pagopa-interop-public-models'
 import { PgTransaction } from 'drizzle-orm/pg-core'
 

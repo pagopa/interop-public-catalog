@@ -1,67 +1,69 @@
 ---
 import Layout from '../../../layouts/Layout.astro'
-import UseCaseDetails from '../../../components/UseCaseDetails/UseCaseDetails.astro'
-import { UseCaseCard } from '../../../components/shared/UseCaseCard'
+import { GoodPracticeCard } from '../../../components/shared/GoodPracticeCard'
 import { Section } from '../../../components/shared/Section'
 import { Chip } from '../../../components/shared/Chip'
-import PageLayout from '../../../layouts/PageLayout.astro'
+import PageHero from '../../../components/shared/PageHero.astro'
 import { BootstrapItaliaIcon } from '../../../components/shared/BootstrapItaliaIcon'
 import { getLangFromUrl } from '../../../i18n/utils.i18n'
-
-export function getStaticPaths() {
-  return [{ params: { id: 'test' } }]
-}
+import { useGoodPracticesTranslations } from '../../../i18n/good-practices.i18n'
+import { useUiTranslations } from '../../../i18n/ui.i18n'
+import GoodPracticeDetails from '../../../components/GoodPracticeDetails/GoodPracticeDetails.astro'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
+const tGoodPractices = useGoodPracticesTranslations(currentLocale)
+const tUi = useUiTranslations(currentLocale)
 ---
 
 <Layout>
-  <PageLayout
-    title="Erogare bonus ai cittadini in modo equo ed efficiente"
+  <PageHero
+    title={tGoodPractices('details.hero.title')}
     breadcrumbItems={[
       {
         routeKey: 'HOME',
       },
       {
-        routeKey: 'USE_CASE_CATALOG',
+        routeKey: 'GOOD_PRACTICES_CATALOG',
       },
       {
-        routeKey: 'USE_CASE_DETAILS',
+        routeKey: 'GOOD_PRACTICES_DETAILS',
         current: true,
       },
     ]}
   >
     <div slot="top-hero">
       <div class="d-flex align-items-center justify-content-between">
-        <Chip label="Bonus economici" />
+        <Chip label={'Bonus Economici'} />
         <button class="btn btn-link fw-semibold text-decoration-none">
-          <span>Copia URL</span>
+          <span>{tGoodPractices('details.copyUrl')}</span>
           <BootstrapItaliaIcon name="it-copy" className="ms-2" color="primary" />
         </button>
       </div>
     </div>
 
     <div slot="bottom-hero">
-      <p><strong>Per:</strong> PAC, Comuni, Regioni</p>
+      <p>
+        <strong>{tUi('label.for')}:</strong> PAC, Comuni, Regioni
+      </p>
     </div>
 
     <Section style={{ backgroundColor: '#fafafa' }}>
-      <UseCaseDetails />
+      <GoodPracticeDetails />
     </Section>
 
     <Section
       style={{ backgroundColor: '#f5f5f5' }}
-      title="Altri esempi pratici"
+      title={tGoodPractices('details.moreExamples')}
       titleClass="text-center"
     >
       <div class="d-flex justify-content-center gap-4 mt-4">
-        <UseCaseCard
+        <GoodPracticeCard
           currentLocale={currentLocale}
           title="Erogare i bonus ai cittadini in modo equo ed efficiente"
           intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
           category="Bonus Economici"
         />
-        <UseCaseCard
+        <GoodPracticeCard
           currentLocale={currentLocale}
           title="Iscrizione ai concorsi pubblici più snella"
           intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
@@ -69,5 +71,5 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
         />
       </div>
     </Section>
-  </PageLayout>
+  </PageHero>
 </Layout>

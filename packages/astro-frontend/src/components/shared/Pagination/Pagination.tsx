@@ -1,8 +1,9 @@
 import React from 'react'
 import { Pager, PagerItem, PagerLink } from 'design-react-kit'
-import { Page, usePagination } from './hooks/usePagination.js'
+import { type Page, usePagination } from './hooks/usePagination.js'
 import { getLangFromUrl } from '../../../i18n/utils.i18n.js'
 import { useUiTranslations } from '../../../i18n/ui.i18n.js'
+import { ROUTES } from '../../../config/routes.js'
 
 type PaginationProps = {
   totalCount: number
@@ -11,7 +12,8 @@ type PaginationProps = {
 
 const Pagination: React.FC<PaginationProps> = ({ totalCount, limit }) => {
   const { previousPages, nextPages, paginationProps } = usePagination(limit, totalCount)
-  const t = useUiTranslations(getLangFromUrl(window.location.pathname))
+  const lang = getLangFromUrl(window.location.pathname)
+  const t = useUiTranslations(lang)
   const { totalPages } = paginationProps
 
   const mapPagesToPagerElements = (pages: Page[]): React.ReactNode =>
@@ -27,10 +29,10 @@ const Pagination: React.FC<PaginationProps> = ({ totalCount, limit }) => {
       </PagerItem>
     ))
 
-  // TODO
-  // if (currentPage < 1 || currentPage > totalPages) {
-  //   return <Page404 />
-  // }
+  if (paginationProps.actualPage < 1 || paginationProps.actualPage > totalPages) {
+    window.location.replace(`/${lang}${ROUTES.NOT_FOUND[lang]}`)
+    return null
+  }
 
   return (
     <Pager aria-label="pager" className="mb-3 justify-content-center">

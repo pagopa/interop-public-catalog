@@ -1,11 +1,11 @@
 import React from 'react'
 import { BootstrapItaliaIcon } from './BootstrapItaliaIcon.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
-import { SupportedLanguage } from '../../i18n/types.i18n.js'
-import { OrganizationType } from '../../config/constants.js'
+import type { SupportedLanguage } from '../../i18n/types.i18n.js'
+import type { OrganizationType } from '../../config/constants.js'
 import { getLocalizedRoute } from '../../config/routes.js'
 
-interface UseCaseCardProps {
+interface GoodPracticeCardProps {
   currentLocale: SupportedLanguage
   title: string
   category: string
@@ -14,7 +14,7 @@ interface UseCaseCardProps {
 
 const CARD_MAX_WIDTH = 636
 
-export const UseCaseCard: React.FC<UseCaseCardProps> = ({
+export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
   currentLocale,
   title,
   category,
@@ -61,8 +61,8 @@ export const UseCaseCard: React.FC<UseCaseCardProps> = ({
           {intendedTargets.map((type) => tUi(`organization_types.${type}_short`)).join(', ')}
         </div>
         <a
-          href={getLocalizedRoute(currentLocale, 'USE_CASE_DETAILS', {
-            params: { useCaseId: 'test' },
+          href={getLocalizedRoute(currentLocale, 'GOOD_PRACTICES_DETAILS', {
+            params: { slug: 'test' },
           })}
           className="it-card-link text-primary flex-shrink-0"
           aria-label={tUi('actions.learnMore') + ' ' + title}

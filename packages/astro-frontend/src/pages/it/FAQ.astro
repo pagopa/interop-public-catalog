@@ -1,29 +1,16 @@
 ---
-import Layout from '../../../layouts/Layout.astro'
-import PageLayout from '../../../layouts/PageLayout.astro'
-import FAQListSection from '../../../components/FAQ/FAQListSection.astro'
-import RatingSection from '../../../components/shared/RatingSection.astro'
+import Layout from '../../layouts/Layout.astro'
+import PageHero from '../../components/shared/PageHero.astro'
+import FAQListSection from '../../components/FAQ/FAQListSection.astro'
+import RatingSection from '../../components/shared/RatingSection.astro'
 ---
 
 <Layout>
-  <PageLayout
+  <PageHero
     title="Domande frequenti"
-    breadcrumbItems={[
-      {
-        label: 'Home',
-        href: '#',
-      },
-      {
-        label: 'Domande frequenti',
-        href: '#',
-        active: true,
-      },
-    ]}
-  >
-    <p class="lead" slot="bottom-hero">
-      Consulta le domande frequenti relative al Catalogo delle API
-    </p>
-  </PageLayout>
+    description="Consulta le domande frequenti relative al Catalogo delle API"
+    breadcrumbItems={[{ routeKey: 'HOME' }, { routeKey: 'FAQ', current: true }]}
+  />
 
   <FAQListSection
     title="Informazioni generali"
