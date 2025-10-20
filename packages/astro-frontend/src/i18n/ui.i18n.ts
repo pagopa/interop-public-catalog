@@ -105,10 +105,12 @@ export const ui = {
     'filter.q.placeholder': 'Inserisci una o più parole chiave',
     'filter.providrer.label': 'Filtra per ente fruitore',
     'filter.apply': 'Applica',
+    'actions.orderBy': 'Ordina per',
     'order.recent_asc': 'Più recente (ascendente)',
     'order.recent_desc': 'Più recente (discendente)',
     'order.name_asc': 'Nome e-service (ascendente)',
     'order.name_desc': 'Nome e-service (discendente)',
+    'actions.total': 'Risultati',
   },
   en: {
     'actions.search': 'Search',
@@ -184,10 +186,12 @@ export const ui = {
     'filter.q.placeholder': 'Inserisci una o più parole chiave',
     'filter.providrer.label': 'Filtra per ente fruitore',
     'filter.apply': 'Applica',
+    'actions.orderBy': 'Order by',
     'order.recent_asc': 'Most recent (ascending)',
     'order.recent_desc': 'Most recent (descending)',
     'order.name_asc': 'E-service name (ascending)',
     'order.name_desc': 'E-service name (descending)',
+    'actions.total': 'Results',
   },
 } as const satisfies TranslationsMap
 

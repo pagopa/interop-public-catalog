@@ -115,7 +115,7 @@ const Filters = () => {
       <h5 className="mb-5">{t('filter.find')}</h5>
       <Form>
         <Row>
-          <Col>
+          <Col lg="3">
             <FormGroup className="input-filter-key">
               <Input
                 hasIconLeft
@@ -138,7 +138,7 @@ const Filters = () => {
               />
             </FormGroup>
           </Col>
-          <Col>
+          <Col lg="3">
             <MultipleAutoComplete
               label={t('filter.providrer.label')}
               options={optionAutoCompleteProvider}
@@ -157,26 +157,24 @@ const Filters = () => {
       <Row>
         <Col lg="3">
           <FormGroup>
-            <FormGroup>
-              <MultipleAutoComplete
-                label="Filtra per ente fruitore"
-                options={optionAutoCompleteConsumer}
-                values={filtersFormState.consumer as unknown as FilterAutoCompleteValue[]}
-                handleValuesChange={handleConsumerChange}
-                tooltipIconRender={
-                  <div>
-                    {' '}
-                    <TooltipIcon
-                      title={t('filter.popover.consumer.title')}
-                      content={t('filter.popover.consumer.content')}
-                      iconName="it-info-circle"
-                      iconColor="primary"
-                      iconSize="sm"
-                    />
-                  </div>
-                }
-              />
-            </FormGroup>
+            <MultipleAutoComplete
+              label="Filtra per ente fruitore"
+              options={optionAutoCompleteConsumer}
+              values={filtersFormState.consumer as unknown as FilterAutoCompleteValue[]}
+              handleValuesChange={handleConsumerChange}
+              tooltipIconRender={
+                <div>
+                  {' '}
+                  <TooltipIcon
+                    title={t('filter.popover.consumer.title')}
+                    content={t('filter.popover.consumer.content')}
+                    iconName="it-info-circle"
+                    iconColor="primary"
+                    iconSize="sm"
+                  />
+                </div>
+              }
+            />
           </FormGroup>
         </Col>
       </Row>

@@ -45,18 +45,25 @@ const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
   }
 
   return (
-    <Container className="py-5">
+    <Container className="py-5" fluid>
       <div className="d-flex justify-content-between align-items-center">
         <div>
-          <span className="pe-3 border-end">totale risultati</span>
-          <a className="ms-3">
-            Copia URL dei risultati <Icon icon="it-copy" size="sm" className="ms-2" />
+          <span className="pe-3 border-end">
+            <b className="me-2">
+              {' '}
+              <b>11.445</b>
+            </b>
+            {t('actions.total')}
+          </span>
+          <a className="ms-3 ">
+            {t('actions.copyUrl')}{' '}
+            <Icon icon="it-copy" size="sm" color="primary" className="ms-2" />
           </a>
         </div>
         <div>
-          <Dropdown>
-            <DropdownToggle caret className="text-primary">
-              Ordina per
+          <Dropdown id="order-by">
+            <DropdownToggle caret className="text-primary pe-0">
+              {t('actions.orderBy')}
             </DropdownToggle>
             <DropdownMenu>
               <LinkList>

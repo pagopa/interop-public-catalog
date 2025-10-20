@@ -126,3 +126,8 @@ a.list-item:hover {
 .input-filter-key .input-group-text {
   align-self: flex-end;
 }
+
+#order-by svg {
+  margin-left: 0.5rem;
+  fill:var(--bs-primary)!important
+}

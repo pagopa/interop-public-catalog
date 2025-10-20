@@ -7,6 +7,7 @@ import SuggestionSection from '../../../components/shared/SuggestionSection.astr
 import { EService } from 'pagopa-interop-public-models'
 ---
 
+<div class="start">
 <Layout>
   <Section>
     <Breadcrumb>
@@ -28,7 +29,7 @@ import { EService } from 'pagopa-interop-public-models'
   </Section>
 
   <Section color="muted">
-    <Container className="p-3">
+    <Container fluid className="p-3">
       <Filters client:only="react" />
     </Container>
 
@@ -129,3 +130,6 @@ import { EService } from 'pagopa-interop-public-models'
 
   <SuggestionSection />
 </Layout>
+
+</div>
+
