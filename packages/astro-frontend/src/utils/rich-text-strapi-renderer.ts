@@ -1,89 +1,71 @@
-type StrapiHeadingLevel = 1 | 2 | 3 | 4 | 5 | 6
-type StrapiListFormat = 'ordered' | 'unordered'
+import { match } from 'ts-pattern'
+import type {
+  StrapiHeadingNode,
+  StrapiLinkNode,
+  StrapiListItemNode,
+  StrapiListNode,
+  StrapiNode,
+  StrapiParagraphNode,
+  StrapiTextNode,
+} from '../types/strapi.types'
 
-type StrapiTextNode = {
-  type: 'text'
-  text: string
-  bold?: boolean
-  italic?: boolean
-  underline?: boolean
+export type { StrapiNode } from '../types/strapi.types'
+
+const escapeHtml = (value: string): string =>
+  value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+
+const escapeHtmlAttribute = (value: string): string => escapeHtml(value).replace(/"/g, '&quot;')
+
+const wrapIf = (condition: boolean | undefined, tag: string, content: string): string =>
+  condition ? `<${tag}>${content}</${tag}>` : content
+
+const renderNodes = (nodes?: StrapiNode[]): string => nodes?.map(renderNode).join('') ?? ''
+
+const renderTextNode = (node: StrapiTextNode): string => {
+  const escaped = escapeHtml(node.text)
+  const withBold = wrapIf(node.bold, 'strong', escaped)
+  const withItalic = wrapIf(node.italic, 'em', withBold)
+  return wrapIf(node.underline, 'u', withItalic)
 }
 
-type StrapiLinkNode = {
-  type: 'link'
-  url: string
-  children?: StrapiNode[]
+const renderLinkNode = (node: StrapiLinkNode): string => {
+  const href = escapeHtmlAttribute(node.url)
+  const content = renderNodes(node.children)
+  return `<a href="${href}" rel="noopener noreferrer">${content}</a>`
 }
 
-type StrapiParagraphNode = {
-  type: 'paragraph'
-  children?: StrapiNode[]
+const renderHeadingNode = (node: StrapiHeadingNode): string => {
+  const level = Math.min(Math.max(node.level ?? 2, 1), 6)
+  const tag = `h${level}`
+  return `<${tag}>${renderNodes(node.children)}</${tag}>`
 }
 
-type StrapiHeadingNode = {
-  type: 'heading'
-  level?: StrapiHeadingLevel
-  children?: StrapiNode[]
+const renderListNode = (node: StrapiListNode): string => {
+  const tag = node.format === 'ordered' ? 'ol' : 'ul'
+  const items = (node.children ?? []).map(renderNode).join('')
+  return `<${tag}>${items}</${tag}>`
 }
 
-type StrapiListItemNode = {
-  type: 'listItem'
-  children?: StrapiNode[]
-}
+const renderNode = (node: StrapiNode): string =>
+  match(node)
+    .with({ type: 'text' }, renderTextNode)
+    .with({ type: 'link' }, renderLinkNode)
+    .with({ type: 'paragraph' }, (paragraph) => `<p>${renderNodes(paragraph.children)}</p>`)
+    .with({ type: 'heading' }, renderHeadingNode)
+    .with({ type: 'list' }, renderListNode)
+    .with({ type: 'listItem' }, (item) => `<li>${renderNodes(item.children)}</li>`)
+    .otherwise(() => {
+      console.warn('Strapi rich text renderer: unexpected Node', node)
+      return ''
+    })
 
-type StrapiListNode = {
-  type: 'list'
-  format?: StrapiListFormat
-  children?: StrapiListItemNode[]
-}
-
-export type StrapiNode =
-  | StrapiParagraphNode
-  | StrapiHeadingNode
-  | StrapiListNode
-  | StrapiListItemNode
-  | StrapiLinkNode
-  | StrapiTextNode
-
-function wrapTextWithSemantics(node: StrapiTextNode): string {
-  let wrappedText = node.text
-
-  if (node.bold) {
-    wrappedText = `<strong>${wrappedText}</strong>`
-  }
-  if (node.italic) {
-    wrappedText = `<em>${wrappedText}</em>`
-  }
-  if (node.underline) {
-    wrappedText = `<u>${wrappedText}</u>`
-  }
-
-  return wrappedText
-}
-
-export function renderRichTextStrapiNodes(nodes: StrapiNode[]): string {
-  if (!nodes || nodes.length === 0) return ''
-
-  return nodes.reduce((acc, node) => {
-    switch (node.type) {
-      case 'paragraph': {
-        const innerHtml = renderRichTextStrapiNodes(node.children || [])
-
-        return `${acc}<p>${innerHtml}</p>`
-      }
-
-      case 'link': {
-        const innerHtml = renderRichTextStrapiNodes(node.children || [])
-
-        return `${acc}<a href="${node.url}">${innerHtml}</a>`
-      }
-
-      case 'text': {
-        const formattedText = wrapTextWithSemantics(node)
-        return `${acc}${formattedText}`
-      }
-      default:
-        return acc
-    }
-  }, '')
+/**
+ * Renders a Strapi Rich Text document into escaped HTML markup while preserving core semantics
+ * such as headings, lists, emphasis and hyperlinks.
+ *
+ * @param content - The AST of Rich Text nodes returned by Strapi.
+ * @returns The HTML representation ready to inject on the page.
+ */
+export function renderRichTextStrapiNodes(content: StrapiNode[] | undefined): string {
+  return renderNodes(content)
 }
