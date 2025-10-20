@@ -1,12 +1,15 @@
 ---
+import {
+  renderRichTextStrapiNodes,
+  type StrapiNode,
+} from '../../utils/rich-text-strapi-renderer.js'
 interface Props {
+  sectionId: number
   title: string
-  faqs: Array<{ question: string; answer: string }>
+  faqs: Array<{ id: number; question: string; answer: StrapiNode[] }>
 }
 
-const { title, faqs } = Astro.props
-
-const random = Math.floor(Math.random() * 1000)
+const { sectionId, title, faqs } = Astro.props
 ---
 
 <section class="section section-muted px-0 px-md-auto py-5">
@@ -15,31 +18,33 @@ const random = Math.floor(Math.random() * 1000)
       <div class="row">
         <div class="col-xs-12 col-md-9">
           <h2 class="mb-4">{title}</h2>
-          <div class="accordion" id=`accordionGroup${random}`>
+          <div class="accordion" id=`accordionGroup${sectionId}`>
             {
-              faqs.map(({ question, answer }, index) => (
+              faqs.map(({ question, answer, id }) => (
                 <>
                   <div class="accordion-item bg-transparent">
-                    <h2 class="accordion-header" id={`heading${random}${index}`}>
+                    <h2 class="accordion-header" id={`heading${sectionId}${id}`}>
                       <button
                         class="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
-                        data-bs-target={`#collapse${random}${index}`}
+                        data-bs-target={`#collapse${sectionId}${id}`}
                         aria-expanded="false"
-                        aria-controls={`collapse${random}${index}`}
+                        aria-controls={`collapse${sectionId}${id}`}
                       >
                         {question}
                       </button>
                     </h2>
                     <div
-                      id={`collapse${random}${index}`}
+                      id={`collapse${sectionId}${id}`}
                       class="accordion-collapse collapse"
-                      data-bs-parent={`#accordionGroup${random}`}
+                      data-bs-parent={`#accordionGroup${sectionId}`}
                       role="region"
-                      aria-labelledby={`heading${random}${index}`}
+                      aria-labelledby={`heading${sectionId}${id}`}
                     >
-                      <div class="accordion-body">{answer}</div>
+                      <div class="accordion-body">
+                        <div set:html={renderRichTextStrapiNodes(answer)} />
+                      </div>
                     </div>
                   </div>
                 </>
