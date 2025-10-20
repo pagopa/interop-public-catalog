@@ -111,6 +111,8 @@ export const ui = {
     'order.name_asc': 'Nome e-service (ascendente)',
     'order.name_desc': 'Nome e-service (discendente)',
     'actions.total': 'Risultati',
+    'modal.close': 'Chiudi',
+    'modal.apply': 'Applica e mostra risultati',
   },
   en: {
     'actions.search': 'Search',
@@ -192,6 +194,8 @@ export const ui = {
     'order.name_asc': 'E-service name (ascending)',
     'order.name_desc': 'E-service name (descending)',
     'actions.total': 'Results',
+    'modal.close': 'Close',
+    'modal.apply': 'Apply and show results',
   },
 } as const satisfies TranslationsMap
 

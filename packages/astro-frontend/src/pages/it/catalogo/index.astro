@@ -5,6 +5,7 @@ import { Breadcrumb, BreadcrumbItem, Button, Container, Icon, Section } from 'de
 import Filters from '../../../components/EServiceCatalog/Filters'
 import SuggestionSection from '../../../components/shared/SuggestionSection.astro'
 import { EService } from 'pagopa-interop-public-models'
+import EServiceCatalogFilters from '../../../components/EServiceCatalog/EServiceCatalogFilters'
 ---
 
 <div class="start">
@@ -30,7 +31,7 @@ import { EService } from 'pagopa-interop-public-models'
 
   <Section color="muted">
     <Container fluid className="p-3">
-      <Filters client:only="react" />
+      <EServiceCatalogFilters client:only="react" />
     </Container>
 
     <EServiceCatalog

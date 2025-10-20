@@ -10,6 +10,8 @@ import { TooltipIcon } from '../shared/TooltipIcon.js'
 import { Popover } from 'bootstrap-italia'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
+import { FiltersMobile } from './FiltersMobile.jsx'
+import type { EServiceCatalogFiltersParams } from './EServiceCatalogFilters.jsx'
 
 const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
   { label: 'Opzione 1', value: 'value-1' },
@@ -36,124 +38,65 @@ export type FiltersParams = {
 
 export type FilterParamsKeys = keyof FiltersParams
 
-const Filters = () => {
-  const [filtersFormState, setFiltersFormState] = React.useState<FiltersParams>({
-    provider: [],
-    consumer: [],
-  })
-  const [appliedFilters, setAppliedFilters] = React.useState<FiltersParams>({})
+type FiltersProps = {
+  filtersFormState: EServiceCatalogFiltersParams
+  handleValueChange: (key: FilterParamsKeys, value: string | FilterAutoCompleteValue[]) => void
+  onSubmit: (e: React.FormEvent<HTMLButtonElement>) => void
+  handleConsumerChange: (values: FilterAutoCompleteValue[]) => void
+  isMobile: boolean
+}
+const Filters: React.FC<FiltersProps> = ({
+  filtersFormState,
+  handleValueChange,
+  onSubmit,
+  isMobile,
+  handleConsumerChange,
+}) => {
   const currentLanguage = getLangFromUrl(window.location.pathname)
   const t = useUiTranslations(currentLanguage)
 
-  useEffect(() => {
-    const initialParams: FiltersParams = parseQueryStringToParams(window.location.search)
-    setFiltersFormState(initialParams)
-    setAppliedFilters(initialParams)
-
-    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-    popoverTriggerList.map(function (popoverTriggerEl) {
-      return new Popover(popoverTriggerEl, {
-        trigger: 'focus',
-      })
-    })
-  }, [])
-
-  const onSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    addParamsWithinUrl(filtersFormState)
-    setAppliedFilters(filtersFormState)
-    // Fetch API!
-  }
-
-  const handleValueChange = (
-    key: keyof FiltersParams,
-    value: string | FilterAutoCompleteValue[]
-  ) => {
-    setFiltersFormState((prev) => ({
-      ...prev,
-      [key]: value,
-    }))
-  }
-
-  const handleConsumerChange = (values: FilterAutoCompleteValue[]) => {
-    const previousFilterState = {
-      ...filtersFormState,
-      consumer: values,
-    }
-    setFiltersFormState(previousFilterState)
-    setAppliedFilters(previousFilterState)
-
-    addParamsWithinUrl(previousFilterState)
-  }
-
-  const handleRemoveValue = (key: keyof FiltersParams, value: string | FilterAutoCompleteValue) => {
-    const getUpdatedState = (): FiltersParams => {
-      if (key === 'provider' || key === 'consumer') {
-        const newValues = filtersFormState[key]!.filter((v) => v.value !== value)
-        return { ...filtersFormState, [key]: newValues }
-      }
-
-      const { [key]: _, ...newState } = filtersFormState
-      return newState
-    }
-
-    const updatedState = getUpdatedState()
-
-    setFiltersFormState(updatedState)
-    setAppliedFilters(updatedState)
-    addParamsWithinUrl(updatedState)
-  }
-
-  const handleRemoveAll = () => {
-    setFiltersFormState({})
-    setAppliedFilters({})
-    addParamsWithinUrl({})
-  }
-
   return (
-    <>
-      <h5 className="mb-5">{t('filter.find')}</h5>
-      <Form>
-        <Row>
-          <Col lg="3">
-            <FormGroup className="input-filter-key">
-              <Input
-                hasIconLeft
-                iconLeft={<Icon aria-hidden icon="it-search" size="sm" className="icon-search" />}
-                label={t('filter.q.label')}
-                id="completeValidation-name"
-                type="text"
-                className="mt-4"
-                placeholder={t('filter.q.placeholder')}
-                value={filtersFormState.q ?? ''}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+    <Form>
+      <Row>
+        <Col lg="3">
+          <FormGroup className="input-filter-key">
+            <Input
+              hasIconLeft
+              iconLeft={<Icon aria-hidden icon="it-search" size="sm" className="icon-search" />}
+              label={t('filter.q.label')}
+              id="completeValidation-name"
+              type="text"
+              className="mt-4"
+              placeholder={t('filter.q.placeholder')}
+              value={filtersFormState.q ?? ''}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                e.preventDefault()
+                handleValueChange('q', e.target.value)
+              }}
+              onKeyDown={(e: React.KeyboardEvent) => {
+                if (e.key === 'Enter') {
                   e.preventDefault()
-                  handleValueChange('q', e.target.value)
-                }}
-                onKeyDown={(e: React.KeyboardEvent) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault()
-                  }
-                }}
-              />
-            </FormGroup>
-          </Col>
-          <Col lg="3">
-            <MultipleAutoComplete
-              label={t('filter.providrer.label')}
-              options={optionAutoCompleteProvider}
-              values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
-              handleValuesChange={(values) => handleValueChange('provider', values)}
+                }
+              }}
             />
-          </Col>
+          </FormGroup>
+        </Col>
+        <Col lg="3">
+          <MultipleAutoComplete
+            label={t('filter.providrer.label')}
+            options={optionAutoCompleteProvider}
+            values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
+            handleValuesChange={(values) => handleValueChange('provider', values)}
+          />
+        </Col>
+        {!isMobile && (
           <Col className="mt-4">
             <Button color="primary" type="submit" size="xs" onClick={(e) => onSubmit(e)}>
               {t('filter.apply')}
             </Button>
           </Col>
-        </Row>
-      </Form>
-      {/* <Form> */}
+        )}
+      </Row>
       <Row>
         <Col lg="3">
           <FormGroup>
@@ -178,14 +121,7 @@ const Filters = () => {
           </FormGroup>
         </Col>
       </Row>
-      {/* </Form> */}
-
-      <FiltersChips
-        handleRemoveValue={handleRemoveValue}
-        filters={appliedFilters}
-        handleRemoveAll={handleRemoveAll}
-      ></FiltersChips>
-    </>
+    </Form>
   )
 }
 

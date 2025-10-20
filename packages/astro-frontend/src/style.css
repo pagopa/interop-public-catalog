@@ -131,3 +131,15 @@ a.list-item:hover {
   margin-left: 0.5rem;
   fill:var(--bs-primary)!important
 }
+
+.filters-modal{
+  margin : 0!important
+}
+
+.filters-modal .filters-modal-header{
+  border-bottom: 1px solid #BFDFFF;
+}
+
+.filters-modal .filters-modal-footer{
+  border-top: 1px solid #BFDFFF;
+}
