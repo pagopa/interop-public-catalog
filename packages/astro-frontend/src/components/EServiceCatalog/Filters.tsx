@@ -1,9 +1,15 @@
 import { Button, Col, Form, FormGroup, Input, Row } from 'design-react-kit'
 import React, { useEffect } from 'react'
-import { MultipleAutoComplete } from '../MultipleAutoComplete/MultipleAutoComplete.js'
-import type { FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
+import {
+  type FilterAutoCompleteValue,
+  MultipleAutoComplete,
+} from '../MultipleAutoComplete/MultipleAutoComplete.js'
 import { FiltersChips } from './FiltersChips.js'
 import { addParamsWithinUrl, parseQueryStringToParams } from '../../utils/utils.js'
+import { TooltipIcon } from '../shared/TooltipIcon.js'
+import { Popover } from 'bootstrap-italia'
+import { getLangFromUrl } from '../../i18n/utils.i18n.js'
+import { useUiTranslations } from '../../i18n/ui.i18n.js'
 
 const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
   { label: 'Opzione 1', value: 'value-1' },
@@ -36,11 +42,20 @@ const Filters = () => {
     consumer: [],
   })
   const [appliedFilters, setAppliedFilters] = React.useState<FiltersParams>({})
+  const currentLanguage = getLangFromUrl(window.location.pathname)
+  const t = useUiTranslations(currentLanguage)
 
   useEffect(() => {
     const initialParams: FiltersParams = parseQueryStringToParams(window.location.search)
     setFiltersFormState(initialParams)
     setAppliedFilters(initialParams)
+
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    popoverTriggerList.map(function (popoverTriggerEl) {
+      return new Popover(popoverTriggerEl, {
+        trigger: 'focus',
+      })
+    })
   }, [])
 
   const onSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
@@ -97,18 +112,18 @@ const Filters = () => {
 
   return (
     <>
-      <h5 className="mb-5">Cerca nel catalogo</h5>
+      <h5 className="mb-5">{t('filter.find')}</h5>
       <Form>
         <Row>
           <Col>
             <FormGroup>
               <Input
-                label="Cerca per parola chiave"
+                label={t('filter.q.label')}
                 id="completeValidation-name"
                 type="text"
+                className="mt-4 "
+                placeholder={t('filter.q.placeholder')}
                 value={filtersFormState.q ?? ''}
-                validationText="Validato!"
-                valid={filtersFormState.q != ''}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                   e.preventDefault()
                   handleValueChange('q', e.target.value)
@@ -124,16 +139,16 @@ const Filters = () => {
           <Col>
             <FormGroup>
               <MultipleAutoComplete
-                label="Filtra per ente erogatore"
+                label={t('filter.providrer.label')}
                 options={optionAutoCompleteProvider}
                 values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
                 handleValuesChange={(values) => handleValueChange('provider', values)}
               />
             </FormGroup>
           </Col>
-          <Col>
+          <Col className="mt-4">
             <Button color="primary" type="submit" size="xs" onClick={(e) => onSubmit(e)}>
-              Applica
+              {t('filter.apply')}
             </Button>
           </Col>
         </Row>
@@ -148,20 +163,20 @@ const Filters = () => {
                 options={optionAutoCompleteConsumer}
                 values={filtersFormState.consumer as unknown as FilterAutoCompleteValue[]}
                 handleValuesChange={handleConsumerChange}
+                tooltipIconRender={
+                  <div>
+                    {' '}
+                    <TooltipIcon
+                      title={t('filter.popover.consumer.title')}
+                      content={t('filter.popover.consumer.content')}
+                      iconName="it-info-circle"
+                      iconColor="primary"
+                      iconSize="sm"
+                    />
+                  </div>
+                }
               />
             </FormGroup>
-            {/* <Select
-              id="selectExampleClassic"
-              label="Filtra per ente fruitore"
-              value={filtersFormState.consumer ?? ''}
-              onChange={(value: string) => handleValueChange('consumer', value)}
-            >
-              <option label="Opzione 1">Value 1</option>
-              <option label="Opzione 2">Value 2</option>
-              <option label="Opzione 3">Value 3</option>
-              <option label="Opzione 4">Value 4</option>
-              <option label="Opzione 5">Value 5</option>
-            </Select> */}
           </FormGroup>
         </Col>
       </Row>

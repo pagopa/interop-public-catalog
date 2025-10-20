@@ -13,6 +13,7 @@ type MultipleAutoCompleteProps = {
   label: string
   options: FilterAutoCompleteValue[]
   values: FilterAutoCompleteValue[]
+  tooltipIconRender?: React.ReactNode
   handleValuesChange: (values: FilterAutoCompleteValue[]) => void
 }
 
@@ -21,6 +22,7 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
   options,
   handleValuesChange,
   values,
+  tooltipIconRender,
 }) => {
   const currentLanguage = getLangFromUrl(window.location.pathname)
   const t = useUiTranslations(currentLanguage)
@@ -38,61 +40,67 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
   }
 
   return (
-    <FormGroup className="select-wrapper">
-      <label>{label}</label>
-      <Autocomplete
-        disableCloseOnSelect
-        multiple
-        className="mt-1"
-        getOptionLabel={(option) => option.label}
-        sx={() => ({
-          display: 'inline-block',
-          '& input': {
-            width: 400,
-          },
-        })}
-        value={values || []}
-        onChange={handleChange}
-        options={options}
-        isOptionEqualToValue={(option, { value }) => option.value === value}
-        renderOption={(props, option, { selected }) => {
-          const { key, ...optionProps } = props
+    <>
+      <div className="d-flex">
+        <label style={{ marginBottom: -3 }}>{label}</label>
+        {tooltipIconRender}
+      </div>
+      <FormGroup className="form-group">
+        <Autocomplete
+          disableCloseOnSelect
+          multiple
+          className="mt-1"
+          getOptionLabel={(option) => option.label}
+          sx={() => ({
+            display: 'inline-block',
+            '& input': {
+              minHeight: '2.5rem',
+              width: 400,
+            },
+          })}
+          value={values || []}
+          onChange={handleChange}
+          options={options}
+          isOptionEqualToValue={(option, { value }) => option.value === value}
+          renderOption={(props, option, { selected }) => {
+            const { key, ...optionProps } = props
 
-          return (
-            <FormGroup check>
-              <li key={key} {...optionProps}>
-                <Input id={`checkbox-${key}`} type="checkbox" checked={selected} />
-                <label style={{ fontFamily: 'Titillium Web' }}>{option.label}</label>
-              </li>
-            </FormGroup>
-          )
-        }}
-        renderInput={(params) => {
-          const isOpen = params.inputProps['aria-expanded']
-          const icon = isOpen ? 'it-chevron-left' : 'it-chevron-right'
-          return (
-            <div ref={params.InputProps.ref} className="select-wrapper">
-              <input
-                type="text"
-                {...params.inputProps}
-                placeholder={getSelectedElementLabel()}
-              ></input>
-              <span
-                style={{
-                  position: 'absolute',
-                  right: '14px',
-                  top: '10%',
-                  pointerEvents: 'none',
-                  transform: 'rotate(90deg)',
-                }}
-              >
-                <Icon className="icon icon-secondary" color="primary" icon={icon} />
-              </span>
-            </div>
-          )
-        }}
-      />
-      <div></div>
-    </FormGroup>
+            return (
+              <FormGroup check>
+                <li key={key} {...optionProps}>
+                  <Input id={`checkbox-${key}`} type="checkbox" checked={selected} />
+                  <label style={{ fontFamily: 'Titillium Web' }}>{option.label}</label>
+                </li>
+              </FormGroup>
+            )
+          }}
+          renderInput={(params) => {
+            const isOpen = params.inputProps['aria-expanded']
+            const icon = isOpen ? 'it-chevron-left' : 'it-chevron-right'
+            return (
+              <div ref={params.InputProps.ref} className="select-wrapper">
+                <input
+                  type="text"
+                  {...params.inputProps}
+                  placeholder={getSelectedElementLabel()}
+                ></input>
+                <span
+                  style={{
+                    position: 'absolute',
+                    right: '14px',
+                    top: '10%',
+                    pointerEvents: 'none',
+                    transform: 'rotate(90deg)',
+                  }}
+                >
+                  <Icon className="icon icon-secondary" color="primary" icon={icon} />
+                </span>
+              </div>
+            )
+          }}
+        />
+        <div></div>
+      </FormGroup>
+    </>
   )
 }

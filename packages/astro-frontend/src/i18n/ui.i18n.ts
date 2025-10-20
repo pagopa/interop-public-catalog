@@ -97,6 +97,18 @@ export const ui = {
     'autocomplete.selectedElement': ' elemento selezionato',
     'pagination.previous': 'Precedente',
     'pagination.next': 'Successiva',
+    'filter.find': 'Cerca nel catalogo',
+    'filter.popover.consumer.title': 'FILTRA PER ENTE FRUITORE',
+    'filter.popover.consumer.content':
+      'L’elenco dei potenziali fruitori è costruito in base ai requisiti di accesso delle API.',
+    'filter.q.label': 'Cerca per parola chiave',
+    'filter.q.placeholder': 'Inserisci una o più parole chiave',
+    'filter.providrer.label': 'Filtra per ente fruitore',
+    'filter.apply': 'Applica',
+    'order.recent_asc': 'Più recente (ascendente)',
+    'order.recent_desc': 'Più recente (discendente)',
+    'order.name_asc': 'Nome e-service (ascendente)',
+    'order.name_desc': 'Nome e-service (discendente)',
   },
   en: {
     'actions.search': 'Search',
@@ -164,6 +176,18 @@ export const ui = {
     'autocomplete.selectedElement': ' item selected',
     'pagination.previous': 'Previous',
     'pagination.next': 'Next',
+    'filter.find': 'Cerca nel catalogo',
+    'filter.popover.consumer.title': 'FILTER BY CONSUMER',
+    'filter.popover.consumer.content':
+      'The list of potential consumers is built based on the access requirements of the APIs.',
+    'filter.q.label': 'Cerca per parola chiave',
+    'filter.q.placeholder': 'Inserisci una o più parole chiave',
+    'filter.providrer.label': 'Filtra per ente fruitore',
+    'filter.apply': 'Applica',
+    'order.recent_asc': 'Most recent (ascending)',
+    'order.recent_desc': 'Most recent (descending)',
+    'order.name_asc': 'E-service name (ascending)',
+    'order.name_desc': 'E-service name (descending)',
   },
 } as const satisfies TranslationsMap
 
