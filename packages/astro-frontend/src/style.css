@@ -106,3 +106,7 @@ a.list-item:hover {
   background-color: inherit !important;
   box-shadow: inherit !important;
 }
+
+#category-filters-list a.active:hover {
+  background-color: #f2f7fc !important;
+}

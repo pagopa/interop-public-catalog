@@ -1,9 +1,5 @@
 import { LANGUAGES } from './config.i18n.js'
 
-/**
- * SupportedLanguage represents the keys of the LANGUAGES object.
- * Example: 'it' | 'en'
- */
 export type SupportedLanguage = keyof typeof LANGUAGES
 
 /**

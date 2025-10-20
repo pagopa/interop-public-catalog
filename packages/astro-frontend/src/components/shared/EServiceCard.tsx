@@ -1,7 +1,7 @@
 import React from 'react'
 import { BootstrapItaliaIcon } from './BootstrapItaliaIcon.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
-import { SupportedLanguage } from '../../i18n/types.i18n.js'
+import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 import { Chip } from './Chip.js'
 
 interface EServiceCardProps {

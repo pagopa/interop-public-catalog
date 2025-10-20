@@ -2,15 +2,89 @@
 import Layout from '../../layouts/Layout.astro'
 import Hero from '../../components/Homepage/Hero.astro'
 import HowItWorks from '../../components/Homepage/HowItWorks.astro'
-import UseCases from '../../components/Homepage/UseCases.astro'
+import GoodPractices from '../../components/Homepage/GoodPractices.astro'
 import ApiShowcase from '../../components/Homepage/ApiShowcase.astro'
 import SuggestionSection from '../../components/shared/SuggestionSection.astro'
+import { EService } from '../../../../models/src/types/eservice'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { useHomepageTranslations } from '../../i18n/homepage.i18n'
+import { EServiceId, EServiceTemplateId, TenantId } from '../../../../models/src/brandedIds'
+
+//TODO right data
+const highlightedEServices: EService[] = [
+  {
+    id: 'eservice1' as EServiceId,
+    name: 'ANPR',
+    description:
+      "L'Anagrafe Nazionale della Popolazione Residente (ANPR) è il sistema che raccoglie i dati anagrafici di tutti i cittadini italiani.",
+    attributes: {
+      certified: [],
+      declared: [],
+      verified: [],
+    },
+    // producerName: "Nome dell'Ente",
+    producerId: 'tenant1' as TenantId,
+    technology: 'Rest',
+    descriptors: [],
+    createdAt: new Date(),
+    mode: 'Deliver',
+    isSignalHubEnabled: true,
+    isConsumerDelegable: true,
+    isClientAccessDelegable: true,
+    templateId: 'eserviceTemplate1' as EServiceTemplateId,
+  },
+  {
+    id: 'eservice2' as EServiceId,
+    name: 'PagoPA',
+    description:
+      'PagoPA è il sistema di pagamenti elettronici della Pubblica Amministrazione italiana, che consente ai cittadini di effettuare pagamenti in modo semplice e sicuro.',
+    attributes: {
+      certified: [],
+      declared: [],
+      verified: [],
+    },
+    // producerName: "Nome dell'Ente",
+    producerId: 'tenant2' as TenantId,
+    technology: 'Rest',
+    descriptors: [],
+    createdAt: new Date(),
+    mode: 'Deliver',
+    isSignalHubEnabled: true,
+    isConsumerDelegable: true,
+    isClientAccessDelegable: true,
+    templateId: 'eserviceTemplate2' as EServiceTemplateId,
+  },
+  {
+    id: 'eservice3' as EServiceId,
+    name: 'SPIDdnds ndsaj jkdsaknj dsanjk dksnaj kjdnasknj dsadsakdsanjkd sakjndnkjs akjndsaknj dakjsnkj ads',
+    description:
+      "SPID (Sistema Pubblico di Identità Digitale) è il sistema di autenticazione che permette ai cittadini di accedere ai servizi online della Pubblica Amministrazione e dei privati aderenti con un'unica identità digitale.",
+    attributes: {
+      certified: [],
+      declared: [],
+      verified: [],
+    },
+    // producerName: "Nome dell'Ente",
+    producerId: 'tenant3' as TenantId,
+    technology: 'Rest',
+    descriptors: [],
+    createdAt: new Date(),
+    mode: 'Deliver',
+    isSignalHubEnabled: true,
+    isConsumerDelegable: true,
+    isClientAccessDelegable: true,
+    templateId: 'eserviceTemplate3' as EServiceTemplateId,
+  },
+]
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const t = useHomepageTranslations(currentLocale)
 ---
 
 <Layout>
   <Hero />
   <HowItWorks />
-  <UseCases />
-  <ApiShowcase />
+  <GoodPractices />
+  <ApiShowcase title={t('featured_api.title')} highlightedEServices={highlightedEServices} />
   <SuggestionSection />
 </Layout>

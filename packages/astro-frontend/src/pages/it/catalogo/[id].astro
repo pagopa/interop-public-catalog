@@ -12,7 +12,7 @@ import { EService, Technology } from '../../../../../models/src/types/eservice'
 import { useUiTranslations } from '../../../i18n/ui.i18n'
 
 import { getLangFromUrl } from '../../../i18n/utils.i18n'
-import PageLayout from '../../../layouts/PageLayout.astro'
+import PageHero from '../../../components/shared/PageHero.astro'
 import { useEServiceDetailsTranslations } from '../../../i18n/eservice-details'
 import ApiShowcase from '../../../components/Homepage/ApiShowcase.astro'
 import RatingSection from '../../../components/shared/RatingSection.astro'
@@ -90,21 +90,18 @@ const highlightedEServices: EService[] = [
 ---
 
 <Layout>
-  <PageLayout
+  <PageHero
     title="TODO Nome API"
     breadcrumbItems={[
       {
-        label: 'Home',
-        href: '#',
+        routeKey: 'HOME',
       },
       {
-        label: 'Esplora il catalogo',
-        href: '#',
+        routeKey: 'ESERVICE_CATALOG',
       },
       {
-        label: 'Dettaglio API',
-        href: '#',
-        active: true,
+        routeKey: 'ESERVICE_DETAILS',
+        current: true,
       },
     ]}
   >
@@ -124,7 +121,7 @@ const highlightedEServices: EService[] = [
     <p slot="bottom-hero">
       Erogatore: <strong><u>Nome dell'ente</u></strong>
     </p>
-  </PageLayout>
+  </PageHero>
 
   <EServiceDetails
     eservice={{

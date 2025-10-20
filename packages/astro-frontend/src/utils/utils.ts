@@ -1,12 +1,14 @@
-import { EService } from '../components/EServiceCatalog/EServiceCatalog.js'
-import { FilterParamsKeys, FiltersParams } from '../components/EServiceCatalog/Filters.js'
+import type { FilterParamsKeys, FiltersParams } from '../components/EServiceCatalog/Filters.js'
 import {
   EService,
   EServiceAttribute,
   EServiceAttributes,
 } from '../../../models/src/types/eservice.js'
 
-export const chunkEServiceArray = (eservices: EService[], eservicesPerRow: number): EService[][] => {
+export const chunkEServiceArray = (
+  eservices: EService[],
+  eservicesPerRow: number
+): EService[][] => {
   const chunkedArray: EService[][] = []
   for (let i = 0; i < (eservices.length <= 12 ? eservices.length : 12); i += eservicesPerRow) {
     chunkedArray.push(eservices.slice(i, i + eservicesPerRow))
@@ -43,7 +45,7 @@ export function addParamsWithinUrl(filtersParams: FiltersParams) {
     const key = k as FilterParamsKeys
     if (filtersParams[key]) {
       if (key === 'provider' || key === 'consumer') {
-        const filter = JSON.stringify(filtersParams[key].map((item) => [item.label, item.value]))
+        const filter = JSON.stringify(filtersParams[key]?.map((item) => [item.label, item.value]))
         urlSearchParams.append(key, filter)
       } else urlSearchParams.append(key, JSON.stringify(filtersParams[key]))
     }

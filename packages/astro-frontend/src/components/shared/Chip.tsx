@@ -1,4 +1,5 @@
-import { BootstrapItaliaIcon, BootstrapItaliaIconProps } from './BootstrapItaliaIcon.js'
+import { BootstrapItaliaIcon } from './BootstrapItaliaIcon.js'
+import type { BootstrapItaliaIconProps } from './BootstrapItaliaIcon.js'
 
 export function Chip({
   label,

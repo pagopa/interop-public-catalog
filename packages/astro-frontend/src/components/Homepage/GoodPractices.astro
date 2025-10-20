@@ -1,18 +1,28 @@
 ---
+import { ORGANIZATION_TYPES, type OrganizationType } from '../../config/constants'
+import { getLocalizedRoute } from '../../config/routes'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
 import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
-import { UseCaseCard } from '../shared/UseCaseCard'
+import { GoodPracticeCard } from '../shared/GoodPracticeCard'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useHomepageTranslations(currentLocale)
 
-const targetsLinkItems = [
-  { text: t('use_cases.target.pa_centrali'), href: '#', imgSrc: '/img/030-city.svg' },
-  { text: t('use_cases.target.regioni'), href: '#', imgSrc: '/img/066-hospital.svg' },
-  { text: t('use_cases.target.comuni'), href: '#', imgSrc: '/img/bank-1.svg' },
-  { text: t('use_cases.target.view_all'), href: '#', imgSrc: '/img/027-pillars.svg' },
+const organizationsTypesLinks: Array<{ text: string; organizationTypeKey: OrganizationType }> = [
+  { text: t('good_practices.target.pa_centrali'), organizationTypeKey: 'pac' },
+  { text: t('good_practices.target.regioni'), organizationTypeKey: 'regioni' },
+  { text: t('good_practices.target.comuni'), organizationTypeKey: 'comuni' },
+  { text: t('good_practices.target.view_all'), organizationTypeKey: 'tutti' },
 ] as const
+
+function getOrganizationTypeHref(organizationType: OrganizationType) {
+  return `${getLocalizedRoute(currentLocale, 'GOOD_PRACTICES_CATALOG')}?${new URLSearchParams({ organizationType }).toString()}`
+}
+
+function getOrganizationTypeImgSrc(organizationType: OrganizationType) {
+  return ORGANIZATION_TYPES.find((o) => o.key === organizationType)!.imgSrc
+}
 ---
 
 <section class="section position-relative pb-0" aria-labelledby="use-cases-section-title">
@@ -35,19 +45,28 @@ const targetsLinkItems = [
     <div style="max-width:856px;" class="mx-auto pt-md-5 px-md-5">
       {/* Section Header - Title and Description*/}
       <div>
-        <h2 id="use-cases-section-title" class="text-primary h4">{t('use_cases.title')}</h2>
+        <h2 id="use-cases-section-title" class="text-primary h4">{t('good_practices.title')}</h2>
         <p class="text-secondary">
-          {t('use_cases.description')}
+          {t('good_practices.description')}
         </p>
       </div>
 
       <div class="it-list-wrapper mt-4">
         <ul class="it-list row">
           {
-            targetsLinkItems.map((l, i) => (
+            organizationsTypesLinks.map((l, i) => (
               <li class:list={['col-12 col-md-6 px-2 py-2 position-relative']}>
-                <a href={l.href} class="list-item icon-right gap-2 border-0">
-                  <img src={l.imgSrc} alt="" role="presentation" height="40" width="40" />
+                <a
+                  href={getOrganizationTypeHref(l.organizationTypeKey)}
+                  class="list-item icon-right gap-2 border-0"
+                >
+                  <img
+                    src={getOrganizationTypeImgSrc(l.organizationTypeKey)}
+                    alt=""
+                    role="presentation"
+                    height="40"
+                    width="40"
+                  />
                   <div class="it-right-zone">
                     <span style="font-size:1rem;" class="text">
                       {l.text}
@@ -73,34 +92,34 @@ const targetsLinkItems = [
     <div style="max-width:1076px;" class="mx-auto mt-5">
       <div class="row g-4">
         <div class="col-12 col-md-6 d-flex justify-content-center">
-          <UseCaseCard
+          <GoodPracticeCard
             currentLocale={currentLocale}
             title="Erogare i bonus ai cittadini in modo equo ed efficiente"
-            intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
+            intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
             category="Bonus Economici"
           />
         </div>
         <div class="col-12 col-md-6 d-flex justify-content-center">
-          <UseCaseCard
+          <GoodPracticeCard
             currentLocale={currentLocale}
             title="Iscrizione ai concorsi pubblici più snella"
-            intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
+            intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
             category="Titoli di studio"
           />
         </div>
         <div class="col-12 col-md-6 d-flex justify-content-center">
-          <UseCaseCard
+          <GoodPracticeCard
             currentLocale={currentLocale}
             title="Verifica immediata dell’iscrizione all’albo degli avvocati"
-            intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
+            intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
             category="Ordini professionali"
           />
         </div>
         <div class="col-12 col-md-6 d-flex justify-content-center">
-          <UseCaseCard
+          <GoodPracticeCard
             currentLocale={currentLocale}
             title="Erogare i bonus ai cittadini in modo equo ed efficiente"
-            intendedTargets={['PAC', 'Comuni', 'Regioni', 'Università']}
+            intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
             category="Bonus Economici"
           />
         </div>
@@ -109,9 +128,13 @@ const targetsLinkItems = [
 
     {/* Section Footer - Call to Action */}
     <div class="d-flex justify-content-center mt-5 pb-5">
-      <button type="button" class="btn btn-outline-primary">
-        {t('use_cases.footer_cta')}
-      </button>
+      <a
+        href={getLocalizedRoute(currentLocale, 'GOOD_PRACTICES_CATALOG')}
+        id="explore-examples-button"
+        class="btn btn-outline-primary"
+      >
+        {t('good_practices.footer_cta')}
+      </a>
     </div>
   </div>
 </section>
