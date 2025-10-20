@@ -181,7 +181,6 @@ function copyLocalizedPagesMiddleware(): PluginOption {
   )
 
   const configFilesToWatch = [
-    path.join(srcDir, 'config', 'routes.map.ts'),
     path.join(srcDir, 'config', 'routes.ts'),
     path.join(srcDir, 'i18n', 'config.i18n.ts'),
   ].map((filePath) => path.normalize(filePath))
