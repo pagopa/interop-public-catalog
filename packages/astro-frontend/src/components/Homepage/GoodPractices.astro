@@ -10,10 +10,10 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useHomepageTranslations(currentLocale)
 
 const organizationsTypesLinks: Array<{ text: string; organizationTypeKey: OrganizationType }> = [
-  { text: t('use_cases.target.pa_centrali'), organizationTypeKey: 'pac' },
-  { text: t('use_cases.target.regioni'), organizationTypeKey: 'regioni' },
-  { text: t('use_cases.target.comuni'), organizationTypeKey: 'comuni' },
-  { text: t('use_cases.target.view_all'), organizationTypeKey: 'tutti' },
+  { text: t('good_practices.target.pa_centrali'), organizationTypeKey: 'pac' },
+  { text: t('good_practices.target.regioni'), organizationTypeKey: 'regioni' },
+  { text: t('good_practices.target.comuni'), organizationTypeKey: 'comuni' },
+  { text: t('good_practices.target.view_all'), organizationTypeKey: 'tutti' },
 ] as const
 
 function getOrganizationTypeHref(organizationType: OrganizationType) {
@@ -45,9 +45,9 @@ function getOrganizationTypeImgSrc(organizationType: OrganizationType) {
     <div style="max-width:856px;" class="mx-auto pt-md-5 px-md-5">
       {/* Section Header - Title and Description*/}
       <div>
-        <h2 id="use-cases-section-title" class="text-primary h4">{t('use_cases.title')}</h2>
+        <h2 id="use-cases-section-title" class="text-primary h4">{t('good_practices.title')}</h2>
         <p class="text-secondary">
-          {t('use_cases.description')}
+          {t('good_practices.description')}
         </p>
       </div>
 
@@ -133,7 +133,7 @@ function getOrganizationTypeImgSrc(organizationType: OrganizationType) {
         id="explore-examples-button"
         class="btn btn-outline-primary"
       >
-        {t('use_cases.footer_cta')}
+        {t('good_practices.footer_cta')}
       </a>
     </div>
   </div>
