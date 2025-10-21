@@ -1,36 +1,48 @@
+---
+import { useUiTranslations } from '../../i18n/ui.i18n'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const t = useUiTranslations(currentLocale)
+---
+
 <section class="section bg-dark px-0 px-md-auto py-5">
   <div class="section-content">
     <div class="container">
-      <h4 class="text-white mb-4">Questa pagina ti è stata utile?</h4>
-      <fieldset>
-        <div
-          class="bg-white rounded-2 d-inline-block py-2 px-4 d-flex-inline flex-row justify-content-center me-2"
-        >
-          <div class="form-check form-check-group pb-0 mb-0 d-inline-block">
+      <h4 class="text-white mb-4">{t('rating.title')}</h4>
+
+      <fieldset class="d-flex flex-row">
+        <div class="bg-white rounded-2 px-4 me-2 d-flex align-items-center">
+          <div class="form-check form-check-group pb-0 mb-0 shadow-none">
             <input
               class="form-check-input"
               type="radio"
               name="inlineRadioOptions"
-              id="inlineRadio1"
-              value="option1"
+              id="inlineRadioYes"
+              value="Yes"
             />
-            <label class="form-check-label text-primary pe-5" for="inlineRadio1">Si</label>
+            <label class="form-check-label text-primary pe-5" for="inlineRadioYes">
+              {t('rating.yes')}
+            </label>
           </div>
         </div>
-        <div
-          class="bg-white rounded-2 d-inline-block py-2 px-4 d-flex-inline flex-row justify-content-center"
-        >
-          <div class="form-check form-check-group pb-0 mb-0 d-inline-block">
+
+        <div class="bg-white rounded-2 px-4 d-flex align-items-center">
+          <div class="form-check form-check-group mb-0 pb-0 shadow-none">
             <input
               class="form-check-input"
               type="radio"
               name="inlineRadioOptions"
-              id="inlineRadio2"
-              value="option2"
+              id="inlineRadioNo"
+              value="No"
             />
-            <label class="form-check-label text-primary pe-5" for="inlineRadio2">No</label>
+            <label class="form-check-label text-primary pe-5" for="inlineRadioNo">
+              {t('rating.no')}
+            </label>
           </div>
         </div>
+
+        <button type="submit" class="btn btn-secondary ms-2">{t('actions.submit')}</button>
       </fieldset>
     </div>
   </div>
