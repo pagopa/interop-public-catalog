@@ -3,7 +3,7 @@ import { BootstrapItaliaIcon } from './BootstrapItaliaIcon.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 import type { OrganizationType } from '../../config/constants.js'
-import { getLocalizedRoute } from '../../config/routes.js'
+import { getLocalizedRoute } from '../../i18n/utils.i18n.js'
 
 interface GoodPracticeCardProps {
   currentLocale: SupportedLanguage

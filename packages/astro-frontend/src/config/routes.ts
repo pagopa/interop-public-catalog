@@ -15,32 +15,3 @@ export const ROUTES = {
 
 export type RouteKey = keyof typeof ROUTES
 export type Route = (typeof ROUTES)[RouteKey]
-
-type ExtractRouteParams<T> = string extends T
-  ? Record<string, string>
-  : T extends `${infer _Start}:${infer Param}/${infer Rest}`
-    ? { [k in Param | keyof ExtractRouteParams<Rest>]: string }
-    : T extends `${infer _Start}:${infer Param}`
-      ? { [k in Param]: string }
-      : undefined
-
-export function getLocalizedRoute<
-  TLang extends SupportedLanguage,
-  TRouteKey extends RouteKey,
-  Path extends (typeof ROUTES)[TRouteKey][TLang] = (typeof ROUTES)[TRouteKey][TLang],
-  RouteParams extends ExtractRouteParams<Path> = ExtractRouteParams<Path>,
->(
-  currentLocale: TLang,
-  routeKey: TRouteKey,
-  ...config: RouteParams extends undefined ? [] : [{ params: RouteParams }]
-): string {
-  let route: string = ROUTES[routeKey][currentLocale]
-
-  if (config[0]?.params) {
-    for (const [key, value] of Object.entries(config[0].params)) {
-      route = route.replace(`:${key}`, value)
-    }
-  }
-
-  return `/${currentLocale}${route}`
-}

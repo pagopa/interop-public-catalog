@@ -1,0 +1,42 @@
+{
+  "name": "pagopa-interop-public-catalog-updater",
+  "version": "1.0.0",
+  "private": true,
+  "description": "PagoPA Interoperability Public Catalog Updater Job",
+  "main": "dist",
+  "type": "module",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "lint": "eslint . --ext .ts,.tsx",
+    "lint:autofix": "eslint . --ext .ts,.tsx --fix",
+    "format:check": "prettier --check src",
+    "format:write": "prettier --write src",
+    "start": "NODE_TLS_REJECT_UNAUTHORIZED=0 tsx -r 'dotenv-flow/config' ./src/index.ts",
+    "build": "tsc",
+    "check": "tsc --project tsconfig.check.json"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "axios": "1.12.0",
+    "dotenv-flow": "4.1.0",
+    "pg": "8.16.3",
+    "ts-pattern": "5.2.0",
+    "zod": "3.23.8",
+    "zod-validation-error": "3.3.0",
+    "pagopa-interop-public-models": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "20.19.17",
+    "@types/pg": "8.15.5",
+    "eslint": "8.57.1",
+    "mkdirp": "3.0.1",
+    "prettier": "2.8.8",
+    "tsc-esm-fix": "2.20.27",
+    "tsx": "4.19.1",
+    "typescript": "5.4.5"
+  }
+}

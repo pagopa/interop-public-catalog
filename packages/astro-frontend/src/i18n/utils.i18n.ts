@@ -1,5 +1,6 @@
+import { ROUTES, type RouteKey } from '../config/routes.js'
 import { DEFAULT_LANG, LANGUAGES } from './config.i18n.js'
-import type { SupportedLanguage } from './types.i18n.js'
+import type { ExtractRouteParams, SupportedLanguage } from './types.i18n.js'
 
 function isSupportedLanguage(lang: string): lang is SupportedLanguage {
   return lang in LANGUAGES
@@ -16,6 +17,25 @@ export function getLangFromUrl(url: string): SupportedLanguage {
   }
 
   return DEFAULT_LANG
+}
+
+export function switchLang({
+  fromLang,
+  toLang,
+  currentPath,
+}: {
+  fromLang: SupportedLanguage
+  toLang: SupportedLanguage
+  currentPath: string
+}): string {
+  const currentRouteKey = (Object.keys(ROUTES) as RouteKey[]).find(
+    (r) => `/${fromLang}${ROUTES[r][fromLang]}` === currentPath
+  )
+  if (!currentRouteKey) {
+    return getLocalizedRoute(toLang, 'HOME')
+  }
+
+  return getLocalizedRoute(toLang, currentRouteKey)
 }
 
 /**
@@ -46,4 +66,25 @@ export function buildUseTranslations<
       return translation
     }
   }
+}
+
+export function getLocalizedRoute<
+  TLang extends SupportedLanguage,
+  TRouteKey extends RouteKey,
+  Path extends (typeof ROUTES)[TRouteKey][TLang] = (typeof ROUTES)[TRouteKey][TLang],
+  RouteParams extends ExtractRouteParams<Path> = ExtractRouteParams<Path>,
+>(
+  currentLocale: TLang,
+  routeKey: TRouteKey,
+  ...config: RouteParams extends undefined ? [] : [{ params: RouteParams }]
+): string {
+  let route: string = ROUTES[routeKey][currentLocale]
+
+  if (config[0]?.params) {
+    for (const [key, value] of Object.entries(config[0].params)) {
+      route = route.replace(`:${key}`, value)
+    }
+  }
+
+  return `/${currentLocale}${route}`
 }

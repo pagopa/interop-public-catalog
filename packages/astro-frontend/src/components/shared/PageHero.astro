@@ -1,8 +1,8 @@
 ---
 import { Section } from './Section'
-import { getLocalizedRoute, type RouteKey } from '../../config/routes'
 import { useUiTranslations } from '../../i18n/ui.i18n'
-import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { getLangFromUrl, getLocalizedRoute } from '../../i18n/utils.i18n'
+import type { RouteKey } from '../../config/routes.js'
 
 interface Props {
   title: string
