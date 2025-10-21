@@ -1,7 +1,16 @@
 const commonRestrictedImports = ["**/dist/**"];
 module.exports = {
-  extends: ["@pagopa/eslint-config/strong"],
+  extends: [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  parser: "@typescript-eslint/parser",
   parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    },
+    ecmaVersion: 12,
+    sourceType: "module",
     tsconfigRootDir: __dirname,
     project: "./tsconfig.eslint.json",
   },
