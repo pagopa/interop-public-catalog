@@ -4,8 +4,7 @@
 
 import Layout from '../../../layouts/Layout.astro'
 import EServiceCatalog from '../../../components/EServiceCatalog/EServiceCatalog'
-import { Breadcrumb, BreadcrumbItem, Button, Container, Icon, Section } from 'design-react-kit'
-import Filters from '../../../components/EServiceCatalog/Filters'
+import {Button, Container, Icon, Section } from 'design-react-kit'
 import SuggestionSection from '../../../components/shared/SuggestionSection.astro'
 import { EService } from 'pagopa-interop-public-models'
 import EServiceCatalogFilters from '../../../components/EServiceCatalog/EServiceCatalogFilters'
@@ -120,15 +119,15 @@ const t = useCatalogTranslations(currentLocale)
 
   <div class="p-5">
     <div class="primary-bg-c1 p-5">
-      <h3>Cerchi l’elenco completo degli aderenti e delle API disponibili su PDND?</h3>
+      <h3>{t('finder.title')}</h3>
       <div class="d-flex flex-row">
         <div class="me-2">
           <Button color="primary" outline size="sm" onClick={(): void => {}} icon
-            >Ottieni l’elenco delle API <Icon color="white" icon="it-arrow-right" /></Button
+            >{t('finder.api.label')} <Icon color="white" icon="it-arrow-right" /></Button
           >
         </div>
         <Button color="primary" outline size="sm" onClick={(): void => {}} icon
-          >Ottieni l’elenco degli aderenti <Icon color="white" icon="it-arrow-right" /></Button
+          >{t('finder.provider.label')} <Icon color="white" icon="it-arrow-right" /></Button
         >
       </div>
     </div>

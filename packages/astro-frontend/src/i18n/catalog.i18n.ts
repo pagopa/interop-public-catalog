@@ -32,6 +32,9 @@ const catalogTranslations = {
     'chip.remove_all': 'Rimuovi tutti i filtri',
     'autocomplete.selectedElements': ' elementi selezionati',
     'autocomplete.selectedElement': ' elemento selezionato',
+    'finder.title': 'Cerchi l’elenco completo degli aderenti e delle API disponibili su PDND? ',
+    'finder.api.label': 'Vai all’elenco delle API',
+    'finder.provider.label': 'Vai all’elenco degli aderenti',
   },
 
   en: {
@@ -62,9 +65,11 @@ const catalogTranslations = {
     'chip.consumer': 'Consumer organization',
     'chip.q': 'Keyword',
     'chip.remove_all': 'Remove all filters',
-    'autocomplete.placeholder': 'Choose an option',
     'autocomplete.selectedElements': ' items selected',
     'autocomplete.selectedElement': ' item selected',
+    'finder.title': 'Looking for the complete list of PDND members and available APIs? ',
+    'finder.api.label': 'Go to the API list',
+    'finder.provider.label': 'Go to the members list',
   },
 } as const satisfies TranslationsMap
 
