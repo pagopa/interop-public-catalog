@@ -62,6 +62,10 @@ a:hover {
   background-color: #f2f7fc !important;
 }
 
+.border-primary-light {
+  border-color: #bfdfff !important;
+}
+
 .bg-muted {
   background-color: #f5f5f5 !important;
 }
