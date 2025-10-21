@@ -45,17 +45,18 @@ const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
   }
 
   return (
-    <Container className="py-5" fluid>
+    <Container className="py-5">
       <div className="d-flex justify-content-between align-items-center">
-        <div>
-          <span className="pe-3 border-end">
+        <div className="d-flex">
+          <span className="">
             <b className="me-2">
               {' '}
               <b>11.445</b>
             </b>
             {t('actions.total')}
           </span>
-          <a className="ms-3 ">
+          <span className=" d-none d-lg-block border-start"></span>
+          <a className="ms-2 d-none d-lg-block">
             {t('actions.copyUrl')}{' '}
             <Icon icon="it-copy" size="sm" color="primary" className="ms-2" />
           </a>

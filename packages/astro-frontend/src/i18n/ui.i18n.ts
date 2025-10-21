@@ -97,6 +97,7 @@ export const ui = {
     'autocomplete.selectedElement': ' elemento selezionato',
     'pagination.previous': 'Precedente',
     'pagination.next': 'Successiva',
+    'mobile.filter.label': 'Filtra i risultati',
     'filter.find': 'Cerca nel catalogo',
     'filter.popover.consumer.title': 'FILTRA PER ENTE FRUITORE',
     'filter.popover.consumer.content':
@@ -180,6 +181,7 @@ export const ui = {
     'autocomplete.selectedElement': ' item selected',
     'pagination.previous': 'Previous',
     'pagination.next': 'Next',
+    'mobile.filter.label': 'Filter results',
     'filter.find': 'Cerca nel catalogo',
     'filter.popover.consumer.title': 'FILTER BY CONSUMER',
     'filter.popover.consumer.content':

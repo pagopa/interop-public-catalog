@@ -12,7 +12,8 @@ export const FiltersMobile = ({ isOpen, toggleModal, children }: FiltersMobilePr
   const t = useUiTranslations(getLangFromUrl(window.location.pathname))
   return (
     <Modal className="filters-modal" fullscreen isOpen={isOpen} toggle={() => toggleModal(!isOpen)}>
-      <div className="d-flex justify-content-end p-4 filters-modal-header">
+      <div className="d-flex justify-content-between p-4 filters-modal-header">
+        <h5 className="align-self-center mt-1">{t('mobile.filter.label')}</h5>
         <a
           onClick={() => toggleModal(!isOpen)}
           className="it-card-link text-primary flex-shrink-0"
