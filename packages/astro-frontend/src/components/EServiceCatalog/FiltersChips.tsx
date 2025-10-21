@@ -3,6 +3,7 @@ import type { FiltersParams } from './Filters.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import type { FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
+import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 
 type FiltersChipsProps = {
   label?: string
@@ -31,7 +32,7 @@ export const FiltersChips: React.FC<FiltersChipsProps> = ({
   handleRemoveAll,
 }) => {
   const currentLanguage = getLangFromUrl(window.location.pathname)
-  const t = useUiTranslations(currentLanguage)
+  const t = useCatalogTranslations(currentLanguage)
 
   if (Object.keys(filters).length === 0) return null
   return (

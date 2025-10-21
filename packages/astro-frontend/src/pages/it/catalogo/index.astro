@@ -1,4 +1,7 @@
 ---
+
+
+
 import Layout from '../../../layouts/Layout.astro'
 import EServiceCatalog from '../../../components/EServiceCatalog/EServiceCatalog'
 import { Breadcrumb, BreadcrumbItem, Button, Container, Icon, Section } from 'design-react-kit'
@@ -6,29 +9,31 @@ import Filters from '../../../components/EServiceCatalog/Filters'
 import SuggestionSection from '../../../components/shared/SuggestionSection.astro'
 import { EService } from 'pagopa-interop-public-models'
 import EServiceCatalogFilters from '../../../components/EServiceCatalog/EServiceCatalogFilters'
+import PageHero from '..//../../components/shared/PageHero.astro'
+import { useCatalogTranslations } from '../../../i18n/catalog.i18n'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
+
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const t = useCatalogTranslations(currentLocale)
+
 ---
 
 <div class="start">
 <Layout>
-  <Section>
-    <Breadcrumb>
-      <BreadcrumbItem>
-        <a href="#"> Home </a>
-        <span class="separator"> / </span>
-      </BreadcrumbItem>
-      <BreadcrumbItem active>
-        <a href="#"> Esplora il catalogo </a>
-      </BreadcrumbItem>
-    </Breadcrumb>
-
-    <h1>Esplora il catalogo</h1>
-    <span>
-      Cerca tra tutte le API rese disponibili attraverso la Piattaforma Digitale Nazionale Dati
-      (PDND). Verifica i requisiti per accedere alle API di tuo interesse e costruisci la tua
-      integrazione per l’accesso ai dati.
-    </span>
-  </Section>
-
+  <PageHero
+    title={t('title')}
+    description={t('description')}
+    breadcrumbItems={[
+      {
+        routeKey: 'HOME',
+      },
+      {
+        routeKey: 'ESERVICE_CATALOG',
+        current: true,
+      },
+    ]}
+  />
   <Section color="muted">
     <Container className="p-3">
       <EServiceCatalogFilters client:only="react" />

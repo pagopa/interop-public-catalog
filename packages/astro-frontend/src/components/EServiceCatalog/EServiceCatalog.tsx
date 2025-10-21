@@ -16,6 +16,7 @@ import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { EService } from '../../../../models/src/types/eservice.js'
 import Pagination from '../shared/Pagination/Pagination.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
+import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 
 type EServiceCatalogProps = {
   eservices: EService[]
@@ -29,7 +30,7 @@ const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
   const rows = chunkEServiceArray(eservices, 3)
   const [order, setOrder] = React.useState<OrderKey>('RECENT_ASC')
   const currentLanguage = getLangFromUrl(window.location.pathname)
-  const t = useUiTranslations(currentLanguage)
+  const t = useCatalogTranslations(currentLanguage)
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search)
@@ -52,18 +53,17 @@ const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
             <b className="me-2">
               <b>11.445</b>
             </b>
-            {t('actions.total')}
+            {t('resultsCount')}
           </span>
           <span className="ms-2 d-none d-lg-block border-start"></span>
           <a className="ms-2 d-none d-lg-block">
-            {t('actions.copyUrl')}{' '}
-            <Icon icon="it-copy" size="sm" color="primary" className="ms-2" />
+            {t('copyUrl')} <Icon icon="it-copy" size="sm" color="primary" className="ms-2" />
           </a>
         </div>
         <div>
           <Dropdown id="order-by">
             <DropdownToggle caret className="text-primary pe-0">
-              {t('actions.orderBy')}
+              {t('orderBy.label')}:{' '}
             </DropdownToggle>
             <DropdownMenu>
               <LinkList>

@@ -8,6 +8,7 @@ import { TooltipIcon } from '../shared/TooltipIcon.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import type { EServiceCatalogFiltersParams } from './EServiceCatalogFilters.jsx'
+import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 
 const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
   { label: 'Opzione 1', value: 'value-1' },
@@ -49,7 +50,7 @@ const Filters: React.FC<FiltersProps> = ({
   handleConsumerChange,
 }) => {
   const currentLanguage = getLangFromUrl(window.location.pathname)
-  const t = useUiTranslations(currentLanguage)
+  const t = useCatalogTranslations(currentLanguage)
 
   return (
     <Form>
@@ -59,11 +60,11 @@ const Filters: React.FC<FiltersProps> = ({
             <Input
               hasIconLeft
               iconLeft={<Icon aria-hidden icon="it-search" size="sm" className="icon-search" />}
-              label={t('filter.q.label')}
+              label={t('filters.q.label')}
               id="completeValidation-name"
               type="text"
               className="mt-4"
-              placeholder={t('filter.q.placeholder')}
+              placeholder={t('filters.q.placeholder')}
               value={filtersFormState.q ?? ''}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 e.preventDefault()
@@ -79,7 +80,7 @@ const Filters: React.FC<FiltersProps> = ({
         </Col>
         <Col lg="3">
           <MultipleAutoComplete
-            label={t('filter.provider.label')}
+            label={t('filters.provider.label')}
             options={optionAutoCompleteProvider}
             values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
             handleValuesChange={(values) => handleValueChange('provider', values)}
@@ -93,7 +94,7 @@ const Filters: React.FC<FiltersProps> = ({
               size="xs"
               onClick={(e) => onSubmit && onSubmit(e)}
             >
-              {t('filter.apply')}
+              {t('filters.submit')}
             </Button>
           </Col>
         )}
@@ -102,7 +103,7 @@ const Filters: React.FC<FiltersProps> = ({
         <Col lg="3">
           <FormGroup>
             <MultipleAutoComplete
-              label={t('filter.consumer.label')}
+              label={t('filters.consumer.label')}
               options={optionAutoCompleteConsumer}
               values={filtersFormState.consumer as unknown as FilterAutoCompleteValue[]}
               handleValuesChange={

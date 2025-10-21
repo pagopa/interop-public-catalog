@@ -4,6 +4,7 @@ import './MultiSelectChips.css'
 import React from 'react'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
+import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 
 export type FilterAutoCompleteValue = {
   label: string
@@ -25,7 +26,7 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
   tooltipIconRender,
 }) => {
   const currentLanguage = getLangFromUrl(window.location.pathname)
-  const t = useUiTranslations(currentLanguage)
+  const t = useCatalogTranslations(currentLanguage)
 
   const handleChange = (_event: React.SyntheticEvent, values: FilterAutoCompleteValue[]) => {
     handleValuesChange(values)

@@ -15,6 +15,7 @@ import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import { FiltersMobile } from './FiltersMobile.jsx'
 import Filters from './Filters.jsx'
 import { useIsMobile } from '../../hooks/useIsMobile.jsx'
+import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 
 export type EServiceCatalogFiltersParams = {
   q?: string
@@ -32,7 +33,7 @@ const EServiceCatalogFilters = () => {
   })
   const [appliedFilters, setAppliedFilters] = React.useState<EServiceCatalogFiltersParams>({})
   const currentLanguage = getLangFromUrl(window.location.pathname)
-  const t = useUiTranslations(currentLanguage)
+  const t = useCatalogTranslations(currentLanguage)
   const [isModalOpen, setIsModalOpen] = React.useState(false)
 
   const isMobile = useIsMobile()
@@ -114,9 +115,9 @@ const EServiceCatalogFilters = () => {
 
   return (
     <>
-      <h5 className="mb-5 d-none d-lg-block">{t('filter.find')}</h5>
+      <h5 className="mb-5 d-none d-lg-block">{t('filters.title')}</h5>
       <div className="d-block d-sm-none d-flex justify-content-between align-items-center mb-4">
-        <h5>{t('filter.find')}</h5>
+        <h5>{t('filters.mobile.button')}</h5>
         <Button color="primary" outline size="sm" onClick={() => setIsModalOpen(true)}>
           Filtri
         </Button>

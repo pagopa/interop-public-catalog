@@ -2,6 +2,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, Button, Icon } from 'design
 import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
 import { useUiTranslations } from '../../i18n/ui.i18n'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { useCatalogTranslations } from '../../i18n/catalog.i18n'
 
 type FiltersMobileProps = {
   isOpen: boolean
@@ -15,17 +16,17 @@ export const FiltersMobile = ({ isOpen, toggleModal, children, onSubmit }: Filte
     onSubmit(e)
     toggleModal(false)
   }
-  const t = useUiTranslations(getLangFromUrl(window.location.pathname))
+  const t = useCatalogTranslations(getLangFromUrl(window.location.pathname))
   return (
     <Modal className="filters-modal" fullscreen isOpen={isOpen} toggle={() => toggleModal(!isOpen)}>
       <div className="d-flex justify-content-between p-4 filters-modal-header">
-        <h5 className="align-self-center mt-1">{t('mobile.filter.label')}</h5>
+        <h5 className="align-self-center mt-1">{t('filters.mobile.button')}</h5>
         <a
           onClick={() => toggleModal(!isOpen)}
           className="it-card-link text-primary flex-shrink-0"
-          aria-label={t('modal.close')}
+          aria-label={t('filters.modal.close')}
         >
-          {t('modal.close')}
+          {t('filters.modal.close')}
           <BootstrapItaliaIcon
             aria-hidden="true"
             name="it-close"
@@ -38,7 +39,7 @@ export const FiltersMobile = ({ isOpen, toggleModal, children, onSubmit }: Filte
       <ModalBody>{children} </ModalBody>
       <ModalFooter className="filters-modal-footer">
         <Button style={{ width: '100%' }} color="primary" onClick={handleSubmit}>
-          {t('modal.apply')}
+          {t('filters.modal.apply')}
         </Button>
       </ModalFooter>
     </Modal>
