@@ -1,11 +1,13 @@
-import { Button, Col, Form, FormGroup, Icon, Input, Row } from 'design-react-kit'
+import { Button } from 'design-react-kit'
 import React, { useEffect } from 'react'
-import {
-  type FilterAutoCompleteValue,
-  MultipleAutoComplete,
-} from '../MultipleAutoComplete/MultipleAutoComplete.js'
+import { type FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
 import { FiltersChips } from './FiltersChips.js'
-import { addParamsWithinUrl, parseQueryStringToParams } from '../../utils/utils.js'
+import {
+  addParamsWithinUrl,
+  parseQueryStringToParams,
+  removeParamsFromUrl,
+  removeParamsFromUrlByKey,
+} from '../../utils/utils.js'
 import { TooltipIcon } from '../shared/TooltipIcon.js'
 import { Popover } from 'bootstrap-italia'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
@@ -13,22 +15,6 @@ import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import { FiltersMobile } from './FiltersMobile.jsx'
 import Filters from './Filters.jsx'
 import { useIsMobile } from '../../hooks/useIsMobile.jsx'
-
-const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
-  { label: 'Opzione 1', value: 'value-1' },
-  { label: 'Opzione 2', value: 'value-2' },
-  { label: 'Opzione 3', value: 'value-3' },
-  { label: 'Opzione 4', value: 'value-4' },
-  { label: 'Opzione 5', value: 'value-5' },
-]
-
-const optionAutoCompleteConsumer: FilterAutoCompleteValue[] = [
-  { label: 'Opzione A', value: 'value-A' },
-  { label: 'Opzione B', value: 'value-B' },
-  { label: 'Opzione C', value: 'value-C' },
-  { label: 'Opzione D', value: 'value-D' },
-  { label: 'Opzione E', value: 'value-E' },
-]
 
 export type EServiceCatalogFiltersParams = {
   q?: string
@@ -67,6 +53,7 @@ const EServiceCatalogFilters = () => {
   }, [])
 
   const onSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+    console.log('Call API!')
     e.preventDefault()
     addParamsWithinUrl(filtersFormState)
     setAppliedFilters(filtersFormState)
@@ -105,20 +92,24 @@ const EServiceCatalogFilters = () => {
       }
 
       const { [key]: _, ...newState } = filtersFormState
+
       return newState
     }
-
     const updatedState = getUpdatedState()
-
     setFiltersFormState(updatedState)
     setAppliedFilters(updatedState)
-    addParamsWithinUrl(updatedState)
+
+    removeParamsFromUrl(key, value)
   }
 
   const handleRemoveAll = () => {
     setFiltersFormState({})
     setAppliedFilters({})
-    addParamsWithinUrl({})
+
+    const keys = ['q', 'provider', 'consumer']
+    keys.forEach((key) => {
+      removeParamsFromUrlByKey(key)
+    })
   }
 
   return (
@@ -140,13 +131,12 @@ const EServiceCatalogFilters = () => {
           onSubmit={onSubmit}
         />
       ) : (
-        <FiltersMobile isOpen={isModalOpen} toggleModal={setIsModalOpen}>
+        <FiltersMobile onSubmit={onSubmit} isOpen={isModalOpen} toggleModal={setIsModalOpen}>
           <Filters
             filtersFormState={filtersFormState}
             handleConsumerChange={handleConsumerChange}
             handleValueChange={handleValueChange}
             isMobile={true}
-            onSubmit={onSubmit}
           />
         </FiltersMobile>
       )}

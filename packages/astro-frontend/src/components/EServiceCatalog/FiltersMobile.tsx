@@ -7,8 +7,14 @@ type FiltersMobileProps = {
   isOpen: boolean
   toggleModal: (isOpen: boolean) => void
   children?: React.ReactNode
+  onSubmit: (e: React.FormEvent<HTMLButtonElement>) => void
 }
-export const FiltersMobile = ({ isOpen, toggleModal, children }: FiltersMobileProps) => {
+export const FiltersMobile = ({ isOpen, toggleModal, children, onSubmit }: FiltersMobileProps) => {
+  const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    onSubmit(e)
+    toggleModal(false)
+  }
   const t = useUiTranslations(getLangFromUrl(window.location.pathname))
   return (
     <Modal className="filters-modal" fullscreen isOpen={isOpen} toggle={() => toggleModal(!isOpen)}>
@@ -31,7 +37,7 @@ export const FiltersMobile = ({ isOpen, toggleModal, children }: FiltersMobilePr
       </div>
       <ModalBody>{children} </ModalBody>
       <ModalFooter className="filters-modal-footer">
-        <Button style={{ width: '100%' }} color="primary" onClick={() => toggleModal(!isOpen)}>
+        <Button style={{ width: '100%' }} color="primary" onClick={handleSubmit}>
           {t('modal.apply')}
         </Button>
       </ModalFooter>

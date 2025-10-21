@@ -4,13 +4,9 @@ import {
   type FilterAutoCompleteValue,
   MultipleAutoComplete,
 } from '../MultipleAutoComplete/MultipleAutoComplete.js'
-import { FiltersChips } from './FiltersChips.js'
-import { addParamsWithinUrl, parseQueryStringToParams } from '../../utils/utils.js'
 import { TooltipIcon } from '../shared/TooltipIcon.js'
-import { Popover } from 'bootstrap-italia'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
-import { FiltersMobile } from './FiltersMobile.jsx'
 import type { EServiceCatalogFiltersParams } from './EServiceCatalogFilters.jsx'
 
 const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
@@ -41,7 +37,7 @@ export type FilterParamsKeys = keyof FiltersParams
 type FiltersProps = {
   filtersFormState: EServiceCatalogFiltersParams
   handleValueChange: (key: FilterParamsKeys, value: string | FilterAutoCompleteValue[]) => void
-  onSubmit: (e: React.FormEvent<HTMLButtonElement>) => void
+  onSubmit?: (e: React.FormEvent<HTMLButtonElement>) => void
   handleConsumerChange: (values: FilterAutoCompleteValue[]) => void
   isMobile: boolean
 }
@@ -83,7 +79,7 @@ const Filters: React.FC<FiltersProps> = ({
         </Col>
         <Col lg="3">
           <MultipleAutoComplete
-            label={t('filter.providrer.label')}
+            label={t('filter.provider.label')}
             options={optionAutoCompleteProvider}
             values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
             handleValuesChange={(values) => handleValueChange('provider', values)}
@@ -91,7 +87,12 @@ const Filters: React.FC<FiltersProps> = ({
         </Col>
         {!isMobile && (
           <Col className="mt-4">
-            <Button color="primary" type="submit" size="xs" onClick={(e) => onSubmit(e)}>
+            <Button
+              color="primary"
+              type="submit"
+              size="xs"
+              onClick={(e) => onSubmit && onSubmit(e)}
+            >
               {t('filter.apply')}
             </Button>
           </Col>
@@ -101,10 +102,12 @@ const Filters: React.FC<FiltersProps> = ({
         <Col lg="3">
           <FormGroup>
             <MultipleAutoComplete
-              label="Filtra per ente fruitore"
+              label={t('filter.consumer.label')}
               options={optionAutoCompleteConsumer}
               values={filtersFormState.consumer as unknown as FilterAutoCompleteValue[]}
-              handleValuesChange={handleConsumerChange}
+              handleValuesChange={
+                isMobile ? (values) => handleValueChange('consumer', values) : handleConsumerChange
+              }
               tooltipIconRender={
                 <div>
                   {' '}

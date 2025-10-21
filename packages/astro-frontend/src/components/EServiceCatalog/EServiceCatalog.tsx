@@ -50,12 +50,11 @@ const EServiceCatalog: React.FC<EServiceCatalogProps> = ({ eservices }) => {
         <div className="d-flex">
           <span className="">
             <b className="me-2">
-              {' '}
               <b>11.445</b>
             </b>
             {t('actions.total')}
           </span>
-          <span className=" d-none d-lg-block border-start"></span>
+          <span className="ms-2 d-none d-lg-block border-start"></span>
           <a className="ms-2 d-none d-lg-block">
             {t('actions.copyUrl')}{' '}
             <Icon icon="it-copy" size="sm" color="primary" className="ms-2" />

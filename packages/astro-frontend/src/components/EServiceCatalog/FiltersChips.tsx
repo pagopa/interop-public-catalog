@@ -38,7 +38,6 @@ export const FiltersChips: React.FC<FiltersChipsProps> = ({
     <>
       {filters &&
         Object.entries(filters).map(([key, value]) => {
-          console.log('key', key)
           if ((key === 'provider' || key === 'consumer') && Array.isArray(value)) {
             return value?.map((v) => (
               <Chip
