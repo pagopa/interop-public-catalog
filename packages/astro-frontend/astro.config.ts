@@ -230,6 +230,7 @@ function copyLocalizedPagesMiddleware(): PluginOption {
 
 export default defineConfig({
   output: 'server',
+  site: 'https://api.gov.it',
   integrations: [react()],
   adapter: node({
     mode: 'standalone', // or 'middleware'
