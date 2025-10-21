@@ -40,8 +40,13 @@ export const AgreementApprovalPolicy = z.enum([
 export type AgreementApprovalPolicy = z.infer<typeof AgreementApprovalPolicy>;
 
 export const EServiceAttribute = z.object({
-  id: AttributeId,
-  explicitAttributeVerification: z.boolean(),
+  attribute_id: AttributeId,
+  eservice_id: EServiceId,
+  metadata_version: z.number().int(),
+  descriptor_id: DescriptorId,
+  explicit_attribute_verification: z.boolean(),
+  kind: z.string(),
+  group_id: z.number().int(),
 });
 export type EServiceAttribute = z.infer<typeof EServiceAttribute>;
 
@@ -53,7 +58,10 @@ export const EServiceAttributes = z.object({
 export type EServiceAttributes = z.infer<typeof EServiceAttributes>;
 
 export const EServiceTemplateVersionRef = z.object({
-  id: EServiceTemplateVersionId,
+  eservice_template_version_id: EServiceTemplateVersionId,
+  eservice_id: EServiceId,
+  metadata_version: z.number().int(),
+  descriptor_id: DescriptorId,
 });
 
 export type EServiceTemplateVersionRef = z.infer<
@@ -62,21 +70,21 @@ export type EServiceTemplateVersionRef = z.infer<
 
 export const Descriptor = z.object({
   id: DescriptorId,
+  eservice_id: EServiceId,
   version: z.string(),
   description: z.string().optional(),
   state: DescriptorState,
   audience: z.array(z.string()),
-  voucherLifespan: z.number().int(),
-  dailyCallsPerConsumer: z.number().int(),
-  dailyCallsTotal: z.number().int(),
-  agreementApprovalPolicy: AgreementApprovalPolicy.optional(),
-  createdAt: z.coerce.date(),
-  publishedAt: z.coerce.date().optional(),
-  suspendedAt: z.coerce.date().optional(),
-  deprecatedAt: z.coerce.date().optional(),
-  archivedAt: z.coerce.date().optional(),
-  attributes: EServiceAttributes,
-  templateVersionRef: EServiceTemplateVersionRef.optional(),
+  voucher_lifespan: z.number().int(),
+  daily_calls_per_consumer: z.number().int(),
+  daily_calls_total: z.number().int(),
+  agreement_approval_policy: AgreementApprovalPolicy.optional(),
+  created_at: z.coerce.date(),
+  published_at: z.coerce.date().optional(),
+  suspended_at: z.coerce.date().optional(),
+  deprecated_at: z.coerce.date().optional(),
+  archived_at: z.coerce.date().optional(),
+  metadata_version: z.number().int(),
 });
 export type Descriptor = z.infer<typeof Descriptor>;
 
@@ -92,18 +100,17 @@ export type EServiceMode = z.infer<typeof EServiceMode>;
 
 export const EService = z.object({
   id: EServiceId,
-  producerId: TenantId,
+  producer_id: TenantId,
   name: z.string(),
   description: z.string(),
   technology: Technology,
-  attributes: EServiceAttributes.optional(),
-  descriptors: z.array(Descriptor),
-  createdAt: z.coerce.date(),
+  created_at: z.coerce.date(),
   mode: EServiceMode,
-  isSignalHubEnabled: z.boolean().optional(),
-  isConsumerDelegable: z.boolean().optional(),
-  isClientAccessDelegable: z.boolean().optional(),
-  templateId: EServiceTemplateId.optional(),
+  is_signal_hub_enabled: z.boolean().optional(),
+  is_consumer_delegable: z.boolean().optional(),
+  is_client_access_delegable: z.boolean().optional(),
+  template_id: EServiceTemplateId.optional(),
+  metadata_version: z.number(),
 });
 
 export type EService = z.infer<typeof EService>;
