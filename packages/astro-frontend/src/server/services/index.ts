@@ -3,7 +3,7 @@ import { StrapiApiConfig } from '../config/strapiConfig.js'
 import { publicModelServiceBuilder } from './publicModelServiceBuilder.js'
 import { strapiServiceBuilder } from './strapiService.js'
 
-const sqlConfig = PublicModelSQLDbConfig.parse(process.env)
+const sqlConfig = PublicModelSQLDbConfig.parse(import.meta.env)
 
 export const sqlService: ReturnType<typeof publicModelServiceBuilder> = publicModelServiceBuilder(
   initDB({
@@ -14,10 +14,15 @@ export const sqlService: ReturnType<typeof publicModelServiceBuilder> = publicMo
     database: sqlConfig.publicModelSQLDbName,
     schema: sqlConfig.publicModelSQLDbSchemaCatalog,
     useSSL: sqlConfig.publicModelSQLDbUseSSL,
-  })
+  }),
+  {
+    catalogSchema: sqlConfig.publicModelSQLDbSchemaCatalog,
+    tenantSchema: sqlConfig.publicModelSQLDbSchemaTenant,
+    attributeSchema: sqlConfig.publicModelSQLDbSchemaAttribute
+  }
 )
 
-const strapiConfig = StrapiApiConfig.parse(process.env)
+const strapiConfig = StrapiApiConfig.parse(import.meta.env)
 
 export const strapiService = strapiServiceBuilder(
   strapiConfig.strapiApiEndpoint,
