@@ -69,7 +69,7 @@ const catalogTranslations = {
     'autocomplete.selectedElement': ' item selected',
     'finder.title': 'Looking for the complete list of PDND members and available APIs? ',
     'finder.api.label': 'Go to the API list',
-    'finder.provider.label': 'Go to the members list',
+    'finder.provider.label': 'Go to the provider list',
   },
 } as const satisfies TranslationsMap
 
