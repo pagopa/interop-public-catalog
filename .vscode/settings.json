@@ -8,5 +8,11 @@
   "files.watcherExclude": {
     "**/target": true
   },
+  "files.readonlyInclude": {
+    "packages/astro-frontend/src/pages/en/**": true
+  },
+  "search.exclude": {
+    "packages/astro-frontend/src/pages/en/**": true
+  },
   "vitest.disableWorkspaceWarning": true
 }
