@@ -104,6 +104,10 @@ export const ui = {
     'rating.title': 'Questa pagina ti è stata utile?',
     'rating.yes': 'Si',
     'rating.no': 'No',
+    'rating.email_subject': 'Feedback sul Catalogo delle API',
+    'rating.email_body_positive': 'La pagina è stata utile perché',
+    'rating.email_body_negative': 'La pagina non è stata utile perché',
+    'rating.alert': 'Per favore, seleziona un’opzione prima di inviare.',
   },
   en: {
     'actions.search': 'Search',
@@ -176,6 +180,10 @@ export const ui = {
     'rating.title': 'Was this page helpful?',
     'rating.yes': 'Yes',
     'rating.no': 'No',
+    'rating.email_subject': 'Feedback on the API Catalog',
+    'rating.email_body_positive': 'The page was useful because',
+    'rating.email_body_negative': 'The page was not helpful because',
+    'rating.alert': 'Please select an option before submitting.',
   },
 } as const satisfies TranslationsMap
 
