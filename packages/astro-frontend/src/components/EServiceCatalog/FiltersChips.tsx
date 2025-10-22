@@ -1,14 +1,16 @@
 import { Button, Chip as DRKChip, ChipLabel, Icon } from 'design-react-kit'
-import type { FiltersParams } from './Filters.js'
-import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import type { FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
+import type { CatalogFilterParams } from './types.js'
 
 type FiltersChipsProps = {
   label?: string
-  filters: FiltersParams
-  handleRemoveValue: (key: keyof FiltersParams, value: string | FilterAutoCompleteValue) => void
+  filters: CatalogFilterParams
+  handleRemoveValue: (
+    key: keyof CatalogFilterParams,
+    value: string | FilterAutoCompleteValue
+  ) => void
   handleRemoveAll: () => void
 }
 
@@ -35,32 +37,39 @@ export const FiltersChips: React.FC<FiltersChipsProps> = ({
   const t = useCatalogTranslations(currentLanguage)
 
   if (Object.keys(filters).length === 0) return null
+
   return (
     <>
       {filters &&
         Object.entries(filters).map(([key, value]) => {
+          if (key === 'limit' || key === 'offset' || key === 'orderBy') return null
           if ((key === 'provider' || key === 'consumer') && Array.isArray(value)) {
-            return value?.map((v) => (
+            return value.map((v) => (
               <Chip
                 key={`${key}-${v.value}`}
                 label={`${t(`chip.${key}`)}: ${v.label}`}
-                handleRemoveValue={() => handleRemoveValue(key as keyof FiltersParams, v.value)}
+                handleRemoveValue={() =>
+                  handleRemoveValue(key as keyof CatalogFilterParams, v.value)
+                }
               />
             ))
           } else {
             return (
-              <Chip
-                key={key}
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                label={`${t(`chip.${key}`)}: ${value}`}
-                handleRemoveValue={() =>
-                  handleRemoveValue(key as keyof FiltersParams, value as string)
-                }
-              />
+              value && (
+                <Chip
+                  key={key}
+                  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                  // @ts-ignore
+                  label={`${t(`chip.${key}`)}: ${value}`}
+                  handleRemoveValue={() =>
+                    handleRemoveValue(key as keyof CatalogFilterParams, value as string)
+                  }
+                />
+              )
             )
           }
         })}
+
       <Button className="btn-link ms-3 p-0" onClick={handleRemoveAll}>
         {t('chip.remove_all')}
       </Button>

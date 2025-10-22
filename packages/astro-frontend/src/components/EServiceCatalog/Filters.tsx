@@ -6,9 +6,10 @@ import {
 } from '../MultipleAutoComplete/MultipleAutoComplete.js'
 import { TooltipIcon } from '../shared/TooltipIcon.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
-import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import type { EServiceCatalogFiltersParams } from './EServiceCatalogFilters.jsx'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
+import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
+import type { CatalogFilterParams } from './types.js'
 
 const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
   { label: 'Opzione 1', value: 'value-1' },
@@ -37,20 +38,27 @@ export type FilterParamsKeys = keyof FiltersParams
 
 type FiltersProps = {
   filtersFormState: EServiceCatalogFiltersParams
-  handleValueChange: (key: FilterParamsKeys, value: string | FilterAutoCompleteValue[]) => void
+  handleDraftFilterValueChange: (
+    key: keyof CatalogFilterParams,
+    value: string | FilterAutoCompleteValue[]
+  ) => void
   onSubmit?: (e: React.FormEvent<HTMLButtonElement>) => void
-  handleConsumerChange: (values: FilterAutoCompleteValue[]) => void
+  handleActiveFilterValueChange: (
+    key: keyof CatalogFilterParams,
+    value: string | number | FilterAutoCompleteValue[]
+  ) => void
   isMobile: boolean
 }
 const Filters: React.FC<FiltersProps> = ({
-  filtersFormState,
-  handleValueChange,
+  handleDraftFilterValueChange,
   onSubmit,
   isMobile,
-  handleConsumerChange,
+  handleActiveFilterValueChange,
 }) => {
   const currentLanguage = getLangFromUrl(window.location.pathname)
   const t = useCatalogTranslations(currentLanguage)
+
+  const { eserviceFiltersState } = useEServiceCatalogContext()
 
   return (
     <Form>
@@ -65,10 +73,10 @@ const Filters: React.FC<FiltersProps> = ({
               type="text"
               className="mt-4"
               placeholder={t('filters.q.placeholder')}
-              value={filtersFormState.q ?? ''}
+              value={eserviceFiltersState.q ?? ''}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 e.preventDefault()
-                handleValueChange('q', e.target.value)
+                handleDraftFilterValueChange('q', e.target.value)
               }}
               onKeyDown={(e: React.KeyboardEvent) => {
                 if (e.key === 'Enter') {
@@ -82,8 +90,8 @@ const Filters: React.FC<FiltersProps> = ({
           <MultipleAutoComplete
             label={t('filters.provider.label')}
             options={optionAutoCompleteProvider}
-            values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
-            handleValuesChange={(values) => handleValueChange('provider', values)}
+            values={eserviceFiltersState.provider as unknown as FilterAutoCompleteValue[]}
+            handleValuesChange={(values) => handleDraftFilterValueChange('provider', values)}
           />
         </Col>
         {!isMobile && (
@@ -105,9 +113,11 @@ const Filters: React.FC<FiltersProps> = ({
             <MultipleAutoComplete
               label={t('filters.consumer.label')}
               options={optionAutoCompleteConsumer}
-              values={filtersFormState.consumer as unknown as FilterAutoCompleteValue[]}
+              values={eserviceFiltersState.consumer as unknown as FilterAutoCompleteValue[]}
               handleValuesChange={
-                isMobile ? (values) => handleValueChange('consumer', values) : handleConsumerChange
+                isMobile
+                  ? (values) => handleDraftFilterValueChange('consumer', values)
+                  : (values) => handleActiveFilterValueChange('consumer', values)
               }
               tooltipIconRender={
                 <div>

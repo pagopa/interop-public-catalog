@@ -1,4 +1,5 @@
 import React from 'react'
+import { useEServiceCatalogContext } from '../../../EServiceCatalog/EServiceCatalogContext'
 
 export type Page = {
   value: string
@@ -19,10 +20,10 @@ export function usePagination(
   }
 } {
   const urlParams = new URLSearchParams(window.location.search)
+  const { handleActiveFilterValueChange, eserviceFiltersState } = useEServiceCatalogContext()
 
-  const [offset, setOffset] = React.useState(parseInt(urlParams.get('offset') ?? '0', 10))
   const totalPages = Math.ceil((totalCount ?? 0) / limit)
-  const actualPage = Math.ceil(offset / limit) + 1
+  const actualPage = Math.ceil(eserviceFiltersState.offset / limit) + 1
 
   const previousPages: Page[] = []
   const nextPages: Page[] = []
@@ -45,7 +46,7 @@ export function usePagination(
         urlParams.delete('offset')
       }
       window.history.pushState({}, '', `${window.location.pathname}?${urlParams}`)
-      setOffset(newOffset)
+      handleActiveFilterValueChange('offset', newOffset)
     },
     [limit]
   )

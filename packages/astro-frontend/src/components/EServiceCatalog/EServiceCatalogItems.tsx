@@ -17,6 +17,7 @@ import { EService } from '../../../../models/src/types/eservice.js'
 import Pagination from '../shared/Pagination/Pagination.jsx'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
+import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
 
 type EServiceCatalogItemsProps = {
   eservices: EService[]
@@ -26,6 +27,8 @@ type OrderKey = 'RECENT_ASC' | 'RECENT_DESC' | 'NAME_ASC' | 'NAME_DESC'
 
 const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices }) => {
   // if (!eservices) return <div>Non ci sono E-Service da mostrare</div>
+
+  const { eserviceFiltersState, handleActiveFilterValueChange } = useEServiceCatalogContext()
 
   const rows = chunkEServiceArray(eservices, 3)
   const [order, setOrder] = React.useState<OrderKey>('RECENT_ASC')
@@ -38,12 +41,12 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices }
     if (orderParam) setOrder(orderParam)
   }, [])
 
-  const handleOrder = (orderKey: OrderKey) => {
-    const urlParams = new URLSearchParams(window.location.search)
-    setOrder(orderKey)
-    urlParams.set('order', orderKey)
-    window.history.pushState({}, '', `${window.location.pathname}?${urlParams}`)
-  }
+  // const handleOrder = (orderKey: OrderKey) => {
+  //   const urlParams = new URLSearchParams(window.location.search)
+  //   setOrder(orderKey)
+  //   urlParams.set('order', orderKey)
+  //   window.history.pushState({}, '', `${window.location.pathname}?${urlParams}`)
+  // }
 
   return (
     <Container className="py-5">
@@ -69,28 +72,32 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices }
               <LinkList>
                 <LinkListItem
                   active={order === 'RECENT_ASC'}
-                  onClick={() => handleOrder('RECENT_ASC')}
+                  // onClick={() => handleOrder('RECENT_ASC')}
+                  onClick={() => handleActiveFilterValueChange('orderBy', 'RECENT_ASC')}
                   inDropdown
                 >
                   <span>{t('order.recent_asc')}</span>
                 </LinkListItem>
                 <LinkListItem
                   active={order === 'RECENT_DESC'}
-                  onClick={() => handleOrder('RECENT_DESC')}
+                  // onClick={() => handleOrder('RECENT_DESC')}
+                  onClick={() => handleActiveFilterValueChange('orderBy', 'RECENT_DESC')}
                   inDropdown
                 >
                   <span>{t('order.recent_desc')}</span>
                 </LinkListItem>
                 <LinkListItem
                   active={order === 'NAME_ASC'}
-                  onClick={() => handleOrder('NAME_ASC')}
+                  // onClick={() => handleOrder('NAME_ASC')}
+                  onClick={() => handleActiveFilterValueChange('orderBy', 'NAME_ASC')}
                   inDropdown
                 >
                   <span>{t('order.name_asc')}</span>
                 </LinkListItem>
                 <LinkListItem
                   active={order === 'NAME_DESC'}
-                  onClick={() => handleOrder('NAME_DESC')}
+                  // onClick={() => handleOrder('NAME_DESC')}
+                  onClick={() => handleActiveFilterValueChange('orderBy', 'NAME_DESC')}
                   inDropdown
                 >
                   <span>{t('order.name_desc')}</span>
