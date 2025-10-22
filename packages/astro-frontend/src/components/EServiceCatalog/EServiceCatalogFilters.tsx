@@ -26,7 +26,10 @@ export type EServiceCatalogFiltersParams = {
 
 export type EServiceCatalogFilterKeys = keyof EServiceCatalogFiltersParams
 
-const EServiceCatalogFilters = () => {
+type EServiceCatalogFiltersProps = {
+  handleSubmitRequest: (filters: EServiceCatalogFiltersParams) => void
+}
+const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({ handleSubmitRequest }) => {
   const [filtersFormState, setFiltersFormState] = React.useState<EServiceCatalogFiltersParams>({
     provider: [],
     consumer: [],
@@ -58,6 +61,8 @@ const EServiceCatalogFilters = () => {
     e.preventDefault()
     addParamsWithinUrl(filtersFormState)
     setAppliedFilters(filtersFormState)
+
+    handleSubmitRequest(filtersFormState)
     // Fetch API!
   }
 

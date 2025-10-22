@@ -3,7 +3,7 @@
 
 
 import Layout from '../../../layouts/Layout.astro'
-import EServiceCatalog from '../../../components/EServiceCatalog/EServiceCatalog'
+import EServiceCatalogItems from '../../../components/EServiceCatalog/EServiceCatalogItems'
 import {Button, Container, Icon, Section } from 'design-react-kit'
 import SuggestionSection from '../../../components/shared/SuggestionSection.astro'
 import { EService } from 'pagopa-interop-public-models'
@@ -11,6 +11,7 @@ import EServiceCatalogFilters from '../../../components/EServiceCatalog/EService
 import PageHero from '..//../../components/shared/PageHero.astro'
 import { useCatalogTranslations } from '../../../i18n/catalog.i18n'
 import { getLangFromUrl } from '../../../i18n/utils.i18n'
+import { EServiceCatalog } from '../../../components/EServiceCatalog/EServiceCatalog'
 
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
@@ -34,11 +35,11 @@ const t = useCatalogTranslations(currentLocale)
     ]}
   />
   <Section color="muted">
-    <Container className="p-3">
+    <!-- <Container className="p-3">
       <EServiceCatalogFilters client:only="react" />
     </Container>
 
-    <EServiceCatalog
+    <EServiceCatalogItems
       client:only="react"
       eservices={[
         {
@@ -114,7 +115,81 @@ const t = useCatalogTranslations(currentLocale)
           descriptorId: 'descriptor12',
         } as unknown as EService,
       ]}
-    />
+    /> -->
+    <EServiceCatalog  client:only="react" initialEservices={[
+          {
+            name: 'eservice 1',
+            description: 'eservice description 1',
+            eserviceId: 'eservice1',
+            descriptorId: 'descriptor1',
+          } as unknown as EService,
+          {
+            name: 'eservice 2',
+            description: 'eservice description 2',
+            eserviceId: 'eservice2',
+            descriptorId: 'descriptor2',
+          } as unknown as EService,
+          {
+            name: 'eservice 3',
+            description: 'eservice description 3',
+            eserviceId: 'eservice3',
+            descriptorId: 'descriptor3',
+          } as unknown as EService,
+          {
+            name: 'eservice 4',
+            description: 'eservice description 4',
+            eserviceId: 'eservice4',
+            descriptorId: 'descriptor4',
+          } as unknown as EService,
+          {
+            name: 'eservice 5',
+            description: 'eservice description 5',
+            eserviceId: 'eservice5',
+            descriptorId: 'descriptor5',
+          } as unknown as EService,
+          {
+            name: 'eservice 6',
+            description: 'eservice description 6',
+            eserviceId: 'eservice6',
+            descriptorId: 'descriptor6',
+          } as unknown as EService,
+          {
+            name: 'eservice 7',
+            description: 'eservice description 7',
+            eserviceId: 'eservice7',
+            descriptorId: 'descriptor7',
+          } as unknown as EService,
+          {
+            name: 'eservice 8',
+            description: 'eservice description 8',
+            eserviceId: 'eservice8',
+            descriptorId: 'descriptor8',
+          } as unknown as EService,
+          {
+            name: 'eservice 9',
+            description: 'eservice description 9',
+            eserviceId: 'eservice9',
+            descriptorId: 'descriptor9',
+          } as unknown as EService,
+          {
+            name: 'eservice 10',
+            description: 'eservice description 10',
+            eserviceId: 'eservice10',
+            descriptorId: 'descriptor10',
+          } as unknown as EService,
+          {
+            name: 'eservice 11',
+            description: 'eservice description 11',
+            eserviceId: 'eservice11',
+            descriptorId: 'descriptor11',
+          } as unknown as EService,
+          {
+            name: 'eservice 12',
+            description: 'eservice description 12',
+            eserviceId: 'eservice12',
+            descriptorId: 'descriptor12',
+          } as unknown as EService,
+        ]} />
   </Section>
 
   <div class="p-5">
