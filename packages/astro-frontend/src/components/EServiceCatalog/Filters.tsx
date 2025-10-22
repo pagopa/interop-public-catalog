@@ -1,9 +1,14 @@
-import { Button, Col, Form, FormGroup, Input, Row } from 'design-react-kit'
+import { Button, Col, Form, FormGroup, Icon, Input, Row } from 'design-react-kit'
 import React, { useEffect } from 'react'
-import { MultipleAutoComplete } from '../MultipleAutoComplete/MultipleAutoComplete.js'
-import type { FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
-import { FiltersChips } from './FiltersChips.js'
-import { addParamsWithinUrl, parseQueryStringToParams } from '../../utils/utils.js'
+import {
+  type FilterAutoCompleteValue,
+  MultipleAutoComplete,
+} from '../MultipleAutoComplete/MultipleAutoComplete.js'
+import { TooltipIcon } from '../shared/TooltipIcon.js'
+import { getLangFromUrl } from '../../i18n/utils.i18n.js'
+import { useUiTranslations } from '../../i18n/ui.i18n.js'
+import type { EServiceCatalogFiltersParams } from './EServiceCatalogFilters.jsx'
+import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 
 const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
   { label: 'Opzione 1', value: 'value-1' },
@@ -30,149 +35,97 @@ export type FiltersParams = {
 
 export type FilterParamsKeys = keyof FiltersParams
 
-const Filters = () => {
-  const [filtersFormState, setFiltersFormState] = React.useState<FiltersParams>({
-    provider: [],
-    consumer: [],
-  })
-  const [appliedFilters, setAppliedFilters] = React.useState<FiltersParams>({})
-
-  useEffect(() => {
-    const initialParams: FiltersParams = parseQueryStringToParams(window.location.search)
-    setFiltersFormState(initialParams)
-    setAppliedFilters(initialParams)
-  }, [])
-
-  const onSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    addParamsWithinUrl(filtersFormState)
-    setAppliedFilters(filtersFormState)
-    // Fetch API!
-  }
-
-  const handleValueChange = (
-    key: keyof FiltersParams,
-    value: string | FilterAutoCompleteValue[]
-  ) => {
-    setFiltersFormState((prev) => ({
-      ...prev,
-      [key]: value,
-    }))
-  }
-
-  const handleConsumerChange = (values: FilterAutoCompleteValue[]) => {
-    const previousFilterState = {
-      ...filtersFormState,
-      consumer: values,
-    }
-    setFiltersFormState(previousFilterState)
-    setAppliedFilters(previousFilterState)
-
-    addParamsWithinUrl(previousFilterState)
-  }
-
-  const handleRemoveValue = (key: keyof FiltersParams, value: string | FilterAutoCompleteValue) => {
-    const getUpdatedState = (): FiltersParams => {
-      if (key === 'provider' || key === 'consumer') {
-        const newValues = filtersFormState[key]!.filter((v) => v.value !== value)
-        return { ...filtersFormState, [key]: newValues }
-      }
-
-      const { [key]: _, ...newState } = filtersFormState
-      return newState
-    }
-
-    const updatedState = getUpdatedState()
-
-    setFiltersFormState(updatedState)
-    setAppliedFilters(updatedState)
-    addParamsWithinUrl(updatedState)
-  }
-
-  const handleRemoveAll = () => {
-    setFiltersFormState({})
-    setAppliedFilters({})
-    addParamsWithinUrl({})
-  }
+type FiltersProps = {
+  filtersFormState: EServiceCatalogFiltersParams
+  handleValueChange: (key: FilterParamsKeys, value: string | FilterAutoCompleteValue[]) => void
+  onSubmit?: (e: React.FormEvent<HTMLButtonElement>) => void
+  handleConsumerChange: (values: FilterAutoCompleteValue[]) => void
+  isMobile: boolean
+}
+const Filters: React.FC<FiltersProps> = ({
+  filtersFormState,
+  handleValueChange,
+  onSubmit,
+  isMobile,
+  handleConsumerChange,
+}) => {
+  const currentLanguage = getLangFromUrl(window.location.pathname)
+  const t = useCatalogTranslations(currentLanguage)
 
   return (
-    <>
-      <h5 className="mb-5">Cerca nel catalogo</h5>
-      <Form>
-        <Row>
-          <Col>
-            <FormGroup>
-              <Input
-                label="Cerca per parola chiave"
-                id="completeValidation-name"
-                type="text"
-                value={filtersFormState.q ?? ''}
-                validationText="Validato!"
-                valid={filtersFormState.q != ''}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+    <Form>
+      <Row>
+        <Col lg="3">
+          <FormGroup className="input-filter-key">
+            <Input
+              hasIconLeft
+              iconLeft={<Icon aria-hidden icon="it-search" size="sm" className="icon-search" />}
+              label={t('filters.q.label')}
+              id="completeValidation-name"
+              type="text"
+              className="mt-4"
+              placeholder={t('filters.q.placeholder')}
+              value={filtersFormState.q ?? ''}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                e.preventDefault()
+                handleValueChange('q', e.target.value)
+              }}
+              onKeyDown={(e: React.KeyboardEvent) => {
+                if (e.key === 'Enter') {
                   e.preventDefault()
-                  handleValueChange('q', e.target.value)
-                }}
-                onKeyDown={(e: React.KeyboardEvent) => {
-                  if (e.key === 'Enter') {
-                    e.preventDefault()
-                  }
-                }}
-              />
-            </FormGroup>
-          </Col>
-          <Col>
-            <FormGroup>
-              <MultipleAutoComplete
-                label="Filtra per ente erogatore"
-                options={optionAutoCompleteProvider}
-                values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
-                handleValuesChange={(values) => handleValueChange('provider', values)}
-              />
-            </FormGroup>
-          </Col>
-          <Col>
-            <Button color="primary" type="submit" size="xs" onClick={(e) => onSubmit(e)}>
-              Applica
+                }
+              }}
+            />
+          </FormGroup>
+        </Col>
+        <Col lg="3">
+          <MultipleAutoComplete
+            label={t('filters.provider.label')}
+            options={optionAutoCompleteProvider}
+            values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
+            handleValuesChange={(values) => handleValueChange('provider', values)}
+          />
+        </Col>
+        {!isMobile && (
+          <Col className="mt-4">
+            <Button
+              color="primary"
+              type="submit"
+              size="xs"
+              onClick={(e) => onSubmit && onSubmit(e)}
+            >
+              {t('filters.submit')}
             </Button>
           </Col>
-        </Row>
-      </Form>
-      {/* <Form> */}
+        )}
+      </Row>
       <Row>
         <Col lg="3">
           <FormGroup>
-            <FormGroup>
-              <MultipleAutoComplete
-                label="Filtra per ente fruitore"
-                options={optionAutoCompleteConsumer}
-                values={filtersFormState.consumer as unknown as FilterAutoCompleteValue[]}
-                handleValuesChange={handleConsumerChange}
-              />
-            </FormGroup>
-            {/* <Select
-              id="selectExampleClassic"
-              label="Filtra per ente fruitore"
-              value={filtersFormState.consumer ?? ''}
-              onChange={(value: string) => handleValueChange('consumer', value)}
-            >
-              <option label="Opzione 1">Value 1</option>
-              <option label="Opzione 2">Value 2</option>
-              <option label="Opzione 3">Value 3</option>
-              <option label="Opzione 4">Value 4</option>
-              <option label="Opzione 5">Value 5</option>
-            </Select> */}
+            <MultipleAutoComplete
+              label={t('filters.consumer.label')}
+              options={optionAutoCompleteConsumer}
+              values={filtersFormState.consumer as unknown as FilterAutoCompleteValue[]}
+              handleValuesChange={
+                isMobile ? (values) => handleValueChange('consumer', values) : handleConsumerChange
+              }
+              tooltipIconRender={
+                <div>
+                  {' '}
+                  <TooltipIcon
+                    title={t('filter.popover.consumer.title')}
+                    content={t('filter.popover.consumer.content')}
+                    iconName="it-info-circle"
+                    iconColor="primary"
+                    iconSize="sm"
+                  />
+                </div>
+              }
+            />
           </FormGroup>
         </Col>
       </Row>
-      {/* </Form> */}
-
-      <FiltersChips
-        handleRemoveValue={handleRemoveValue}
-        filters={appliedFilters}
-        handleRemoveAll={handleRemoveAll}
-      ></FiltersChips>
-    </>
+    </Form>
   )
 }
 
