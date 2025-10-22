@@ -39,7 +39,7 @@ export async function searchCatalog(
 
   const conds = [sql`true`]
 
-  if (producerIds) {
+  if (producerIds && producerIds.length > 0) {
     conds.push(
       sql`
       t.id IN (${sql.join(
