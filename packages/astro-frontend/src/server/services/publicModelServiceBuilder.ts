@@ -2,13 +2,13 @@ import type { drizzle } from 'drizzle-orm/node-postgres'
 import type { NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
 import type { ExtractTablesWithRelations } from 'drizzle-orm'
 import { sql } from 'drizzle-orm'
-import type {
-  EServiceSearchResult,
-  EService,
+import {
+  type EServiceSearchResult,
+  type EService,
   EServiceQuery,
-  TenantQuery,
-  TenantSearchResult,
-  Tenant,
+  type TenantQuery,
+  type TenantSearchResult,
+  type Tenant,
 } from 'pagopa-interop-public-models'
 import type { PgTransaction } from 'drizzle-orm/pg-core'
 
@@ -32,13 +32,21 @@ type ServiceConfig = {
 export async function searchCatalog(
   db: ReturnType<typeof drizzle>,
   config: ServiceConfig,
-  { limit, offset, q }: EServiceQuery
+  query: EServiceQuery
 ): Promise<EServiceSearchResult> {
-  if (!(limit >= 1 && limit <= 50)) {
-    throw new Error('limit must be >= 1 and <= 50')
-  }
-  if (offset < 0) {
-    throw new Error('offset must be >= 0')
+  const parsedQuery = EServiceQuery.parse(query)
+  const { limit, offset, q, producerIds } = parsedQuery
+
+  const conds = [sql`true`]
+
+  if (producerIds) {
+    conds.push(
+      sql`
+      t.id IN (${sql.join(
+        producerIds.map((id) => sql`${id}`),
+        sql`, `
+      )})`
+    )
   }
 
   const textlessSearchTx: Transaction<EService> = async (tx) => {
@@ -54,6 +62,7 @@ export async function searchCatalog(
       count(*) over() AS total
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
     JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = e.producer_id
+    WHERE ${sql.join(conds, sql` AND `)}
     ORDER BY e.created_at DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
@@ -118,6 +127,7 @@ export async function searchCatalog(
       JOIN ${sql.identifier(config.catalogSchema)}.eservice e ON e.id = x.id
       JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = e.producer_id
       CROSS JOIN params p
+      WHERE ${sql.join(conds, sql` AND `)}
     )
     SELECT 
       s.*,
