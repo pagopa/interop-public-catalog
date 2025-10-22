@@ -11,39 +11,79 @@ const t = useUiTranslations(currentLocale)
     <div class="container">
       <h4 class="text-white mb-4">{t('rating.title')}</h4>
 
-      <fieldset class="d-flex flex-row">
-        <div class="bg-white rounded-2 px-4 me-2 d-flex align-items-center">
-          <div class="form-check form-check-group pb-0 mb-0 shadow-none">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="inlineRadioOptions"
-              id="inlineRadioYes"
-              value="Yes"
-            />
-            <label class="form-check-label text-primary pe-5" for="inlineRadioYes">
-              {t('rating.yes')}
-            </label>
+      <form id="ratingForm">
+        <fieldset class="d-flex flex-row">
+          <div class="bg-white rounded-2 px-4 me-2 d-flex align-items-center">
+            <div class="form-check form-check-group pb-0 mb-0 shadow-none">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOption"
+                id="inlineRadioYes"
+                value="Yes"
+                required
+              />
+              <label class="form-check-label text-primary pe-5" for="inlineRadioYes">
+                {t('rating.yes')}
+              </label>
+            </div>
           </div>
-        </div>
 
-        <div class="bg-white rounded-2 px-4 d-flex align-items-center">
-          <div class="form-check form-check-group mb-0 pb-0 shadow-none">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="inlineRadioOptions"
-              id="inlineRadioNo"
-              value="No"
-            />
-            <label class="form-check-label text-primary pe-5" for="inlineRadioNo">
-              {t('rating.no')}
-            </label>
+          <div class="bg-white rounded-2 px-4 d-flex align-items-center">
+            <div class="form-check form-check-group mb-0 pb-0 shadow-none">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOption"
+                id="inlineRadioNo"
+                value="No"
+                required
+              />
+              <label class="form-check-label text-primary pe-5" for="inlineRadioNo">
+                {t('rating.no')}
+              </label>
+            </div>
           </div>
-        </div>
 
-        <button type="submit" class="btn btn-secondary ms-2">{t('actions.submit')}</button>
-      </fieldset>
+          <button type="submit" class="btn btn-secondary ms-2" id="submitButton">
+            {t('actions.submit')}
+          </button>
+        </fieldset>
+      </form>
     </div>
   </div>
 </section>
+
+<script>
+  const form = document.getElementById('ratingForm') as HTMLFormElement | null
+
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+
+      const selectedRadio = form.querySelector(
+        'input[name="inlineRadioOption"]:checked'
+      ) as HTMLInputElement | null
+
+      if (selectedRadio) {
+        const selectedValue = selectedRadio.value
+
+        const subject = 'Feedback sul Catalogo delle API'
+        const body =
+          selectedValue === 'Yes'
+            ? 'La pagina è stata utile perche'
+            : 'La pagina non è stata utile perche'
+
+        const encodedSubject = encodeURIComponent(subject)
+        const encodedBody = encodeURIComponent(body)
+
+        const recipient = 'info@pagopa.it'
+        const mailtoURL = `mailto:${recipient}?subject=${encodedSubject}&body=${encodedBody}`
+
+        window.location.href = mailtoURL
+      } else {
+        alert('Per favore, seleziona un’opzione prima di inviare.')
+      }
+    })
+  }
+</script>
