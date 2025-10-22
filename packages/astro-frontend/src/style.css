@@ -110,3 +110,36 @@ a.list-item:hover {
 #category-filters-list a.active:hover {
   background-color: #f2f7fc !important;
 }
+
+
+.input-filter-key label {
+  font-weight: 600;
+  padding-left:0;
+  font-size: .875rem;
+  top: 1.5rem;
+}
+
+.input-filter-key input{
+  margin-top:25px!important ;
+}
+
+.input-filter-key .input-group-text {
+  align-self: flex-end;
+}
+
+#order-by svg {
+  margin-left: 0.5rem;
+  fill:var(--bs-primary)!important
+}
+
+.filters-modal{
+  margin : 0!important
+}
+
+.filters-modal .filters-modal-header{
+  border-bottom: 1px solid #BFDFFF;
+}
+
+.filters-modal .filters-modal-footer{
+  border-top: 1px solid #BFDFFF;
+}
