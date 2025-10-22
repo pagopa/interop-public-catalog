@@ -5,40 +5,17 @@ import '../style.css'
 import Header from '../components/shared/Header/Header.astro'
 import Footer from '../components/shared/Footer.astro'
 import { getLangFromUrl } from '../i18n/utils.i18n'
-import { getClientEnvConfig } from '../config/config'
 
-const currentLang = getLangFromUrl(Astro.url.pathname)
-const { onetrustDomainScriptId } = getClientEnvConfig()
+const currentLocale = getLangFromUrl(Astro.url.pathname)
 ---
 
 <!doctype html>
-<html lang={currentLang}>
+<html lang={currentLocale}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap.xml" />
-
-    <!-- ONE TRUST COOKIE -->
-    {
-      import.meta.env.PROD && (
-        <Fragment>
-          <script
-            is:inline
-            src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
-            type="text/javascript"
-            charset="UTF-8"
-            data-language={currentLang}
-            data-domain-script={onetrustDomainScriptId}
-          />
-          <script is:inline type="text/javascript">
-            function OptanonWrapper() {}
-          </script>
-        </Fragment>
-      )
-    }
-    <!-- END ONE TRUST COOKIE -->
-
     <meta name="generator" content={Astro.generator} />
     <title>Catalogo</title>
   </head>
@@ -58,11 +35,12 @@ const { onetrustDomainScriptId } = getClientEnvConfig()
   }
 </style>
 
-{
-  /* Popover initialization, see https://italia.github.io/bootstrap-italia/docs/componenti/popover/  */
-}
 <script>
-  import { Popover, loadFonts, Dropdown, Accordion } from 'bootstrap-italia'
+  import { setupTracking } from '../utils/tracking.utils'
+  import { Popover, Dropdown, Accordion } from 'bootstrap-italia'
+  import { getClientEnvConfig } from '../config/config'
+  import { getLangFromUrl } from '../i18n/utils.i18n'
+
   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
   popoverTriggerList.map(function (popoverTriggerEl) {
     return new Popover(popoverTriggerEl, {
@@ -80,5 +58,13 @@ const { onetrustDomainScriptId } = getClientEnvConfig()
     return new Accordion(accordionTriggerEl)
   })
 
-  loadFonts('/fonts')
+  if (import.meta.env.PROD) {
+    const { mixpanelProjectId, onetrustDomainScriptId } = getClientEnvConfig()
+
+    setupTracking({
+      currentLocale: getLangFromUrl(window.location.pathname),
+      oneTrustDomainScriptId: onetrustDomainScriptId,
+      mixpanelProjectId: mixpanelProjectId,
+    })
+  }
 </script>
