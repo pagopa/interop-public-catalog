@@ -1,9 +1,16 @@
-import { drizzle } from 'drizzle-orm/node-postgres'
+import type { drizzle } from 'drizzle-orm/node-postgres'
 import type { NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
 import type { ExtractTablesWithRelations } from 'drizzle-orm'
 import { sql } from 'drizzle-orm'
-import { EServiceSearchResult, EService, EServiceQuery, TenantQuery, TenantSearchResult, Tenant } from 'pagopa-interop-public-models'
-import { PgTransaction } from 'drizzle-orm/pg-core'
+import type {
+  EServiceSearchResult,
+  EService,
+  EServiceQuery,
+  TenantQuery,
+  TenantSearchResult,
+  Tenant,
+} from 'pagopa-interop-public-models'
+import type { PgTransaction } from 'drizzle-orm/pg-core'
 
 type Transaction<T> = (
   tx: PgTransaction<
@@ -17,7 +24,9 @@ type Transaction<T> = (
 }>
 
 type ServiceConfig = {
-  catalogSchema: string, tenantSchema: string, attributeSchema: string
+  catalogSchema: string
+  tenantSchema: string
+  attributeSchema: string
 }
 
 export async function searchCatalog(
@@ -41,26 +50,23 @@ export async function searchCatalog(
       e.technology,
       e.mode,
       e.created_at::text AS created_at,
-      t.name AS tenant_name
+      t.name AS tenant_name,
+      count(*) over() AS total
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
     JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = e.producer_id
     ORDER BY e.created_at DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
 
-    const totalRes = await tx.execute(sql`
-    SELECT count(*)::bigint AS total
-    FROM ${sql.identifier(config.catalogSchema)}.eservice e
-    JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = e.producer_id
-  `)
-
     const items = pageRes.rows as EService[]
-    const total = (totalRes?.rows[0]?.total as number) || 0
+    const total = (pageRes?.rows[0]?.total as number) || 0
 
     return { items, total }
   }
 
-  const textSearchTx: Transaction<EService> = async (tx): Promise<{ total: number; items: EService[] }> => {
+  const textSearchTx: Transaction<EService> = async (
+    tx
+  ): Promise<{ total: number; items: EService[] }> => {
     const pageRes = await tx.execute(sql`
     WITH params AS (
       SELECT
@@ -113,52 +119,17 @@ export async function searchCatalog(
       JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = e.producer_id
       CROSS JOIN params p
     )
-    SELECT s.*, (s.fts_rank + 0.5 * s.fuzzy_sim)::real AS score
+    SELECT 
+      s.*,
+      (s.fts_rank + 0.5 * s.fuzzy_sim)::real AS score,
+      count(*) over() AS total
     FROM scored s
     ORDER BY score DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
 
-    const totalRes = await tx.execute(sql`
-    WITH params AS (
-      SELECT
-        CASE WHEN btrim(coalesce(${q}, '')) <> ''
-             THEN websearch_to_tsquery('public.italian_unaccent'::regconfig, public.normalize_text(${q}))
-             ELSE NULL::tsquery
-        END AS tsq,
-        public.normalize_text(coalesce(${q}, '')) AS nq
-    ),
-    fts_ids AS (
-      SELECT e.id
-      FROM ${sql.identifier(config.catalogSchema)}.eservice e
-      JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = e.producer_id
-      CROSS JOIN params p
-      WHERE p.tsq IS NOT NULL
-        AND (e.search_vector @@ p.tsq OR t.search_vector @@ p.tsq)
-    ),
-    trgm_ids AS (
-      SELECT e.id
-      FROM ${sql.identifier(config.catalogSchema)}.eservice e
-      JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = e.producer_id
-      CROSS JOIN params p
-      WHERE
-        public.normalize_text(e.name) % p.nq
-        OR public.normalize_text(e.description) % p.nq
-        OR public.normalize_text(t.name) % p.nq
-    ),
-    -- trigrams as fallback
-    picked AS (
-      SELECT id FROM fts_ids
-      UNION ALL
-      SELECT id FROM trgm_ids
-      WHERE NOT EXISTS (SELECT 1 FROM fts_ids)
-    )
-    SELECT count(*)::bigint AS total
-    FROM picked;
-  `)
-
     const items = pageRes.rows as EService[]
-    const total = (totalRes?.rows[0]?.total as number) || 0
+    const total = (pageRes?.rows[0]?.total as number) || 0
 
     return { items, total }
   }
@@ -194,24 +165,21 @@ export async function searchTenants(
     SELECT
       t.name,
       t.id AS producer_id,
-      count(*) over() as total
+      count(*) over() AS total
     FROM ${sql.identifier(config.tenantSchema)}.tenant t
     ORDER BY t.created_at DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
 
-    const totalRes = await tx.execute(sql`
-    SELECT count(*) AS total
-    FROM ${sql.identifier(config.tenantSchema)}.tenant t
-  `)
-
     const items = pageRes.rows as Tenant[]
-    const total = (totalRes?.rows[0]?.total as number) || 0
+    const total = (pageRes?.rows[0]?.total as number) || 0
 
     return { items, total }
   }
 
-  const textSearchTx: Transaction<Tenant> = async (tx): Promise<{ total: number; items: Tenant[] }> => {
+  const textSearchTx: Transaction<Tenant> = async (
+    tx
+  ): Promise<{ total: number; items: Tenant[] }> => {
     const builtQuery = sql`
     WITH params AS (
       SELECT
@@ -257,7 +225,7 @@ export async function searchTenants(
     FROM scored s
     ORDER BY score DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
-  `;
+  `
     const pageRes = await tx.execute(builtQuery)
 
     const items = pageRes.rows as Tenant[]
@@ -266,10 +234,9 @@ export async function searchTenants(
     return { items, total }
   }
 
-  const { items, total } = await db.transaction(
-    q?.trim() ? textSearchTx : textlessSearchTx,
-    { isolationLevel: 'repeatable read' }
-  )
+  const { items, total } = await db.transaction(q?.trim() ? textSearchTx : textlessSearchTx, {
+    isolationLevel: 'repeatable read',
+  })
 
   return {
     total,
@@ -281,10 +248,7 @@ export async function searchTenants(
 }
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function publicModelServiceBuilder(
-  db: ReturnType<typeof drizzle>,
-  config: ServiceConfig
-) {
+export function publicModelServiceBuilder(db: ReturnType<typeof drizzle>, config: ServiceConfig) {
   return {
     searchCatalog: searchCatalog.bind(null, db, config),
     searchTenants: searchTenants.bind(null, db, config),
