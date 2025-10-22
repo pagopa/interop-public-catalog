@@ -88,13 +88,6 @@ export const ui = {
 
     ...breadcrumbLabels.it,
 
-    'chip.provider': 'Ente erogatore',
-    'chip.consumer': 'Ente fruitore',
-    'chip.q': 'Parola chiave',
-    'chip.remove_all': 'Rimuovi tutti i filtri',
-    'autocomplete.placeholder': "Scegli un'opzione",
-    'autocomplete.selectedElements': ' elementi selezionati',
-    'autocomplete.selectedElement': ' elemento selezionato',
     'pagination.previous': 'Precedente',
     'pagination.next': 'Successiva',
   },
@@ -155,13 +148,6 @@ export const ui = {
 
     ...breadcrumbLabels.en,
 
-    'chip.provider': 'Provider',
-    'chip.consumer': 'Consumer',
-    'chip.q': 'Keyword',
-    'chip.remove_all': 'Remove all filters',
-    'autocomplete.placeholder': 'Choose an option',
-    'autocomplete.selectedElements': ' items selected',
-    'autocomplete.selectedElement': ' item selected',
     'pagination.previous': 'Previous',
     'pagination.next': 'Next',
   },
