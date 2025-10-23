@@ -14,6 +14,27 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
 <html lang={currentLocale}>
   <head>
     <meta charset="UTF-8" />
+    {
+      import.meta.env.PROD && (
+        <Fragment>
+          <script
+            is:inline
+            src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+            type="text/javascript"
+            charset="UTF-8"
+            data-domain-script={clientEnvConfig.onetrustDomainScriptId}
+            data-language={currentLocale}
+          />
+          <script>
+            import {setupTracking} from '../utils/tracking.utils';
+            {setupTracking({
+              mixpanelProjectId: window.env.mixpanelProjectId,
+            })}
+          </script>
+        </Fragment>
+      )
+    }
+
     <script
       is:inline
       set:html={`window.env = ${JSON.stringify(clientEnvConfig).replace(/</g, '\\u003c')}`}
@@ -41,9 +62,7 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
 </style>
 
 <script>
-  import { setupTracking } from '../utils/tracking.utils'
   import { Popover, Dropdown, Accordion } from 'bootstrap-italia'
-  import { getLangFromUrl } from '../i18n/utils.i18n'
 
   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
   popoverTriggerList.map(function (popoverTriggerEl) {
@@ -60,11 +79,5 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
   var accordionTriggerList = [].slice.call(document.querySelectorAll('.accordion'))
   accordionTriggerList.map(function (accordionTriggerEl) {
     return new Accordion(accordionTriggerEl)
-  })
-
-  setupTracking({
-    currentLocale: getLangFromUrl(window.location.pathname),
-    oneTrustDomainScriptId: window.env.onetrustDomainScriptId,
-    mixpanelProjectId: window.env.mixpanelProjectId,
   })
 </script>

@@ -52,5 +52,9 @@ declare module 'accessible-autocomplete/react' {
 declare global {
   interface Window {
     env: ClientEnvConfig
+    OptanonWrapper: () => void | undefined
+    OneTrust: {
+      OnConsentChanged: (callback: () => void) => void
+    }
   }
 }
