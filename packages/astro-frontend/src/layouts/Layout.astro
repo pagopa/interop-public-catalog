@@ -13,6 +13,7 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
 <html lang={currentLocale}>
   <head>
     <meta charset="UTF-8" />
+    <script is:inline src="/env.json"></script>
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap.xml" />
