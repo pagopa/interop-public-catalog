@@ -1,38 +1,7 @@
 import mixpanel from 'mixpanel-browser/src/loaders/loader-module-core'
-import type { SupportedLanguage } from '../i18n/types.i18n'
 
 const TARG_COOKIES_GROUP = 'C0002'
 declare const OnetrustActiveGroups: string
-
-declare global {
-  interface Window {
-    OptanonWrapper: () => void | undefined
-    OneTrust: {
-      OnConsentChanged: (callback: () => void) => void
-    }
-  }
-}
-
-function initOneTrust({
-  currentLocale,
-  domainScriptId,
-}: {
-  currentLocale: SupportedLanguage
-  domainScriptId: string
-}) {
-  if (document.querySelector<HTMLScriptElement>('[data-one-trust-script="true"]')) {
-    return
-  }
-
-  const scriptEl = document.createElement('script')
-  scriptEl.setAttribute('src', 'https://cdn.cookielaw.org/scripttemplates/otSDKStub.js')
-  scriptEl.setAttribute('type', 'text/javascript')
-  scriptEl.setAttribute('charset', 'UTF-8')
-  scriptEl.setAttribute('data-domain-script', domainScriptId)
-  scriptEl.setAttribute('data-language', currentLocale)
-  scriptEl.setAttribute('data-one-trust-script', 'true')
-  document.head.appendChild(scriptEl)
-}
 
 function areCookiesAccepted(): boolean {
   try {
@@ -56,6 +25,7 @@ function initMixpanel({ projectId }: { projectId: string }) {
   mixpanel.init(projectId, {
     api_host: 'https://api-eu.mixpanel.com',
     persistence: 'localStorage',
+    debug: true,
     autocapture: {
       pageview: 'full-url',
     },
@@ -66,17 +36,7 @@ function initMixpanel({ projectId }: { projectId: string }) {
   didMixpanelInit = true
 }
 
-export function setupTracking({
-  currentLocale,
-  oneTrustDomainScriptId,
-  mixpanelProjectId,
-}: {
-  currentLocale: SupportedLanguage
-  oneTrustDomainScriptId: string
-  mixpanelProjectId: string
-}) {
-  initOneTrust({ currentLocale, domainScriptId: oneTrustDomainScriptId })
-
+export function setupTracking({ mixpanelProjectId }: { mixpanelProjectId: string }) {
   window.OptanonWrapper = function () {
     window.OneTrust.OnConsentChanged(() => {
       initMixpanel({ projectId: mixpanelProjectId })
