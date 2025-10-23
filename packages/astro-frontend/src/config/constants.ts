@@ -4,9 +4,6 @@ import { getLocalizedRoute } from '../i18n/utils.i18n.js'
 export const DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL = 'https://innovazione.gov.it/'
 export const PAGOPA_URL = 'https://www.pagopa.gov.it/'
 
-export const ONETRUST_DOMAIN_SCRIPT_ID = '01995c12-d809-7763-b0b5-e7f94f61aeb1'
-export const MIXPANEL_PROJECT_ID = 'fd338875c11dfe26a3219337a652ec5d'
-
 /**
  * Navigation items for the footer and header components.
  * TODO: Links

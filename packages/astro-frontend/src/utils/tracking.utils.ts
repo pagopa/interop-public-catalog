@@ -49,7 +49,7 @@ function areCookiesAccepted(): boolean {
 let didMixpanelInit = false
 
 function initMixpanel({ projectId }: { projectId: string }) {
-  if (didMixpanelInit) {
+  if (didMixpanelInit || !areCookiesAccepted()) {
     return
   }
 
@@ -59,14 +59,8 @@ function initMixpanel({ projectId }: { projectId: string }) {
     autocapture: {
       pageview: 'full-url',
     },
-    // if this is true, Mixpanel will automatically determine
-    // City, Region and Country data using the IP address of
-    // the client
     ip: false,
-    // names of properties/superproperties which should never
-    // be sent with track() calls
     property_blacklist: ['$current_url', '$initial_referrer', '$referrer'],
-    debug: import.meta.env.DEV,
   })
 
   didMixpanelInit = true
@@ -85,16 +79,11 @@ export function setupTracking({
 
   window.OptanonWrapper = function () {
     window.OneTrust.OnConsentChanged(() => {
-      if (areCookiesAccepted()) {
-        initMixpanel({ projectId: mixpanelProjectId })
-      }
+      initMixpanel({ projectId: mixpanelProjectId })
     })
   }
 
-  // Initial check in case the user has already accepted cookies
-  if (areCookiesAccepted()) {
-    initMixpanel({ projectId: mixpanelProjectId })
-  }
+  initMixpanel({ projectId: mixpanelProjectId })
 }
 
 type TrackingData =
@@ -154,8 +143,15 @@ type TrackingData =
       }
     }
 
-export function track(event: TrackingData) {
-  if (areCookiesAccepted() && didMixpanelInit) {
-    mixpanel.track(event.key, event.payload)
-  }
+type TrackingPayload<TKey extends TrackingData['key']> = Extract<
+  TrackingData,
+  { key: TKey }
+>['payload']
+
+export function track<TKey extends TrackingData['key']>(
+  eventKey: TKey,
+  eventPayload: TrackingPayload<TKey>
+) {
+  if (!areCookiesAccepted() || !didMixpanelInit) return
+  mixpanel.track(eventKey, eventPayload)
 }

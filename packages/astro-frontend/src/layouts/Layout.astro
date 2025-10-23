@@ -5,6 +5,7 @@ import '../style.css'
 import Header from '../components/shared/Header/Header.astro'
 import Footer from '../components/shared/Footer.astro'
 import { getLangFromUrl } from '../i18n/utils.i18n'
+import { clientEnvConfig } from '../config/config'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 ---
@@ -13,7 +14,10 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
 <html lang={currentLocale}>
   <head>
     <meta charset="UTF-8" />
-    <script is:inline src="/env.json"></script>
+    <script
+      is:inline
+      set:html={`window.env = ${JSON.stringify(clientEnvConfig).replace(/</g, '\\u003c')}`}
+    />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap.xml" />
@@ -40,7 +44,6 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
   import { setupTracking } from '../utils/tracking.utils'
   import { Popover, Dropdown, Accordion } from 'bootstrap-italia'
   import { getLangFromUrl } from '../i18n/utils.i18n'
-  import { ONETRUST_DOMAIN_SCRIPT_ID, MIXPANEL_PROJECT_ID } from '../config/constants'
 
   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
   popoverTriggerList.map(function (popoverTriggerEl) {
@@ -59,11 +62,9 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
     return new Accordion(accordionTriggerEl)
   })
 
-  if (import.meta.env.PROD) {
-    setupTracking({
-      currentLocale: getLangFromUrl(window.location.pathname),
-      oneTrustDomainScriptId: ONETRUST_DOMAIN_SCRIPT_ID,
-      mixpanelProjectId: MIXPANEL_PROJECT_ID,
-    })
-  }
+  setupTracking({
+    currentLocale: getLangFromUrl(window.location.pathname),
+    oneTrustDomainScriptId: window.env.onetrustDomainScriptId,
+    mixpanelProjectId: window.env.mixpanelProjectId,
+  })
 </script>

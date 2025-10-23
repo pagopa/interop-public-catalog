@@ -13,6 +13,7 @@ const breadcrumbLabels = {
     'breadcrumb_label.GOOD_PRACTICES_DETAILS': 'Dettaglio esempi pratici',
     'breadcrumb_label.LEGISLATION': 'Normativa',
     'breadcrumb_label.PRIVACY_POLICY': 'Privacy policy',
+    'breadcrumb_label.LEGAL_NOTES': 'Note legali',
   },
   en: {
     'breadcrumb_label.HOME': 'Home',
@@ -24,6 +25,7 @@ const breadcrumbLabels = {
     'breadcrumb_label.GOOD_PRACTICES_DETAILS': 'Good practice details',
     'breadcrumb_label.LEGISLATION': 'Legislation',
     'breadcrumb_label.PRIVACY_POLICY': 'Privacy policy',
+    'breadcrumb_label.LEGAL_NOTES': 'Legal notes',
   },
 } as const satisfies { [K in SupportedLanguage]: Record<`breadcrumb_label.${RouteKey}`, string> }
 

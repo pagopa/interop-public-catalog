@@ -1,3 +1,6 @@
+import type { z } from 'zod'
+import type { ClientEnvConfig } from '../config/config'
+
 declare module 'accessible-autocomplete/react' {
   interface AutocompleteProps {
     id: string
@@ -44,4 +47,10 @@ declare module 'accessible-autocomplete/react' {
 
   // 4. Dichiariamo che questa funzione è l'esportazione di default del modulo
   export default AutoComplete
+}
+
+declare global {
+  interface Window {
+    env: ClientEnvConfig
+  }
 }
