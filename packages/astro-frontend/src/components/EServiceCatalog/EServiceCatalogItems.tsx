@@ -9,7 +9,7 @@ import {
   LinkList,
   LinkListItem,
 } from 'design-react-kit'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { EServiceCard } from '../shared/EServiceCard.jsx'
 import { chunkEServiceArray } from '../../utils/utils.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
@@ -28,25 +28,12 @@ type OrderKey = 'RECENT_ASC' | 'RECENT_DESC' | 'NAME_ASC' | 'NAME_DESC'
 const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices }) => {
   // if (!eservices) return <div>Non ci sono E-Service da mostrare</div>
 
-  const { eserviceFiltersState, handleActiveFilterValueChange } = useEServiceCatalogContext()
+  const { eserviceActiveFilterState, handleActiveFilterValueChange } = useEServiceCatalogContext()
+  const { orderBy: order } = eserviceActiveFilterState
 
   const rows = chunkEServiceArray(eservices, 3)
-  const [order, setOrder] = React.useState<OrderKey>('RECENT_ASC')
   const currentLanguage = getLangFromUrl(window.location.pathname)
   const t = useCatalogTranslations(currentLanguage)
-
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const orderParam = urlParams.get('order') as OrderKey | null
-    if (orderParam) setOrder(orderParam)
-  }, [])
-
-  // const handleOrder = (orderKey: OrderKey) => {
-  //   const urlParams = new URLSearchParams(window.location.search)
-  //   setOrder(orderKey)
-  //   urlParams.set('order', orderKey)
-  //   window.history.pushState({}, '', `${window.location.pathname}?${urlParams}`)
-  // }
 
   return (
     <Container className="py-5">
@@ -72,7 +59,6 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices }
               <LinkList>
                 <LinkListItem
                   active={order === 'RECENT_ASC'}
-                  // onClick={() => handleOrder('RECENT_ASC')}
                   onClick={() => handleActiveFilterValueChange('orderBy', 'RECENT_ASC')}
                   inDropdown
                 >
@@ -80,7 +66,6 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices }
                 </LinkListItem>
                 <LinkListItem
                   active={order === 'RECENT_DESC'}
-                  // onClick={() => handleOrder('RECENT_DESC')}
                   onClick={() => handleActiveFilterValueChange('orderBy', 'RECENT_DESC')}
                   inDropdown
                 >
@@ -88,7 +73,6 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices }
                 </LinkListItem>
                 <LinkListItem
                   active={order === 'NAME_ASC'}
-                  // onClick={() => handleOrder('NAME_ASC')}
                   onClick={() => handleActiveFilterValueChange('orderBy', 'NAME_ASC')}
                   inDropdown
                 >
@@ -96,7 +80,6 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices }
                 </LinkListItem>
                 <LinkListItem
                   active={order === 'NAME_DESC'}
-                  // onClick={() => handleOrder('NAME_DESC')}
                   onClick={() => handleActiveFilterValueChange('orderBy', 'NAME_DESC')}
                   inDropdown
                 >

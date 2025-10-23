@@ -37,7 +37,6 @@ export type FiltersParams = {
 export type FilterParamsKeys = keyof FiltersParams
 
 type FiltersProps = {
-  filtersFormState: EServiceCatalogFiltersParams
   handleDraftFilterValueChange: (
     key: keyof CatalogFilterParams,
     value: string | FilterAutoCompleteValue[]

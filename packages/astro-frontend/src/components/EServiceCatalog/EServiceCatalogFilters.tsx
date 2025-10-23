@@ -2,7 +2,6 @@ import { Button } from 'design-react-kit'
 import React, { useEffect } from 'react'
 import { type FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
 import { FiltersChips } from './FiltersChips.js'
-import { addParamsWithinUrl, parseQueryStringToParams } from '../../utils/utils.js'
 import { Popover } from 'bootstrap-italia'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { FiltersMobile } from './FiltersMobile.jsx'
@@ -25,10 +24,6 @@ type EServiceCatalogFiltersProps = {
   handleSubmitRequest: () => void
 }
 const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({ handleSubmitRequest }) => {
-  const [filtersFormState, setFiltersFormState] = React.useState<EServiceCatalogFiltersParams>({
-    provider: [],
-    consumer: [],
-  })
   const currentLanguage = getLangFromUrl(window.location.pathname)
   const t = useCatalogTranslations(currentLanguage)
   const [isModalOpen, setIsModalOpen] = React.useState(false)
@@ -43,11 +38,6 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({ handleS
   } = useEServiceCatalogContext()
 
   useEffect(() => {
-    const initialParams: EServiceCatalogFiltersParams = parseQueryStringToParams(
-      window.location.search
-    )
-    setFiltersFormState(initialParams)
-
     var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
     popoverTriggerList.map(function (popoverTriggerEl) {
       return new Popover(popoverTriggerEl, {
@@ -58,8 +48,6 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({ handleS
 
   const onSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault()
-    addParamsWithinUrl(filtersFormState)
-
     handleSubmitRequest()
   }
 
@@ -82,7 +70,6 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({ handleS
 
       {!isMobile ? (
         <Filters
-          filtersFormState={filtersFormState}
           handleActiveFilterValueChange={handleActiveFilterValueChange}
           handleDraftFilterValueChange={handleDraftFilterValueChange}
           isMobile={false}
@@ -91,7 +78,6 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({ handleS
       ) : (
         <FiltersMobile onSubmit={onSubmit} isOpen={isModalOpen} toggleModal={setIsModalOpen}>
           <Filters
-            filtersFormState={filtersFormState}
             handleActiveFilterValueChange={handleActiveFilterValueChange}
             handleDraftFilterValueChange={handleDraftFilterValueChange}
             isMobile={true}

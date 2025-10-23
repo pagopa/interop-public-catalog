@@ -33,7 +33,7 @@ const eserviceFilterInitialState: CatalogFilterParams = {
   q: '',
   limit: 10,
   offset: 0,
-  orderBy: 'recent_desc',
+  orderBy: 'RECENT_DESC',
   provider: [],
   consumer: [],
 }
@@ -51,28 +51,46 @@ const useEServiceCatalogContext = () => React.useContext(EServiceCatalogContext)
 const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderProps> = ({
   children,
 }) => {
-  const [eserviceFiltersState, setEserviceFiltersState] = React.useState<CatalogFilterParams>({
-    q: '',
-    limit: 10,
-    offset: 0,
-    orderBy: 'recent_desc',
-    provider: [],
-    consumer: [],
-  }) // TODO: ADD from URL
-
-  const [eserviceActiveFilterState, setEserviceActiveFilterState] =
-    React.useState<CatalogFilterParams>(eserviceFilterInitialState)
-
   const [searchParams, setSearchParams, replaceSetParams] = useSearchParams(
     z.object({
       q: z.string().optional(),
       limit: z.string().optional(),
       offset: z.string().optional(),
-      orderBy: z.enum(['recent_asc', 'recent_desc', 'name_asc', 'name_desc']).optional(),
+      orderBy: z.enum(['RECENT_ASC', 'RECENT_DESC', 'NAME_ASC', 'NAME_DESC']).optional(),
       provider: z.string().optional(),
       consumer: z.string().optional(),
     })
   )
+
+  const searchParamsProvider: Array<string> = JSON.parse(searchParams.provider || '[]')
+  const searchParamsConsumer: Array<string> = JSON.parse(searchParams.consumer || '[]')
+
+  const initialCatalogFilterParams: CatalogFilterParams = {
+    q: searchParams.q ?? '',
+    limit: searchParams.limit ? parseInt(searchParams.limit, 10) : 10,
+    offset: searchParams.offset ? parseInt(searchParams.offset, 10) : 0,
+    orderBy: searchParams.orderBy ?? 'RECENT_DESC',
+    provider: searchParamsProvider.map((it) => {
+      return {
+        label: it[0],
+        value: it[1],
+      } as unknown as FilterAutoCompleteValue
+    }),
+    consumer: searchParamsConsumer.map((it) => {
+      return {
+        label: it[0],
+        value: it[1],
+      } as unknown as FilterAutoCompleteValue
+    }),
+  }
+
+  const [eserviceFiltersState, setEserviceFiltersState] = React.useState<CatalogFilterParams>(
+    initialCatalogFilterParams
+  )
+
+  const [eserviceActiveFilterState, setEserviceActiveFilterState] =
+    React.useState<CatalogFilterParams>(initialCatalogFilterParams)
+
   const handleDraftFilterValueChange = (
     key: keyof CatalogFilterParams,
     value: string | number | FilterAutoCompleteValue[]
@@ -86,11 +104,6 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
   ) => {
     setEserviceFiltersState((prev) => ({ ...prev, [key]: value }))
     setEserviceActiveFilterState((prev) => ({ ...prev, [key]: value }))
-
-    setSearchParams({
-      ...searchParams,
-      [key]: value.toString(),
-    })
   }
 
   const handleRemoveActiveFilterValue = (
@@ -140,7 +153,7 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
     const filterStateParams = Object.entries(filterState).reduce(
       (acc, [key, value]) => {
         if (Array.isArray(value) && value.length > 0) {
-          acc[key] = value.map((v) => v.value).toString()
+          acc[key] = JSON.stringify(value.map((v) => [v.label, v.value]))
         } else if (value === '') {
           delete acc[key]
         } else if (!Array.isArray(value) && value !== '' && value !== undefined) {

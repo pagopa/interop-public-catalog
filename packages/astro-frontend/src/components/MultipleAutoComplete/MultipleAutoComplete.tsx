@@ -2,7 +2,6 @@ import Autocomplete from '@mui/material/Autocomplete'
 import { FormGroup, Icon, Input } from 'design-react-kit'
 import './MultiSelectChips.css'
 import React from 'react'
-import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 
@@ -62,7 +61,9 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
           value={values || []}
           onChange={handleChange}
           options={options}
-          isOptionEqualToValue={(option, { value }) => option.value === value}
+          isOptionEqualToValue={(option, { value }) => {
+            return option.value === value
+          }}
           renderOption={(props, option, { selected }) => {
             const { key, ...optionProps } = props
 

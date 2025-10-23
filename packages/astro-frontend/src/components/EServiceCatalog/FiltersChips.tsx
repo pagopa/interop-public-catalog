@@ -36,7 +36,8 @@ export const FiltersChips: React.FC<FiltersChipsProps> = ({
   const currentLanguage = getLangFromUrl(window.location.pathname)
   const t = useCatalogTranslations(currentLanguage)
 
-  if (Object.keys(filters).length === 0) return null
+  // Todo to improve this condition
+  if (filters.consumer.length <= 0 && filters.provider.length <= 0 && filters.q === '') return null
 
   return (
     <>

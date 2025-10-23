@@ -4,7 +4,7 @@ export type CatalogFilterParams = {
   q: string
   offset: number
   limit: number
-  orderBy: 'recent_asc' | 'recent_desc' | 'name_asc' | 'name_desc'
+  orderBy: 'RECENT_ASC' | 'RECENT_DESC' | 'NAME_ASC' | 'NAME_DESC'
   provider: FilterAutoCompleteValue[]
   consumer: FilterAutoCompleteValue[]
 }
