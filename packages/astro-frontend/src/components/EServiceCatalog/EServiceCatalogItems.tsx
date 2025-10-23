@@ -15,18 +15,19 @@ import { chunkEServiceArray } from '../../utils/utils.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { EService } from '../../../../models/src/types/eservice.js'
 import Pagination from '../shared/Pagination/Pagination.jsx'
-import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
+import { EServiceNoItems } from './EServiceNoItems.jsx'
 
 type EServiceCatalogItemsProps = {
   eservices: EService[]
+  totalCount: number
 }
 
 type OrderKey = 'RECENT_ASC' | 'RECENT_DESC' | 'NAME_ASC' | 'NAME_DESC'
 
-const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices }) => {
-  // if (!eservices) return <div>Non ci sono E-Service da mostrare</div>
+const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, totalCount }) => {
+  if (eservices.length <= 0) return <EServiceNoItems />
 
   const { eserviceActiveFilterState, handleActiveFilterValueChange } = useEServiceCatalogContext()
   const { orderBy: order } = eserviceActiveFilterState
@@ -97,16 +98,18 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices }
               <EServiceCard
                 currentLocale={getLangFromUrl(window.location.pathname)}
                 name={eservice.name}
-                producerName="Test"
+                producerName={eservice.tenant_name}
                 description={eservice.description}
               />
             </Col>
           ))}
         </Row>
       ))}
-      <Row className="mt-4">
-        <Pagination totalCount={1200} limit={10} />
-      </Row>
+      {totalCount > 0 && (
+        <Row className="mt-4">
+          <Pagination totalCount={totalCount} limit={10} />
+        </Row>
+      )}
     </Container>
   )
 }

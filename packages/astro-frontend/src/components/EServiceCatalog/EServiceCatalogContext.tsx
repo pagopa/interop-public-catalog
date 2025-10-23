@@ -51,7 +51,7 @@ const useEServiceCatalogContext = () => React.useContext(EServiceCatalogContext)
 const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderProps> = ({
   children,
 }) => {
-  const [searchParams, setSearchParams, replaceSetParams] = useSearchParams(
+  const [searchParams, _setSearchParams, replaceSetParams] = useSearchParams(
     z.object({
       q: z.string().optional(),
       limit: z.string().optional(),
