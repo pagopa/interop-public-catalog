@@ -58,7 +58,7 @@ const t = useUiTranslations(currentLocale)
   import { getLangFromUrl } from '../../i18n/utils.i18n'
   import { useUiTranslations } from '../../i18n/ui.i18n'
 
-  const currentLocale = getLangFromUrl(Astro.url.pathname)
+  const currentLocale = getLangFromUrl(window.location.pathname)
   const t = useUiTranslations(currentLocale)
 
   const form = document.getElementById('ratingForm') as HTMLFormElement | null
@@ -67,13 +67,10 @@ const t = useUiTranslations(currentLocale)
     form.addEventListener('submit', (e) => {
       e.preventDefault()
 
-      const selectedRadio = form.querySelector(
-        'input[name="inlineRadioOption"]:checked'
-      ) as HTMLInputElement | null
+      const formData = new FormData(e!.target as HTMLFormElement)
+      const selectedValue = formData.get('inlineRadioOption')
 
-      if (selectedRadio) {
-        const selectedValue = selectedRadio.value
-
+      if (selectedValue) {
         const subject = t('rating.email_subject')
         const body =
           selectedValue === 'Yes'
