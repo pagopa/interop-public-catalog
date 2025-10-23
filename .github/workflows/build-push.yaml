@@ -51,7 +51,7 @@ jobs:
       - name: Normalize package name
         id: normalize_package_name
         run: |
-          PACKAGE_NAME=$(echo "${{ matrix.package }}" | sed 's/^public-catalog//')
+          PACKAGE_NAME=$(echo "${{ matrix.package }}" | sed 's/^public-catalog-//')
           echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
 
       - name: Configure AWS Credentials
@@ -132,7 +132,7 @@ jobs:
       - name: Normalize package name
         id: normalize_package_name
         run: |
-          PACKAGE_NAME=$(echo "${{ matrix.package }}" | sed 's/^public-catalog//')
+          PACKAGE_NAME=$(echo "${{ matrix.package }}" | sed 's/^public-catalog-//')
           echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
 
       - name: Configure AWS Credentials
