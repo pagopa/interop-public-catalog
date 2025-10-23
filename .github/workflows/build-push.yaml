@@ -48,6 +48,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
 
+      - name: Normalize package name
+        id: normalize_package_name
+        run: |
+          PACKAGE_NAME=$(echo "${{ matrix.package }}" | sed 's/^public-catalog//')
+          echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
         with:
@@ -72,7 +78,7 @@ jobs:
         if: ${{ github.ref_type == 'branch' }}
         uses: docker/metadata-action@c1e51972afc2121e065aed6d45c65596fe445f3f
         with:
-          images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ matrix.package }}
+          images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ env.PACKAGE_NAME }}
           flavor: |
             latest=false
             prefix=
@@ -85,7 +91,7 @@ jobs:
         if: ${{ github.ref_type == 'tag' }}
         uses: docker/metadata-action@c1e51972afc2121e065aed6d45c65596fe445f3f
         with:
-          images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ matrix.package }}
+          images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ env.PACKAGE_NAME }}
           flavor: |
             latest=false
             prefix=
@@ -123,6 +129,12 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
 
+      - name: Normalize package name
+        id: normalize_package_name
+        run: |
+          PACKAGE_NAME=$(echo "${{ matrix.package }}" | sed 's/^public-catalog//')
+          echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
+
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
         with:
@@ -139,7 +151,7 @@ jobs:
         if: ${{ github.ref_type == 'tag' }}
         uses: docker/metadata-action@c1e51972afc2121e065aed6d45c65596fe445f3f
         with:
-          images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ matrix.package }}
+          images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ env.PACKAGE_NAME }}
           flavor: |
             latest=false
             prefix=
