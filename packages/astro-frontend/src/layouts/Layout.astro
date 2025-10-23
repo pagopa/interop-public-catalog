@@ -38,8 +38,8 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
 <script>
   import { setupTracking } from '../utils/tracking.utils'
   import { Popover, Dropdown, Accordion } from 'bootstrap-italia'
-  import { getClientEnvConfig } from '../config/config'
   import { getLangFromUrl } from '../i18n/utils.i18n'
+  import { ONETRUST_DOMAIN_SCRIPT_ID, MIXPANEL_PROJECT_ID } from '../config/constants'
 
   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
   popoverTriggerList.map(function (popoverTriggerEl) {
@@ -59,12 +59,10 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
   })
 
   if (import.meta.env.PROD) {
-    const { mixpanelProjectId, onetrustDomainScriptId } = getClientEnvConfig()
-
     setupTracking({
       currentLocale: getLangFromUrl(window.location.pathname),
-      oneTrustDomainScriptId: onetrustDomainScriptId,
-      mixpanelProjectId: mixpanelProjectId,
+      oneTrustDomainScriptId: ONETRUST_DOMAIN_SCRIPT_ID,
+      mixpanelProjectId: MIXPANEL_PROJECT_ID,
     })
   }
 </script>
