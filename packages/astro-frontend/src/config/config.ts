@@ -16,4 +16,8 @@ const ClientEnvConfig = z
     mixpanelProjectId: c.PUBLIC_MIXPANEL_PROJECT_ID,
   }))
 
-export const clientEnvConfig = ClientEnvConfig.parse(process.env)
+export const clientEnvConfig = import.meta.env.DEV
+  ? ClientEnvConfig.parse(import.meta.env)
+  : ClientEnvConfig.parse(process.env)
+
+export type ClientEnvConfig = z.infer<typeof ClientEnvConfig>
