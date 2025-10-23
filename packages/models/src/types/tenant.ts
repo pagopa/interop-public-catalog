@@ -37,14 +37,12 @@ export type TenantUnitType = z.infer<typeof TenantUnitType>;
 export const Tenant = z.object({
   id: TenantId,
   kind: TenantKind.optional(),
-  external_id_origin: z.string(),
-  external_id_value: ExternalId,
-  created_at: z.coerce.date(),
-  updated_at: z.coerce.date().optional(),
+  externalId: ExternalId,
+  createdAt: z.coerce.date(),
+  updatedAt: z.coerce.date().optional(),
   name: z.string(),
-  onboarded_at: z.coerce.date().optional(),
-  sub_unit_type: TenantUnitType.optional(),
-  metadata_version: z.number().int(),
+  onboardedAt: z.coerce.date().optional(),
+  subUnitType: TenantUnitType.optional(),
 });
 
 export type Tenant = z.infer<typeof Tenant>;

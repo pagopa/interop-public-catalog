@@ -35,11 +35,64 @@ export async function searchCatalog(
   query: EServiceQuery
 ): Promise<EServiceSearchResult> {
   const parsedQuery = EServiceQuery.parse(query)
-  const { limit, offset, q, producerIds } = parsedQuery
+  const { limit, offset, q, producerIds, category } = parsedQuery
 
+  const baseSelect = (eservice: string, tenant: string) => sql`
+  SELECT
+      ${sql.identifier(eservice)}.id,
+      ${sql.identifier(tenant)}.id AS producer_id,
+      ${sql.identifier(eservice)}.name,
+      ${sql.identifier(eservice)}.description,
+      ${sql.identifier(eservice)}.technology,
+      ${sql.identifier(eservice)}.mode,
+      ${sql.identifier(eservice)}.created_at::text AS created_at,
+      ${sql.identifier(eservice)}.is_signal_hub_enabled,
+      ${sql.identifier(eservice)}.is_consumer_delegable,
+      ${sql.identifier(eservice)}.is_client_access_delegable,
+      ${sql.identifier(eservice)}.template_id,
+      ${sql.identifier(tenant)}.name AS tenant_name,
+      to_jsonb(d_full) AS active_descriptor,
+      count(*) over() AS total
+  `
+
+  const activeDescriptorPopulator = (eservice: string) => sql`
+  JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = ${sql.identifier(eservice)}.producer_id
+  -- pick the latest PUBLISHED descriptor id
+  JOIN LATERAL (
+    SELECT d.id
+    FROM ${sql.identifier(config.catalogSchema)}.eservice_descriptor d
+    WHERE d.eservice_id = ${sql.identifier(eservice)}.id
+      AND d.state = 'Published'
+    ORDER BY d.version::int DESC
+    LIMIT 1
+  ) AS chosen ON TRUE
+  -- build full descriptor w/ attributes
+  JOIN LATERAL (
+    SELECT
+      d.*,
+      jsonb_build_object(
+        'verified', jsonb_agg(a.*) FILTER (WHERE a.kind = 'Verified'),
+        'declared', jsonb_agg(a.*) FILTER (WHERE a.kind = 'Declared'),
+        'certified', jsonb_agg(a.*) FILTER (WHERE a.kind = 'Certified')
+      ) AS attributes
+    FROM ${sql.identifier(config.catalogSchema)}.eservice_descriptor d
+    JOIN ${sql.identifier(config.catalogSchema)}.eservice_descriptor_attribute da
+      ON da.descriptor_id = d.id
+    JOIN ${sql.identifier(config.attributeSchema)}.attribute a
+      ON a.id = da.attribute_id
+    WHERE d.id = chosen.id
+    GROUP BY d.id
+  ) d_full ON TRUE
+  `
+
+  const activeDescriptorPopulatorGroupBy = (eservice: string, tenant: string) =>
+    sql`GROUP BY ${sql.identifier(eservice)}.id, ${sql.identifier(tenant)}.name, ${sql.identifier(tenant)}.id, d_full`
+
+  // Build WHERE condition
   const conds = [sql`true`]
 
-  if (producerIds && producerIds.length > 0) {
+  if (category && category.length > 0) {
+  } else if (producerIds && producerIds.length > 0) {
     conds.push(
       sql`
       t.id IN (${sql.join(
@@ -49,20 +102,29 @@ export async function searchCatalog(
     )
   }
 
+  const attributeSearchTx: Transaction<EService> = async (tx) => {
+    const pageRes = await tx.execute(sql`
+    ${baseSelect('e', 't')}
+    FROM ${sql.identifier(config.catalogSchema)}.eservice e
+    ${activeDescriptorPopulator('e')}
+    ${activeDescriptorPopulatorGroupBy('e', 't')}
+    ORDER BY e.created_at DESC
+    LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
+    `)
+
+    const items = pageRes.rows as EService[]
+    const total = (pageRes?.rows[0]?.total as number) || 0
+
+    return { items, total }
+  }
+
   const textlessSearchTx: Transaction<EService> = async (tx) => {
     const pageRes = await tx.execute(sql`
-    SELECT
-      e.id,
-      e.name,
-      e.description,
-      e.technology,
-      e.mode,
-      e.created_at::text AS created_at,
-      t.name AS tenant_name,
-      count(*) over() AS total
+    ${baseSelect('e', 't')}
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
-    JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = e.producer_id
+    ${activeDescriptorPopulator('e')}
     WHERE ${sql.join(conds, sql` AND `)}
+    ${activeDescriptorPopulatorGroupBy('e', 't')}
     ORDER BY e.created_at DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
@@ -111,10 +173,8 @@ export async function searchCatalog(
       WHERE NOT EXISTS (SELECT 1 FROM fts_ids)
     ),
     scored AS (
-      SELECT
-        e.id, e.name, e.description, e.technology, e.mode,
-        e.created_at::text AS created_at,
-        t.name AS tenant_name,
+      ${baseSelect('e', 't')},
+        e.*,
         -- gives priority to tenant name matches when ordering
         -- based on coverage + density (ts_rank_cd)
         COALESCE(ts_rank_cd((t.search_vector || setweight(e.search_vector,'B')), p.tsq), 0)::real AS fts_rank,
@@ -125,14 +185,13 @@ export async function searchCatalog(
         )::real AS fuzzy_sim
       FROM picked x
       JOIN ${sql.identifier(config.catalogSchema)}.eservice e ON e.id = x.id
-      JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = e.producer_id
+      ${activeDescriptorPopulator('e')}
       CROSS JOIN params p
       WHERE ${sql.join(conds, sql` AND `)}
+      ${activeDescriptorPopulatorGroupBy('e', 't')}, p.tsq, p.nq
     )
-    SELECT 
-      s.*,
-      (s.fts_rank + 0.5 * s.fuzzy_sim)::real AS score,
-      count(*) over() AS total
+    SELECT s.*,
+      (s.fts_rank + 0.5 * s.fuzzy_sim)::real AS score
     FROM scored s
     ORDER BY score DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
@@ -144,8 +203,16 @@ export async function searchCatalog(
     return { items, total }
   }
 
+  let transactionToExecute
+  if (category && category.length > 0) {
+    transactionToExecute = attributeSearchTx
+  } else if (q?.trim()) {
+    transactionToExecute = textSearchTx
+  } else {
+    transactionToExecute = textlessSearchTx
+  }
   const { items, total } = await db.transaction(
-    q?.trim() ? textSearchTx : textlessSearchTx,
+    transactionToExecute,
     { isolationLevel: 'repeatable read' } // prevents mismatch between reads
   )
 

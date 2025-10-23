@@ -7,11 +7,15 @@ export const GET: APIRoute = async ({ url }) => {
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean)
+  const category = (url.searchParams.get('category') ?? '')
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
   const limit = Number(url.searchParams.get('limit') ?? 10)
   const offset = Number(url.searchParams.get('offset') ?? 0)
 
   try {
-    const data = await sqlService.searchCatalog({ q, limit, offset, producerIds })
+    const data = await sqlService.searchCatalog({ q, limit, offset, producerIds, category })
     return new Response(JSON.stringify(data), {
       headers: { 'Content-Type': 'application/json' },
     })
