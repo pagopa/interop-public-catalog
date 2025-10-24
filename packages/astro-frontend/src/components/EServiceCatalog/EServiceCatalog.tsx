@@ -24,7 +24,13 @@ export const EServiceCatalog: React.FC<EServiceCatalogProps> = ({
   }
 
   const fetchEservices = async () => {
-    const eserviceResponse = await getEServices(eserviceActiveFilterState)
+    const eserviceResponse = await getEServices({
+      offset: eserviceActiveFilterState.offset,
+      orderBy: eserviceActiveFilterState.orderBy,
+      q: eserviceActiveFilterState.q,
+      producerIds: eserviceActiveFilterState.provider.map((p) => p.value).join(','),
+      consumerIds: eserviceActiveFilterState.consumer.map((c) => c.value).join(','),
+    })
 
     setEservices(eserviceResponse.items)
     setTotalCount(eserviceResponse.total)

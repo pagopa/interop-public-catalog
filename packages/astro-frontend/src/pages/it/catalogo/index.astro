@@ -13,9 +13,9 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useCatalogTranslations(currentLocale)
 
 const eservicesList = await sqlService.searchCatalog({
-  q: '',
   limit: 12,
   offset: 0,
+  producerIds: [],
 })
 ---
 

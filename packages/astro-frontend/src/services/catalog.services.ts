@@ -1,8 +1,10 @@
-import { EServiceSearchResult } from 'pagopa-interop-public-models'
+import { EServiceSearchResult, TenantSearchResult } from 'pagopa-interop-public-models'
 import type { CatalogQueryParams } from '../components/EServiceCatalog/types'
 
 export const getEServices = async (filter: CatalogQueryParams) => {
   const catalogUrl = new URL('/api/catalog', window.location.origin)
+
+  console.log('API: ', filter)
 
   catalogUrl.searchParams.set('q', filter.q)
   catalogUrl.searchParams.set('offset', filter.offset.toString())
@@ -12,6 +14,8 @@ export const getEServices = async (filter: CatalogQueryParams) => {
   filter.orderBy && catalogUrl.searchParams.set('orderBy', filter.orderBy)
 
   const response = await fetch(catalogUrl)
+
+  console.log('searchParams:', catalogUrl.searchParams.get('producerIds'))
   const eserviceResponse: EServiceSearchResult = await response.json()
 
   return eserviceResponse
@@ -19,14 +23,14 @@ export const getEServices = async (filter: CatalogQueryParams) => {
 
 export const getProducer = async (inputText: string) => {
   // Replace with tenant logic
-  const catalogUrl = new URL('/api/catalog', window.location.origin)
+  const catalogUrl = new URL('/api/tenants', window.location.origin)
   catalogUrl.searchParams.set('q', inputText)
 
   const response = await fetch(catalogUrl)
-  const eservices = await response.json()
+  const producer: TenantSearchResult = await response.json()
 
-  return eservices.items.map((it: { id: string; name: string }) => ({
-    value: it.id,
+  return producer.items.map((it) => ({
+    value: it.producer_id,
     label: it.name,
   }))
 }
