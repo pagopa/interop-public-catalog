@@ -9,15 +9,254 @@ import { getLangFromUrl } from '../../../i18n/utils.i18n'
 import { useGoodPracticesTranslations } from '../../../i18n/good-practices.i18n'
 import { useUiTranslations } from '../../../i18n/ui.i18n'
 import GoodPracticeDetails from '../../../components/GoodPracticeDetails/GoodPracticeDetails.astro'
+import type { GoodPracticeStrapiResponse } from '../../../types/good-practice.types'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tGoodPractices = useGoodPracticesTranslations(currentLocale)
 const tUi = useUiTranslations(currentLocale)
+
+const strapiResponse: GoodPracticeStrapiResponse = {
+  data: {
+    id: 12,
+    documentId: 'zflr58yvojfzixgi4ob4jxfq',
+    title: 'Erogare bonus ai cittadini in modo equo ed efficiente',
+    slug: 'bonus-cittadini',
+    publishedDate: '2025-10-17',
+    createdAt: '2025-10-16T08:10:56.095Z',
+    updatedAt: '2025-10-17T12:40:30.370Z',
+    publishedAt: '2025-10-17T12:40:30.381Z',
+    locale: 'en',
+    isFeaturedInHomepage: true,
+    tenantMacrocategory: {
+      id: 10,
+      label: 'Comuni',
+    },
+    category: 'ddd',
+    subtheme: 'ccc',
+    body: [
+      {
+        __component: 'shared.media',
+        id: 19,
+        caption: 'black hole',
+        image: {
+          id: 9,
+          documentId: 'xzdko1cg6j66un763ziw4jrk',
+          name: 'what-s-inside-a-black-hole',
+          alternativeText: 'An image uploaded to Strapi called what-s-inside-a-black-hole',
+          caption: 'what-s-inside-a-black-hole',
+          width: 800,
+          height: 466,
+          formats: {
+            thumbnail: {
+              name: 'thumbnail_what-s-inside-a-black-hole',
+              hash: 'thumbnail_what_s_inside_a_black_hole_b1560bb7f4',
+              ext: '.jpeg',
+              mime: 'image/jpeg',
+              path: null,
+              width: 245,
+              height: 143,
+              size: 1.56,
+              sizeInBytes: 1556,
+              url: '/uploads/thumbnail_what_s_inside_a_black_hole_b1560bb7f4.jpeg',
+            },
+            small: {
+              name: 'small_what-s-inside-a-black-hole',
+              hash: 'small_what_s_inside_a_black_hole_b1560bb7f4',
+              ext: '.jpeg',
+              mime: 'image/jpeg',
+              path: null,
+              width: 500,
+              height: 291,
+              size: 3.87,
+              sizeInBytes: 3867,
+              url: '/uploads/small_what_s_inside_a_black_hole_b1560bb7f4.jpeg',
+            },
+            medium: {
+              name: 'medium_what-s-inside-a-black-hole',
+              hash: 'medium_what_s_inside_a_black_hole_b1560bb7f4',
+              ext: '.jpeg',
+              mime: 'image/jpeg',
+              path: null,
+              width: 750,
+              height: 437,
+              size: 6.92,
+              sizeInBytes: 6923,
+              url: '/uploads/medium_what_s_inside_a_black_hole_b1560bb7f4.jpeg',
+            },
+          },
+          hash: 'what_s_inside_a_black_hole_b1560bb7f4',
+          ext: '.jpeg',
+          mime: 'image/jpeg',
+          size: 7.5,
+          url: '/uploads/what_s_inside_a_black_hole_b1560bb7f4.jpeg',
+          previewUrl: null,
+          provider: 'local',
+          provider_metadata: null,
+          createdAt: '2025-10-14T14:20:42.069Z',
+          updatedAt: '2025-10-17T12:40:17.717Z',
+          publishedAt: '2025-10-14T14:20:42.069Z',
+        },
+      },
+      {
+        __component: 'shared.section-title',
+        id: 27,
+        sectionTitle: 'Cosa cambia con la PDND',
+        slug: 'cosa-cambia',
+      },
+      {
+        __component: 'shared.rich-text',
+        id: 42,
+        text: "In passato, i cittadini dovevano raccogliere e presentare certificati o autodichiarazioni per dimostrare il possesso di determinati requisiti (es. ISEE, stato di famiglia). Gli enti li controllavano successivamente con istruttorie manuali, allungando i tempi e aumentando il rischio di errori. \nOggi l'ente può accedere direttamente alle banche dati ufficiali esposte sulla PDND per la verifica di requisiti, semplificando notevolmente la procedura, riducendo i tempi per l'erogazione e i possibili errori.",
+      },
+      {
+        __component: 'shared.section-title',
+        id: 28,
+        sectionTitle: 'Vantaggi per la Pubblica Amministrazione',
+        slug: 'vantaggi-pa',
+      },
+      {
+        __component: 'shared.rich-text',
+        id: 43,
+        text: "In passato, i cittadini dovevano raccogliere e presentare certificati o autodichiarazioni per dimostrare il possesso di determinati requisiti (es. ISEE, stato di famiglia). Gli enti li controllavano successivamente con istruttorie manuali, allungando i tempi e aumentando il rischio di errori. \nOggi l'ente può accedere direttamente alle banche dati ufficiali esposte sulla PDND per la verifica di requisiti, semplificando notevolmente la procedura, riducendo i tempi per l'erogazione e i possibili errori.",
+      },
+      {
+        __component: 'shared.section-title',
+        id: 29,
+        sectionTitle: 'Vantaggi per le persone',
+        slug: 'vantaggi-persone',
+      },
+      {
+        __component: 'shared.rich-text',
+        id: 44,
+        text: "In passato, i cittadini dovevano raccogliere e presentare certificati o autodichiarazioni per dimostrare il possesso di determinati requisiti (es. ISEE, stato di famiglia). Gli enti li controllavano successivamente con istruttorie manuali, allungando i tempi e aumentando il rischio di errori. \nOggi l'ente può accedere direttamente alle banche dati ufficiali esposte sulla PDND per la verifica di requisiti, semplificando notevolmente la procedura, riducendo i tempi per l'erogazione e i possibili errori.",
+      },
+      {
+        __component: 'shared.esempio-concreto',
+        id: 8,
+        example: [
+          {
+            type: 'paragraph',
+            children: [
+              {
+                type: 'text',
+                text: 'In passato, i cittadini dovevano raccogliere e presentare certificati o autodichiarazioni per dimostrare il possesso di determinati requisiti (es. ISEE, stato di famiglia). Gli enti li controllavano successivamente con istruttorie manuali, allungando i tempi e aumentando il rischio di errori. ',
+              },
+            ],
+          },
+          {
+            type: 'paragraph',
+            children: [
+              {
+                type: 'text',
+                text: "Oggi l'ente può accedere direttamente alle banche dati ufficiali esposte sulla PDND per la verifica di requisiti, semplificando notevolmente la procedura, riducendo i tempi per l'erogazione e i possibili errori.",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        __component: 'shared.note-tecniche',
+        id: 9,
+        title: 'Note tecniche',
+        content: [
+          {
+            type: 'paragraph',
+            children: [
+              {
+                type: 'text',
+                text: "L'e-service di consultazione dell'attestazione o dell'indicatore ISEE viene erogato in 3 varianti pensate per target e utilizzi diversi:",
+              },
+            ],
+          },
+          {
+            type: 'list',
+            format: 'unordered',
+            children: [
+              {
+                type: 'listItem',
+                children: [
+                  {
+                    type: 'paragraph',
+                    children: [
+                      {
+                        type: 'link',
+                        url: '#',
+                        children: [
+                          {
+                            type: 'text',
+                            text: 'Consultazione Attestazione/Indicatore ISEE',
+                          },
+                        ],
+                      },
+                      {
+                        type: 'text',
+                        text: ': è consentita la consultazione di tutti i cittadini ed è richiesto lo scambio di certificati digitali tra enti, al fine di abilitare meccanismi di autenticazione reciproca. (Indicata per grandi comuni e PA centrali)',
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: 'listItem',
+                children: [
+                  {
+                    type: 'paragraph',
+                    children: [
+                      {
+                        type: 'link',
+                        url: '#',
+                        children: [
+                          {
+                            type: 'text',
+                            text: 'Consultazione Attestazione/Indicatore ISEE Operatori',
+                          },
+                        ],
+                      },
+                      {
+                        type: 'text',
+                        text: ": è consentita la consultazione di tutti i cittadini ed è richiesto l'invio ad INPS dei dati relativi all'operatore che effettua l'operazione e che si è autenticato tramite SPID o CIE (Indicata per i piccoli comuni)",
+                      },
+                    ],
+                  },
+                ],
+              },
+              {
+                type: 'listItem',
+                children: [
+                  {
+                    type: 'paragraph',
+                    children: [
+                      {
+                        type: 'link',
+                        url: '#',
+                        children: [
+                          {
+                            type: 'text',
+                            text: 'Consultazione Attestazione/Indicatore Residenti ISEE',
+                          },
+                        ],
+                      },
+                      {
+                        type: 'text',
+                        text: ": è consentita ai comuni la sola consultazione dei cittadini residenti all'interno del proprio territorio (Solo per i comuni)",
+                      },
+                    ],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  meta: {},
+}
 ---
 
 <Layout>
   <PageHero
-    title={tGoodPractices('details.hero.title')}
+    title={strapiResponse.data.title}
     breadcrumbItems={[
       {
         routeKey: 'HOME',
@@ -43,33 +282,34 @@ const tUi = useUiTranslations(currentLocale)
 
     <div slot="bottom-hero">
       <p>
-        <strong>{tUi('label.for')}:</strong> PAC, Comuni, Regioni
+        <strong>{tUi('label.for')}:</strong>
+        {strapiResponse.data.tenantMacrocategory.label}
       </p>
     </div>
-
-    <Section style={{ backgroundColor: '#fafafa' }}>
-      <GoodPracticeDetails />
-    </Section>
-
-    <Section
-      style={{ backgroundColor: '#f5f5f5' }}
-      title={tGoodPractices('details.moreExamples')}
-      titleClass="text-center"
-    >
-      <div class="d-flex justify-content-center gap-4 mt-4">
-        <GoodPracticeCard
-          currentLocale={currentLocale}
-          title="Erogare i bonus ai cittadini in modo equo ed efficiente"
-          intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
-          category="Bonus Economici"
-        />
-        <GoodPracticeCard
-          currentLocale={currentLocale}
-          title="Iscrizione ai concorsi pubblici più snella"
-          intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
-          category="Bonus Economici"
-        />
-      </div>
-    </Section>
   </PageHero>
+
+  <Section style={{ backgroundColor: '#fafafa' }}>
+    <GoodPracticeDetails goodPracticeBody={strapiResponse.data.body} />
+  </Section>
+
+  <Section
+    style={{ backgroundColor: '#f5f5f5' }}
+    title={tGoodPractices('details.moreExamples')}
+    titleClass="text-center"
+  >
+    <div class="d-flex justify-content-center gap-4 mt-4">
+      <GoodPracticeCard
+        currentLocale={currentLocale}
+        title="Erogare i bonus ai cittadini in modo equo ed efficiente"
+        intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
+        category="Bonus Economici"
+      />
+      <GoodPracticeCard
+        currentLocale={currentLocale}
+        title="Iscrizione ai concorsi pubblici più snella"
+        intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
+        category="Bonus Economici"
+      />
+    </div>
+  </Section>
 </Layout>

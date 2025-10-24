@@ -1,0 +1,189 @@
+---
+import PageHero from '../../components/shared/PageHero.astro'
+import PageIndexNav from '../../components/shared/PageIndexNav.astro'
+import { Section } from '../../components/shared/Section'
+import Layout from '../../layouts/Layout.astro'
+import { match } from 'ts-pattern'
+import { renderRichTextStrapiNodes, type StrapiNode } from '../../utils/rich-text-strapi-renderer'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { useUiTranslations } from '../../i18n/ui.i18n'
+import { BootstrapItaliaIcon } from '../../components/shared/BootstrapItaliaIcon'
+
+const data = {
+  data: [
+    {
+      id: 2,
+      documentId: 'px26c1zbp6dw01w8mr67xn43',
+      title: 'Riferimenti normativi',
+      description:
+        "La Piattaforma Digitale Nazionale Dati (PDND) si basa su un solido impianto normativo, volto a garantire l'interoperabilità tra le pubbliche amministrazioni nel rispetto dei principi di trasparenza, protezione dei dati personali, semplificazione e digitalizzazione dei servizi pubblici.",
+      createdAt: '2025-10-20T12:21:22.117Z',
+      updatedAt: '2025-10-20T12:21:22.117Z',
+      publishedAt: '2025-10-20T12:21:22.127Z',
+      locale: 'it',
+      publishedDate: '2025-10-29',
+      body: [
+        {
+          __component: 'shared.section-title',
+          id: 33,
+          sectionTitle: 'Principali riferimenti normativi',
+          slug: 'principali-riferimenti',
+        },
+        {
+          __component: 'shared.body',
+          id: 4,
+          text: [
+            {
+              type: 'heading',
+              children: [
+                {
+                  type: 'text',
+                  text: "Codice dell'Amministrazione Digitale (CAD) - Decreto Legislativo 7 marzo 2005, n. 82",
+                },
+              ],
+              level: 6,
+            },
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: "Riconosce il diritto dei cittadini a interagire digitalmente con la PA e stabilisce il principio di interoperabilità come cardine dell'azione amministrativa.",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          __component: 'shared.url',
+          id: 2,
+          externalLink:
+            'https://www.agid.gov.it/it/agenzia/strategia-quadro-normativo/codice-amministrazione-digitale',
+        },
+        {
+          __component: 'shared.section-title',
+          id: 34,
+          sectionTitle: 'Altro titolo',
+          slug: 'altro-titolo',
+        },
+        {
+          __component: 'shared.body',
+          id: 5,
+          text: [
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempus mauris ut tellus mollis sodales. Nunc ultricies tortor non neque maximus, quis interdum ante maximus. Donec vel aliquam nisi, nec lobortis arcu. Proin varius, risus at posuere molestie, orci ligula accumsan odio, non tempor lorem magna ac tortor. Ut massa felis, scelerisque vel dictum eget, posuere et lorem. Vestibulum pellentesque dui metus, ac ultrices augue semper sit amet. Proin scelerisque sollicitudin sem eget efficitur.',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          __component: 'shared.section-title',
+          id: 35,
+          sectionTitle: 'asdasdas',
+          slug: 'asdasd',
+        },
+        {
+          __component: 'shared.body',
+          id: 6,
+          text: [
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean tempus mauris ut tellus mollis sodales. Nunc ultricies tortor non neque maximus, quis interdum ante maximus. Donec vel aliquam nisi, nec lobortis arcu. Proin varius, risus at posuere molestie, orci ligula accumsan odio, non tempor lorem magna ac tortor. Ut massa felis, scelerisque vel dictum eget, posuere et lorem. Vestibulum pellentesque dui metus, ac ultrices augue semper sit amet. Proin scelerisque sollicitudin sem eget efficitur.',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      localizations: [],
+    },
+  ],
+  meta: {
+    pagination: {
+      page: 1,
+      pageSize: 25,
+      pageCount: 1,
+      total: 1,
+    },
+  },
+}
+
+const body = data.data[0].body
+
+const sectionTitles = body
+  .filter((s) => s.__component === 'shared.section-title' && s.sectionTitle && s.slug)
+  .map((s) => ({ label: s.sectionTitle!, id: s.slug! }))
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const tUi = useUiTranslations(currentLocale)
+---
+
+<Layout>
+  <PageHero
+    breadcrumbItems={[
+      {
+        routeKey: 'HOME',
+      },
+      {
+        routeKey: 'LEGISLATION',
+        current: true,
+      },
+    ]}
+    title={data.data[0].title}
+    description={data.data[0].description}
+  />
+
+  <Section style={{ backgroundColor: '#f5f5f5' }}>
+    <div class="row">
+      <div class="d-none d-md-block col-3">
+        <PageIndexNav
+          title="Indice della pagina"
+          headings={sectionTitles}
+          style="top: 1rem;"
+          class="position-sticky"
+        />
+      </div>
+
+      <div class="col-12 col-md-9">
+        {
+          body.map((s) =>
+            match(s)
+              .with({ __component: 'shared.section-title' }, () => (
+                <h2 class="h3" id={s.slug}>
+                  {s.sectionTitle}
+                </h2>
+              ))
+              .with({ __component: 'shared.body' }, (c) => (
+                <Fragment set:html={renderRichTextStrapiNodes(c.text as StrapiNode[])} />
+              ))
+              .with({ __component: 'shared.url' }, (c) => (
+                <a
+                  href={c.externalLink}
+                  target="_blank"
+                  class="it-card-link text-primary text-uppercase fw-semibold"
+                >
+                  {tUi('eservice_card.read_more')}
+                  <BootstrapItaliaIcon
+                    aria-hidden="true"
+                    name="it-arrow-right"
+                    size="sm"
+                    color="primary"
+                    padded
+                  />
+                </a>
+              ))
+              .otherwise(() => '')
+          )
+        }
+      </div>
+    </div>
+  </Section>
+</Layout>

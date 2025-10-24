@@ -9,9 +9,9 @@ interface FaqObject {
   data: {
     id: number
     documentId: string
-    createdAt: string // Potrebbe essere Date se elaborato, ma string se appena ricevuto
-    updatedAt: string // Potrebbe essere Date se elaborato, ma string se appena ricevuto
-    publishedAt: string // Potrebbe essere Date se elaborato, ma string se appena ricevuto
+    createdAt: string
+    updatedAt: string
+    publishedAt: string
     locale: string
     title: string
     description: string
@@ -346,15 +346,17 @@ const faqsMocked: FaqObject = {
     breadcrumbItems={[{ routeKey: 'HOME' }, { routeKey: 'FAQ', current: true }]}
   />
 
-  {
-    faqsMocked.data.faqSection.map((faqSection) => (
-      <FAQListSection
-        sectionId={faqSection.id}
-        title={faqSection.sectionTitle}
-        faqs={faqSection.faqList}
-      />
-    ))
-  }
+  <div style={{ backgroundColor: '#fafafa' }} class="pb-5">
+    {
+      faqsMocked.data.faqSection.map((faqSection) => (
+        <FAQListSection
+          sectionId={faqSection.id}
+          title={faqSection.sectionTitle}
+          faqs={faqSection.faqList}
+        />
+      ))
+    }
+  </div>
 
   <RatingSection />
 </Layout>

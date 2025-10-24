@@ -13,7 +13,7 @@ const breadcrumbLabels = {
     'breadcrumb_label.GOOD_PRACTICES_DETAILS': 'Dettaglio esempi pratici',
     'breadcrumb_label.LEGISLATION': 'Normativa',
     'breadcrumb_label.PRIVACY_POLICY': 'Privacy policy',
-    'breadcrumb_label.NOT_FOUND': 'Non trovato',
+    'breadcrumb_label.LEGAL_NOTES': 'Note legali',
   },
   en: {
     'breadcrumb_label.HOME': 'Home',
@@ -25,7 +25,7 @@ const breadcrumbLabels = {
     'breadcrumb_label.GOOD_PRACTICES_DETAILS': 'Good practice details',
     'breadcrumb_label.LEGISLATION': 'Legislation',
     'breadcrumb_label.PRIVACY_POLICY': 'Privacy policy',
-    'breadcrumb_label.NOT_FOUND': 'Not found',
+    'breadcrumb_label.LEGAL_NOTES': 'Legal notes',
   },
 } as const satisfies { [K in SupportedLanguage]: Record<`breadcrumb_label.${RouteKey}`, string> }
 
@@ -71,6 +71,13 @@ export const ui = {
     'eservice_card.access_reserved': 'Accesso riservato',
     'eservice_card.read_more': 'leggi tutto',
 
+    'error.page_not_found.title': 'Pagina non trovata',
+    'error.page_not_found.message': 'Utilizza il menu per riprendere la navigazione',
+    'error.system_unavailable.title': 'Il sistema non è disponibile in questo momento',
+    'error.system_unavailable.message':
+      'Ci scusiamo per l’inconveniente. Ti invitiamo a riprovare più tardi.',
+    'error.back_to_home': 'Vai alla homepage',
+
     // Organization Types
     'organization_types.tutti_long': 'Tutti gli enti',
     'organization_types.pac_long': 'Pubbliche Amministrazioni Centrali',
@@ -88,13 +95,6 @@ export const ui = {
 
     ...breadcrumbLabels.it,
 
-    'chip.provider': 'Ente erogatore',
-    'chip.consumer': 'Ente fruitore',
-    'chip.q': 'Parola chiave',
-    'chip.remove_all': 'Rimuovi tutti i filtri',
-    'autocomplete.placeholder': "Scegli un'opzione",
-    'autocomplete.selectedElements': ' elementi selezionati',
-    'autocomplete.selectedElement': ' elemento selezionato',
     'pagination.previous': 'Precedente',
     'pagination.next': 'Successiva',
   },
@@ -138,6 +138,12 @@ export const ui = {
     'eservice_card.access_reserved': 'Reserved access',
     'eservice_card.read_more': 'Read more',
 
+    'error.page_not_found.title': 'Page not found',
+    'error.page_not_found.message': 'Use the menu to continue browsing.',
+    'error.system_unavailable.title': 'The system is not available right now',
+    'error.system_unavailable.message': 'Sorry for the inconvenience. Please try again later.',
+    'error.back_to_home': 'Back to homepage',
+
     // Organization Types
     'organization_types.tutti_long': 'All entities',
     'organization_types.pac_long': 'Central Public Administrations',
@@ -155,13 +161,6 @@ export const ui = {
 
     ...breadcrumbLabels.en,
 
-    'chip.provider': 'Provider',
-    'chip.consumer': 'Consumer',
-    'chip.q': 'Keyword',
-    'chip.remove_all': 'Remove all filters',
-    'autocomplete.placeholder': 'Choose an option',
-    'autocomplete.selectedElements': ' items selected',
-    'autocomplete.selectedElement': ' item selected',
     'pagination.previous': 'Previous',
     'pagination.next': 'Next',
   },
