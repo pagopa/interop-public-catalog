@@ -1,4 +1,6 @@
 ---
+import { getLangFromUrl, getLocalizedRoute } from '../../i18n/utils.i18n'
+import { useUiTranslations } from '../../i18n/ui.i18n'
 interface Props {
   error: {
     title: string
@@ -8,6 +10,9 @@ interface Props {
 }
 
 const { error } = Astro.props
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const tUi = useUiTranslations(currentLocale)
 ---
 
 <section class="section px-0 px-md-auto my-5">
@@ -24,7 +29,11 @@ const { error } = Astro.props
           />
           <h1 class="text-center text-primary mb-4">{error.title}</h1>
           <p class="text-center">{error.message}</p>
-          <a class="btn btn-primary mt-5" href="#" role="button">Vai alla homepage</a>
+          <a
+            class="btn btn-primary mt-5"
+            href={getLocalizedRoute(currentLocale, 'HOME')}
+            role="button">{tUi('error.back_to_home')}</a
+          >
         </div>
       </div>
     </div>

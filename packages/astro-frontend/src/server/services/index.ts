@@ -14,7 +14,12 @@ export const sqlService: ReturnType<typeof publicModelServiceBuilder> = publicMo
     database: sqlConfig.publicModelSQLDbName,
     schema: sqlConfig.publicModelSQLDbSchemaCatalog,
     useSSL: sqlConfig.publicModelSQLDbUseSSL,
-  })
+  }),
+  {
+    catalogSchema: sqlConfig.publicModelSQLDbSchemaCatalog,
+    tenantSchema: sqlConfig.publicModelSQLDbSchemaTenant,
+    attributeSchema: sqlConfig.publicModelSQLDbSchemaAttribute
+  }
 )
 
 const strapiConfig = StrapiApiConfig.parse(import.meta.env)
