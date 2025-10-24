@@ -1,10 +1,13 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type { defineConfig } from 'astro/config'
+
 type VitePlugin = NonNullable<
   NonNullable<Parameters<typeof defineConfig>[0]['vite']>['plugins']
 >[number]
+
 type RouteTranslations<Locale extends string> = Record<Locale, string | undefined>
+
 export type SitemapPluginOptions<Locale extends string> = {
   routes: Record<string, RouteTranslations<Locale>>
   locales: readonly Locale[]
@@ -13,12 +16,15 @@ export type SitemapPluginOptions<Locale extends string> = {
   outputFilename?: string
   logger?: Pick<Console, 'info' | 'warn' | 'error'>
 }
+
 const isDynamicPath = (routePath: string): boolean => /[:[\]*]/.test(routePath ?? '')
+
 const toAbsoluteUrl = (base: string, locale: string, routePath: string): string => {
   const normalizedPath = routePath.startsWith('/') ? routePath : `/${routePath}`
   const localizedPath = `/${locale}${normalizedPath}`.replace(/\/{2,}/g, '/')
   return new URL(localizedPath, base).toString()
 }
+
 const buildSitemapXml = <Locale extends string>({
   routes,
   locales,
