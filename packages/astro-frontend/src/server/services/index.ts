@@ -18,7 +18,7 @@ export const sqlService: ReturnType<typeof publicModelServiceBuilder> = publicMo
   {
     catalogSchema: sqlConfig.publicModelSQLDbSchemaCatalog,
     tenantSchema: sqlConfig.publicModelSQLDbSchemaTenant,
-    attributeSchema: sqlConfig.publicModelSQLDbSchemaAttribute
+    attributeSchema: sqlConfig.publicModelSQLDbSchemaAttribute,
   }
 )
 
