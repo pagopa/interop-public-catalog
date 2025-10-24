@@ -10,6 +10,7 @@ import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
 import type { CatalogFilterParams } from './types.js'
 import { useAutocompleteTextInput } from '../../hooks/useAutoCompleteTextInput.jsx'
+import { getConsumer, getProducer } from '../../services/catalog.services.js'
 
 const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
   { label: 'Opzione 1', value: 'value-1' },
@@ -60,29 +61,26 @@ const Filters: React.FC<FiltersProps> = ({
   const { eserviceFiltersState } = useEServiceCatalogContext()
 
   const [producerList, setProducerList] = React.useState([])
+  const [consumerList, setConsumerList] = React.useState([])
   const [autoCompleteProviderInput, setAutoCompleteProviderInput] = useAutocompleteTextInput('')
   const [autoCompleteConsumerInput, setAutoCompleteConsumerInput] = useAutocompleteTextInput('')
 
   useEffect(() => {
-    console.log('Fetching api tenant...')
     fetchTenants()
   }, [autoCompleteProviderInput])
 
+  useEffect(() => {
+    fetchConsumers()
+  }, [autoCompleteConsumerInput])
+
   const fetchTenants = async () => {
-    // NEED TO BE REPLACED!
-    const catalogUrl = new URL('/api/catalog', window.location.origin)
+    const producers = await getProducer(autoCompleteProviderInput)
+    setProducerList(producers)
+  }
 
-    catalogUrl.searchParams.set('q', autoCompleteProviderInput)
-
-    const response = await fetch(catalogUrl)
-    const eservices = await response.json()
-
-    setProducerList(
-      eservices.items.map((it: { id: string; name: string }) => ({
-        value: it.id,
-        label: it.name,
-      }))
-    )
+  const fetchConsumers = async () => {
+    const consumers = await getConsumer(autoCompleteConsumerInput)
+    setConsumerList(consumers)
   }
 
   return (
@@ -138,7 +136,7 @@ const Filters: React.FC<FiltersProps> = ({
           <FormGroup>
             <MultipleAutoComplete
               label={t('filters.consumer.label')}
-              options={optionAutoCompleteConsumer}
+              options={consumerList}
               values={eserviceFiltersState.consumer as unknown as FilterAutoCompleteValue[]}
               onTextInputChange={setAutoCompleteConsumerInput}
               handleValuesChange={

@@ -4,6 +4,7 @@ import { EService } from '../../../../models/dist/types'
 import EServiceCatalogItems from './EServiceCatalogItems'
 import React from 'react'
 import { useEServiceCatalogContext } from './EServiceCatalogContext'
+import { getEServices } from '../../services/catalog.services'
 
 type EServiceCatalogProps = {
   initialEservices: EService[]
@@ -23,21 +24,10 @@ export const EServiceCatalog: React.FC<EServiceCatalogProps> = ({
   }
 
   const fetchEservices = async () => {
-    const catalogUrl = new URL('/api/catalog', window.location.origin)
+    const eserviceResponse = await getEServices(eserviceActiveFilterState)
 
-    const q = eserviceActiveFilterState.q
-    const offset = eserviceActiveFilterState.offset
-    const producerIds = eserviceActiveFilterState.provider.map((p) => p.value).join(',')
-
-    catalogUrl.searchParams.set('q', q)
-    catalogUrl.searchParams.set('offset', offset.toString())
-    catalogUrl.searchParams.set('producerIds', producerIds)
-
-    const response = await fetch(catalogUrl)
-    const eservices = await response.json()
-
-    setEservices(eservices.items)
-    setTotalCount(eservices.total)
+    setEservices(eserviceResponse.items)
+    setTotalCount(eserviceResponse.total)
   }
 
   React.useEffect(() => {
