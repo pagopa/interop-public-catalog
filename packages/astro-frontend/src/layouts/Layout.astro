@@ -7,6 +7,12 @@ import Footer from '../components/shared/Footer.astro'
 import { getLangFromUrl } from '../i18n/utils.i18n'
 import { clientEnvConfig } from '../config/config'
 
+type Props = {
+  metaSettings: Record<string, unknown>
+}
+
+const { metaSettings } = Astro.props
+
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 ---
 
@@ -34,7 +40,21 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="generator" content={Astro.generator} />
-    <title>Catalogo</title>
+    <!-- <title>Catalogo</title> -->
+
+    <title>{metaSettings.data[0].title}</title>
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={metaSettings.data[0].seo.metaTitle} />
+    <meta name="twitter:description" content={metaSettings.data[0].seo.metaDescription} />
+    <meta name="twitter:image" content={metaSettings.data[0].seo.twitterImage.url} />
+    <meta property="og:locale" content={metaSettings.data[0].locale === 'it' ? 'it_IT' : 'en_US'} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={metaSettings.data[0].seo.metaTitle} />
+    <meta property="og:description" content={metaSettings.data[0].seo.metaDescription} />
+    <meta property="og:url" content={metaSettings.data[0].seo.opengraphImage.url} />
+    <meta property="og:site_name" content={'pagopa'} />
+    <!-- TODO -->
+    <meta property="og:image" content={metaSettings.data[0].seo.opengraphImage.url} />
   </head>
   <body>
     <Header />
