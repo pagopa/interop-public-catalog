@@ -1,6 +1,6 @@
-import {
+import type {
   EService,
-  EServiceAttribute,
+  // EServiceAttribute,
   EServiceAttributes,
 } from '../../../models/src/types/eservice.js'
 
@@ -17,7 +17,7 @@ export const chunkEServiceArray = (
 
 type Group = {
   attributeType: keyof EServiceAttributes
-  attributesGroup: Array<EServiceAttribute>
+  attributesGroup: Array<EServiceAttributes[keyof EServiceAttributes][0]>
 }
 
 type Groups = Array<Group>
@@ -44,7 +44,7 @@ export function mapEServiceAttributesToGroups(attributes: EServiceAttributes): G
     for (const group of attributeGroups) {
       groups.push({
         attributeType: key, // La chiave corrente (e.g., 'certified')
-        attributesGroup: group, // L'array interno (e.g., Array<{id: string; name: string}>)
+        attributesGroup: group as any, // L'array interno (e.g., Array<{id: string; name: string}>)
       })
     }
   }

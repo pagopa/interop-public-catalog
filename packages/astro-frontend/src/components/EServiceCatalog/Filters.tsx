@@ -10,7 +10,7 @@ import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
 import type { CatalogFilterParams } from './types.js'
 import { useAutocompleteTextInput } from '../../hooks/useAutoCompleteTextInput.jsx'
-import { getConsumer, getProducer } from '../../services/catalog.services.js'
+import { getConsumers, getProducer } from '../../services/catalog.services.js'
 
 const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
   { label: 'Opzione 1', value: 'value-1' },
@@ -79,7 +79,7 @@ const Filters: React.FC<FiltersProps> = ({
   }
 
   const fetchConsumers = async () => {
-    const consumers = await getConsumer(autoCompleteConsumerInput)
+    const consumers = await getConsumers(autoCompleteConsumerInput)
     setConsumerList(consumers)
   }
 

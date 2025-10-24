@@ -29,7 +29,7 @@ export const EServiceCatalog: React.FC<EServiceCatalogProps> = ({
       orderBy: eserviceActiveFilterState.orderBy,
       q: eserviceActiveFilterState.q,
       producerIds: eserviceActiveFilterState.provider.map((p) => p.value).join(','),
-      consumerIds: eserviceActiveFilterState.consumer.map((c) => c.value).join(','),
+      categories: eserviceActiveFilterState.consumer.map((c) => c.label).join(','),
     })
 
     setEservices(eserviceResponse.items)

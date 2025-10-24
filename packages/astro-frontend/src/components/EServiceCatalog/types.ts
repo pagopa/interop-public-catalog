@@ -14,5 +14,5 @@ export type CatalogQueryParams = {
   limit?: number
   orderBy?: 'RECENT_ASC' | 'RECENT_DESC' | 'NAME_ASC' | 'NAME_DESC'
   producerIds?: string
-  consumerIds?: string
+  categories?: string
 }
