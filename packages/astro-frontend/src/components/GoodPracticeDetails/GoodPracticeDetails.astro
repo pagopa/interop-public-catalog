@@ -3,13 +3,26 @@ import { getLangFromUrl } from '../../i18n/utils.i18n'
 import { useGoodPracticesTranslations } from '../../i18n/good-practices.i18n'
 import { EServiceCard } from '../shared/EServiceCard'
 import PageIndexNav from '../shared/PageIndexNav.astro'
+import NoteTecniche from './NoteTecniche.astro'
+import type { GoodPractice } from '../../types/good-practice.types'
+import { match } from 'ts-pattern'
+import { renderRichTextStrapiNodes } from '../../utils/rich-text-strapi-renderer'
+
+interface Props {
+  goodPracticeBody: GoodPractice['body']
+}
+
+const { goodPracticeBody } = Astro.props
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tGoodPractices = useGoodPracticesTranslations(currentLocale)
 
 const HEADING_CLASS = 'h4 mb-3'
-const PARAGRAPH_CLASS = 'mb-4 lead'
-const UNORDERED_LIST_CLASS = 'mb-4 lead'
+const PARAGRAPH_CLASS = 'mb-4'
+
+const sectionTitles = goodPracticeBody
+  .filter((s) => s.__component === 'shared.section-title')
+  .map((s) => ({ label: s.sectionTitle, id: s.slug }))
 ---
 
 <div class="row">
@@ -17,12 +30,8 @@ const UNORDERED_LIST_CLASS = 'mb-4 lead'
     <PageIndexNav
       title="Indice della pagina"
       headings={[
-        { label: 'Descrizione', id: 'descrizione' },
-        { label: 'Cosa cambia con la PDND', id: 'cosa-cambia' },
-        { label: 'Vantaggi per la Pubblica Amministrazione', id: 'vantaggi-pa' },
-        { label: 'Vantaggi per le persone', id: 'vantaggi-persone' },
-        { label: 'Un esempio concreto', id: 'esempio-concreto' },
-        { label: 'API utilizzate', id: 'api-utilizzate' },
+        ...sectionTitles,
+        { label: tGoodPractices('details.section.apis.heading'), id: 'api-utilizzate' },
       ]}
       style="top: 1rem;"
       class="position-sticky"
@@ -30,74 +39,43 @@ const UNORDERED_LIST_CLASS = 'mb-4 lead'
   </div>
   <div class="col-12 col-md-9">
     <article>
-      <h2 id="descrizione" class={HEADING_CLASS}>Descrizione</h2>
-      <p class={PARAGRAPH_CLASS}>
-        L’erogazione di qualunque tipo di bonus da parte di enti pubblici prevede la verifica
-        puntuale dei requisiti previsti dalla norma che regola l’agevolazione in questione. ISEE,
-        residenza, stato di famiglia sono tra le certificazioni più richieste, che devono essere
-        presentate dal cittadino, spesso anche in formato cartaceo, e verificate tramite istruttorie
-        lunghe e onerose.
-      </p>
-
-      <figure style="background-color: #f2f2f2;" class="d-flex align-items-center flex-column py-3">
-        <picture>
-          <img src="https://placehold.co/600x400" alt="Caption" class="my-3 mx-auto max-h-60" />
-        </picture>
-        <figcaption class="text-center">Caption</figcaption>
-      </figure>
-
-      <h2 id="cosa-cambia" class={HEADING_CLASS}>Cosa cambia con la PDND</h2>
-      <p class={PARAGRAPH_CLASS}>
-        L’ente può accedere direttamente alle banche dati ufficiali esposte sulla PDND per la
-        verifica di requisiti, semplificando notevolmente la procedura, riducendo i tempi per
-        l’erogazione e i possibili errori.
-      </p>
-      <p class={PARAGRAPH_CLASS}>
-        Le verifiche automatiche possono essere implementate già in fase di presentazione della
-        domanda, consentendo al cittadino di recuperare tramite interoperabilità il dato richiesto
-        durante la richiesta del servizio, attuando così il principio del once-only*, per cui non
-        deve fornire alla PA i dati già in suo possesso.
-      </p>
-
-      <h2 id="vantaggi-pa" class={HEADING_CLASS}>Vantaggi per la Pubblica Amministrazione</h2>
-      <p class={PARAGRAPH_CLASS}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lectus dui, laoreet nec libero
-        non, vestibulum eleifend leo. Praesent vitae ex sit amet justo lacinia dignissim ac at diam:
-      </p>
-      <ul class={UNORDERED_LIST_CLASS}>
-        <li>
-          Verifica automatica dei dati (es. anagrafici, reddituali) costantemente aggiornati e
-          certificati da fonti ufficiali
-        </li>
-        <li>Eliminazione delle istruttorie per la verifica successiva dei dati forniti</li>
-        <li>Digitalizzazione dei processi con conseguente tracciabilità</li>
-      </ul>
-
-      <h2 id="vantaggi-persone" class={HEADING_CLASS}>Vantaggi per le persone</h2>
-      <p class={PARAGRAPH_CLASS}>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras lectus dui, laoreet nec libero
-        non, vestibulum eleifend leo. Praesent vitae ex sit amet justo lacinia dignissim ac at diam:
-      </p>
-      <ul class={UNORDERED_LIST_CLASS}>
-        <li>Non è più necessario produrre autocertificazioni per i dati forniti</li>
-        <li>I tempi di formulazione della richiesta e di erogazione del bonus sono più rapidi</li>
-        <li>
-          Minor rischio di errori nella verifica dei requisiti e di esclusione quando titolati a
-          ricevere il bonus
-        </li>
-      </ul>
-
-      <h2 id="esempio-concreto" class={HEADING_CLASS}>Un esempio concreto</h2>
-      <p class={PARAGRAPH_CLASS}>
-        Il MIMIT sta erogando il “bonus elettrodomestici” verificando in automatico tramite la PDND
-        l’ISEE dei richiedenti. La domanda può essere presentata solo se il cittadino risulta
-        eleggibile a seguito dei controlli effettuati ex ante tramite l’interrogazione degli
-        e-service dell’INPS, che restituiscono il dato certificato e aggiornato in tempo reale
-        dell’utente. Questo approccio introduce molti elementi di semplificazione per tutti gli
-        attori coinvolti: riduce la presentazione di domande non pertinenti, consente l’elaborazione
-        più veloce del bonus, non richiede al cittadino di anticipare nessuna somma, ma abilita lo
-        sconto diretto in fase di acquisto.
-      </p>
+      {
+        goodPracticeBody.map((c) =>
+          match(c)
+            .with({ __component: 'shared.media' }, (c) => (
+              <figure
+                style="background-color: #f2f2f2;"
+                class="d-flex align-items-center flex-column py-3 mb-4"
+              >
+                <img
+                  src={c.image.formats.medium?.url ?? c.image.url}
+                  alt={c.image.alternativeText}
+                  width={c.image.width}
+                  height={c.image.height}
+                  class="my-3 mx-auto max-h-60"
+                />
+                <figcaption class="text-center">{c.caption}</figcaption>
+              </figure>
+            ))
+            .with({ __component: 'shared.section-title' }, (c) => (
+              <h2 id={c.slug} class={HEADING_CLASS}>
+                {c.sectionTitle}
+              </h2>
+            ))
+            .with({ __component: 'shared.rich-text' }, (c) => (
+              <p class={PARAGRAPH_CLASS}>{c.text}</p>
+            ))
+            .with({ __component: 'shared.esempio-concreto' }, (c) => (
+              <div class="bg-primary-c0 p-4 mb-4">
+                <Fragment set:html={renderRichTextStrapiNodes(c.example)} />
+              </div>
+            ))
+            .with({ __component: 'shared.note-tecniche' }, (c) => (
+              <NoteTecniche class="mb-4 mt-5" title={c.title} content={c.content} />
+            ))
+            .exhaustive()
+        )
+      }
 
       <h2 id="api-utilizzate" class="h4 mb-4">
         {tGoodPractices('details.section.apis.heading')}

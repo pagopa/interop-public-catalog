@@ -1,5 +1,5 @@
 ---
-import { BootstrapItaliaIconProps } from '../shared/BootstrapItaliaIcon.js'
+import type { BootstrapItaliaIconProps } from '../shared/BootstrapItaliaIcon.js'
 import { TooltipIcon } from '../shared/TooltipIcon.js'
 
 interface Props {
@@ -15,9 +15,11 @@ interface Props {
 const { label, content, icon } = Astro.props
 ---
 
-<div class="d-flex flex-row align-items-center">
-  <span class="h6 mb-0 me-3">
-    {label}
+<div class="d-flex flex-column flex-md-row align-items-md-center">
+  <div class="d-flex flex-row align-items-center justify-content-between">
+    <span class="h6 mb-0">
+      {label}
+    </span>
     {
       icon && (
         <TooltipIcon
@@ -28,6 +30,6 @@ const { label, content, icon } = Astro.props
         />
       )
     }
-  </span>
-  <span>{content}</span>
+  </div>
+  <span class="ms-md-3">{content}</span>
 </div>

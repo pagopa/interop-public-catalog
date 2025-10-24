@@ -1,0 +1,31 @@
+---
+import type { StrapiNode } from '../../types/strapi.types'
+import { renderRichTextStrapiNodes } from '../../utils/rich-text-strapi-renderer'
+import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
+
+interface Props {
+  title?: string
+  content?: StrapiNode[]
+  class?: string
+}
+
+const { title = 'Note tecniche', content, class: className } = Astro.props
+
+const decorateHtml = (html: string): string =>
+  html.replaceAll('<p>', '<p class="mb-3 text-secondary">')
+
+const html = decorateHtml(renderRichTextStrapiNodes(content ?? []))
+---
+
+<section
+  class={`border border-2 border-primary rounded-3 p-4 position-relative ${className ?? ''}`.trim()}
+>
+  <header
+    style="top:-18px;left:50px;background-color:#fafafa;"
+    class="position-absolute d-flex align-items-center gap-2 text-primary fw-semibold text-uppercase mb-3 px-3"
+  >
+    <BootstrapItaliaIcon name="it-info-circle" aria-hidden="true" size="md" color="primary" />
+    <span>{title}</span>
+  </header>
+  <div class="text-body p-3" set:html={html} />
+</section>
