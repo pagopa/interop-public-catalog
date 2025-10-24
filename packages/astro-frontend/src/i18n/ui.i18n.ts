@@ -33,6 +33,9 @@ export const ui = {
   it: {
     'actions.search': 'Cerca',
     'actions.copyUrl': 'Copia URL',
+    'actions.learnMore': 'Scopri di più',
+    'actions.submit': 'Invia',
+
     'suggestion_section.title': 'Come fare per',
     'suggestion_section.suggestion_1.title': 'Ottenere l’accesso ai dati',
     'suggestion_section.suggestion_1.description':
@@ -43,7 +46,7 @@ export const ui = {
     'suggestion_section.suggestion_2.description':
       'Consulta i documenti messi a disposizione per integrare velocemente il tuo ente alla piattaforma.',
     'suggestion_section.suggestion_2.button': 'Consulta la documentazione',
-    'actions.learnMore': 'Scopri di più',
+
     'label.for': 'Per',
     'label.current': 'Corrente',
     'languageSwitch.selected_lang': 'Selezione lingua: lingua selezionata',
@@ -98,11 +101,21 @@ export const ui = {
 
     'pagination.previous': 'Precedente',
     'pagination.next': 'Successiva',
+
+    'rating.title': 'Questa pagina ti è stata utile?',
+    'rating.yes': 'Si',
+    'rating.no': 'No',
+    'rating.email_subject': 'Feedback sul Catalogo delle API',
+    'rating.email_body_positive': 'La pagina è stata utile perché',
+    'rating.email_body_negative': 'La pagina non è stata utile perché',
+    'rating.alert': 'Per favore, seleziona un’opzione prima di inviare.',
   },
   en: {
     'actions.search': 'Search',
     'actions.copyUrl': 'Copy URL',
     'actions.learnMore': 'Learn more',
+    'actions.submit': 'Submit',
+
     'suggestion_section.title': 'How to',
     'suggestion_section.suggestion_1.title': 'Get access to data',
     'suggestion_section.suggestion_1.description':
@@ -165,6 +178,14 @@ export const ui = {
 
     'pagination.previous': 'Previous',
     'pagination.next': 'Next',
+
+    'rating.title': 'Was this page helpful?',
+    'rating.yes': 'Yes',
+    'rating.no': 'No',
+    'rating.email_subject': 'Feedback on the API Catalog',
+    'rating.email_body_positive': 'The page was useful because',
+    'rating.email_body_negative': 'The page was not helpful because',
+    'rating.alert': 'Please select an option before submitting.',
   },
 } as const satisfies TranslationsMap
 
