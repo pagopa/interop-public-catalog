@@ -14,14 +14,26 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
 <html lang={currentLocale}>
   <head>
     <meta charset="UTF-8" />
-    <script>
-      import { initMixpanel } from '../utils/tracking.utils'
+    <script
+      is:inline
+      set:html={`window.env = ${JSON.stringify(clientEnvConfig).replace(/</g, '\\u003c')}`}
+    />
 
+    <script is:inline>
       window.OptanonWrapper = function () {
-        window.OneTrust.OnConsentChanged(() => {
-          initMixpanel({ projectId: window.env.mixpanelProjectId })
+        try {
+          console.log('OptanonWrapper:', window.OneTrust?.GetDomainData?.()?.ActiveGroups)
+        } catch (e) {
+          console.error(e)
+        }
+
+        // Eventi utili
+        window.OneTrust?.OnConsentReceivedEvent?.(function () {
+          console.log('OnConsentReceivedEvent:', window.OneTrust.GetDomainData()?.ActiveGroups)
         })
-        initMixpanel({ projectId: window.env.mixpanelProjectId })
+        window.OneTrust?.OnConsentChanged?.(function () {
+          console.log('OnConsentChanged:', window.OneTrust.GetDomainData()?.ActiveGroups)
+        })
       }
     </script>
 
@@ -39,11 +51,6 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
         </Fragment>
       )
     }
-
-    <script
-      is:inline
-      set:html={`window.env = ${JSON.stringify(clientEnvConfig).replace(/</g, '\\u003c')}`}
-    />
     <meta name="viewport" content="width=device-width" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="sitemap" href="/sitemap.xml" />
