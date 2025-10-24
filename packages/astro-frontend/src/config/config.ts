@@ -10,12 +10,10 @@ const ClientEnvConfig = z
   .object({
     PUBLIC_ONETRUST_DOMAIN_SCRIPT_ID: z.string(),
     PUBLIC_MIXPANEL_PROJECT_ID: z.string(),
-    STRAPI_API_URL: z.string(),
   })
   .transform((c) => ({
     onetrustDomainScriptId: c.PUBLIC_ONETRUST_DOMAIN_SCRIPT_ID,
     mixpanelProjectId: c.PUBLIC_MIXPANEL_PROJECT_ID,
-    strapiApiUrl: c.STRAPI_API_URL,
   }))
 
 export const clientEnvConfig = import.meta.env.DEV
