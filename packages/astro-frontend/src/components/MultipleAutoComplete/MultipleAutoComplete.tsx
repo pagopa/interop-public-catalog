@@ -15,6 +15,7 @@ type MultipleAutoCompleteProps = {
   values: FilterAutoCompleteValue[]
   tooltipIconRender?: React.ReactNode
   handleValuesChange: (values: FilterAutoCompleteValue[]) => void
+  onTextInputChange: (text: string) => void
 }
 
 export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
@@ -23,6 +24,7 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
   handleValuesChange,
   values,
   tooltipIconRender,
+  onTextInputChange,
 }) => {
   const currentLanguage = getLangFromUrl(window.location.pathname)
   const t = useCatalogTranslations(currentLanguage)
@@ -60,6 +62,9 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
           })}
           value={values || []}
           onChange={handleChange}
+          onInputChange={(_event, value) => {
+            onTextInputChange(value)
+          }}
           options={options}
           isOptionEqualToValue={(option, { value }) => {
             return option.value === value

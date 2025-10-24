@@ -1,15 +1,15 @@
 import { Button, Col, Form, FormGroup, Icon, Input, Row } from 'design-react-kit'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import {
   type FilterAutoCompleteValue,
   MultipleAutoComplete,
 } from '../MultipleAutoComplete/MultipleAutoComplete.js'
 import { TooltipIcon } from '../shared/TooltipIcon.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
-import type { EServiceCatalogFiltersParams } from './EServiceCatalogFilters.jsx'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
 import type { CatalogFilterParams } from './types.js'
+import { useAutocompleteTextInput } from '../../hooks/useAutoCompleteTextInput.jsx'
 
 const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
   { label: 'Opzione 1', value: 'value-1' },
@@ -59,6 +59,32 @@ const Filters: React.FC<FiltersProps> = ({
 
   const { eserviceFiltersState } = useEServiceCatalogContext()
 
+  const [producerList, setProducerList] = React.useState([])
+  const [autoCompleteProviderInput, setAutoCompleteProviderInput] = useAutocompleteTextInput('')
+  const [autoCompleteConsumerInput, setAutoCompleteConsumerInput] = useAutocompleteTextInput('')
+
+  useEffect(() => {
+    console.log('Fetching api tenant...')
+    fetchTenants()
+  }, [autoCompleteProviderInput])
+
+  const fetchTenants = async () => {
+    // NEED TO BE REPLACED!
+    const catalogUrl = new URL('/api/catalog', window.location.origin)
+
+    catalogUrl.searchParams.set('q', autoCompleteProviderInput)
+
+    const response = await fetch(catalogUrl)
+    const eservices = await response.json()
+
+    setProducerList(
+      eservices.items.map((it: { id: string; name: string }) => ({
+        value: it.id,
+        label: it.name,
+      }))
+    )
+  }
+
   return (
     <Form>
       <Row>
@@ -88,8 +114,9 @@ const Filters: React.FC<FiltersProps> = ({
         <Col lg="3">
           <MultipleAutoComplete
             label={t('filters.provider.label')}
-            options={optionAutoCompleteProvider}
+            options={producerList}
             values={eserviceFiltersState.provider as unknown as FilterAutoCompleteValue[]}
+            onTextInputChange={setAutoCompleteProviderInput}
             handleValuesChange={(values) => handleDraftFilterValueChange('provider', values)}
           />
         </Col>
@@ -113,6 +140,7 @@ const Filters: React.FC<FiltersProps> = ({
               label={t('filters.consumer.label')}
               options={optionAutoCompleteConsumer}
               values={eserviceFiltersState.consumer as unknown as FilterAutoCompleteValue[]}
+              onTextInputChange={setAutoCompleteConsumerInput}
               handleValuesChange={
                 isMobile
                   ? (values) => handleDraftFilterValueChange('consumer', values)
