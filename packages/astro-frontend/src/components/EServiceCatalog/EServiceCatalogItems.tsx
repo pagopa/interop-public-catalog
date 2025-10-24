@@ -34,6 +34,11 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, 
   const currentLanguage = getLangFromUrl(window.location.pathname)
   const t = useCatalogTranslations(currentLanguage)
 
+  const handleCopyUrl = () => {
+    const url = window.location.href
+    navigator.clipboard.writeText(url)
+  }
+
   return (
     <Container className="py-5">
       <div className="d-flex justify-content-between align-items-center">
@@ -45,7 +50,7 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, 
             {t('resultsCount')}
           </span>
           <span className="ms-2 d-none d-lg-block border-start"></span>
-          <a className="ms-2 d-none d-lg-block">
+          <a className="ms-2 d-none d-lg-block" onClick={handleCopyUrl} role="button">
             {t('copyUrl')} <Icon icon="it-copy" size="sm" color="primary" className="ms-2" />
           </a>
         </div>
