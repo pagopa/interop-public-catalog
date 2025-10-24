@@ -1,35 +1,41 @@
 ---
+
+
+
 import Layout from '../../../layouts/Layout.astro'
 import EServiceCatalog from '../../../components/EServiceCatalog/EServiceCatalog'
-import { Breadcrumb, BreadcrumbItem, Button, Container, Icon, Section } from 'design-react-kit'
-import Filters from '../../../components/EServiceCatalog/Filters'
+import {Button, Container, Icon, Section } from 'design-react-kit'
 import SuggestionSection from '../../../components/shared/SuggestionSection.astro'
 import { EService } from 'pagopa-interop-public-models'
+import EServiceCatalogFilters from '../../../components/EServiceCatalog/EServiceCatalogFilters'
+import PageHero from '..//../../components/shared/PageHero.astro'
+import { useCatalogTranslations } from '../../../i18n/catalog.i18n'
+import { getLangFromUrl } from '../../../i18n/utils.i18n'
+
+
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const t = useCatalogTranslations(currentLocale)
+
 ---
 
+<div class="start">
 <Layout>
-  <Section>
-    <Breadcrumb>
-      <BreadcrumbItem>
-        <a href="#"> Home </a>
-        <span class="separator"> / </span>
-      </BreadcrumbItem>
-      <BreadcrumbItem active>
-        <a href="#"> Esplora il catalogo </a>
-      </BreadcrumbItem>
-    </Breadcrumb>
-
-    <h1>Esplora il catalogo</h1>
-    <span>
-      Cerca tra tutte le API rese disponibili attraverso la Piattaforma Digitale Nazionale Dati
-      (PDND). Verifica i requisiti per accedere alle API di tuo interesse e costruisci la tua
-      integrazione per l’accesso ai dati.
-    </span>
-  </Section>
-
+  <PageHero
+    title={t('title')}
+    description={t('description')}
+    breadcrumbItems={[
+      {
+        routeKey: 'HOME',
+      },
+      {
+        routeKey: 'ESERVICE_CATALOG',
+        current: true,
+      },
+    ]}
+  />
   <Section color="muted">
     <Container className="p-3">
-      <Filters client:only="react" />
+      <EServiceCatalogFilters client:only="react" />
     </Container>
 
     <EServiceCatalog
@@ -113,15 +119,15 @@ import { EService } from 'pagopa-interop-public-models'
 
   <div class="p-5">
     <div class="primary-bg-c1 p-5">
-      <h3>Cerchi l’elenco completo degli aderenti e delle API disponibili su PDND?</h3>
+      <h3>{t('finder.title')}</h3>
       <div class="d-flex flex-row">
         <div class="me-2">
           <Button color="primary" outline size="sm" onClick={(): void => {}} icon
-            >Ottieni l’elenco delle API <Icon color="white" icon="it-arrow-right" /></Button
+            >{t('finder.api.label')} <Icon color="white" icon="it-arrow-right" /></Button
           >
         </div>
         <Button color="primary" outline size="sm" onClick={(): void => {}} icon
-          >Ottieni l’elenco degli aderenti <Icon color="white" icon="it-arrow-right" /></Button
+          >{t('finder.provider.label')} <Icon color="white" icon="it-arrow-right" /></Button
         >
       </div>
     </div>
@@ -129,3 +135,6 @@ import { EService } from 'pagopa-interop-public-models'
 
   <SuggestionSection />
 </Layout>
+
+</div>
+

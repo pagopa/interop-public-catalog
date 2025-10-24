@@ -11,7 +11,7 @@ export function strapiServiceBuilder(endpoint: string, token: string) {
             Authorization: `Bearer ${token}`,
           },
         }
-      );
+      )
 
       return response.json()
     },

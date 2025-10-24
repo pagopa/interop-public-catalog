@@ -18,9 +18,9 @@ export function usePagination(
     totalPages: number
   }
 } {
-  let params = new URLSearchParams(document.location.search)
+  const urlParams = new URLSearchParams(window.location.search)
 
-  const [offset, setOffset] = React.useState(parseInt(params.get('offset') ?? '0', 10))
+  const [offset, setOffset] = React.useState(parseInt(urlParams.get('offset') ?? '0', 10))
   const totalPages = Math.ceil((totalCount ?? 0) / limit)
   const actualPage = Math.ceil(offset / limit) + 1
 
@@ -34,15 +34,17 @@ export function usePagination(
 
   const handlePageChange = React.useCallback(
     (newPage: number) => {
+      const urlParams = new URLSearchParams(window.location.search)
+
       if (newPage < 1) throw new Error('new page must be greater than 0')
       const newOffset = (newPage - 1) * limit
 
       if (newOffset > 0) {
-        params.set('offset', newOffset.toString())
+        urlParams.set('offset', newOffset.toString())
       } else {
-        params.delete('offset')
+        urlParams.delete('offset')
       }
-      window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`)
+      window.history.pushState({}, '', `${window.location.pathname}?${urlParams}`)
       setOffset(newOffset)
     },
     [limit]

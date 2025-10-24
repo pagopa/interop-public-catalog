@@ -10,7 +10,7 @@ export const ROUTES = {
   FAQ: { it: '/FAQ', en: '/FAQ' },
   LEGISLATION: { it: '/normativa', en: '/legislation' },
   PRIVACY_POLICY: { it: '/privacy-policy', en: '/privacy-policy' },
-  NOT_FOUND: { it: '/404', en: '/404' },
+  LEGAL_NOTES: { it: '/note-legali', en: '/legal-notes' },
 } as const satisfies Record<string, Record<SupportedLanguage, string>>
 
 export type RouteKey = keyof typeof ROUTES
