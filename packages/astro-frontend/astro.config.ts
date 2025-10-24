@@ -10,6 +10,7 @@ import { sitemapPlugin } from './src/plugins/sitemap-plugin.js'
 import { DEFAULT_LANG, LANGUAGES } from './src/i18n/config.i18n.js'
 import { ROUTES } from './src/config/routes.js'
 import type { SupportedLanguage } from './src/i18n/types.i18n.js'
+import { getLocalizedRoute } from './src/i18n/utils.i18n.js'
 
 const LOCALES = Object.keys(LANGUAGES) as SupportedLanguage[]
 const projectDir = path.dirname(fileURLToPath(import.meta.url))
@@ -20,6 +21,12 @@ export default defineConfig({
   output: 'server',
   site: SITE,
   integrations: [react()],
+  redirects: {
+    '/index.html': {
+      status: 308,
+      destination: getLocalizedRoute(DEFAULT_LANG, 'HOME'),
+    },
+  },
   adapter: node({
     mode: 'standalone',
   }),
