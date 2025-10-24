@@ -31,7 +31,6 @@ type EServiceCatalogContextProviderProps = {
 
 const eserviceFilterInitialState: CatalogFilterParams = {
   q: '',
-  limit: 10,
   offset: 0,
   orderBy: 'RECENT_DESC',
   provider: [],
@@ -67,7 +66,6 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
 
   const initialCatalogFilterParams: CatalogFilterParams = {
     q: searchParams.q ?? '',
-    limit: searchParams.limit ? parseInt(searchParams.limit, 10) : 10,
     offset: searchParams.offset ? parseInt(searchParams.offset, 10) : 0,
     orderBy: searchParams.orderBy ?? 'RECENT_DESC',
     provider: searchParamsProvider.map((it) => {
@@ -138,13 +136,11 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
     setEserviceActiveFilterState({
       ...eserviceFilterInitialState,
       offset: eserviceActiveFilterState.offset,
-      limit: eserviceActiveFilterState.limit,
       orderBy: eserviceActiveFilterState.orderBy,
     })
     setEserviceFiltersState({
       ...eserviceFilterInitialState,
       offset: eserviceActiveFilterState.offset,
-      limit: eserviceActiveFilterState.limit,
       orderBy: eserviceActiveFilterState.orderBy,
     })
   }

@@ -11,7 +11,6 @@ export const EServiceCatalogApp: React.FC<EServiceCatalogAppProps> = ({
   initialEservices,
   totalCount,
 }) => {
-  console.log('totalCount in App:', totalCount)
   return (
     <EServiceCatalogContextProvider>
       <EServiceCatalog initialEservices={initialEservices} totalCount={totalCount} />
