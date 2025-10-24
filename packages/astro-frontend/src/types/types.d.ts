@@ -1,4 +1,3 @@
-import type { z } from 'zod'
 import type { ClientEnvConfig } from '../config/config'
 
 declare module 'accessible-autocomplete/react' {
@@ -21,7 +20,7 @@ declare module 'accessible-autocomplete/react' {
     showNoOptionsFound?: boolean
     inputClasses?: string
     hintClasses?: string
-    menuAttributes?: Record<string, any>
+    menuAttributes?: Record<string, unknown>
     menuClasses?: string
 
     templates?: {
@@ -52,7 +51,10 @@ declare module 'accessible-autocomplete/react' {
 declare global {
   interface Window {
     env: ClientEnvConfig
+
+    /** OneTrust */
     OptanonWrapper: () => void | undefined
+    OnetrustActiveGroups: string
     OneTrust: {
       OnConsentChanged: (callback: () => void) => void
     }
