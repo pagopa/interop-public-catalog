@@ -1,6 +1,6 @@
 import type { drizzle } from 'drizzle-orm/node-postgres'
 import type { NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
-import type { ExtractTablesWithRelations } from 'drizzle-orm'
+import type { ExtractTablesWithRelations, SQL } from 'drizzle-orm'
 import { sql } from 'drizzle-orm'
 import type { EService } from 'pagopa-interop-public-models'
 import {
@@ -11,6 +11,7 @@ import {
   type Tenant,
 } from 'pagopa-interop-public-models'
 import type { PgTransaction } from 'drizzle-orm/pg-core'
+import { categoriesMap } from '../config/categories'
 
 type Transaction<T> = (
   tx: PgTransaction<
@@ -35,7 +36,27 @@ export async function searchCatalog(
   query: EServiceQuery
 ): Promise<EServiceSearchResult> {
   const parsedQuery = EServiceQuery.parse(query)
-  const { limit, offset, q, producerIds, category } = parsedQuery
+  const { limit, offset, q, producerIds, categories } = parsedQuery
+
+  // Categories are already filtered in the catalog API interface
+  // Here we can assume we have valid categories ex. ['Comuni', '...', ...]
+  const mappedCategories = categories?.flatMap(
+    (cat) => (categoriesMap as { [k: string]: string[] })[cat]
+  )
+
+  // Build WHERE condition
+  const conds = [sql`true`]
+
+  if (categories && categories.length > 0) {
+  } else if (producerIds && producerIds.length > 0) {
+    conds.push(
+      sql`
+      t.id IN (${sql.join(
+        producerIds.map((id) => sql`${id}`),
+        sql`, `
+      )})`
+    )
+  }
 
   const baseSelect = (eservice: string, tenant: string) => sql`
   SELECT
@@ -54,8 +75,23 @@ export async function searchCatalog(
       to_jsonb(d_full) AS active_descriptor,
       count(*) over() AS total
   `
+  const conditionalCategoriesCheck = (categories: string[]) => sql`
+  -- filter by categories
+    JOIN LATERAL (
+    SELECT 1
+    FROM ${sql.identifier(config.catalogSchema)}.eservice_descriptor_attribute da2
+    JOIN ${sql.identifier(config.attributeSchema)}.attribute a2
+      ON a2.id = da2.attribute_id
+    WHERE da2.descriptor_id = chosen.id
+      AND a2.code IN (${sql.join(
+        categories.map((cat) => sql`${cat}`),
+        sql`, `
+      )})
+    LIMIT 1
+  ) attr_filter ON TRUE
+  `
 
-  const activeDescriptorPopulator = (eservice: string) => sql`
+  const activeDescriptorPopulator = (eservice: string, categories?: string[]) => sql`
   JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = ${sql.identifier(eservice)}.producer_id
   -- pick the latest PUBLISHED descriptor id
   JOIN LATERAL (
@@ -66,6 +102,7 @@ export async function searchCatalog(
     ORDER BY d.version::int DESC
     LIMIT 1
   ) AS chosen ON TRUE
+  ${categories && categories.length > 0 ? conditionalCategoriesCheck(categories) : sql``}
   -- build full descriptor w/ attributes
   JOIN LATERAL (
     SELECT
@@ -88,25 +125,11 @@ export async function searchCatalog(
   const activeDescriptorPopulatorGroupBy = (eservice: string, tenant: string) =>
     sql`GROUP BY ${sql.identifier(eservice)}.id, ${sql.identifier(tenant)}.name, ${sql.identifier(tenant)}.id, d_full`
 
-  // Build WHERE condition
-  const conds = [sql`true`]
-
-  if (category && category.length > 0) {
-  } else if (producerIds && producerIds.length > 0) {
-    conds.push(
-      sql`
-      t.id IN (${sql.join(
-        producerIds.map((id) => sql`${id}`),
-        sql`, `
-      )})`
-    )
-  }
-
   const attributeSearchTx: Transaction<EService & { [k: string]: unknown }> = async (tx) => {
     const pageRes = await tx.execute(sql`
     ${baseSelect('e', 't')}
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
-    ${activeDescriptorPopulator('e')}
+    ${activeDescriptorPopulator('e', mappedCategories)}
     ${activeDescriptorPopulatorGroupBy('e', 't')}
     ORDER BY e.created_at DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
@@ -204,7 +227,7 @@ export async function searchCatalog(
   }
 
   let transactionToExecute
-  if (category && category.length > 0) {
+  if (categories && categories.length > 0) {
     transactionToExecute = attributeSearchTx
   } else if (q?.trim()) {
     transactionToExecute = textSearchTx
