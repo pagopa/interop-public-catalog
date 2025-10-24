@@ -118,7 +118,8 @@ export type EService = z.infer<typeof EService>;
 export const EServiceQuery = z.object({
   limit: z.coerce.number().int().gt(1).lte(50),
   offset: z.coerce.number().int().min(0),
-  q: z.string().trim().min(1).max(200).optional(),
+  q: z.string().trim().max(200).optional(),
+  producerIds: z.array(z.string()),
 });
 export type EServiceQuery = z.infer<typeof EServiceQuery>;
 
