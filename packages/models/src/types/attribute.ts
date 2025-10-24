@@ -19,7 +19,7 @@ export const Attribute = z.object({
   description: z.string(),
   origin: z.string().optional(),
   name: z.string(),
-  creationTime: z.coerce.date(),
+  creation_time: z.coerce.date(),
 });
 
 export type Attribute = z.infer<typeof Attribute>;

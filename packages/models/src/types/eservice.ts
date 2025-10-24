@@ -60,17 +60,17 @@ export const Descriptor = z.object({
   description: z.string().optional(),
   state: DescriptorState,
   audience: z.array(z.string()),
-  voucherLifespan: z.number().int(),
-  dailyCallsPerConsumer: z.number().int(),
-  dailyCallsTotal: z.number().int(),
-  agreementApprovalPolicy: AgreementApprovalPolicy.optional(),
-  createdAt: z.coerce.date(),
-  publishedAt: z.coerce.date().optional(),
-  suspendedAt: z.coerce.date().optional(),
-  deprecatedAt: z.coerce.date().optional(),
-  archivedAt: z.coerce.date().optional(),
+  voucher_lifespan: z.number().int(),
+  daily_calls_per_consumer: z.number().int(),
+  daily_calls_total: z.number().int(),
+  agreement_approval_policy: AgreementApprovalPolicy.optional(),
+  created_at: z.coerce.date(),
+  published_at: z.coerce.date().optional(),
+  suspended_at: z.coerce.date().optional(),
+  deprecated_at: z.coerce.date().optional(),
+  archived_at: z.coerce.date().optional(),
   attributes: EServiceAttributes,
-  templateVersionRef: EServiceTemplateVersionRef.optional(),
+  template_version_ref: EServiceTemplateVersionRef.optional(),
 });
 export type Descriptor = z.infer<typeof Descriptor>;
 
@@ -86,18 +86,19 @@ export type EServiceMode = z.infer<typeof EServiceMode>;
 
 export const EService = z.object({
   id: EServiceId,
-  producerId: TenantId,
+  producer_id: TenantId,
   name: z.string(),
+  tenant_name: z.string(),
   description: z.string(),
   technology: Technology,
   attributes: EServiceAttributes.optional(), //legacy
   descriptors: z.array(Descriptor),
-  createdAt: z.coerce.date(),
+  created_at: z.coerce.date(),
   mode: EServiceMode,
-  isSignalHubEnabled: z.boolean().optional(),
-  isConsumerDelegable: z.boolean().optional(),
-  isClientAccessDelegable: z.boolean().optional(),
-  templateId: EServiceTemplateId.optional(),
+  is_signal_hub_enabled: z.boolean().optional(),
+  is_consumer_delegable: z.boolean().optional(),
+  is_client_access_delegable: z.boolean().optional(),
+  template_id: EServiceTemplateId.optional(),
 });
 
 export type EService = z.infer<typeof EService>;

@@ -2,9 +2,9 @@ import type { drizzle } from 'drizzle-orm/node-postgres'
 import type { NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
 import type { ExtractTablesWithRelations } from 'drizzle-orm'
 import { sql } from 'drizzle-orm'
+import type { EService } from 'pagopa-interop-public-models'
 import {
   type EServiceSearchResult,
-  type EService,
   EServiceQuery,
   type TenantQuery,
   type TenantSearchResult,
@@ -102,7 +102,7 @@ export async function searchCatalog(
     )
   }
 
-  const attributeSearchTx: Transaction<EService> = async (tx) => {
+  const attributeSearchTx: Transaction<EService & { [k: string]: unknown }> = async (tx) => {
     const pageRes = await tx.execute(sql`
     ${baseSelect('e', 't')}
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
@@ -118,7 +118,7 @@ export async function searchCatalog(
     return { items, total }
   }
 
-  const textlessSearchTx: Transaction<EService> = async (tx) => {
+  const textlessSearchTx: Transaction<EService & { [k: string]: unknown }> = async (tx) => {
     const pageRes = await tx.execute(sql`
     ${baseSelect('e', 't')}
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
@@ -135,7 +135,7 @@ export async function searchCatalog(
     return { items, total }
   }
 
-  const textSearchTx: Transaction<EService> = async (
+  const textSearchTx: Transaction<EService & { [k: string]: unknown }> = async (
     tx
   ): Promise<{ total: number; items: EService[] }> => {
     const pageRes = await tx.execute(sql`
