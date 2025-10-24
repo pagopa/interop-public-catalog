@@ -3,9 +3,9 @@ import { buildUseTranslations } from './utils.i18n'
 
 const catalogTranslations = {
   it: {
-    title: 'Esplora il catalogo',
+    title: 'API sulla Piattaforma Digitale Nazionale Dati (PDND)',
     description:
-      'Consulta tutte le API disponibili sulla Piattaforma Digitale Nazionale Dati (PDND). Verifica i requisiti di accesso e integra le interfacce nei tuoi sistemi.',
+      "Trova subito l'API di cui hai bisogno, filtrando per parola chiave, erogatore o fruitore. Inizia ora l’integrazione del tuo ente per fornire servizi efficienti.",
     'filters.mobile.button': 'Filtri',
     'filters.title': 'Cerca nel catalogo',
     'filters.q.label': 'Cerca per parola chiave',
@@ -38,9 +38,9 @@ const catalogTranslations = {
   },
 
   en: {
-    title: 'Explore the catalog',
+    title: 'APIs on the National Digital Data Platform (PDND)',
     description:
-      'Browse all the APIs available on the National Digital Data Platform (PDND). Check the access requirements and integrate the interfaces into your systems.',
+      'Find the API you need by filtering by keyword, producer, or consumer. Start the integration for your entity now to provide efficient services.',
     'filters.mobile.button': 'Filters',
     'filters.title': 'Search within the catalog',
     'filters.q.label': 'Search by keyword',

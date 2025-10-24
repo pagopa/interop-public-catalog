@@ -3,9 +3,9 @@ import { buildUseTranslations } from './utils.i18n.js'
 
 export const homepage = {
   it: {
-    title: 'Esplora le API della Pubblica Amministrazione',
+    title: 'Catalogo delle API della Pubblica Amministrazione',
     subtitle:
-      'Cerca nel catalogo, accedi ai dati tramite la Piattaforma Digitale Nazionale Dati (PDND) e crea servizi innovativi per il tuo ente e per le persone.',
+      "Il portale ufficiale per l'interoperabilità dei dati della Pubblica Amministrazione. Accedi ai dati utilizzando la Piattaforma Digitale Nazionale Dati (PDND).",
     search_placeholder: 'Cerca nel catalogo per parola chiave',
     info_link: 'Che cosa sono le API?',
     scroll_hint: 'Scorri per scoprire di più',
@@ -43,9 +43,9 @@ export const homepage = {
     'featured_api.explore_catalog': 'Esplora il catalogo',
   },
   en: {
-    title: 'Explore Public Administration APIs',
+    title: 'Public Administration API Catalogue',
     subtitle:
-      'Search the catalog, access data through the National Digital Data Platform (PDND), and create innovative services for your organization and people.',
+      'The official portal for Public Administration data interoperability. Access certified data using the National Digital Data Platform (PDND).',
     search_placeholder: 'Search the catalog by keyword',
     info_link: 'What are APIs?',
     scroll_hint: 'Scroll to find out more',
