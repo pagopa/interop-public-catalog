@@ -3,9 +3,9 @@ import { buildUseTranslations } from './utils.i18n.js'
 
 const goodPracticesTranslations = {
   it: {
-    'catalog.title': 'Esempi pratici di utilizzo per il tuo ente',
+    'catalog.title': 'Esempi pratici di utilizzo delle API per il tuo ente',
     'catalog.subtitle':
-      'Scopri come integrare le API nei processi del tuo ente: lasciati ispirare da una raccolta di esempi significativi e semplici da replicare.',
+      'Lasciati ispirare da una raccolta di esempi significativi e semplici di come integrare servizi per il tuo ente e i cittadini',
 
     'details.hero.title': 'Erogare bonus ai cittadini in modo equo ed efficiente',
     'details.copyUrl': 'Copia URL',
@@ -16,9 +16,9 @@ const goodPracticesTranslations = {
     'details.section.apis.heading': 'API utilizzate',
   },
   en: {
-    'catalog.title': 'Practical examples for your organization',
+    'catalog.title': 'Practical examples of API Usage for your Entity',
     'catalog.subtitle':
-      "Discover how to integrate APIs into your organization's processes: get inspired by a collection of meaningful, easy-to-replicate examples.",
+      'Get inspired by a collection of significant and simple examples of how to integrate services for your entity and citizens.',
 
     'details.hero.title': 'Delivering bonuses to citizens fairly and efficiently',
     'details.copyUrl': 'Copy URL',

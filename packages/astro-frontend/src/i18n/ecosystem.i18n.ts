@@ -3,9 +3,9 @@ import { buildUseTranslations } from './utils.i18n.js'
 
 export const ecosystem = {
   it: {
-    title: 'Cos’è l’interoperabilità',
+    title: 'I vantaggi dell’interoperabilità dei dati tra Pubbliche Amministrazioni',
     subtitle:
-      'Nel contesto della PDND (Piattaforma Digitale Nazionale Dati), l’interoperabilità è la capacità delle diverse pubbliche amministrazioni e dei loro sistemi informativi di scambiarsi dati e servizi digitali in modo sicuro, standardizzato e trasparente, così da evitare duplicazioni, semplificare i processi e migliorare l’erogazione di servizi ai cittadini e alle imprese.',
+      "L'interoperabilità dei dati permette agli enti di perseguire il principio di once only. Consulta i vantaggi e gli strumenti a supporto.",
 
     'ecosystem.characteristic_1.label': 'Principio del “Once only”',
     'ecosystem.characteristic_1.description':
@@ -80,9 +80,9 @@ export const ecosystem = {
     'ecosystem_legal_references.button': 'Consulta la normativa',
   },
   en: {
-    title: 'What is interoperability?',
+    title: 'Benefits of Data Interoperability among Public Administrations',
     subtitle:
-      'In the context of the PDND (National Digital Data Platform), interoperability is the ability of different public administrations and their information systems to exchange data and digital services in a secure, standardized, and transparent manner, thus avoiding duplication, simplifying processes, and improving the delivery of services to citizens and businesses.',
+      'Data interoperability allows entities to pursue the once-only principle. Consult the benefits and supporting tools available.',
 
     'ecosystem.characteristic_1.label': 'Once only principle',
     'ecosystem.characteristic_1.description':
