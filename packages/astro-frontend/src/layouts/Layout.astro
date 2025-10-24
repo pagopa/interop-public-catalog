@@ -14,6 +14,17 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
 <html lang={currentLocale}>
   <head>
     <meta charset="UTF-8" />
+    <script>
+      import { initMixpanel } from '../utils/tracking.utils'
+
+      window.OptanonWrapper = function () {
+        window.OneTrust.OnConsentChanged(() => {
+          initMixpanel({ projectId: window.env.mixpanelProjectId })
+        })
+        initMixpanel({ projectId: window.env.mixpanelProjectId })
+      }
+    </script>
+
     {
       import.meta.env.PROD && (
         <Fragment>
@@ -25,12 +36,6 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
             data-domain-script={clientEnvConfig.onetrustDomainScriptId}
             data-language={currentLocale}
           />
-          <script>
-            import {setupTracking} from '../utils/tracking.utils';
-            {setupTracking({
-              mixpanelProjectId: window.env.mixpanelProjectId,
-            })}
-          </script>
         </Fragment>
       )
     }

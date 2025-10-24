@@ -17,7 +17,7 @@ function areCookiesAccepted(): boolean {
 
 let didMixpanelInit = false
 
-function initMixpanel({ projectId }: { projectId: string }) {
+export function initMixpanel({ projectId }: { projectId: string }) {
   if (didMixpanelInit || !areCookiesAccepted()) {
     return
   }
@@ -34,16 +34,6 @@ function initMixpanel({ projectId }: { projectId: string }) {
   })
 
   didMixpanelInit = true
-}
-
-export function setupTracking({ mixpanelProjectId }: { mixpanelProjectId: string }) {
-  window.OptanonWrapper = function () {
-    window.OneTrust.OnConsentChanged(() => {
-      initMixpanel({ projectId: mixpanelProjectId })
-    })
-  }
-
-  initMixpanel({ projectId: mixpanelProjectId })
 }
 
 type TrackingData =
