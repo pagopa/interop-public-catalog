@@ -4,6 +4,7 @@ import './MultiSelectChips.css'
 import React from 'react'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
+import { useUiTranslations } from '../../i18n/ui.i18n.js'
 
 export type FilterAutoCompleteValue = {
   label: string
@@ -28,6 +29,7 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
 }) => {
   const currentLanguage = getLangFromUrl(window.location.pathname)
   const t = useCatalogTranslations(currentLanguage)
+  const tUi = useUiTranslations(currentLanguage)
 
   const handleChange = (_event: React.SyntheticEvent, values: FilterAutoCompleteValue[]) => {
     handleValuesChange(values)
@@ -51,8 +53,21 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
         <Autocomplete
           disableCloseOnSelect
           multiple
+          noOptionsText={tUi('autocomplete.noOptions')}
           className="mt-1"
           getOptionLabel={(option) => option.label}
+          slotProps={{
+            listbox: {
+              sx: {
+                '& .MuiAutocomplete-option[aria-selected="true"]': {
+                  backgroundColor: 'transparent',
+                },
+                '& .MuiAutocomplete-option[aria-selected="true"] label': {
+                  fontWeight: '600 !important',
+                },
+              },
+            },
+          }}
           fullWidth
           sx={() => ({
             display: 'inline-block',
@@ -74,9 +89,11 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
 
             return (
               <FormGroup check>
-                <li key={key} {...optionProps}>
+                <li className="autocomplete-wrapper" key={key} {...optionProps}>
                   <Input id={`checkbox-${key}`} type="checkbox" checked={selected} />
-                  <label style={{ fontFamily: 'Titillium Web' }}>{option.label}</label>
+                  <label style={{ fontFamily: 'Titillium Web', fontWeight: 'normal' }}>
+                    {option.label}
+                  </label>
                 </li>
               </FormGroup>
             )

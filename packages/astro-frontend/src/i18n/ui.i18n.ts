@@ -85,6 +85,7 @@ export const ui = {
     'organization_types.regioni_short': 'Regioni',
     'organization_types.universita_short': 'Università',
     'organization_types.altre_short': 'Altre',
+    'autocomplete.noOptions': 'Nessun risultato',
 
     ...breadcrumbLabels.it,
 
@@ -145,6 +146,7 @@ export const ui = {
     'organization_types.regioni_short': 'Regions',
     'organization_types.universita_short': 'Universities',
     'organization_types.altre_short': 'Others',
+    'autocomplete.noOptions': 'No results',
 
     ...breadcrumbLabels.en,
 
