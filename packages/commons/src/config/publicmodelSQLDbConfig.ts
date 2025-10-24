@@ -12,6 +12,7 @@ export const PublicModelSQLDbConfig = z
       .transform((value) => value === "true"),
     PUBLICMODEL_SQL_DB_SCHEMA_TENANT: z.string(),
     PUBLICMODEL_SQL_DB_SCHEMA_CATALOG: z.string(),
+    PUBLICMODEL_SQL_DB_SCHEMA_ATTRIBUTE: z.string(),
   })
   .transform((c) => ({
     publicModelSQLDbHost: c.PUBLICMODEL_SQL_DB_HOST,
@@ -22,6 +23,7 @@ export const PublicModelSQLDbConfig = z
     publicModelSQLDbUseSSL: c.PUBLICMODEL_SQL_DB_USE_SSL,
     publicModelSQLDbSchemaTenant: c.PUBLICMODEL_SQL_DB_SCHEMA_TENANT,
     publicModelSQLDbSchemaCatalog: c.PUBLICMODEL_SQL_DB_SCHEMA_CATALOG,
+    publicModelSQLDbSchemaAttribute: c.PUBLICMODEL_SQL_DB_SCHEMA_ATTRIBUTE,
   }));
 
 export type PublicModelSQLDbConfig = z.infer<typeof PublicModelSQLDbConfig>;
