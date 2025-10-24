@@ -1,6 +1,6 @@
 import type { APIRoute } from 'astro'
-import { sqlService } from '../../server/services/index.js'
-import { categoriesMap } from '../../server/config/categories.js'
+import { sqlService } from '../../../server/services/index.js'
+import { categoriesMap } from '../../../server/config/categories.js'
 
 export const GET: APIRoute = async ({ url }) => {
   const q = url.searchParams.get('q') ?? ''
