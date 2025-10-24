@@ -35,6 +35,9 @@ const catalogTranslations = {
     'finder.title': 'Cerchi l’elenco completo degli aderenti e delle API disponibili su PDND? ',
     'finder.api.label': 'Vai all’elenco delle API',
     'finder.provider.label': 'Vai all’elenco degli aderenti',
+    'no-results.title': 'Nessun risultato trovato',
+    'no-results.description':
+      "La ricerca non ha prodotto risultati. Modifica i filtri o prova con un'altra parola chiave.",
   },
 
   en: {
@@ -70,6 +73,9 @@ const catalogTranslations = {
     'finder.title': 'Looking for the complete list of PDND members and available APIs? ',
     'finder.api.label': 'Go to the API list',
     'finder.provider.label': 'Go to the provider list',
+    'no-results.title': 'No results found',
+    'no-results.description':
+      'The search returned no results. Change the filters or try another keyword.',
   },
 } as const satisfies TranslationsMap
 

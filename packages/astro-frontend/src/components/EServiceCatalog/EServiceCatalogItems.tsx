@@ -24,8 +24,6 @@ type EServiceCatalogItemsProps = {
   totalCount: number
 }
 
-type OrderKey = 'RECENT_ASC' | 'RECENT_DESC' | 'NAME_ASC' | 'NAME_DESC'
-
 const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, totalCount }) => {
   if (eservices.length <= 0) return <EServiceNoItems />
 
@@ -42,7 +40,7 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, 
         <div className="d-flex">
           <span className="">
             <b className="me-2">
-              <b>11.445</b>
+              <b>{totalCount}</b>
             </b>
             {t('resultsCount')}
           </span>
