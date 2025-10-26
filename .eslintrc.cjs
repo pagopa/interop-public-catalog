@@ -2,7 +2,8 @@ const commonRestrictedImports = ["**/dist/**"];
 module.exports = {
   extends: [
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:storybook/recommended"
   ],
   parser: "@typescript-eslint/parser",
   parserOptions: {

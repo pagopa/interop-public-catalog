@@ -1,5 +1,3 @@
-import React from 'react'
-
 type BootstrapItaliaIconName =
   | 'it-arrow-down'
   | 'it-arrow-down-circle'

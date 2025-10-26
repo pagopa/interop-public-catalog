@@ -443,7 +443,6 @@ a:hover {
   font-size: 1.25rem;
 }
 
-/** Removes the hover effect for  */
 a.list-item:hover {
   background-color: inherit !important;
   box-shadow: inherit !important;

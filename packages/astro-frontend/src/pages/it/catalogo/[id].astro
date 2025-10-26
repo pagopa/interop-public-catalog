@@ -16,6 +16,7 @@ import PageHero from '../../../components/shared/PageHero.astro'
 import { useEServiceDetailsTranslations } from '../../../i18n/eservice-details'
 import ApiShowcase from '../../../components/Homepage/ApiShowcase.astro'
 import RatingSection from '../../../components/shared/RatingSection.astro'
+import { EServiceDataAccessChip } from '../../../components/shared/EServiceDataAccessChip'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tUi = useUiTranslations(currentLocale)
@@ -106,11 +107,8 @@ const highlightedEServices: EService[] = [
     ]}
   >
     <div class="d-flex flex-row align-items-center justify-content-between" slot="top-hero">
-      <div class="h6">
-        <span class="badge bg-secondary rounded-pill text-white d-inline">
-          <BootstrapItaliaIcon name="it-locked" size="sm" color="white" padded />
-          Accesso riservato
-        </span>
+      <div>
+        <EServiceDataAccessChip isOpenData={false} currentLocale={currentLocale} />
       </div>
       <a class="btn btn-link btn-sm btn-icon text-decoration-none" href="#" role="button">
         {tUi('actions.copyUrl')}

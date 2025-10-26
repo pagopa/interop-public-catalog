@@ -1,8 +1,7 @@
-import React from 'react'
 import { BootstrapItaliaIcon } from './BootstrapItaliaIcon.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import type { SupportedLanguage } from '../../i18n/types.i18n.js'
-import { Chip } from './Chip.js'
+import { EServiceDataAccessChip } from './EServiceDataAccessChip.jsx'
 
 interface EServiceCardProps {
   currentLocale: SupportedLanguage
@@ -12,7 +11,7 @@ interface EServiceCardProps {
   isOpenData?: boolean
 }
 
-const CARD_MIN_HEIGHT = 296
+const CARD_HEIGHT = 296
 
 export const EServiceCard: React.FC<EServiceCardProps> = ({
   currentLocale,
@@ -25,21 +24,17 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
 
   return (
     <article
-      style={{ minHeight: CARD_MIN_HEIGHT }}
+      style={{ height: CARD_HEIGHT }}
       className="it-card rounded shadow d-flex flex-column px-2"
     >
       <header className="px-3 pt-4 d-flex justify-content-between align-items-center">
-        <p>{producerName}</p>
+        <small className="mb-0 text-truncate pe-4">{producerName}</small>
         <div className="shrink-0">
-          {isOpenData ? (
-            <Chip label="Open Data" />
-          ) : (
-            <Chip label={tUi('eservice_card.access_reserved')} iconName="it-locked" />
-          )}
+          <EServiceDataAccessChip isOpenData={isOpenData} currentLocale={currentLocale} />
         </div>
       </header>
       <h3 className="it-card-title h5 text-primary line-clamp-2">{name}</h3>
-      <div className="it-card-body flex-grow-1 d-flex flex-column justify-content-end">
+      <div className="it-card-body flex-grow-1 d-flex flex-column">
         <p className="it-card-text line-clamp-3">{description}</p>
       </div>
       <footer className="it-card-related it-card-footer">
