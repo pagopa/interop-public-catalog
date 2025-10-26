@@ -73,5 +73,7 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
     return new Accordion(accordionTriggerEl)
   })
 
-  initMixpanel({ projectId: window.env.mixpanelProjectId })
+  if (import.meta.env.PROD) {
+    initMixpanel({ projectId: window.env.mixpanelProjectId })
+  }
 </script>

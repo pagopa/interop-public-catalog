@@ -1,4 +1,5 @@
 ---
+import { PAGOPA_URL } from '../../config/constants'
 import { useEcosystemTranslations } from '../../i18n/ecosystem.i18n'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
 import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
@@ -12,30 +13,30 @@ const accessPoints = [
     title: t('access_points_section.access_point_1.title'),
     subtitle: t('access_points_section.access_point_1.subtitle'),
     description: t('access_points_section.access_point_1.description'),
-    href: '#', // TODO: inserire link reale "Esplora il catalogo"
+    href: PAGOPA_URL,
   },
   {
     title: t('access_points_section.access_point_2.title'),
     subtitle: t('access_points_section.access_point_2.subtitle'),
     description: t('access_points_section.access_point_2.description'),
-    href: '#', // TODO: inserire link reale "Esplora il catalogo"
+    href: 'https://interoperable-europe.ec.europa.eu/interoperable-europe',
   },
   {
     title: t('access_points_section.access_point_3.title'),
     subtitle: t('access_points_section.access_point_3.subtitle'),
     description: t('access_points_section.access_point_3.description'),
-    href: '#', // TODO: inserire link reale "Esplora il catalogo"
+    href: 'https://schema.gov.it',
   },
   {
     title: t('access_points_section.access_point_4.title'),
     subtitle: t('access_points_section.access_point_4.subtitle'),
     description: t('access_points_section.access_point_4.description'),
-    href: '#', // TODO: inserire link reale "Esplora il catalogo"
+    href: 'https://dati.gov.it',
   },
 ] as const
 ---
 
-<Section className="position-relative pb-0 pb-md-5 pt-0">
+<Section className="position-relative pb-0 pb-md-5 pt-5 mb-md-4">
   {/* Background - Mobile */}
   <div
     aria-hidden="true"
@@ -44,7 +45,7 @@ const accessPoints = [
   >
   </div>
 
-  <div class="position-relative py-4 px-md-4">
+  <div class="position-relative py-5 px-md-5">
     {/* Background - Desktop */}
     <div
       style="inset:0;z-index:-1;"
@@ -63,13 +64,15 @@ const accessPoints = [
             <h3 class="h5 it-card-title text-primary">{accessPoint.title}</h3>
             <div class="it-card-body text-start">
               <p class="it-card-text">{accessPoint.subtitle}</p>
-              <p class="it-card-text fw-bold">A cosa serve</p>
+              <p class="it-card-text fw-bold mb-1">{t('access_points_section.what_is_it_for')}</p>
               <p class="it-card-text">{accessPoint.description}</p>
             </div>
             <footer class="it-card-related it-card-footer mt-auto">
               <div class="it-card-taxonomy">
                 <a
                   href={accessPoint.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
                   class="it-card-link text-primary text-decoration-none fw-bold"
                 >
                   {t('access_points_section.actions.go_to_site')}
