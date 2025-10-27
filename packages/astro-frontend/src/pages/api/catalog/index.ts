@@ -1,9 +1,17 @@
 import type { APIRoute } from 'astro'
-import { sqlService } from '../../server/services/index.js'
-import { categoriesMap } from '../../server/config/categories.js'
+import { sqlService } from '../../../server/services/index.js'
+import { categoriesMap } from '../../../server/config/categories.js'
+import { eserviceOrderBy } from 'pagopa-interop-public-models'
 
 export const GET: APIRoute = async ({ url }) => {
   const q = url.searchParams.get('q') ?? ''
+  const orderBy = (url.searchParams.get('orderBy') ?? '')
+    .split(',')
+    .map((entry) => {
+      const trimmedEntry = entry.trim()
+      return Object.hasOwn(eserviceOrderBy, trimmedEntry) ? trimmedEntry : ''
+    })
+    .filter(Boolean)
   const producerIds = (url.searchParams.get('producerIds') ?? '')
     .split(',')
     .map((s) => s.trim())
@@ -19,7 +27,14 @@ export const GET: APIRoute = async ({ url }) => {
   const offset = Number(url.searchParams.get('offset') ?? 0)
 
   try {
-    const data = await sqlService.searchCatalog({ q, limit, offset, producerIds, categories })
+    const data = await sqlService.searchCatalog({
+      q,
+      orderBy,
+      limit,
+      offset,
+      producerIds,
+      categories,
+    })
     return new Response(JSON.stringify(data), {
       headers: { 'Content-Type': 'application/json' },
     })
