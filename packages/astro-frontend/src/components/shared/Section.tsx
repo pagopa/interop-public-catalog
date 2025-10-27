@@ -33,7 +33,7 @@ export function Section<Tag extends React.ElementType = 'section'>({
       <div className="section-content">
         <div className="container">
           {(title || sectionLink) && (
-            <div className="mb-3">
+            <div className="mb-4">
               <div
                 className={
                   sectionLink ? 'd-md-flex justify-content-between align-items-center' : undefined

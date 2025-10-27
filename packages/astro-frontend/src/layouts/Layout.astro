@@ -53,25 +53,16 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
 </style>
 
 <script>
-  import { Popover, Dropdown, Accordion } from 'bootstrap-italia'
   import { initMixpanel } from '../utils/tracking.utils'
+  import { initBootstrapItaliaComponents } from '../config/bootstrap-italia'
 
-  var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-  popoverTriggerList.map(function (popoverTriggerEl) {
-    return new Popover(popoverTriggerEl, {
-      trigger: 'hover focus',
-    })
-  })
+  /**
+   * Initializes Bootstrap Italia components that require JavaScript to work.
+   * E.g.: modals, dropdowns, tooltips, etc.
+   */
+  initBootstrapItaliaComponents()
 
-  var dropdownTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="dropdown"]'))
-  dropdownTriggerList.map(function (dropdownTriggerEl) {
-    return new Dropdown(dropdownTriggerEl)
-  })
-
-  var accordionTriggerList = [].slice.call(document.querySelectorAll('.accordion'))
-  accordionTriggerList.map(function (accordionTriggerEl) {
-    return new Accordion(accordionTriggerEl)
-  })
-
-  initMixpanel({ projectId: window.env.mixpanelProjectId })
+  if (import.meta.env.PROD) {
+    initMixpanel({ projectId: window.env.mixpanelProjectId })
+  }
 </script>

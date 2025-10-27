@@ -73,6 +73,8 @@ export const ui = {
 
     'eservice_card.access_reserved': 'Accesso riservato',
     'eservice_card.read_more': 'leggi tutto',
+    'eservice_card.reserved_tooltip': "L'API è disponibile sulla piattaforma PDND",
+    'eservice_card.open_data_tooltip': "L'API è disponibile come Open Data",
 
     'error.page_not_found.title': 'Pagina non trovata',
     'error.page_not_found.message': 'Utilizza il menu per riprendere la navigazione',
@@ -151,6 +153,8 @@ export const ui = {
 
     'eservice_card.access_reserved': 'Reserved access',
     'eservice_card.read_more': 'Read more',
+    'eservice_card.reserved_tooltip': 'The API is available on the PDND platform',
+    'eservice_card.open_data_tooltip': 'The API is available as Open Data',
 
     'error.page_not_found.title': 'Page not found',
     'error.page_not_found.message': 'Use the menu to continue browsing.',
