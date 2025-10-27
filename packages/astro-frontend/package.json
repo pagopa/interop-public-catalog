@@ -31,7 +31,6 @@
     "@zodios/core": "10.9.6",
     "accessible-autocomplete": "^3.0.1",
     "astro": "^5.15.1",
-    "astro-purgecss": "^5.3.0",
     "axios": "1.12.0",
     "bootstrap-italia": "2.16.2",
     "design-react-kit": "5.8.3",
@@ -41,13 +40,9 @@
     "pagopa-interop-public-commons": "workspace:*",
     "pagopa-interop-public-models": "workspace:*",
     "pg": "8.16.3",
-    "purgecss": "^7.0.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "ts-pattern": "5.2.0",
-    "typeface-lora": "1.1.13",
-    "typeface-roboto-mono": "1.1.13",
-    "typeface-titillium-web": "1.1.13",
     "zod": "3.23.8"
   },
   "devDependencies": {
