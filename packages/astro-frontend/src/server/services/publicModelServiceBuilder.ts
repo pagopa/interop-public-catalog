@@ -9,9 +9,18 @@ import {
   type TenantQuery,
   type TenantSearchResult,
   type Tenant,
+  eserviceOrderBy,
 } from 'pagopa-interop-public-models'
 import type { PgTransaction } from 'drizzle-orm/pg-core'
 import { categoriesMap } from '../config/categories'
+
+type SingleTransaction<T> = (
+  tx: PgTransaction<
+    NodePgQueryResultHKT,
+    Record<string, unknown>,
+    ExtractTablesWithRelations<Record<string, unknown>>
+  >
+) => Promise<T>
 
 type Transaction<T> = (
   tx: PgTransaction<
@@ -30,34 +39,11 @@ type ServiceConfig = {
   attributeSchema: string
 }
 
-export async function searchCatalog(
-  db: ReturnType<typeof drizzle>,
-  config: ServiceConfig,
-  query: EServiceQuery
-): Promise<EServiceSearchResult> {
-  const parsedQuery = EServiceQuery.parse(query)
-  const { limit, offset, q, producerIds, categories } = parsedQuery
-
-  // Categories are already filtered in the catalog API interface
-  // Here we can assume we have valid categories ex. ['Comuni', '...', ...]
-  const mappedCategories = categories?.flatMap(
-    (cat) => (categoriesMap as { [k: string]: string[] })[cat]
-  )
-
-  // Build WHERE condition
-  const conds = [sql`true`]
-
-  if (categories && categories.length > 0) {
-  } else if (producerIds && producerIds.length > 0) {
-    conds.push(
-      sql`
-      t.id IN (${sql.join(
-        producerIds.map((id) => sql`${id}`),
-        sql`, `
-      )})`
-    )
-  }
-
+const _buildFullQueryWithFilters = (config: {
+  catalogSchema: string
+  attributeSchema: string
+  tenantSchema: string
+}) => {
   const baseSelect = (eservice: string, tenant: string) => sql`
   SELECT
       ${sql.identifier(eservice)}.id,
@@ -71,9 +57,12 @@ export async function searchCatalog(
       ${sql.identifier(eservice)}.is_consumer_delegable,
       ${sql.identifier(eservice)}.is_client_access_delegable,
       ${sql.identifier(eservice)}.template_id,
-      ${sql.identifier(tenant)}.name AS tenant_name,
-      to_jsonb(d_full) AS active_descriptor,
-      count(*) over() AS total
+      ${sql.identifier(tenant)}.name AS tenant_name
+  `
+
+  const fullSelect = (eservice: string, tenant: string) => sql`
+      ${baseSelect(eservice, tenant)},
+      to_jsonb(d_full) AS active_descriptor
   `
   const conditionalCategoriesCheck = (categories: string[]) => sql`
   -- filter by categories
@@ -125,13 +114,95 @@ export async function searchCatalog(
   const activeDescriptorPopulatorGroupBy = (eservice: string, tenant: string) =>
     sql`GROUP BY ${sql.identifier(eservice)}.id, ${sql.identifier(tenant)}.name, ${sql.identifier(tenant)}.id, d_full`
 
+  return {
+    baseSelect,
+    fullSelect,
+    activeDescriptorPopulator,
+    activeDescriptorPopulatorGroupBy,
+  }
+}
+
+export async function getEService(
+  db: ReturnType<typeof drizzle>,
+  config: ServiceConfig,
+  id: string
+): Promise<EService> {
+  const { fullSelect, activeDescriptorPopulator, activeDescriptorPopulatorGroupBy } =
+    _buildFullQueryWithFilters({
+      catalogSchema: config.catalogSchema,
+      attributeSchema: config.attributeSchema,
+      tenantSchema: config.tenantSchema,
+    })
+
+  const getEServiceById: SingleTransaction<EService> = async (tx) => {
+    const pageRes = await tx.execute(sql`
+    ${fullSelect('e', 't')}
+    FROM ${sql.identifier(config.catalogSchema)}.eservice e
+    ${activeDescriptorPopulator('e')}
+    WHERE e.id = ${id}
+    ${activeDescriptorPopulatorGroupBy('e', 't')}
+  `)
+    const eservice = pageRes.rows[0] as EService
+    return eservice
+  }
+
+  const item = await db.transaction(getEServiceById, { isolationLevel: 'repeatable read' })
+  return item
+}
+
+export async function searchCatalog(
+  db: ReturnType<typeof drizzle>,
+  config: ServiceConfig,
+  query: EServiceQuery
+): Promise<EServiceSearchResult> {
+  const parsedQuery = EServiceQuery.parse(query)
+  const { limit, offset, q, orderBy, producerIds, categories } = parsedQuery
+
+  const mappedOrderBy = orderBy?.map((entry) => (eserviceOrderBy as { [k: string]: string })[entry])
+
+  // Categories are already filtered in the catalog API interface
+  // Here we can assume we have valid categories ex. ['Comuni', '...', ...]
+  const mappedCategories = categories?.flatMap(
+    (cat) => (categoriesMap as { [k: string]: string[] })[cat]
+  )
+
+  // Build WHERE condition
+  const conds = [sql`true`]
+
+  if (categories && categories.length > 0) {
+  } else if (producerIds && producerIds.length > 0) {
+    conds.push(
+      sql`
+      t.id IN (${sql.join(
+        producerIds.map((id) => sql`${id}`),
+        sql`, `
+      )})`
+    )
+  }
+
+  const { fullSelect, activeDescriptorPopulator, activeDescriptorPopulatorGroupBy } =
+    _buildFullQueryWithFilters({
+      catalogSchema: config.catalogSchema,
+      attributeSchema: config.attributeSchema,
+      tenantSchema: config.tenantSchema,
+    })
+
+  const orderByFragment = sql.raw(`
+  e.${
+    mappedOrderBy && mappedOrderBy.length > 0
+      ? mappedOrderBy?.map((el) => `${el}`).join(', e.')
+      : 'created_at DESC'
+  }
+  `)
+
   const attributeSearchTx: Transaction<EService & { [k: string]: unknown }> = async (tx) => {
     const pageRes = await tx.execute(sql`
-    ${baseSelect('e', 't')}
+    ${fullSelect('e', 't')},
+    count(*) over() AS total
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
     ${activeDescriptorPopulator('e', mappedCategories)}
     ${activeDescriptorPopulatorGroupBy('e', 't')}
-    ORDER BY e.created_at DESC
+    ORDER BY ${orderByFragment}
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
     `)
 
@@ -143,12 +214,13 @@ export async function searchCatalog(
 
   const textlessSearchTx: Transaction<EService & { [k: string]: unknown }> = async (tx) => {
     const pageRes = await tx.execute(sql`
-    ${baseSelect('e', 't')}
+    ${fullSelect('e', 't')},
+    count(*) over() AS total
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
     ${activeDescriptorPopulator('e')}
     WHERE ${sql.join(conds, sql` AND `)}
     ${activeDescriptorPopulatorGroupBy('e', 't')}
-    ORDER BY e.created_at DESC
+    ORDER BY ${orderByFragment}
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
 
@@ -196,7 +268,8 @@ export async function searchCatalog(
       WHERE NOT EXISTS (SELECT 1 FROM fts_ids)
     ),
     scored AS (
-      ${baseSelect('e', 't')},
+      ${fullSelect('e', 't')},
+        count(*) over() AS total,
         e.*,
         -- gives priority to tenant name matches when ordering
         -- based on coverage + density (ts_rank_cd)
@@ -216,7 +289,7 @@ export async function searchCatalog(
     SELECT s.*,
       (s.fts_rank + 0.5 * s.fuzzy_sim)::real AS score
     FROM scored s
-    ORDER BY score DESC
+    ORDER BY score DESC${orderByFragment ? sql.join([sql`, `, orderByFragment]) : sql``}
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
 
@@ -351,6 +424,7 @@ export async function searchTenants(
 export function publicModelServiceBuilder(db: ReturnType<typeof drizzle>, config: ServiceConfig) {
   return {
     searchCatalog: searchCatalog.bind(null, db, config),
+    getEService: getEService.bind(null, db, config),
     searchTenants: searchTenants.bind(null, db, config),
   }
 }
