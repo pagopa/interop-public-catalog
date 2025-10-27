@@ -80,6 +80,23 @@ const t = useCatalogTranslations(currentLocale)
       </div>
     </div>
 
-    <SuggestionSection />
+    <SuggestionSection
+      leftCard={{
+        title: t('suggestion_section.left_card.title'),
+        description: t('suggestion_section.left_card.description'),
+        buttonLabel: t('suggestion_section.left_card.button_label'),
+        href: '#',
+        externalLink: true,
+        imageSrc: '/img/077-network-primary-color.svg',
+      }}
+      rightCard={{
+        title: t('suggestion_section.right_card.title'),
+        description: t('suggestion_section.right_card.description'),
+        buttonLabel: t('suggestion_section.right_card.button_label'),
+        href: '#',
+        externalLink: true,
+        imageSrc: '/img/080-growth-graph.svg',
+      }}
+    />
   </Layout>
 </div>

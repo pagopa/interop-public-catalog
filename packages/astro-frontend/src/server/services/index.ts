@@ -3,7 +3,9 @@ import { StrapiApiConfig } from '../config/strapiConfig.js'
 import { publicModelServiceBuilder } from './publicModelServiceBuilder.js'
 import { strapiServiceBuilder } from './strapiService.js'
 
-const sqlConfig = PublicModelSQLDbConfig.parse(import.meta.env)
+import 'dotenv-flow/config'
+
+const sqlConfig = PublicModelSQLDbConfig.parse(process.env)
 
 export const sqlService: ReturnType<typeof publicModelServiceBuilder> = publicModelServiceBuilder(
   initDB({
@@ -22,7 +24,7 @@ export const sqlService: ReturnType<typeof publicModelServiceBuilder> = publicMo
   }
 )
 
-const strapiConfig = StrapiApiConfig.parse(import.meta.env)
+const strapiConfig = StrapiApiConfig.parse(process.env)
 
 export const strapiService = strapiServiceBuilder(
   strapiConfig.strapiApiEndpoint,

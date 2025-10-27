@@ -43,7 +43,7 @@ const normalizeRoutePath = (routePath: string): string => {
   return trimmed.split('/').filter(Boolean).map(toNormalizedSlug).join('/')
 }
 
-const resolveSource = <Locale extends string>(
+const resolveSource = (
   baseDir: string,
   routePath: string,
   routeKey: string,
