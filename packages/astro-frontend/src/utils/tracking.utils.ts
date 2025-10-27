@@ -1,26 +1,9 @@
 import mixpanel from 'mixpanel-browser/src/loaders/loader-module-core'
 
-const TARG_COOKIES_GROUP = 'C0002'
-declare const OnetrustActiveGroups: string
-
-function areCookiesAccepted(): boolean {
-  try {
-    return (
-      typeof OnetrustActiveGroups !== 'undefined' &&
-      Boolean(OnetrustActiveGroups) &&
-      OnetrustActiveGroups.includes(TARG_COOKIES_GROUP)
-    )
-  } catch {
-    return false
-  }
-}
-
 let didMixpanelInit = false
 
 export function initMixpanel({ projectId }: { projectId: string }) {
-  if (didMixpanelInit || !areCookiesAccepted()) {
-    return
-  }
+  if (didMixpanelInit) return
 
   mixpanel.init(projectId, {
     api_host: 'https://api-eu.mixpanel.com',
@@ -28,6 +11,12 @@ export function initMixpanel({ projectId }: { projectId: string }) {
     debug: true,
     autocapture: {
       pageview: 'full-url',
+      rage_click: false,
+      submit: false,
+      input: false,
+      dead_click: false,
+      scroll: false,
+      click: false,
     },
     ip: false,
     property_blacklist: ['$current_url', '$initial_referrer', '$referrer'],
@@ -102,6 +91,6 @@ export function track<TKey extends TrackingData['key']>(
   eventKey: TKey,
   eventPayload: TrackingPayload<TKey>
 ) {
-  if (!areCookiesAccepted() || !didMixpanelInit) return
+  if (!didMixpanelInit) return
   mixpanel.track(eventKey, eventPayload)
 }

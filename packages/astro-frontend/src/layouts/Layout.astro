@@ -18,37 +18,16 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
       is:inline
       set:html={`window.env = ${JSON.stringify(clientEnvConfig).replace(/</g, '\\u003c')}`}
     />
-
-    <script is:inline>
-      window.OptanonWrapper = function () {
-        try {
-          console.log('OptanonWrapper:', window.OneTrust?.GetDomainData?.()?.ActiveGroups)
-        } catch (e) {
-          console.error(e)
-        }
-
-        // Eventi utili
-        window.OneTrust?.OnConsentReceivedEvent?.(function () {
-          console.log('OnConsentReceivedEvent:', window.OneTrust.GetDomainData()?.ActiveGroups)
-        })
-        window.OneTrust?.OnConsentChanged?.(function () {
-          console.log('OnConsentChanged:', window.OneTrust.GetDomainData()?.ActiveGroups)
-        })
-      }
-    </script>
-
     {
       import.meta.env.PROD && (
-        <Fragment>
-          <script
-            is:inline
-            src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
-            type="text/javascript"
-            charset="UTF-8"
-            data-domain-script={clientEnvConfig.onetrustDomainScriptId}
-            data-language={currentLocale}
-          />
-        </Fragment>
+        <script
+          is:inline
+          src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+          type="text/javascript"
+          charset="UTF-8"
+          data-domain-script={clientEnvConfig.onetrustDomainScriptId}
+          data-language={currentLocale}
+        />
       )
     }
     <meta name="viewport" content="width=device-width" />
@@ -75,6 +54,7 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
 
 <script>
   import { Popover, Dropdown, Accordion } from 'bootstrap-italia'
+  import { initMixpanel } from '../utils/tracking.utils'
 
   var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
   popoverTriggerList.map(function (popoverTriggerEl) {
@@ -92,4 +72,6 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
   accordionTriggerList.map(function (accordionTriggerEl) {
     return new Accordion(accordionTriggerEl)
   })
+
+  initMixpanel({ projectId: window.env.mixpanelProjectId })
 </script>
