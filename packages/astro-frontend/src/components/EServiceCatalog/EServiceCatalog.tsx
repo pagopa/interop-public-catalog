@@ -6,17 +6,9 @@ import { useEServiceCatalogContext } from './EServiceCatalogContext'
 import { getEServices } from '../../services/catalog.services'
 import type { EService } from 'pagopa-interop-public-models'
 
-type EServiceCatalogProps = {
-  initialEservices: EService[]
-  totalCount: number
-}
-
-export const EServiceCatalog: React.FC<EServiceCatalogProps> = ({
-  initialEservices,
-  totalCount: totalCountEservices,
-}) => {
-  const [eservices, setEservices] = React.useState<EService[]>(initialEservices)
-  const [totalCount, setTotalCount] = React.useState<number>(totalCountEservices)
+export const EServiceCatalog: React.FC = () => {
+  const [eservices, setEservices] = React.useState<EService[]>([])
+  const [totalCount, setTotalCount] = React.useState<number>(0)
   const { eserviceActiveFilterState, applyFilters } = useEServiceCatalogContext()
 
   const onFiltersApply = async () => {
