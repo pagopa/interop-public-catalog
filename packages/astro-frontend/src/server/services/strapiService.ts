@@ -1,6 +1,7 @@
 import type { GoodPractice, StrapiEntityList, StrapiEntity } from 'pagopa-interop-public-models'
 import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 import { getGoodPracticesDataMockByLocale } from '../mocks/good-practices.mocks.js'
+import { catalogMockData, ecosystemMockData, faqMockData, generalMockData, genericErrorMockData, getCatalogSingleApiMockData, getGoodPracticeSingleMockData, goodPracticesMockData, legalNotesMockData, normativaMockData, notFoundErrorMockData, privacyPolicyMockData } from '../mocks/meta-data.mocks.js'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, max-params
 export function strapiServiceBuilder(_endpoint: string, _token: string) {
@@ -54,5 +55,51 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       locale: SupportedLanguage
     ): Promise<StrapiEntity<GoodPractice> | undefined> =>
       Promise.resolve(getGoodPracticesDataMockByLocale(locale).find((g) => g.data.slug === slug)),
+
+    async getSeoMetaData(
+      pageName: string,
+      eserviceId?: string,
+      pageSlug?: string
+    ): Promise<StrapiEntityList<MetaDataType>> {
+      let strapiMockedData
+      switch (pageName) {
+        case 'catalog':
+          strapiMockedData = catalogMockData
+        case 'catalog_single':
+          strapiMockedData = getCatalogSingleApiMockData(eserviceId!)
+        case 'ecosystem':
+          strapiMockedData = ecosystemMockData
+        case 'faq':
+          strapiMockedData = faqMockData
+        case 'good_practices':
+          strapiMockedData = goodPracticesMockData
+        case 'good_practices_single':
+          strapiMockedData = getGoodPracticeSingleMockData(pageSlug!)
+        case 'legal_notes':
+          strapiMockedData = legalNotesMockData
+        case 'normativa':
+          strapiMockedData = normativaMockData
+        case 'privacy_policy':
+          strapiMockedData = privacyPolicyMockData
+        case 'errore':
+          strapiMockedData = genericErrorMockData
+        case '404':
+          strapiMockedData = notFoundErrorMockData
+        case 'general':
+        default:
+          strapiMockedData = generalMockData
+      }
+      return Promise.resolve({
+        data: [strapiMockedData],
+        meta: {
+          pagination: {
+            page: 1,
+            pageSize: 1,
+            pageCount: 1,
+            total: 1,
+          },
+        },
+      })
+    },
   }
 }
