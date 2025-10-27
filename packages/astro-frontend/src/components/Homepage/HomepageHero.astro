@@ -4,6 +4,7 @@ import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { useUiTranslations } from '../../i18n/ui.i18n'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
 import { TooltipIcon } from '../shared/TooltipIcon.jsx'
+import HomepageHeroBackground from './HomepageHeroBackground.astro'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 
@@ -12,13 +13,7 @@ const tUi = useUiTranslations(currentLocale)
 ---
 
 <section id="hero" style="min-height: 560px;" class="it-hero-wrapper">
-  <div class="img-responsive-wrapper">
-    <div class="img-responsive">
-      <div class="img-wrapper">
-        <img src="/img/hero-background.png" alt="" role="presentation" width="1440" height="560" />
-      </div>
-    </div>
-  </div>
+  <HomepageHeroBackground />
   <div class="container position-relative">
     <div class="row flex-column-reverse flex-md-row">
       <div class="col-12 col-md-6">
@@ -71,7 +66,7 @@ const tUi = useUiTranslations(currentLocale)
       >
         <img
           class="img-fluid mt-4 pt-4 pt-md-0 mt-md-0"
-          src="/img/hero-eservice-cards.png"
+          src="/img/hero-eservice-cards.svg"
           alt=""
           role="presentation"
           width="432"

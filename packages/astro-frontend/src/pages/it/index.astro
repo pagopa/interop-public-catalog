@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro'
-import Hero from '../../components/Homepage/Hero.astro'
+import HomepageHero from '../../components/Homepage/HomepageHero.astro'
 import HowItWorks from '../../components/Homepage/HowItWorks.astro'
 import GoodPractices from '../../components/Homepage/GoodPractices.astro'
 import ApiShowcase from '../../components/Homepage/ApiShowcase.astro'
@@ -82,7 +82,7 @@ const t = useHomepageTranslations(currentLocale)
 ---
 
 <Layout>
-  <Hero />
+  <HomepageHero />
   <HowItWorks />
   <GoodPractices />
   <ApiShowcase title={t('featured_api.title')} highlightedEServices={highlightedEServices} />

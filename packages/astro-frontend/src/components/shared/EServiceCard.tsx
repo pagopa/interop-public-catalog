@@ -12,6 +12,8 @@ interface EServiceCardProps {
 }
 
 const CARD_HEIGHT = 296
+const MIN_HEIGHT_TITLE = 64
+const MIN_HEIGHT_PRODUCER_NAME = 42
 
 export const EServiceCard: React.FC<EServiceCardProps> = ({
   currentLocale,
@@ -27,14 +29,23 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
       style={{ height: CARD_HEIGHT }}
       className="it-card rounded shadow d-flex flex-column px-2"
     >
-      <header className="px-3 pt-4 d-flex justify-content-between align-items-center">
-        <small className="mb-0 text-truncate pe-4">{producerName}</small>
+      <header
+        style={{ height: MIN_HEIGHT_PRODUCER_NAME }}
+        className="px-3 pt-4 d-flex justify-content-between align-items-center"
+      >
+        <small className="mb-0 line-clamp-2 pe-4">{producerName}</small>
         <div className="shrink-0">
           <EServiceDataAccessChip isOpenData={isOpenData} currentLocale={currentLocale} />
         </div>
       </header>
-      <h3 className="it-card-title h5 text-primary line-clamp-2">{name}</h3>
-      <div className="it-card-body flex-grow-1 d-flex flex-column">
+      <a
+        href="#" // TODO
+        style={{ height: MIN_HEIGHT_TITLE }}
+        className="it-card-title h5 text-primary line-clamp-2"
+      >
+        {name}
+      </a>
+      <div className="it-card-body flex-grow-1">
         <p className="it-card-text line-clamp-3">{description}</p>
       </div>
       <footer className="it-card-related it-card-footer">
