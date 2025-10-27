@@ -1,140 +1,89 @@
 ---
-
-
-
 import Layout from '../../../layouts/Layout.astro'
-import EServiceCatalog from '../../../components/EServiceCatalog/EServiceCatalog'
-import {Button, Container, Icon, Section } from 'design-react-kit'
+import { Button, Icon, Section } from 'design-react-kit'
 import SuggestionSection from '../../../components/shared/SuggestionSection.astro'
-import { EService } from 'pagopa-interop-public-models'
-import EServiceCatalogFilters from '../../../components/EServiceCatalog/EServiceCatalogFilters'
 import PageHero from '..//../../components/shared/PageHero.astro'
 import { useCatalogTranslations } from '../../../i18n/catalog.i18n'
 import { getLangFromUrl } from '../../../i18n/utils.i18n'
 
+import { EServiceCatalogApp } from '../../../components/EServiceCatalog/EServiceCatalogApp'
+import { sqlService } from '../../../server/services'
+import type { EServiceQuery } from 'pagopa-interop-public-models'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useCatalogTranslations(currentLocale)
 
+const getParams = () => {
+  const q = Astro.url.searchParams.get('q') || ''
+  const limit = 12 // Put default on serve side
+  const offset = parseInt(Astro.url.searchParams.get('offset') || '0', 10) || 0
+  const categories = JSON.parse(Astro.url.searchParams.get('consumer') || '[]').map(
+    (it: [string, string]) => it[0]
+  )
+  const producerIds: string[] = JSON.parse(Astro.url.searchParams.get('provider') || '[]').map(
+    (it: [string, string]) => it[1]
+  )
+  const orderBy = [Astro.url.searchParams.get('orderBy')]
+
+  const params = {
+    q,
+    offset,
+    categories,
+    producerIds,
+    orderBy,
+    limit,
+  }
+
+  return Object.fromEntries(
+    Object.entries(params).filter(([_, value]) => {
+      if (Array.isArray(value)) return value.length > 0
+      return value !== '' && value !== null && value !== undefined
+    })
+  )
+}
+
+const eservicesList = await sqlService.searchCatalog(getParams() as EServiceQuery)
 ---
 
 <div class="start">
-<Layout>
-  <PageHero
-    title={t('title')}
-    description={t('description')}
-    breadcrumbItems={[
-      {
-        routeKey: 'HOME',
-      },
-      {
-        routeKey: 'ESERVICE_CATALOG',
-        current: true,
-      },
-    ]}
-  />
-  <Section color="muted">
-    <Container className="p-3">
-      <EServiceCatalogFilters client:only="react" />
-    </Container>
-
-    <EServiceCatalog
-      client:only="react"
-      eservices={[
+  <Layout>
+    <PageHero
+      title={t('title')}
+      description={t('description')}
+      breadcrumbItems={[
         {
-          name: 'eservice 1',
-          description: 'eservice description 1',
-          eserviceId: 'eservice1',
-          descriptorId: 'descriptor1',
-        } as unknown as EService,
+          routeKey: 'HOME',
+        },
         {
-          name: 'eservice 2',
-          description: 'eservice description 2',
-          eserviceId: 'eservice2',
-          descriptorId: 'descriptor2',
-        } as unknown as EService,
-        {
-          name: 'eservice 3',
-          description: 'eservice description 3',
-          eserviceId: 'eservice3',
-          descriptorId: 'descriptor3',
-        } as unknown as EService,
-        {
-          name: 'eservice 4',
-          description: 'eservice description 4',
-          eserviceId: 'eservice4',
-          descriptorId: 'descriptor4',
-        } as unknown as EService,
-        {
-          name: 'eservice 5',
-          description: 'eservice description 5',
-          eserviceId: 'eservice5',
-          descriptorId: 'descriptor5',
-        } as unknown as EService,
-        {
-          name: 'eservice 6',
-          description: 'eservice description 6',
-          eserviceId: 'eservice6',
-          descriptorId: 'descriptor6',
-        } as unknown as EService,
-        {
-          name: 'eservice 7',
-          description: 'eservice description 7',
-          eserviceId: 'eservice7',
-          descriptorId: 'descriptor7',
-        } as unknown as EService,
-        {
-          name: 'eservice 8',
-          description: 'eservice description 8',
-          eserviceId: 'eservice8',
-          descriptorId: 'descriptor8',
-        } as unknown as EService,
-        {
-          name: 'eservice 9',
-          description: 'eservice description 9',
-          eserviceId: 'eservice9',
-          descriptorId: 'descriptor9',
-        } as unknown as EService,
-        {
-          name: 'eservice 10',
-          description: 'eservice description 10',
-          eserviceId: 'eservice10',
-          descriptorId: 'descriptor10',
-        } as unknown as EService,
-        {
-          name: 'eservice 11',
-          description: 'eservice description 11',
-          eserviceId: 'eservice11',
-          descriptorId: 'descriptor11',
-        } as unknown as EService,
-        {
-          name: 'eservice 12',
-          description: 'eservice description 12',
-          eserviceId: 'eservice12',
-          descriptorId: 'descriptor12',
-        } as unknown as EService,
+          routeKey: 'ESERVICE_CATALOG',
+          current: true,
+        },
       ]}
     />
-  </Section>
+    <Section color="muted">
+      <EServiceCatalogApp
+        client:only="react"
+        totalCount={eservicesList.total}
+        initialEservices={eservicesList.items}
+      />
+    </Section>
 
-  <div class="p-5">
-    <div class="primary-bg-c1 p-5">
-      <h3>{t('finder.title')}</h3>
-      <div class="d-flex flex-row">
-        <div class="me-2">
+    <div class="p-5">
+      <div class="primary-bg-c1 p-5">
+        <h3>{t('finder.title')}</h3>
+        <div class="d-flex flex-row">
+          <div class="me-2">
+            <Button color="primary" outline size="sm" onClick={(): void => {}} icon
+              >{t('finder.api.label')} <Icon color="white" icon="it-arrow-right" /></Button
+            >
+          </div>
           <Button color="primary" outline size="sm" onClick={(): void => {}} icon
-            >{t('finder.api.label')} <Icon color="white" icon="it-arrow-right" /></Button
+            >{t('finder.provider.label')} <Icon color="white" icon="it-arrow-right" /></Button
           >
         </div>
-        <Button color="primary" outline size="sm" onClick={(): void => {}} icon
-          >{t('finder.provider.label')} <Icon color="white" icon="it-arrow-right" /></Button
-        >
       </div>
     </div>
-  </div>
 
-  <SuggestionSection />
-</Layout>
-
+    <SuggestionSection />
+  </Layout>
 </div>
-

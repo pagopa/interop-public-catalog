@@ -1,10 +1,8 @@
-import type { FilterParamsKeys, FiltersParams } from '../components/EServiceCatalog/Filters.js'
-import {
+import type {
   EService,
-  EServiceAttribute,
+  // EServiceAttribute,
   EServiceAttributes,
 } from '../../../models/src/types/eservice.js'
-import type { FilterAutoCompleteValue } from '../components/MultipleAutoComplete/MultipleAutoComplete.jsx'
 
 export const chunkEServiceArray = (
   eservices: EService[],
@@ -17,76 +15,9 @@ export const chunkEServiceArray = (
   return chunkedArray
 }
 
-export function parseQueryStringToParams(queryString: string) {
-  const cleanQueryString = queryString.startsWith('?') ? queryString.slice(1) : queryString
-
-  const params = new URLSearchParams(cleanQueryString)
-  const result: { [key: string]: string | string[] } = {}
-
-  for (const [key, value] of params.entries()) {
-    if (key === 'offset' || key === 'order') continue
-    if (key === 'provider' || key === 'consumer') {
-      const parsedValue = JSON.parse(value)
-
-      result[key] = parsedValue.map((item: string[][]) => {
-        return { label: item[0], value: item[1] }
-      })
-    } else {
-      result[key] = value
-    }
-  }
-
-  return result
-}
-
-export function addParamsWithinUrl(filtersParams: FiltersParams) {
-  const urlSearchParams = new URLSearchParams(window.location.search)
-
-  Object.keys(filtersParams).forEach((k) => {
-    const key = k as FilterParamsKeys
-
-    if (filtersParams[key]) {
-      if (key === 'provider' || key === 'consumer') {
-        const filter = filtersParams[key]?.map((item) => [item.label, item.value])
-        urlSearchParams.set(key, JSON.stringify(filter))
-      } else urlSearchParams.set(key, filtersParams[key])
-    }
-  })
-
-  const queryString = urlSearchParams.toString()
-  window.history.pushState({}, '', `${window.location.pathname}?${queryString}`)
-}
-
-export function removeParamsFromUrl(key: string, value: string | FilterAutoCompleteValue) {
-  const url = new URLSearchParams(window.location.search)
-  const urlParams = url.get(key)
-
-  if (urlParams && (key === 'provider' || key === 'consumer')) {
-    const parsedValues = JSON.parse(urlParams)
-    const filteredValues = parsedValues.filter((item: string[]) => {
-      return item[1] !== value
-    })
-    if (filteredValues.length > 0) {
-      url.set(key, JSON.stringify(filteredValues))
-    } else {
-      url.delete(key)
-    }
-  } else {
-    url.delete(key)
-  }
-
-  window.history.pushState({}, '', `${window.location.pathname}?${url}`)
-}
-
-export function removeParamsFromUrlByKey(key: string) {
-  const url = new URLSearchParams(window.location.search)
-  url.delete(key)
-  window.history.pushState({}, '', `${window.location.pathname}?${url}`)
-}
-
 type Group = {
   attributeType: keyof EServiceAttributes
-  attributesGroup: Array<EServiceAttribute>
+  attributesGroup: Array<EServiceAttributes[keyof EServiceAttributes][0]>
 }
 
 type Groups = Array<Group>
@@ -113,10 +44,21 @@ export function mapEServiceAttributesToGroups(attributes: EServiceAttributes): G
     for (const group of attributeGroups) {
       groups.push({
         attributeType: key, // La chiave corrente (e.g., 'certified')
-        attributesGroup: group, // L'array interno (e.g., Array<{id: string; name: string}>)
+        attributesGroup: group as any, // L'array interno (e.g., Array<{id: string; name: string}>)
       })
     }
   }
 
   return groups
+}
+
+export function debounce<F extends (...args: Parameters<F>) => ReturnType<F>>(
+  func: F,
+  waitFor: number
+): (...args: Parameters<F>) => void {
+  let timeout: NodeJS.Timeout
+  return (...args: Parameters<F>): void => {
+    clearTimeout(timeout)
+    timeout = setTimeout(() => func(...args), waitFor)
+  }
 }

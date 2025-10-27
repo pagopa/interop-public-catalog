@@ -39,6 +39,7 @@ export const GET: APIRoute = async ({ url }) => {
       headers: { 'Content-Type': 'application/json' },
     })
   } catch (err) {
+    console.error('Error fetching catalog data:', err)
     return new Response(JSON.stringify({ items: [{ name: 'PG is not connected...' }] }), {
       headers: { 'Content-Type': 'application/json' },
     })

@@ -17,22 +17,22 @@ const Pagination: React.FC<PaginationProps> = ({ totalCount, limit }) => {
   const lang = getLangFromUrl(window.location.pathname)
   const { totalPages } = paginationProps
 
-  const mapPagesToPagerElements = (pages: Page[]): React.ReactNode =>
-    pages.map((page, index) => (
-      <li className="page-item">
-        {page.isSpan ? (
-          <span className="page-link">{page.value}</span>
-        ) : (
-          <a
-            className="page-link"
-            onClick={() => paginationProps.onPageChange(parseInt(page.value, 10))}
-            role="button"
-          >
-            {page.value}
-          </a>
-        )}
-      </li>
-    ))
+  // const mapPagesToPagerElements = (pages: Page[]): React.ReactNode =>
+  //   pages.map((page, index) => (
+  //     <li className="page-item">
+  //       {page.isSpan ? (
+  //         <span className="page-link">{page.value}</span>
+  //       ) : (
+  //         <a
+  //           className="page-link"
+  //           onClick={() => paginationProps.onPageChange(parseInt(page.value, 10))}
+  //           role="button"
+  //         >
+  //           {page.value}
+  //         </a>
+  //       )}
+  //     </li>
+  //   ))
 
   if (paginationProps.actualPage < 1 || paginationProps.actualPage > totalPages) {
     window.location.replace(`/${lang}${ROUTES.NOT_FOUND[lang]}`)

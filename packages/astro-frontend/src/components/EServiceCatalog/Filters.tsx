@@ -6,25 +6,11 @@ import {
 } from '../MultipleAutoComplete/MultipleAutoComplete.js'
 import { TooltipIcon } from '../shared/TooltipIcon.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
-import { useUiTranslations } from '../../i18n/ui.i18n.js'
-import type { EServiceCatalogFiltersParams } from './EServiceCatalogFilters.jsx'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
-
-const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
-  { label: 'Opzione 1', value: 'value-1' },
-  { label: 'Opzione 2', value: 'value-2' },
-  { label: 'Opzione 3', value: 'value-3' },
-  { label: 'Opzione 4', value: 'value-4' },
-  { label: 'Opzione 5', value: 'value-5' },
-]
-
-const optionAutoCompleteConsumer: FilterAutoCompleteValue[] = [
-  { label: 'Opzione A', value: 'value-A' },
-  { label: 'Opzione B', value: 'value-B' },
-  { label: 'Opzione C', value: 'value-C' },
-  { label: 'Opzione D', value: 'value-D' },
-  { label: 'Opzione E', value: 'value-E' },
-]
+import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
+import type { CatalogFilterParams } from './types.js'
+import { useAutocompleteTextInput } from '../../hooks/useAutoCompleteTextInput.jsx'
+import { getConsumers, getProducer } from '../../services/catalog.services.js'
 
 export type FiltersParams = {
   q?: string
@@ -36,21 +22,50 @@ export type FiltersParams = {
 export type FilterParamsKeys = keyof FiltersParams
 
 type FiltersProps = {
-  filtersFormState: EServiceCatalogFiltersParams
-  handleValueChange: (key: FilterParamsKeys, value: string | FilterAutoCompleteValue[]) => void
+  handleDraftFilterValueChange: (
+    key: keyof CatalogFilterParams,
+    value: string | FilterAutoCompleteValue[]
+  ) => void
   onSubmit?: (e: React.FormEvent<HTMLButtonElement>) => void
-  handleConsumerChange: (values: FilterAutoCompleteValue[]) => void
+  handleActiveFilterValueChange: (
+    key: keyof CatalogFilterParams,
+    value: string | number | FilterAutoCompleteValue[]
+  ) => void
   isMobile: boolean
 }
 const Filters: React.FC<FiltersProps> = ({
-  filtersFormState,
-  handleValueChange,
+  handleDraftFilterValueChange,
   onSubmit,
   isMobile,
-  handleConsumerChange,
+  handleActiveFilterValueChange,
 }) => {
   const currentLanguage = getLangFromUrl(window.location.pathname)
   const t = useCatalogTranslations(currentLanguage)
+
+  const { eserviceFiltersState } = useEServiceCatalogContext()
+
+  const [producerList, setProducerList] = React.useState([])
+  const [consumerList, setConsumerList] = React.useState([])
+  const [autoCompleteProviderInput, setAutoCompleteProviderInput] = useAutocompleteTextInput('')
+  const [autoCompleteConsumerInput, setAutoCompleteConsumerInput] = useAutocompleteTextInput('')
+
+  useEffect(() => {
+    fetchTenants()
+  }, [autoCompleteProviderInput])
+
+  useEffect(() => {
+    fetchConsumers()
+  }, [autoCompleteConsumerInput])
+
+  const fetchTenants = async () => {
+    const producers = await getProducer(autoCompleteProviderInput)
+    setProducerList(producers)
+  }
+
+  const fetchConsumers = async () => {
+    const consumers = await getConsumers()
+    setConsumerList(consumers)
+  }
 
   return (
     <Form>
@@ -65,10 +80,10 @@ const Filters: React.FC<FiltersProps> = ({
               type="text"
               className="mt-4"
               placeholder={t('filters.q.placeholder')}
-              value={filtersFormState.q ?? ''}
+              value={eserviceFiltersState.q ?? ''}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                 e.preventDefault()
-                handleValueChange('q', e.target.value)
+                handleDraftFilterValueChange('q', e.target.value)
               }}
               onKeyDown={(e: React.KeyboardEvent) => {
                 if (e.key === 'Enter') {
@@ -81,9 +96,10 @@ const Filters: React.FC<FiltersProps> = ({
         <Col lg="3">
           <MultipleAutoComplete
             label={t('filters.provider.label')}
-            options={optionAutoCompleteProvider}
-            values={filtersFormState.provider as unknown as FilterAutoCompleteValue[]}
-            handleValuesChange={(values) => handleValueChange('provider', values)}
+            options={producerList}
+            values={eserviceFiltersState.provider as unknown as FilterAutoCompleteValue[]}
+            onTextInputChange={setAutoCompleteProviderInput}
+            handleValuesChange={(values) => handleDraftFilterValueChange('provider', values)}
           />
         </Col>
         {!isMobile && (
@@ -104,10 +120,13 @@ const Filters: React.FC<FiltersProps> = ({
           <FormGroup>
             <MultipleAutoComplete
               label={t('filters.consumer.label')}
-              options={optionAutoCompleteConsumer}
-              values={filtersFormState.consumer as unknown as FilterAutoCompleteValue[]}
+              options={consumerList}
+              values={eserviceFiltersState.consumer as unknown as FilterAutoCompleteValue[]}
+              onTextInputChange={setAutoCompleteConsumerInput}
               handleValuesChange={
-                isMobile ? (values) => handleValueChange('consumer', values) : handleConsumerChange
+                isMobile
+                  ? (values) => handleDraftFilterValueChange('consumer', values)
+                  : (values) => handleActiveFilterValueChange('consumer', values)
               }
               tooltipIconRender={
                 <div>
