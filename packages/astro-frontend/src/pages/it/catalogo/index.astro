@@ -13,36 +13,36 @@ import type { EServiceQuery } from 'pagopa-interop-public-models'
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useCatalogTranslations(currentLocale)
 
-const getParams = () => {
-  const q = Astro.url.searchParams.get('q') || ''
-  const limit = 12 // Put default on serve side
-  const offset = parseInt(Astro.url.searchParams.get('offset') || '0', 10) || 0
-  const categories = JSON.parse(Astro.url.searchParams.get('consumer') || '[]').map(
-    (it: [string, string]) => it[0]
-  )
-  const producerIds: string[] = JSON.parse(Astro.url.searchParams.get('provider') || '[]').map(
-    (it: [string, string]) => it[1]
-  )
-  const orderBy = [Astro.url.searchParams.get('orderBy')]
+// const getParams = () => {
+//   const q = Astro.url.searchParams.get('q') || ''
+//   const limit = 12 // Put default on serve side
+//   const offset = parseInt(Astro.url.searchParams.get('offset') || '0', 10) || 0
+//   const categories = JSON.parse(Astro.url.searchParams.get('consumer') || '[]').map(
+//     (it: [string, string]) => it[0]
+//   )
+//   const producerIds: string[] = JSON.parse(Astro.url.searchParams.get('provider') || '[]').map(
+//     (it: [string, string]) => it[1]
+//   )
+//   const orderBy = [Astro.url.searchParams.get('orderBy') || 'recent_desc']
 
-  const params = {
-    q,
-    offset,
-    categories,
-    producerIds,
-    orderBy,
-    limit,
-  }
+//   const params = {
+//     q,
+//     offset,
+//     categories,
+//     producerIds,
+//     orderBy,
+//     limit,
+//   }
 
-  return Object.fromEntries(
-    Object.entries(params).filter(([_, value]) => {
-      if (Array.isArray(value)) return value.length > 0
-      return value !== '' && value !== null && value !== undefined
-    })
-  )
-}
+//   return Object.fromEntries(
+//     Object.entries(params).filter(([_, value]) => {
+//       if (Array.isArray(value)) return value.length > 0
+//       return value !== '' && value !== null && value !== undefined
+//     })
+//   )
+// }
 
-const eservicesList = await sqlService.searchCatalog(getParams() as EServiceQuery)
+// const eservicesList = await sqlService.searchCatalog(getParams() as EServiceQuery)
 ---
 
 <div class="start">
@@ -61,11 +61,7 @@ const eservicesList = await sqlService.searchCatalog(getParams() as EServiceQuer
       ]}
     />
     <Section color="muted">
-      <EServiceCatalogApp
-        client:only="react"
-        totalCount={eservicesList.total}
-        initialEservices={eservicesList.items}
-      />
+      <EServiceCatalogApp client:only="react" />
     </Section>
 
     <div class="p-5">
