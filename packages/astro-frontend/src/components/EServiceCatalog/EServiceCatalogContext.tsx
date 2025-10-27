@@ -100,8 +100,10 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
     key: keyof CatalogFilterParams,
     value: string | number | FilterAutoCompleteValue[]
   ) => {
-    setEserviceFiltersState((prev) => ({ ...prev, [key]: value }))
-    setEserviceActiveFilterState((prev) => ({ ...prev, [key]: value }))
+    const offset = key !== 'offset' ? 0 : eserviceActiveFilterState.offset
+
+    setEserviceFiltersState((prev) => ({ ...prev, offset, [key]: value }))
+    setEserviceActiveFilterState((prev) => ({ ...prev, offset, [key]: value }))
   }
 
   const handleRemoveActiveFilterValue = (
@@ -164,7 +166,7 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
   }
 
   const applyFilters = () => {
-    setEserviceActiveFilterState(eserviceFiltersState)
+    setEserviceActiveFilterState({ ...eserviceFiltersState, offset: 0 })
   }
 
   React.useEffect(() => {
@@ -181,7 +183,15 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
       handleRemoveActiveFilterValue,
       handleRemoveAllActiveFilterValues,
     }
-  }, [eserviceFiltersState, eserviceActiveFilterState])
+  }, [
+    eserviceFiltersState,
+    eserviceActiveFilterState,
+    handleActiveFilterValueChange,
+    handleDraftFilterValueChange,
+    applyFilters,
+    handleRemoveActiveFilterValue,
+    handleRemoveAllActiveFilterValues,
+  ])
 
   return (
     <EServiceCatalogContext.Provider value={providerValue}>

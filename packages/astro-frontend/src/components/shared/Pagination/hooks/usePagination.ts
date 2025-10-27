@@ -19,11 +19,11 @@ export function usePagination(
     totalPages: number
   }
 } {
-  const urlParams = new URLSearchParams(window.location.search)
-  const { handleActiveFilterValueChange, eserviceFiltersState } = useEServiceCatalogContext()
+  const { handleActiveFilterValueChange, eserviceActiveFilterState } = useEServiceCatalogContext()
 
   const totalPages = Math.ceil((totalCount ?? 0) / limit)
-  const actualPage = Math.ceil(eserviceFiltersState.offset / limit) + 1
+
+  const actualPage = Math.ceil(eserviceActiveFilterState.offset / limit) + 1
 
   const previousPages: Page[] = []
   const nextPages: Page[] = []
@@ -48,7 +48,7 @@ export function usePagination(
       window.history.pushState({}, '', `${window.location.pathname}?${urlParams}`)
       handleActiveFilterValueChange('offset', newOffset)
     },
-    [limit]
+    [handleActiveFilterValueChange, limit]
   )
 
   const paginationProps = {

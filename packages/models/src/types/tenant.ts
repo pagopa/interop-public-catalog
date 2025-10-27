@@ -36,6 +36,7 @@ export type TenantUnitType = z.infer<typeof TenantUnitType>;
 
 export const Tenant = z.object({
   id: TenantId,
+  producer_id: TenantId,
   kind: TenantKind.optional(),
   external_id: ExternalId,
   created_at: z.coerce.date(),

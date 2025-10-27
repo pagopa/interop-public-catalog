@@ -13,7 +13,7 @@ import React from 'react'
 import { EServiceCard } from '../shared/EServiceCard.jsx'
 import { chunkEServiceArray } from '../../utils/utils.js'
 import { getLangFromUrl } from '../../i18n/utils.i18n.js'
-import { EService } from '../../../../models/src/types/eservice.js'
+import { type EService } from '../../../../models/src/types/eservice.js'
 import Pagination from '../shared/Pagination/Pagination.jsx'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
@@ -25,8 +25,6 @@ type EServiceCatalogItemsProps = {
 }
 
 const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, totalCount }) => {
-  if (eservices.length <= 0) return <EServiceNoItems />
-
   const { eserviceActiveFilterState, handleActiveFilterValueChange } = useEServiceCatalogContext()
   const { orderBy: order } = eserviceActiveFilterState
 
@@ -38,6 +36,8 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, 
     const url = window.location.href
     navigator.clipboard.writeText(url)
   }
+
+  if (eservices.length <= 0) return <EServiceNoItems />
 
   return (
     <Container className="py-5">
