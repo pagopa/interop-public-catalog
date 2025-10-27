@@ -37,11 +37,11 @@ const howItWorksSteps = [
 ---
 
 <Section className="section-muted py-5" title={t('how_it_works.title')}>
-  <ul class="list-group list-group-horizontal-md">
+  <div class="list-group list-group-horizontal-md">
     {
       howItWorksSteps.map((step, index) => (
         <>
-          <li class="flex-fill list-group-item bg-transparent border-0 p-0">
+          <div class="flex-fill list-group-item bg-transparent border-0 p-0">
             {/* Card */}
             <article class="it-card bg-transparent d-flex flex-column h-100">
               <div class="it-card-banner-icon-wrapper mb-2">
@@ -65,7 +65,7 @@ const howItWorksSteps = [
                 </div>
               </footer>
             </article>
-          </li>
+          </div>
           {index < howItWorksSteps.length - 1 && (
             <>
               {/* Horizontal separator for mobile/tablet */}
@@ -77,5 +77,5 @@ const howItWorksSteps = [
         </>
       ))
     }
-  </ul>
+  </div>
 </Section>

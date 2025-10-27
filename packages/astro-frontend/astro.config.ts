@@ -12,6 +12,8 @@ import { ROUTES } from './src/config/routes.js'
 import type { SupportedLanguage } from './src/i18n/types.i18n.js'
 import { getLocalizedRoute } from './src/i18n/utils.i18n.js'
 
+import purgecss from 'astro-purgecss'
+
 const LOCALES = Object.keys(LANGUAGES) as SupportedLanguage[]
 const projectDir = path.dirname(fileURLToPath(import.meta.url))
 
@@ -20,7 +22,12 @@ const SITE = 'https://api.gov.it'
 export default defineConfig({
   output: 'server',
   site: SITE,
-  integrations: [react()],
+  integrations: [
+    react(),
+    purgecss({
+      content: [process.cwd() + '/src/**/*.{astro,tsx}'],
+    }),
+  ],
   redirects: {
     '/index.html': {
       status: 308,

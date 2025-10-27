@@ -4,7 +4,7 @@ import type { BootstrapItaliaIconProps } from './BootstrapItaliaIcon.js'
 
 type ChipProps<T extends ElementType = 'div'> = {
   as?: T
-  ref: RefObject<HTMLElement | null>
+  ref?: RefObject<HTMLElement | null>
   label: string
   iconName?: BootstrapItaliaIconProps['name']
 } & React.ComponentPropsWithoutRef<T>
