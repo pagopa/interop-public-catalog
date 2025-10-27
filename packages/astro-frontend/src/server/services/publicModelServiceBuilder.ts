@@ -80,6 +80,20 @@ const _buildFullQueryWithFilters = (config: {
   ) attr_filter ON TRUE
   `
 
+  const _attributeGroupBuilder = (kind: string) => sql`
+  COALESCE((
+      SELECT jsonb_agg(g.attrs)
+      FROM (
+        SELECT jsonb_agg(a.*) AS attrs
+        FROM ${sql.identifier(config.attributeSchema)}.attribute a
+        JOIN ${sql.identifier(config.catalogSchema)}.eservice_descriptor_attribute da ON da.attribute_id = a.id
+        WHERE da.descriptor_id = d.id
+          AND a.kind = ${sql`${kind}`}
+        GROUP BY da.group_id
+      ) g
+    ), '[]'::jsonb)
+  `
+
   const activeDescriptorPopulator = (eservice: string, categories?: string[]) => sql`
   JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = ${sql.identifier(eservice)}.producer_id
   -- pick the latest PUBLISHED descriptor id
@@ -97,9 +111,12 @@ const _buildFullQueryWithFilters = (config: {
     SELECT
       d.*,
       jsonb_build_object(
-        'verified', jsonb_agg(a.*) FILTER (WHERE a.kind = 'Verified'),
-        'declared', jsonb_agg(a.*) FILTER (WHERE a.kind = 'Declared'),
-        'certified', jsonb_agg(a.*) FILTER (WHERE a.kind = 'Certified')
+        'verified',
+        ${_attributeGroupBuilder('Verified')},
+        'declared',
+        ${_attributeGroupBuilder('Declared')},
+        'certified',
+        ${_attributeGroupBuilder('Certified')}
       ) AS attributes
     FROM ${sql.identifier(config.catalogSchema)}.eservice_descriptor d
     JOIN ${sql.identifier(config.catalogSchema)}.eservice_descriptor_attribute da
