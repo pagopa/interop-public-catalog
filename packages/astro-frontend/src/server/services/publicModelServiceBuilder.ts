@@ -9,6 +9,7 @@ import {
   type TenantQuery,
   type TenantSearchResult,
   type Tenant,
+  eserviceOrderBy,
 } from 'pagopa-interop-public-models'
 import type { PgTransaction } from 'drizzle-orm/pg-core'
 import { categoriesMap } from '../config/categories'
@@ -155,7 +156,9 @@ export async function searchCatalog(
   query: EServiceQuery
 ): Promise<EServiceSearchResult> {
   const parsedQuery = EServiceQuery.parse(query)
-  const { limit, offset, q, producerIds, categories } = parsedQuery
+  const { limit, offset, q, orderBy, producerIds, categories } = parsedQuery
+
+  const mappedOrderBy = orderBy?.map((entry) => (eserviceOrderBy as { [k: string]: string })[entry])
 
   // Categories are already filtered in the catalog API interface
   // Here we can assume we have valid categories ex. ['Comuni', '...', ...]
@@ -184,6 +187,14 @@ export async function searchCatalog(
       tenantSchema: config.tenantSchema,
     })
 
+  const orderByFragment = sql.raw(`
+  e.${
+    mappedOrderBy && mappedOrderBy.length > 0
+      ? mappedOrderBy?.map((el) => `${el}`).join(', e.')
+      : 'created_at DESC'
+  }
+  `)
+
   const attributeSearchTx: Transaction<EService & { [k: string]: unknown }> = async (tx) => {
     const pageRes = await tx.execute(sql`
     ${fullSelect('e', 't')},
@@ -191,7 +202,7 @@ export async function searchCatalog(
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
     ${activeDescriptorPopulator('e', mappedCategories)}
     ${activeDescriptorPopulatorGroupBy('e', 't')}
-    ORDER BY e.created_at DESC
+    ORDER BY ${orderByFragment}
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
     `)
 
@@ -209,7 +220,7 @@ export async function searchCatalog(
     ${activeDescriptorPopulator('e')}
     WHERE ${sql.join(conds, sql` AND `)}
     ${activeDescriptorPopulatorGroupBy('e', 't')}
-    ORDER BY e.created_at DESC
+    ORDER BY ${orderByFragment}
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
 
@@ -278,7 +289,7 @@ export async function searchCatalog(
     SELECT s.*,
       (s.fts_rank + 0.5 * s.fuzzy_sim)::real AS score
     FROM scored s
-    ORDER BY score DESC
+    ORDER BY score DESC${orderByFragment ? sql.join([sql`, `, orderByFragment]) : sql``}
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
 
