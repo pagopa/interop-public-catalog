@@ -54,7 +54,7 @@ const sourceDb = new Pool({
   host: jobConfig.sourceDb.host,
   port: jobConfig.sourceDb.port,
   database: jobConfig.sourceDb.name,
-  ssl: jobConfig.sourceDb.useSSL,
+  ssl: jobConfig.sourceDb.useSSL ? { rejectUnauthorized: false } : undefined,
 });
 const targetDb = new Pool({
   user: jobConfig.targetDb.username,
@@ -62,7 +62,7 @@ const targetDb = new Pool({
   host: jobConfig.targetDb.host,
   port: jobConfig.targetDb.port,
   database: jobConfig.targetDb.name,
-  ssl: jobConfig.targetDb.useSSL,
+  ssl: jobConfig.targetDb.useSSL ? { rejectUnauthorized: false } : undefined,
 });
 
 const attribute = buildAttributeTables("attribute");
