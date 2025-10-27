@@ -9,20 +9,34 @@ import {
 } from "pagopa-interop-public-models";
 
 const jobConfig = {
-  sourceDbEndpoint: process.env.SOURCE_DB_ENDPOINT,
-  targetDbEndpoint: process.env.TARGET_DB_ENDPOINT,
+  sourceDb: {
+    username: process.env.READMODEL_SQL_DB_USERNAME,
+    password: process.env.READMODEL_SQL_DB_PASSWORD,
+    host: process.env.READMODEL_SQL_DB_HOST,
+    port: Number(process.env.READMODEL_SQL_DB_PORT),
+    name: process.env.READMODEL_SQL_DB_NAME,
+    useSSL: process.env.READMODEL_SQL_DB_USE_SSL === "true",
+  },
+  targetDb: {
+    username: process.env.PUBLICMODEL_SQL_DB_USERNAME,
+    password: process.env.PUBLICMODEL_SQL_DB_PASSWORD,
+    host: process.env.PUBLICMODEL_SQL_DB_HOST,
+    port: Number(process.env.PUBLICMODEL_SQL_DB_PORT),
+    name: process.env.PUBLICMODEL_SQL_DB_NAME,
+    useSSL: process.env.PUBLICMODEL_SQL_DB_USE_SSL === "true",
+  },
   batchSize: Number(process.env.BATCH_SIZE),
-  sourceDbSchemaAttribute: process.env.SOURCE_SQL_DB_SCHEMA_ATTRIBUTE,
-  sourceDbSchemaTenant: process.env.SOURCE_SQL_DB_SCHEMA_TENANT,
-  sourceDbSchemaCatalog: process.env.SOURCE_SQL_DB_SCHEMA_CATALOG,
-  targetDbSchemaAttribute: process.env.TARGET_SQL_DB_SCHEMA_ATTRIBUTE,
-  targetDbSchemaTenant: process.env.TARGET_SQL_DB_SCHEMA_TENANT,
-  targetDbSchemaCatalog: process.env.TARGET_SQL_DB_SCHEMA_CATALOG,
+  sourceDbSchemaAttribute: process.env.READMODEL_SQL_DB_SCHEMA_ATTRIBUTE,
+  sourceDbSchemaTenant: process.env.READMODEL_SQL_DB_SCHEMA_TENANT,
+  sourceDbSchemaCatalog: process.env.READMODEL_SQL_DB_SCHEMA_CATALOG,
+  targetDbSchemaAttribute: process.env.PUBLICMODEL_SQL_DB_SCHEMA_ATTRIBUTE,
+  targetDbSchemaTenant: process.env.PUBLICMODEL_SQL_DB_SCHEMA_TENANT,
+  targetDbSchemaCatalog: process.env.PUBLICMODEL_SQL_DB_SCHEMA_CATALOG,
 };
 
 if (
-  !jobConfig.sourceDbEndpoint ||
-  !jobConfig.targetDbEndpoint ||
+  Object.values(jobConfig.sourceDb).some((v) => v === undefined) ||
+  Object.values(jobConfig.targetDb).some((v) => v === undefined) ||
   !jobConfig.batchSize ||
   !jobConfig.sourceDbSchemaAttribute ||
   !jobConfig.sourceDbSchemaCatalog ||
@@ -34,8 +48,22 @@ if (
   throw new Error("Missing job config env");
 }
 
-const sourceDb = new Pool({ connectionString: jobConfig.sourceDbEndpoint });
-const targetDb = new Pool({ connectionString: jobConfig.targetDbEndpoint });
+const sourceDb = new Pool({
+  user: jobConfig.sourceDb.username,
+  password: jobConfig.sourceDb.password,
+  host: jobConfig.sourceDb.host,
+  port: jobConfig.sourceDb.port,
+  database: jobConfig.sourceDb.name,
+  ssl: jobConfig.sourceDb.useSSL,
+});
+const targetDb = new Pool({
+  user: jobConfig.targetDb.username,
+  password: jobConfig.targetDb.password,
+  host: jobConfig.targetDb.host,
+  port: jobConfig.targetDb.port,
+  database: jobConfig.targetDb.name,
+  ssl: jobConfig.targetDb.useSSL,
+});
 
 const attribute = buildAttributeTables("attribute");
 const catalog = buildCatalogTables("catalog");
