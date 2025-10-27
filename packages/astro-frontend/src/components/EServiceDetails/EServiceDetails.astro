@@ -15,52 +15,6 @@ export interface Props {
 
 const { eservice } = Astro.props
 
-// eservice.active_descriptor.state = 'Suspended'
-// If you need to mock the state, use a variable instead:
-// const mockState = 'Suspended'
-// eservice.active_descriptor.state = mockState as typeof eservice.active_descriptor.state
-eservice.active_descriptor.attributes = {
-  declared: [],
-  verified: [
-    [
-      {
-        id: 'ad8398b5-9edb-4cee-ab4a-3206f1a81334' as any,
-        code: null,
-        kind: 'Verified',
-        name: 'Aver completato i test',
-        origin: null,
-        description: 'Devi aver completato tutti i test',
-        creation_time: new Date(),
-        metadata_version: 0,
-      },
-      {
-        id: 'ad8398b5-9edb-4cee-ab4a-3206f1a81334' as any,
-        code: null,
-        kind: 'Verified',
-        name: 'Aver completato i test',
-        origin: null,
-        description: 'Devi aver completato tutti i test',
-        creation_time: new Date(),
-        metadata_version: 0,
-      },
-    ],
-  ],
-  certified: [
-    [
-      {
-        id: '2b17dbd4-2e42-4492-aaeb-d7cfb098a1ab' as any,
-        code: '5N2TR557',
-        kind: 'Certified',
-        name: 'PagoPA S.p.A.',
-        origin: 'IPA',
-        description: 'PagoPA S.p.A.',
-        creation_time: new Date('2025-09-08T15:29:54.802+00:00').toISOString(),
-        metadata_version: 0,
-      },
-    ],
-  ],
-}
-
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useEServiceDetailsTranslations(currentLocale)
 

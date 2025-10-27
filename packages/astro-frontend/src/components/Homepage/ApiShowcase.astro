@@ -7,6 +7,8 @@ import { Section } from '../shared/Section'
 
 interface Props {
   title: string
+  producerId: string
+  producerName: string
   highlightedEServices: EService[]
 }
 
@@ -14,19 +16,25 @@ const { title, highlightedEServices } = Astro.props
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useHomepageTranslations(currentLocale)
+
+//TODO add routes based on local
+const catalogUrl = `/it/catalogo?${new URLSearchParams({
+  provider: JSON.stringify([[Astro.props.producerName, Astro.props.producerId]]),
+}).toString()}`
 ---
 
-<Section title={title} sectionLink={{ text: t('featured_api.explore_catalog'), href: '#' }}>
+<Section title={title} sectionLink={{ text: t('featured_api.explore_catalog'), href: catalogUrl }}>
   <div class="px-0">
     <div class="row">
       {
-        highlightedEServices.map(({ name, producerId /* TODO producerName */, description }) => (
+        highlightedEServices.map(({ name, description, tenant_name, id }) => (
           <div class="col-12 col-lg-4 mb-4">
             <EServiceCard
+              eserviceId={id}
               currentLocale={currentLocale}
               name={name}
               description={description}
-              producerName={producerId /* TODO producerName */}
+              producerName={tenant_name}
             />
           </div>
         ))
