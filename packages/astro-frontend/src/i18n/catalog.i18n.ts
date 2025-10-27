@@ -38,6 +38,15 @@ const catalogTranslations = {
     'no-results.title': 'Nessun risultato trovato',
     'no-results.description':
       "La ricerca non ha prodotto risultati. Modifica i filtri o prova con un'altra parola chiave.",
+
+    'suggestion_section.left_card.title': 'Ottenere l’accesso ai dati',
+    'suggestion_section.left_card.description':
+      'Iscriversi a PDND è semplice e veloce, avrai bisogno di firmare e inoltrare un accordo di adesione.',
+    'suggestion_section.left_card.button_label': 'Aderisci a PDND',
+    'suggestion_section.right_card.title': 'Consultare i dati di utilizzo delle API',
+    'suggestion_section.right_card.description':
+      "Scopri gli e-service più utilizzati e i principali dati sull'adesione a PDND.",
+    'suggestion_section.right_card.button_label': 'Consulta i numeri della PDND',
   },
 
   en: {
@@ -76,6 +85,15 @@ const catalogTranslations = {
     'no-results.title': 'No results found',
     'no-results.description':
       'The search returned no results. Change the filters or try another keyword.',
+
+    'suggestion_section.left_card.title': 'Get access to data',
+    'suggestion_section.left_card.description':
+      'Joining PDND is simple and fast, you will need to sign and submit an adhesion agreement.',
+    'suggestion_section.left_card.button_label': 'Join PDND',
+    'suggestion_section.right_card.title': 'View API usage data',
+    'suggestion_section.right_card.description':
+      'Discover the most used e-services and key data on PDND adoption.',
+    'suggestion_section.right_card.button_label': 'View PDND statistics',
   },
 } as const satisfies TranslationsMap
 

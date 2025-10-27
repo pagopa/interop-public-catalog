@@ -80,6 +80,15 @@ export const ecosystem = {
     'ecosystem_legal_references.subtitle':
       "Consulta le linee guida e le normative che regolano l'interoperabilità nel contesto della PDND, in coerenza con il Codice dell'Amministrazione Digitale (CAD) stabilite da AgID (Agenzia per l'Italia Digitale).",
     'ecosystem_legal_references.button': 'Consulta la normativa',
+
+    'suggestion_section.left_card.title': 'Scoprire le risorse per sviluppatori',
+    'suggestion_section.left_card.description':
+      'Visita Developers Italia per accedere a strumenti e risorse per sviluppare servizi pubblici digitali.',
+    'suggestion_section.left_card.button_label': 'Vai a Developers Italia',
+    'suggestion_section.right_card.title': 'Trovare le risposte che cerchi',
+    'suggestion_section.right_card.description':
+      'Se hai qualche dubbio, consulta le domande frequenti per trovare rapidamente le risposte.',
+    'suggestion_section.right_card.button_label': 'Consulta le domande frequenti',
   },
   en: {
     title: 'What is interoperability',
@@ -159,6 +168,15 @@ export const ecosystem = {
     'ecosystem_legal_references.subtitle':
       'Browse the guidelines and regulations that govern interoperability in the PDND context, in line with the Digital Administration Code (CAD) established by AgID (Agenzia per l’Italia Digitale).',
     'ecosystem_legal_references.button': 'Read the regulations',
+
+    'suggestion_section.left_card.title': 'Discover developer resources',
+    'suggestion_section.left_card.description':
+      'Visit Developers Italia to access tools and resources for developing digital public services.',
+    'suggestion_section.left_card.button_label': 'Go to Developers Italia',
+    'suggestion_section.right_card.title': 'Find the answers you need',
+    'suggestion_section.right_card.description':
+      'If you have any questions, check the frequently asked questions to quickly find the answers.',
+    'suggestion_section.right_card.button_label': 'View frequently asked questions',
   },
 } as const satisfies TranslationsMap
 

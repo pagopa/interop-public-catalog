@@ -41,6 +41,15 @@ export const homepage = {
 
     'featured_api.title': 'API in evidenza',
     'featured_api.explore_catalog': 'Esplora il catalogo',
+
+    'suggestion_section.left_card.title': 'Ottenere l’accesso ai dati',
+    'suggestion_section.left_card.description':
+      'Iscriversi a PDND è semplice e veloce, avrai bisogno di firmare e inoltrare un accordo di adesione.',
+    'suggestion_section.left_card.button_label': 'Aderisci a PDND',
+    'suggestion_section.right_card.title': 'Consultare il manuale operativo',
+    'suggestion_section.right_card.description':
+      'Leggi il manuale e scopri come integrare il tuo ente alla piattaforma PDND.',
+    'suggestion_section.right_card.button_label': 'Consulta il manuale',
   },
   en: {
     title: 'Public Administration API Catalogue',
@@ -80,6 +89,15 @@ export const homepage = {
 
     'featured_api.title': 'Featured APIs',
     'featured_api.explore_catalog': 'Explore the catalog',
+
+    'suggestion_section.left_card.title': 'Get access to data',
+    'suggestion_section.left_card.description':
+      'Joining PDND is simple and fast, you will need to sign and submit an adhesion agreement.',
+    'suggestion_section.left_card.button_label': 'Join PDND',
+    'suggestion_section.right_card.title': 'Consult the operational manual',
+    'suggestion_section.right_card.description':
+      'Read the manual and find out how to integrate your organization with the PDND platform.',
+    'suggestion_section.right_card.button_label': 'View the manual',
   },
 } as const satisfies TranslationsMap
 
