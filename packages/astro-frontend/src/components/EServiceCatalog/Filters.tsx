@@ -1,5 +1,5 @@
-import { Button, Col, Form, FormGroup, Icon, Input, Popover, Row } from 'design-react-kit'
-import React, { useEffect, useState } from 'react'
+import { Button, Col, Form, FormGroup, Icon, Input, Row } from 'design-react-kit'
+import React, { useEffect } from 'react'
 import {
   type FilterAutoCompleteValue,
   MultipleAutoComplete,
@@ -11,22 +11,6 @@ import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
 import type { CatalogFilterParams } from './types.js'
 import { useAutocompleteTextInput } from '../../hooks/useAutoCompleteTextInput.jsx'
 import { getConsumers, getProducer } from '../../services/catalog.services.js'
-
-const optionAutoCompleteProvider: FilterAutoCompleteValue[] = [
-  { label: 'Opzione 1', value: 'value-1' },
-  { label: 'Opzione 2', value: 'value-2' },
-  { label: 'Opzione 3', value: 'value-3' },
-  { label: 'Opzione 4', value: 'value-4' },
-  { label: 'Opzione 5', value: 'value-5' },
-]
-
-const optionAutoCompleteConsumer: FilterAutoCompleteValue[] = [
-  { label: 'Opzione A', value: 'value-A' },
-  { label: 'Opzione B', value: 'value-B' },
-  { label: 'Opzione C', value: 'value-C' },
-  { label: 'Opzione D', value: 'value-D' },
-  { label: 'Opzione E', value: 'value-E' },
-]
 
 export type FiltersParams = {
   q?: string
@@ -79,7 +63,7 @@ const Filters: React.FC<FiltersProps> = ({
   }
 
   const fetchConsumers = async () => {
-    const consumers = await getConsumers(autoCompleteConsumerInput)
+    const consumers = await getConsumers()
     setConsumerList(consumers)
   }
 

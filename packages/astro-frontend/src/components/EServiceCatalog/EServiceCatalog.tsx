@@ -1,10 +1,10 @@
 import { Container } from 'design-react-kit'
 import EServiceCatalogFilters from './EServiceCatalogFilters'
-import { EService } from '../../../../models/dist/types'
 import EServiceCatalogItems from './EServiceCatalogItems'
 import React from 'react'
 import { useEServiceCatalogContext } from './EServiceCatalogContext'
 import { getEServices } from '../../services/catalog.services'
+import type { EService } from 'pagopa-interop-public-models'
 
 type EServiceCatalogProps = {
   initialEservices: EService[]

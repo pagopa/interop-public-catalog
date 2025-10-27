@@ -43,13 +43,15 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, 
     <Container className="py-5">
       <div className="d-flex justify-content-between align-items-center">
         <div className="d-flex">
-          <span className="">
-            <b className="me-2">
-              <b>{totalCount}</b>
-            </b>
-            {t('resultsCount')}
-          </span>
-          <span className="ms-2 d-none d-lg-block border-start"></span>
+          {totalCount > 0 && (
+            <span className="">
+              <b className="me-2">
+                <b>{totalCount}</b>
+              </b>
+              {t('resultsCount')}
+            </span>
+          )}
+          <span className={`ms-2 d-none d-lg-block ${totalCount > 0 ? 'border-start' : ''}`}></span>
           <a className="ms-2 d-none d-lg-block" onClick={handleCopyUrl} role="button">
             {t('copyUrl')} <Icon icon="it-copy" size="sm" color="primary" className="ms-2" />
           </a>
@@ -62,29 +64,29 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, 
             <DropdownMenu>
               <LinkList>
                 <LinkListItem
-                  active={order === 'RECENT_ASC'}
-                  onClick={() => handleActiveFilterValueChange('orderBy', 'RECENT_ASC')}
+                  active={order === 'recent_asc'}
+                  onClick={() => handleActiveFilterValueChange('orderBy', 'recent_asc')}
                   inDropdown
                 >
                   <span>{t('order.recent_asc')}</span>
                 </LinkListItem>
                 <LinkListItem
-                  active={order === 'RECENT_DESC'}
-                  onClick={() => handleActiveFilterValueChange('orderBy', 'RECENT_DESC')}
+                  active={order === 'recent_desc'}
+                  onClick={() => handleActiveFilterValueChange('orderBy', 'recent_desc')}
                   inDropdown
                 >
                   <span>{t('order.recent_desc')}</span>
                 </LinkListItem>
                 <LinkListItem
-                  active={order === 'NAME_ASC'}
-                  onClick={() => handleActiveFilterValueChange('orderBy', 'NAME_ASC')}
+                  active={order === 'name_asc'}
+                  onClick={() => handleActiveFilterValueChange('orderBy', 'name_asc')}
                   inDropdown
                 >
                   <span>{t('order.name_asc')}</span>
                 </LinkListItem>
                 <LinkListItem
-                  active={order === 'NAME_DESC'}
-                  onClick={() => handleActiveFilterValueChange('orderBy', 'NAME_DESC')}
+                  active={order === 'name_desc'}
+                  onClick={() => handleActiveFilterValueChange('orderBy', 'name_desc')}
                   inDropdown
                 >
                   <span>{t('order.name_desc')}</span>

@@ -32,7 +32,7 @@ type EServiceCatalogContextProviderProps = {
 const eserviceFilterInitialState: CatalogFilterParams = {
   q: '',
   offset: 0,
-  orderBy: 'RECENT_DESC',
+  orderBy: 'recent_desc',
   provider: [],
   consumer: [],
 }
@@ -55,7 +55,7 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
       q: z.string().optional(),
       limit: z.string().optional(),
       offset: z.string().optional(),
-      orderBy: z.enum(['RECENT_ASC', 'RECENT_DESC', 'NAME_ASC', 'NAME_DESC']).optional(),
+      orderBy: z.enum(['recent_asc', 'recent_desc', 'name_asc', 'name_desc']).optional(),
       provider: z.string().optional(),
       consumer: z.string().optional(),
     })
@@ -67,7 +67,7 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
   const initialCatalogFilterParams: CatalogFilterParams = {
     q: searchParams.q ?? '',
     offset: searchParams.offset ? parseInt(searchParams.offset, 10) : 0,
-    orderBy: searchParams.orderBy ?? 'RECENT_DESC',
+    orderBy: searchParams.orderBy ?? 'recent_desc',
     provider: searchParamsProvider.map((it) => {
       return {
         label: it[0],
