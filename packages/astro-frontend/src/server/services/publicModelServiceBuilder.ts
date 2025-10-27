@@ -195,29 +195,12 @@ export async function searchCatalog(
   }
   `)
 
-  const attributeSearchTx: Transaction<EService & { [k: string]: unknown }> = async (tx) => {
-    const pageRes = await tx.execute(sql`
-    ${fullSelect('e', 't')},
-    count(*) over() AS total
-    FROM ${sql.identifier(config.catalogSchema)}.eservice e
-    ${activeDescriptorPopulator('e', mappedCategories)}
-    ${activeDescriptorPopulatorGroupBy('e', 't')}
-    ORDER BY ${orderByFragment}
-    LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
-    `)
-
-    const items = pageRes.rows as EService[]
-    const total = (pageRes?.rows[0]?.total as number) || 0
-
-    return { items, total }
-  }
-
   const textlessSearchTx: Transaction<EService & { [k: string]: unknown }> = async (tx) => {
     const pageRes = await tx.execute(sql`
     ${fullSelect('e', 't')},
     count(*) over() AS total
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
-    ${activeDescriptorPopulator('e')}
+    ${activeDescriptorPopulator('e', mappedCategories)}
     WHERE ${sql.join(conds, sql` AND `)}
     ${activeDescriptorPopulatorGroupBy('e', 't')}
     ORDER BY ${orderByFragment}
@@ -270,7 +253,6 @@ export async function searchCatalog(
     scored AS (
       ${fullSelect('e', 't')},
         count(*) over() AS total,
-        e.*,
         -- gives priority to tenant name matches when ordering
         -- based on coverage + density (ts_rank_cd)
         COALESCE(ts_rank_cd((t.search_vector || setweight(e.search_vector,'B')), p.tsq), 0)::real AS fts_rank,
@@ -281,7 +263,7 @@ export async function searchCatalog(
         )::real AS fuzzy_sim
       FROM picked x
       JOIN ${sql.identifier(config.catalogSchema)}.eservice e ON e.id = x.id
-      ${activeDescriptorPopulator('e')}
+      ${activeDescriptorPopulator('e', mappedCategories)}
       CROSS JOIN params p
       WHERE ${sql.join(conds, sql` AND `)}
       ${activeDescriptorPopulatorGroupBy('e', 't')}, p.tsq, p.nq
@@ -289,6 +271,7 @@ export async function searchCatalog(
     SELECT s.*,
       (s.fts_rank + 0.5 * s.fuzzy_sim)::real AS score
     FROM scored s
+    JOIN ${sql.identifier(config.catalogSchema)}.eservice e ON e.id = s.id
     ORDER BY score DESC${orderByFragment ? sql.join([sql`, `, orderByFragment]) : sql``}
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
@@ -299,14 +282,7 @@ export async function searchCatalog(
     return { items, total }
   }
 
-  let transactionToExecute
-  if (categories && categories.length > 0) {
-    transactionToExecute = attributeSearchTx
-  } else if (q?.trim()) {
-    transactionToExecute = textSearchTx
-  } else {
-    transactionToExecute = textlessSearchTx
-  }
+  const transactionToExecute = q?.trim() ? textSearchTx : textlessSearchTx
   const { items, total } = await db.transaction(
     transactionToExecute,
     { isolationLevel: 'repeatable read' } // prevents mismatch between reads
