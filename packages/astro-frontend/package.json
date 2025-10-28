@@ -30,7 +30,7 @@
     "@types/react-dom": "^19.1.7",
     "@zodios/core": "10.9.6",
     "accessible-autocomplete": "^3.0.1",
-    "astro": "^5.15.1",
+    "astro": "^5.15.2",
     "axios": "1.12.0",
     "bootstrap-italia": "2.16.2",
     "design-react-kit": "5.8.3",

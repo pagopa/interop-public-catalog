@@ -16,6 +16,19 @@ const SearchQuerySchema = z.object({
   q: z.string().trim().max(200).optional(),
 })
 
+const commaSeparatedStringToArray = <T extends z.ZodTypeAny>(itemSchema: T) =>
+  z
+    .string()
+    .transform((str) =>
+      str.trim()
+        ? str
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean)
+        : []
+    )
+    .pipe(z.array(itemSchema))
+
 const PaginationQuerySchema = z.object({
   limit: z.coerce.number().min(1).max(100).optional().default(10),
   offset: z.coerce.number().min(0).optional().default(0),
@@ -71,9 +84,9 @@ export type EServiceCategory = z.infer<typeof EServiceCategory>
 
 export const GetEServicesQuery = z
   .object({
-    orderBy: z.array(EServiceOrderBy).optional(),
-    producerIds: z.array(z.string().uuid()).optional(),
-    categories: z.array(EServiceCategory).optional(),
+    orderBy: commaSeparatedStringToArray(EServiceOrderBy).optional(),
+    producerIds: commaSeparatedStringToArray(z.string().uuid()).optional(),
+    categories: commaSeparatedStringToArray(EServiceCategory).optional(),
   })
   .and(SearchQuerySchema)
   .and(PaginationQuerySchema)

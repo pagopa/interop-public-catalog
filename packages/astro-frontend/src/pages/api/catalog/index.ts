@@ -9,14 +9,13 @@ import { emptyErrorMapper } from 'pagopa-interop-public-models'
 import { makeApiProblem } from '../../../server/models/errors.js'
 
 export const GET: APIRoute = async ({ url, locals }) => {
-  const queryParams = parseQueryParams(url, GetEServicesQuery)
-  const { q, orderBy, producerIds, categories, limit, offset } = queryParams
-
-  locals.logger.info(
-    `Fetching catalog. Query: ${q}, Order By: ${orderBy}, Producer IDs: ${producerIds}, Categories: ${categories}, Limit: ${limit}, Offset: ${offset}`
-  )
-
   try {
+    const queryParams = parseQueryParams(url, GetEServicesQuery)
+    const { q, orderBy, producerIds, categories, limit, offset } = queryParams
+
+    locals.logger.info(
+      `Fetching catalog. Query: ${q}, Order By: ${orderBy}, Producer IDs: ${producerIds}, Categories: ${categories}, Limit: ${limit}, Offset: ${offset}`
+    )
     const rawData = await sqlService.searchCatalog({
       q,
       orderBy,

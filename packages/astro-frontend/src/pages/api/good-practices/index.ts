@@ -9,14 +9,13 @@ import {
 } from '../../../server/models/api.js'
 
 export const GET: APIRoute = async ({ url, locals }) => {
-  const queryParams = parseQueryParams(url, GetGoodPracticesQuery)
-  const { locale, macroCategoryId, limit, offset } = queryParams
-
-  locals.logger.info(
-    `Fetching good practices. Locale: ${locale}, Macro Category ID: ${macroCategoryId}, Limit: ${limit}, Offset: ${offset}`
-  )
-
   try {
+    const queryParams = parseQueryParams(url, GetGoodPracticesQuery)
+    const { locale, macroCategoryId, limit, offset } = queryParams
+
+    locals.logger.info(
+      `Fetching good practices. Locale: ${locale}, Macro Category ID: ${macroCategoryId}, Limit: ${limit}, Offset: ${offset}`
+    )
     const rawData = await strapiService.getGoodPractices(
       {
         macroCategoryIds: typeof macroCategoryId !== 'undefined' ? [macroCategoryId] : undefined,

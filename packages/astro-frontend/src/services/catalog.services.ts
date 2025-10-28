@@ -34,6 +34,7 @@ export const getProducer = async (inputText: string) => {
   const catalogUrl = new URL('/api/tenants', window.location.origin)
   catalogUrl.searchParams.set('q', inputText)
   catalogUrl.searchParams.set('limit', '50')
+  catalogUrl.searchParams.set('offset', '0')
 
   const response = await fetch(catalogUrl)
   const producer: GetTenantsResponse = await response.json()
