@@ -2,6 +2,7 @@ import type { GoodPractice, StrapiEntityList, StrapiEntity } from 'pagopa-intero
 import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 import { getGoodPracticesDataMockByLocale } from '../mocks/good-practices.mocks.js'
 import { catalogMockData, ecosystemMockData, faqMockData, generalMockData, genericErrorMockData, getCatalogSingleApiMockData, getGoodPracticeSingleMockData, goodPracticesMockData, legalNotesMockData, normativaMockData, notFoundErrorMockData, privacyPolicyMockData } from '../mocks/meta-data.mocks.js'
+import type { MetaDataType, PageNames } from '../types/metaData.types.js'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, max-params
 export function strapiServiceBuilder(_endpoint: string, _token: string) {
@@ -57,7 +58,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       Promise.resolve(getGoodPracticesDataMockByLocale(locale).find((g) => g.data.slug === slug)),
 
     async getSeoMetaData(
-      pageName: string,
+      pageName: PageNames,
       eserviceId?: string,
       pageSlug?: string
     ): Promise<StrapiEntityList<MetaDataType>> {
