@@ -101,6 +101,7 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, 
           {rowItems.map((eservice, eserviceIndex) => (
             <Col xs="12" key={eserviceIndex} className="col-12 col-lg-4 mb-4">
               <EServiceCard
+                eserviceId={eservice.id}
                 currentLocale={getLangFromUrl(window.location.pathname)}
                 name={eservice.name}
                 producerName={eservice.tenant_name}

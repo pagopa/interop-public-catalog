@@ -350,6 +350,9 @@ body {
   padding-right: calc(1rem * 4.5);
 }
 
+.p-9 {
+  padding: calc(9rem);
+}
 .py-default {
   padding-top: calc(1rem * 2.5);
   padding-bottom: calc(1rem * 2.5);

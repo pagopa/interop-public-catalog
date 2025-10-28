@@ -2,8 +2,10 @@ import { BootstrapItaliaIcon } from './BootstrapItaliaIcon.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 import { EServiceDataAccessChip } from './EServiceDataAccessChip.jsx'
+import { getLocalizedRoute } from '../../i18n/utils.i18n.js'
 
 interface EServiceCardProps {
+  eserviceId: string
   currentLocale: SupportedLanguage
   name: string
   description: string
@@ -21,9 +23,11 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
   description,
   producerName,
   isOpenData,
+  eserviceId,
 }) => {
   const tUi = useUiTranslations(currentLocale)
 
+  const url = getLocalizedRoute(currentLocale, 'ESERVICE_DETAILS', { params: { id: eserviceId } })
   return (
     <article
       style={{ height: CARD_HEIGHT }}
@@ -39,7 +43,7 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
         </div>
       </header>
       <a
-        href="#" // TODO
+        href={url}
         style={{ height: MIN_HEIGHT_TITLE }}
         className="it-card-title h5 text-primary line-clamp-2"
       >
@@ -51,7 +55,7 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
       <footer className="it-card-related it-card-footer">
         <small className="it-card-taxonomy">
           <a
-            href="#" // TODO
+            href={url}
             className="it-card-link text-primary text-uppercase fw-semibold"
             aria-label={tUi('eservice_card.read_more') + ' ' + name}
           >

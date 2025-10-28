@@ -1,5 +1,5 @@
 ---
-import { PAGOPA_URL } from '../../config/constants'
+import { links } from '../../config/constants'
 import { useEcosystemTranslations } from '../../i18n/ecosystem.i18n'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
 import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
@@ -13,7 +13,7 @@ const accessPoints = [
     title: t('access_points_section.access_point_1.title'),
     subtitle: t('access_points_section.access_point_1.subtitle'),
     description: t('access_points_section.access_point_1.description'),
-    href: PAGOPA_URL,
+    href: links.pagoPaLink,
   },
   {
     title: t('access_points_section.access_point_2.title'),

@@ -2,97 +2,41 @@
 import Layout from '../../../layouts/Layout.astro'
 import { BootstrapItaliaIcon } from '../../../components/shared/BootstrapItaliaIcon.js'
 import EServiceDetails from '../../../components/EServiceDetails/EServiceDetails.astro'
-import {
-  AttributeId,
-  EServiceId,
-  EServiceTemplateId,
-  TenantId,
-} from '../../../../../models/src/brandedIds'
-import { EService, Technology } from '../../../../../models/src/types/eservice'
+import { EServiceId } from '../../../../../models/src/brandedIds'
 import { useUiTranslations } from '../../../i18n/ui.i18n'
 
 import { getLangFromUrl } from '../../../i18n/utils.i18n'
 import PageHero from '../../../components/shared/PageHero.astro'
-import { useEServiceDetailsTranslations } from '../../../i18n/eservice-details'
+import { useEServiceDetailsTranslations } from '../../../i18n/eservice-details.i18n.js'
 import ApiShowcase from '../../../components/Homepage/ApiShowcase.astro'
 import RatingSection from '../../../components/shared/RatingSection.astro'
 import { EServiceDataAccessChip } from '../../../components/shared/EServiceDataAccessChip'
+import { sqlService } from '../../../server/services'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tUi = useUiTranslations(currentLocale)
+const tEserviceDetails = useEServiceDetailsTranslations(currentLocale)
 const t = useEServiceDetailsTranslations(currentLocale)
 
-//TODO right data
-const highlightedEServices: EService[] = [
-  {
-    id: 'eservice1' as EServiceId,
-    name: 'ANPR',
-    description:
-      "L'Anagrafe Nazionale della Popolazione Residente (ANPR) è il sistema che raccoglie i dati anagrafici di tutti i cittadini italiani.",
-    attributes: {
-      certified: [],
-      declared: [],
-      verified: [],
-    },
-    // producerName: "Nome dell'Ente",
-    producerId: 'tenant1' as TenantId,
-    technology: 'Rest',
-    descriptors: [],
-    createdAt: new Date(),
-    mode: 'Deliver',
-    isSignalHubEnabled: true,
-    isConsumerDelegable: true,
-    isClientAccessDelegable: true,
-    templateId: 'eserviceTemplate1' as EServiceTemplateId,
-  },
-  {
-    id: 'eservice2' as EServiceId,
-    name: 'PagoPA',
-    description:
-      'PagoPA è il sistema di pagamenti elettronici della Pubblica Amministrazione italiana, che consente ai cittadini di effettuare pagamenti in modo semplice e sicuro.',
-    attributes: {
-      certified: [],
-      declared: [],
-      verified: [],
-    },
-    // producerName: "Nome dell'Ente",
-    producerId: 'tenant2' as TenantId,
-    technology: 'Rest',
-    descriptors: [],
-    createdAt: new Date(),
-    mode: 'Deliver',
-    isSignalHubEnabled: true,
-    isConsumerDelegable: true,
-    isClientAccessDelegable: true,
-    templateId: 'eserviceTemplate2' as EServiceTemplateId,
-  },
-  {
-    id: 'eservice3' as EServiceId,
-    name: 'SPIDdnds ndsaj jkdsaknj dsanjk dksnaj kjdnasknj dsadsakdsanjkd sakjndnkjs akjndsaknj dakjsnkj ads',
-    description:
-      "SPID (Sistema Pubblico di Identità Digitale) è il sistema di autenticazione che permette ai cittadini di accedere ai servizi online della Pubblica Amministrazione e dei privati aderenti con un'unica identità digitale.",
-    attributes: {
-      certified: [],
-      declared: [],
-      verified: [],
-    },
-    // producerName: "Nome dell'Ente",
-    producerId: 'tenant3' as TenantId,
-    technology: 'Rest',
-    descriptors: [],
-    createdAt: new Date(),
-    mode: 'Deliver',
-    isSignalHubEnabled: true,
-    isConsumerDelegable: true,
-    isClientAccessDelegable: true,
-    templateId: 'eserviceTemplate3' as EServiceTemplateId,
-  },
-]
+const eserviceId: EServiceId = Astro.params.id as EServiceId
+
+const response = await sqlService.getEService(eserviceId)
+const eserviceDetail = response
+
+const eservicesCorrelated = await sqlService.searchCatalog({
+  limit: 3,
+  orderBy: ['recent_desc'],
+  offset: 0,
+  producerIds: [eserviceDetail.producer_id],
+  categories: [],
+})
+
+const { items: eserviceCorrelatedList } = eservicesCorrelated
 ---
 
 <Layout>
   <PageHero
-    title="TODO Nome API"
+    title={eserviceDetail.name}
     breadcrumbItems={[
       {
         routeKey: 'HOME',
@@ -110,41 +54,33 @@ const highlightedEServices: EService[] = [
       <div>
         <EServiceDataAccessChip isOpenData={false} currentLocale={currentLocale} />
       </div>
-      <a class="btn btn-link btn-sm btn-icon text-decoration-none" href="#" role="button">
+      <a id="copy-url-btn" class="btn btn-link btn-sm btn-icon text-decoration-none" role="button">
         {tUi('actions.copyUrl')}
         <BootstrapItaliaIcon name="it-copy" color="primary" padded />
       </a>
     </div>
-
     <p slot="bottom-hero">
-      Erogatore: <strong><u>Nome dell'ente</u></strong>
+      {tEserviceDetails('producer')}: <strong><u>{eserviceDetail.tenant_name}</u></strong>
     </p>
   </PageHero>
-
-  <EServiceDetails
-    eservice={{
-      id: 'eservice1' as EServiceId,
-      name: 'eservice 1',
-      description: 'eservice description 1',
-      attributes: {
-        certified: [[{ id: 'certified1' as AttributeId, explicitAttributeVerification: false }]],
-        declared: [],
-        verified: [],
-      },
-
-      producerId: 'tenant1' as TenantId,
-      technology: 'Rest' as Technology,
-      descriptors: [],
-      createdAt: new Date(),
-      mode: 'Deliver',
-      isSignalHubEnabled: true,
-      isConsumerDelegable: true,
-      isClientAccessDelegable: true,
-      templateId: 'eserviceTemplate1' as EServiceTemplateId,
-    }}
+  <EServiceDetails eservice={eserviceDetail} />
+  <ApiShowcase
+    title={t('featured_api.title')}
+    producerId={eserviceDetail.producer_id}
+    producerName={eserviceDetail.tenant_name}
+    highlightedEServices={eserviceCorrelatedList}
   />
-
-  <ApiShowcase title={t('featured_api.title')} highlightedEServices={highlightedEServices} />
-
   <RatingSection />
 </Layout>
+
+<script>
+  const copyUrlBtn = document.getElementById('copy-url-btn')
+  if (copyUrlBtn) {
+    copyUrlBtn.addEventListener('click', () => {
+      const url = window.location.href
+      navigator.clipboard.writeText(url).catch((err) => {
+        console.error(err)
+      })
+    })
+  }
+</script>

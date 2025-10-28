@@ -37,7 +37,7 @@ export function mapEServiceAttributesToGroups(attributes: EServiceAttributes): G
 
   // Iteriamo sull'ordine delle chiavi
   for (const key of keys) {
-    const attributeGroups = attributes[key] // Questo è Array<Array<AttributeItem>>
+    const attributeGroups = attributes[key] ?? [] // Questo è Array<Array<AttributeItem>>
 
     // Iteriamo su ciascun array interno (il "gruppo" di attributi)
     // e lo mappiamo nel formato Group
@@ -61,4 +61,12 @@ export function debounce<F extends (...args: Parameters<F>) => ReturnType<F>>(
     clearTimeout(timeout)
     timeout = setTimeout(() => func(...args), waitFor)
   }
+}
+
+export function formatData(date: string) {
+  const newDate = new Date(date)
+  const day = String(newDate.getDate()).padStart(2, '0')
+  const month = String(newDate.getMonth() + 1).padStart(2, '0')
+  const year = newDate.getFullYear()
+  return `${day}/${month}/${year}`
 }

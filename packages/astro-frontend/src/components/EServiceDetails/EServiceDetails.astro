@@ -4,9 +4,10 @@ import AttributeSection from './AttributesSection/AttributeSection.astro'
 import InformationContainer from './InformationContainer.astro'
 import { EService } from '../../../../models/src/types/eservice.js'
 import { TooltipIcon } from '../shared/TooltipIcon.js'
-import { useEServiceDetailsTranslations } from '../../i18n/eservice-details'
+import { useEServiceDetailsTranslations } from '../../i18n/eservice-details.i18n.js'
 import PageIndexNav from '../shared/PageIndexNav.astro'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { formatData } from '../../utils/utils'
 
 export interface Props {
   eservice: EService
@@ -16,6 +17,9 @@ const { eservice } = Astro.props
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useEServiceDetailsTranslations(currentLocale)
+
+const creationDate = formatData(eservice.created_at.toString())
+const creationDateLatestDescriptor = formatData(eservice.active_descriptor.created_at.toString())
 ---
 
 <section class="section section-muted px-0 px-md-auto py-5">
@@ -39,29 +43,39 @@ const t = useEServiceDetailsTranslations(currentLocale)
 
         <div class="col-xs-12 col-md-8">
           <div class="mb-default">
-            <h4 id="descrizione" class="mb-4">{t('description_section.title')}</h4>
+            <h4 id="description" class="mb-4">{t('description_section.title')}</h4>
             <p>{eservice.description}</p>
           </div>
 
           <div class="mb-default">
-            <h4 id="dettagli-api" class="mb-4">{t('api_details_section.title')}</h4>
+            <h4 id="api-details" class="mb-4">{t('api_details_section.title')}</h4>
             <ul class="list-group list-group-horizontal-lg bg-white">
               <li class="flex-fill list-group-item bg-transparent border-0 p-3">
                 <div class="py-2 px-3">
                   <div class="d-flex flex-row justify-content-between align-items-center">
                     <h6 class="mb-0">{t('api_details_section.api_state_label')}</h6>
                     <TooltipIcon
-                      title="STATO API"
-                      content="Indica lo stato del servizio su PDND. Può essere Attivo o Sospeso."
+                      title={t('stateapi.tooltip.title')}
+                      content={t('stateapi.tooltip.content')}
                       iconName="it-info-circle"
                       iconColor="primary"
                     />
                   </div>
                   <div class="mt-3">
-                    <span class="badge bg-success rounded-pill"
-                      >{t('api_details_section.api_state_active')}</span
-                    >
-                    <!-- TODO checkt eservice state -->
+                    {
+                      eservice.active_descriptor.state === 'Published' && (
+                        <span class="badge bg-success rounded-pill">
+                          {t('api_details_section.api_state_active')}
+                        </span>
+                      )
+                    }
+                    {
+                      eservice.active_descriptor.state === 'Suspended' && (
+                        <span class="badge bg-danger rounded-pill">
+                          {t('api_details_section.api_state_suspended')}
+                        </span>
+                      )
+                    }
                   </div>
                 </div>
               </li>
@@ -74,7 +88,7 @@ const t = useEServiceDetailsTranslations(currentLocale)
                   <h6 class="mb-0">{t('api_details_section.creation_date_label')}</h6>
                   <div class="d-flex flex-row align-items-center mt-3">
                     <BootstrapItaliaIcon name="it-calendar" color="primary" size="sm" />
-                    <span class="ms-2">01/01/2020</span>
+                    <span class="ms-2">{creationDate}</span>
                   </div>
                 </div>
               </li>
@@ -87,7 +101,7 @@ const t = useEServiceDetailsTranslations(currentLocale)
                   <h6 class="mb-0">{t('api_details_section.last_update_date_label')}</h6>
                   <div class="d-flex flex-row align-items-center mt-3">
                     <BootstrapItaliaIcon name="it-calendar" color="primary" size="sm" />
-                    <span class="ms-2">01/01/2024</span>
+                    <span class="ms-2">{creationDateLatestDescriptor}</span>
                   </div>
                 </div>
               </li>
@@ -95,10 +109,9 @@ const t = useEServiceDetailsTranslations(currentLocale)
 
             <ul class="list-group bg-white mt-4 px-3">
               <li class="list-group-item border-0">
-                <!-- TOOD values -->
                 <InformationContainer
                   label={t('api_details_section.delegation_label')}
-                  content={t('available')}
+                  content={eservice.is_consumer_delegable ? t('available') : t('not_available')}
                   icon={{
                     iconName: 'it-info-circle',
                     tooltipTitle: t('api_details_section.delegation_tooltip.title'),
@@ -110,7 +123,9 @@ const t = useEServiceDetailsTranslations(currentLocale)
               <li class="list-group-item border-0">
                 <InformationContainer
                   label={t('api_details_section.agreements_label')}
-                  content={t('available')}
+                  content={eservice.active_descriptor.agreement_approval_policy === 'Automatic'
+                    ? t('available')
+                    : t('not_available')}
                   icon={{
                     iconName: 'it-info-circle',
                     tooltipTitle: t('api_details_section.agreements_tooltip.title'),
@@ -118,10 +133,11 @@ const t = useEServiceDetailsTranslations(currentLocale)
                   }}
                 />
               </li>
-              <hr class="my-0 border-2" />
+              <!-- Will be available soon when template will be deployed -->
+              <!-- <hr class="my-0 border-2" />
               <li class="list-group-item border-0">
                 <InformationContainer
-                  label={t('api_details_section.risk_analysis_template_label')}
+                  label={t('api_details_section.risk_analysis_template_label NON DISPONIBILE')}
                   content={t('available')}
                   icon={{
                     iconName: 'it-info-circle',
@@ -129,7 +145,7 @@ const t = useEServiceDetailsTranslations(currentLocale)
                     tooltipContent: t('api_details_section.risk_analysis_template_tooltip.content'),
                   }}
                 />
-              </li>
+              </li> -->
             </ul>
           </div>
 
@@ -137,36 +153,36 @@ const t = useEServiceDetailsTranslations(currentLocale)
             <h4 id="specifiche-tecniche" class="mb-4">{t('tech_specification_section.title')}</h4>
             <ul class="list-group bg-white mt-4 px-3">
               <li class="list-group-item border-0">
-                <!-- TODO data values -->
                 <InformationContainer
                   label={t('tech_specification_section.current_version')}
-                  content="2"
+                  content={eservice.active_descriptor.version}
                 />
               </li>
               <hr class="my-0 border-2" />
               <li class="list-group-item border-0">
                 <InformationContainer
                   label={t('tech_specification_section.technology')}
-                  content="REST"
+                  content={eservice.technology === 'Rest' ? 'REST' : 'SOAP'}
                 />
               </li>
               <hr class="my-0 border-2" />
               <li class="list-group-item border-0">
                 <InformationContainer
                   label={t('tech_specification_section.delivery_mode')}
-                  content="E-service che eroga dati"
+                  content={eservice.mode === 'Deliver'
+                    ? t('tech_specification_section.delivery_mode.deliver')
+                    : t('tech_specification_section.delivery_mode.receive')}
                 />
               </li>
               <hr class="my-0 border-2" />
               <li class="list-group-item border-0">
                 <InformationContainer
                   label={t('tech_specification_section.signal_hub')}
-                  content={t('available')}
+                  content={eservice.is_signal_hub_enabled ? t('available') : t('not_available')}
                   icon={{
                     iconName: 'it-info-circle',
-                    tooltipTitle: 'Signal Hub',
-                    tooltipContent:
-                      'Se disponibile, il servizio ti avvisa quando i dati collegati a questa API subiscono variazioni.',
+                    tooltipTitle: t('signalhub.tooltip.title'),
+                    tooltipContent: t('signalhub.tooltip.content'),
                   }}
                 />
               </li>
@@ -175,7 +191,11 @@ const t = useEServiceDetailsTranslations(currentLocale)
 
           <div class="mb-default">
             <AttributeSection
-              attributes={eservice.attributes ?? { certified: [], verified: [], declared: [] }}
+              attributes={eservice.active_descriptor.attributes ?? {
+                certified: [],
+                verified: [],
+                declared: [],
+              }}
             />
           </div>
 

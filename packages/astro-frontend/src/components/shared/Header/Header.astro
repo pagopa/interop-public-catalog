@@ -3,10 +3,9 @@ import { useUiTranslations } from '../../../i18n/ui.i18n'
 import { BootstrapItaliaIcon } from '../BootstrapItaliaIcon'
 import LanguageSwitchDropdown from './LanguageSwitchDropdown.astro'
 import {
-  DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL,
-  PAGOPA_URL,
   CATALOG_API_SECTION_NAV_ITEMS,
   RESOURCES_SECTION_NAV_ITEMS,
+  links,
 } from '../../../config/constants.js'
 import { getLangFromUrl, getLocalizedRoute } from '../../../i18n/utils.i18n'
 
@@ -28,13 +27,10 @@ const topNavNavItems = [
           <div class="it-header-slim-wrapper-content">
             {/* Top Navbar */}
             <span class="navbar-brand">
-              <a
-                target="_blank"
-                class="text-decoration-underline"
-                href={DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL}
+              <a target="_blank" class="text-decoration-underline" href={links.dtdLink}
                 ><span class="d-none d-md-inline">Dipartimento per la trasformazione digitale</span
                 ><span class="d-md-none d-inline">DTD</span></a
-              > e <a target="_blank" class="text-decoration-underline" href={PAGOPA_URL}
+              > e <a target="_blank" class="text-decoration-underline" href={links.pagoPaLink}
                 >PagoPA S.p.A.</a
               >
             </span>

@@ -102,6 +102,7 @@ export const ui = {
     'rating.email_body_positive': 'La pagina è stata utile perché',
     'rating.email_body_negative': 'La pagina non è stata utile perché',
     'rating.alert': 'Per favore, seleziona un’opzione prima di inviare.',
+    'spinner.loading': 'Caricamento...',
   },
   en: {
     'actions.search': 'Search',
@@ -174,6 +175,7 @@ export const ui = {
     'rating.email_body_positive': 'The page was useful because',
     'rating.email_body_negative': 'The page was not helpful because',
     'rating.alert': 'Please select an option before submitting.',
+    'spinner.loading': 'Loading...',
   },
 } as const satisfies TranslationsMap
 
