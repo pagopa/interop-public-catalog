@@ -1,7 +1,7 @@
 ---
 import { EService } from '../../../../models/src/types/eservice'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
-import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { getLangFromUrl, getLocalizedRoute } from '../../i18n/utils.i18n'
 import { EServiceCard } from '../shared/EServiceCard'
 import { Section } from '../shared/Section'
 
@@ -17,8 +17,8 @@ const { title, highlightedEServices } = Astro.props
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useHomepageTranslations(currentLocale)
 
-//TODO add routes based on local
-const catalogUrl = `/it/catalogo?${new URLSearchParams({
+const catalogLocalizedUrl = getLocalizedRoute(currentLocale, 'ESERVICE_CATALOG')
+const catalogUrl = `${catalogLocalizedUrl}?${new URLSearchParams({
   provider: JSON.stringify([[Astro.props.producerName, Astro.props.producerId]]),
 }).toString()}`
 ---
