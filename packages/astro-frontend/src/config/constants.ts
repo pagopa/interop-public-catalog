@@ -62,11 +62,11 @@ export const TENANT_MACROCATEGORIES = [
     strapiId: 3,
     imgSrc: '/img/066-hospital.svg',
   },
-  {
-    key: 'universita',
-    strapiId: 4,
-    imgSrc: '/img/library-1.svg',
-  },
+  // {
+  //   key: 'universita',
+  //   strapiId: 4,
+  //   imgSrc: '/img/library-1.svg',
+  // },
   {
     key: 'altre',
     strapiId: 5,

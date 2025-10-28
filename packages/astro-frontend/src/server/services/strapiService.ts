@@ -9,12 +9,13 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       filters: {
         macroCategoryIds?: number[]
         isFeaturedInHomepage?: boolean
+        random?: boolean
         limit: number
         offset: number
       },
       locale: SupportedLanguage
     ): Promise<StrapiEntityList<GoodPractice>> => {
-      const { offset, limit, macroCategoryIds, isFeaturedInHomepage } = filters
+      const { offset, limit, macroCategoryIds, isFeaturedInHomepage, random } = filters
 
       const filteredData = getGoodPracticesDataMockByLocale(locale)
         .filter((g) =>
@@ -27,6 +28,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
             ? g.data.isFeaturedInHomepage === isFeaturedInHomepage
             : true
         )
+        .sort(() => (random ? (Math.random() > 0.5 ? 1 : -1) : 0))
 
       const paginatedResult = filteredData.slice(offset, offset + limit).map((r) => r.data)
 

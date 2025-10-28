@@ -14,6 +14,10 @@ const goodPracticesTranslations = {
     'details.lastUpdate': 'Ultimo aggiornamento:',
 
     'details.section.apis.heading': 'API utilizzate',
+    'details.section.apis.description': 'Descrizione',
+    'details.section.apis.example': 'Un esempio dal territorio',
+    'details.section.apis.technical_notes': 'Note tecniche',
+    'details.section.apis.show_more_button_label': 'Mostra di più',
   },
   en: {
     'catalog.title': 'Practical examples of API Usage for your Entity',
@@ -27,6 +31,10 @@ const goodPracticesTranslations = {
     'details.lastUpdate': 'Last update:',
 
     'details.section.apis.heading': 'APIs used',
+    'details.section.apis.description': 'Description',
+    'details.section.apis.example': 'An example from the territory',
+    'details.section.apis.technical_notes': 'Technical notes',
+    'details.section.apis.show_more_button_label': 'Show more',
   },
 } as const satisfies TranslationsMap
 

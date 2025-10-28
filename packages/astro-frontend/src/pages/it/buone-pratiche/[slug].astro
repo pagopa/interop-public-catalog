@@ -21,7 +21,7 @@ const goodPracticeStrapiResponse = await strapiService.getGoodPracticeBySlug(
 )
 
 const randomGoodPractices = await strapiService.getGoodPractices(
-  { limit: 0, offset: 2 },
+  { limit: 2, offset: 0, random: true },
   currentLocale
 )
 
@@ -67,7 +67,7 @@ const goodPractice = goodPracticeStrapiResponse.data
   </PageHero>
 
   <Section style={{ backgroundColor: '#fafafa' }}>
-    <GoodPracticeDetails goodPracticeBody={goodPractice.body} />
+    <GoodPracticeDetails goodPractice={goodPractice} />
   </Section>
 
   <Section

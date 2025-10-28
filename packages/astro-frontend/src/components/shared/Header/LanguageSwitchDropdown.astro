@@ -34,7 +34,8 @@ const tUi = useUiTranslations(currentLang)
                     href={switchLang({
                       fromLang: currentLang,
                       toLang: lang,
-                      currentPath: Astro.url.pathname,
+                      currentRoutePattern: Astro.routePattern,
+                      currentParams: Astro.params,
                     })}
                   >
                     <span>

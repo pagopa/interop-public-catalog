@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react-vite'
 import React from 'react'
 
 import type { SupportedLanguage } from '../i18n/types.i18n'
-import { EServiceCard } from '../components/shared/EServiceCard'
+import { EServiceCard, EServiceCardSkeleton } from '../components/shared/EServiceCard'
 
 const meta = {
   title: 'Components/EServiceCard',
@@ -14,6 +14,7 @@ const meta = {
     description:
       'API per consultare i dati anagrafici aggiornati dei cittadini con meccanismi di caching e rate limiting.',
     producerName: 'Dipartimento per la trasformazione digitale',
+    eserviceId: 'eservice-12345',
     isOpenData: false,
   },
   argTypes: {
@@ -44,6 +45,7 @@ const meta = {
 } satisfies Meta<typeof EServiceCard>
 
 export default meta
+
 type Story = StoryObj<typeof meta>
 
 export const AccessReserved: Story = {
@@ -72,6 +74,22 @@ export const OpenData: Story = {
       description: {
         story: 'Badge Open Data e testo breve per evidenziare lo stato pubblico della risorsa.',
       },
+    },
+  },
+}
+
+export const Skeleton: Story = {
+  render: (args) => (
+    <div style={{ maxWidth: '360px', margin: '0 auto', position: 'relative' }}>
+      <EServiceCardSkeleton />
+      <div style={{ position: 'absolute', top: 0, opacity: 0.1 }}>
+        <EServiceCard {...args} />
+      </div>
+    </div>
+  ),
+  parameters: {
+    viewport: {
+      defaultViewport: 'md',
     },
   },
 }

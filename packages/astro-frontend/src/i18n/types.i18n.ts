@@ -1,5 +1,4 @@
-import type { ROUTES } from '../config/routes.js'
-import { LANGUAGES } from './config.i18n.js'
+import type { LANGUAGES } from './config.i18n.js'
 
 export type SupportedLanguage = keyof typeof LANGUAGES
 
@@ -11,8 +10,8 @@ export type TranslationsMap = Record<SupportedLanguage, Record<string, string>>
 
 export type ExtractRouteParams<T> = string extends T
   ? Record<string, string>
-  : T extends `${infer _Start}:${infer Param}/${infer Rest}`
+  : T extends `${infer _Start}[${infer Param}]/${infer Rest}`
     ? { [k in Param | keyof ExtractRouteParams<Rest>]: string }
-    : T extends `${infer _Start}:${infer Param}`
+    : T extends `${infer _Start}[${infer Param}]`
       ? { [k in Param]: string }
       : undefined

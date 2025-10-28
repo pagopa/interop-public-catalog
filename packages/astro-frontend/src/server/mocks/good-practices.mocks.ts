@@ -31,7 +31,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
       ],
       tenantMacrocategories: [
         {
-          id: 10,
+          id: 2,
           label: 'Comuni',
         },
       ],
@@ -278,19 +278,19 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
       ],
       tenantMacrocategories: [
         {
-          id: 10,
+          id: 3,
           label: 'Regioni e Province Autonome',
         },
         {
-          id: 10,
+          id: 5,
           label: 'Province e Città metropolitane',
         },
         {
-          id: 10,
+          id: 1,
           label: 'PA centrali',
         },
         {
-          id: 10,
+          id: 2,
           label: 'Comuni',
         },
       ],
@@ -305,7 +305,22 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'Nell’ambito delle politiche per il diritto allo studio, le Regioni e altri enti erogano borse di studio a favore degli studenti delle scuole secondarie di secondo grado, al fine di sostenere l’acquisto di libri di testo, strumenti e servizi utili alla crescita culturale e formativa.Per garantire la corretta attribuzione dei benefici, le strutture competenti possono avvalersi delle API dell’',
+                  text: 'Nell’ambito delle politiche per il diritto allo studio, le Regioni e altri enti erogano borse di studio a favore degli studenti delle scuole secondarie di secondo grado, al fine di sostenere l’acquisto di libri di testo, strumenti e servizi utili alla crescita culturale e formativa.',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          __component: 'buona-pratica.description',
+          id: 1,
+          Text: [
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'Per garantire la corretta attribuzione dei benefici, le strutture competenti possono avvalersi delle API dell’',
                 },
                 {
                   type: 'link',
@@ -535,15 +550,15 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
       ],
       tenantMacrocategories: [
         {
-          id: 10,
+          id: 3,
           label: 'Regioni e Province Autonome',
         },
         {
-          id: 10,
+          id: 1,
           label: 'PA centrali',
         },
         {
-          id: 10,
+          id: 2,
           label: 'Comuni',
         },
       ],
@@ -1077,7 +1092,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
       id: 12,
       documentId: 'zflr58yvojfzixgi4ob4jxfq',
       title: 'Barrier-free mobility with interoperable CUDE',
-      slug: 'barrier-free-mobility-with-interoperable-cude',
+      slug: 'mobilita-senza-barriere-con-il-cude-interoperabile',
       publishedDate: '2025-10-17',
       createdAt: '2025-10-16T08:10:56.095Z',
       updatedAt: '2025-10-17T12:40:30.370Z',
@@ -1100,7 +1115,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
       ],
       tenantMacrocategories: [
         {
-          id: 10,
+          id: 2,
           label: 'Municipalities',
         },
       ],
@@ -1333,7 +1348,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
       id: 12,
       documentId: 'zflr58yvojfzixgi4ob4jxfq',
       title: 'Automatic attendance verification: faster access to scholarships',
-      slug: 'automatic-attendance-verification-faster-access-to-scholarships',
+      slug: 'verifica-automatica-della-frequenza-accesso-piu-rapido-alle-borse-di-studio',
       publishedDate: '2025-10-17',
       createdAt: '2025-10-16T08:10:56.095Z',
       updatedAt: '2025-10-17T12:40:30.370Z',
@@ -1347,19 +1362,19 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
       ],
       tenantMacrocategories: [
         {
-          id: 10,
+          id: 3,
           label: 'Regions and Autonomous Provinces',
         },
         {
-          id: 10,
+          id: 5,
           label: 'Provinces and Metropolitan Cities',
         },
         {
-          id: 10,
+          id: 1,
           label: 'Central Public Administrations',
         },
         {
-          id: 10,
+          id: 2,
           label: 'Municipalities',
         },
       ],
@@ -1567,7 +1582,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
       id: 12,
       documentId: 'zflr58yvojfzixgi4ob4jxfq',
       title: 'Providing citizen bonuses fairly and efficiently',
-      slug: 'providing-citizen-bonuses-fairly-and-efficiently',
+      slug: 'erogare-bonus-ai-cittadini-in-modo-equo-ed-efficiente',
       publishedDate: '2025-10-17',
       createdAt: '2025-10-16T08:10:56.095Z',
       updatedAt: '2025-10-17T12:40:30.370Z',
@@ -1602,15 +1617,15 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
       ],
       tenantMacrocategories: [
         {
-          id: 10,
+          id: 3,
           label: 'Regions and Autonomous Provinces',
         },
         {
-          id: 10,
+          id: 1,
           label: 'Central Public Administrations',
         },
         {
-          id: 10,
+          id: 2,
           label: 'Municipalities',
         },
       ],
@@ -1891,7 +1906,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
       id: 12,
       documentId: 'zflr58yvojfzixgi4ob4jxfq',
       title: 'Pre-filled personal data for more efficient services',
-      slug: 'pre-filled-personal-data-for-more-efficient-services',
+      slug: 'dati-anagrafici-precompilati-per-servizi-piu-efficienti',
       publishedDate: '2025-10-17',
       createdAt: '2025-10-16T08:10:56.095Z',
       updatedAt: '2025-10-17T12:40:30.370Z',
