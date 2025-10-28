@@ -1,5 +1,5 @@
 ---
-import { PAGOPA_URL } from '../../config/constants'
+import { links } from '../../config/constants'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { getLangFromUrl, getLocalizedRoute } from '../../i18n/utils.i18n'
 import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
@@ -22,7 +22,7 @@ const howItWorksSteps = [
     description: t('how_it_works.step_2.description'),
     linkLabel: t('how_it_works.step_2.link'),
     icon: 'it-layers',
-    href: PAGOPA_URL,
+    href: links.pagoPaLink,
     imageSrc: '/img/077-network.svg',
   },
   {
