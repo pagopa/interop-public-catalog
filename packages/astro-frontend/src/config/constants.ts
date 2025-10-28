@@ -1,8 +1,19 @@
 import type { SupportedLanguage } from '../i18n/types.i18n.js'
 import { getLocalizedRoute } from '../i18n/utils.i18n.js'
 
-export const DIPARTIMENTO_PER_LA_TRASFORMAZIONE_DIGITALE_URL = 'https://innovazione.gov.it/'
-export const PAGOPA_URL = 'https://www.pagopa.gov.it/'
+export const links = {
+  dtdLink: 'http://innovazione.gov.it/',
+  pagoPaLink: 'https://www.pagopa.it/it/',
+  schemaSemanticLink: 'https://schema.gov.it/',
+  openDataLink: 'https://www.dati.gov.it/',
+  interopPlatformLink: 'https://www.interop.pagopa.it/',
+  interopManualLink:
+    'https://developer.pagopa.it/pdnd-interoperabilita/guides/manuale-operativo-pdnd-interoperabilita',
+  interopNumbersLink: 'https://www.interop.pagopa.it/numeri',
+  interopDevelopersLink: 'https://developers.italia.it/it/interoperabilita',
+  ueCommissionLink: 'https://commission.europa.eu/index_it',
+  dtdLogoLink: 'https://innovazione.gov.it/dipartimento/',
+} as const
 
 /**
  * Navigation items for the footer and header components.
