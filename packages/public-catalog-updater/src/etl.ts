@@ -1,4 +1,4 @@
-import { Pool } from "pg";
+import { Client } from "pg";
 
 import { TableMap } from "./types.js";
 import {
@@ -48,7 +48,7 @@ if (
   throw new Error("Missing job config env");
 }
 
-const sourceDb = new Pool({
+const sourceDb = new Client({
   user: jobConfig.sourceDb.username,
   password: jobConfig.sourceDb.password,
   host: jobConfig.sourceDb.host,
@@ -56,7 +56,7 @@ const sourceDb = new Pool({
   database: jobConfig.sourceDb.name,
   ssl: jobConfig.sourceDb.useSSL ? { rejectUnauthorized: false } : undefined,
 });
-const targetDb = new Pool({
+const targetDb = new Client({
   user: jobConfig.targetDb.username,
   password: jobConfig.targetDb.password,
   host: jobConfig.targetDb.host,
@@ -128,13 +128,11 @@ async function migrateTable({ source, target, orderBy, columns }: TableMap) {
   const cols = columns.join(", ");
 
   try {
-    await targetDb.query("BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ;");
 
     // Truncate table in targetDb (there shouldn't be performance worries on less than 1-10 million rows)
     // WARNING: tables must be provided in a syntactically correct order because of "CASCADE"
     await targetDb.query(`TRUNCATE TABLE ${target} CASCADE;`);
 
-    await targetDb.query(`ALTER TABLE ${target} DISABLE TRIGGER ALL`);
     for (let offset = 0; offset < total; offset += jobConfig.batchSize!) {
       // Get batch of rows from sourceDb
       const { rows: batch } = await sourceDb.query(
@@ -172,21 +170,31 @@ async function migrateTable({ source, target, orderBy, columns }: TableMap) {
       console.log(`Inserted batch offset ${offset} (${batch.length} rows)`);
     }
 
-    await targetDb.query(`ALTER TABLE ${target} ENABLE TRIGGER ALL`);
-    await targetDb.query("COMMIT");
-
     console.log(`Done migrating ${source}`);
+    return;
   } catch (err) {
     console.log(err);
-    await targetDb.query("ROLLBACK");
     console.log(`Migration failed ${source}`);
+
+    return err;
   }
 }
 
 export async function handler() {
+  await sourceDb.connect();
+  await targetDb.connect();
+
+  await targetDb.query("BEGIN TRANSACTION ISOLATION LEVEL REPEATABLE READ;");
+  let err;
   for (const table of tables) {
-    await migrateTable(table);
+    err = await migrateTable(table);
+    if(err) {
+      console.log("Aborting migrations...");
+      await targetDb.query("ROLLBACK");
+      break;
+    }
   }
+  if(!err) await targetDb.query("COMMIT");
 
   await sourceDb.end();
   await targetDb.end();
