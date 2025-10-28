@@ -1,35 +1,35 @@
-import { ORGANIZATION_TYPES, type OrganizationType } from '../../config/constants.js'
+import { TENANT_MACROCATEGORIES } from '../../config/constants.js'
 import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
 
-type OrganizationTypeFilterProps = {
+type MacroCategoryIdFilterProps = {
   currentLocale: SupportedLanguage
-  onSelectedOrganizationTypeChange: (organizationType: OrganizationType) => void
-  selectedOrganizationType: OrganizationType
+  onSelectedMacroCategoryIdChange: (macroCategoryId: number | null) => void
+  selectedMacroCategoryId: number | null
 }
 
 const MAX_WIDTH = 305
 
-export const OrganizationTypeFilter: React.FC<OrganizationTypeFilterProps> = ({
+export const MacroCategoryIdFilter: React.FC<MacroCategoryIdFilterProps> = ({
   currentLocale,
-  selectedOrganizationType,
-  onSelectedOrganizationTypeChange,
+  selectedMacroCategoryId,
+  onSelectedMacroCategoryIdChange,
 }) => {
   const tUi = useUiTranslations(currentLocale)
 
   return (
     <div style={{ maxWidth: MAX_WIDTH }} className="it-list-wrapper">
       <ul id="category-filters-list" className="it-list border-start">
-        {ORGANIZATION_TYPES.map((organizationType) => {
-          const isActive = organizationType.key === selectedOrganizationType
+        {TENANT_MACROCATEGORIES.map((macrocategory) => {
+          const isActive = macrocategory.strapiId === selectedMacroCategoryId
           return (
-            <li>
+            <li key={macrocategory.strapiId}>
               <a
-                onClick={onSelectedOrganizationTypeChange.bind(null, organizationType.key)}
+                onClick={onSelectedMacroCategoryIdChange.bind(null, macrocategory.strapiId)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
-                    onSelectedOrganizationTypeChange(organizationType.key)
+                    onSelectedMacroCategoryIdChange(macrocategory.strapiId)
                   }
                 }}
                 role="button"
@@ -45,14 +45,14 @@ export const OrganizationTypeFilter: React.FC<OrganizationTypeFilterProps> = ({
                   <img
                     role="presentation"
                     alt=""
-                    src={organizationType.imgSrc}
+                    src={macrocategory.imgSrc}
                     width={32}
                     height={32}
                   />
                 </div>
                 <div className="it-right-zone text-decoration-none">
                   <span className="text text-decoration-none">
-                    {tUi(`organization_types.${organizationType.key}_long`)}
+                    {tUi(`tenant_macrocategory_.${macrocategory.key}_long`)}
                   </span>
                 </div>
               </a>

@@ -4,9 +4,9 @@ import { useGoodPracticesTranslations } from '../../i18n/good-practices.i18n'
 import { EServiceCard } from '../shared/EServiceCard'
 import PageIndexNav from '../shared/PageIndexNav.astro'
 import NoteTecniche from './NoteTecniche.astro'
-import type { GoodPractice } from '../../types/good-practice.types'
 import { match } from 'ts-pattern'
 import { renderRichTextStrapiNodes } from '../../utils/rich-text-strapi-renderer'
+import type { GoodPractice } from '../../server/models/good-practice.types'
 
 interface Props {
   goodPracticeBody: GoodPractice['body']
@@ -21,8 +21,8 @@ const HEADING_CLASS = 'h4 mb-3'
 const PARAGRAPH_CLASS = 'mb-4'
 
 const sectionTitles = goodPracticeBody
-  .filter((s) => s.__component === 'shared.section-title')
-  .map((s) => ({ label: s.sectionTitle, id: s.slug }))
+  .filter((s) => s.__component === 'buona-pratica.title')
+  .map((s) => ({ label: s.Text, id: s.id.toString() }))
 ---
 
 <div class="row">
@@ -42,13 +42,13 @@ const sectionTitles = goodPracticeBody
       {
         goodPracticeBody.map((c) =>
           match(c)
-            .with({ __component: 'shared.media' }, (c) => (
+            .with({ __component: 'buona-pratica.image' }, (c) => (
               <figure
                 style="background-color: #f2f2f2;"
                 class="d-flex align-items-center flex-column py-3 mb-4"
               >
                 <img
-                  src={c.image.formats.medium?.url ?? c.image.url}
+                  src={c.image.url}
                   alt={c.image.alternativeText}
                   width={c.image.width}
                   height={c.image.height}
@@ -57,21 +57,21 @@ const sectionTitles = goodPracticeBody
                 <figcaption class="text-center">{c.caption}</figcaption>
               </figure>
             ))
-            .with({ __component: 'shared.section-title' }, (c) => (
-              <h2 id={c.slug} class={HEADING_CLASS}>
-                {c.sectionTitle}
+            .with({ __component: 'buona-pratica.title' }, (c) => (
+              <h2 id={c.id.toString()} class={HEADING_CLASS}>
+                {c.Text}
               </h2>
             ))
-            .with({ __component: 'shared.rich-text' }, (c) => (
-              <p class={PARAGRAPH_CLASS}>{c.text}</p>
+            .with({ __component: 'buona-pratica.description' }, (c) => (
+              <p class={PARAGRAPH_CLASS} set:html={renderRichTextStrapiNodes(c.Text)} />
             ))
-            .with({ __component: 'shared.esempio-concreto' }, (c) => (
+            .with({ __component: 'buona-pratica.esempio-concreto' }, (c) => (
               <div class="bg-primary-c0 p-4 mb-4">
                 <Fragment set:html={renderRichTextStrapiNodes(c.example)} />
               </div>
             ))
-            .with({ __component: 'shared.note-tecniche' }, (c) => (
-              <NoteTecniche class="mb-4 mt-5" title={c.title} content={c.content} />
+            .with({ __component: 'buona-pratica.nota-tecnica' }, (c) => (
+              <NoteTecniche class="mb-4 mt-5" content={c.example} />
             ))
             .exhaustive()
         )

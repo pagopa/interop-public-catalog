@@ -1,26 +1,33 @@
 ---
-import { ORGANIZATION_TYPES, type OrganizationType } from '../../config/constants'
+import { TENANT_MACROCATEGORIES, type OrganizationType } from '../../config/constants'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { getLangFromUrl, getLocalizedRoute } from '../../i18n/utils.i18n'
+import type { GoodPractice } from '../../server/models/good-practice.types'
 import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
 import { GoodPracticeCard } from '../shared/GoodPracticeCard'
+
+interface Props {
+  featuredGoodPractices: GoodPractice[]
+}
+
+const { featuredGoodPractices } = Astro.props
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useHomepageTranslations(currentLocale)
 
-const organizationsTypesLinks: Array<{ text: string; organizationTypeKey: OrganizationType }> = [
-  { text: t('good_practices.target.pa_centrali'), organizationTypeKey: 'pac' },
-  { text: t('good_practices.target.regioni'), organizationTypeKey: 'regioni' },
-  { text: t('good_practices.target.comuni'), organizationTypeKey: 'comuni' },
-  { text: t('good_practices.target.view_all'), organizationTypeKey: 'tutti' },
+const macroCategoriesLinks: Array<{ text: string; macroCategoryKey: OrganizationType }> = [
+  { text: t('good_practices.target.pa_centrali'), macroCategoryKey: 'pac' },
+  { text: t('good_practices.target.regioni'), macroCategoryKey: 'regioni' },
+  { text: t('good_practices.target.comuni'), macroCategoryKey: 'comuni' },
+  { text: t('good_practices.target.view_all'), macroCategoryKey: 'tutti' },
 ] as const
 
-function getOrganizationTypeHref(organizationType: OrganizationType) {
-  return `${getLocalizedRoute(currentLocale, 'GOOD_PRACTICES_CATALOG')}?${new URLSearchParams({ organizationType }).toString()}`
+function getOrganizationTypeHref(macroCategory: OrganizationType) {
+  return `${getLocalizedRoute(currentLocale, 'GOOD_PRACTICES_CATALOG')}?${new URLSearchParams({ macroCategory }).toString()}`
 }
 
-function getOrganizationTypeImgSrc(organizationType: OrganizationType) {
-  return ORGANIZATION_TYPES.find((o) => o.key === organizationType)!.imgSrc
+function getOrganizationTypeImgSrc(macroCategory: OrganizationType) {
+  return TENANT_MACROCATEGORIES.find((o) => o.key === macroCategory)!.imgSrc
 }
 ---
 
@@ -53,14 +60,14 @@ function getOrganizationTypeImgSrc(organizationType: OrganizationType) {
       <div class="it-list-wrapper mt-4">
         <ul class="it-list row">
           {
-            organizationsTypesLinks.map((l, i) => (
+            macroCategoriesLinks.map((l, i) => (
               <li class:list={['col-12 col-md-6 px-2 py-2 position-relative']}>
                 <a
-                  href={getOrganizationTypeHref(l.organizationTypeKey)}
+                  href={getOrganizationTypeHref(l.macroCategoryKey)}
                   class="list-item icon-right gap-2 border-0"
                 >
                   <img
-                    src={getOrganizationTypeImgSrc(l.organizationTypeKey)}
+                    src={getOrganizationTypeImgSrc(l.macroCategoryKey)}
                     alt=""
                     role="presentation"
                     height="40"
@@ -90,38 +97,13 @@ function getOrganizationTypeImgSrc(organizationType: OrganizationType) {
     {/* Section Content - Use Case Cards */}
     <div style="max-width:1076px;" class="mx-auto mt-5">
       <div class="row g-4">
-        <div class="col-12 col-md-6 d-flex justify-content-center">
-          <GoodPracticeCard
-            currentLocale={currentLocale}
-            title="Erogare i bonus ai cittadini in modo equo ed efficiente"
-            intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
-            category="Bonus Economici"
-          />
-        </div>
-        <div class="col-12 col-md-6 d-flex justify-content-center">
-          <GoodPracticeCard
-            currentLocale={currentLocale}
-            title="Iscrizione ai concorsi pubblici più snella"
-            intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
-            category="Titoli di studio"
-          />
-        </div>
-        <div class="col-12 col-md-6 d-flex justify-content-center">
-          <GoodPracticeCard
-            currentLocale={currentLocale}
-            title="Verifica immediata dell’iscrizione all’albo degli avvocati"
-            intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
-            category="Ordini professionali"
-          />
-        </div>
-        <div class="col-12 col-md-6 d-flex justify-content-center">
-          <GoodPracticeCard
-            currentLocale={currentLocale}
-            title="Erogare i bonus ai cittadini in modo equo ed efficiente"
-            intendedTargets={['pac', 'comuni', 'regioni', 'universita']}
-            category="Bonus Economici"
-          />
-        </div>
+        {
+          featuredGoodPractices.map((goodPractice) => (
+            <div class="col-12 col-md-6 d-flex justify-content-center">
+              <GoodPracticeCard currentLocale={currentLocale} goodPractice={goodPractice} />
+            </div>
+          ))
+        }
       </div>
     </div>
 
