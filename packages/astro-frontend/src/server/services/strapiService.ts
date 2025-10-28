@@ -1,7 +1,7 @@
 import type { GoodPractice, StrapiEntityList, StrapiEntity } from 'pagopa-interop-public-models'
 import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 import { getGoodPracticesDataMockByLocale } from '../mocks/good-practices.mocks.js'
-import { catalogMockData, ecosystemMockData, faqMockData, generalMockData, genericErrorMockData, getCatalogSingleApiMockData, getGoodPracticeSingleMockData, goodPracticesMockData, legalNotesMockData, normativaMockData, notFoundErrorMockData, privacyPolicyMockData } from '../mocks/meta-data.mocks.js'
+import { catalogMockData, catalogMockDataEn, ecosystemMockData, ecosystemMockDataEn, faqMockData, faqMockDataEn, generalMockData, generalMockDataEn, genericErrorMockData, genericErrorMockDataEn, getCatalogSingleApiMockData, getCatalogSingleApiMockDataEn, getGoodPracticeSingleMockData, getGoodPracticeSingleMockDataEn, goodPracticesMockData, goodPracticesMockDataEn, legalNotesMockData, legalNotesMockDataEn, legislationMockData, legislationMockDataEn, notFoundErrorMockData, notFoundErrorMockDataEn, privacyPolicyMockData, privacyPolicyMockDataEn } from '../mocks/meta-data.mocks.js'
 import type { MetaDataType, PageNames } from '../types/metaData.types.js'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, max-params
@@ -58,37 +58,44 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       Promise.resolve(getGoodPracticesDataMockByLocale(locale).find((g) => g.data.slug === slug)),
 
     async getSeoMetaData(
+      locale: 'it' | 'en',
       pageName: PageNames,
       eserviceId?: string,
       pageSlug?: string
     ): Promise<StrapiEntityList<MetaDataType>> {
-      let strapiMockedData
+      let strapiMockedData: MetaDataType
       switch (pageName) {
         case 'catalog':
-          strapiMockedData = catalogMockData
+          strapiMockedData = locale === 'it' ? catalogMockData : catalogMockDataEn
         case 'catalog_single':
-          strapiMockedData = getCatalogSingleApiMockData(eserviceId!)
+          strapiMockedData =
+            locale === 'it'
+              ? getCatalogSingleApiMockData(eserviceId!)
+              : getCatalogSingleApiMockDataEn(eserviceId!)
         case 'ecosystem':
-          strapiMockedData = ecosystemMockData
+          strapiMockedData = locale === 'it' ? ecosystemMockData : ecosystemMockDataEn
         case 'faq':
-          strapiMockedData = faqMockData
+          strapiMockedData = locale === 'it' ? faqMockData : faqMockDataEn
         case 'good_practices':
-          strapiMockedData = goodPracticesMockData
+          strapiMockedData = locale === 'it' ? goodPracticesMockData : goodPracticesMockDataEn
         case 'good_practices_single':
-          strapiMockedData = getGoodPracticeSingleMockData(pageSlug!)
+          strapiMockedData =
+            locale === 'it'
+              ? getGoodPracticeSingleMockData(pageSlug!)
+              : getGoodPracticeSingleMockDataEn(pageSlug!)
         case 'legal_notes':
-          strapiMockedData = legalNotesMockData
-        case 'normativa':
-          strapiMockedData = normativaMockData
+          strapiMockedData = locale === 'it' ? legalNotesMockData : legalNotesMockDataEn
+        case 'legislation':
+          strapiMockedData = locale === 'it' ? legislationMockData : legislationMockDataEn
         case 'privacy_policy':
-          strapiMockedData = privacyPolicyMockData
-        case 'errore':
-          strapiMockedData = genericErrorMockData
+          strapiMockedData = locale === 'it' ? privacyPolicyMockData : privacyPolicyMockDataEn
+        case 'generic_error':
+          strapiMockedData = locale === 'it' ? genericErrorMockData : genericErrorMockDataEn
         case '404':
-          strapiMockedData = notFoundErrorMockData
+          strapiMockedData = locale === 'it' ? notFoundErrorMockData : notFoundErrorMockDataEn
         case 'general':
         default:
-          strapiMockedData = generalMockData
+          strapiMockedData = locale === 'it' ? generalMockData : generalMockDataEn
       }
       return Promise.resolve({
         data: [strapiMockedData],
