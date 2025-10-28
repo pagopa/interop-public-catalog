@@ -1,3 +1,5 @@
+import type { MetaDataType } from '../types/metaData.types'
+
 const SITE_URL = 'https://pagopa.it'
 
 const generalMockData: MetaDataType = {
@@ -77,7 +79,7 @@ const normativaMockData: MetaDataType = {
   title: 'Riferimenti normativi sulla PDND',
   locale: 'it',
   seo: {
-    canonical: `${SITE_URL}/it/riferimenti-normativi`,
+    canonical: `${SITE_URL}/it/normativa`,
     metaTitle: 'Riferimenti normativi sulla PDND',
     metaDescription:
       'Le API esposte sul catalogo sono supportate dalla Piattaforma Digitale Nazionale Dati (PDND). Consulta i riferimenti per approfondire il quadro normativo.',
