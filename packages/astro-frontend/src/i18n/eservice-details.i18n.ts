@@ -7,7 +7,7 @@ export const eserviceDetails = {
     not_available: 'Non disponibile',
 
     'description_section.title': 'Descrizione',
-
+    producer: 'Erogatore',
     'api_details_section.title': 'Dettaglio API',
     'api_details_section.api_state_label': 'Stato API',
     'api_details_section.api_state_active': 'Attivo',
@@ -65,11 +65,17 @@ export const eserviceDetails = {
     'implementation_section.authentication_link': 'Autenticati sulla PDND',
 
     'featured_api.title': 'Le altre API erogate da questo ente',
+    'signalhub.tooltip.title': 'SIGNAL HUB',
+    'signalhub.tooltip.content':
+      'Se disponibile, il servizio ti avvisa quando i dati collegati a questa API subiscono variazioni.',
+    'stateapi.tooltip.title': 'STATO API',
+    'stateapi.tooltip.content':
+      'Indica lo stato del servizio su PDND. Può essere Attivo o Sospeso.',
   },
   en: {
     available: 'Available',
     not_available: 'Not available',
-
+    producer: 'Producer',
     'description_section.title': 'Description',
 
     'api_details_section.title': 'API details',
@@ -127,6 +133,12 @@ export const eserviceDetails = {
     'implementation_section.authentication_link': 'Authenticate on PDND',
 
     'featured_api.title': 'Other APIs provided by this organization',
+    'signalhub.tooltip.title': 'SIGNAL HUB',
+    'signalhub.tooltip.content':
+      'If available, the service notifies you when the data linked to this API changes.',
+    'stateapi.tooltip.title': 'API STATE',
+    'stateapi.tooltip.content':
+      'Indicates the service status on PDND. It can be Active or Suspended.',
   },
 } as const satisfies TranslationsMap
 

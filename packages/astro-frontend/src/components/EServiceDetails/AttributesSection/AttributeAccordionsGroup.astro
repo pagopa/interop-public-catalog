@@ -1,6 +1,6 @@
 ---
-import { EServiceAttribute, EServiceAttributes } from '../../../../../models/src/types/eservice'
-import { useEServiceDetailsTranslations } from '../../../i18n/eservice-details'
+import { EServiceAttributes } from '../../../../../models/src/types/eservice'
+import { useEServiceDetailsTranslations } from '../../../i18n/eservice-details.i18n.js'
 import { getLangFromUrl } from '../../../i18n/utils.i18n'
 import { TooltipIcon } from '../../shared/TooltipIcon.js'
 
@@ -10,7 +10,7 @@ const t = useEServiceDetailsTranslations(currentLocale)
 interface Props {
   groupIndex: number
   attributeType: keyof EServiceAttributes
-  attributes: Array<EServiceAttribute>
+  attributes: EServiceAttributes[keyof EServiceAttributes]
 }
 
 const { groupIndex, attributeType, attributes } = Astro.props
@@ -59,9 +59,9 @@ const tooltip = getTooltip(attributeType)
     <TooltipIcon title={tooltip.title} content={tooltip.content} iconName="it-info-circle" />
   </h6>
   <p>{t('attributes_section.group_description')}</p>
-  <div class="accordion border-0" id=`accordionGroup${groupIndex}`>
+  <div class="accordion border-0" id={`accordionGroup${groupIndex}`}>
     {
-      attributes.map(({ id, explicitAttributeVerification }, index) => (
+      attributes.map(({ id, description, name }, index) => (
         <>
           <div class="accordion-item rounded-2">
             <h2 class="accordion-header" id={`heading${groupIndex}${index}`}>
@@ -73,7 +73,7 @@ const tooltip = getTooltip(attributeType)
                 aria-expanded="false"
                 aria-controls={`collapse${groupIndex}${index}`}
               >
-                {id} {/* TODO name */}
+                {name} {/* TODO name */}
               </button>
             </h2>
             <div
@@ -83,7 +83,10 @@ const tooltip = getTooltip(attributeType)
               role="region"
               aria-labelledby={`heading${groupIndex}${index}`}
             >
-              <div class="accordion-body">{explicitAttributeVerification /* description */}</div>
+              <div class="accordion-body">
+                {' '}
+                {description} {/* description */}
+              </div>
             </div>
           </div>
           {index < attributes.length - 1 && <p class="my-2">{t('attributes_section.group.or')}</p>}
