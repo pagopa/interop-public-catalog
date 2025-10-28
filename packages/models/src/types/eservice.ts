@@ -40,9 +40,9 @@ export const AgreementApprovalPolicy = z.enum([
 export type AgreementApprovalPolicy = z.infer<typeof AgreementApprovalPolicy>;
 
 export const EServiceAttributes = z.object({
-  certified: z.array(Attribute),
-  declared: z.array(Attribute),
-  verified: z.array(Attribute),
+  certified: z.array(z.array(Attribute)),
+  declared: z.array(z.array(Attribute)),
+  verified: z.array(z.array(Attribute)),
 });
 export type EServiceAttributes = z.infer<typeof EServiceAttributes>;
 
@@ -57,20 +57,20 @@ export type EServiceTemplateVersionRef = z.infer<
 export const Descriptor = z.object({
   id: DescriptorId,
   version: z.string(),
-  description: z.string().optional(),
+  description: z.string().nullable().optional(),
   state: DescriptorState,
   audience: z.array(z.string()),
   voucher_lifespan: z.number().int(),
   daily_calls_per_consumer: z.number().int(),
   daily_calls_total: z.number().int(),
-  agreement_approval_policy: AgreementApprovalPolicy.optional(),
+  agreement_approval_policy: AgreementApprovalPolicy.nullable().optional(),
   created_at: z.coerce.date(),
-  published_at: z.coerce.date().optional(),
-  suspended_at: z.coerce.date().optional(),
-  deprecated_at: z.coerce.date().optional(),
-  archived_at: z.coerce.date().optional(),
+  published_at: z.coerce.date().nullable().optional(),
+  suspended_at: z.coerce.date().nullable().optional(),
+  deprecated_at: z.coerce.date().nullable().optional(),
+  archived_at: z.coerce.date().nullable().optional(),
   attributes: EServiceAttributes,
-  template_version_ref: EServiceTemplateVersionRef.optional(),
+  template_version_ref: EServiceTemplateVersionRef.nullable().optional(),
 });
 export type Descriptor = z.infer<typeof Descriptor>;
 
@@ -91,14 +91,14 @@ export const EService = z.object({
   tenant_name: z.string(),
   description: z.string(),
   technology: Technology,
-  attributes: EServiceAttributes.optional(), //legacy
+  attributes: EServiceAttributes.nullable().optional(), //legacy
   active_descriptor: Descriptor,
   created_at: z.coerce.date(),
   mode: EServiceMode,
-  is_signal_hub_enabled: z.boolean().optional(),
-  is_consumer_delegable: z.boolean().optional(),
-  is_client_access_delegable: z.boolean().optional(),
-  template_id: EServiceTemplateId.optional(),
+  is_signal_hub_enabled: z.boolean().nullable().optional(),
+  is_consumer_delegable: z.boolean().nullable().optional(),
+  is_client_access_delegable: z.boolean().nullable().optional(),
+  template_id: EServiceTemplateId.nullable().optional(),
 });
 
 export type EService = z.infer<typeof EService>;
