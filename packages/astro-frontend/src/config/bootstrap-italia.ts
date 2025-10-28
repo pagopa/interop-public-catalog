@@ -64,7 +64,7 @@ export const initBootstrapItaliaComponents = (container: Document | HTMLElement 
     { selector: '[data-bs-toggle="popover"]', init: initPopover },
     { selector: '[data-bs-toggle="tooltip"]', init: initTooltip },
     { selector: '[data-bs-toggle="dropdown"]', init: initDropdown },
-    { selector: '.it-accordion', init: initAccordion },
+    { selector: '.accordion', init: initAccordion },
   ]
 
   selectors.forEach(({ selector, init }) => {

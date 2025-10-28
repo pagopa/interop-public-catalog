@@ -32,8 +32,8 @@ export const EServiceCatalog: React.FC = () => {
       categories: eserviceActiveFilterState.consumer.map((c) => c.label).join(','),
     })
 
-    setEservices(eserviceResponse.items)
-    setTotalCount(eserviceResponse.total)
+    setEservices(eserviceResponse.results)
+    setTotalCount(eserviceResponse.pagination.totalCount)
     setIsLoading(false)
   }
 

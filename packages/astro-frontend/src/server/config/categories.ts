@@ -38,4 +38,4 @@ export const categoriesMap = {
   'Università e AFAM': ['L15', 'L17', 'L43'],
   'Istituti di Ricerca': ['C8', 'C12', 'L28'],
   'Stazioni Appaltanti e Gestori di pubblici servizi': ['L37', 'S01', 'SA', 'SAG'],
-}
+} as const

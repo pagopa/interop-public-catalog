@@ -1,47 +1,50 @@
 import type { APIRoute } from 'astro'
 import { sqlService } from '../../../server/services/index.js'
-import { categoriesMap } from '../../../server/config/categories.js'
-import { eserviceOrderBy } from 'pagopa-interop-public-models'
+import {
+  GetEServicesQuery,
+  GetEServicesResponse,
+  parseQueryParams,
+} from '../../../server/models/api.js'
+import { emptyErrorMapper } from 'pagopa-interop-public-models'
+import { makeApiProblem } from '../../../server/models/errors.js'
 
-export const GET: APIRoute = async ({ url }) => {
-  const q = url.searchParams.get('q') ?? ''
-  const orderBy = (url.searchParams.get('orderBy') ?? '')
-    .split(',')
-    .map((entry) => {
-      const trimmedEntry = entry.trim()
-      return Object.hasOwn(eserviceOrderBy, trimmedEntry) ? trimmedEntry : ''
-    })
-    .filter(Boolean)
-  const producerIds = (url.searchParams.get('producerIds') ?? '')
-    .split(',')
-    .map((s) => s.trim())
-    .filter(Boolean)
-  const categories = (url.searchParams.get('categories') ?? '')
-    .split(',')
-    .map((cat) => {
-      const trimmedCat = cat.trim()
-      return Object.hasOwn(categoriesMap, trimmedCat) ? trimmedCat : ''
-    })
-    .filter(Boolean)
-  const limit = Number(url.searchParams.get('limit') ?? 10)
-  const offset = Number(url.searchParams.get('offset') ?? 0)
-
+export const GET: APIRoute = async ({ url, locals }) => {
   try {
-    const data = await sqlService.searchCatalog({
+    const queryParams = parseQueryParams(url, GetEServicesQuery)
+    const { q, orderBy, producerIds, categories, limit, offset } = queryParams
+
+    locals.logger.info(
+      `Fetching catalog. Query: ${q}, Order By: ${orderBy}, Producer IDs: ${producerIds}, Categories: ${categories}, Limit: ${limit}, Offset: ${offset}`
+    )
+    const rawData = await sqlService.searchCatalog({
       q,
       orderBy,
-      limit,
-      offset,
       producerIds,
       categories,
+      limit,
+      offset,
     })
+
+    const data = GetEServicesResponse.parse({
+      results: rawData.results,
+      pagination: {
+        offset,
+        limit,
+        totalCount: rawData.totalCount,
+      },
+    } satisfies GetEServicesResponse)
+
     return new Response(JSON.stringify(data), {
       headers: { 'Content-Type': 'application/json' },
     })
   } catch (err) {
-    console.error('Error fetching catalog data:', err)
-    return new Response(JSON.stringify({ items: [{ name: 'PG is not connected...' }] }), {
-      headers: { 'Content-Type': 'application/json' },
+    locals.logger.error('Error fetching catalog data from the database')
+
+    const errorRes = makeApiProblem(err, emptyErrorMapper, locals)
+
+    return new Response(JSON.stringify(errorRes), {
+      status: errorRes.status,
+      headers: { 'Content-Type': 'application/problem+json' },
     })
   }
 }

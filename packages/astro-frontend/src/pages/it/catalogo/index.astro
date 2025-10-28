@@ -7,8 +7,6 @@ import { useCatalogTranslations } from '../../../i18n/catalog.i18n'
 import { getLangFromUrl } from '../../../i18n/utils.i18n'
 
 import { EServiceCatalogApp } from '../../../components/EServiceCatalog/EServiceCatalogApp'
-import { sqlService } from '../../../server/services'
-import type { EServiceQuery } from 'pagopa-interop-public-models'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useCatalogTranslations(currentLocale)

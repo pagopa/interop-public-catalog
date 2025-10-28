@@ -3,7 +3,8 @@ import { StrapiApiConfig } from '../config/strapiConfig.js'
 import { publicModelServiceBuilder } from './publicModelServiceBuilder.js'
 import { strapiServiceBuilder } from './strapiService.js'
 
-import 'dotenv-flow/config'
+import dotenvFlow from 'dotenv-flow'
+dotenvFlow.config()
 
 const sqlConfig = PublicModelSQLDbConfig.parse(process.env)
 
