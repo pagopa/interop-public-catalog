@@ -1,6 +1,6 @@
-import type { EServiceSearchResult, TenantSearchResult } from 'pagopa-interop-public-models'
 import type { CatalogQueryParams } from '../components/EServiceCatalog/types'
 import { categoriesMap } from '../server/config/categories'
+import type { GetEServicesResponse, GetTenantsResponse } from '../server/models/api'
 
 export const getEServices = async (filter: CatalogQueryParams) => {
   const catalogUrl = new URL('/api/catalog', window.location.origin)
@@ -25,7 +25,7 @@ export const getEServices = async (filter: CatalogQueryParams) => {
 
   const response = await fetch(catalogUrl)
 
-  const eserviceResponse: EServiceSearchResult = await response.json()
+  const eserviceResponse: GetEServicesResponse = await response.json()
 
   return eserviceResponse
 }
@@ -36,9 +36,9 @@ export const getProducer = async (inputText: string) => {
   catalogUrl.searchParams.set('limit', '50')
 
   const response = await fetch(catalogUrl)
-  const producer: TenantSearchResult = await response.json()
+  const producer: GetTenantsResponse = await response.json()
 
-  return producer.items.map((it) => ({
+  return producer.results.map((it) => ({
     value: it.producer_id,
     label: it.name,
   }))

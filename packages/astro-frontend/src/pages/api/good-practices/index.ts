@@ -4,12 +4,12 @@ import { makeApiProblem } from '../../../server/models/errors.js'
 import { emptyErrorMapper } from 'pagopa-interop-public-models'
 import {
   GetGoodPracticesResponse,
-  GoodPracticesQuery,
+  GetGoodPracticesQuery,
   parseQueryParams,
 } from '../../../server/models/api.js'
 
 export const GET: APIRoute = async ({ url, locals }) => {
-  const queryParams = parseQueryParams(url, GoodPracticesQuery)
+  const queryParams = parseQueryParams(url, GetGoodPracticesQuery)
   const { locale, macroCategoryId, limit, offset } = queryParams
 
   locals.logger.info(

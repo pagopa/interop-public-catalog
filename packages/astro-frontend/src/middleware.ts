@@ -1,7 +1,7 @@
 import { defineMiddleware } from 'astro:middleware'
-import { logger } from '../../server/logger'
+import { logger } from './server/logger'
 
-export const onRequest = defineMiddleware((context, next) => {
+export const onRequest = defineMiddleware(async (context, next) => {
   const correlationId = crypto.randomUUID()
   context.locals.correlationId = correlationId
 
@@ -16,5 +16,11 @@ export const onRequest = defineMiddleware((context, next) => {
 
   context.locals.logger = loggerInstance
 
-  return next()
+  const response = await next()
+
+  loggerInstance.info(
+    `Response ${context.request.method} ${context.request.url} - Status: ${response.status}`
+  )
+
+  return response
 })

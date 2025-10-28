@@ -73,7 +73,7 @@ export type StrapiListNode = {
 export const StrapiLinkNodeSchema: z.ZodType<StrapiLinkNode> = z.lazy(() =>
   z.object({
     type: z.literal("link"),
-    url: z.string().url(),
+    url: z.string(),
     children: z.array(StrapiNodeSchema).optional(),
   })
 );
@@ -132,7 +132,7 @@ export const StrapiImageFormatSchema = z.object({
   height: z.number(),
   size: z.number(),
   sizeInBytes: z.number(),
-  url: z.string().url(),
+  url: z.string(),
 });
 
 export const StrapiImageSchema = z.object({
@@ -154,7 +154,7 @@ export const StrapiImageSchema = z.object({
   ext: z.string(),
   mime: z.string(),
   size: z.number(),
-  url: z.string().url(),
+  url: z.string(),
   previewUrl: z.string().nullable(),
   provider: z.string(),
   provider_metadata: z.null(),

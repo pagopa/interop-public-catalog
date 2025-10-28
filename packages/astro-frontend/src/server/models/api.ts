@@ -31,12 +31,14 @@ const PaginatedResultSchema = <T extends z.ZodTypeAny>(itemSchema: T) =>
     }),
   })
 
-export const GoodPracticesQuery = z
+export const GetGoodPracticesQuery = z
   .object({
     macroCategoryId: z.coerce.number().positive().optional(),
   })
   .and(LocaleQuerySchema)
   .and(PaginationQuerySchema)
+
+export type GetGoodPracticesQuery = z.infer<typeof GetGoodPracticesQuery>
 
 export const GoodPracticeSlug = z.string().min(1)
 export const GetGoodPracticesResponse = PaginatedResultSchema(GoodPractice)

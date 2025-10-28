@@ -5,33 +5,21 @@ import { useSearchParams } from '../../hooks/useSearchParams.js'
 import { z } from 'zod'
 import useSwr from 'swr'
 import { MacroCategoryIdFilter } from './MacroCategoryIdFilter.jsx'
-
-const fetcher = (url: string) => fetch(url).then((r) => r.json())
-const createSearchParams = (params: Record<string, string | number | undefined>) => {
-  return new URLSearchParams(
-    Object.fromEntries(
-      Object.entries(params)
-        .filter(([, value]) => value !== undefined)
-        .map(([key, value]) => [key, String(value)])
-    )
-  )
-}
+import { apiService } from '../../services/api.services.js'
 
 export const GoodPracticesCatalog: React.FC<{ currentLocale: SupportedLanguage }> = ({
   currentLocale,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams(
     z.object({
-      macroCategoryId: z.number(),
+      macroCategoryId: z.coerce.number(),
     })
   )
 
   const { data } = useSwr(
-    `/api/good-practices?${createSearchParams({
-      locale: currentLocale,
-      macroCategoryId: searchParams.macroCategoryId,
-    }).toString()}`,
-    fetcher
+    [currentLocale, searchParams.macroCategoryId],
+    ([locale, macroCategoryId]) =>
+      apiService.getGoodPractices({ locale, macroCategoryId, limit: 50, offset: 0 })
   )
 
   const handleSelectedMacroCategoryIdChange = (macroCategoryId: number | null) => {
@@ -48,7 +36,7 @@ export const GoodPracticesCatalog: React.FC<{ currentLocale: SupportedLanguage }
         />
       </span>
       <div className="d-flex flex-column gap-4">
-        {data?.data.map((goodPractice) => (
+        {data?.results.map((goodPractice) => (
           <GoodPracticeCard
             key={goodPractice.id}
             currentLocale={currentLocale}

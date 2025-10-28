@@ -128,7 +128,6 @@ async function migrateTable({ source, target, orderBy, columns }: TableMap) {
   const cols = columns.join(", ");
 
   try {
-
     // Truncate table in targetDb (there shouldn't be performance worries on less than 1-10 million rows)
     // WARNING: tables must be provided in a syntactically correct order because of "CASCADE"
     await targetDb.query(`TRUNCATE TABLE ${target} CASCADE;`);
@@ -188,13 +187,13 @@ export async function handler() {
   let err;
   for (const table of tables) {
     err = await migrateTable(table);
-    if(err) {
+    if (err) {
       console.log("Aborting migrations...");
       await targetDb.query("ROLLBACK");
       break;
     }
   }
-  if(!err) await targetDb.query("COMMIT");
+  if (!err) await targetDb.query("COMMIT");
 
   await sourceDb.end();
   await targetDb.end();
