@@ -8,7 +8,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
   const loggerInstance = logger({ correlationId })
   const msg = `Request ${context.request.method} ${context.request.url}`
 
-  if (context.request.url === '/status') {
+  if (context.request.url.endsWith('/api/status')) {
     loggerInstance.debug(msg)
   } else {
     loggerInstance.info(msg)

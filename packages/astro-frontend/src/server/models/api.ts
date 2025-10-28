@@ -1,7 +1,7 @@
 import { z } from 'zod'
 import { DEFAULT_LANG, LANGUAGES } from '../../i18n/config.i18n'
 import type { SupportedLanguage } from '../../i18n/types.i18n'
-import { EService, GoodPractice, Tenant } from 'pagopa-interop-public-models'
+import { CompactTenant, EService, GoodPractice } from 'pagopa-interop-public-models'
 import { categoriesMap } from '../config/categories'
 import { parseQueryString } from '../../utils/qs.utils'
 
@@ -60,7 +60,7 @@ export type GetGoodPracticesResponse = z.infer<typeof GetGoodPracticesResponse>
 export const GetTenantsQuery = PaginationQuerySchema.and(SearchQuerySchema)
 export type GetTenantsQuery = z.infer<typeof GetTenantsQuery>
 
-export const GetTenantsResponse = PaginatedResultSchema(Tenant)
+export const GetTenantsResponse = PaginatedResultSchema(CompactTenant)
 export type GetTenantsResponse = z.infer<typeof GetTenantsResponse>
 
 export const eserviceOrderBy = {

@@ -78,20 +78,23 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.image',
           id: 19,
-          caption: 'black hole',
+          caption:
+            'Schema del flusso d’interoperabilità: utilizzo dell’API del CUDE (Contrassegno Unico Disabili Europeo)',
           image: {
             id: 9,
             documentId: 'xzdko1cg6j66un763ziw4jrk',
             name: 'what-s-inside-a-black-hole',
-            alternativeText: 'An image uploaded to Strapi called what-s-inside-a-black-hole',
-            caption: 'what-s-inside-a-black-hole',
+            alternativeText:
+              'Schema del flusso di utilizzo dell’API CUDE che evidenzia l’integrazione dei comuni con la piattaforma PDND.',
+            caption:
+              'Schema del flusso d’interoperabilità: utilizzo dell’API del CUDE (Contrassegno Unico Disabili Europeo)',
             width: 800,
             height: 466,
             hash: 'what_s_inside_a_black_hole_b1560bb7f4',
             ext: '.jpeg',
             mime: 'image/jpeg',
             size: 7.5,
-            url: '[TBD]',
+            url: 'https://api-gov.dev.interop.pagopa.it/static/01_cude.webp',
             previewUrl: null,
             provider: 'local',
             provider_metadata: null,
@@ -325,20 +328,23 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.image',
           id: 19,
-          caption: 'black hole',
+          caption:
+            'Schema del flusso d’interoperabilità: utilizzo dell’API di PDND per l’accesso alle borse di studio',
           image: {
             id: 9,
             documentId: 'xzdko1cg6j66un763ziw4jrk',
             name: 'what-s-inside-a-black-hole',
-            alternativeText: 'An image uploaded to Strapi called what-s-inside-a-black-hole',
-            caption: 'what-s-inside-a-black-hole',
+            alternativeText:
+              'Schema del flusso di utilizzo dell’API di verifica della frequenza scolastica che evidenzia l’integrazione con la piattaforma PDND.',
+            caption:
+              'Schema del flusso d’interoperabilità: utilizzo dell’API di PDND per l’accesso alle borse di studio',
             width: 800,
             height: 466,
             hash: 'what_s_inside_a_black_hole_b1560bb7f4',
             ext: '.jpeg',
             mime: 'image/jpeg',
             size: 7.5,
-            url: '[TBD]',
+            url: 'https://api-gov.dev.interop.pagopa.it/static/02_borse_studio.webp',
             previewUrl: null,
             provider: 'local',
             provider_metadata: null,
@@ -570,20 +576,23 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.image',
           id: 19,
-          caption: 'black hole',
+          caption:
+            'Schema del flusso d’interoperabilità: utilizzo delle API di PDND per l’accesso ai bonus',
           image: {
             id: 9,
             documentId: 'xzdko1cg6j66un763ziw4jrk',
             name: 'what-s-inside-a-black-hole',
-            alternativeText: 'An image uploaded to Strapi called what-s-inside-a-black-hole',
-            caption: 'what-s-inside-a-black-hole',
+            alternativeText:
+              'Schema del flusso di utilizzo delle API di ISEE e stato di famiglia che evidenzia l’integrazione con la PDND',
+            caption:
+              'Schema del flusso d’interoperabilità: utilizzo delle API di PDND per l’accesso ai bonus',
             width: 800,
             height: 466,
             hash: 'what_s_inside_a_black_hole_b1560bb7f4',
             ext: '.jpeg',
             mime: 'image/jpeg',
             size: 7.5,
-            url: '[TBD]',
+            url: 'https://api-gov.dev.interop.pagopa.it/static/03_bonus_cittadini.webp',
             previewUrl: null,
             provider: 'local',
             provider_metadata: null,
@@ -859,20 +868,23 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.image',
           id: 19,
-          caption: 'black hole',
+          caption:
+            ' Schema del flusso d’interoperabilità: utilizzo delle API di PDND per la precompilazione di dati anagrafici',
           image: {
             id: 9,
             documentId: 'xzdko1cg6j66un763ziw4jrk',
             name: 'what-s-inside-a-black-hole',
-            alternativeText: 'An image uploaded to Strapi called what-s-inside-a-black-hole',
-            caption: 'what-s-inside-a-black-hole',
+            alternativeText:
+              'Schema del flusso di utilizzo delle API di ANPR per offrire servizi al cittadino che evidenzia l’integrazione con la PDND',
+            caption:
+              ' Schema del flusso d’interoperabilità: utilizzo delle API di PDND per la precompilazione di dati anagrafici',
             width: 800,
             height: 466,
             hash: 'what_s_inside_a_black_hole_b1560bb7f4',
             ext: '.jpeg',
             mime: 'image/jpeg',
             size: 7.5,
-            url: '[TBD]',
+            url: 'https://api-gov.dev.interop.pagopa.it/static/04_dati_anagrafici.webp',
             previewUrl: null,
             provider: 'local',
             provider_metadata: null,
@@ -1135,20 +1147,23 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.image',
           id: 19,
-          caption: 'black hole',
+          caption:
+            'Interoperability flow diagram: use of CUDE API (European Unified Disability Badge)',
           image: {
             id: 9,
             documentId: 'xzdko1cg6j66un763ziw4jrk',
             name: 'what-s-inside-a-black-hole',
-            alternativeText: 'An image uploaded to Strapi called what-s-inside-a-black-hole',
-            caption: 'what-s-inside-a-black-hole',
+            alternativeText:
+              'CUDE API usage flow diagram highlighting the integration of municipalities with the PDND platform.',
+            caption:
+              'Interoperability flow diagram: use of CUDE API (European Unified Disability Badge)',
             width: 800,
             height: 466,
             hash: 'what_s_inside_a_black_hole_b1560bb7f4',
             ext: '.jpeg',
             mime: 'image/jpeg',
             size: 7.5,
-            url: '[TBD]',
+            url: 'https://api-gov.dev.interop.pagopa.it/static/01_cude.webp',
             previewUrl: null,
             provider: 'local',
             provider_metadata: null,
@@ -1382,20 +1397,21 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.image',
           id: 19,
-          caption: 'black hole',
+          caption: 'Interoperability flow diagram: use of PDND API for accessing scholarships',
           image: {
             id: 9,
             documentId: 'xzdko1cg6j66un763ziw4jrk',
             name: 'what-s-inside-a-black-hole',
-            alternativeText: 'An image uploaded to Strapi called what-s-inside-a-black-hole',
-            caption: 'what-s-inside-a-black-hole',
+            alternativeText:
+              'School attendance verification API usage flow diagram highlighting integration with the PDND platform.',
+            caption: 'Interoperability flow diagram: use of PDND API for accessing scholarships',
             width: 800,
             height: 466,
             hash: 'what_s_inside_a_black_hole_b1560bb7f4',
             ext: '.jpeg',
             mime: 'image/jpeg',
             size: 7.5,
-            url: '[TBD]',
+            url: 'https://api-gov.dev.interop.pagopa.it/static/02_borse_studio.webp',
             previewUrl: null,
             provider: 'local',
             provider_metadata: null,
@@ -1627,20 +1643,21 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.image',
           id: 19,
-          caption: 'black hole',
+          caption: 'Interoperability flow diagram: use of PDND APIs for accessing bonuses',
           image: {
             id: 9,
             documentId: 'xzdko1cg6j66un763ziw4jrk',
             name: 'what-s-inside-a-black-hole',
-            alternativeText: 'An image uploaded to Strapi called what-s-inside-a-black-hole',
-            caption: 'what-s-inside-a-black-hole',
+            alternativeText:
+              'Flow diagram for using ISEE and family status APIs highlighting integration with PDND',
+            caption: 'Interoperability flow diagram: use of PDND APIs for accessing bonuses',
             width: 800,
             height: 466,
             hash: 'what_s_inside_a_black_hole_b1560bb7f4',
             ext: '.jpeg',
             mime: 'image/jpeg',
             size: 7.5,
-            url: '[TBD]',
+            url: 'https://api-gov.dev.interop.pagopa.it/static/03_bonus_cittadini.webp',
             previewUrl: null,
             provider: 'local',
             provider_metadata: null,
@@ -1916,20 +1933,22 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.image',
           id: 19,
-          caption: 'black hole',
+          caption: 'Interoperability flow diagram: use of PDND APIs for pre-filling personal data',
           image: {
             id: 9,
             documentId: 'xzdko1cg6j66un763ziw4jrk',
             name: 'what-s-inside-a-black-hole',
-            alternativeText: 'An image uploaded to Strapi called what-s-inside-a-black-hole',
-            caption: 'what-s-inside-a-black-hole',
+            alternativeText:
+              'Flow diagram for using ANPR APIs to provide citizen services highlighting integration with PDND',
+            caption:
+              'Interoperability flow diagram: use of PDND APIs for pre-filling personal data',
             width: 800,
             height: 466,
             hash: 'what_s_inside_a_black_hole_b1560bb7f4',
             ext: '.jpeg',
             mime: 'image/jpeg',
             size: 7.5,
-            url: '[TBD]',
+            url: 'https://api-gov.dev.interop.pagopa.it/static/04_dati_anagrafici.webp',
             previewUrl: null,
             provider: 'local',
             provider_metadata: null,

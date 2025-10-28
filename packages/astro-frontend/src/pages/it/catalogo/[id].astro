@@ -20,23 +20,26 @@ const t = useEServiceDetailsTranslations(currentLocale)
 
 const eserviceId: EServiceId = Astro.params.id as EServiceId
 
-const response = await sqlService.getEService(eserviceId)
-const eserviceDetail = response
+const eservice = await sqlService.getEService(eserviceId)
+
+if (!eservice) {
+  return Astro.redirect('/404')
+}
 
 const eservicesCorrelated = await sqlService.searchCatalog({
   limit: 3,
   orderBy: ['recent_desc'],
   offset: 0,
-  producerIds: [eserviceDetail.producer_id],
+  producerIds: [eservice.producer_id],
   categories: [],
 })
 
-const { items: eserviceCorrelatedList } = eservicesCorrelated
+const { results: eserviceCorrelatedList } = eservicesCorrelated
 ---
 
 <Layout>
   <PageHero
-    title={eserviceDetail.name}
+    title={eservice.name}
     breadcrumbItems={[
       {
         routeKey: 'HOME',
@@ -60,14 +63,14 @@ const { items: eserviceCorrelatedList } = eservicesCorrelated
       </a>
     </div>
     <p slot="bottom-hero">
-      {tEserviceDetails('producer')}: <strong><u>{eserviceDetail.tenant_name}</u></strong>
+      {tEserviceDetails('producer')}: <strong><u>{eservice.tenant_name}</u></strong>
     </p>
   </PageHero>
-  <EServiceDetails eservice={eserviceDetail} />
+  <EServiceDetails eservice={eservice} />
   <ApiShowcase
     title={t('featured_api.title')}
-    producerId={eserviceDetail.producer_id}
-    producerName={eserviceDetail.tenant_name}
+    producerId={eservice.producer_id}
+    producerName={eservice.tenant_name}
     highlightedEServices={eserviceCorrelatedList}
   />
   <RatingSection />

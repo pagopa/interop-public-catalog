@@ -2,7 +2,7 @@ import type { drizzle } from 'drizzle-orm/node-postgres'
 import type { NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
 import type { ExtractTablesWithRelations } from 'drizzle-orm'
 import { sql } from 'drizzle-orm'
-import { EService, Tenant } from 'pagopa-interop-public-models'
+import { CompactTenant, EService } from 'pagopa-interop-public-models'
 import type { PgTransaction } from 'drizzle-orm/pg-core'
 import { categoriesMap } from '../config/categories'
 import type { GetEServicesQuery, GetTenantsQuery } from '../models/api'
@@ -316,8 +316,8 @@ export async function searchTenants(
   db: ReturnType<typeof drizzle>,
   config: ServiceConfig,
   { limit, offset, q }: GetTenantsQuery
-): Promise<{ results: Tenant[]; totalCount: number }> {
-  const textlessSearchTx: Transaction<Tenant> = async (tx) => {
+): Promise<{ results: CompactTenant[]; totalCount: number }> {
+  const textlessSearchTx: Transaction<CompactTenant> = async (tx) => {
     const pageRes = await tx.execute(sql`
     SELECT
       t.name,
@@ -328,7 +328,7 @@ export async function searchTenants(
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
 
-    const items = z.array(Tenant).parse(pageRes.rows)
+    const items = z.array(CompactTenant).parse(pageRes.rows)
     const total = z.coerce
       .number()
       .catch(() => 0)
@@ -337,9 +337,9 @@ export async function searchTenants(
     return { items, total }
   }
 
-  const textSearchTx: Transaction<Tenant> = async (
+  const textSearchTx: Transaction<CompactTenant> = async (
     tx
-  ): Promise<{ total: number; items: Tenant[] }> => {
+  ): Promise<{ total: number; items: CompactTenant[] }> => {
     const builtQuery = sql`
     WITH params AS (
       SELECT
@@ -388,7 +388,7 @@ export async function searchTenants(
   `
     const pageRes = await tx.execute(builtQuery)
 
-    const items = z.array(Tenant).parse(pageRes.rows)
+    const items = z.array(CompactTenant).parse(pageRes.rows)
     const total = z.coerce
       .number()
       .catch(() => 0)
