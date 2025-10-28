@@ -9,12 +9,16 @@ import { clientEnvConfig } from '../config/config'
 import type { MetaDataType } from '../server/types/metaData.types'
 
 type Props = {
-  metaSettings: MetaDataType
+  metaSettings?: MetaDataType
 }
 
 const { metaSettings } = Astro.props
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
+
+const metaData = await fetch(new URL('/api/metadata', Astro.url))
+  .then((response) => response.json())
+  .catch((_e) => ({ data: [{ title: 'Strapi is not connected...' }] }))
 ---
 
 <!doctype html>
@@ -42,19 +46,31 @@ const currentLocale = getLangFromUrl(Astro.url.pathname)
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="generator" content={Astro.generator} />
 
-    <title>{metaSettings.title}</title>
+    <title>{metaSettings?.title ?? metaData.title}</title>
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={metaSettings.seo.metaTitle} />
-    <meta name="twitter:description" content={metaSettings.seo.metaDescription} />
-    <meta name="twitter:image" content={metaSettings.seo.twitterImage.url} />
-    <meta property="og:locale" content={metaSettings.locale === 'it' ? 'it_IT' : 'en_US'} />
+    <meta name="twitter:title" content={metaSettings?.seo.metaTitle ?? metaData.seo.metaTitle} />
+    <meta
+      name="twitter:description"
+      content={metaSettings?.seo.metaDescription ?? metaData.seo.metaTitle}
+    />
+    <meta
+      name="twitter:image"
+      content={metaSettings?.seo.twitterImage?.url ?? metaData.seo.metaTitle}
+    />
+    <meta property="og:locale" content={metaSettings?.locale === 'it' ? 'it_IT' : 'en_US'} />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={metaSettings.seo.metaTitle} />
-    <meta property="og:description" content={metaSettings.seo.metaDescription} />
+    <meta property="og:title" content={metaSettings?.seo.metaTitle ?? metaData.seo.metaTitle} />
+    <meta
+      property="og:description"
+      content={metaSettings?.seo.metaDescription ?? metaData.seo.metaTitle}
+    />
     <!-- <meta property="og:url" content={/*TODO */} /> -->
     <meta property="og:site_name" content={'pagopa'} />
     <!-- TODO -->
-    <meta property="og:image" content={metaSettings.seo.opengraphImage.url} />
+    <meta
+      property="og:image"
+      content={metaSettings?.seo.opengraphImage?.url ?? metaData.seo.metaTitle}
+    />
     <link rel="canonical" href="https://www.example.com/sample-page/" />
   </head>
   <body>
