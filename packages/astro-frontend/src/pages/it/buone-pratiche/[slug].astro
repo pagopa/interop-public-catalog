@@ -10,6 +10,7 @@ import { useGoodPracticesTranslations } from '../../../i18n/good-practices.i18n'
 import { useUiTranslations } from '../../../i18n/ui.i18n'
 import GoodPracticeDetails from '../../../components/GoodPracticeDetails/GoodPracticeDetails.astro'
 import { strapiService } from '../../../server/services'
+import { CopyUrlButton } from '../../../components/shared/CopyUrlButton'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tGoodPractices = useGoodPracticesTranslations(currentLocale)
@@ -51,10 +52,7 @@ const goodPractice = goodPracticeStrapiResponse.data
     <div slot="top-hero">
       <div class="d-flex align-items-center justify-content-between">
         <Chip label={goodPractice.category} />
-        <button class="btn btn-link fw-semibold text-decoration-none">
-          <span>{tGoodPractices('details.copyUrl')}</span>
-          <BootstrapItaliaIcon name="it-copy" className="ms-2" color="primary" />
-        </button>
+        <CopyUrlButton currentLocale={currentLocale} />
       </div>
     </div>
 

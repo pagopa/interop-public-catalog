@@ -25,9 +25,8 @@ export function EServiceDataAccessChip({
     let tooltip: Tooltip | null = null
 
     if (ref.current) {
-      tooltip = initTooltip(ref.current)
+      tooltip = initTooltip(ref.current, { trigger: 'hover focus' })
     }
-    // template: `<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner">${title}</div></div>`,
     return () => {
       tooltip?.dispose()
     }

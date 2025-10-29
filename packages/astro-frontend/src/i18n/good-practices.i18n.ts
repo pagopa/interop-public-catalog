@@ -8,7 +8,6 @@ const goodPracticesTranslations = {
       'Lasciati ispirare da una raccolta di esempi significativi e semplici di come integrare servizi per il tuo ente e i cittadini',
 
     'details.hero.title': 'Erogare bonus ai cittadini in modo equo ed efficiente',
-    'details.copyUrl': 'Copia URL',
     'details.moreExamples': 'Altri esempi pratici',
     'details.figure.caption': 'Esempio illustrativo',
     'details.lastUpdate': 'Ultimo aggiornamento:',
@@ -25,7 +24,6 @@ const goodPracticesTranslations = {
       'Get inspired by a collection of significant and simple examples of how to integrate services for your entity and citizens.',
 
     'details.hero.title': 'Delivering bonuses to citizens fairly and efficiently',
-    'details.copyUrl': 'Copy URL',
     'details.moreExamples': 'Other practical examples',
     'details.figure.caption': 'Illustrative example',
     'details.lastUpdate': 'Last update:',
