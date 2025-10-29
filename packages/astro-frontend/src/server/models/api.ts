@@ -30,7 +30,7 @@ const commaSeparatedStringToArray = <T extends z.ZodTypeAny>(itemSchema: T) =>
     .pipe(z.array(itemSchema))
 
 const PaginationQuerySchema = z.object({
-  limit: z.coerce.number().min(1).max(100).optional().default(10),
+  limit: z.coerce.number().min(1).max(100).optional().default(12),
   offset: z.coerce.number().min(0).optional().default(0),
 })
 
