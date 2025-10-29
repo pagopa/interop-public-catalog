@@ -119,22 +119,22 @@ const notFoundErrorMockData: MetaDataType = {
   },
 }
 
-const getCatalogSingleApiMockData = (ESERVICEID: string): MetaDataType => ({
+const getCatalogSingleApiMockData = (eserviceId: string): MetaDataType => ({
   title: 'API sulla Piattaforma Digitale Nazionale Dati (PDND)',
   locale: 'it',
   seo: {
-    canonical: `${SITE_URL}/it/catalogo/${ESERVICEID}`,
+    canonical: `${SITE_URL}/it/catalogo/${eserviceId}`,
     metaTitle: 'API sulla Piattaforma Digitale Nazionale Dati (PDND)',
     metaDescription:
       "Trova subito l'API di cui hai bisogno, filtrando per parola chiave, erogatore o fruitore. Inizia ora l’integrazione del tuo ente per fornire servizi efficienti.",
   },
 })
 
-const getGoodPracticeSingleMockData = (PAGE_SLUG: string): MetaDataType => ({
+const getGoodPracticeSingleMockData = (pageSlug: string): MetaDataType => ({
   title: 'Esempi pratici di utilizzo delle API per il tuo ente',
   locale: 'it',
   seo: {
-    canonical: `${SITE_URL}/it/buone-pratiche/${PAGE_SLUG}`,
+    canonical: `${SITE_URL}/it/buone-pratiche/${pageSlug}`,
     metaTitle: 'Esempi pratici di utilizzo delle API per il tuo ente',
     metaDescription:
       'Lasciati ispirare da una raccolta di esempi significativi e semplici di come integrare servizi per il tuo ente e i cittadini.',
@@ -258,22 +258,22 @@ const notFoundErrorMockDataEn: MetaDataType = {
   },
 }
 
-const getCatalogSingleApiMockDataEn = (ESERVICEID: string): MetaDataType => ({
+const getCatalogSingleApiMockDataEn = (eserviceId: string): MetaDataType => ({
   title: 'APIs on the National Digital Data Platform (PDND)',
   locale: 'en',
   seo: {
-    canonical: `${SITE_URL}/en/catalog/${ESERVICEID}`,
+    canonical: `${SITE_URL}/en/catalog/${eserviceId}`,
     metaTitle: 'APIs on the National Digital Data Platform (PDND)',
     metaDescription:
       'Find the API you need by filtering by keyword, producer, or consumer. Start the integration for your entity now to provide efficient services.',
   },
 })
 
-const getGoodPracticeSingleMockDataEn = (PAGE_SLUG: string): MetaDataType => ({
+const getGoodPracticeSingleMockDataEn = (pageSlug: string): MetaDataType => ({
   title: 'Practical examples of API Usage for your Entity',
   locale: 'en',
   seo: {
-    canonical: `${SITE_URL}/en/good-practices/${PAGE_SLUG}`,
+    canonical: `${SITE_URL}/en/good-practices/${pageSlug}`,
     metaTitle: 'Practical examples of API Usage for your Entity',
     metaDescription:
       'Get inspired by a collection of significant and simple examples of how to integrate services for your entity and citizens.',
