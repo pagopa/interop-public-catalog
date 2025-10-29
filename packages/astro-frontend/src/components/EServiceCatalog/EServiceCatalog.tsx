@@ -11,6 +11,7 @@ import { links } from '../../config/constants'
 import { Spinner } from '../Spinner/Spinner'
 import { useUiTranslations } from '../../i18n/ui.i18n'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { EServiceCardSkeleton } from '../shared/EServiceCard'
 
 export const EServiceCatalog: React.FC = () => {
   const currentLocale = getLangFromUrl(window.location.href)
@@ -56,9 +57,7 @@ export const EServiceCatalog: React.FC = () => {
       {!isLoading ? (
         <EServiceCatalogItems eservices={eservices} totalCount={totalCount} />
       ) : (
-        <div className="p-9">
-          <Spinner label={tUi('spinner.loading')} />
-        </div>
+        <EServiceItemsSkeleton />
       )}
       <Container className="p-3">
         <div className="primary-bg-c1 pt-3 px-sm-3">
@@ -86,5 +85,50 @@ export const EServiceCatalog: React.FC = () => {
         </div>
       </Container>
     </>
+  )
+}
+
+export const EServiceItemsSkeleton: React.FC = () => {
+  return (
+    <Container className="py-4 px-sm-3">
+      <div className="row">
+        <div className="col-12 col-lg-4 mb-4">
+          <EServiceCardSkeleton />
+        </div>
+        <div className="col-12 col-lg-4 mb-4">
+          <EServiceCardSkeleton />
+        </div>
+        <div className="col-12 col-lg-4 mb-4">
+          <EServiceCardSkeleton />
+        </div>
+        <div className="col-12 col-lg-4 mb-4">
+          <EServiceCardSkeleton />
+        </div>
+        <div className="col-12 col-lg-4 mb-4">
+          <EServiceCardSkeleton />
+        </div>
+        <div className="col-12 col-lg-4 mb-4">
+          <EServiceCardSkeleton />
+        </div>
+        <div className="col-12 col-lg-4 mb-4">
+          <EServiceCardSkeleton />
+        </div>
+        <div className="col-12 col-lg-4 mb-4">
+          <EServiceCardSkeleton />
+        </div>
+        <div className="col-12 col-lg-4 mb-4">
+          <EServiceCardSkeleton />
+        </div>
+        <div className="col-12 col-lg-4 mb-4">
+          <EServiceCardSkeleton />
+        </div>
+        <div className="col-12 col-lg-4 mb-4">
+          <EServiceCardSkeleton />
+        </div>
+        <div className="col-12 col-lg-4 mb-4">
+          <EServiceCardSkeleton />
+        </div>
+      </div>
+    </Container>
   )
 }
