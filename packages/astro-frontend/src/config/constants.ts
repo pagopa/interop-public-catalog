@@ -13,6 +13,10 @@ export const links = {
   interopDevelopersLink: 'https://developers.italia.it/it/interoperabilita',
   ueCommissionLink: 'https://commission.europa.eu/index_it',
   dtdLogoLink: 'https://innovazione.gov.it/dipartimento/',
+  membersListLink:
+    'https://www.dati.gov.it/view-dataset/dataset?id=b6e909a0-53cd-417d-a37f-04c11fed8939',
+  apiListLink:
+    'https://www.dati.gov.it/view-dataset/dataset?id=0dfbeb46-736d-4af3-841c-9593d8f6c434',
 } as const
 
 /**

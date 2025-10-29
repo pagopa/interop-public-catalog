@@ -1,12 +1,15 @@
 ---
 import Layout from '../../../layouts/Layout.astro'
-import { Button, Icon, Section } from 'design-react-kit'
 import SuggestionSection from '../../../components/shared/SuggestionSection.astro'
 import PageHero from '..//../../components/shared/PageHero.astro'
 import { useCatalogTranslations } from '../../../i18n/catalog.i18n'
 import { getLangFromUrl } from '../../../i18n/utils.i18n'
 
 import { EServiceCatalogApp } from '../../../components/EServiceCatalog/EServiceCatalogApp'
+import RatingSection from '../../../components/shared/RatingSection.astro'
+import { Section } from '../../../components/shared/Section'
+// import { sqlService } from '../../../server/services'
+// import type { EServiceQuery } from 'pagopa-interop-public-models'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useCatalogTranslations(currentLocale)
@@ -58,27 +61,11 @@ const t = useCatalogTranslations(currentLocale)
         },
       ]}
     />
-
-    <Section color="muted">
+    <Section className="section-muted">
       <EServiceCatalogApp client:only="react" />
     </Section>
 
-    <div class="p-5">
-      <div class="primary-bg-c1 p-5">
-        <h3>{t('finder.title')}</h3>
-        <div class="d-flex flex-row">
-          <div class="me-2">
-            <Button color="primary" outline size="sm" onClick={(): void => {}} icon
-              >{t('finder.api.label')} <Icon color="white" icon="it-arrow-right" /></Button
-            >
-          </div>
-          <Button color="primary" outline size="sm" onClick={(): void => {}} icon
-            >{t('finder.provider.label')} <Icon color="white" icon="it-arrow-right" /></Button
-          >
-        </div>
-      </div>
-    </div>
-
+    <RatingSection />
     <SuggestionSection
       leftCard={{
         title: t('suggestion_section.left_card.title'),
