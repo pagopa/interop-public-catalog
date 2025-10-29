@@ -11,7 +11,7 @@ import { parseQueryString, serializeQueryString } from '../utils/qs.utils'
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export function useSearchParams<T extends ZodSchema<any>>(schema: T) {
   const getParams = useCallback(() => {
-    const paramsObj = parseQueryString(window.location.search)
+    const paramsObj = typeof window !== 'undefined' ? parseQueryString(window.location.search) : {}
     const result = schema.safeParse(paramsObj)
     return result.success ? result.data : {}
   }, [schema])

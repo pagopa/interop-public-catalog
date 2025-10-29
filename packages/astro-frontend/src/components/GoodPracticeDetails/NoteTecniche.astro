@@ -1,31 +1,19 @@
 ---
-import type { StrapiNode } from '../../server/models/stripe.types'
+import type { StrapiNode } from 'pagopa-interop-public-models'
 import { renderRichTextStrapiNodes } from '../../utils/rich-text-strapi-renderer'
 import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
+import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { useGoodPracticesTranslations } from '../../i18n/good-practices.i18n'
 
 interface Props {
-  title?: string
   content?: StrapiNode[]
   class?: string
 }
 
-const { title = 'Note tecniche', content, class: className } = Astro.props
+const { content, class: className } = Astro.props
 
-const decorateHtml = (html: string): string =>
-  html.replaceAll('<p>', '<p class="mb-3 text-secondary">')
+const currentLocale = getLangFromUrl(Astro.url.pathname)
+const t = useGoodPracticesTranslations(currentLocale)
 
-const html = decorateHtml(renderRichTextStrapiNodes(content ?? []))
+const html = renderRichTextStrapiNodes(content ?? [])
 ---
-
-<section
-  class={`border border-2 border-primary rounded-3 p-4 position-relative ${className ?? ''}`.trim()}
->
-  <header
-    style="top:-18px;left:50px;background-color:#fafafa;"
-    class="position-absolute d-flex align-items-center gap-2 text-primary fw-semibold text-uppercase mb-3 px-3"
-  >
-    <BootstrapItaliaIcon name="it-info-circle" aria-hidden="true" size="md" color="primary" />
-    <span>{title}</span>
-  </header>
-  <div class="text-body p-3" set:html={html} />
-</section>

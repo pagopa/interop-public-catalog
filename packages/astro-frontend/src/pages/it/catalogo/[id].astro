@@ -12,6 +12,7 @@ import ApiShowcase from '../../../components/Homepage/ApiShowcase.astro'
 import RatingSection from '../../../components/shared/RatingSection.astro'
 import { EServiceDataAccessChip } from '../../../components/shared/EServiceDataAccessChip'
 import { sqlService } from '../../../server/services'
+import { CopyUrlButton } from '../../../components/shared/CopyUrlButton.jsx'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tUi = useUiTranslations(currentLocale)
@@ -57,10 +58,7 @@ const { results: eserviceCorrelatedList } = eservicesCorrelated
       <div>
         <EServiceDataAccessChip isOpenData={false} currentLocale={currentLocale} />
       </div>
-      <a id="copy-url-btn" class="btn btn-link btn-sm btn-icon text-decoration-none" role="button">
-        {tUi('actions.copyUrl')}
-        <BootstrapItaliaIcon name="it-copy" color="primary" padded />
-      </a>
+      <CopyUrlButton currentLocale={currentLocale} />
     </div>
     <p slot="bottom-hero">
       {tEserviceDetails('producer')}: <strong><u>{eservice.tenant_name}</u></strong>
@@ -75,15 +73,3 @@ const { results: eserviceCorrelatedList } = eservicesCorrelated
   />
   <RatingSection />
 </Layout>
-
-<script>
-  const copyUrlBtn = document.getElementById('copy-url-btn')
-  if (copyUrlBtn) {
-    copyUrlBtn.addEventListener('click', () => {
-      const url = window.location.href
-      navigator.clipboard.writeText(url).catch((err) => {
-        console.error(err)
-      })
-    })
-  }
-</script>

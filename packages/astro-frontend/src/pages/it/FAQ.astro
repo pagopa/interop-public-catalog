@@ -5,6 +5,8 @@ import FAQListSection from '../../components/FAQ/FAQListSection.astro'
 import RatingSection from '../../components/shared/RatingSection.astro'
 import type { StrapiNode } from '../../utils/rich-text-strapi-renderer'
 
+export const prerender = true
+
 interface FaqObject {
   data: {
     id: number

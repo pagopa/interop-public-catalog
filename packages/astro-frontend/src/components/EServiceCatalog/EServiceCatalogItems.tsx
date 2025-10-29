@@ -18,6 +18,7 @@ import Pagination from '../shared/Pagination/Pagination.jsx'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
 import { EServiceNoItems } from './EServiceNoItems.jsx'
+import { useUiTranslations } from '../../i18n/ui.i18n.js'
 
 type EServiceCatalogItemsProps = {
   eservices: EService[]
@@ -31,6 +32,7 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, 
   const rows = chunkEServiceArray(eservices, 3)
   const currentLanguage = getLangFromUrl(window.location.pathname)
   const t = useCatalogTranslations(currentLanguage)
+  const tUi = useUiTranslations(currentLanguage)
 
   const handleCopyUrl = () => {
     const url = window.location.href
@@ -53,7 +55,8 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, 
           )}
           <span className={`ms-2 d-none d-lg-block ${totalCount > 0 ? 'border-start' : ''}`}></span>
           <a className="ms-2 d-none d-lg-block" onClick={handleCopyUrl} role="button">
-            {t('copyUrl')} <Icon icon="it-copy" size="sm" color="primary" className="ms-2" />
+            {tUi('actions.copyUrl')}
+            <Icon icon="it-copy" size="sm" color="primary" className="ms-2" />
           </a>
         </div>
         <div>
