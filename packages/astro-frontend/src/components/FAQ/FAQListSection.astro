@@ -15,7 +15,7 @@ const { sectionId, title, faqs } = Astro.props
 
 <Section title={title} className="pb-0">
   <div class="row">
-    <div class="col-12 col-md-9">
+    <div class="col-12 col-md-8">
       <div class="accordion" id=`accordionGroup${sectionId}`>
         {
           faqs.map(({ question, answer, id }) => (
