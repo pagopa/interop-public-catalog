@@ -30,6 +30,8 @@ import {
 import type { MetaDataType } from '../types/metaData.types.js'
 import type { RouteKey } from '../../config/routes.js'
 import { match } from 'ts-pattern'
+import type { FaqContent } from '../types/faq.types.js'
+import { getFAQContentMockByLocale } from '../mocks/faq.mocks.js'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, max-params
 export function strapiServiceBuilder(_endpoint: string, _token: string) {
@@ -145,6 +147,10 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           },
         },
       })
+    },
+
+    async getFaqContent(locale: SupportedLanguage): Promise<StrapiEntity<FaqContent> | undefined> {
+      return Promise.resolve(getFAQContentMockByLocale(locale))
     },
   }
 }

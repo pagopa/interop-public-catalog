@@ -20,21 +20,25 @@ const tUi = useUiTranslations(currentLocale)
 <Section as="nav" className="breadcrumb-container pt-4 pb-0">
   <ol class="breadcrumb">
     {
-      breadcrumbItems.map((item, idx) => (
-        <li
-          class={`breadcrumb-item ${item.current ? 'active' : ''}`}
-          aria-current={item.current ? 'page' : undefined}
-        >
-          {!item.current ? (
-            <a href={getLocalizedRoute(currentLocale, item.routeKey)}>
-              {tUi(`breadcrumb_label.${item.routeKey}`)}
-            </a>
-          ) : (
-            tUi(`breadcrumb_label.${item.routeKey}`)
-          )}
-          {idx < breadcrumbItems.length - 1 && <span class="separator">/</span>}
-        </li>
-      ))
+      breadcrumbItems.map((item, idx) => {
+        const routeLabel = tUi(
+          `breadcrumb_label.${item.routeKey as Exclude<RouteKey, 'NOT_FOUND_ERROR' | 'SERVER_ERROR'>}`
+        )
+
+        return (
+          <li
+            class={`breadcrumb-item ${item.current ? 'active' : ''}`}
+            aria-current={item.current ? 'page' : undefined}
+          >
+            {!item.current ? (
+              <a href={getLocalizedRoute(currentLocale, item.routeKey)}>{routeLabel}</a>
+            ) : (
+              routeLabel
+            )}
+            {idx < breadcrumbItems.length - 1 && <span class="separator">/</span>}
+          </li>
+        )
+      })
     }
   </ol>
 </Section>
