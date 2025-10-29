@@ -9,7 +9,7 @@
  *   components need to be re-initialized when the DOM changes
  * - Use the individual `init*` functions for targeted initialization of specific elements
  */
-import { Popover, Tooltip, Dropdown, Accordion } from 'bootstrap-italia'
+import { Popover, Tooltip, Dropdown, Collapse } from 'bootstrap-italia'
 
 export const initPopover = (
   el: HTMLElement,
@@ -51,7 +51,7 @@ export const initDropdown = (el: HTMLElement) => {
 
 export const initAccordion = (el: HTMLElement) => {
   try {
-    return new Accordion(el)
+    return new Collapse(el)
   } catch (error) {
     console.warn('Failed to initialize accordion:', error)
     return null
