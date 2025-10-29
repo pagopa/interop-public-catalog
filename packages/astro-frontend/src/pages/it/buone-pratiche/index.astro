@@ -7,8 +7,6 @@ import Layout from '../../../layouts/Layout.astro'
 import PageHero from '../../../components/shared/PageHero.astro'
 import { z } from 'zod'
 
-export const prerender = true
-
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tGoodPractices = useGoodPracticesTranslations(currentLocale)
 
