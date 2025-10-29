@@ -11,6 +11,8 @@ export const ROUTES = {
   LEGISLATION: { it: '/normativa', en: '/legislation' },
   PRIVACY_POLICY: { it: '/privacy-policy', en: '/privacy-policy' },
   LEGAL_NOTES: { it: '/note-legali', en: '/legal-notes' },
+  NOT_FOUND_ERROR: { it: '/404', en: '/404' },
+  SERVER_ERROR: { it: '/500', en: '/500' },
 } as const satisfies Record<string, Record<SupportedLanguage, string>>
 
 export type RouteKey = keyof typeof ROUTES

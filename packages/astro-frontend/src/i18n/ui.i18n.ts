@@ -27,7 +27,12 @@ const breadcrumbLabels = {
     'breadcrumb_label.PRIVACY_POLICY': 'Privacy policy',
     'breadcrumb_label.LEGAL_NOTES': 'Legal notes',
   },
-} as const satisfies { [K in SupportedLanguage]: Record<`breadcrumb_label.${RouteKey}`, string> }
+} as const satisfies {
+  [K in SupportedLanguage]: Record<
+    `breadcrumb_label.${Exclude<RouteKey, 'NOT_FOUND_ERROR' | 'SERVER_ERROR'>}`,
+    string
+  >
+}
 
 export const ui = {
   it: {
