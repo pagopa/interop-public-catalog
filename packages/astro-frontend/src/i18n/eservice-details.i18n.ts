@@ -65,6 +65,7 @@ export const eserviceDetails = {
     'implementation_section.authentication_link': 'Autenticati sulla PDND',
 
     'featured_api.title': 'Le altre API erogate da questo ente',
+    'featured_api.explore_catalog': 'Esplora il catalogo',
     'signalhub.tooltip.title': 'SIGNAL HUB',
     'signalhub.tooltip.content':
       'Se disponibile, il servizio ti avvisa quando i dati collegati a questa API subiscono variazioni.',
@@ -133,6 +134,7 @@ export const eserviceDetails = {
     'implementation_section.authentication_link': 'Authenticate on PDND',
 
     'featured_api.title': 'Other APIs provided by this organization',
+    'featured_api.explore_catalog': 'Explore the catalog',
     'signalhub.tooltip.title': 'SIGNAL HUB',
     'signalhub.tooltip.content':
       'If available, the service notifies you when the data linked to this API changes.',
