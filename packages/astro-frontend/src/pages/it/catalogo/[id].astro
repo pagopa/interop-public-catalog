@@ -53,6 +53,7 @@ if (!eservice) {
   <EServiceDetails eservice={eservice} />
   <OtherProducerEServices
     client:visible
+    currentEServiceId={eservice.id}
     currentLocale={currentLocale}
     producerId={eservice.producer_id}
     producerName={eservice.tenant_name}

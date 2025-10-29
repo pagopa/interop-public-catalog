@@ -21,6 +21,10 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
   const tUi = useUiTranslations(currentLocale)
   const macrocategories = goodPractice.tenantMacrocategories
 
+  const route = getLocalizedRoute(currentLocale, 'GOOD_PRACTICES_DETAILS', {
+    params: { slug: goodPractice.slug },
+  })
+
   return (
     <article
       style={{ padding: CARD_PADDING, maxWidth: CARD_MAX_WIDTH, height: CARD_HEIGHT }}
@@ -49,7 +53,9 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
 
       {/* Title */}
       <h3 style={{ maxWidth: '90%', marginTop: 40 }} className="text-primary h4 line-clamp-3 mb-0">
-        {goodPractice.title}
+        <a aria-label={tUi('actions.learnMore') + ' ' + goodPractice.title} href={route}>
+          {goodPractice.title}
+        </a>
       </h3>
 
       {/* Intended targets */}
@@ -64,9 +70,7 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
             : macrocategories.map((m) => m.label).join(', ')}
         </div>
         <a
-          href={getLocalizedRoute(currentLocale, 'GOOD_PRACTICES_DETAILS', {
-            params: { slug: goodPractice.slug },
-          })}
+          href={route}
           className="it-card-link text-primary flex-shrink-0"
           aria-label={tUi('actions.learnMore') + ' ' + goodPractice.title}
         >
