@@ -21,7 +21,8 @@ export function getLangFromUrl(url: string): SupportedLanguage {
 
 export function getRouteKeyFromCurrentRoutePattern(
   currentRoutePattern: string,
-  currentLocale: SupportedLanguage) : RouteKey | undefined {
+  currentLocale: SupportedLanguage
+): RouteKey | undefined {
   return (Object.keys(ROUTES) as RouteKey[]).find(
     (r) => `/${currentLocale}${ROUTES[r][currentLocale]}` === currentRoutePattern
   )
