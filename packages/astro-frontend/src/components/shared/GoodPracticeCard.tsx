@@ -2,23 +2,19 @@ import React from 'react'
 import { BootstrapItaliaIcon } from './BootstrapItaliaIcon.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import type { SupportedLanguage } from '../../i18n/types.i18n.js'
-import type { OrganizationType } from '../../config/constants.js'
 import { getLocalizedRoute } from '../../i18n/utils.i18n.js'
+import type { GoodPractice } from '../../types/good-practice.types.js'
 
 interface GoodPracticeCardProps {
   currentLocale: SupportedLanguage
-  title: string
-  category: string
-  intendedTargets: OrganizationType[]
+  goodPractice: GoodPractice
 }
 
 const CARD_MAX_WIDTH = 636
 
 export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
   currentLocale,
-  title,
-  category,
-  intendedTargets,
+  goodPractice,
 }) => {
   const tUi = useUiTranslations(currentLocale)
 
@@ -43,12 +39,12 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
 
       {/* Category Header */}
       <header className="d-flex justify-content-end align-items-center mb-4 py-4">
-        <small className="text-secondary fw-semibold">{category}</small>
+        <small className="text-secondary fw-semibold">{goodPractice.category}</small>
       </header>
 
       {/* Title */}
       <h3 style={{ maxWidth: '90%' }} className="text-primary h4">
-        {title}
+        {goodPractice.title}
       </h3>
 
       {/* Intended targets */}
@@ -58,14 +54,14 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
       >
         <div className="d-inline-block text-truncate flex-shrink-1">
           <strong>{tUi('label.for')}: </strong>
-          {intendedTargets.map((type) => tUi(`organization_types.${type}_short`)).join(', ')}
+          {/* {intendedTargets.map((type) => tUi(`tenant_macrocategory_.${type}_short`)).join(', ')} */}
         </div>
         <a
           href={getLocalizedRoute(currentLocale, 'GOOD_PRACTICES_DETAILS', {
-            params: { slug: 'test' },
+            params: { slug: goodPractice.slug },
           })}
           className="it-card-link text-primary flex-shrink-0"
-          aria-label={tUi('actions.learnMore') + ' ' + title}
+          aria-label={tUi('actions.learnMore') + ' ' + goodPractice.title}
         >
           {tUi('actions.learnMore')}
           <BootstrapItaliaIcon

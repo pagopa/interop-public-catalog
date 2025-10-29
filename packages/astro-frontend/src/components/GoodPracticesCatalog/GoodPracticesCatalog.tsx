@@ -1,73 +1,47 @@
 import React from 'react'
 import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 import { GoodPracticeCard } from '../shared/GoodPracticeCard.js'
-import { ORGANIZATION_TYPES, type OrganizationType } from '../../config/constants.js'
-import { OrganizationTypeFilter } from './OrganizationTypeFilter.js'
 import { useSearchParams } from '../../hooks/useSearchParams.js'
 import { z } from 'zod'
-
-const MOCK_CATEGORIES: { title: string; intendedTargets: OrganizationType[]; category: string }[] =
-  [
-    {
-      title: 'Erogare i bonus ai cittadini in modo equo ed efficiente',
-      intendedTargets: ['pac', 'comuni', 'regioni', 'universita'],
-      category: 'Bonus Economici',
-    },
-    {
-      title: 'Iscrizione ai concorsi pubblici più snella',
-      intendedTargets: ['pac', 'comuni', 'regioni', 'universita'],
-      category: 'Bonus Economici',
-    },
-    {
-      title: 'Verifica immediata dell’iscrizione all’albo degli avvocati',
-      intendedTargets: ['pac', 'comuni', 'regioni', 'universita'],
-      category: 'Bonus Economici',
-    },
-    {
-      title:
-        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur nisl nunc, feugiat...',
-      intendedTargets: ['pac', 'comuni', 'regioni', 'universita'],
-      category: 'Bonus Economici',
-    },
-    {
-      title: 'Pellentesque pretium urna ipsum, a consectetur orci tincidunt nec.',
-      intendedTargets: ['pac', 'comuni', 'regioni', 'universita'],
-      category: 'Bonus Economici',
-    },
-  ]
-
-const organizationTypeValues = ORGANIZATION_TYPES.map((o) => o.key) as [
-  OrganizationType,
-  ...OrganizationType[],
-]
+import useSwr from 'swr'
+import { MacroCategoryIdFilter } from './MacroCategoryIdFilter.jsx'
+import { apiService } from '../../services/api.services.js'
 
 export const GoodPracticesCatalog: React.FC<{ currentLocale: SupportedLanguage }> = ({
   currentLocale,
 }) => {
   const [searchParams, setSearchParams] = useSearchParams(
     z.object({
-      organizationType: z.enum(organizationTypeValues),
+      macroCategoryId: z.coerce.number(),
     })
   )
 
-  const selectedOrganizationType: OrganizationType = searchParams.organizationType || 'tutti'
+  const { data } = useSwr(
+    [currentLocale, searchParams.macroCategoryId],
+    ([locale, macroCategoryId]) =>
+      apiService.getGoodPractices({ locale, macroCategoryId, limit: 50, offset: 0 })
+  )
 
-  const handleSelectedOrganizationTypeChange = (organizationType: OrganizationType) => {
-    setSearchParams({ organizationType })
+  const handleSelectedMacroCategoryIdChange = (macroCategoryId: number | null) => {
+    setSearchParams({ macroCategoryId: macroCategoryId ?? undefined })
   }
 
   return (
     <div className="d-flex justify-content-around gap-4">
       <span className="d-none d-md-block">
-        <OrganizationTypeFilter
+        <MacroCategoryIdFilter
           currentLocale={currentLocale}
-          onSelectedOrganizationTypeChange={handleSelectedOrganizationTypeChange}
-          selectedOrganizationType={selectedOrganizationType}
+          onSelectedMacroCategoryIdChange={handleSelectedMacroCategoryIdChange}
+          selectedMacroCategoryId={searchParams.macroCategoryId ?? null}
         />
       </span>
       <div className="d-flex flex-column gap-4">
-        {MOCK_CATEGORIES.map((c) => (
-          <GoodPracticeCard currentLocale={currentLocale} {...c} />
+        {data?.results.map((goodPractice) => (
+          <GoodPracticeCard
+            key={goodPractice.id}
+            currentLocale={currentLocale}
+            goodPractice={goodPractice}
+          />
         ))}
       </div>
     </div>

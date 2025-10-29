@@ -2,10 +2,8 @@ import { match } from 'ts-pattern'
 import type {
   StrapiHeadingNode,
   StrapiLinkNode,
-  StrapiListItemNode,
   StrapiListNode,
   StrapiNode,
-  StrapiParagraphNode,
   StrapiTextNode,
 } from '../types/strapi.types'
 
@@ -53,7 +51,7 @@ const renderNode = (node: StrapiNode): string =>
     .with({ type: 'paragraph' }, (paragraph) => `<p>${renderNodes(paragraph.children)}</p>`)
     .with({ type: 'heading' }, renderHeadingNode)
     .with({ type: 'list' }, renderListNode)
-    .with({ type: 'listItem' }, (item) => `<li>${renderNodes(item.children)}</li>`)
+    .with({ type: 'list-item' }, (item) => `<li>${renderNodes(item.children)}</li>`)
     .otherwise(() => {
       console.warn('Strapi rich text renderer: unexpected Node', node)
       return ''

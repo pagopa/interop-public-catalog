@@ -2,17 +2,12 @@ import type { drizzle } from 'drizzle-orm/node-postgres'
 import type { NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
 import type { ExtractTablesWithRelations } from 'drizzle-orm'
 import { sql } from 'drizzle-orm'
-import type { EService } from 'pagopa-interop-public-models'
-import {
-  type EServiceSearchResult,
-  EServiceQuery,
-  type TenantQuery,
-  type TenantSearchResult,
-  type Tenant,
-  eserviceOrderBy,
-} from 'pagopa-interop-public-models'
+import { CompactTenant, EService } from 'pagopa-interop-public-models'
 import type { PgTransaction } from 'drizzle-orm/pg-core'
 import { categoriesMap } from '../config/categories'
+import type { GetEServicesQuery, GetTenantsQuery } from '../models/api'
+import { eserviceOrderBy } from '../models/api'
+import { z } from 'zod'
 
 type SingleTransaction<T> = (
   tx: PgTransaction<
@@ -143,7 +138,7 @@ export async function getEService(
   db: ReturnType<typeof drizzle>,
   config: ServiceConfig,
   id: string
-): Promise<EService> {
+): Promise<EService | undefined> {
   const { fullSelect, activeDescriptorPopulator, activeDescriptorPopulatorGroupBy } =
     _buildFullQueryWithFilters({
       catalogSchema: config.catalogSchema,
@@ -151,7 +146,7 @@ export async function getEService(
       tenantSchema: config.tenantSchema,
     })
 
-  const getEServiceById: SingleTransaction<EService> = async (tx) => {
+  const getEServiceById: SingleTransaction<EService | undefined> = async (tx) => {
     const pageRes = await tx.execute(sql`
     ${fullSelect('e', 't')}
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
@@ -159,29 +154,29 @@ export async function getEService(
     WHERE e.id = ${id}
     ${activeDescriptorPopulatorGroupBy('e', 't')}
   `)
-    const eservice = pageRes.rows[0] as EService
-    return eservice
+
+    if (pageRes.rows[0] === undefined) {
+      return undefined
+    }
+
+    return EService.parse(pageRes.rows[0])
   }
 
-  const item = await db.transaction(getEServiceById, { isolationLevel: 'repeatable read' })
-  return item
+  return await db.transaction(getEServiceById, { isolationLevel: 'repeatable read' })
 }
 
 export async function searchCatalog(
   db: ReturnType<typeof drizzle>,
   config: ServiceConfig,
-  query: EServiceQuery
-): Promise<EServiceSearchResult> {
-  const parsedQuery = EServiceQuery.parse(query)
-  const { limit, offset, q, orderBy, producerIds, categories } = parsedQuery
+  query: GetEServicesQuery
+): Promise<{ results: EService[]; totalCount: number }> {
+  const { limit, offset, q, orderBy, producerIds, categories } = query
 
-  const mappedOrderBy = orderBy?.map((entry) => (eserviceOrderBy as { [k: string]: string })[entry])
+  const mappedOrderBy = orderBy?.map((entry) => eserviceOrderBy[entry])
 
   // Categories are already filtered in the catalog API interface
   // Here we can assume we have valid categories ex. ['Comuni', '...', ...]
-  const mappedCategories = categories?.flatMap(
-    (cat) => (categoriesMap as { [k: string]: string[] })[cat]
-  )
+  const mappedCategories = categories?.flatMap((cat) => categoriesMap[cat])
 
   // Build WHERE condition
   const conds = [sql`true`]
@@ -224,8 +219,11 @@ export async function searchCatalog(
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
 
-    const items = pageRes.rows as EService[]
-    const total = (pageRes?.rows[0]?.total as number) || 0
+    const items = z.array(EService).parse(pageRes.rows)
+    const total = z.coerce
+      .number()
+      .catch(() => 0)
+      .parse(pageRes?.rows[0]?.total)
 
     return { items, total }
   }
@@ -293,8 +291,11 @@ export async function searchCatalog(
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
 
-    const items = pageRes.rows as EService[]
-    const total = (pageRes?.rows[0]?.total as number) || 0
+    const items = z.array(EService).parse(pageRes.rows)
+    const total = z.coerce
+      .number()
+      .catch(() => 0)
+      .parse(pageRes?.rows[0]?.total)
 
     return { items, total }
   }
@@ -306,27 +307,17 @@ export async function searchCatalog(
   )
 
   return {
-    total,
-    items: items as unknown as EService[],
-    limit,
-    offset,
-    q,
+    totalCount: total,
+    results: items,
   }
 }
 
 export async function searchTenants(
   db: ReturnType<typeof drizzle>,
   config: ServiceConfig,
-  { limit, offset, q }: TenantQuery
-): Promise<TenantSearchResult> {
-  if (!(limit >= 1 && limit <= 50)) {
-    throw new Error('limit must be >= 1 and <= 50')
-  }
-  if (offset < 0) {
-    throw new Error('offset must be >= 0')
-  }
-
-  const textlessSearchTx: Transaction<Tenant> = async (tx) => {
+  { limit, offset, q }: GetTenantsQuery
+): Promise<{ results: CompactTenant[]; totalCount: number }> {
+  const textlessSearchTx: Transaction<CompactTenant> = async (tx) => {
     const pageRes = await tx.execute(sql`
     SELECT
       t.name,
@@ -337,15 +328,18 @@ export async function searchTenants(
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
 
-    const items = pageRes.rows as Tenant[]
-    const total = (pageRes?.rows[0]?.total as number) || 0
+    const items = z.array(CompactTenant).parse(pageRes.rows)
+    const total = z.coerce
+      .number()
+      .catch(() => 0)
+      .parse(pageRes?.rows[0]?.total)
 
     return { items, total }
   }
 
-  const textSearchTx: Transaction<Tenant> = async (
+  const textSearchTx: Transaction<CompactTenant> = async (
     tx
-  ): Promise<{ total: number; items: Tenant[] }> => {
+  ): Promise<{ total: number; items: CompactTenant[] }> => {
     const builtQuery = sql`
     WITH params AS (
       SELECT
@@ -394,8 +388,11 @@ export async function searchTenants(
   `
     const pageRes = await tx.execute(builtQuery)
 
-    const items = pageRes.rows as Tenant[]
-    const total = (pageRes?.rows[0]?.total as number) || 0
+    const items = z.array(CompactTenant).parse(pageRes.rows)
+    const total = z.coerce
+      .number()
+      .catch(() => 0)
+      .parse(pageRes?.rows[0]?.total)
 
     return { items, total }
   }
@@ -405,11 +402,8 @@ export async function searchTenants(
   })
 
   return {
-    total,
-    items: items as unknown as Tenant[],
-    limit,
-    offset,
-    q,
+    results: items,
+    totalCount: total,
   }
 }
 

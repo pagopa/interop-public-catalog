@@ -175,9 +175,9 @@ const topNavNavItems = [
 </header>
 
 <script>
-  import { Collapse } from 'bootstrap-italia'
-  const navbarCollapseEl = document.querySelector('.navbarcollapsible')
-  if (navbarCollapseEl) {
-    new Collapse(navbarCollapseEl)
-  }
+  import { NavBarCollapsible } from 'bootstrap-italia'
+  const navbarCollapseEl = document.querySelector(
+    '[data-bs-toggle="navbarcollapsible"]'
+  ) as HTMLElement
+  new NavBarCollapsible(navbarCollapseEl)
 </script>

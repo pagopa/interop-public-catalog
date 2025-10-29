@@ -14,10 +14,10 @@ export type AttributeKind = z.infer<typeof AttributeKind>;
 
 export const Attribute = z.object({
   id: AttributeId,
-  code: z.string().optional(),
+  code: z.string().nullable().optional(),
   kind: AttributeKind,
   description: z.string(),
-  origin: z.string().optional(),
+  origin: z.string().nullable().optional(),
   name: z.string(),
   creation_time: z.coerce.date(),
 });

@@ -30,7 +30,7 @@
     "@types/react-dom": "^19.1.7",
     "@zodios/core": "10.9.6",
     "accessible-autocomplete": "^3.0.1",
-    "astro": "^5.15.1",
+    "astro": "^5.15.2",
     "axios": "1.12.0",
     "bootstrap-italia": "2.16.2",
     "design-react-kit": "5.8.3",
@@ -40,9 +40,12 @@
     "pagopa-interop-public-commons": "workspace:*",
     "pagopa-interop-public-models": "workspace:*",
     "pg": "8.16.3",
+    "qs": "6.14.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "swr": "2.3.6",
     "ts-pattern": "5.2.0",
+    "winston": "3.16.0",
     "zod": "3.23.8"
   },
   "devDependencies": {
