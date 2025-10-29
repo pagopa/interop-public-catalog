@@ -1,16 +1,11 @@
 ---
 import { getLangFromUrl } from '../../i18n/utils.i18n'
 import { useGoodPracticesTranslations } from '../../i18n/good-practices.i18n'
-import { EServiceCard } from '../shared/EServiceCard'
 import PageIndexNav from '../shared/PageIndexNav.astro'
-import NoteTecniche from './NoteTecniche.astro'
 import { match } from 'ts-pattern'
 import { renderRichTextStrapiNodes } from '../../utils/rich-text-strapi-renderer'
 import type { GoodPractice, StrapiNode } from 'pagopa-interop-public-models'
-import {
-  GoodPracticeRelatedEService,
-  GoodPracticeRelatedEServiceSkeleton,
-} from './GoodPracticeRelatedEService'
+import { GoodPracticeRelatedEService } from './GoodPracticeRelatedEService'
 
 interface Props {
   goodPractice: GoodPractice
@@ -112,9 +107,7 @@ const customRenderRichTextStrapiNodes = (nodes: StrapiNode[]) => {
         client:visible
         currentLocale={currentLocale}
         eserviceIds={goodPractice.eserviceId.map((e) => e.eserviceId)}
-      >
-        <GoodPracticeRelatedEServiceSkeleton slot="fallback" />
-      </GoodPracticeRelatedEService>
+      />
 
       <div class="mt-4 text-secondary pt-4">
         <em>{tGoodPractices('details.lastUpdate')} {formattedDate}</em>
