@@ -9,6 +9,7 @@ interface Props {
     iconName: BootstrapItaliaIconProps['name']
     tooltipTitle: string
     tooltipContent: string
+    iconSize?: BootstrapItaliaIconProps['size']
   }
 }
 
@@ -26,6 +27,7 @@ const { label, content, icon } = Astro.props
           title={icon.tooltipTitle}
           content={icon.tooltipContent}
           iconName={icon.iconName}
+          iconSize={icon.iconSize}
           iconColor="primary"
         />
       )
