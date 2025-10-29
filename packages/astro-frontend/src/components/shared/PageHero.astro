@@ -6,11 +6,12 @@ import type { RouteKey } from '../../config/routes.js'
 
 interface Props {
   title: string
+  marginFromTitle?: string
   description?: string
   breadcrumbItems: Array<{ routeKey: RouteKey; current?: boolean }>
 }
 
-const { title, description, breadcrumbItems } = Astro.props as Props
+const { title, description, breadcrumbItems, marginFromTitle } = Astro.props as Props
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tUi = useUiTranslations(currentLocale)
@@ -43,7 +44,7 @@ const tUi = useUiTranslations(currentLocale)
     <span class="it-category">
       <slot name="top-hero" />
     </span>
-    <h1 class="mt-3 h2">{title}</h1>
+    <h1 class={`mt-${marginFromTitle ?? '3'} h2`}>{title}</h1>
     <div class="mt-4">
       {
         description && (

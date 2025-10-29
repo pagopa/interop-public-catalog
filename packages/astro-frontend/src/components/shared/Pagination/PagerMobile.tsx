@@ -1,16 +1,19 @@
 import React from 'react'
 import { usePagination } from './hooks/usePagination'
-import { getLangFromUrl } from '../../../i18n/utils.i18n'
-import { useUiTranslations } from '../../../i18n/ui.i18n'
 import { BootstrapItaliaIcon } from '../BootstrapItaliaIcon'
 
 type PagerMobileProps = {
   totalCount: number
   limit: number
+  idElementToScrollTo: string
 }
 
-export const PagerMobile: React.FC<PagerMobileProps> = ({ totalCount, limit }) => {
-  const { paginationProps } = usePagination(limit, totalCount)
+export const PagerMobile: React.FC<PagerMobileProps> = ({
+  totalCount,
+  limit,
+  idElementToScrollTo,
+}) => {
+  const { paginationProps } = usePagination(limit, totalCount, idElementToScrollTo)
   const { actualPage, totalPages } = paginationProps
 
   return (

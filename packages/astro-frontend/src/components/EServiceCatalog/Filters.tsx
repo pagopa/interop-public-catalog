@@ -69,7 +69,7 @@ const Filters: React.FC<FiltersProps> = ({
 
   return (
     <Form>
-      <Row>
+      <Row id="eservice-filters">
         <Col className="pe-1" lg="3">
           <FormGroup className="input-filter-key">
             <Input

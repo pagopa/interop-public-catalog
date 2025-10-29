@@ -115,7 +115,7 @@ export const GoodPracticeCardSkeleton: React.FC = () => {
         {/* Category Header */}
         <header className="d-flex justify-content-end align-items-center">
           <small style={{ lineHeight: '1rem', color: '#2F475E' }} className="fw-semibold">
-            <span style={{ width: 120 }} className="placeholder"></span>
+            <span style={{ width: 120 }} className="placeholder placeholder-sm rounded-2"></span>
           </small>
         </header>
 
@@ -124,8 +124,8 @@ export const GoodPracticeCardSkeleton: React.FC = () => {
           style={{ maxWidth: '90%', marginTop: 40 }}
           className="text-primary h4 line-clamp-3 mb-0"
         >
-          <span style={{ width: '100%' }} className="placeholder" />
-          <span style={{ width: '40%' }} className="placeholder" />
+          <span style={{ width: '100%' }} className="placeholder placeholder-sm rounded-2" />
+          <span style={{ width: '40%' }} className="placeholder placeholder-sm rounded-2" />
         </h3>
 
         {/* Intended targets */}
@@ -134,10 +134,13 @@ export const GoodPracticeCardSkeleton: React.FC = () => {
           style={{ gap: 42, marginTop: 'auto' }}
         >
           <div className="d-md-inline-block text-truncate mb-1 mb-md-0">
-            <span style={{ width: 200 }} className="placeholder"></span>
+            <span style={{ width: 200 }} className="placeholder placeholder-sm rounded-2"></span>
           </div>
           <a className="it-card-link text-primary flex-shrink-0">
-            <span style={{ width: 110 }} className="placeholder me-2"></span>
+            <span
+              style={{ width: 110 }}
+              className="placeholder placeholder-sm rounded-2 me-2"
+            ></span>
           </a>
         </footer>
       </article>

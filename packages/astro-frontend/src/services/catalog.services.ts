@@ -48,8 +48,9 @@ export const getProducer = async (inputText: string) => {
 export const getConsumers = async () => {
   const categoriesFe = Object.keys(categoriesMap).map((categoryName) => {
     const key = categoryName as keyof typeof categoriesMap
+
     return {
-      value: categoriesMap[key].join(','),
+      value: categoryName,
       label: categoryName,
     }
   })
