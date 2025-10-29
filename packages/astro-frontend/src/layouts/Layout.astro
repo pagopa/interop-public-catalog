@@ -7,18 +7,24 @@ import Footer from '../components/shared/Footer.astro'
 import { getLangFromUrl } from '../i18n/utils.i18n'
 import { clientEnvConfig } from '../config/config'
 import type { MetaDataType } from '../server/types/metaData.types'
-
-type Props = {
-  metaSettings?: MetaDataType
-}
-
-const { metaSettings } = Astro.props
+import { strapiService } from '../server/services'
+import { getRouteKeyFromCurrentRoutePattern } from '../i18n/utils.i18n'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 
-const metaData = await fetch(new URL('/api/metadata', Astro.url))
-  .then((response) => response.json())
-  .catch((_e) => ({ data: [{ title: 'Strapi is not connected...' }] }))
+const routeKey = getRouteKeyFromCurrentRoutePattern(
+  Astro.routePattern,
+  currentLocale
+)
+
+const { data: generalData } = await strapiService.getSeoMetaData(currentLocale, 'DEFAULT')
+
+const { data: pageData } = await strapiService.getSeoMetaData(currentLocale, routeKey ?? 'DEFAULT', Astro.params)
+
+const generalMetaData = generalData[0] as MetaDataType
+const pageMetaData = pageData[0] as MetaDataType
+
+const metaLocale = pageMetaData.locale ?? generalMetaData.locale
 ---
 
 <!doctype html>
@@ -46,32 +52,31 @@ const metaData = await fetch(new URL('/api/metadata', Astro.url))
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="generator" content={Astro.generator} />
 
-    <title>{metaSettings?.title ?? metaData.title}</title>
+    <title>{pageMetaData.title ?? generalMetaData.title}</title>
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={metaSettings?.seo.metaTitle ?? metaData.seo.metaTitle} />
+    <meta name="twitter:title" content={pageMetaData.seo.metaTitle ?? generalMetaData.seo.metaTitle} />
     <meta
       name="twitter:description"
-      content={metaSettings?.seo.metaDescription ?? metaData.seo.metaTitle}
+      content={pageMetaData.seo.metaDescription ?? generalMetaData.seo.metaDescription}
     />
     <meta
       name="twitter:image"
-      content={metaSettings?.seo.twitterImage?.url ?? metaData.seo.metaTitle}
+      content={pageMetaData.seo.twitterImage?.url ?? generalMetaData.seo.twitterImage?.url}
     />
-    <meta property="og:locale" content={metaSettings?.locale === 'it' ? 'it_IT' : 'en_US'} />
+    <meta property="og:locale" content={metaLocale === 'it' ? 'it_IT' : 'en_US'} />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content={metaSettings?.seo.metaTitle ?? metaData.seo.metaTitle} />
+    <meta property="og:title" content={pageMetaData.seo.metaTitle ?? generalMetaData.seo.metaTitle} />
     <meta
       property="og:description"
-      content={metaSettings?.seo.metaDescription ?? metaData.seo.metaTitle}
+      content={pageMetaData.seo.metaDescription ?? generalMetaData.seo.metaDescription}
     />
     <!-- <meta property="og:url" content={/*TODO */} /> -->
-    <meta property="og:site_name" content={'pagopa'} />
-    <!-- TODO -->
+    <meta property="og:site_name" content={pageMetaData.siteName ?? generalMetaData.siteName} />
     <meta
       property="og:image"
-      content={metaSettings?.seo.opengraphImage?.url ?? metaData.seo.metaTitle}
+      content={pageMetaData.seo.opengraphImage?.url ?? generalMetaData.seo.opengraphImage?.url}
     />
-    <link rel="canonical" href="https://www.example.com/sample-page/" />
+    <link rel="canonical" href={pageMetaData.seo.canonical ?? generalMetaData.seo.canonical} />
   </head>
   <body>
     <Header />
