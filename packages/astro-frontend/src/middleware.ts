@@ -6,21 +6,25 @@ export const onRequest = defineMiddleware(async (context, next) => {
   context.locals.correlationId = correlationId
 
   const loggerInstance = logger({ correlationId })
-  const msg = `Request ${context.request.method} ${context.request.url}`
+  const isStatusCall = context.request.url.endsWith('/api/status')
 
-  if (context.request.url.endsWith('/api/status')) {
-    loggerInstance.debug(msg)
+  const requestMsg = `Request ${context.request.method} ${context.request.url}`
+  if (isStatusCall) {
+    loggerInstance.debug(requestMsg)
   } else {
-    loggerInstance.info(msg)
+    loggerInstance.info(requestMsg)
   }
 
   context.locals.logger = loggerInstance
 
   const response = await next()
 
-  loggerInstance.info(
-    `Response ${context.request.method} ${context.request.url} - Status: ${response.status}`
-  )
+  const responseMsg = `Response ${context.request.method} ${context.request.url} - Status: ${response.status}`
+  if (isStatusCall) {
+    loggerInstance.debug(responseMsg)
+  } else {
+    loggerInstance.info(responseMsg)
+  }
 
   return response
 })
