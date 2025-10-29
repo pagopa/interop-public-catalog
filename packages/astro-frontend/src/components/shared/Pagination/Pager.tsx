@@ -6,17 +6,22 @@ import { useUiTranslations } from '../../../i18n/ui.i18n'
 type PagerProps = {
   totalCount: number
   limit: number
+  idElementToScrollTo: string
 }
 
-export const Pager: React.FC<PagerProps> = ({ totalCount, limit }) => {
-  const { previousPages, nextPages, paginationProps } = usePagination(limit, totalCount)
+export const Pager: React.FC<PagerProps> = ({ totalCount, limit, idElementToScrollTo }) => {
+  const { previousPages, nextPages, paginationProps } = usePagination(
+    limit,
+    totalCount,
+    idElementToScrollTo
+  )
   const lang = getLangFromUrl(window.location.pathname)
   const t = useUiTranslations(lang)
   const { totalPages } = paginationProps
 
   const mapPagesToPagerElements = (pages: Page[]): React.ReactNode =>
     pages.map((page, index) => (
-      <li className="page-item">
+      <li className="page-item" key={index}>
         {page.isSpan ? (
           <span className="page-link">{page.value}</span>
         ) : (

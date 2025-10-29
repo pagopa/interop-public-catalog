@@ -113,7 +113,7 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, 
       ))}
       {totalCount > 0 && (
         <Row className="mt-4">
-          <Pagination totalCount={totalCount} limit={10} />
+          <Pagination totalCount={totalCount} limit={10} idElementToScrollTo="eservice-filters" />
         </Row>
       )}
     </Container>

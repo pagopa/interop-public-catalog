@@ -8,7 +8,8 @@ export type Page = {
 
 export function usePagination(
   limit: number,
-  totalCount: number
+  totalCount: number,
+  idElementToScrollTo: string
 ): {
   previousPages: Page[]
   nextPages: Page[]
@@ -45,10 +46,17 @@ export function usePagination(
       } else {
         urlParams.delete('offset')
       }
+
+      if (idElementToScrollTo) {
+        console.log('Scrolling to element:', idElementToScrollTo)
+        const element = document.getElementById(idElementToScrollTo)
+        element?.scrollIntoView()
+      }
+
       window.history.pushState({}, '', `${window.location.pathname}?${urlParams}`)
       handleActiveFilterValueChange('offset', newOffset)
     },
-    [handleActiveFilterValueChange, limit]
+    [handleActiveFilterValueChange, limit, idElementToScrollTo]
   )
 
   const paginationProps = {
