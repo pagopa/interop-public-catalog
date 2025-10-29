@@ -3,6 +3,8 @@ import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 import { getGoodPracticesDataMockByLocale } from '../mocks/good-practices.mocks.js'
 import { catalogMockData, catalogMockDataEn, ecosystemMockData, ecosystemMockDataEn, faqMockData, faqMockDataEn, generalMockData, generalMockDataEn, genericErrorMockData, genericErrorMockDataEn, getCatalogSingleApiMockData, getCatalogSingleApiMockDataEn, getGoodPracticeSingleMockData, getGoodPracticeSingleMockDataEn, goodPracticesMockData, goodPracticesMockDataEn, legalNotesMockData, legalNotesMockDataEn, legislationMockData, legislationMockDataEn, notFoundErrorMockData, notFoundErrorMockDataEn, privacyPolicyMockData, privacyPolicyMockDataEn } from '../mocks/meta-data.mocks.js'
 import type { MetaDataType, PageNames } from '../types/metaData.types.js'
+import type { RouteKey } from '../../config/routes.js'
+import { match } from 'ts-pattern'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, max-params
 export function strapiServiceBuilder(_endpoint: string, _token: string) {
@@ -58,45 +60,57 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       Promise.resolve(getGoodPracticesDataMockByLocale(locale).find((g) => g.data.slug === slug)),
 
     async getSeoMetaData(
-      locale: 'it' | 'en',
-      pageName: PageNames,
-      eserviceId?: string,
-      pageSlug?: string
+      locale: SupportedLanguage,
+      routeKey: RouteKey | 'DEFAULT' | 'GENERIC_ERROR' | 'NOT_FOUND_ERROR',
+      pageParams?: { eserviceId?: string; pageSlug?: string }
     ): Promise<StrapiEntityList<MetaDataType>> {
-      let strapiMockedData: MetaDataType
-      switch (pageName) {
-        case 'catalog':
-          strapiMockedData = locale === 'it' ? catalogMockData : catalogMockDataEn
-        case 'catalog_single':
-          strapiMockedData =
-            locale === 'it'
-              ? getCatalogSingleApiMockData(eserviceId!)
-              : getCatalogSingleApiMockDataEn(eserviceId!)
-        case 'ecosystem':
-          strapiMockedData = locale === 'it' ? ecosystemMockData : ecosystemMockDataEn
-        case 'faq':
-          strapiMockedData = locale === 'it' ? faqMockData : faqMockDataEn
-        case 'good_practices':
-          strapiMockedData = locale === 'it' ? goodPracticesMockData : goodPracticesMockDataEn
-        case 'good_practices_single':
-          strapiMockedData =
-            locale === 'it'
-              ? getGoodPracticeSingleMockData(pageSlug!)
-              : getGoodPracticeSingleMockDataEn(pageSlug!)
-        case 'legal_notes':
-          strapiMockedData = locale === 'it' ? legalNotesMockData : legalNotesMockDataEn
-        case 'legislation':
-          strapiMockedData = locale === 'it' ? legislationMockData : legislationMockDataEn
-        case 'privacy_policy':
-          strapiMockedData = locale === 'it' ? privacyPolicyMockData : privacyPolicyMockDataEn
-        case 'generic_error':
-          strapiMockedData = locale === 'it' ? genericErrorMockData : genericErrorMockDataEn
-        case '404':
-          strapiMockedData = locale === 'it' ? notFoundErrorMockData : notFoundErrorMockDataEn
-        case 'general':
-        default:
-          strapiMockedData = locale === 'it' ? generalMockData : generalMockDataEn
-      }
+      
+
+const strapiMockedData: MetaDataType = match(routeKey)
+      .with('DEFAULT', () => {
+        return locale === 'it' ? generalMockData : generalMockDataEn
+      })
+      .with('ESERVICE_CATALOG', () => {
+        return locale === 'it' ? catalogMockData : catalogMockDataEn
+      })
+      .with('ESERVICE_DETAILS', () => {
+        return locale === 'it'
+          ? getCatalogSingleApiMockData(pageParams?.eserviceId!)
+          : getCatalogSingleApiMockDataEn(pageParams?.eserviceId!)
+      })
+      .with('ECOSYSTEM', () => {
+        return locale === 'it' ? ecosystemMockData : ecosystemMockDataEn
+      })
+      .with('FAQ', () => {
+        return locale === 'it' ? faqMockData : faqMockDataEn
+      })
+      .with('GOOD_PRACTICES_CATALOG', () => {
+        return locale === 'it' ? goodPracticesMockData : goodPracticesMockDataEn
+      })
+      .with('GOOD_PRACTICES_DETAILS', () => {
+        return locale === 'it' ?
+          getGoodPracticeSingleMockData(pageParams?.pageSlug!)
+          : getGoodPracticeSingleMockDataEn(pageParams?.pageSlug!)
+      })
+      .with('LEGAL_NOTES', () => {
+        return locale === 'it' ? legalNotesMockData : legalNotesMockDataEn
+      })
+      .with('LEGISLATION', () => {
+        return locale === 'it' ? legislationMockData : legislationMockDataEn
+      })
+      .with('PRIVACY_POLICY', () => {
+        return locale === 'it' ? privacyPolicyMockData : privacyPolicyMockDataEn
+      })
+      .with('GENERIC_ERROR', () => {
+        return locale === 'it' ? genericErrorMockData : genericErrorMockDataEn
+      })
+      .with('NOT_FOUND_ERROR', () => {
+        return locale === 'it' ? notFoundErrorMockData : notFoundErrorMockDataEn
+      })
+      .otherwise(() => {
+        return locale === 'it' ? generalMockData : generalMockDataEn
+      })
+
       return Promise.resolve({
         data: [strapiMockedData],
         meta: {
