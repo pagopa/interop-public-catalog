@@ -18,17 +18,3 @@ export type MetaDataType = {
   // La proprietà siteName è presente solo in generalMockData
   siteName?: string
 }
-
-export type PageNames =
-  | 'catalog'
-  | 'catalog_single'
-  | 'ecosystem'
-  | 'faq'
-  | 'good_practices'
-  | 'good_practices_single'
-  | 'legal_notes'
-  | 'legislation'
-  | 'privacy_policy'
-  | 'generic_error'
-  | '404'
-  | 'general'
