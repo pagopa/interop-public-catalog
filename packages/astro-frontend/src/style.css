@@ -408,6 +408,10 @@ a:hover {
 }
 
 .bg-muted {
+  background-color: #fafafa !important;
+}
+
+.bg-muted-dark {
   background-color: #f5f5f5 !important;
 }
 
