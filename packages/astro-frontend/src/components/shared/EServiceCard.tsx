@@ -73,3 +73,48 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
     </article>
   )
 }
+
+export const EServiceCardSkeleton: React.FC = () => {
+  return (
+    <article
+      style={{ height: CARD_HEIGHT }}
+      className="it-card rounded shadow d-flex flex-column px-2"
+    >
+      <header
+        style={{ height: MIN_HEIGHT_PRODUCER_NAME }}
+        className="px-3 pt-4 d-flex justify-content-between align-items-center"
+      >
+        <small className="mb-0 line-clamp-2 pe-4 placeholder-glow">
+          <span style={{ width: 120 }} className="placeholder" />
+        </small>
+        <div className="shrink-0 placeholder-glow">
+          <span
+            style={{ width: 155, height: 24 }}
+            className="placeholder d-inline-block rounded-pill"
+          />
+        </div>
+      </header>
+      <a
+        style={{ height: MIN_HEIGHT_TITLE }}
+        className="it-card-title h5 text-primary line-clamp-2 placeholder-glow"
+      >
+        <span style={{ width: '100%' }} className="placeholder" />
+        <span style={{ width: '40%' }} className="placeholder" />
+      </a>
+      <div className="it-card-body flex-grow-1">
+        <p className="it-card-text line-clamp-3 placeholder-glow mt-1">
+          <span style={{ width: '100%' }} className="placeholder d-block mb-2" />
+          <span style={{ width: '90%' }} className="placeholder d-block mb-2" />
+          <span style={{ width: '80%' }} className="placeholder d-block" />
+        </p>
+      </div>
+      <footer className="it-card-related it-card-footer">
+        <small className="it-card-taxonomy">
+          <a className="it-card-link text-primary text-uppercase fw-semibold placeholder-glow">
+            <span style={{ width: 110 }} className="placeholder mb-2" />
+          </a>
+        </small>
+      </footer>
+    </article>
+  )
+}

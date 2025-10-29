@@ -33,6 +33,7 @@ export const ui = {
   it: {
     'actions.search': 'Cerca',
     'actions.copyUrl': 'Copia URL',
+    'actions.copied': 'Copiato!',
     'actions.learnMore': 'Scopri di più',
     'actions.submit': 'Invia',
 
@@ -107,6 +108,7 @@ export const ui = {
   en: {
     'actions.search': 'Search',
     'actions.copyUrl': 'Copy URL',
+    'actions.copied': 'Copied!',
     'actions.learnMore': 'Learn more',
     'actions.submit': 'Submit',
 

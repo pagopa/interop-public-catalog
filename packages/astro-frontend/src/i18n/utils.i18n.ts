@@ -22,20 +22,23 @@ export function getLangFromUrl(url: string): SupportedLanguage {
 export function switchLang({
   fromLang,
   toLang,
-  currentPath,
+  currentRoutePattern,
+  currentParams,
 }: {
   fromLang: SupportedLanguage
   toLang: SupportedLanguage
-  currentPath: string
+  currentRoutePattern: string
+  currentParams: Record<string, string | undefined>
 }): string {
   const currentRouteKey = (Object.keys(ROUTES) as RouteKey[]).find(
-    (r) => `/${fromLang}${ROUTES[r][fromLang]}` === currentPath
+    (r) => `/${fromLang}${ROUTES[r][fromLang]}` === currentRoutePattern
   )
+
   if (!currentRouteKey) {
     return getLocalizedRoute(toLang, 'HOME')
   }
 
-  return getLocalizedRoute(toLang, currentRouteKey)
+  return getLocalizedRoute(toLang, currentRouteKey, { params: currentParams } as never)
 }
 
 /**
@@ -82,7 +85,7 @@ export function getLocalizedRoute<
 
   if (config[0]?.params) {
     for (const [key, value] of Object.entries(config[0].params)) {
-      route = route.replace(`:${key}`, value)
+      route = route.replace(`[${key}]`, value)
     }
   }
 

@@ -33,14 +33,11 @@ type SourceResolution =
       extension: string
     }
 
-const toNormalizedSlug = (segment: string): string =>
-  segment.startsWith(':') ? `[${segment.slice(1)}]` : segment
-
 const normalizeRoutePath = (routePath: string): string => {
   const trimmed = routePath.replace(/^\//, '').replace(/\/$/, '')
   if (!trimmed) return ''
 
-  return trimmed.split('/').filter(Boolean).map(toNormalizedSlug).join('/')
+  return trimmed.split('/').filter(Boolean).join('/')
 }
 
 const resolveSource = (

@@ -32,7 +32,6 @@ export const initTooltip = (
 ) => {
   try {
     return new Tooltip(el, {
-      trigger: 'hover focus',
       ...overrides,
     })
   } catch (error) {
