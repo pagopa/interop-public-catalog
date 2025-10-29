@@ -70,7 +70,7 @@ const Filters: React.FC<FiltersProps> = ({
   return (
     <Form>
       <Row>
-        <Col lg="3">
+        <Col className="pe-1" lg="3">
           <FormGroup className="input-filter-key">
             <Input
               hasIconLeft
@@ -93,7 +93,7 @@ const Filters: React.FC<FiltersProps> = ({
             />
           </FormGroup>
         </Col>
-        <Col lg="3">
+        <Col lg="3" className="pe-1">
           <MultipleAutoComplete
             label={t('filters.provider.label')}
             options={producerList}
@@ -116,7 +116,7 @@ const Filters: React.FC<FiltersProps> = ({
         )}
       </Row>
       <Row>
-        <Col lg="3">
+        <Col lg="3" className="pe-1">
           <FormGroup>
             <MultipleAutoComplete
               label={t('filters.consumer.label')}

@@ -486,3 +486,7 @@ a.list-item:hover {
 .filters-modal .filters-modal-footer {
   border-top: 1px solid #bfdfff;
 }
+
+.text-description-secondary {
+  color: #2F475E !important;
+}

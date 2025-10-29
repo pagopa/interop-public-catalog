@@ -40,7 +40,7 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({ eservices, 
   if (eservices.length <= 0) return <EServiceNoItems />
 
   return (
-    <Container className="py-5">
+    <Container className="py-4 px-sm-3">
       <div className="d-flex justify-content-between align-items-center">
         <div className="d-flex">
           {totalCount > 0 && (
