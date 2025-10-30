@@ -1,6 +1,10 @@
 import type { SupportedLanguage } from '../i18n/types.i18n.js'
 import { getLocalizedRoute } from '../i18n/utils.i18n.js'
 
+// This check sucks, we should have this info from env vars
+export const isDevEnvironment = (url: URL) =>
+  import.meta.env.DEV || url.href.includes('.dev.interop')
+
 export const links = {
   dtdLink: 'http://innovazione.gov.it/',
   pagoPaLink: 'https://www.pagopa.it/it/',
