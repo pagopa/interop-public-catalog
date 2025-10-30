@@ -3,13 +3,13 @@ import React, { useEffect } from 'react'
 import { type FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
 import { FiltersChips } from './FiltersChips.js'
 import { Popover } from 'bootstrap-italia'
-import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { FiltersMobile } from './FiltersMobile.jsx'
 import Filters from './Filters.jsx'
 import { useIsMobile } from '../../hooks/useIsMobile.jsx'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
 import type { CatalogFilterParams } from './types.js'
+import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 
 export type EServiceCatalogFiltersParams = {
   q?: string
@@ -22,10 +22,13 @@ export type EServiceCatalogFilterKeys = keyof EServiceCatalogFiltersParams
 
 type EServiceCatalogFiltersProps = {
   handleSubmitRequest: () => void
+  currentLocale: SupportedLanguage
 }
-const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({ handleSubmitRequest }) => {
-  const currentLanguage = getLangFromUrl(window.location.pathname)
-  const t = useCatalogTranslations(currentLanguage)
+const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
+  handleSubmitRequest,
+  currentLocale,
+}) => {
+  const t = useCatalogTranslations(currentLocale)
   const [isModalOpen, setIsModalOpen] = React.useState(false)
   const isMobile = useIsMobile()
 
@@ -76,6 +79,7 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({ handleS
           handleDraftFilterValueChange={handleDraftFilterValueChange}
           isMobile={false}
           onSubmit={onSubmit}
+          currentLocale={currentLocale}
         />
       ) : (
         <FiltersMobile onSubmit={onSubmit} isOpen={isModalOpen} toggleModal={setIsModalOpen}>
@@ -83,6 +87,7 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({ handleS
             handleActiveFilterValueChange={handleActiveFilterValueChange}
             handleDraftFilterValueChange={handleDraftFilterValueChange}
             isMobile={true}
+            currentLocale={currentLocale}
           />
         </FiltersMobile>
       )}
@@ -91,6 +96,7 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({ handleS
         handleRemoveValue={handleRemoveFilterValue}
         filters={eserviceActiveFilterState}
         handleRemoveAll={handleRemoveAllActiveFilterValues}
+        currentLocale={currentLocale}
       ></FiltersChips>
     </>
   )

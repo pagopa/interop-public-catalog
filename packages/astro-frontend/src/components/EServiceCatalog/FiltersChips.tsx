@@ -1,8 +1,8 @@
 import { Button, Chip as DRKChip, ChipLabel, Icon } from 'design-react-kit'
 import type { FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
-import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 import type { CatalogFilterParams } from './types.js'
+import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 
 type FiltersChipsProps = {
   label?: string
@@ -12,6 +12,7 @@ type FiltersChipsProps = {
     value: string | FilterAutoCompleteValue
   ) => void
   handleRemoveAll: () => void
+  currentLocale: SupportedLanguage
 }
 
 const Chip: React.FC<{ key: string; label: string; handleRemoveValue?: () => void }> = ({
@@ -32,9 +33,9 @@ export const FiltersChips: React.FC<FiltersChipsProps> = ({
   filters,
   handleRemoveValue,
   handleRemoveAll,
+  currentLocale,
 }) => {
-  const currentLanguage = getLangFromUrl(window.location.pathname)
-  const t = useCatalogTranslations(currentLanguage)
+  const t = useCatalogTranslations(currentLocale)
 
   // Todo to improve this condition
   if (filters.consumer.length <= 0 && filters.provider.length <= 0 && filters.q === '') return null

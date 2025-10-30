@@ -2,9 +2,9 @@ import Autocomplete from '@mui/material/Autocomplete'
 import { FormGroup, Icon, Input } from 'design-react-kit'
 import './MultiSelectChips.css'
 import React from 'react'
-import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
+import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 
 export type FilterAutoCompleteValue = {
   label: string
@@ -17,6 +17,7 @@ type MultipleAutoCompleteProps = {
   tooltipIconRender?: React.ReactNode
   handleValuesChange: (values: FilterAutoCompleteValue[]) => void
   onTextInputChange: (text: string) => void
+  currentLocale: SupportedLanguage
 }
 
 export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
@@ -26,10 +27,10 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
   values,
   tooltipIconRender,
   onTextInputChange,
+  currentLocale,
 }) => {
-  const currentLanguage = getLangFromUrl(window.location.pathname)
-  const t = useCatalogTranslations(currentLanguage)
-  const tUi = useUiTranslations(currentLanguage)
+  const t = useCatalogTranslations(currentLocale)
+  const tUi = useUiTranslations(currentLocale)
 
   const handleChange = (_event: React.SyntheticEvent, values: FilterAutoCompleteValue[]) => {
     handleValuesChange(values)
