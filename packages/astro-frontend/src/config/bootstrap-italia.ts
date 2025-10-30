@@ -17,7 +17,7 @@ export const initPopover = (
 ) => {
   try {
     return new Popover(el, {
-      trigger: 'click',
+      trigger: 'focus',
       ...overrides,
     })
   } catch (error) {
