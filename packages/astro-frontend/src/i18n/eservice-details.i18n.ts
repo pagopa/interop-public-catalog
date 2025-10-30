@@ -80,25 +80,25 @@ export const eserviceDetails = {
     'description_section.title': 'Description',
 
     'api_details_section.title': 'API details',
-    'api_details_section.api_state_label': 'API state',
+    'api_details_section.api_state_label': 'API status',
     'api_details_section.api_state_active': 'Active',
     'api_details_section.api_state_suspended': 'Suspended',
     'api_details_section.creation_date_label': 'Creation date',
-    'api_details_section.last_update_date_label': 'Last update date',
-    'api_details_section.delegation_label': 'Use by delegation',
-    'api_details_section.delegation_tooltip.title': 'Use by delegation',
+    'api_details_section.last_update_date_label': 'Last modified date',
+    'api_details_section.delegation_label': 'Delegated access',
+    'api_details_section.delegation_tooltip.title': 'Delegated access',
     'api_details_section.delegation_tooltip.content':
-      'If available, you can delegate another PA to submit the API usage request on your behalf.',
-    'api_details_section.agreements_label': 'Automatic acceptance of agreements',
+      'If available, you can delegate another Public body to submit the API usage request on your behalf.',
+    'api_details_section.agreements_label': 'Automatic acceptance of usage requests',
     'api_details_section.agreements_tooltip.title': 'Automatic acceptance',
     'api_details_section.agreements_tooltip.content':
-      'If available, your request will be automatically accepted without having to wait for approval times.',
-    'api_details_section.risk_analysis_template_label': 'Risk analysis simplified compilation',
-    'api_details_section.risk_analysis_template_tooltip.title': 'Simplified compilation',
+      'If available, your usage request will be automatically accepted without having to wait for approval times.',
+    'api_details_section.risk_analysis_template_label': 'Assisted completion of risk analysis',
+    'api_details_section.risk_analysis_template_tooltip.title': 'Assisted completion',
     'api_details_section.risk_analysis_template_tooltip.content':
       'If available, you can complete the risk analysis using a pre-filled template.',
 
-    'tech_specification_section.title': 'Technical specifications',
+    'tech_specification_section.title': 'Technical details',
     'tech_specification_section.current_version': 'Current version',
     'tech_specification_section.technology': 'Technology',
     'tech_specification_section.delivery_mode': 'Data sending mode',
@@ -113,34 +113,34 @@ export const eserviceDetails = {
     'attributes_section.certified_group.title': 'Certified attribute',
     'attributes_section.certified_group_tooltip.title': 'Certified attribute',
     'attributes_section.certified_group_tooltip.content':
-      'These are attributes certified by a recognized authoritative source.',
+      'These are attributes certified by a recognised authoritative source.',
     'attributes_section.verified_group.title': 'Verified attribute',
     'attributes_section.verified_group_tooltip.title': 'Verified attribute',
     'attributes_section.verified_group_tooltip.content':
-      'These are attributes that have already been verified by other entities for the same user. The provider, if necessary, can request a new verification.',
+      'These are attributes already verified by other public bodies for the same consumer. The provider may still request a new verification if necessary.',
     'attributes_section.declared_group.title': 'Declared attribute',
     'attributes_section.declared_group_tooltip.title': 'Declared attribute',
     'attributes_section.declared_group_tooltip.content':
-      'These are attributes declared directly by the user, who assumes responsibility for them without validation by third parties.',
+      'These are attributes declared directly by the consumer, who takes responsibility for them without validation by third parties.',
     'attributes_section.group_description':
-      'To meet this requirement, you must possess at least one of the attributes in the group.',
+      'If available, the service notifies you when the data linked to this API are updated.',
     'attributes_section.group.or': 'or',
 
     'documentation_section.title': 'Documentation and contacts',
     'documentation_section.access_required': 'To access the documentation you must authenticate.',
-    'documentation_section.access_link': 'Access to PDND',
+    'documentation_section.access_link': 'Access PDND',
 
     'implementation_section.title': 'Do you want to implement this API?',
-    'implementation_section.authentication_link': 'Authenticate on PDND',
+    'implementation_section.authentication_link': 'Sign in to PDND',
 
-    'featured_api.title': 'Other APIs provided by this organization',
-    'featured_api.explore_catalog': 'Explore the catalog',
+    'featured_api.title': 'Other APIs provided by this entity',
+    'featured_api.explore_catalog': 'Browse the catalogue',
     'signalhub.tooltip.title': 'SIGNAL HUB',
     'signalhub.tooltip.content':
-      'If available, the service notifies you when the data linked to this API changes.',
-    'stateapi.tooltip.title': 'API STATE',
+      'If available, the service notifies you when the data linked to this API are updated.',
+    'stateapi.tooltip.title': 'API STATUS',
     'stateapi.tooltip.content':
-      'Indicates the service status on PDND. It can be Active or Suspended.',
+      'Indicates the status of the service on PDND. It can be either Active or Suspended.',
   },
 } as const satisfies TranslationsMap
 

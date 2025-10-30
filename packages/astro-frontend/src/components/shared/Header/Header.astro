@@ -28,9 +28,12 @@ const topNavNavItems = [
             {/* Top Navbar */}
             <span class="navbar-brand">
               <a target="_blank" class="text-decoration-underline" href={links.dtdLink}
-                ><span class="d-none d-md-inline">Dipartimento per la trasformazione digitale</span
-                ><span class="d-md-none d-inline">DTD</span></a
-              > e <a target="_blank" class="text-decoration-underline" href={links.pagoPaLink}
+                ><span class="d-none d-md-inline">{tUi('header.top_nav.DTD')}</span><span
+                  class="d-md-none d-inline">DTD</span
+                ></a
+              >
+              {tUi('header.top_nav.and')}
+              <a target="_blank" class="text-decoration-underline" href={links.pagoPaLink}
                 >PagoPA S.p.A.</a
               >
             </span>
@@ -39,7 +42,9 @@ const topNavNavItems = [
                 <div class="link-list-wrapper collapse">
                   <ul class="link-list">
                     <li>
-                      <a class="list-item fw-semibold text-decoration-none">Altri cataloghi:</a>
+                      <a class="list-item fw-semibold text-decoration-none"
+                        >{tUi('header.top_nav.other_catalogues')}:</a
+                      >
                     </li>
                     {
                       topNavNavItems.map((item) => (

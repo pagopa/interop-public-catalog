@@ -4,10 +4,11 @@ import PageIndexNav from '../../components/shared/PageIndexNav.astro'
 import { Section } from '../../components/shared/Section'
 import Layout from '../../layouts/Layout.astro'
 import { match } from 'ts-pattern'
-import { renderRichTextStrapiNodes, type StrapiNode } from '../../utils/rich-text-strapi-renderer'
+import { renderRichTextStrapiNodes } from '../../utils/rich-text-strapi-renderer'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
 import { useUiTranslations } from '../../i18n/ui.i18n'
 import { BootstrapItaliaIcon } from '../../components/shared/BootstrapItaliaIcon'
+import type { StrapiNode } from 'pagopa-interop-public-models'
 
 const data = {
   data: [
@@ -144,12 +145,7 @@ const tUi = useUiTranslations(currentLocale)
   <Section style={{ backgroundColor: '#f5f5f5' }}>
     <div class="row">
       <div class="d-none d-md-block col-3">
-        <PageIndexNav
-          title="Indice della pagina"
-          headings={sectionTitles}
-          style="top: 1rem;"
-          class="position-sticky"
-        />
+        <PageIndexNav headings={sectionTitles} style="top: 1rem;" class="position-sticky" />
       </div>
 
       <div class="col-12 col-md-9">

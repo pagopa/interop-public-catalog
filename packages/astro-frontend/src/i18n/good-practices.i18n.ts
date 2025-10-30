@@ -7,9 +7,7 @@ const goodPracticesTranslations = {
     'catalog.subtitle':
       'Lasciati ispirare da una raccolta di esempi significativi e semplici di come integrare servizi per il tuo ente e i cittadini',
 
-    'details.hero.title': 'Erogare bonus ai cittadini in modo equo ed efficiente',
     'details.moreExamples': 'Altri esempi pratici',
-    'details.figure.caption': 'Esempio illustrativo',
     'details.lastUpdate': 'Ultimo aggiornamento:',
 
     'details.section.apis.heading': 'API utilizzate',
@@ -19,14 +17,12 @@ const goodPracticesTranslations = {
     'details.section.apis.show_more_button_label': 'Mostra di più',
   },
   en: {
-    'catalog.title': 'Practical examples of API Usage for your Entity',
+    'catalog.title': 'Use cases for your Public body',
     'catalog.subtitle':
-      'Get inspired by a collection of significant and simple examples of how to integrate services for your entity and citizens.',
+      'Discover how to integrate APIs into your public body’s processes and get inspired by meaningful, easy-to-replicate use cases featured in this ever-evolving collection.',
 
-    'details.hero.title': 'Delivering bonuses to citizens fairly and efficiently',
-    'details.moreExamples': 'Other practical examples',
-    'details.figure.caption': 'Illustrative example',
-    'details.lastUpdate': 'Last update:',
+    'details.moreExamples': 'Other Use Cases',
+    'details.lastUpdate': 'Last updated:',
 
     'details.section.apis.heading': 'APIs used',
     'details.section.apis.description': 'Description',

@@ -494,3 +494,7 @@ a.list-item:hover {
 .text-description-secondary {
   color: #2f475e !important;
 }
+
+.bg-dark {
+  background-color: #2f475e !important;
+}

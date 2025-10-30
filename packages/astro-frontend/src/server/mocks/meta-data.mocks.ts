@@ -204,11 +204,11 @@ const goodPracticesMockDataEn: MetaDataType = {
 }
 
 const legalNotesMockDataEn: MetaDataType = {
-  title: 'Legal notes | Public Administration API Catalogue',
+  title: 'Legal notice | Public Administration API Catalogue',
   locale: 'en',
   seo: {
     canonical: `${SITE_URL}/en/legal-notes`,
-    metaTitle: 'Legal notes | Public Administration API Catalogue',
+    metaTitle: 'Legal notice | Public Administration API Catalogue',
     metaDescription:
       'The official portal for Public Administration data interoperability. Access certified data using the National Digital Data Platform (PDND).',
   },
