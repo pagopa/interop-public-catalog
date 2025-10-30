@@ -92,7 +92,7 @@ export const EService = z.object({
   description: z.string(),
   technology: Technology,
   attributes: EServiceAttributes.nullable().optional(), //legacy
-  active_descriptor: Descriptor,
+  active_descriptor: Descriptor.optional(),
   created_at: z.coerce.date(),
   mode: EServiceMode,
   is_signal_hub_enabled: z.boolean().nullable().optional(),
