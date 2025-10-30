@@ -3,9 +3,9 @@ import { buildUseTranslations } from './utils.i18n.js'
 
 export const homepage = {
   it: {
-    title: 'Catalogo delle API della Pubblica Amministrazione',
+    title: 'Esplora le API della Pubblica Amministrazione',
     subtitle:
-      "Il portale ufficiale per l'interoperabilità dei dati della Pubblica Amministrazione. Accedi ai dati utilizzando la Piattaforma Digitale Nazionale Dati (PDND).",
+      'Cerca nel catalogo, accedi ai dati tramite la Piattaforma Digitale Nazionale Dati (PDND) e crea servizi innovativi per il tuo ente e per le persone.',
     search_placeholder: 'Cerca nel catalogo per parola chiave',
     info_link: 'Che cosa sono le API?',
     scroll_hint: 'Scorri per scoprire di più',
@@ -22,7 +22,7 @@ export const homepage = {
 
     'how_it_works.step_2.title': "2. Richiedi l'accesso ai dati",
     'how_it_works.step_2.description':
-      'Alcuni dati sono aperti, per altri è necessaria un’autorizzazione. Puoi ottenerla attraverso la piattaforma PDND.',
+      'Per accedere ai dati è necessaria un’autorizzazione: puoi ottenerla attraverso la piattaforma PDND.',
     'how_it_works.step_2.link': 'Vai alla piattaforma PDND',
 
     'how_it_works.step_3.title': '3. Realizza i tuoi servizi',
@@ -32,7 +32,7 @@ export const homepage = {
 
     'good_practices.title': 'Lasciati ispirare dagli esempi pratici per il tuo ente',
     'good_practices.description':
-      "Una raccolta di esempi significativi e facili da replicare di come l'interoperabilità può semplificare i processi della Pubblica Amministrazione.",
+      'Scopri come integrare le API nei processi del tuo ente: lasciati ispirare da una raccolta di esempi significativi e semplici da replicare',
     'good_practices.target.pa_centrali': 'PA Centrali',
     'good_practices.target.regioni': 'Regioni',
     'good_practices.target.comuni': 'Comuni',
@@ -52,52 +52,52 @@ export const homepage = {
     'suggestion_section.right_card.button_label': 'Consulta il manuale',
   },
   en: {
-    title: 'Public Administration API Catalogue',
+    title: 'Explore the Public Administration API',
     subtitle:
-      'The official portal for Public Administration data interoperability. Access certified data using the National Digital Data Platform (PDND).',
-    search_placeholder: 'Search the catalog by keyword',
+      'Search the catalogue, access data through the National Digital Data Platform (PDND), and create innovative services for your organization and citizens.',
+    search_placeholder: 'Search the catalogue by keyword',
     info_link: 'What are APIs?',
-    scroll_hint: 'Scroll to find out more',
-    'api_info.title': 'What APIs are',
+    scroll_hint: 'Scroll to learn more',
+    'api_info.title': 'WHAT ARE API?',
     'api_info.content':
-      'APIs (Application Programming Interfaces) are digital tools that allow organizations to communicate, i.e., to exchange data in a secure and automated way.',
+      'API (Application Programming Interfaces) are digital tools that enable public entities to communicate and exchange data securely and automatically.',
 
     'how_it_works.title': 'How it works',
-    'how_it_works.step_1.title': '1. Search for APIs in the catalog',
+    'how_it_works.step_1.title': '1. Search for APIs in the catalogue',
     'how_it_works.step_1.description':
-      'Search the catalog for the APIs you need to integrate the services of the organization you work for.',
-    'how_it_works.step_1.link': 'Explore the catalog',
+      'Find in the catalogue the APIs needed to integrate your organization’s services.',
+    'how_it_works.step_1.link': 'Explore the catalogue',
 
-    'how_it_works.step_2.title': '2. Request access to data',
+    'how_it_works.step_2.title': '2. Request data access',
     'how_it_works.step_2.description':
-      'Some data is open, others require authorization. You can obtain it through the PDND platform.',
-    'how_it_works.step_2.link': 'Go to the PDND platform',
+      'To access data, authorization is required: you can get it through the PDND platform.',
+    'how_it_works.step_2.link': 'Visit the PDND platform',
 
-    'how_it_works.step_3.title': '3. Create your services',
+    'how_it_works.step_3.title': '3. Build your services',
     'how_it_works.step_3.description':
-      'Once you have access to the data, you can build your services. Get inspired by practical examples of use.',
-    'how_it_works.step_3.link': 'See examples',
+      'Once you have data access, you can build your own services. Get inspired by practical usage examples.',
+    'how_it_works.step_3.link': 'Explore the use cases',
 
     'good_practices.title': 'Get inspired by practical examples for your organization',
     'good_practices.description':
-      'A collection of meaningful and easily replicable examples of how interoperability can simplify Public Administration processes.',
-    'good_practices.target.pa_centrali': 'Central Public Administrations',
+      'Learn how to integrate APIs into your organization’s processes: find inspiration in a set of meaningful and easy-to-replicate examples.',
+    'good_practices.target.pa_centrali': 'Central government administrations',
     'good_practices.target.regioni': 'Regions',
     'good_practices.target.comuni': 'Municipalities',
-    'good_practices.target.view_all': 'View All',
-    'good_practices.footer_cta': 'Explore all examples',
+    'good_practices.target.view_all': 'View all',
+    'good_practices.footer_cta': 'View all use cases',
 
     'featured_api.title': 'Featured APIs',
-    'featured_api.explore_catalog': 'Explore the catalog',
+    'featured_api.explore_catalog': 'Explore the catalogue',
 
-    'suggestion_section.left_card.title': 'Get access to data',
+    'suggestion_section.left_card.title': 'Get data access',
     'suggestion_section.left_card.description':
-      'Joining PDND is simple and fast, you will need to sign and submit an adhesion agreement.',
+      'Joining PDND is simple and fast: you’ll just need to sign and submit an agreement.',
     'suggestion_section.left_card.button_label': 'Join PDND',
-    'suggestion_section.right_card.title': 'Consult the operational manual',
+    'suggestion_section.right_card.title': 'Consult the user manual',
     'suggestion_section.right_card.description':
-      'Read the manual and find out how to integrate your organization with the PDND platform.',
-    'suggestion_section.right_card.button_label': 'View the manual',
+      'Read the manual and learn how to connect your organization to the PDND platform.',
+    'suggestion_section.right_card.button_label': 'Read the manual',
   },
 } as const satisfies TranslationsMap
 

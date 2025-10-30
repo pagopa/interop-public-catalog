@@ -60,7 +60,7 @@ const accessPoints = [
     <div class="d-flex flex-column flex-lg-row gap-4 gap-lg-3">
       {
         accessPoints.map((accessPoint) => (
-          <article class="it-card rounded shadow-sm align-items-start">
+          <article class="it-card rounded shadow-sm align-items-start p-1">
             <h3 class="h5 it-card-title text-primary">{accessPoint.title}</h3>
             <div class="it-card-body text-start">
               <p class="it-card-text">{accessPoint.subtitle}</p>
@@ -73,10 +73,15 @@ const accessPoints = [
                   href={accessPoint.href}
                   target="_blank"
                   rel="noreferrer noopener"
-                  class="it-card-link text-primary text-decoration-none fw-bold"
+                  class="it-card-link text-primary text-decoration-none fw-semibold"
                 >
                   {t('access_points_section.actions.go_to_site')}
-                  <BootstrapItaliaIcon name="it-external-link" size="sm" color="primary" />
+                  <BootstrapItaliaIcon
+                    className="ms-1 mb-1"
+                    name="it-external-link"
+                    size="sm"
+                    color="primary"
+                  />
                 </a>
               </div>
             </footer>

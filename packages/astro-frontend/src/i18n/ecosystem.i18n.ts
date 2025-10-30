@@ -31,7 +31,7 @@ export const ecosystem = {
 
     'access_points_section.access_point_1.title': 'PDND Interoperabilità',
     'access_points_section.access_point_1.subtitle':
-      'Piattaforma per lo scambio sicuro di dati tra PA.',
+      'Piattaforma per lo scambio sicuro di dati tra enti.',
     'access_points_section.access_point_1.description':
       "Offre un'infrastruttura unica che consente alle amministrazioni di connettersi tramite API e condividere informazioni in modo standardizzato e sicuro.",
 
@@ -56,7 +56,8 @@ export const ecosystem = {
     'access_points_section.actions.go_to_site': 'Vai al sito',
 
     'interoperabily_types.title': 'I livelli di interoperabilità',
-    'interoperabily_types.subtitle_link': "L'European interoperability framework",
+    'interoperabily_types.subtitle_the': "L'",
+    'interoperabily_types.subtitle_link': 'European interoperability framework',
     'interoperabily_types.subtitle':
       'definisce 4 tipi di interoperabilità che insieme concorrono alla sua attuazione. Queste sono le dimensioni da considerare nei paesi europei per progettare e valutare i servizi pubblici digitali.',
 
@@ -93,80 +94,81 @@ export const ecosystem = {
   en: {
     title: 'What is interoperability',
     subtitle:
-      'Interoperability in Public Administration is the ability of institutions and their systems to share data in a secure, standardised and transparent way. In Italy, this capability is enabled by the National Digital Data Platform (PDND) and by an ecosystem of supporting tools.',
+      'The interoperability of the Public Administration is the ability of public bodies and their systems to share data securely, in a standardised and transparent way. In the Italian context, this system is enabled by the National Digital Data Platform (PDND) and supported by an ecosystem of complementary tools.',
 
     'ecosystem.characteristic_1.label': '“Once only” principle',
     'ecosystem.characteristic_1.description':
-      'People no longer need to provide information that has already been shared with Public Administration.',
+      'People no longer need to provide information already shared with the Public Administration.',
 
     'ecosystem.characteristic_2.label': 'Simpler, more efficient services',
     'ecosystem.characteristic_2.description':
-      'Administrations streamline processes, cutting red tape and making services more efficient.',
+      'Public bodies simplify processes by reducing bureaucracy and making services more efficient.',
 
     'ecosystem.characteristic_3.label': 'Source-certified data',
     'ecosystem.characteristic_3.description':
-      'Administrations ensure data quality thanks to digitised databases that are updated in real time.',
+      'Guaranteed data quality through digitalised databases and real-time updates.',
 
-    'ecosystem.characteristic_4.label': 'Secure data exchange',
+    'ecosystem.characteristic_4.label': 'Data exchange security',
     'ecosystem.characteristic_4.description':
-      'PDND authorises data exchanges securely and with respect for data ownership.',
+      'The PDND authorises data exchanges in a secure, standardised manner, ensuring data ownership.',
 
-    'access_points_section.title': 'Tools for interoperability',
+    'access_points_section.title': 'Resources for Interoperability',
     'access_points_section.subtitle':
-      'To achieve interoperability, administrations connect to a network of tools, portals and digital resources that support data exchange. Discover the main access points that make integration possible.',
+      'To achieve interoperability, public administrations connect to a network of tools, portals and digital resources that enable data exchange. Discover the main access points that make system integration possible.',
 
     'access_points_section.what_is_it_for': 'Purpose',
 
-    'access_points_section.access_point_1.title': 'PDND Interoperabilità',
+    'access_points_section.access_point_1.title': 'PDND Interoperability',
     'access_points_section.access_point_1.subtitle':
-      'Platform for secure data sharing between PAs.',
+      'A platform for the secure exchange of data between public bodies.',
     'access_points_section.access_point_1.description':
-      'Provides a single infrastructure that allows administrations to connect via APIs and exchange information in a standardised and secure manner.',
+      'It provides a single infrastructure that enables public administrations to connect through APIs and share information in a standardised and secure way.',
 
     'access_points_section.access_point_2.title': 'Interoperable Europe',
     'access_points_section.access_point_2.subtitle':
       'Set of rules and tools for European interoperability.',
     'access_points_section.access_point_2.description':
-      'Promotes cross-border cooperation and ensures that public digital services can interact across Europe.',
+      'It promotes cross-border cooperation and ensures that public digital services can interoperate across Europe.',
 
     'access_points_section.access_point_3.title': 'schema.gov.it',
     'access_points_section.access_point_3.subtitle':
-      'Catalogue for the semantic interoperability of data.',
+      'Supporting the semantic interoperability of public data',
     'access_points_section.access_point_3.description':
-      'Allows data to be described consistently so it can be easily understood and exchanged among different administrations.',
+      'It enables data to be described in a standardised and consistent way, making them easier to understand and share across public bodies.',
 
     'access_points_section.access_point_4.title': 'dati.gov.it',
     'access_points_section.access_point_4.subtitle':
-      'Catalogue of open datasets from Public Administrations.',
+      'Catalogue of open datasets from Italian Public bodies.',
     'access_points_section.access_point_4.description':
-      'Promotes transparency and encourages the reuse of open data by citizens, researchers, businesses and institutions.',
+      'It promotes transparency and encourages the reuse of open data by citizens, researchers, businesses and institutions.',
 
-    'access_points_section.actions.go_to_site': 'Visit the site',
+    'access_points_section.actions.go_to_site': 'Visit the website',
 
-    'interoperabily_types.title': 'Interoperability levels',
-    'interoperabily_types.subtitle_link': 'European interoperability framework',
+    'interoperabily_types.title': 'Levels of Interoperability',
+    'interoperabily_types.subtitle_the': 'The ',
+    'interoperabily_types.subtitle_link': 'European Interoperability Framework (EIF)',
     'interoperabily_types.subtitle':
-      'defines four types of interoperability that together enable its implementation. These are the dimensions European countries should consider when designing and evaluating public digital services.',
+      'defines four types of interoperability that together contribute to its implementation. These are the dimensions to be considered by European countries when designing and assessing digital public services.',
 
     'interoperabily_types.type_1.label': 'Technical interoperability',
     'interoperabily_types.type_1.description':
-      'The ability of two IT systems to connect and exchange data using common technical protocols and standards.',
+      'It is the ability of two IT systems to connect and exchange data using common technical standards and protocols.',
 
     'interoperabily_types.type_2.label': 'Organisational interoperability',
     'interoperabily_types.type_2.description':
-      'The alignment of operational processes and responsibilities across organisations so they can collaborate effectively.',
+      'It is the alignment of operational processes and responsibilities among different organisations in order to collaborate effectively.',
 
     'interoperabily_types.type_3.label': 'Semantic interoperability',
     'interoperabily_types.type_3.description':
-      'The ability of systems to understand the meaning of the data they exchange, not merely to transfer it.',
+      'It is the ability of systems to understand the meaning of the data they exchange, not just to transfer it.',
 
     'interoperabily_types.type_4.label': 'Legal interoperability',
     'interoperabily_types.type_4.description':
-      'The harmonisation of laws and regulations that govern information exchange between organisations.',
+      'It is the harmonisation of laws and regulations governing the exchange of information between organisations.',
 
-    'ecosystem_legal_references.title': 'Legal references',
+    'ecosystem_legal_references.title': 'Legal and Regulatory Framework',
     'ecosystem_legal_references.subtitle':
-      'Browse the guidelines and regulations that govern interoperability in the PDND context, in line with the Digital Administration Code (CAD) established by AgID (Agenzia per l’Italia Digitale).',
+      'Discover the legal and regulatory framework that defines interoperability within the PDND, in line with the Digital Administration Code (CAD) established by AgID - the Agency for Digital Italy.',
     'ecosystem_legal_references.button': 'Read the regulations',
 
     'suggestion_section.left_card.title': 'Discover developer resources',

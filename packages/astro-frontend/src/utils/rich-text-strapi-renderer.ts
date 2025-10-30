@@ -1,13 +1,11 @@
-import { match } from 'ts-pattern'
 import type {
-  StrapiHeadingNode,
-  StrapiLinkNode,
-  StrapiListNode,
   StrapiNode,
   StrapiTextNode,
-} from '../types/strapi.types'
-
-export type { StrapiNode } from '../types/strapi.types'
+  StrapiLinkNode,
+  StrapiHeadingNode,
+  StrapiListNode,
+} from 'pagopa-interop-public-models'
+import { match } from 'ts-pattern'
 
 const escapeHtml = (value: string): string =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')

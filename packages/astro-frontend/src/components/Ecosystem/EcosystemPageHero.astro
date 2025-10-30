@@ -1,5 +1,6 @@
 ---
 import { useEcosystemTranslations } from '../../i18n/ecosystem.i18n'
+import type { SupportedLanguage } from '../../i18n/types.i18n'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
 import PageHero from '../shared/PageHero.astro'
 
@@ -12,18 +13,23 @@ const ECOSYSTEM_CHARACTERISTICS = [
     description: t('ecosystem.characteristic_1.description'),
   },
   {
-    label: t('ecosystem.characteristic_2.label'),
-    description: t('ecosystem.characteristic_2.description'),
-  },
-  {
     label: t('ecosystem.characteristic_3.label'),
     description: t('ecosystem.characteristic_3.description'),
+  },
+  {
+    label: t('ecosystem.characteristic_2.label'),
+    description: t('ecosystem.characteristic_2.description'),
   },
   {
     label: t('ecosystem.characteristic_4.label'),
     description: t('ecosystem.characteristic_4.description'),
   },
 ]
+
+const ecosystemPageHeroImgSrc: Record<SupportedLanguage, string> = {
+  it: '/img/ecosystem-it.svg',
+  en: '/img/ecosystem-en.svg',
+}
 ---
 
 <PageHero
@@ -31,7 +37,13 @@ const ECOSYSTEM_CHARACTERISTICS = [
   breadcrumbItems={[{ routeKey: 'HOME' }, { routeKey: 'ECOSYSTEM', current: true }]}
 >
   <div class="d-block d-lg-none" slot="top-hero">
-    <img src="/img/ecosystem.svg" class="img-fluid" width="416" height="525" alt="" />
+    <img
+      src={ecosystemPageHeroImgSrc[currentLocale]}
+      class="img-fluid"
+      width="416"
+      height="525"
+      alt=""
+    />
   </div>
   <div slot="bottom-hero">
     <div class="row">
@@ -57,7 +69,7 @@ const ECOSYSTEM_CHARACTERISTICS = [
       </div>
       <div class="col-12 col-lg-5 position-relative d-none d-lg-block">
         <img
-          src="/img/ecosystem.svg"
+          src={ecosystemPageHeroImgSrc[currentLocale]}
           style="right:0px;"
           class="position-absolute img-fluid bottom-0"
           width="416"

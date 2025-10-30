@@ -17,7 +17,7 @@ const breadcrumbLabels = {
   },
   en: {
     'breadcrumb_label.HOME': 'Home',
-    'breadcrumb_label.ECOSYSTEM': 'About us',
+    'breadcrumb_label.ECOSYSTEM': 'What is interoperability',
     'breadcrumb_label.ESERVICE_CATALOG': 'Explore the catalog',
     'breadcrumb_label.ESERVICE_DETAILS': 'API details',
     'breadcrumb_label.FAQ': 'Frequently asked questions',
@@ -25,7 +25,7 @@ const breadcrumbLabels = {
     'breadcrumb_label.GOOD_PRACTICES_DETAILS': 'Good practice details',
     'breadcrumb_label.LEGISLATION': 'Legislation',
     'breadcrumb_label.PRIVACY_POLICY': 'Privacy policy',
-    'breadcrumb_label.LEGAL_NOTES': 'Legal notes',
+    'breadcrumb_label.LEGAL_NOTES': 'Legal notice',
   },
 } as const satisfies {
   [K in SupportedLanguage]: Record<
@@ -58,6 +58,9 @@ export const ui = {
     'header.brand.tagline': 'Le API della Pubblica Amministrazione',
     'header.nav.toggle': 'Mostra/Nascondi la navigazione',
     'header.nav.hide': 'Nascondi la navigazione',
+    'header.top_nav.DTD': 'Dipartimento per la trasformazione digitale',
+    'header.top_nav.and': 'e',
+    'header.top_nav.other_catalogues': 'Altri cataloghi',
     'header.top_nav.semantic': 'Semantica',
     'header.top_nav.open_data': 'Dati aperti',
 
@@ -67,6 +70,8 @@ export const ui = {
     'footer.nav_section.privacy_policy': 'Privacy policy',
     'footer.nav_section.sitemap': 'Mappa del sito',
     'footer.nav_section.accessibility_statement': 'Dichiarazione di accessibilità',
+
+    'page_index_nav.title': 'Indice della pagina',
 
     'eservice_card.access_reserved': 'Accesso riservato',
     'eservice_card.read_more': 'leggi tutto',
@@ -123,36 +128,42 @@ export const ui = {
     'label.current': 'Current',
     'languageSwitch.selected_lang': 'Selezione lingua: lingua selezionata',
 
-    'brand.title': 'API Catalog',
+    'brand.title': 'API Catalogue',
 
-    'nav.explore_catalog': 'Explore the catalog',
-    'nav.examples': 'Practical examples',
+    'nav.explore_catalog': 'Explore the catalogue',
+    'nav.examples': 'Use cases',
     'nav.what_is': 'What is interoperability',
-    'nav.faq': 'Frequently asked questions',
+    'nav.faq': 'FAQ',
 
-    'header.brand.tagline': 'Public Administration APIs',
+    'header.brand.tagline': 'The Public Administration APIs',
     'header.nav.toggle': 'Show/Hide navigation',
     'header.nav.hide': 'Hide navigation',
+    'header.top_nav.DTD': 'Department for Digital Transformation',
+    'header.top_nav.and': 'and',
+    'header.top_nav.other_catalogues': 'Other catalogues',
     'header.top_nav.semantic': 'Semantic',
     'header.top_nav.open_data': 'Open data',
 
     'footer.nav_section.resources': 'Resources',
     'footer.nav_section.media_policy': 'Media policy',
-    'footer.nav_section.legal_notes': 'Legal notes',
+    'footer.nav_section.legal_notes': 'Legal notice',
     'footer.nav_section.privacy_policy': 'Privacy policy',
-    'footer.nav_section.sitemap': 'Sitemap',
+    'footer.nav_section.sitemap': 'Site map',
     'footer.nav_section.accessibility_statement': 'Accessibility statement',
 
-    'eservice_card.access_reserved': 'Reserved access',
+    'page_index_nav.title': 'Page index',
+
+    'eservice_card.access_reserved': 'Restricted access',
     'eservice_card.read_more': 'Read more',
     'eservice_card.reserved_tooltip': 'The API is available on the PDND platform',
     'eservice_card.open_data_tooltip': 'The API is available as Open Data',
 
     'error.page_not_found.title': 'Page not found',
     'error.page_not_found.message': 'Use the menu to continue browsing.',
-    'error.system_unavailable.title': 'The system is not available right now',
-    'error.system_unavailable.message': 'Sorry for the inconvenience. Please try again later.',
-    'error.back_to_home': 'Back to homepage',
+    'error.system_unavailable.title': 'The system is currently unavailable.',
+    'error.system_unavailable.message':
+      'We apologize for the inconvenience. Please try again later.',
+    'error.back_to_home': 'Go to homepage',
 
     // Organization Types
     'tenant_macrocategory_.tutti_long': 'All entities',
