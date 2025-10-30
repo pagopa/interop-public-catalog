@@ -1374,7 +1374,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
     data: {
       id: 12,
       documentId: 'zflr58yvojfzixgi4ob4jxfq',
-      title: 'Automatic attendance verification: faster access to scholarships',
+      title: 'Automatic attendance verification: faster access to student grants',
       slug: 'verifica-automatica-della-frequenza-accesso-piu-rapido-alle-borse-di-studio',
       publishedDate: '2025-10-17',
       createdAt: '2025-10-16T08:10:56.095Z',
@@ -1416,7 +1416,16 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'As part of policies for the right to education, Regions and other organizations provide scholarships for upper secondary school students to support the purchase of textbooks, tools, and services useful for cultural and educational growth. To ensure correct allocation of benefits, competent structures can use APIs from the ',
+                  text: 'As part of education support policies, Regions and other public bodies provide scholarships to students in upper secondary schools to help cover the cost of textbooks, learning materials, and services that support their educational growth.',
+                },
+              ],
+            },
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'To ensure the correct allocation of benefits, the competent authorities can use the APIs of the ',
                 },
                 {
                   type: 'link',
@@ -1424,13 +1433,27 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'National Education Registry (ANIST)',
+                      text: 'National Education Register (ANIST)',
                     },
                   ],
                 },
                 {
                   type: 'text',
-                  text: ' made available on PDND by the Ministry of Education and Merit (MIM), which enable automatic verification of school attendance.',
+                  text: ',  made available on PDND by the Ministry of Education and Merit (MIM). These APIs enable the automatic verification of school attendance.',
+                },
+              ],
+            },
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'Recommended for:',
+                  italic: true,
+                },
+                {
+                  type: 'text',
+                  text: ' Regions and Autonomous Provinces, Provinces and Metropolitan Cities, Central Government Administration, Municipalities',
                 },
               ],
             },
@@ -1465,7 +1488,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.title',
           id: 4,
-          Text: 'What changes with PDND',
+          Text: 'What’s new with PDND',
         },
         {
           __component: 'buona-pratica.description',
@@ -1476,7 +1499,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'Without integration of the verification process through PDND, families must submit certificates or self-declarations to prove school attendance, with different procedures and long waiting times. With PDND and ANIST APIs, organizations can automatically verify attendance by consulting official Ministry data, making checks faster, standardized, and secure, and accelerating the distribution of contributions.',
+                  text: 'Without PDND integration, families are required to submit certificates or self declarations to prove school attendance, a process that varies by institution and often involves long waiting times. With PDND and the ANIST APIs, public bodies can automatically verify attendance by consulting official data from the Ministry of Education. This makes verification processes faster, standardised, and more secure, and speeds up the distribution of financial support.',
                 },
               ],
             },
@@ -1485,7 +1508,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.title',
           id: 5,
-          Text: 'Benefits for Public Administration',
+          Text: 'Benefits for Public Bodies',
         },
         {
           __component: 'buona-pratica.description',
@@ -1500,12 +1523,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'Reduced bureaucracy',
+                      text: ' Reduction of bureaucracy',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ' by eliminating the need to collect and manage certificates or self-declarations from families, resulting in economic and administrative savings',
+                      text: ', eliminating the need to collect and process certificates or self-declarations from families, resulting in administrative and financial savings',
                     },
                   ],
                 },
@@ -1514,12 +1537,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'Reliable, updated, and trustworthy data',
+                      text: 'Reliable and up-to-date data',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ', thanks to automatic and standardized API access to National Education Registry data',
+                      text: ', thanks to automatic and standardised access via APIs to the National Education Register',
                     },
                   ],
                 },
@@ -1533,7 +1556,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: 'text',
-                      text: ', with faster, uniform, and secure checks to accelerate benefit distribution',
+                      text: ', with faster, consistent, and more secure checks that accelerate the allocation of benefits',
                     },
                   ],
                 },
@@ -1544,7 +1567,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.title',
           id: 6,
-          Text: 'Benefits for citizens',
+          Text: 'Benefits for people',
         },
         {
           __component: 'buona-pratica.description',
@@ -1559,12 +1582,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'Simplification',
+                      text: 'Simplified access',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ' in accessing scholarships, with faster and uniform procedures throughout the territory',
+                      text: ' to scholarships, with faster and more uniform procedures nationwide',
                     },
                   ],
                 },
@@ -1578,7 +1601,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: 'text',
-                      text: ' to obtain or submit school attendance certificates, thanks to automatic verification by administrations',
+                      text: ' to obtain or submit school attendance certificates, thanks to automatic verification by public administrations',
                     },
                   ],
                 },
@@ -1595,7 +1618,16 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'For the 2024/2025 school year, nearly 30,000 Campanian students, out of over 60,000 applications received, received economic support for cultural growth to support their education thanks to the #IoStudio call by the Campania Region. In the past, families were required to submit certificates or self-declarations to prove school attendance, with long waiting times and different procedures from school to school. With the integration between regional systems and PDND, the Campania Region was able to verify school attendance directly from Ministry of Education and Merit data through e-services in the catalog, automatically and without additional steps for citizens. The allocation of scholarships thus became faster, more transparent, and targeted, ensuring that funds reached those who truly deserved them in a timely manner.',
+                  text: 'For the 2024/2025 school year, nearly 30,000 students in the Campania Region, out of more than 60,000 applicants, received financial support for their educational and cultural development through the #IoStudio programme. In the past, families had to provide certificates or self-declarations to prove school attendance, facing lengthy and inconsistent procedures from one school to another.',
+                },
+              ],
+            },
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'Thanks to the integration between the regional systems and PDND, the Campania Region can now verify attendance directly from the Ministry of Education and Merit’s official data, using the available e-services automatically and without additional steps for citizens. This has made the scholarship allocation process faster, more transparent, and better targeted, ensuring that funds are delivered promptly to those who are truly entitled to them.',
                 },
               ],
             },
