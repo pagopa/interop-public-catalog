@@ -11,10 +11,10 @@ const generalMockData: MetaDataType = {
     metaDescription:
       "Il portale ufficiale per l'interoperabilità dei dati della Pubblica Amministrazione. Accedi ai dati utilizzando la Piattaforma Digitale Nazionale Dati (PDND).",
     twitterImage: {
-      url: `/img/twitter_main.svg`,
+      url: `/img/twitter_main.jpg`,
     },
     opengraphImage: {
-      url: `/img/opengraph_main.svg`,
+      url: `/img/opengraph_main.jpg`,
     },
   },
 }
@@ -39,10 +39,10 @@ const ecosystemMockData: MetaDataType = {
     metaDescription:
       'L’interoperabilità dei dati permette agli enti di perseguire il principio di once only. Consulta i vantaggi e gli strumenti a supporto.',
     twitterImage: {
-      url: `/img/twitter_ecosistema.svg`,
+      url: `/img/twitter_ecosistema.jpg`,
     },
     opengraphImage: {
-      url: `/img/opengraph_ecosistema.svg`,
+      url: `/img/opengraph_ecosistema.jpg`,
     },
   },
 }
@@ -156,10 +156,10 @@ const generalMockDataEn: MetaDataType = {
     metaDescription:
       'The official portal for Public Administration data interoperability. Access certified data using the National Digital Data Platform (PDND).',
     twitterImage: {
-      url: `/img/twitter_main.svg`,
+      url: `/img/twitter_main.jpg`,
     },
     opengraphImage: {
-      url: `/img/opengraph_main.svg`,
+      url: `/img/opengraph_main.jpg`,
     },
   },
 }
@@ -184,10 +184,10 @@ const ecosystemMockDataEn: MetaDataType = {
     metaDescription:
       'Data interoperability allows entities to pursue the once-only principle. Consult the benefits and supporting tools available.',
     twitterImage: {
-      url: `/img/twitter_ecosistema.svg`,
+      url: `/img/twitter_ecosistema.jpg`,
     },
     opengraphImage: {
-      url: `/img/opengraph_ecosistema.svg`,
+      url: `/img/opengraph_ecosistema.jpg`,
     },
   },
 }
