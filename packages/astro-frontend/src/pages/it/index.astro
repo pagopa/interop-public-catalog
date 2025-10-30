@@ -8,91 +8,55 @@ import SuggestionSection from '../../components/shared/SuggestionSection.astro'
 import { EService } from '../../../../models/src/types/eservice'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
-import { EServiceId, EServiceTemplateId, TenantId } from '../../../../models/src/brandedIds'
-import { strapiService } from '../../server/services'
-
-//TODO right data
-const highlightedEServices: EService[] = [
-  {
-    id: 'eservice1' as EServiceId,
-    name: 'ANPR',
-    description:
-      "L'Anagrafe Nazionale della Popolazione Residente (ANPR) è il sistema che raccoglie i dati anagrafici di tutti i cittadini italiani.",
-    attributes: {
-      certified: [],
-      declared: [],
-      verified: [],
-    },
-    // producerName: "Nome dell'Ente",
-    producerId: 'tenant1' as TenantId,
-    technology: 'Rest',
-    descriptors: [],
-    createdAt: new Date(),
-    mode: 'Deliver',
-    isSignalHubEnabled: true,
-    isConsumerDelegable: true,
-    isClientAccessDelegable: true,
-    templateId: 'eserviceTemplate1' as EServiceTemplateId,
-  },
-  {
-    id: 'eservice2' as EServiceId,
-    name: 'PagoPA',
-    description:
-      'PagoPA è il sistema di pagamenti elettronici della Pubblica Amministrazione italiana, che consente ai cittadini di effettuare pagamenti in modo semplice e sicuro.',
-    attributes: {
-      certified: [],
-      declared: [],
-      verified: [],
-    },
-    // producerName: "Nome dell'Ente",
-    producerId: 'tenant2' as TenantId,
-    technology: 'Rest',
-    descriptors: [],
-    createdAt: new Date(),
-    mode: 'Deliver',
-    isSignalHubEnabled: true,
-    isConsumerDelegable: true,
-    isClientAccessDelegable: true,
-    templateId: 'eserviceTemplate2' as EServiceTemplateId,
-  },
-  {
-    id: 'eservice3' as EServiceId,
-    name: 'SPIDdnds ndsaj jkdsaknj dsanjk dksnaj kjdnasknj dsadsakdsanjkd sakjndnkjs akjndsaknj dakjsnkj ads',
-    description:
-      "SPID (Sistema Pubblico di Identità Digitale) è il sistema di autenticazione che permette ai cittadini di accedere ai servizi online della Pubblica Amministrazione e dei privati aderenti con un'unica identità digitale.",
-    attributes: {
-      certified: [],
-      declared: [],
-      verified: [],
-    },
-    // producerName: "Nome dell'Ente",
-    producerId: 'tenant3' as TenantId,
-    technology: 'Rest',
-    descriptors: [],
-    createdAt: new Date(),
-    mode: 'Deliver',
-    isSignalHubEnabled: true,
-    isConsumerDelegable: true,
-    isClientAccessDelegable: true,
-    templateId: 'eserviceTemplate3' as EServiceTemplateId,
-  },
-]
+import { sqlService, strapiService } from '../../server/services'
+import { isDevEnvironment } from '../../config/constants'
+import type { GoodPractice } from 'pagopa-interop-public-models'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useHomepageTranslations(currentLocale)
 
-const featuredGoodPracticesStrapiResponse = await strapiService.getGoodPractices(
-  { offset: 0, limit: 4, isFeaturedInHomepage: true },
-  currentLocale
-)
-const featuredGoodPractices = featuredGoodPracticesStrapiResponse.data
+
+const HIGHLIGHTED_ESERVICE_IDS = [
+  // Consultazione Attestazione ISEE (INPS)
+  '843ac013-941a-4afe-8243-e668142e73e6',
+  // ANIST - Accertamento Frequenze (Ministero dell'istruzione e del merito)
+  '463cf9fe-9d72-463e-922d-e200ba45fdae',
+  // C020-servizioAccertamentoResidenza (Ministero dell'Interno)
+  '8fe27f7f-b559-4c51-90b6-a4d6eae4ae01',
+]
+
+/**
+ * In dev environment we show the first 3 eservices from the catalog
+ * since the highlighted ones are not available.
+ */
+const highlightedEServicesPromise: Promise<EService[]> = (async () => {
+  if (isDevEnvironment(Astro.url)) {
+    const response = await sqlService.searchCatalog({ limit: 3, offset: 0 })
+    return response.results
+  } else {
+    const results = await Promise.all(
+      HIGHLIGHTED_ESERVICE_IDS.map((id) => sqlService.getEService(id))
+    )
+    return results.filter((result) => result !== undefined)
+  }
+})()
+
+const featuredGoodPracticesPromise: Promise<GoodPractice[]> = strapiService
+  .getGoodPractices({ offset: 0, limit: 4, isFeaturedInHomepage: true }, currentLocale)
+  .then((response) => response.data)
+
+const [highlightedEServices, featuredGoodPractices] = await Promise.all([
+  highlightedEServicesPromise,
+  featuredGoodPracticesPromise,
+])
+
 ---
 
 <Layout>
   <HomepageHero />
   <HowItWorks />
   <GoodPractices featuredGoodPractices={featuredGoodPractices} />
-  <ApiShowcase title={t('featured_api.title')} highlightedEServices={highlightedEServices} />
+  <ApiShowcase highlightedEServices={highlightedEServices} />
   <SuggestionSection
     leftCard={{
       title: t('suggestion_section.left_card.title'),
