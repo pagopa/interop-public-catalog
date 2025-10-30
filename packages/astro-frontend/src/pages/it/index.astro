@@ -10,6 +10,7 @@ import { getLangFromUrl } from '../../i18n/utils.i18n'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { EServiceId, EServiceTemplateId, TenantId } from '../../../../models/src/brandedIds'
 import { strapiService } from '../../server/services'
+import { links } from '../../config/constants'
 
 //TODO right data
 const highlightedEServices: EService[] = [
@@ -98,7 +99,7 @@ const featuredGoodPractices = featuredGoodPracticesStrapiResponse.data
       title: t('suggestion_section.left_card.title'),
       description: t('suggestion_section.left_card.description'),
       buttonLabel: t('suggestion_section.left_card.button_label'),
-      href: '#',
+      href: links.interopPlatformLink,
       externalLink: true,
       imageSrc: '/img/077-network-primary-color.svg',
     }}
@@ -106,7 +107,7 @@ const featuredGoodPractices = featuredGoodPracticesStrapiResponse.data
       title: t('suggestion_section.right_card.title'),
       description: t('suggestion_section.right_card.description'),
       buttonLabel: t('suggestion_section.right_card.button_label'),
-      href: '#',
+      href: links.interopManualLink,
       externalLink: true,
       imageSrc: '/img/059-data-collection.svg',
     }}

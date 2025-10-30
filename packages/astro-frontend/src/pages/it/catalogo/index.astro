@@ -8,6 +8,7 @@ import { getLangFromUrl } from '../../../i18n/utils.i18n'
 import { EServiceCatalogApp } from '../../../components/EServiceCatalog/EServiceCatalogApp'
 import RatingSection from '../../../components/shared/RatingSection.astro'
 import { Section } from '../../../components/shared/Section'
+import { links } from '../../../config/constants'
 // import { sqlService } from '../../../server/services'
 // import type { EServiceQuery } from 'pagopa-interop-public-models'
 
@@ -71,7 +72,7 @@ const t = useCatalogTranslations(currentLocale)
         title: t('suggestion_section.left_card.title'),
         description: t('suggestion_section.left_card.description'),
         buttonLabel: t('suggestion_section.left_card.button_label'),
-        href: '#',
+        href: links.interopPlatformLink,
         externalLink: true,
         imageSrc: '/img/077-network-primary-color.svg',
       }}
@@ -79,7 +80,7 @@ const t = useCatalogTranslations(currentLocale)
         title: t('suggestion_section.right_card.title'),
         description: t('suggestion_section.right_card.description'),
         buttonLabel: t('suggestion_section.right_card.button_label'),
-        href: '#',
+        href: links.interopNumbersLink,
         externalLink: true,
         imageSrc: '/img/080-growth-graph.svg',
       }}

@@ -1,4 +1,5 @@
 ---
+import { links } from '../../config/constants'
 import { useEcosystemTranslations } from '../../i18n/ecosystem.i18n'
 import { getLangFromUrl } from '../../i18n/utils.i18n'
 import { Section } from '../shared/Section'
@@ -34,7 +35,7 @@ const INTEROPERABILITY_TYPES = [
   <div class="row">
     <div class="col-12 col-lg-8">
       <p class="mb-5">
-        {t('interoperabily_types.subtitle_the')}<a href="#"
+        <a href={links.euInteroperabilityFrameworkLink} target="_blank"
           >{t('interoperabily_types.subtitle_link')}</a
         >
         {t('interoperabily_types.subtitle')}

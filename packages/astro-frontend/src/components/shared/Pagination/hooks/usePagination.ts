@@ -47,13 +47,13 @@ export function usePagination(
         urlParams.delete('offset')
       }
 
-      if (idElementToScrollTo) {
-        console.log('Scrolling to element:', idElementToScrollTo)
-        const element = document.getElementById(idElementToScrollTo)
-        element?.scrollIntoView()
-      }
+      // if (idElementToScrollTo) {
+      //   console.log('Scrolling to element:', idElementToScrollTo)
+      //   const element = document.getElementById(idElementToScrollTo)
+      //   element?.scrollIntoView()
+      // }
 
-      window.history.pushState({}, '', `${window.location.pathname}?${urlParams}`)
+      window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`)
       handleActiveFilterValueChange('offset', newOffset)
     },
     [handleActiveFilterValueChange, limit, idElementToScrollTo]
