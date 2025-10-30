@@ -139,8 +139,13 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
                 children: [
                   {
                     type: 'text',
-                    text: 'Attraverso l’interoperabilità, le pubbliche amministrazioni possono scambiarsi dati in modo sicuro e standardizzato, riducendo i tempi e i costi dei procedimenti, migliorando la qualità dei servizi offerti e semplificando l’esperienza per cittadini e imprese. ',
+                    text: 'Attraverso l’interoperabilità, le pubbliche amministrazioni possono scambiarsi dati in modo sicuro e standardizzato, riducendo i tempi e i costi dei procedimenti, migliorando la qualità dei servizi offerti e semplificando l’esperienza per cittadini e imprese.',
                   },
+                ],
+              },
+              {
+                type: 'paragraph',
+                children: [
                   {
                     type: 'link',
                     url: `${SITE_URL}/it/ecosistema`,
@@ -377,7 +382,7 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
                   },
                   {
                     type: 'text',
-                    text: " e avviene attraverso l'invio del documento di adesione firmato dal legale rappresentante dell’ente. Puoi scoprire di più visitando la",
+                    text: " e avviene attraverso l'invio del documento di adesione firmato dal legale rappresentante dell’ente. Puoi scoprire di più visitando la ",
                   },
                   {
                     type: 'link',
@@ -385,7 +390,7 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
                     children: [
                       {
                         type: 'text',
-                        text: 'la pagina dedicata',
+                        text: 'pagina dedicata',
                       },
                     ],
                   },
@@ -429,7 +434,7 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
                   },
                   {
                     type: 'text',
-                    text: ' in alto a destra, per aprire un ticket e richiedere assistenza. Per segnalare problemi o dare feedback, puoi aprire una segnalazione su',
+                    text: ' in alto a destra, per aprire un ticket e richiedere assistenza. Per segnalare problemi o dare feedback, puoi aprire una segnalazione su ',
                   },
                   {
                     type: 'link',
@@ -494,7 +499,7 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
                 children: [
                   {
                     type: 'text',
-                    text: 'Visita Developers Italia (',
+                    text: 'Visita ',
                   },
                   {
                     type: 'link',
@@ -502,13 +507,13 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
                     children: [
                       {
                         type: 'text',
-                        text: 'https://developers.italia.it/it/interoperabilita',
+                        text: 'Developers Italia',
                       },
                     ],
                   },
                   {
                     type: 'text',
-                    text: ') e scopri strumenti e riferimenti a disposizione per l’ecosistema interoperabilità. Per manuali e risorse di supporto alle integrazioni con PDND, puoi visitare ',
+                    text: ' e scopri strumenti e riferimenti a disposizione per l’ecosistema interoperabilità. Per manuali e risorse di supporto alle integrazioni con PDND, puoi visitare ',
                   },
                   {
                     type: 'link',
@@ -866,7 +871,7 @@ export const faqContentMockedEn: StrapiEntity<FaqContent> = {
                   },
                   {
                     type: 'text',
-                    text: 'paradigm.',
+                    text: ' paradigm.',
                   },
                 ],
               },
@@ -1077,7 +1082,7 @@ export const faqContentMockedEn: StrapiEntity<FaqContent> = {
                 children: [
                   {
                     type: 'text',
-                    text: 'Visit Developers Italia (',
+                    text: 'Visit ',
                   },
                   {
                     type: 'link',
@@ -1085,13 +1090,13 @@ export const faqContentMockedEn: StrapiEntity<FaqContent> = {
                     children: [
                       {
                         type: 'text',
-                        text: 'https://developers.italia.it/it/interoperabilita',
+                        text: 'Developers Italia',
                       },
                     ],
                   },
                   {
                     type: 'text',
-                    text: ') to discover the tools and references available for the interoperability ecosystem. For manuals and resources supporting integrations with PDND, you can visit ',
+                    text: ' to discover the tools and references available for the interoperability ecosystem. For manuals and resources supporting integrations with PDND, you can visit ',
                   },
                   {
                     type: 'link',
