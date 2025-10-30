@@ -13,7 +13,7 @@ export const LocaleQuerySchema = z.object({
 })
 
 const SearchQuerySchema = z.object({
-  q: z.string().trim().max(200).optional(),
+  q: z.string().trim().max(100).optional(),
 })
 
 const commaSeparatedStringToArray = <T extends z.ZodTypeAny>(itemSchema: T) =>

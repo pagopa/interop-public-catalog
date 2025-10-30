@@ -78,6 +78,7 @@ const Filters: React.FC<FiltersProps> = ({
               label={t('filters.q.label')}
               id="completeValidation-name"
               type="text"
+              maxLength={100}
               className="mt-4"
               placeholder={t('filters.q.placeholder')}
               value={eserviceFiltersState.q ?? ''}
