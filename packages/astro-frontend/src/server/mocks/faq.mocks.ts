@@ -31,39 +31,16 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
                 children: [
                   {
                     type: 'text',
-                    text: 'Lorem ipsum dolor sit amet, ',
+                    text: 'Le API (',
                   },
                   {
                     type: 'text',
-                    text: 'consectetur adipiscing elit. Ut sit amet scelerisque',
-                    underline: true,
+                    text: ' Application Programming Interface',
+                    italic: true,
                   },
                   {
                     type: 'text',
-                    text: ' neque, eget aliquet mi. Aenean non ultricies tellus.',
-                  },
-                  {
-                    type: 'text',
-                    text: ' Praesent consequat risus eu quam',
-                    bold: true,
-                  },
-                  {
-                    type: 'text',
-                    text: ' luctus malesuada. Mauris sed nisi nisl. Etiam dapibus, ex vitae sagittis sodales, ipsum justo accumsan magna, nec ',
-                  },
-                  {
-                    type: 'link',
-                    url: 'https://google.com',
-                    children: [
-                      {
-                        type: 'text',
-                        text: 'fermentum',
-                      },
-                    ],
-                  },
-                  {
-                    type: 'text',
-                    text: ' erat lacus in mi. Aenean lectus justo, accumsan vel pulvinar at, pharetra ut tellus. Nam ut nisl vel nibh placerat maximus.',
+                    text: 'o interfacce per la programmazione di applicazioni) sono interfacce digitali che permettono ai sistemi informatici di comunicare tra loro in modo automatizzato. Le API pubblicate nel catalogo della Piattaforma Digitale Nazionale Dati (PDND) permettono agli enti di utilizzare in modo semplice e sicuro i dati messi a disposizione da altri soggetti, integrandoli nei propri sistemi e servizi.',
                   },
                 ],
               },
@@ -71,46 +48,32 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
           },
           {
             id: 12,
-            question: 'Come viene garantita la sicurezza dei dati?',
+            question: 'Qual è la differenza tra API ed e-service?',
             answer: [
               {
                 type: 'paragraph',
                 children: [
                   {
                     type: 'text',
-                    text: 'Lorem ipsum dolor sit amet, ',
+                    text: 'Talvolta, potrai trovare il termine ',
                   },
                   {
                     type: 'text',
-                    text: 'consectetur adipiscing elit. Ut sit amet scelerisque',
-                    underline: true,
+                    text: 'e-service',
+                    italic: true,
                   },
                   {
                     type: 'text',
-                    text: ' neque, eget aliquet mi. Aenean non ultricies tellus.',
+                    text: '.',
                   },
+                ],
+              },
+              {
+                type: 'paragraph',
+                children: [
                   {
                     type: 'text',
-                    text: ' Praesent consequat risus eu quam',
-                    bold: true,
-                  },
-                  {
-                    type: 'text',
-                    text: ' luctus malesuada. Mauris sed nisi nisl. Etiam dapibus, ex vitae sagittis sodales, ipsum justo accumsan magna, nec ',
-                  },
-                  {
-                    type: 'link',
-                    url: 'https://google.com',
-                    children: [
-                      {
-                        type: 'text',
-                        text: 'fermentum',
-                      },
-                    ],
-                  },
-                  {
-                    type: 'text',
-                    text: ' erat lacus in mi. Aenean lectus justo, accumsan vel pulvinar at, pharetra ut tellus. Nam ut nisl vel nibh placerat maximus.',
+                    text: "L’e-service rappresenta il servizio digitale messo a disposizione da un Ente erogatore sul Catalogo della API della PDND (Piattaforma Digitale Nazionale Dati), mentre l'API (Application Programming Interface) costituisce la specifica tecnica che descrive le modalità di interazione con tale servizio.",
                   },
                 ],
               },
@@ -118,6 +81,59 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
           },
           {
             id: 13,
+            question: 'Come posso utilizzare un’API?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Le API possono essere utilizzate per semplificare processi e servizi attraverso lo scambio di dati con altri Enti. Puoi lasciarti ispirare da questi ',
+                  },
+                  {
+                    type: 'link',
+                    url: `${SITE_URL}/it/buone-pratiche`,
+                    children: [
+                      {
+                        type: 'text',
+                        text: 'esempi pratici',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    text: ' e scoprire come il tuo Ente può integrare le API nei suoi processi. Dopo aver individuato un API (e-service), puoi richiederne accesso tramite la Piattaforma Digitale Nazionale Dati (PDND).',
+                  },
+                ],
+              },
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Once you have identified an API (or e-service), you can request access through the National Data Platform (PDND).',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 14,
+            question: 'Come viene garantita la sicurezza dei dati?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'La Piattaforma Digitale Nazionale Dati (PDND) non tratta né conserva le informazioni scambiate: gli enti dialogano direttamente su un canale sicuro, e la PDND fornisce gli strumenti per autenticare e autorizzare erogatori e fruitori di API ad accedere alle informazioni.',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 15,
             question: "Quali sono i vantaggi dell'interoperabilità?",
             answer: [
               {
@@ -125,39 +141,340 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
                 children: [
                   {
                     type: 'text',
-                    text: 'Lorem ipsum dolor sit amet, ',
-                  },
-                  {
-                    type: 'text',
-                    text: 'consectetur adipiscing elit. Ut sit amet scelerisque',
-                    underline: true,
-                  },
-                  {
-                    type: 'text',
-                    text: ' neque, eget aliquet mi. Aenean non ultricies tellus.',
-                  },
-                  {
-                    type: 'text',
-                    text: ' Praesent consequat risus eu quam',
-                    bold: true,
-                  },
-                  {
-                    type: 'text',
-                    text: ' luctus malesuada. Mauris sed nisi nisl. Etiam dapibus, ex vitae sagittis sodales, ipsum justo accumsan magna, nec ',
+                    text: 'Attraverso l’interoperabilità, le pubbliche amministrazioni possono scambiarsi dati in modo sicuro e standardizzato, riducendo i tempi e i costi dei procedimenti, migliorando la qualità dei servizi offerti e semplificando l’esperienza per cittadini e imprese. ',
                   },
                   {
                     type: 'link',
-                    url: 'https://google.com',
+                    url: `${SITE_URL}/it/ecosistema`,
                     children: [
                       {
                         type: 'text',
-                        text: 'fermentum',
+                        text: 'Visita la pagina dedicata',
                       },
                     ],
                   },
                   {
                     type: 'text',
-                    text: ' erat lacus in mi. Aenean lectus justo, accumsan vel pulvinar at, pharetra ut tellus. Nam ut nisl vel nibh placerat maximus.',
+                    text: ' per approfondire.',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 2,
+        sectionTitle: 'Catalogo e accesso ai dati',
+        faqList: [
+          {
+            id: 21,
+            question: 'Chi può accedere ai dati elencati nel catalogo?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'I dati sono fruibili solo dagli aderenti alla PDND che possiedono i requisiti di accesso indicati da ciascun erogatore, in conformità con le normative.',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 22,
+            question: 'Come faccio a sapere quali API può usare il mio ente?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Attraverso la funzionalità “Filtra per fruitore” disponibile nel catalogo, puoi identificare rapidamente le API utilizzabili dal tuo ente. Inoltre, nella scheda di ciascuna API sono indicati in modo dettagliato tutti i requisiti di accesso.',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 23,
+            question:
+              'II mio ente vorrebbe accedere a un API, ma non ha i requisiti richiesti, come può procedere?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Se individui un API di tuo interesse nel catalogo, ma non è accessibile al tuo ente, puoi scrivere all’erogatore, indicando la finalità amministrativa che lo abilita. L’erogatore potrà aggiungere l’attributo del tuo ente affinché tu possa accedere.',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 24,
+            question: 'Se non trovo l’API che mi serve?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Il catalogo delle API è in continua evoluzione. Se non trovi l’API o il dato che ti serve puoi segnalarlo all’ente che ne è titolare, che potrà valutare l’opportunità di erogarlo in futuro tramite una nuova API.',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 25,
+            question: 'Si può scaricare il contenuto del catalogo?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Sì, l’elenco degli e-service è disponibile su ',
+                  },
+                  {
+                    type: 'link',
+                    url: 'https://www.dati.gov.it/view-dataset/dataset?id=0dfbeb46-736d-4af3-841c-9593d8f6c434',
+                    children: [
+                      {
+                        type: 'text',
+                        text: 'dati.gov.it',
+                        bold: true,
+                      },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    text: '.',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 26,
+            question: 'Che cos’è il catalogo della semantica dei dati (Schema)?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'link',
+                    url: 'https://schema.gov.it',
+                    children: [
+                      {
+                        type: 'text',
+                        text: 'Schema',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    text: ' (altrimenti conosciuto come National Data Catalog, NDC) è il catalogo nazionale della semantica dei dati che raccoglie e organizza risorse semantiche di rilevanza nazionale, tra cui schemi dati, ontologie e vocabolari controllati, rendendole facilmente accessibili a tutti coloro che sviluppano API (interfacce per la programmazione di applicazioni).',
+                  },
+                ],
+              },
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Grazie all’utilizzo di modelli condivisi su Schema è possibile migliorare l’interoperabilità semantica dei dati scambiati, assicurando che il significato di ogni informazione trasferita sia compresa correttamente dal destinatario.',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 27,
+            question: 'Che cos’è catalogo dei dati aperti (Dati.gov.it)?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'link',
+                    url: 'https://www.dati.gov.it',
+                    children: [
+                      {
+                        type: 'text',
+                        text: 'Dati.gov.it',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    text: ' è il portale che ospita il catalogo nazionale dei metadati relativi ai dati di tipo aperto rilasciati dalle pubbliche amministrazioni; costituisce lo strumento di ricerca e il punto di accesso ai dati resi disponibili secondo il paradigma dell’open data.',
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        id: 3,
+        sectionTitle: 'Piattaforma Digitale Nazionale Dati (PDND)',
+        faqList: [
+          {
+            id: 31,
+            question: 'Che cos’è PDND (Piattaforma Digitale Nazionale Dati)?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'La Piattaforma Digitale Nazionale Dati (PDND) è l’infrastruttura che consente lo scambio sicuro e standardizzato di dati tramite API tra le pubbliche amministrazioni.',
+                  },
+                ],
+              },
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Per maggiori informazioni, visita ',
+                  },
+                  {
+                    type: 'link',
+                    url: 'https://interop.pagopa.it',
+                    children: [
+                      {
+                        type: 'text',
+                        text: 'interop.pagopa.it',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    text: '.',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 32,
+            question: 'Come posso aderire a PDND?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'L’adesione alla Piattaforma è consentita a tutti i soggetti che ne hanno diritto secondo il ',
+                  },
+                  {
+                    type: 'text',
+                    text: 'CAD (il Codice per l’Amministrazione Digitale, art. 50-ter)',
+                    bold: true,
+                  },
+                  {
+                    type: 'text',
+                    text: " e avviene attraverso l'invio del documento di adesione firmato dal legale rappresentante dell’ente. Puoi scoprire di più visitando la",
+                  },
+                  {
+                    type: 'link',
+                    url: 'https://developer.pagopa.it/pdnd-interoperabilita/guides/manuale-operativo-pdnd-interoperabilita/v1.0/per-iniziare/guida-alladesione',
+                    children: [
+                      {
+                        type: 'text',
+                        text: 'la pagina dedicata',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    text: '.',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 33,
+            question: 'Come posso contattare l’assistenza di PDND?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'In piattaforma e sul ',
+                  },
+                  {
+                    type: 'link',
+                    url: 'https://interop.pagopa.it',
+                    children: [
+                      {
+                        type: 'text',
+                        text: 'sito di PDND',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    text: ' è disponibile la voce ',
+                  },
+                  {
+                    type: 'text',
+                    text: '"assistenza"',
+                    bold: true,
+                  },
+                  {
+                    type: 'text',
+                    text: ' in alto a destra, per aprire un ticket e richiedere assistenza. Per segnalare problemi o dare feedback, puoi aprire una segnalazione su',
+                  },
+                  {
+                    type: 'link',
+                    url: 'https://github.com/pagopa/pdnd-interop-frontend/issues',
+                    children: [
+                      {
+                        type: 'text',
+                        text: 'Github',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    text: '.',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            id: 34,
+            question: 'Si possono consultare i dati di utilizzo di PDND?',
+            answer: [
+              {
+                type: 'paragraph',
+                children: [
+                  {
+                    type: 'text',
+                    text: 'Sì, nella pagina dedicata a ',
+                  },
+                  {
+                    type: 'link',
+                    url: 'https://www.interop.pagopa.it/numeri',
+                    children: [
+                      {
+                        type: 'text',
+                        text: 'i numeri della PDND',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    text: ' puoi trovare i dati relativi agli aderenti, al catalogo e all’utilizzo della piattaforma.',
                   },
                 ],
               },
@@ -167,144 +484,62 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
       },
       {
         id: 4,
-        sectionTitle: 'Catalogo e accesso ai dati tramite PDND',
+        sectionTitle: 'Informazioni per lo sviluppo',
         faqList: [
           {
-            id: 14,
-            question: 'Chi può accedere ai dati?',
+            id: 41,
+            question:
+              'Sono uno sviluppatore, quali sono le risorse a disposizione per lo sviluppo?',
             answer: [
               {
                 type: 'paragraph',
                 children: [
                   {
                     type: 'text',
-                    text: 'Lorem ipsum dolor sit amet, ',
-                  },
-                  {
-                    type: 'text',
-                    text: 'consectetur adipiscing elit. Ut sit amet scelerisque',
-                    underline: true,
-                  },
-                  {
-                    type: 'text',
-                    text: ' neque, eget aliquet mi. Aenean non ultricies tellus.',
-                  },
-                  {
-                    type: 'text',
-                    text: ' Praesent consequat risus eu quam',
-                    bold: true,
-                  },
-                  {
-                    type: 'text',
-                    text: ' luctus malesuada. Mauris sed nisi nisl. Etiam dapibus, ex vitae sagittis sodales, ipsum justo accumsan magna, nec ',
+                    text: 'Visita Developers Italia (',
                   },
                   {
                     type: 'link',
-                    url: 'https://google.com',
+                    url: 'https://developers.italia.it/it/interoperabilita',
                     children: [
                       {
                         type: 'text',
-                        text: 'fermentum',
+                        text: 'https://developers.italia.it/it/interoperabilita',
                       },
                     ],
                   },
                   {
                     type: 'text',
-                    text: ' erat lacus in mi. Aenean lectus justo, accumsan vel pulvinar at, pharetra ut tellus. Nam ut nisl vel nibh placerat maximus.',
+                    text: ') e scopri strumenti e riferimenti a disposizione per l’ecosistema interoperabilità. Per manuali e risorse di supporto alle integrazioni con PDND, puoi visitare ',
+                  },
+                  {
+                    type: 'link',
+                    url: 'https://developer.pagopa.it/pdnd-interoperabilita/guides/manuale-operativo-pdnd-interoperabilita',
+                    children: [
+                      {
+                        type: 'text',
+                        text: 'il manuale operativo',
+                      },
+                    ],
+                  },
+                  {
+                    type: 'text',
+                    text: '.',
                   },
                 ],
               },
             ],
           },
           {
-            id: 15,
-            question: 'Come faccio a sapere quali API può usare il mio ente?',
+            id: 42,
+            question: 'Come posso contribuire al catalogo?',
             answer: [
               {
                 type: 'paragraph',
                 children: [
                   {
                     type: 'text',
-                    text: 'Lorem ipsum dolor sit amet, ',
-                  },
-                  {
-                    type: 'text',
-                    text: 'consectetur adipiscing elit. Ut sit amet scelerisque',
-                    underline: true,
-                  },
-                  {
-                    type: 'text',
-                    text: ' neque, eget aliquet mi. Aenean non ultricies tellus.',
-                  },
-                  {
-                    type: 'text',
-                    text: ' Praesent consequat risus eu quam',
-                    bold: true,
-                  },
-                  {
-                    type: 'text',
-                    text: ' luctus malesuada. Mauris sed nisi nisl. Etiam dapibus, ex vitae sagittis sodales, ipsum justo accumsan magna, nec ',
-                  },
-                  {
-                    type: 'link',
-                    url: 'https://google.com',
-                    children: [
-                      {
-                        type: 'text',
-                        text: 'fermentum',
-                      },
-                    ],
-                  },
-                  {
-                    type: 'text',
-                    text: ' erat lacus in mi. Aenean lectus justo, accumsan vel pulvinar at, pharetra ut tellus. Nam ut nisl vel nibh placerat maximus.',
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            id: 16,
-            question: 'Lorem ipsum',
-            answer: [
-              {
-                type: 'paragraph',
-                children: [
-                  {
-                    type: 'text',
-                    text: 'Lorem ipsum dolor sit amet, ',
-                  },
-                  {
-                    type: 'text',
-                    text: 'consectetur adipiscing elit. Ut sit amet scelerisque',
-                    underline: true,
-                  },
-                  {
-                    type: 'text',
-                    text: ' neque, eget aliquet mi. Aenean non ultricies tellus.',
-                  },
-                  {
-                    type: 'text',
-                    text: ' Praesent consequat risus eu quam',
-                    bold: true,
-                  },
-                  {
-                    type: 'text',
-                    text: ' luctus malesuada. Mauris sed nisi nisl. Etiam dapibus, ex vitae sagittis sodales, ipsum justo accumsan magna, nec ',
-                  },
-                  {
-                    type: 'link',
-                    url: 'https://google.com',
-                    children: [
-                      {
-                        type: 'text',
-                        text: 'fermentum',
-                      },
-                    ],
-                  },
-                  {
-                    type: 'text',
-                    text: ' erat lacus in mi. Aenean lectus justo, accumsan vel pulvinar at, pharetra ut tellus. Nam ut nisl vel nibh placerat maximus.',
+                    text: 'È possibile contribuire al catalogo accreditandosi e accedendo alla Piattaforma Digitale Nazionale Dati ed erogando un e-service (API), nel rispetto del perimetro di sicurezza e degli standard del modello di interoperabilità (ModI).',
                   },
                 ],
               },
@@ -455,7 +690,7 @@ export const faqContentMockedEn: StrapiEntity<FaqContent> = {
                   },
                   {
                     type: 'text',
-                    text: ' to learn more',
+                    text: ' to learn more.',
                   },
                 ],
               },
@@ -791,6 +1026,10 @@ export const faqContentMockedEn: StrapiEntity<FaqContent> = {
                         text: 'issue on Github',
                       },
                     ],
+                  },
+                  {
+                    type: 'text',
+                    text: '.',
                   },
                 ],
               },
