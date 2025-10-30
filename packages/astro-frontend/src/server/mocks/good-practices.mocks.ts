@@ -850,7 +850,22 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
       isFeaturedInHomepage: true,
       eserviceId: [
         {
-          eserviceId: '',
+          eserviceId: 'bfc9fb06-8886-45a4-9ce9-bc93264958ce',
+        },
+        {
+          eserviceId: '8fe27f7f-b559-4c51-90b6-a4d6eae4ae01',
+        },
+        {
+          eserviceId: '3ec6f973-36ab-4816-8e96-22ffb512648c',
+        },
+        {
+          eserviceId: 'f978f8b9-de00-45ba-801b-1b4a60b547d9',
+        },
+        {
+          eserviceId: 'a152b46b-f330-494d-9845-82c460bc9fcf',
+        },
+        {
+          eserviceId: '5e023f06-e5d4-4f8a-b7b8-299b97d2abee',
         },
       ],
       tenantMacrocategories: [],
@@ -1164,15 +1179,6 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   type: 'text',
                   text: 'The goal is for all municipalities to contribute to the central database, ensuring that eligible citizens can circulate within restricted traffic zones or park in designated spaces anywhere in Italy, without having to submit new requests each time.',
                 },
-                {
-                  type: 'text',
-                  text: 'Recommended for',
-                  italic: true,
-                },
-                {
-                  type: 'text',
-                  text: ': Municipalities',
-                },
               ],
             },
           ],
@@ -1443,20 +1449,6 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                 },
               ],
             },
-            {
-              type: 'paragraph',
-              children: [
-                {
-                  type: 'text',
-                  text: 'Recommended for:',
-                  italic: true,
-                },
-                {
-                  type: 'text',
-                  text: ' Regions and Autonomous Provinces, Provinces and Metropolitan Cities, Central Government Administration, Municipalities',
-                },
-              ],
-            },
           ],
         },
         {
@@ -1618,16 +1610,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'For the 2024/2025 school year, nearly 30,000 students in the Campania Region, out of more than 60,000 applicants, received financial support for their educational and cultural development through the #IoStudio programme. In the past, families had to provide certificates or self-declarations to prove school attendance, facing lengthy and inconsistent procedures from one school to another.',
-                },
-              ],
-            },
-            {
-              type: 'paragraph',
-              children: [
-                {
-                  type: 'text',
-                  text: 'Thanks to the integration between the regional systems and PDND, the Campania Region can now verify attendance directly from the Ministry of Education and Merit’s official data, using the available e-services automatically and without additional steps for citizens. This has made the scholarship allocation process faster, more transparent, and better targeted, ensuring that funds are delivered promptly to those who are truly entitled to them.',
+                  text: 'For the 2024/2025 school year, nearly 30,000 students in the Campania Region, out of more than 60,000 applicants, received financial support for their educational and cultural development through the #IoStudio programme. In the past, families had to provide certificates or self-declarations to prove school attendance, facing lengthy and inconsistent procedures from one school to another. Thanks to the integration between the regional systems and PDND, the Campania Region can now verify attendance directly from the Ministry of Education and Merit’s official data, using the available e-services automatically and without additional steps for citizens. This has made the scholarship allocation process faster, more transparent, and better targeted, ensuring that funds are delivered promptly to those who are truly entitled to them.',
                 },
               ],
             },
@@ -1640,7 +1623,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
     data: {
       id: 12,
       documentId: 'zflr58yvojfzixgi4ob4jxfq',
-      title: 'Providing citizen bonuses fairly and efficiently',
+      title: 'Delivering financial bonuses to citizens fairly and efficiently',
       slug: 'erogare-bonus-ai-cittadini-in-modo-equo-ed-efficiente',
       publishedDate: '2025-10-17',
       createdAt: '2025-10-16T08:10:56.095Z',
@@ -1699,7 +1682,25 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: "Economic bonuses require the submission of documents and self-declarations to verify the legitimacy of requests, with different procedures between organizations and long waiting times for checks. Through APIs available on PDND, organizations can automatically verify citizen requirements by retrieving data, such as ISEE and family status, directly from the source, during the citizen's application submission, without the citizen having to provide them with certificates or self-declarations, thus implementing the ",
+                  text: 'Financial aid programmes often require the submission of documents and self declarations to verify eligibility, with different procedures across public bodies and lengthy verification times.',
+                },
+              ],
+            },
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'Through the APIs available on PDND, public bodies can automatically verify citizens’ eligibility by retrieving data such as ISEE (Equivalent Economic Situation Indicator) and family status directly from the source, during the submission of the application.',
+                },
+              ],
+            },
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'This allows the application of the ',
                 },
                 {
                   type: 'text',
@@ -1708,7 +1709,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: 'text',
-                  text: ' principle, whereby a person should not have to provide Public Administration with data already in its possession.',
+                  text: ' principle, whereby citizens are not required to provide public administrations with data that they already possess.',
                 },
               ],
             },
@@ -1743,7 +1744,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.title',
           id: 4,
-          Text: 'What changes with PDND',
+          Text: 'What’s new with PDND',
         },
         {
           __component: 'buona-pratica.description',
@@ -1754,7 +1755,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'In the past, citizens had to collect and submit certificates or self-declarations to prove possession of certain requirements (e.g., ISEE, family status). Organizations checked them later with manual reviews, lengthening waiting times and increasing the risk of errors. Today, organizations can directly access official databases exposed on PDND for requirement verification, significantly simplifying procedures, reducing distribution times, and possible errors.',
+                  text: 'In the past, citizens had to collect and submit certificates or self-declarations to prove that they met certain requirements (e.g. ISEE, family status). Public bodies then carried out manual verifications, which slowed down processing times and increased the risk of errors. Today, thanks to PDND, institutions can directly access official databases published on the platform to verify eligibility, greatly simplifying the procedure, reducing processing times, and minimising potential errors.',
                 },
               ],
             },
@@ -1763,7 +1764,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.title',
           id: 5,
-          Text: 'Benefits for Public Administration',
+          Text: 'Benefits for Public Bodies',
         },
         {
           __component: 'buona-pratica.description',
@@ -1778,12 +1779,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'Reduced bureaucracy',
+                      text: 'Reduction of bureaucracy',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ' thanks to elimination of manual reviews for requirement verification and process digitization with time and resource savings for the organization',
+                      text: ', through the elimination of manual eligibility checks and the digitalisation of processes, saving time and resources',
                     },
                   ],
                 },
@@ -1792,12 +1793,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'Reliable data',
+                      text: 'Reliable, up-to-date and verified data',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ', updated and trustworthy, retrieved directly from official databases (e.g., INPS, ANPR) in real-time',
+                      text: ', retrieved in real time directly from official databases (e.g. INPS, ANPR)',
                     },
                   ],
                 },
@@ -1811,7 +1812,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: 'text',
-                      text: ', with automated checks and complete operation traceability',
+                      text: ', with automated checks and full traceability of operations',
                     },
                   ],
                 },
@@ -1822,7 +1823,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.title',
           id: 6,
-          Text: 'Benefits for citizens',
+          Text: 'Benefits for people',
         },
         {
           __component: 'buona-pratica.description',
@@ -1837,12 +1838,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'Simplification',
+                      text: 'Simplified access',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ' in application submission and requirement verification to access bonuses',
+                      text: ', with faster and more consistent procedures for submitting applications and verifying eligibility for financial bonuses',
                     },
                   ],
                 },
@@ -1856,7 +1857,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: 'text',
-                      text: ' to provide data or documents already in Public Administration possession, thanks to automatic retrieval from official sources',
+                      text: ', since data and documents already held by public administrations are automatically retrieved from official sources',
                     },
                   ],
                 },
@@ -1873,7 +1874,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'The ISEE certificate or indicator consultation e-service is provided in 3 variants designed for different targets and uses:',
+                  text: 'The e-service for consulting the ISEE certificate or indicator is provided in three variants, designed for different contexts and operational needs:',
                 },
               ],
             },
@@ -1891,11 +1892,11 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: 'text',
-                      text: ': consultation of all citizens is allowed and requires exchange of digital certificates between organizations to enable mutual authentication mechanisms. ',
+                      text: ': allows consultation for all citizens and requires the exchange of digital certificates between public bodies to enable mutual authentication ',
                     },
                     {
                       type: 'text',
-                      text: 'Suitable for large municipalities and central PAs',
+                      text: 'Recommended for large municipalities and central public bodies',
                       bold: true,
                     },
                   ],
@@ -1905,16 +1906,16 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'ISEE Certificate/Indicator Operators Consultation',
+                      text: 'ISEE Certificate/Indicator Consultation for Operators',
                       underline: true,
                     },
                     {
                       type: 'text',
-                      text: ': consultation of all citizens is allowed and requires sending INPS data related to the operator performing the operation who has authenticated via SPID or CIE. ',
+                      text: ': allows consultation for all citizens and requires sending operator identification data to INPS; the operator must authenticate via SPID or CIE ',
                     },
                     {
                       type: 'text',
-                      text: 'Suitable for small municipalities',
+                      text: 'Recommended for small municipalities',
                       bold: true,
                     },
                   ],
@@ -1924,16 +1925,16 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'ISEE Residents Certificate/Indicator Consultation',
+                      text: 'ISEE Certificate/Indicator Consultation for Residents',
                       underline: true,
                     },
                     {
                       type: 'text',
-                      text: ': municipalities are only allowed to consult citizens residing within their territory. ',
+                      text: ': allows municipalities to consult ISEE data only for residents within their territory ',
                     },
                     {
                       type: 'text',
-                      text: 'Only for municipalities',
+                      text: 'For municipalities only',
                       bold: true,
                     },
                   ],
@@ -1951,7 +1952,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'During the activation of the Bike Bonus, the Emilia-Romagna region recorded high citizen participation, with thousands of applications submitted in short timeframes. In the past, each request would have involved manual document collection, sending self-certifications, and subsequent checks on each application by competent offices, with the risk of significantly impacting fund distribution times. By integrating PDND into its systems, the Region was able to automatically verify the residence of all applicants through ANPR data. The review process thus became much faster and more transparent, allowing contributions to be allocated punctually without requesting additional documentation from citizens.',
+                  text: 'During the Bike Bonus initiative, the Emilia-Romagna Region recorded high citizen participation, with thousands of applications submitted in a short period. In the past, each application required manual document collection, self-declarations, and individual checks by administrative offices, significantly delaying the disbursement of funds. By integrating PDND into its systems, the Region was able to automatically verify the residence of all applicants using data from the National Population Register (ANPR). The verification process thus became much faster and more transparent, enabling the targeted allocation of funds without requiring citizens to provide additional documentation.',
                 },
               ],
             },
@@ -1964,7 +1965,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
     data: {
       id: 12,
       documentId: 'zflr58yvojfzixgi4ob4jxfq',
-      title: 'Pre-filled personal data for more efficient services',
+      title: 'Pre-filled personal data for more efficient digital services',
       slug: 'dati-anagrafici-precompilati-per-servizi-piu-efficienti',
       publishedDate: '2025-10-17',
       createdAt: '2025-10-16T08:10:56.095Z',
@@ -1974,7 +1975,22 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
       isFeaturedInHomepage: true,
       eserviceId: [
         {
-          eserviceId: '',
+          eserviceId: 'bfc9fb06-8886-45a4-9ce9-bc93264958ce',
+        },
+        {
+          eserviceId: '8fe27f7f-b559-4c51-90b6-a4d6eae4ae01',
+        },
+        {
+          eserviceId: '3ec6f973-36ab-4816-8e96-22ffb512648c',
+        },
+        {
+          eserviceId: 'f978f8b9-de00-45ba-801b-1b4a60b547d9',
+        },
+        {
+          eserviceId: 'a152b46b-f330-494d-9845-82c460bc9fcf',
+        },
+        {
+          eserviceId: '5e023f06-e5d4-4f8a-b7b8-299b97d2abee',
         },
       ],
       tenantMacrocategories: [],
@@ -1998,7 +2014,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: 'text',
-                  text: " principle requires that citizens provide their data only once to Public Administration, without having to re-enter it for each new service request. Thanks to PDND, organizations can securely and automatically access data already available at other administrations and pre-fill online form fields during application submission. This speeds up procedures for citizens who don't need to self-certify data, reduces bureaucracy, and improves the quality and consistency of data shared between organizations.",
+                  text: ' principle states that citizens should provide their personal data to public administrations only once, without having to re-enter the same information for each new service request. Thanks to PDND, public bodies can securely and automatically access data already held by other administrations and pre-fill online forms when citizens submit applications. This streamlines procedures, removes the need for self-declarations, reduces bureaucracy, and improves the quality and consistency of data shared between public entities.',
                 },
               ],
             },
@@ -2034,7 +2050,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.title',
           id: 4,
-          Text: 'What changes with PDND',
+          Text: 'What’s new with PDND',
         },
         {
           __component: 'buona-pratica.description',
@@ -2045,7 +2061,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'Previously, for each new service request, every citizen had to manually enter their data, even if they had already provided it to Public Administration before. This approach led to information duplication, increased risk of errors, and the need for subsequent checks by organizations, resulting in process delays. Thanks to the National Digital Data Platform, organizations can now draw data directly from official sources when citizens use digital services.',
+                  text: 'Previously, for every new service request, citizens were required to manually enter their personal data, even when the same information had already been provided to another public administration. This led to data duplication, an increased risk of errors, and the need for subsequent checks by public bodies, resulting in slower processing. With the National Data Platform (PDND), public bodies can now retrieve data directly from official sources at the time a citizen accesses a digital service, ensuring accuracy, consistency, and faster delivery.',
                 },
               ],
             },
@@ -2054,7 +2070,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.title',
           id: 5,
-          Text: 'Benefits for Public Administration',
+          Text: 'Benefits for Public Bodies',
         },
         {
           __component: 'buona-pratica.description',
@@ -2069,12 +2085,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'Reduced bureaucracy',
+                      text: 'Reduction of bureaucracy',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ' thanks to elimination of manual data entry and post-hoc checks on citizen declarations',
+                      text: ', through the elimination of manual data entry and post-verification of citizen declarations',
                     },
                   ],
                 },
@@ -2083,12 +2099,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'Reliable, updated, and trustworthy data',
+                      text: 'Reliable, up-to-date and verified data',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ', automatically retrieved from official sources (e.g., ANPR) without duplicating local archives',
+                      text: ', automatically retrieved from official sources (e.g. ANPR) without duplicating local databases',
                     },
                   ],
                 },
@@ -2102,7 +2118,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: 'text',
-                      text: ', with streamlined procedures, error reduction, and time and resource savings in service management',
+                      text: ', with streamlined procedures, fewer errors, and time and resource savings in service management',
                     },
                   ],
                 },
@@ -2113,7 +2129,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.title',
           id: 6,
-          Text: 'Benefits for citizens',
+          Text: 'Benefits for people',
         },
         {
           __component: 'buona-pratica.description',
@@ -2128,12 +2144,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'Simplification',
+                      text: 'Simplified access',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ' in completing online requests, thanks to automatic pre-filling of data already in Public Administration possession',
+                      text: ', thanks to the automatic pre-filling of personal data already held by public administrations during online service applications',
                     },
                   ],
                 },
@@ -2147,7 +2163,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: 'text',
-                      text: ' to re-enter data or provide information already declared previously, respecting the ',
+                      text: ', as citizens are no longer asked to re-enter or resubmit information already provided, in compliance with the ',
                     },
                     {
                       type: 'text',
@@ -2173,7 +2189,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'Some Ministry of Interior APIs are provided in two variants: with automatic or manual approval. Important: before requesting access, check the access requirements in the API sheet to verify if your Organization can access those with automatic approval.',
+                  text: 'Some APIs provided by the Ministry of the Interior are available in two variants: with automatic or manual approval. Important: before requesting access, check the API information sheet to verify the eligibility requirements for your organization and whether it can access the versions with automatic approval.',
                 },
               ],
             },
@@ -2188,7 +2204,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'In the Municipality of Bordighera, families needing school transport services for their children can register online on the municipal website. In the past, the procedure required filling in all personal and family data, attaching documents, and waiting for subsequent checks by municipal offices. Today, thanks to the integration of ',
+                  text: 'In the Municipality of Bordighera, families who need school transport services for their children can now register online directly through the municipal website. In the past, the procedure required citizens to manually fill in all personal and family data, attach documents, and wait for the subsequent verification by municipal offices. Today, thanks to the integration of the',
                 },
                 {
                   type: 'link',
@@ -2196,13 +2212,13 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'National Resident Population Registry',
+                      text: 'National Population Register',
                     },
                   ],
                 },
                 {
                   type: 'text',
-                  text: " (ANPR) APIs with municipal digital services, completion is automatic: at registration, the system retrieves real-time information on residence and family status. This way, it's only necessary to confirm the data, and the application is immediately ready to be managed by offices, without additional steps or transcription errors.",
+                  text: ' (ANPR) APIs with the municipality’s digital services, the process is automatic: when submitting the request, the system retrieves residence and family status data in real time. Citizens simply confirm the information, and the application is immediately ready to be processed by the offices, with no additional steps or transcription errors.',
                 },
               ],
             },
