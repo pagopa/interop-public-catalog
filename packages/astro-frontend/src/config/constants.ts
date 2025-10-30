@@ -54,32 +54,32 @@ export const RESOURCES_SECTION_NAV_ITEMS = [
 export const TENANT_MACROCATEGORIES = [
   {
     key: 'tutti',
-    strapiId: null,
+    id: null,
     imgSrc: '/img/027-pillars.svg',
   },
   {
     key: 'pac',
-    strapiId: 1,
+    id: 1,
     imgSrc: '/img/030-city.svg',
   },
   {
     key: 'comuni',
-    strapiId: 2,
+    id: 2,
     imgSrc: '/img/bank-1.svg',
   },
   {
     key: 'regioni',
-    strapiId: 3,
+    id: 3,
     imgSrc: '/img/066-hospital.svg',
   },
   // {
   //   key: 'universita',
-  //   strapiId: 4,
+  //   id: 4,
   //   imgSrc: '/img/library-1.svg',
   // },
   {
     key: 'altre',
-    strapiId: 5,
+    id: 5,
     imgSrc: '/img/073-shopping-mall.svg',
   },
 ] as const

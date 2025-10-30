@@ -21,15 +21,15 @@ export const MacroCategoryIdFilter: React.FC<MacroCategoryIdFilterProps> = ({
     <div style={{ maxWidth: MAX_WIDTH }} className="it-list-wrapper">
       <ul id="category-filters-list" className="it-list border-start">
         {TENANT_MACROCATEGORIES.map((macrocategory) => {
-          const isActive = macrocategory.strapiId === selectedMacroCategoryId
+          const isActive = macrocategory.id === selectedMacroCategoryId
           return (
-            <li key={macrocategory.strapiId}>
+            <li key={macrocategory.id}>
               <a
-                onClick={onSelectedMacroCategoryIdChange.bind(null, macrocategory.strapiId)}
+                onClick={onSelectedMacroCategoryIdChange.bind(null, macrocategory.id)}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault()
-                    onSelectedMacroCategoryIdChange(macrocategory.strapiId)
+                    onSelectedMacroCategoryIdChange(macrocategory.id)
                   }
                 }}
                 role="button"

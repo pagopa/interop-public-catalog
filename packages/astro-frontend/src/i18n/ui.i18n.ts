@@ -164,12 +164,13 @@ export const ui = {
     'error.back_to_home': 'Go to homepage',
 
     // Organization Types
-    'tenant_macrocategory_.tutti_long': 'All entities',
-    'tenant_macrocategory_.pac_long': 'Central Public Administrations',
+    'tenant_macrocategory_.tutti_long': 'All Public Bodies',
+    'tenant_macrocategory_.pac_long': 'Central Government Administrations',
     'tenant_macrocategory_.comuni_long': 'Municipalities',
     'tenant_macrocategory_.regioni_long': 'Regions',
-    'tenant_macrocategory_.universita_long': 'Universities and AFAM',
-    'tenant_macrocategory_.altre_long': 'Other Local Public Administrations',
+    'tenant_macrocategory_.universita_long':
+      'Universities and Higher Education Institutions (AFAM)',
+    'tenant_macrocategory_.altre_long': 'Other Local Public Bodies',
 
     'tenant_macrocategory_.tutti_short': 'All',
     'tenant_macrocategory_.pac_short': 'PAC',
