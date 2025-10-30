@@ -89,20 +89,28 @@ const _buildFullQueryWithFilters = (config: {
     ), '[]'::jsonb)
   `
 
-  const activeDescriptorPopulator = (eservice: string, categories?: string[]) => sql`
+  const activeDescriptorPopulator = (
+    attributes: boolean,
+    eservice: string,
+    categories?: string[]
+  ) => sql`
   JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = ${sql.identifier(eservice)}.producer_id
   -- pick the latest PUBLISHED descriptor id
   JOIN LATERAL (
-    SELECT d.id
-    FROM ${sql.identifier(config.catalogSchema)}.eservice_descriptor d
-    WHERE d.eservice_id = ${sql.identifier(eservice)}.id
-      AND d.state = 'Published'
-    ORDER BY d.version::int DESC
-    LIMIT 1
+    SELECT md.id
+    FROM (
+      SELECT d.id, d.eservice_id, ROW_NUMBER() OVER (PARTITION BY d.eservice_id ORDER BY version DESC) AS rn
+      FROM ${sql.identifier(config.catalogSchema)}.eservice_descriptor d
+      WHERE d.state IN ('Published', 'Suspended')
+    ) md
+    WHERE rn = 1 AND md.eservice_id = e.id
   ) AS chosen ON TRUE
   ${categories && categories.length > 0 ? conditionalCategoriesCheck(categories) : sql``}
   -- build full descriptor w/ attributes
-  JOIN LATERAL (
+  ${
+    (categories && categories.length > 0) || attributes
+      ? sql`
+    JOIN LATERAL (
     SELECT
       d.*,
       jsonb_build_object(
@@ -121,10 +129,21 @@ const _buildFullQueryWithFilters = (config: {
     WHERE d.id = chosen.id
     GROUP BY d.id
   ) d_full ON TRUE
+    `
+      : sql``
+  }
   `
 
-  const activeDescriptorPopulatorGroupBy = (eservice: string, tenant: string) =>
-    sql`GROUP BY ${sql.identifier(eservice)}.id, ${sql.identifier(tenant)}.name, ${sql.identifier(tenant)}.id, d_full`
+  const activeDescriptorPopulatorGroupBy = (
+    attributes: boolean,
+    eservice: string,
+    tenant: string
+  ) =>
+    sql`
+    GROUP BY 
+    ${sql.identifier(eservice)}.id, ${sql.identifier(tenant)}.name, ${sql.identifier(tenant)}.id
+    ${attributes ? sql`, d_full` : sql``}
+    `
 
   return {
     baseSelect,
@@ -150,9 +169,9 @@ export async function getEService(
     const pageRes = await tx.execute(sql`
     ${fullSelect('e', 't')}
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
-    ${activeDescriptorPopulator('e')}
+    ${activeDescriptorPopulator(true, 'e')}
     WHERE e.id = ${id}
-    ${activeDescriptorPopulatorGroupBy('e', 't')}
+    ${activeDescriptorPopulatorGroupBy(true, 'e', 't')}
   `)
 
     if (pageRes.rows[0] === undefined) {
@@ -192,7 +211,7 @@ export async function searchCatalog(
     )
   }
 
-  const { fullSelect, activeDescriptorPopulator, activeDescriptorPopulatorGroupBy } =
+  const { baseSelect, fullSelect, activeDescriptorPopulator, activeDescriptorPopulatorGroupBy } =
     _buildFullQueryWithFilters({
       catalogSchema: config.catalogSchema,
       attributeSchema: config.attributeSchema,
@@ -207,14 +226,16 @@ export async function searchCatalog(
   }
   `)
 
+  const shouldAttributesBePopulated: boolean = !!(mappedCategories && mappedCategories.length > 0)
+
   const textlessSearchTx: Transaction<EService & { [k: string]: unknown }> = async (tx) => {
     const pageRes = await tx.execute(sql`
-    ${fullSelect('e', 't')},
+    ${shouldAttributesBePopulated ? fullSelect('e', 't') : baseSelect('e', 't')},
     count(*) over() AS total
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
-    ${activeDescriptorPopulator('e', mappedCategories)}
+    ${activeDescriptorPopulator(shouldAttributesBePopulated, 'e', mappedCategories)}
     WHERE ${sql.join(conds, sql` AND `)}
-    ${activeDescriptorPopulatorGroupBy('e', 't')}
+    ${activeDescriptorPopulatorGroupBy(shouldAttributesBePopulated, 'e', 't')}
     ORDER BY ${orderByFragment}
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
@@ -266,7 +287,7 @@ export async function searchCatalog(
       WHERE NOT EXISTS (SELECT 1 FROM fts_ids)
     ),
     scored AS (
-      ${fullSelect('e', 't')},
+      ${shouldAttributesBePopulated ? fullSelect('e', 't') : baseSelect('e', 't')},
         count(*) over() AS total,
         -- gives priority to tenant name matches when ordering
         -- based on coverage + density (ts_rank_cd)
@@ -278,10 +299,10 @@ export async function searchCatalog(
         )::real AS fuzzy_sim
       FROM picked x
       JOIN ${sql.identifier(config.catalogSchema)}.eservice e ON e.id = x.id
-      ${activeDescriptorPopulator('e', mappedCategories)}
+      ${activeDescriptorPopulator(shouldAttributesBePopulated, 'e', mappedCategories)}
       CROSS JOIN params p
       WHERE ${sql.join(conds, sql` AND `)}
-      ${activeDescriptorPopulatorGroupBy('e', 't')}, p.tsq, p.nq
+      ${activeDescriptorPopulatorGroupBy(shouldAttributesBePopulated, 'e', 't')}, p.tsq, p.nq
     )
     SELECT s.*,
       (s.fts_rank + 0.5 * s.fuzzy_sim)::real AS score
