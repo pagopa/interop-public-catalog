@@ -15,7 +15,6 @@ import type { GoodPractice } from 'pagopa-interop-public-models'
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useHomepageTranslations(currentLocale)
 
-
 const HIGHLIGHTED_ESERVICE_IDS = [
   // Consultazione Attestazione ISEE (INPS)
   '843ac013-941a-4afe-8243-e668142e73e6',
@@ -49,7 +48,6 @@ const [highlightedEServices, featuredGoodPractices] = await Promise.all([
   highlightedEServicesPromise,
   featuredGoodPracticesPromise,
 ])
-
 ---
 
 <Layout>

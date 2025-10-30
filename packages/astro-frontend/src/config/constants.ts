@@ -5,10 +5,6 @@ import { getLocalizedRoute } from '../i18n/utils.i18n.js'
 export const isDevEnvironment = (href: string) =>
   import.meta.env.DEV || href.includes('.dev.interop')
 
-const BASE_URL_DEV = 'https://api-gov.dev.interop.pagopa.it'
-const BASE_URL_PROD = 'https://api.gov.it'
-export const BASE_URL = isDevEnvironment(window.location.href) ? BASE_URL_DEV : BASE_URL_PROD
-
 export const links = {
   dtdLink: 'http://innovazione.gov.it/',
   pagoPaLink: 'https://www.pagopa.it/it/',
