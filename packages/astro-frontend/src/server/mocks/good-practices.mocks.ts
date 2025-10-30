@@ -1091,7 +1091,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
     data: {
       id: 12,
       documentId: 'zflr58yvojfzixgi4ob4jxfq',
-      title: 'Barrier-free mobility with interoperable CUDE',
+      title: 'Barrier-free mobility with the interoperable CUDE',
       slug: 'mobilita-senza-barriere-con-il-cude-interoperabile',
       publishedDate: '2025-10-17',
       createdAt: '2025-10-16T08:10:56.095Z',
@@ -1139,7 +1139,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: 'text',
-                  text: ' (European Unified Disability Badge) is the document that allows people with disabilities to access restricted traffic zones and park in reserved spaces. With the digitization and centralization of the ',
+                  text: ' (European Unified Disabled Parking Permit) is the document that allows people with disabilities to access restricted traffic zones (ZTL) and park in designated spaces. Through the digitalisation and centralisation of the ',
                 },
                 {
                   type: 'link',
@@ -1153,7 +1153,25 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: 'text',
-                  text: ' and its delivery through the National Digital Data Platform (PDND), municipalities can consult real-time data on badges issued by other authorities, automatically recognize access and parking rights for people with disabilities throughout the national territory, eliminating the need for manual license plate registrations.',
+                  text: ', and its distribution via the National Data Platform (PDND), municipalities can now consult, in real time, the permits issued by other public administrations. This enables them to automatically recognise parking and access rights for people with disabilities across the entire national territory, eliminating the need for manual vehicle registration.',
+                },
+              ],
+            },
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'The goal is for all municipalities to contribute to the central database, ensuring that eligible citizens can circulate within restricted traffic zones or park in designated spaces anywhere in Italy, without having to submit new requests each time.',
+                },
+                {
+                  type: 'text',
+                  text: 'Recommended for',
+                  italic: true,
+                },
+                {
+                  type: 'text',
+                  text: ': Municipalities',
                 },
               ],
             },
@@ -1190,7 +1208,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.title',
           id: 4,
-          Text: 'What changes with PDND',
+          Text: 'What’s new with PDND',
         },
         {
           __component: 'buona-pratica.description',
@@ -1201,7 +1219,16 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'Previously, if a CUDE holder had visited a municipality not connected to the national database, they would have had to follow the previous procedure: notify the municipality in advance of their license plate, follow different procedures for each administration, and always display the paper badge to avoid fines. Now, thanks to this system that allows real-time access to updated data, citizens with valid badges can travel and park in all municipalities that have joined the national CUDE database (an ever-growing number destined to increase), without having to submit new requests for each trip. With the integration of APIs available on PDND, electronic gates also automatically recognize the vehicle associated with the CUDE, allowing access to restricted traffic zones and parking in reserved spaces throughout the national territory.',
+                  text: 'Previously, if a CUDE holder travelled to a municipality not connected to the national database, they had to follow the old procedure: manually communicate their license plate to the local administration, comply with varying procedures for each municipality, and always display the paper permit to avoid fines. Now, thanks to real-time access to up-to-date data, citizens with a valid CUDE can drive and park in all municipalities connected to the national CUDE database (a number that is steadily increasing) without having to submit new requests every time they move.',
+                },
+              ],
+            },
+            {
+              type: 'paragraph',
+              children: [
+                {
+                  type: 'text',
+                  text: 'Through the integration of APIs available on PDND, electronic gates automatically recognise vehicles associated with a valid CUDE, granting access to restricted traffic zones (ZTL) and parking areas reserved for people with disabilities across the country.',
                 },
               ],
             },
@@ -1210,7 +1237,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.title',
           id: 5,
-          Text: 'Benefits for Public Administration',
+          Text: 'Benefits for Public Bodies',
         },
         {
           __component: 'buona-pratica.description',
@@ -1230,7 +1257,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: 'text',
-                      text: ' with less paperwork and fewer manual procedures to manage, resulting in economic savings for the organization',
+                      text: ' thanks to less paperwork and fewer manual processes, resulting in cost savings for the administration',
                     },
                   ],
                 },
@@ -1239,12 +1266,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'Reliable and always updated data',
+                      text: 'Reliable and always up-to-date data',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ', without duplicating local archives and thanks to direct connection with official sources',
+                      text: ' through direct connection to official sources, avoiding duplication of local databases',
                     },
                   ],
                 },
@@ -1258,7 +1285,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: 'text',
-                      text: ' of electronic gates, thanks to automatic recognition of vehicles with authorization',
+                      text: ' of electronic access gates through automatic vehicle recognition',
                     },
                   ],
                 },
@@ -1267,12 +1294,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'Combating improper use',
+                      text: 'Prevention of misuse',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ' of fake or expired CUDEs',
+                      text: ' and fraud involving expired or counterfeit CUDE permits',
                     },
                   ],
                 },
@@ -1283,7 +1310,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: 'buona-pratica.title',
           id: 6,
-          Text: 'Benefits for citizens',
+          Text: 'Benefits for People',
         },
         {
           __component: 'buona-pratica.description',
@@ -1298,12 +1325,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'No additional requirements',
+                      text: 'No additional actions required',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ' for recognition of rights associated with CUDE',
+                      text: ' to validate CUDE-related rights',
                     },
                   ],
                 },
@@ -1312,12 +1339,12 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   children: [
                     {
                       type: 'text',
-                      text: 'Simplification',
+                      text: 'Simplified travel',
                       bold: true,
                     },
                     {
                       type: 'text',
-                      text: ' in travel between municipalities for work, tourism, and health.',
+                      text: ' between municipalities for work, tourism and healthcare',
                     },
                   ],
                 },
@@ -1334,7 +1361,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'The municipality of Mortara has successfully integrated API usage for accessing the CUDE database into its management systems, and thanks to this work, local police can now directly access data through handheld devices and perform checks on vehicles that use the rights linked to the badge. This allows those who park in designated spaces with the right to do so, for example even those who have not visibly displayed it, to avoid fines, and also helps identify fraudulent use of CUDEs.',
+                  text: 'The Municipality of Mortara has successfully integrated the APIs for accessing the CUDE database into its management systems. Thanks to this work, local police officers can now directly access the data from their handheld devices to verify vehicles that benefit from CUDE-related rights. This allows eligible drivers who park in reserved spaces, even when the physical permit is not visibly displayed, to avoid fines, while also helping authorities identify fraudulent use of CUDE permits.',
                 },
               ],
             },
