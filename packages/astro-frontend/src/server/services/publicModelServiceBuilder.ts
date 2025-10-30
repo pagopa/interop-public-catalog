@@ -122,9 +122,9 @@ const _buildFullQueryWithFilters = (config: {
         ${_attributeGroupBuilder('Certified')}
       ) AS attributes
     FROM ${sql.identifier(config.catalogSchema)}.eservice_descriptor d
-    JOIN ${sql.identifier(config.catalogSchema)}.eservice_descriptor_attribute da
+    LEFT JOIN ${sql.identifier(config.catalogSchema)}.eservice_descriptor_attribute da
       ON da.descriptor_id = d.id
-    JOIN ${sql.identifier(config.attributeSchema)}.attribute a
+    LEFT JOIN ${sql.identifier(config.attributeSchema)}.attribute a
       ON a.id = da.attribute_id
     WHERE d.id = chosen.id
     GROUP BY d.id
