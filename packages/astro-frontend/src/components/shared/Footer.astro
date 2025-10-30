@@ -1,18 +1,38 @@
 ---
-import { CATALOG_API_SECTION_NAV_ITEMS, RESOURCES_SECTION_NAV_ITEMS } from '../../config/constants'
+import {
+  CATALOG_API_SECTION_NAV_ITEMS,
+  links,
+  RESOURCES_SECTION_NAV_ITEMS,
+} from '../../config/constants'
+import type { SupportedLanguage } from '../../i18n/types.i18n'
 import { useUiTranslations } from '../../i18n/ui.i18n'
-import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { getLangFromUrl, getLocalizedRoute } from '../../i18n/utils.i18n'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tUi = useUiTranslations(currentLocale)
 
 // Footer small print links (legal, privacy, accessibility, etc.)
 const footerSmallPrintLinks = [
-  { label: tUi('footer.nav_section.media_policy'), href: '#' },
-  { label: tUi('footer.nav_section.legal_notes'), href: '#' },
-  { label: tUi('footer.nav_section.privacy_policy'), href: '#' },
-  { label: tUi('footer.nav_section.sitemap'), href: '#' },
-  { label: tUi('footer.nav_section.accessibility_statement'), href: '#' },
+  {
+    label: tUi('footer.nav_section.media_policy'),
+    getHref: (_locale: SupportedLanguage) => '#',
+  },
+  {
+    label: tUi('footer.nav_section.legal_notes'),
+    getHref: (locale: SupportedLanguage) => getLocalizedRoute(locale, 'LEGAL_NOTES'),
+  },
+  {
+    label: tUi('footer.nav_section.privacy_policy'),
+    getHref: (locale: SupportedLanguage) => getLocalizedRoute(locale, 'PRIVACY_POLICY'),
+  },
+  {
+    label: tUi('footer.nav_section.sitemap'),
+    getHref: (_locale: SupportedLanguage) => '/sitemap.xml',
+  },
+  {
+    label: tUi('footer.nav_section.accessibility_statement'),
+    getHref: (_locale: SupportedLanguage) => '#',
+  },
 ] as const
 ---
 
@@ -24,21 +44,27 @@ const footerSmallPrintLinks = [
         {/* Logos and navigation columns */}
           <div class="row g-4">
           <div class="col-12 col-md-2 pb-2">
-            <img
-              src="/img/next-generation-eu-footer-logo.svg"
-              alt="Next Generation EU logo"
-              class="img-fluid"
-            />
+            <a href={links.ueCommissionLink} target="_blank">
+              <img
+                src="/img/next-generation-eu-footer-logo.svg"
+                alt="Next Generation EU logo"
+                class="img-fluid"
+              />
+            </a>
           </div>
           <div class="col-12 col-md-3 pb-2">
-            <img
-              src="/img/dtd-footer-logo.svg"
-              alt="Dipartimento per la trasformazione digitale logo"
-              class="img-fluid"
-            />
+            <a href={links.dtdLink} target="_blank">
+              <img
+                src="/img/dtd-footer-logo.svg"
+                alt="Dipartimento per la trasformazione digitale logo"
+                class="img-fluid"
+              />
+            </a>
           </div>
           <div class="col-12 col-md-2 pb-2">
-            <img src="/img/pagopa-footer-logo.svg" alt="PagoPA logo" class="img-fluid" />
+            <a href={links.pagoPaLink} target="_blank">
+              <img src="/img/pagopa-footer-logo.svg" alt="PagoPA logo" class="img-fluid" />
+            </a>
           </div>
           <div class="d-none d-md-flex col-12 col-md-5 pb-2 justify-content-end gap-5">
             <!-- Catalogo API links column -->
@@ -91,7 +117,7 @@ const footerSmallPrintLinks = [
         {
           footerSmallPrintLinks.map((link) => (
             <li class="list-inline-item">
-              <a href={link.href}>{link.label}</a>
+              <a href={link.getHref(currentLocale)}>{link.label}</a>
             </li>
           ))
         }
