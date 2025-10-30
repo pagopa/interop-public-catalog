@@ -2,10 +2,8 @@ import type { StrapiEntity } from 'pagopa-interop-public-models'
 import type { SupportedLanguage } from '../../i18n/types.i18n'
 import type { FaqContent } from '../types/faq.types'
 import { match } from 'ts-pattern'
-import { child } from 'winston'
 
-const SITE_URL =
-  /* isDevEnvironment() ? 'https://api-gov.dev.interop.pagopa.it' : */ 'https://api.gov.it'
+const SITE_URL = 'https://api.gov.it'
 
 export const faqContentMockedIt: StrapiEntity<FaqContent> = {
   data: {
