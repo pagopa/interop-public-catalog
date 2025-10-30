@@ -77,7 +77,7 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale
       property="og:description"
       content={pageMetaData.seo.metaDescription ?? generalMetaData.seo.metaDescription}
     />
-    <!-- <meta property="og:url" content={/*TODO */} /> -->
+    <meta property="og:url" content={pageMetaData.seo.canonical ?? generalMetaData.seo.canonical} />
     <meta property="og:site_name" content={pageMetaData.siteName ?? generalMetaData.siteName} />
     <meta
       property="og:image"
