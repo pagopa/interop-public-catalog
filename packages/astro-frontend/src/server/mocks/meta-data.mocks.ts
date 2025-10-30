@@ -12,10 +12,10 @@ const generalMockData: MetaDataType = {
     metaDescription:
       "Il portale ufficiale per l'interoperabilità dei dati della Pubblica Amministrazione. Accedi ai dati utilizzando la Piattaforma Digitale Nazionale Dati (PDND).",
     twitterImage: {
-      url: `${SITE_URL}/static/social_interop_01_800x418.jpg`,
+      url: `/img/twitter_main.svg`,
     },
     opengraphImage: {
-      url: `${SITE_URL}/static/social_interop_01_1200x630.jpg`,
+      url: `/img/opengraph_main.svg`,
     },
   },
 }
@@ -39,6 +39,12 @@ const ecosystemMockData: MetaDataType = {
     metaTitle: 'I vantaggi dell’interoperabilità dei dati tra Pubbliche Amministrazioni',
     metaDescription:
       'L’interoperabilità dei dati permette agli enti di perseguire il principio di once only. Consulta i vantaggi e gli strumenti a supporto.',
+    twitterImage: {
+      url: `/img/twitter_ecosistema.svg`,
+    },
+    opengraphImage: {
+      url: `/img/opengraph_ecosistema.svg`,
+    },
   },
 }
 
