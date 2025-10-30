@@ -1,10 +1,7 @@
+import type { AstroIntegration } from 'astro'
 import fs from 'node:fs'
 import path from 'node:path'
-import type { defineConfig } from 'astro/config'
-
-type VitePlugin = NonNullable<
-  NonNullable<Parameters<typeof defineConfig>[0]['vite']>['plugins']
->[number]
+import { fileURLToPath } from 'node:url'
 
 type RouteTranslations<Locale extends string> = Record<Locale, string | undefined>
 
@@ -14,7 +11,6 @@ export type SitemapPluginOptions<Locale extends string> = {
   defaultLocale: Locale
   site: string
   outputFilename?: string
-  logger?: Pick<Console, 'info' | 'warn' | 'error'>
 }
 
 const isDynamicPath = (routePath: string): boolean => /[:[\]*]/.test(routePath ?? '')
@@ -71,40 +67,33 @@ const buildSitemapXml = <Locale extends string>({
 
 export const sitemapPlugin = <Locale extends string>(
   options: SitemapPluginOptions<Locale>
-): VitePlugin => {
+): AstroIntegration => {
   const outputFilename = options.outputFilename ?? 'sitemap.xml'
   const generate = () => buildSitemapXml(options)
-  let resolvedOutDir: string | null = null
-  let rootDir = process.cwd()
+  const rootDir = process.cwd()
   return {
     name: 'astro-sitemap-plugin',
-    configResolved(config) {
-      resolvedOutDir = path.resolve(config.root, config.build.outDir)
-      rootDir = config.root
-    },
-    configureServer(server) {
-      server.middlewares.use((req, res, next) => {
-        if (!req.url) return next()
-        const requestPath = req.url.replace(/\?.*$/, '')
-        if (requestPath !== `/${outputFilename}`) {
-          return next()
-        }
-        res.statusCode = 200
-        res.setHeader('Content-Type', 'application/xml')
-        res.end(generate())
-      })
-    },
-    closeBundle() {
-      if (!resolvedOutDir) {
-        options.logger?.warn?.('astro-sitemap-plugin: build outDir not resolved, skipping output.')
-        return
-      }
-      const outputPath = path.join(resolvedOutDir, outputFilename)
-      fs.mkdirSync(path.dirname(outputPath), { recursive: true })
-      fs.writeFileSync(outputPath, generate(), 'utf8')
-      options.logger?.info?.(
-        `astro-sitemap-plugin: generated sitemap at ${path.relative(rootDir, outputPath)}`
-      )
+    hooks: {
+      'astro:server:setup'({ server }) {
+        server.middlewares.use((req, res, next) => {
+          if (!req.url) return next()
+          const requestPath = req.url.replace(/\?.*$/, '')
+          if (requestPath !== `/${outputFilename}`) {
+            return next()
+          }
+          res.statusCode = 200
+          res.setHeader('Content-Type', 'application/xml')
+          res.end(generate())
+        })
+      },
+      'astro:build:done'({ logger, dir }) {
+        const outDir = fileURLToPath(dir)
+        const outputPath = path.join(outDir, outputFilename)
+        fs.writeFileSync(outputPath, generate(), 'utf8')
+        logger.info(
+          `[astro-sitemap-plugin] generated sitemap at ${path.relative(rootDir, outputPath)}`
+        )
+      },
     },
   }
 }

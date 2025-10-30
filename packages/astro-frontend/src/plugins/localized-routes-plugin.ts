@@ -1,10 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import type { defineConfig } from 'astro/config'
-
-type VitePlugin = NonNullable<
-  NonNullable<Parameters<typeof defineConfig>[0]['vite']>['plugins']
->[number]
+import type { AstroIntegration, AstroIntegrationLogger } from 'astro'
 
 type RouteTranslations<Locale extends string> = Record<Locale, string | undefined>
 
@@ -83,8 +79,8 @@ const resolveSource = (
     }
   }
 
-  logger.warn(
-    `localized-routes-plugin: unable to resolve source file for route "${routeKey}" path "${routePath}"`
+  logger?.warn(
+    `[localized-routes-plugin] unable to resolve source file for route "${routeKey}" path "${routePath}"`
   )
   return null
 }
@@ -124,7 +120,7 @@ const copyLocalizedRoutes = <Locale extends string>(
 
     if (!defaultLocalePath) {
       options.logger.warn(
-        `localized-routes-plugin: route "${routeKey}" is missing a definition for the default locale "${options.defaultLocale}"`
+        `[localized-routes-plugin] route "${routeKey}" is missing a definition for the default locale "${options.defaultLocale}"`
       )
       return
     }
@@ -144,7 +140,7 @@ const copyLocalizedRoutes = <Locale extends string>(
       const targetRoutePath = localizedRoutes[locale]
       if (!targetRoutePath) {
         options.logger.warn(
-          `localized-routes-plugin: skipping route "${routeKey}" for locale "${locale}" (missing path)`
+          `[localized-routes-plugin] skipping route "${routeKey}" for locale "${locale}" (missing path)`
         )
         return
       }
@@ -161,16 +157,9 @@ const copyLocalizedRoutes = <Locale extends string>(
           fs.mkdirSync(path.dirname(destAbsolutePath), { recursive: true })
           fs.copyFileSync(sourceAbsolutePath, destAbsolutePath)
         }
-
-        options.logger.info(
-          `localized-routes-plugin: ${path.relative(process.cwd(), sourceAbsolutePath)} -> ${path.relative(
-            process.cwd(),
-            destAbsolutePath
-          )}`
-        )
       } catch (error) {
         options.logger.error(
-          `localized-routes-plugin: failed to copy "${routeKey}" to locale "${locale}": ${
+          `[localized-routes-plugin] failed to copy "${routeKey}" to locale "${locale}": ${
             error instanceof Error ? error.message : String(error)
           }`
         )
@@ -180,7 +169,7 @@ const copyLocalizedRoutes = <Locale extends string>(
 }
 
 /**
- * Vite plugin that copies Astro pages from the default locale into the other locale folders
+ * Astro integration that copies Astro pages from the default locale into the other locale folders
  * declared in the router config, keeping localized routes in sync during dev and build.
  */
 export const localizedRoutesPlugin = <Locale extends string>({
@@ -190,8 +179,7 @@ export const localizedRoutesPlugin = <Locale extends string>({
   pagesRoot,
   watchFiles = [],
   fileExtensions = DEFAULT_FILE_EXTENSIONS,
-  logger = console,
-}: LocalizedRoutesPluginOptions<Locale>): VitePlugin => {
+}: LocalizedRoutesPluginOptions<Locale>): AstroIntegration => {
   const defaultLocaleDir = path.join(pagesRoot, defaultLocale)
 
   const destBaseByLocale = targetLocales.reduce(
@@ -206,47 +194,56 @@ export const localizedRoutesPlugin = <Locale extends string>({
   const defaultLocaleDirNormalized = path.normalize(defaultLocaleDir)
   let hasInitialCopy = false
 
-  const runCopy = () => {
-    if (!targetLocales.length) return
+  const runCopy = (options?: { logger?: AstroIntegrationLogger }) => {
+    const logger = options?.logger ?? console
+    if (!targetLocales.length) {
+      logger.info('[localized-routes-plugin] no target locales configured, skipping copy')
+      return
+    }
+
+    logger.info('[localized-routes-plugin] Copying localized routes')
     copyLocalizedRoutes(routes, defaultLocaleDir, destBaseByLocale, {
       defaultLocale,
       targetLocales,
       fileExtensions,
       logger,
     })
+    logger.info('[localized-routes-plugin] Localized routes copy completed')
     hasInitialCopy = true
   }
 
   return {
     name: 'localized-routes-plugin',
-    configureServer(server) {
-      runCopy()
+    hooks: {
+      'astro:build:start': ({ logger }) => {
+        runCopy({ logger })
+      },
+      'astro:server:setup': ({ logger, server }) => {
+        runCopy({ logger })
 
-      const watcherHandler = (filePath: string) => {
-        const normalizedPath = path.normalize(path.resolve(filePath))
-        const isDefaultLocaleChange =
-          normalizedPath === defaultLocaleDirNormalized ||
-          normalizedPath.startsWith(defaultLocaleDirNormalized + path.sep)
-        const isWatchedFile = normalizedWatchFiles.includes(normalizedPath)
+        const watcherHandler = (filePath: string) => {
+          const normalizedPath = path.normalize(path.resolve(filePath))
+          const isDefaultLocaleChange =
+            normalizedPath === defaultLocaleDirNormalized ||
+            normalizedPath.startsWith(defaultLocaleDirNormalized + path.sep)
+          const isWatchedFile = normalizedWatchFiles.includes(normalizedPath)
 
-        if (isDefaultLocaleChange || isWatchedFile) {
-          runCopy()
+          if (isDefaultLocaleChange || isWatchedFile) {
+            runCopy()
+          }
         }
-      }
 
-      server.watcher.on('add', watcherHandler)
-      server.watcher.on('unlink', watcherHandler)
-      server.watcher.on('change', watcherHandler)
+        server.watcher.on('add', watcherHandler)
+        server.watcher.on('unlink', watcherHandler)
+        server.watcher.on('change', watcherHandler)
 
-      server.middlewares.use((_req: unknown, _res: unknown, next: () => void) => {
-        if (!hasInitialCopy) {
-          runCopy()
-        }
-        next()
-      })
-    },
-    buildStart() {
-      runCopy()
+        server.middlewares.use((_req: unknown, _res: unknown, next: () => void) => {
+          if (!hasInitialCopy) {
+            runCopy({ logger })
+          }
+          next()
+        })
+      },
     },
   }
 }
