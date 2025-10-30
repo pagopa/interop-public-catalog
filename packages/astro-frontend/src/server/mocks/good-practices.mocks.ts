@@ -69,7 +69,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: 'text',
-                  text: ' e la sua erogazione tramite la Piattaforma Digitale Nazionale Dati (PDND), i comuni possono consultare in tempo reale i dati dei contrassegni rilasciati da altri enti, riconoscere automaticamente i diritti di accesso e di sosta delle persone con disabilità su tutto il territorio nazionale, eliminando la necessità di registrazioni manuali delle targhe.',
+                  text: ' e la sua erogazione tramite la Piattaforma Digitale Nazionale Dati (PDND), i comuni possono consultare in tempo reale i dati dei contrassegni rilasciati da altri enti, riconoscere automaticamente i diritti di accesso e di sosta delle persone con disabilità su tutto il territorio nazionale, eliminando la necessità di registrazioni manuali delle targhe. L’obiettivo è che tutti i Comuni alimentino la banca dati centrale, così da garantire che le persone aventi diritto, possano circolare nelle ZTL o parcheggiare negli stalli riservati su tutto il territorio nazionale, senza dover fare nuove richieste ogni volta.',
                 },
               ],
             },
@@ -767,7 +767,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: 'text',
-                      text: ': è consentita la consultazione di tutti i cittadini ed è richiesto lo scambio di certificati digitali tra enti, al fine di abilitare meccanismi di autenticazione reciproca',
+                      text: ': è consentita la consultazione di tutti i cittadini ed è richiesto lo scambio di certificati digitali tra enti, al fine di abilitare meccanismi di autenticazione reciproca ',
                     },
                     {
                       type: 'text',
@@ -786,7 +786,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: 'text',
-                      text: ': è consentita la consultazione di tutti i cittadini ed è richiesto l’invio ad INPS dei dati relativi all’operatore che effettua l’operazione e che si è autenticato tramite SPID o CIE',
+                      text: ': è consentita la consultazione di tutti i cittadini ed è richiesto l’invio ad INPS dei dati relativi all’operatore che effettua l’operazione e che si è autenticato tramite SPID o CIE ',
                     },
                     {
                       type: 'text',
@@ -805,7 +805,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: 'text',
-                      text: ': è consentita ai comuni la sola consultazione dei cittadini residenti all’interno del proprio territorio',
+                      text: ': è consentita ai comuni la sola consultazione dei cittadini residenti all’interno del proprio territorio ',
                     },
                     {
                       type: 'text',
@@ -1168,16 +1168,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: 'text',
-                  text: ', and its distribution via the National Data Platform (PDND), municipalities can now consult, in real time, the permits issued by other public administrations. This enables them to automatically recognise parking and access rights for people with disabilities across the entire national territory, eliminating the need for manual vehicle registration.',
-                },
-              ],
-            },
-            {
-              type: 'paragraph',
-              children: [
-                {
-                  type: 'text',
-                  text: 'The goal is for all municipalities to contribute to the central database, ensuring that eligible citizens can circulate within restricted traffic zones or park in designated spaces anywhere in Italy, without having to submit new requests each time.',
+                  text: ', and its distribution via the National Data Platform (PDND), municipalities can now consult, in real time, the permits issued by other public administrations. This enables them to automatically recognise parking and access rights for people with disabilities across the entire national territory, eliminating the need for manual vehicle registration. The goal is for all municipalities to contribute to the central database, ensuring that eligible citizens can circulate within restricted traffic zones or park in designated spaces anywhere in Italy, without having to submit new requests each time.',
                 },
               ],
             },
@@ -1225,16 +1216,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'Previously, if a CUDE holder travelled to a municipality not connected to the national database, they had to follow the old procedure: manually communicate their license plate to the local administration, comply with varying procedures for each municipality, and always display the paper permit to avoid fines. Now, thanks to real-time access to up-to-date data, citizens with a valid CUDE can drive and park in all municipalities connected to the national CUDE database (a number that is steadily increasing) without having to submit new requests every time they move.',
-                },
-              ],
-            },
-            {
-              type: 'paragraph',
-              children: [
-                {
-                  type: 'text',
-                  text: 'Through the integration of APIs available on PDND, electronic gates automatically recognise vehicles associated with a valid CUDE, granting access to restricted traffic zones (ZTL) and parking areas reserved for people with disabilities across the country.',
+                  text: 'Previously, if a CUDE holder travelled to a municipality not connected to the national database, they had to follow the old procedure: manually communicate their license plate to the local administration, comply with varying procedures for each municipality, and always display the paper permit to avoid fines. Now, thanks to real-time access to up-to-date data, citizens with a valid CUDE can drive and park in all municipalities connected to the national CUDE database (a number that is steadily increasing) without having to submit new requests every time they move. Through the integration of APIs available on PDND, electronic gates automatically recognise vehicles associated with a valid CUDE, granting access to restricted traffic zones (ZTL) and parking areas reserved for people with disabilities across the country.',
                 },
               ],
             },
@@ -1682,25 +1664,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: 'text',
-                  text: 'Financial aid programmes often require the submission of documents and self declarations to verify eligibility, with different procedures across public bodies and lengthy verification times.',
-                },
-              ],
-            },
-            {
-              type: 'paragraph',
-              children: [
-                {
-                  type: 'text',
-                  text: 'Through the APIs available on PDND, public bodies can automatically verify citizens’ eligibility by retrieving data such as ISEE (Equivalent Economic Situation Indicator) and family status directly from the source, during the submission of the application.',
-                },
-              ],
-            },
-            {
-              type: 'paragraph',
-              children: [
-                {
-                  type: 'text',
-                  text: 'This allows the application of the ',
+                  text: 'Financial aid programmes often require the submission of documents and self declarations to verify eligibility, with different procedures across public bodies and lengthy verification times. Through the APIs available on PDND, public bodies can automatically verify citizens’ eligibility by retrieving data such as ISEE (Equivalent Economic Situation Indicator) and family status directly from the source, during the submission of the application. This allows the application of the ',
                 },
                 {
                   type: 'text',
