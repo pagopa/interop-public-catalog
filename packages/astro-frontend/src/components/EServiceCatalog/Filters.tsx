@@ -1,16 +1,18 @@
 import { Button, Col, Form, FormGroup, Icon, Input, Row } from 'design-react-kit'
-import React, { useEffect } from 'react'
+import React from 'react'
 import {
   type FilterAutoCompleteValue,
   MultipleAutoComplete,
 } from '../MultipleAutoComplete/MultipleAutoComplete.js'
 import { TooltipIcon } from '../shared/TooltipIcon.js'
-import { getLangFromUrl } from '../../i18n/utils.i18n.js'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
 import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
 import type { CatalogFilterParams } from './types.js'
 import { useAutocompleteTextInput } from '../../hooks/useAutoCompleteTextInput.jsx'
-import { getConsumers, getProducer } from '../../services/catalog.services.js'
+import type { SupportedLanguage } from '../../i18n/types.i18n.js'
+import useSWRImmutable from 'swr/immutable'
+import { apiService } from '../../services/api.services.js'
+import { categoriesMap } from '../../server/config/categories.js'
 
 export type FiltersParams = {
   q?: string
@@ -20,6 +22,13 @@ export type FiltersParams = {
 }
 
 export type FilterParamsKeys = keyof FiltersParams
+
+const TENANT_MACROCATEGORIES_OPTIONS = Object.keys(categoriesMap).map((categoryName) => {
+  return {
+    value: categoryName,
+    label: categoryName,
+  }
+})
 
 type FiltersProps = {
   handleDraftFilterValueChange: (
@@ -32,40 +41,28 @@ type FiltersProps = {
     value: string | number | FilterAutoCompleteValue[]
   ) => void
   isMobile: boolean
+  currentLocale: SupportedLanguage
 }
 const Filters: React.FC<FiltersProps> = ({
   handleDraftFilterValueChange,
   onSubmit,
   isMobile,
   handleActiveFilterValueChange,
+  currentLocale,
 }) => {
-  const currentLanguage = getLangFromUrl(window.location.pathname)
-  const t = useCatalogTranslations(currentLanguage)
+  const t = useCatalogTranslations(currentLocale)
 
   const { eserviceFiltersState } = useEServiceCatalogContext()
 
-  const [producerList, setProducerList] = React.useState([])
-  const [consumerList, setConsumerList] = React.useState([])
   const [autoCompleteProviderInput, setAutoCompleteProviderInput] = useAutocompleteTextInput('')
-  const [autoCompleteConsumerInput, setAutoCompleteConsumerInput] = useAutocompleteTextInput('')
 
-  useEffect(() => {
-    fetchTenants()
-  }, [autoCompleteProviderInput])
-
-  useEffect(() => {
-    fetchConsumers()
-  }, [autoCompleteConsumerInput])
-
-  const fetchTenants = async () => {
-    const producers = await getProducer(autoCompleteProviderInput)
-    setProducerList(producers)
-  }
-
-  const fetchConsumers = async () => {
-    const consumers = await getConsumers()
-    setConsumerList(consumers)
-  }
+  const { data: producerList = [] } = useSWRImmutable(
+    ['producers', autoCompleteProviderInput],
+    async ([_, q]) =>
+      apiService
+        .getTenants(q)
+        .then((res) => res.results.map((r) => ({ value: r.producer_id, label: r.name })))
+  )
 
   return (
     <Form>
@@ -101,6 +98,7 @@ const Filters: React.FC<FiltersProps> = ({
             values={eserviceFiltersState.provider as unknown as FilterAutoCompleteValue[]}
             onTextInputChange={setAutoCompleteProviderInput}
             handleValuesChange={(values) => handleDraftFilterValueChange('provider', values)}
+            currentLocale={currentLocale}
           />
         </Col>
         {!isMobile && (
@@ -121,9 +119,9 @@ const Filters: React.FC<FiltersProps> = ({
           <FormGroup>
             <MultipleAutoComplete
               label={t('filters.consumer.label')}
-              options={consumerList}
+              options={TENANT_MACROCATEGORIES_OPTIONS}
               values={eserviceFiltersState.consumer as unknown as FilterAutoCompleteValue[]}
-              onTextInputChange={setAutoCompleteConsumerInput}
+              onTextInputChange={() => {}}
               handleValuesChange={
                 isMobile
                   ? (values) => handleDraftFilterValueChange('consumer', values)
@@ -141,6 +139,7 @@ const Filters: React.FC<FiltersProps> = ({
                   />
                 </div>
               }
+              currentLocale={currentLocale}
             />
           </FormGroup>
         </Col>

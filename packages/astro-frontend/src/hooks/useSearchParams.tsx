@@ -24,7 +24,7 @@ export function useSearchParams<T extends ZodSchema<any>>(schema: T) {
     return () => window.removeEventListener('popstate', onPopState)
   }, [getParams])
 
-  const setSearchParams = (newParams: Partial<z.infer<T>>) => {
+  const setSearchParams = useCallback((newParams: Partial<z.infer<T>>) => {
     setSearchParamsState((prev) => {
       const params = serializeQueryString({ ...prev, ...newParams })
       const newUrl = `${window.location.pathname}${params ? '?' + params : ''}${window.location.hash}`
@@ -32,16 +32,16 @@ export function useSearchParams<T extends ZodSchema<any>>(schema: T) {
 
       return { ...prev, ...newParams }
     })
-  }
+  }, [])
 
-  const replaceSetParams = (newParams: Partial<z.infer<T>>) => {
+  const replaceSetParams = useCallback((newParams: Partial<z.infer<T>>) => {
     setSearchParamsState(() => {
       const params = serializeQueryString(newParams)
       const newUrl = `${window.location.pathname}${params ? '?' + params : ''}${window.location.hash}`
       window.history.replaceState({}, '', newUrl)
       return newParams
     })
-  }
+  }, [])
 
   return [searchParams, setSearchParams, replaceSetParams] as const
 }

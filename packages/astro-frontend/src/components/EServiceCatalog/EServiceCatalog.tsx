@@ -3,54 +3,53 @@ import EServiceCatalogFilters from './EServiceCatalogFilters'
 import EServiceCatalogItems from './EServiceCatalogItems'
 import React from 'react'
 import { useEServiceCatalogContext } from './EServiceCatalogContext'
-import { getEServices } from '../../services/catalog.services'
-import type { EService } from 'pagopa-interop-public-models'
 import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
 import { useCatalogTranslations } from '../../i18n/catalog.i18n'
 import { links } from '../../config/constants'
-import { useUiTranslations } from '../../i18n/ui.i18n'
-import { getLangFromUrl } from '../../i18n/utils.i18n'
 import { EServiceCardSkeleton } from '../shared/EServiceCard'
+import type { SupportedLanguage } from '../../i18n/types.i18n'
+import { apiService } from '../../services/api.services'
+import useSWRImmutable from 'swr/immutable'
+import type { categoriesMap } from '../../server/config/categories'
 
-export const EServiceCatalog: React.FC = () => {
-  const currentLocale = getLangFromUrl(window.location.href)
+export const EServiceCatalog: React.FC<{ currentLocale: SupportedLanguage }> = ({
+  currentLocale,
+}) => {
   const t = useCatalogTranslations(currentLocale)
 
-  const [eservices, setEservices] = React.useState<EService[]>([])
-  const [isLoading, setIsLoading] = React.useState<boolean>(true)
-  const [totalCount, setTotalCount] = React.useState<number>(0)
   const { eserviceActiveFilterState, applyFilters } = useEServiceCatalogContext()
-
-  const currentLanguage = getLangFromUrl(window.location.pathname)
-  const tUi = useUiTranslations(currentLanguage)
 
   const onFiltersApply = async () => {
     applyFilters()
   }
 
-  const fetchEservices = async () => {
-    setIsLoading(true)
-    const eserviceResponse = await getEServices({
-      offset: eserviceActiveFilterState.offset,
-      orderBy: eserviceActiveFilterState.orderBy,
-      q: eserviceActiveFilterState.q,
-      producerIds: eserviceActiveFilterState.provider.map((p) => p.value).join(','),
-      categories: eserviceActiveFilterState.consumer.map((c) => c.label).join(','),
-    })
+  const { data, isLoading } = useSWRImmutable(
+    [
+      'eservice-catalog',
+      {
+        offset: eserviceActiveFilterState.offset,
+        limit: 12,
+        orderBy: [eserviceActiveFilterState.orderBy],
+        q: eserviceActiveFilterState.q,
+        producerIds: eserviceActiveFilterState.provider.map((p) => p.value),
+        categories: eserviceActiveFilterState.consumer.map(
+          (c) => c.label as keyof typeof categoriesMap
+        ),
+      },
+    ],
+    async ([_, filters]) => apiService.getEServices(filters)
+  )
 
-    setEservices(eserviceResponse.results)
-    setTotalCount(eserviceResponse.pagination.totalCount)
-    setIsLoading(false)
-  }
-
-  React.useEffect(() => {
-    fetchEservices()
-  }, [eserviceActiveFilterState])
+  const totalCount = data?.pagination.totalCount ?? 0
+  const eservices = data?.results ?? []
 
   return (
     <>
       <Container className="p-3">
-        <EServiceCatalogFilters handleSubmitRequest={onFiltersApply} />
+        <EServiceCatalogFilters
+          currentLocale={currentLocale}
+          handleSubmitRequest={onFiltersApply}
+        />
       </Container>
 
       {!isLoading ? (

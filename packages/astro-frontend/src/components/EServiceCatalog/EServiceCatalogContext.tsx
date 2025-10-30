@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { createContext } from 'react'
 import type { FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete'
 import type { CatalogFilterParams } from './types'
@@ -89,52 +89,52 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
   const [eserviceActiveFilterState, setEserviceActiveFilterState] =
     React.useState<CatalogFilterParams>(initialCatalogFilterParams)
 
-  const handleDraftFilterValueChange = (
-    key: keyof CatalogFilterParams,
-    value: string | number | FilterAutoCompleteValue[]
-  ) => {
-    setEserviceFiltersState((prev) => ({ ...prev, [key]: value }))
-  }
+  const handleDraftFilterValueChange = useCallback(
+    (key: keyof CatalogFilterParams, value: string | number | FilterAutoCompleteValue[]) => {
+      setEserviceFiltersState((prev) => ({ ...prev, [key]: value }))
+    },
+    []
+  )
 
-  const handleActiveFilterValueChange = (
-    key: keyof CatalogFilterParams,
-    value: string | number | FilterAutoCompleteValue[]
-  ) => {
-    const offset = key !== 'offset' ? 0 : eserviceActiveFilterState.offset
+  const handleActiveFilterValueChange = useCallback(
+    (key: keyof CatalogFilterParams, value: string | number | FilterAutoCompleteValue[]) => {
+      const offset = key !== 'offset' ? 0 : eserviceActiveFilterState.offset
 
-    setEserviceFiltersState((prev) => ({ ...prev, offset, [key]: value }))
-    setEserviceActiveFilterState((prev) => ({ ...prev, offset, [key]: value }))
-  }
+      setEserviceFiltersState((prev) => ({ ...prev, offset, [key]: value }))
+      setEserviceActiveFilterState((prev) => ({ ...prev, offset, [key]: value }))
+    },
+    [eserviceActiveFilterState.offset]
+  )
 
-  const handleRemoveActiveFilterValue = (
-    key: keyof CatalogFilterParams,
-    value: string | FilterAutoCompleteValue
-  ) => {
-    const previousState = eserviceActiveFilterState
+  const handleRemoveActiveFilterValue = useCallback(
+    (key: keyof CatalogFilterParams, value: string | FilterAutoCompleteValue) => {
+      const previousState = eserviceActiveFilterState
 
-    const getCurrentState = () => {
-      const currentValues = previousState[key]
-      if (Array.isArray(currentValues)) {
-        const newValues = currentValues.filter((item) => {
-          return item.value !== value
-        })
+      const getCurrentState = () => {
+        const currentValues = previousState[key]
+        if (Array.isArray(currentValues)) {
+          const newValues = currentValues.filter((item) => {
+            return item.value !== value
+          })
 
+          return {
+            ...previousState,
+            [key]: newValues,
+          }
+        }
         return {
           ...previousState,
-          [key]: newValues,
+          [key]: '',
         }
       }
-      return {
-        ...previousState,
-        [key]: '',
-      }
-    }
 
-    setEserviceActiveFilterState(getCurrentState())
-    setEserviceFiltersState(getCurrentState())
-  }
+      setEserviceActiveFilterState(getCurrentState())
+      setEserviceFiltersState(getCurrentState())
+    },
+    [eserviceActiveFilterState]
+  )
 
-  const handleRemoveAllActiveFilterValues = () => {
+  const handleRemoveAllActiveFilterValues = useCallback(() => {
     setEserviceActiveFilterState({
       ...eserviceFilterInitialState,
       offset: eserviceActiveFilterState.offset,
@@ -145,33 +145,36 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
       offset: eserviceActiveFilterState.offset,
       orderBy: eserviceActiveFilterState.orderBy,
     })
-  }
+  }, [eserviceActiveFilterState.offset, eserviceActiveFilterState.orderBy])
 
-  const setUrlFilterParams = (filterState: CatalogFilterParams) => {
-    const filterStateParams = Object.entries(filterState).reduce(
-      (acc, [key, value]) => {
-        if (Array.isArray(value) && value.length > 0) {
-          acc[key] = JSON.stringify(value.map((v) => [v.label, v.value]))
-        } else if (value === '') {
-          delete acc[key]
-        } else if (!Array.isArray(value) && value !== '' && value !== undefined) {
-          acc[key] = value.toString()
-        }
-        return acc
-      },
-      {} as Record<string, string>
-    )
+  const setUrlFilterParams = useCallback(
+    (filterState: CatalogFilterParams) => {
+      const filterStateParams = Object.entries(filterState).reduce(
+        (acc, [key, value]) => {
+          if (Array.isArray(value) && value.length > 0) {
+            acc[key] = JSON.stringify(value.map((v) => [v.label, v.value]))
+          } else if (value === '') {
+            delete acc[key]
+          } else if (!Array.isArray(value) && value !== '' && value !== undefined) {
+            acc[key] = value.toString()
+          }
+          return acc
+        },
+        {} as Record<string, string>
+      )
 
-    replaceSetParams(filterStateParams)
-  }
+      replaceSetParams(filterStateParams)
+    },
+    [replaceSetParams]
+  )
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     setEserviceActiveFilterState({ ...eserviceFiltersState, offset: 0 })
-  }
+  }, [eserviceFiltersState])
 
   React.useEffect(() => {
     setUrlFilterParams(eserviceActiveFilterState)
-  }, [eserviceActiveFilterState])
+  }, [eserviceActiveFilterState, setUrlFilterParams])
 
   const providerValue = React.useMemo(() => {
     return {
