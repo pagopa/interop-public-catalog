@@ -77,3 +77,17 @@
   margin-bottom: 0;
   transition: margin-bottom 0.3s forwards;
 }
+
+#filter-chip .chip-label {
+  height:100%
+}
+
+@media (max-width:767px) {
+
+  #filter-chip {
+    height:100%;
+  }
+  #filter-chip .chip-label {
+  height:100%
+}
+}

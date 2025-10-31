@@ -22,7 +22,7 @@ const Chip: React.FC<{ key: string; label: string; handleRemoveValue?: () => voi
 }) => {
   return (
     <DRKChip id="filter-chip" key={key} color="primary" className="no-hover me-1 mb-1">
-      <ChipLabel className="no-hover text-primary">{label}</ChipLabel>
+      <ChipLabel className="no-hover text-primary chip-label">{label}</ChipLabel>
       <Button onClick={handleRemoveValue}>
         <Icon icon="it-close" color="primary" />
       </Button>
