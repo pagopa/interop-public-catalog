@@ -65,7 +65,7 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
 
   return (
     <>
-      <h5 className="mb-5 d-none d-lg-block">{t('filters.title')}</h5>
+      <h5 className="mb-4 d-none d-lg-block">{t('filters.title')}</h5>
       <div className="d-block d-sm-none d-flex justify-content-between align-items-center mb-4">
         <h5>{t('filters.title')}</h5>
         <Button color="primary" outline size="sm" onClick={() => setIsModalOpen(true)}>
