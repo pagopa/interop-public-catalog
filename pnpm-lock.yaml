@@ -142,8 +142,8 @@ importers:
         specifier: 5.5.4
         version: 5.5.4(@types/eslint@9.6.1)(eslint-config-prettier@8.10.2(eslint@8.57.1))(eslint@8.57.1)(prettier@3.6.2)
       eslint-plugin-react-hooks:
-        specifier: 7.0.0
-        version: 7.0.0(eslint@8.57.1)
+        specifier: 7.0.1
+        version: 7.0.1(eslint@8.57.1)
       eslint-plugin-storybook:
         specifier: ^9.1.15
         version: 9.1.15(eslint@8.57.1)(storybook@9.1.15(@testing-library/dom@10.1.0)(prettier@3.6.2)(vite@7.1.11(@types/node@20.19.17)(terser@5.44.0)(tsx@4.19.1)(yaml@2.4.5)))(typescript@5.4.5)
@@ -353,10 +353,10 @@ importers:
         specifier: 20.19.17
         version: 20.19.17
       '@types/react':
-        specifier: ^18
+        specifier: 18.3.26
         version: 18.3.26
       '@types/react-dom':
-        specifier: ^18
+        specifier: 18.3.7
         version: 18.3.7(@types/react@18.3.26)
       eslint:
         specifier: 8.57.1
@@ -5251,8 +5251,8 @@ packages:
       eslint-config-prettier:
         optional: true
 
-  eslint-plugin-react-hooks@7.0.0:
-    resolution: {integrity: sha512-fNXaOwvKwq2+pXiRpXc825Vd63+KM4DLL40Rtlycb8m7fYpp6efrTp1sa6ZbP/Ap58K2bEKFXRmhURE+CJAQWw==}
+  eslint-plugin-react-hooks@7.0.1:
+    resolution: {integrity: sha512-O0d0m04evaNzEPoSW+59Mezf8Qt0InfgGIBJnpC0h3NH/WjUAR7BIKUfysC6todmtiZ/A0oUVS8Gce0WhBrHsA==}
     engines: {node: '>=18'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -6396,6 +6396,7 @@ packages:
   keygrip@1.1.0:
     resolution: {integrity: sha512-iYSchDJ+liQ8iwbSI2QqsQOvqv58eJCEanyJPJi+Khyu8smkcKSFUCbPwzFcL7YVtZ6eONjqRX/38caJ7QjRAQ==}
     engines: {node: '>= 0.6'}
+    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -9820,6 +9821,12 @@ packages:
     peerDependencies:
       zod: ^3.18.0
 
+  zod-validation-error@4.0.2:
+    resolution: {integrity: sha512-Q6/nZLe6jxuU80qb/4uJ4t5v2VEZ44lzQjPDhYJNztRQ4wyWc6VF3D3Kb/fAuPetZQnhS3hnajCf9CsWesghLQ==}
+    engines: {node: '>=18.0.0'}
+    peerDependencies:
+      zod: ^3.25.0 || ^4.0.0
+
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
@@ -9971,8 +9978,8 @@ snapshots:
       '@aws-crypto/sha1-browser': 5.2.0
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
-      '@aws-sdk/client-sso-oidc': 3.600.0(@aws-sdk/client-sts@3.600.0)
-      '@aws-sdk/client-sts': 3.600.0
+      '@aws-sdk/client-sso-oidc': 3.600.0
+      '@aws-sdk/client-sts': 3.600.0(@aws-sdk/client-sso-oidc@3.600.0)
       '@aws-sdk/core': 3.598.0
       '@aws-sdk/credential-provider-node': 3.600.0(@aws-sdk/client-sso-oidc@3.600.0)(@aws-sdk/client-sts@3.600.0)
       '@aws-sdk/middleware-bucket-endpoint': 3.598.0
@@ -10029,11 +10036,11 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-sso-oidc@3.600.0(@aws-sdk/client-sts@3.600.0)':
+  '@aws-sdk/client-sso-oidc@3.600.0':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
-      '@aws-sdk/client-sts': 3.600.0
+      '@aws-sdk/client-sts': 3.600.0(@aws-sdk/client-sso-oidc@3.600.0)
       '@aws-sdk/core': 3.598.0
       '@aws-sdk/credential-provider-node': 3.600.0(@aws-sdk/client-sso-oidc@3.600.0)(@aws-sdk/client-sts@3.600.0)
       '@aws-sdk/middleware-host-header': 3.598.0
@@ -10072,7 +10079,6 @@ snapshots:
       '@smithy/util-utf8': 3.0.0
       tslib: 2.8.1
     transitivePeerDependencies:
-      - '@aws-sdk/client-sts'
       - aws-crt
 
   '@aws-sdk/client-sso@3.598.0':
@@ -10118,11 +10124,11 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  '@aws-sdk/client-sts@3.600.0':
+  '@aws-sdk/client-sts@3.600.0(@aws-sdk/client-sso-oidc@3.600.0)':
     dependencies:
       '@aws-crypto/sha256-browser': 5.2.0
       '@aws-crypto/sha256-js': 5.2.0
-      '@aws-sdk/client-sso-oidc': 3.600.0(@aws-sdk/client-sts@3.600.0)
+      '@aws-sdk/client-sso-oidc': 3.600.0
       '@aws-sdk/core': 3.598.0
       '@aws-sdk/credential-provider-node': 3.600.0(@aws-sdk/client-sso-oidc@3.600.0)(@aws-sdk/client-sts@3.600.0)
       '@aws-sdk/middleware-host-header': 3.598.0
@@ -10161,6 +10167,7 @@ snapshots:
       '@smithy/util-utf8': 3.0.0
       tslib: 2.8.1
     transitivePeerDependencies:
+      - '@aws-sdk/client-sso-oidc'
       - aws-crt
 
   '@aws-sdk/core@3.598.0':
@@ -10194,7 +10201,7 @@ snapshots:
 
   '@aws-sdk/credential-provider-ini@3.598.0(@aws-sdk/client-sso-oidc@3.600.0)(@aws-sdk/client-sts@3.600.0)':
     dependencies:
-      '@aws-sdk/client-sts': 3.600.0
+      '@aws-sdk/client-sts': 3.600.0(@aws-sdk/client-sso-oidc@3.600.0)
       '@aws-sdk/credential-provider-env': 3.598.0
       '@aws-sdk/credential-provider-http': 3.598.0
       '@aws-sdk/credential-provider-process': 3.598.0
@@ -10252,7 +10259,7 @@ snapshots:
 
   '@aws-sdk/credential-provider-web-identity@3.598.0(@aws-sdk/client-sts@3.600.0)':
     dependencies:
-      '@aws-sdk/client-sts': 3.600.0
+      '@aws-sdk/client-sts': 3.600.0(@aws-sdk/client-sso-oidc@3.600.0)
       '@aws-sdk/types': 3.598.0
       '@smithy/property-provider': 3.1.11
       '@smithy/types': 3.7.2
@@ -10398,7 +10405,7 @@ snapshots:
 
   '@aws-sdk/token-providers@3.598.0(@aws-sdk/client-sso-oidc@3.600.0)':
     dependencies:
-      '@aws-sdk/client-sso-oidc': 3.600.0(@aws-sdk/client-sts@3.600.0)
+      '@aws-sdk/client-sso-oidc': 3.600.0
       '@aws-sdk/types': 3.598.0
       '@smithy/property-provider': 3.1.11
       '@smithy/shared-ini-file-loader': 3.1.12
@@ -16306,14 +16313,14 @@ snapshots:
       '@types/eslint': 9.6.1
       eslint-config-prettier: 8.10.2(eslint@8.57.1)
 
-  eslint-plugin-react-hooks@7.0.0(eslint@8.57.1):
+  eslint-plugin-react-hooks@7.0.1(eslint@8.57.1):
     dependencies:
       '@babel/core': 7.28.4
       '@babel/parser': 7.28.4
       eslint: 8.57.1
       hermes-parser: 0.25.1
-      zod: 3.23.8
-      zod-validation-error: 3.3.0(zod@3.23.8)
+      zod: 3.25.76
+      zod-validation-error: 4.0.2(zod@3.25.76)
     transitivePeerDependencies:
       - supports-color
 
@@ -21502,6 +21509,10 @@ snapshots:
   zod-validation-error@3.3.0(zod@3.23.8):
     dependencies:
       zod: 3.23.8
+
+  zod-validation-error@4.0.2(zod@3.25.76):
+    dependencies:
+      zod: 3.25.76
 
   zod@3.23.8: {}
 
