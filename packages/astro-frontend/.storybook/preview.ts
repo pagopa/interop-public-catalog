@@ -1,7 +1,9 @@
 import type { Preview } from '@storybook/react-vite'
 
 import 'bootstrap-italia/dist/css/bootstrap-italia.min.css'
-import '../src/style.css'
+import '../src/styles/styles.css'
+import '../src/styles/fonts.css'
+import '../src/styles/onetrust.css'
 
 const customViewports = {
   xs: {
@@ -45,8 +47,8 @@ const preview: Preview = {
   parameters: {
     controls: {
       matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
+        color: /(background|color)$/i,
+        date: /Date$/i,
       },
     },
     viewport: {
@@ -54,6 +56,6 @@ const preview: Preview = {
       defaultViewport: 'responsive',
     },
   },
-};
+}
 
-export default preview;
+export default preview

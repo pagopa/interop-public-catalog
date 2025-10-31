@@ -32,12 +32,13 @@ const highlightedEServicesPromise: Promise<EService[]> = (async () => {
   if (isDevEnvironment(Astro.url.href)) {
     const response = await sqlService.searchCatalog({ limit: 3, offset: 0 })
     return response.results
-  } else {
-    const results = await Promise.all(
-      HIGHLIGHTED_ESERVICE_IDS.map((id) => sqlService.getEService(id))
-    )
-    return results.filter((result) => result !== undefined)
   }
+
+  const results = await Promise.all(
+    HIGHLIGHTED_ESERVICE_IDS.map((id) => sqlService.getEService(id))
+  )
+
+  return results.filter((result) => result !== undefined)
 })()
 
 const featuredGoodPracticesPromise: Promise<GoodPractice[]> = strapiService

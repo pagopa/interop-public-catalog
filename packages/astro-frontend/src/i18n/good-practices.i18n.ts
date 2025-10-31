@@ -7,10 +7,10 @@ const goodPracticesTranslations = {
     'catalog.subtitle':
       'Lasciati ispirare da una raccolta di esempi significativi e semplici di come integrare servizi per il tuo ente e i cittadini',
 
-    'details.moreExamples': 'Altri esempi pratici',
+    'details.moreExamples': 'Altre buone pratiche',
     'details.lastUpdate': 'Ultimo aggiornamento:',
 
-    'details.section.apis.heading': 'API utilizzate',
+    'details.section.apis.heading': 'API collegate a questa buona pratica',
     'details.section.apis.description': 'Descrizione',
     'details.section.apis.example': 'Un esempio dal territorio',
     'details.section.apis.technical_notes': 'Note tecniche',

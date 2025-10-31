@@ -11,6 +11,7 @@ import { useUiTranslations } from '../../../i18n/ui.i18n'
 import GoodPracticeDetails from '../../../components/GoodPracticeDetails/GoodPracticeDetails.astro'
 import { strapiService } from '../../../server/services'
 import { CopyUrlButton } from '../../../components/shared/CopyUrlButton'
+import RatingSection from '../../../components/shared/RatingSection.astro'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tGoodPractices = useGoodPracticesTranslations(currentLocale)
@@ -73,7 +74,7 @@ const goodPractice = goodPracticeStrapiResponse.data
     title={tGoodPractices('details.moreExamples')}
     titleClass="text-center"
   >
-    <div class="d-flex justify-content-center gap-4 mt-4">
+    <div class="d-flex flex-column flex-md-row justify-content-center gap-4 mt-4">
       {
         randomGoodPractices.data.map((goodPractice) => (
           <GoodPracticeCard currentLocale={currentLocale} goodPractice={goodPractice} />
@@ -81,4 +82,5 @@ const goodPractice = goodPracticeStrapiResponse.data
       }
     </div>
   </Section>
+  <RatingSection />
 </Layout>
