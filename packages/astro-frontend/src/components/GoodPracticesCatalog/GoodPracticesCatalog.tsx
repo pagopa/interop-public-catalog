@@ -37,7 +37,7 @@ export const GoodPracticesCatalog: React.FC<{
 
   return (
     <div className="d-flex justify-content-around gap-4">
-      <span className="d-none d-md-block">
+      <span className="d-none d-lg-block">
         <MacroCategoryIdFilter
           currentLocale={currentLocale}
           onSelectedMacroCategoryIdChange={handleSelectedMacroCategoryIdChange}
