@@ -25,7 +25,7 @@ export function initMixpanel({ projectId }: { projectId: string }) {
   didMixpanelInit = true
 }
 
-type TrackingData =
+export type MixpanelTrackingData =
   | {
       key: 'INTEROP_FAQ_OPEN'
       payload: {
@@ -36,15 +36,13 @@ type TrackingData =
   | {
       key: 'INTEROP_TOOLTIP_OPEN'
       payload: {
-        pageId: string
         tooltipId: string
-        tooltipType: string
+        tooltipType: 'info'
       }
     }
   | {
       key: 'INTEROP_EXTERNAL_LINK_VISIT'
       payload: {
-        pageId: string
         linkId: string
         linkDescription: string
         href: string
@@ -54,10 +52,10 @@ type TrackingData =
       key: 'INTEROP_CATALOG_FILTERS_APPLY'
       payload: {
         q: string
-        producerId: string
-        producerName: string
-        tenantMacrocategoryId: string
-        tenantMacrocategoryName: string
+        producersId: string
+        producersName: string
+        tenantMacrocategoriesId: string
+        tenantMacrocategoriesName: string
       }
     }
   | {
@@ -81,16 +79,3 @@ type TrackingData =
         goodPracticeCategory?: string
       }
     }
-
-type TrackingPayload<TKey extends TrackingData['key']> = Extract<
-  TrackingData,
-  { key: TKey }
->['payload']
-
-export function track<TKey extends TrackingData['key']>(
-  eventKey: TKey,
-  eventPayload: TrackingPayload<TKey>
-) {
-  if (!didMixpanelInit) return
-  mixpanel.track(eventKey, eventPayload)
-}

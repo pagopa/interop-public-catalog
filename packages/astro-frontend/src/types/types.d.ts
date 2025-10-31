@@ -1,4 +1,5 @@
 import type { ClientEnvConfig } from '../config/config'
+import type { MixpanelTrackingData } from '../utils/tracking.utils'
 
 declare module 'accessible-autocomplete/react' {
   interface AutocompleteProps {
@@ -57,6 +58,12 @@ declare global {
     OnetrustActiveGroups: string
     OneTrust: {
       OnConsentChanged: (callback: () => void) => void
+    }
+    mixpanel: {
+      track: <TKey extends MixpanelTrackingData['key']>(
+        eventKey: TKey,
+        eventPayload: Extract<MixpanelTrackingData, { key: TKey }>['payload']
+      ) => void
     }
   }
 }

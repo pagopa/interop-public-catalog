@@ -94,3 +94,18 @@ const tUi = useUiTranslations(currentLocale)
     </div>
   </div>
 </section>
+
+<script is:inline>
+
+  const form = document.getElementById('hero-form-group');
+
+  form.addEventListener('submit', (event) => {
+    const formData = new FormData(form);
+    const query = formData.get('q')?.toString().trim();
+
+    window.mixpanel.track("INTEROP_HOMEPAGE_CATALOG_FILTER_APPLY", {
+      q: query || ''
+    })
+  });
+
+</script>

@@ -1,7 +1,7 @@
 ---
+import type { StrapiNode } from 'pagopa-interop-public-models'
 import {
   renderRichTextStrapiNodes,
-  type StrapiNode,
 } from '../../utils/rich-text-strapi-renderer.js'
 import { Section } from '../shared/Section'
 interface Props {
@@ -10,13 +10,16 @@ interface Props {
   faqs: Array<{ id: number; question: string; answer: StrapiNode[] }>
 }
 
+
 const { sectionId, title, faqs } = Astro.props
+
+const actualSectionId = `accordionGroup${sectionId}`
 ---
 
 <Section title={title} className="pb-0">
   <div class="row">
     <div class="col-12 col-md-8">
-      <div class="accordion" id=`accordionGroup${sectionId}`>
+      <div class="accordion" id={actualSectionId}>
         {
           faqs.map(({ question, answer, id }) => (
             <>
@@ -35,6 +38,8 @@ const { sectionId, title, faqs } = Astro.props
                 </h3>
                 <div
                   id={`collapse${sectionId}${id}`}
+                  data-mp-faqId={id}
+                  data-mp-faqTitle={question}
                   class="accordion-collapse collapse"
                   data-bs-parent={`#accordionGroup${sectionId}`}
                   role="region"
@@ -52,3 +57,20 @@ const { sectionId, title, faqs } = Astro.props
     </div>
   </div>
 </Section>
+
+<script define:vars={{ actualSectionId }} is:inline>
+  const myCollapsible = document.getElementById(actualSectionId)  
+
+  myCollapsible.addEventListener('shown.bs.collapse', (e) => {
+    const target = e.target
+    const faqId = target.getAttribute('data-mp-faqId')
+    const faqTitle = target.getAttribute('data-mp-faqTitle')
+    
+    if (faqId && faqTitle) {      
+      window.mixpanel.track("INTEROP_FAQ_OPEN", {
+        faqId,
+        faqTitle
+      })
+    }
+  })
+</script>

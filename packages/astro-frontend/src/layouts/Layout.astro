@@ -121,5 +121,11 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale
 
   if (import.meta.env.PROD) {
     initMixpanel({ projectId: window.env.mixpanelProjectId })
+  } else {
+    window.mixpanel = {
+      track: (event: string, data: Record<string, any>) => {
+        console.log(`[Mixpanel DEV] Tracked event: ${event}`, data)
+      },
+    }
   }
 </script>

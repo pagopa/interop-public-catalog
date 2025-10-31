@@ -169,7 +169,16 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
   )
 
   const applyFilters = useCallback(() => {
-    setEserviceActiveFilterState({ ...eserviceFiltersState, offset: 0 })
+    const appliedFilters = { ...eserviceFiltersState, offset: 0 }
+    setEserviceActiveFilterState(appliedFilters)
+
+    window.mixpanel.track('INTEROP_CATALOG_FILTERS_APPLY', {
+      q: eserviceFiltersState.q,
+      producersId: appliedFilters.provider.map((p) => p.value).join(','),
+      producersName: appliedFilters.provider.map((p) => p.label).join(','),
+      tenantMacrocategoriesId: appliedFilters.consumer.map((c) => c.value).join(','),
+      tenantMacrocategoriesName: appliedFilters.consumer.map((c) => c.label).join(','),
+    })
   }, [eserviceFiltersState])
 
   React.useEffect(() => {
