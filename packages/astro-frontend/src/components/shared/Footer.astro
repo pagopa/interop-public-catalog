@@ -14,10 +14,6 @@ const tUi = useUiTranslations(currentLocale)
 // Footer small print links (legal, privacy, accessibility, etc.)
 const footerSmallPrintLinks = [
   {
-    label: tUi('footer.nav_section.media_policy'),
-    getHref: (_locale: SupportedLanguage) => '#',
-  },
-  {
     label: tUi('footer.nav_section.legal_notes'),
     getHref: (locale: SupportedLanguage) => getLocalizedRoute(locale, 'LEGAL_NOTES'),
   },
