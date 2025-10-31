@@ -19,10 +19,10 @@ export const getSeoMockData = (
       metaDescription:
         "Il portale ufficiale per l'interoperabilità dei dati della Pubblica Amministrazione. Accedi ai dati utilizzando la Piattaforma Digitale Nazionale Dati (PDND).",
       twitterImage: {
-        url: `/img/twitter_main.jpg`,
+        url: `${origin}/img/twitter_main.jpg`,
       },
       opengraphImage: {
-        url: `/img/opengraph_main.jpg`,
+        url: `${origin}/img/opengraph_main.jpg`,
       },
     },
   }
@@ -47,10 +47,10 @@ export const getSeoMockData = (
       metaDescription:
         'L’interoperabilità dei dati permette agli enti di perseguire il principio di once only. Consulta i vantaggi e gli strumenti a supporto.',
       twitterImage: {
-        url: `/img/twitter_ecosistema.jpg`,
+        url: `${origin}/img/twitter_ecosistema.jpg`,
       },
       opengraphImage: {
-        url: `/img/opengraph_ecosistema.jpg`,
+        url: `${origin}/img/opengraph_ecosistema.jpg`,
       },
     },
   }
@@ -164,10 +164,10 @@ export const getSeoMockData = (
       metaDescription:
         'The official portal for Public Administration data interoperability. Access certified data using the National Digital Data Platform (PDND).',
       twitterImage: {
-        url: `/img/twitter_main.jpg`,
+        url: `${origin}/img/twitter_main.jpg`,
       },
       opengraphImage: {
-        url: `/img/opengraph_main.jpg`,
+        url: `${origin}/img/opengraph_main.jpg`,
       },
     },
   }
@@ -192,10 +192,10 @@ export const getSeoMockData = (
       metaDescription:
         'Data interoperability allows entities to pursue the once-only principle. Consult the benefits and supporting tools available.',
       twitterImage: {
-        url: `/img/twitter_ecosistema.jpg`,
+        url: `${origin}/img/twitter_ecosistema.jpg`,
       },
       opengraphImage: {
-        url: `/img/opengraph_ecosistema.jpg`,
+        url: `${origin}/img/opengraph_ecosistema.jpg`,
       },
     },
   }
