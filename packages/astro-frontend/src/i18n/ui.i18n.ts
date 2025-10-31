@@ -173,7 +173,7 @@ export const ui = {
     'tenant_macrocategory_.altre_long': 'Other Local Public Bodies',
 
     'tenant_macrocategory_.tutti_short': 'All',
-    'tenant_macrocategory_.pac_short': 'PAC',
+    'tenant_macrocategory_.pac_short': 'Central PAs',
     'tenant_macrocategory_.comuni_short': 'Municipalities',
     'tenant_macrocategory_.regioni_short': 'Regions',
     'tenant_macrocategory_.universita_short': 'Universities',
