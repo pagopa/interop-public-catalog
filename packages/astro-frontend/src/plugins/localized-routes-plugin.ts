@@ -215,12 +215,10 @@ export const localizedRoutesPlugin = <Locale extends string>({
   return {
     name: 'localized-routes-plugin',
     hooks: {
-      'astro:build:start': ({ logger }) => {
+      'astro:config:setup': ({ logger }) => {
         runCopy({ logger })
       },
       'astro:server:setup': ({ logger, server }) => {
-        runCopy({ logger })
-
         const watcherHandler = (filePath: string) => {
           const normalizedPath = path.normalize(path.resolve(filePath))
           const isDefaultLocaleChange =

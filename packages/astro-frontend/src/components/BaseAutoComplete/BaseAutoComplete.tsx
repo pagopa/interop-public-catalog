@@ -5,7 +5,7 @@ type BaseAutoCompleteProps = {
 }
 export const BaseAutoComplete = ({ id }: BaseAutoCompleteProps) => {
   function suggest(query: string, syncResults: (results: string[]) => void) {
-    var results = [
+    const results = [
       'Afghanistan',
       'Akrotiri',
       'Albania',
