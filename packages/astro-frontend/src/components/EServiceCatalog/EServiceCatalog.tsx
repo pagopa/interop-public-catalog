@@ -59,7 +59,7 @@ export const EServiceCatalog: React.FC<{ currentLocale: SupportedLanguage }> = (
       )}
       <Container className="p-3">
         <div className="primary-bg-c1 pt-3 px-sm-3">
-          <h3 className="p-3">{t('finder.title')}</h3>
+          <h4 className="p-3">{t('finder.title')}</h4>
           <div className="p-3">
             <a
               href={links.apiListLink}

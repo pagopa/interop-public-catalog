@@ -14,6 +14,8 @@ import useSWRImmutable from 'swr/immutable'
 import { apiService } from '../../services/api.services.js'
 import { categoriesMap } from '../../server/config/categories.js'
 
+const FILTER_ROW_HEIGHT = 70
+
 export type FiltersParams = {
   q?: string
   theme?: string
@@ -67,7 +69,7 @@ const Filters: React.FC<FiltersProps> = ({
   return (
     <Form>
       <Row id="eservice-filters">
-        <Col className="pe-1" lg="3">
+        <Col className="pe-1" lg="3" xs="12" style={{ maxHeight: FILTER_ROW_HEIGHT }}>
           <FormGroup className="input-filter-key">
             <Input
               hasIconLeft
@@ -91,7 +93,7 @@ const Filters: React.FC<FiltersProps> = ({
             />
           </FormGroup>
         </Col>
-        <Col lg="3" className="pe-1">
+        <Col lg="3" className="pe-1 mt-lg-0 mt-3" style={{ maxHeight: FILTER_ROW_HEIGHT }}>
           <MultipleAutoComplete
             label={t('filters.provider.label')}
             options={producerList}
@@ -114,8 +116,8 @@ const Filters: React.FC<FiltersProps> = ({
           </Col>
         )}
       </Row>
-      <Row>
-        <Col lg="3" className="pe-1">
+      <Row className="mt-3">
+        <Col lg="3" xs="12" className="pe-1">
           <FormGroup>
             <MultipleAutoComplete
               label={t('filters.consumer.label')}
