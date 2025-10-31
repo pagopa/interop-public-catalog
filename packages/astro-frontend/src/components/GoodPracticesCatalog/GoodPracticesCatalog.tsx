@@ -36,15 +36,15 @@ export const GoodPracticesCatalog: React.FC<{
   }
 
   return (
-    <div className="d-flex justify-content-around gap-4">
-      <span className="d-none d-md-block">
+    <div className="row">
+      <div className="col-4 d-none d-lg-block">
         <MacroCategoryIdFilter
           currentLocale={currentLocale}
           onSelectedMacroCategoryIdChange={handleSelectedMacroCategoryIdChange}
           selectedMacroCategoryId={selectedMacroCategoryId ?? null}
         />
-      </span>
-      <div className="d-flex flex-column align-items-center gap-4 flex-fill">
+      </div>
+      <div className="col-12 col-lg-8 d-flex flex-column align-items-center gap-4 flex-fill">
         {(isLoading || isServer) && (
           <>
             <GoodPracticeCardSkeleton />
@@ -72,15 +72,15 @@ export const GoodPracticesCatalogSkeleton: React.FC<{
   currentLocale: SupportedLanguage
 }> = ({ selectedMacroCategoryId, currentLocale }) => {
   return (
-    <div className="d-flex justify-content-around gap-4">
-      <span className="d-none d-md-block">
+    <div className="row">
+      <div className="col-4 d-none d-lg-block">
         <MacroCategoryIdFilter
           currentLocale={currentLocale}
           onSelectedMacroCategoryIdChange={() => {}}
           selectedMacroCategoryId={selectedMacroCategoryId}
         />
-      </span>
-      <div className="d-flex flex-column align-items-center gap-4 flex-fill">
+      </div>
+      <div className="col-12 col-lg-8 d-flex flex-column align-items-center gap-4 flex-fill">
         <GoodPracticeCardSkeleton />
         <GoodPracticeCardSkeleton />
         <GoodPracticeCardSkeleton />

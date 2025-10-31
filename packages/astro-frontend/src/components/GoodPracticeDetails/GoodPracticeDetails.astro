@@ -18,9 +18,6 @@ const goodPracticeBody = goodPractice.body
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tGoodPractices = useGoodPracticesTranslations(currentLocale)
 
-const HEADING_CLASS = 'h5 mb-4'
-const PARAGRAPH_CLASS = 'mb-4'
-
 const sectionTitles = goodPracticeBody
   .filter((s) => s.__component === 'buona-pratica.title')
   .map((s) => ({ label: s.Text, id: s.id.toString() }))
@@ -37,9 +34,12 @@ const formattedDate = formatDate(goodPractice.updatedAt, currentLocale)
 
 const customRenderRichTextStrapiNodes = (nodes: StrapiNode[]) => {
   return renderRichTextStrapiNodes(nodes)
-    .replaceAll('<p>', '<p class="' + PARAGRAPH_CLASS + '">')
-    .replaceAll('<ul>', '<ul class="' + 'mb-4' + '">')
+    .replaceAll('<p>', `<p style="margin-bottom:${MARGIN_BOTTOM}px">`)
+    .replaceAll('<ul>', `<ul style="margin-bottom:${MARGIN_BOTTOM}px">`)
 }
+
+const MARGIN_BOTTOM = 40
+const HEADING_CLASS = 'h5 mb-3'
 ---
 
 <div class="row">
@@ -63,13 +63,13 @@ const customRenderRichTextStrapiNodes = (nodes: StrapiNode[]) => {
         goodPracticeBody.map((c) =>
           match(c)
             .with({ __component: 'buona-pratica.image' }, (c) => (
-              <figure class="mb-4">
+              <figure class="" style={`margin-bottom:${MARGIN_BOTTOM}px`}>
                 <img
                   src={c.image.url}
                   alt={c.image.alternativeText}
                   width={c.image.width}
                   height={c.image.height}
-                  class="my-3 img-fluid w-100"
+                  class="mb-3 img-fluid w-100"
                 />
                 <figcaption class="text-center">{c.caption}</figcaption>
               </figure>
@@ -80,18 +80,23 @@ const customRenderRichTextStrapiNodes = (nodes: StrapiNode[]) => {
               </h2>
             ))
             .with({ __component: 'buona-pratica.description' }, (c) => (
-              <p class={PARAGRAPH_CLASS} set:html={customRenderRichTextStrapiNodes(c.Text)} />
+              <p
+                style={`margin-bottom:${MARGIN_BOTTOM}px`}
+                set:html={customRenderRichTextStrapiNodes(c.Text)}
+              />
             ))
             .with({ __component: 'buona-pratica.esempio-concreto' }, (c) => (
-              <div style="background-color:#BFDFFF" class="p-4 mb-4">
+              <div
+                style={`background-color:#BFDFFF;padding:${MARGIN_BOTTOM}px;margin-bottom:${MARGIN_BOTTOM}px`}
+              >
                 <h3 class="h5 mb-3">{tGoodPractices('details.section.apis.example')}</h3>
-                <Fragment set:html={customRenderRichTextStrapiNodes(c.example)} />
+                <Fragment set:html={renderRichTextStrapiNodes(c.example)} />
               </div>
             ))
             .with({ __component: 'buona-pratica.nota-tecnica' }, (c) => (
               <div class="alert alert-primary py-4 mb-4">
                 <h3 class="h5">{tGoodPractices('details.section.apis.technical_notes')}</h3>
-                <Fragment set:html={customRenderRichTextStrapiNodes(c.example)} />
+                <Fragment set:html={renderRichTextStrapiNodes(c.example)} />
               </div>
             ))
             .exhaustive()

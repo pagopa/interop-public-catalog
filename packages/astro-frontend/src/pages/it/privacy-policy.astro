@@ -4,7 +4,7 @@ import { Section } from '../../components/shared/Section'
 ---
 
 <Layout>
-  <Section>
+  <Section id="onetrust-notice-wrapper">
     <Fragment
       set:html={`
   <!-- OneTrust Privacy Notice start -->
@@ -19,7 +19,7 @@ import { Section } from '../../components/shared/Section'
       // To ensure external settings are loaded, use the Initialized promise:
       OneTrust.NoticeApi.Initialized.then(function() {
         OneTrust.NoticeApi.LoadNotices(["https://privacyportalde-cdn.onetrust.com/storage-container/77f17844-04c3-4969-a11d-462ee77acbe1/privacy-notices/673b25bc-120d-4e35-b677-372c40a01a93/published/privacynotice.json"]);
-      });
+      })
     </script>
 
   <!-- OneTrust Privacy Notice end -->
