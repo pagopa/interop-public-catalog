@@ -3,6 +3,10 @@ name: "Invalidate CloudFront distribution cache"
 on:
   workflow_dispatch:
     inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        type: environment
       cloudfront_distribution_id:
         description: "ID of the CloudFront distribution to invalidate"
         required: true
