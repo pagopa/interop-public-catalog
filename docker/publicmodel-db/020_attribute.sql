@@ -12,4 +12,4 @@ CREATE TABLE IF NOT EXISTS publicmodel_attribute.attribute (
   PRIMARY KEY (id)
 );
 
-CREATE INDEX ON publicmodel_attribute.attribute (code);
+CREATE INDEX IF NOT EXISTS attribute_code_idx ON publicmodel_attribute.attribute (code);
