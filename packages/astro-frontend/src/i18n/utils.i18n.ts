@@ -23,8 +23,12 @@ export function getRouteKeyFromCurrentRoutePattern(
   currentRoutePattern: string,
   currentLocale: SupportedLanguage
 ): RouteKey | undefined {
+  console.log(currentRoutePattern)
+
   return (Object.keys(ROUTES) as RouteKey[]).find(
-    (r) => `/${currentLocale}${ROUTES[r][currentLocale]}` === currentRoutePattern
+    (r) =>
+      `/${currentLocale}${ROUTES[r][currentLocale]}`.toLocaleLowerCase() ===
+      currentRoutePattern.toLocaleLowerCase()
   )
 }
 
