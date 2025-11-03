@@ -8,6 +8,7 @@ export const isDevEnvironment = (href: string) =>
 export const links = {
   dtdLink: 'http://innovazione.gov.it/',
   pagoPaLink: 'https://www.pagopa.it/it/',
+  selfcareLink: 'https://selfcare.pagopa.it',
   schemaSemanticLink: 'https://schema.gov.it/',
   openDataLink: 'https://www.dati.gov.it/',
   interopPlatformLink: 'https://www.interop.pagopa.it/',
