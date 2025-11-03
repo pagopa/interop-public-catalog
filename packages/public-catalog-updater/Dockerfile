@@ -26,6 +26,9 @@ RUN pnpm run build
 
 # Creating final image
 FROM node:22-alpine
+
+RUN apk add --no-cache aws-cli
+
 RUN corepack enable
 WORKDIR /opt/app
 COPY --from=build --chown=node:node /opt/app ./
@@ -33,4 +36,6 @@ ENV PATH=/opt/app/node_modules/.bin:$PATH
 
 USER node
 EXPOSE 1337
-CMD ["node", "packages/public-catalog-updater/dist/index.js"]
+
+# Run job and invalidate cloudfront
+CMD sh -c "node packages/public-catalog-updater/dist/index.js && aws cloudfront create-invalidation --distribution-id \"$CDN_ID\" --paths \"$CDN_INVALIDATION_PATH\""
