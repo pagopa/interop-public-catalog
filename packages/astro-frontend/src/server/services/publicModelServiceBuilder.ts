@@ -211,7 +211,7 @@ export async function searchCatalog(
     )
   }
 
-  const { baseSelect, fullSelect, activeDescriptorPopulator, activeDescriptorPopulatorGroupBy } =
+  const { baseSelect, activeDescriptorPopulator, activeDescriptorPopulatorGroupBy } =
     _buildFullQueryWithFilters({
       catalogSchema: config.catalogSchema,
       attributeSchema: config.attributeSchema,
@@ -226,16 +226,14 @@ export async function searchCatalog(
   }
   `)
 
-  const shouldAttributesBePopulated: boolean = !!(mappedCategories && mappedCategories.length > 0)
-
   const textlessSearchTx: Transaction<EService & { [k: string]: unknown }> = async (tx) => {
     const pageRes = await tx.execute(sql`
-    ${shouldAttributesBePopulated ? fullSelect('e', 't') : baseSelect('e', 't')},
+    ${baseSelect('e', 't')},
     count(*) over() AS total
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
-    ${activeDescriptorPopulator(shouldAttributesBePopulated, 'e', mappedCategories)}
+    ${activeDescriptorPopulator(false, 'e', mappedCategories)}
     WHERE ${sql.join(conds, sql` AND `)}
-    ${activeDescriptorPopulatorGroupBy(shouldAttributesBePopulated, 'e', 't')}
+    ${activeDescriptorPopulatorGroupBy(false, 'e', 't')}
     ORDER BY ${orderByFragment}
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `)
@@ -287,7 +285,7 @@ export async function searchCatalog(
       WHERE NOT EXISTS (SELECT 1 FROM fts_ids)
     ),
     scored AS (
-      ${shouldAttributesBePopulated ? fullSelect('e', 't') : baseSelect('e', 't')},
+      ${baseSelect('e', 't')},
         count(*) over() AS total,
         -- gives priority to tenant name matches when ordering
         -- based on coverage + density (ts_rank_cd)
@@ -299,10 +297,10 @@ export async function searchCatalog(
         )::real AS fuzzy_sim
       FROM picked x
       JOIN ${sql.identifier(config.catalogSchema)}.eservice e ON e.id = x.id
-      ${activeDescriptorPopulator(shouldAttributesBePopulated, 'e', mappedCategories)}
+      ${activeDescriptorPopulator(false, 'e', mappedCategories)}
       CROSS JOIN params p
       WHERE ${sql.join(conds, sql` AND `)}
-      ${activeDescriptorPopulatorGroupBy(shouldAttributesBePopulated, 'e', 't')}, p.tsq, p.nq
+      ${activeDescriptorPopulatorGroupBy(false, 'e', 't')}, p.tsq, p.nq
     )
     SELECT s.*,
       (s.fts_rank + 0.5 * s.fuzzy_sim)::real AS score
