@@ -35,5 +35,5 @@ jobs:
           set -euo pipefail
 
           aws cloudfront create-invalidation \
-            --distribution-id ${{ github.event.inputs.cloudfront_distribution_id }} \
-            --paths ${{ github.event.inputs.invalidation_paths }}
+            --distribution-id ${{ inputs.cloudfront_distribution_id }} \
+            --paths ${{ inputs.invalidation_paths }}
