@@ -9,14 +9,12 @@ interface Props {
 }
 
 const { sectionId, title, faqs } = Astro.props
-
-const actualSectionId = `accordionGroup${sectionId}`
 ---
 
 <Section title={title} className="pb-0">
   <div class="row">
     <div class="col-12 col-md-8">
-      <div class="accordion" id={actualSectionId} data-mp-faq-section>
+      <div class="accordion" id={`accordionGroup${sectionId}`} data-mp-faq-section>
         {
           faqs.map(({ question, answer, id }) => (
             <>
