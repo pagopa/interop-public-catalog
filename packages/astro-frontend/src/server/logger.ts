@@ -20,33 +20,21 @@ const config: LoggerConfig = parsedLoggerConfig.success
       logLevel: 'info',
     }
 
-const logFormat = (
-  msg: string,
-  timestamp: string,
-  level: string,
-  { correlationId }: LoggerMetadata
-) => {
-  const correlationLogPart = correlationId ? `[CID=${correlationId}]` : undefined
+const MESSAGE = Symbol.for('message')
+const lineFormat = winston.format((info) => {
+  const cid = ((info.loggerMetadata as Record<string, unknown>)?.correlationId ??
+    info.correlationId) as string | undefined
 
-  const firstPart = [timestamp, level.toUpperCase()].filter((e) => e !== undefined).join(' ')
+  const head = [info.timestamp, info.level?.toUpperCase()].filter(Boolean).join(' ')
+  const cidPart = cid ? `[CID=${cid}] ` : ''
+  const text =
+    typeof info.message === 'object'
+      ? JSON.stringify(info.message, bigIntReplacer)
+      : String(info.message ?? '')
 
-  const secondPart = [correlationLogPart].filter((e) => e !== undefined).join(' ')
-
-  return `${firstPart} - ${secondPart} ${msg}`
-}
-
-export const customFormat = () =>
-  winston.format.printf(({ level, message, timestamp, ...meta }) => {
-    const clearMessage =
-      typeof message === 'object' ? JSON.stringify(message, bigIntReplacer) : message
-    const lines = (clearMessage ?? '')
-      .toString()
-      .split('\n')
-      .map((line: string) =>
-        logFormat(line, timestamp as string, level, meta.loggerMetadata as LoggerMetadata)
-      )
-    return lines.join('\n')
-  })
+  info[MESSAGE] = `${head} - ${cidPart}${text}`
+  return info
+})
 
 const getLogger = () =>
   winston.createLogger({
@@ -59,9 +47,8 @@ const getLogger = () =>
     ],
     format: winston.format.combine(
       winston.format.timestamp(),
-      winston.format.json(),
       winston.format.errors({ stack: true }),
-      customFormat()
+      lineFormat()
     ),
     silent: process.env.NODE_ENV === 'test',
   })
@@ -81,5 +68,3 @@ export const logger = (loggerMetadata: LoggerMetadata) => ({
 })
 
 export type Logger = ReturnType<typeof logger>
-
-export const genericLogger = logger({})
