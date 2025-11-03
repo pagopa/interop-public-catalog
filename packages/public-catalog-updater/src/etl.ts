@@ -99,7 +99,7 @@ const tables: TableMap[] = [
   {
     source: `${jobConfig.sourceDbSchemaCatalog}.eservice_descriptor_template_version_ref`,
     target: `${jobConfig.targetDbSchemaCatalog}.eservice_descriptor_template_version_ref`,
-    orderBy: "eservice_id, descriptor_id",
+    orderBy: "eservice_template_version_id, descriptor_id",
     columns: extractColumnNamesFromTable(
       catalog.tables.eservice_descriptor_template_version_ref
     ),
@@ -107,7 +107,7 @@ const tables: TableMap[] = [
   {
     source: `${jobConfig.sourceDbSchemaCatalog}.eservice_descriptor_attribute`,
     target: `${jobConfig.targetDbSchemaCatalog}.eservice_descriptor_attribute`,
-    orderBy: "eservice_id, attribute_id",
+    orderBy: "eservice_id, attribute_id, group_id",
     columns: extractColumnNamesFromTable(
       catalog.tables.eservice_descriptor_attribute
     ),
