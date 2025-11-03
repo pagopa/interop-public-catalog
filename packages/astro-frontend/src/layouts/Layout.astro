@@ -62,6 +62,10 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale
     <meta name="generator" content={Astro.generator} />
 
     <title>{pageMetaData.title ?? generalMetaData.title}</title>
+    <meta
+      name="description"
+      content={pageMetaData.seo.metaDescription ?? generalMetaData.seo.metaDescription}
+    />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
       name="twitter:title"
