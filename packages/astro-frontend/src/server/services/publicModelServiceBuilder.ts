@@ -108,7 +108,7 @@ const _buildFullQueryWithFilters = (config: {
   ${categories && categories.length > 0 ? conditionalCategoriesCheck(categories) : sql``}
   -- build full descriptor w/ attributes
   ${
-    (categories && categories.length > 0) || attributes
+    attributes
       ? sql`
     JOIN LATERAL (
     SELECT
