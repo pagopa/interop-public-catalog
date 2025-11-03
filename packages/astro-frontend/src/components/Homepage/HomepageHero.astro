@@ -94,3 +94,8 @@ const tUi = useUiTranslations(currentLocale)
     </div>
   </div>
 </section>
+
+<script>
+  import { mixpanelService } from '../../services/mixpanel.services'
+  mixpanelService.bindTrackingHomepageCatalogFilterApplyEvent('hero-form-group')
+</script>

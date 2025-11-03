@@ -72,13 +72,25 @@ const footerSmallPrintLinks = [
               <div class="link-list-wrapper">
                 <ul class="footer-list link-list clearfix">
                   {
-                    CATALOG_API_SECTION_NAV_ITEMS.map((item) => (
-                      <li>
-                        <a class="list-item" href={item.getHref(currentLocale)}>
-                          {tUi(item.i18nKey)}
-                        </a>
-                      </li>
-                    ))
+                    CATALOG_API_SECTION_NAV_ITEMS.map((item) => {
+                      const localizedHref = getLocalizedRoute(currentLocale, item.routeKey)
+
+                      const isGoodPracticeCatalogNavItem =
+                        item.routeKey === 'GOOD_PRACTICES_CATALOG'
+                      const mixpanelAttributes = isGoodPracticeCatalogNavItem
+                        ? {
+                            'data-mp-good-practice-catalog-referral': 'footer',
+                          }
+                        : {}
+
+                      return (
+                        <li>
+                          <a class="list-item" href={localizedHref} {...mixpanelAttributes}>
+                            {tUi(item.i18nKey)}
+                          </a>
+                        </li>
+                      )
+                    })
                   }
                 </ul>
               </div>
@@ -93,7 +105,7 @@ const footerSmallPrintLinks = [
                   {
                     RESOURCES_SECTION_NAV_ITEMS.map((item) => (
                       <li>
-                        <a class="list-item" href={item.getHref(currentLocale)}>
+                        <a class="list-item" href={getLocalizedRoute(currentLocale, item.routeKey)}>
                           {tUi(item.i18nKey)}
                         </a>
                       </li>

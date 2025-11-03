@@ -55,7 +55,7 @@ export const buildCatalogTables = (schema: string) => {
     },
     (t) => [
       primaryKey({ columns: [t.eserviceTemplateVersionId, t.descriptorId] }),
-    ],
+    ]
   );
 
   const eserviceDescriptorAttribute = catalogSchema.table(
@@ -66,14 +66,12 @@ export const buildCatalogTables = (schema: string) => {
       metadataVersion: integer("metadata_version").notNull(),
       descriptorId: uuid("descriptor_id").notNull(),
       explicitAttributeVerification: dboolean(
-        "explicit_attribute_verification",
+        "explicit_attribute_verification"
       ).notNull(),
       kind: varchar("kind").notNull(),
       groupId: integer("group_id").notNull(),
     },
-    (t) => [
-      primaryKey({ columns: [t.attributeId, t.descriptorId, t.groupId] }),
-    ],
+    (t) => [primaryKey({ columns: [t.attributeId, t.descriptorId, t.groupId] })]
   );
 
   return {

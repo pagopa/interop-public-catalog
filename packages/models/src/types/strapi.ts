@@ -75,7 +75,7 @@ export const StrapiLinkNodeSchema: z.ZodType<StrapiLinkNode> = z.lazy(() =>
     type: z.literal("link"),
     url: z.string(),
     children: z.array(StrapiNodeSchema).optional(),
-  }),
+  })
 );
 
 export const StrapiParagraphNodeSchema: z.ZodType<StrapiParagraphNode> = z.lazy(
@@ -83,7 +83,7 @@ export const StrapiParagraphNodeSchema: z.ZodType<StrapiParagraphNode> = z.lazy(
     z.object({
       type: z.literal("paragraph"),
       children: z.array(StrapiNodeSchema).optional(),
-    }),
+    })
 );
 
 export const StrapiHeadingNodeSchema: z.ZodType<StrapiHeadingNode> = z.lazy(
@@ -92,7 +92,7 @@ export const StrapiHeadingNodeSchema: z.ZodType<StrapiHeadingNode> = z.lazy(
       type: z.literal("heading"),
       level: StrapiHeadingLevelSchema.optional(),
       children: z.array(StrapiNodeSchema).optional(),
-    }),
+    })
 );
 
 export const StrapiListItemNodeSchema: z.ZodType<StrapiListItemNode> = z.lazy(
@@ -100,7 +100,7 @@ export const StrapiListItemNodeSchema: z.ZodType<StrapiListItemNode> = z.lazy(
     z.object({
       type: z.literal("list-item"),
       children: z.array(StrapiNodeSchema).optional(),
-    }),
+    })
 );
 
 export const StrapiListNodeSchema: z.ZodType<StrapiListNode> = z.lazy(() =>
@@ -108,7 +108,7 @@ export const StrapiListNodeSchema: z.ZodType<StrapiListNode> = z.lazy(() =>
     type: z.literal("list"),
     format: StrapiListFormatSchema.optional(),
     children: z.array(StrapiListItemNodeSchema).optional(),
-  }),
+  })
 );
 
 export const StrapiNodeSchema: z.ZodType<StrapiNode> = z.lazy(() =>
@@ -119,7 +119,7 @@ export const StrapiNodeSchema: z.ZodType<StrapiNode> = z.lazy(() =>
     StrapiListItemNodeSchema,
     StrapiLinkNodeSchema,
     StrapiTextNodeSchema,
-  ]),
+  ])
 );
 
 export const StrapiImageFormatSchema = z.object({

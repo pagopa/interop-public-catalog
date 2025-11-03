@@ -16,14 +16,16 @@ const howItWorksSteps = [
     icon: 'it-file',
     href: getLocalizedRoute(currentLocale, 'ESERVICE_CATALOG'),
     imageSrc: '/img/024-search.svg',
+    mixpanelAttributes: {},
   },
   {
     title: t('how_it_works.step_2.title'),
     description: t('how_it_works.step_2.description'),
     linkLabel: t('how_it_works.step_2.link'),
     icon: 'it-layers',
-    href: links.pagoPaLink,
+    href: links.selfcareLink,
     imageSrc: '/img/077-network.svg',
+    mixpanelAttributes: {},
   },
   {
     title: t('how_it_works.step_3.title'),
@@ -32,6 +34,9 @@ const howItWorksSteps = [
     icon: 'it-cloud-upload',
     href: getLocalizedRoute(currentLocale, 'GOOD_PRACTICES_CATALOG'),
     imageSrc: '/img/088-Jigsaw.svg',
+    mixpanelAttributes: {
+      'data-mp-good-practice-catalog-referral': 'how-it-works',
+    },
   },
 ] as const
 ---
@@ -57,6 +62,7 @@ const howItWorksSteps = [
                 <div class="it-card-taxonomy">
                   <a
                     href={step.href}
+                    {...step.mixpanelAttributes}
                     class="it-card-category it-card-link text-uppercase text-primary"
                   >
                     {step.linkLabel}
