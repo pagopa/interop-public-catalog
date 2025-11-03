@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { type HTMLAttributes } from 'react'
 import { BootstrapItaliaIcon } from './BootstrapItaliaIcon.js'
 import { useUiTranslations } from '../../i18n/ui.i18n.js'
 import type { SupportedLanguage } from '../../i18n/types.i18n.js'
 import { getLocalizedRoute } from '../../i18n/utils.i18n.js'
 import type { GoodPractice } from 'pagopa-interop-public-models'
 
-interface GoodPracticeCardProps {
+interface GoodPracticeCardProps extends HTMLAttributes<HTMLDivElement> {
   currentLocale: SupportedLanguage
   goodPractice: GoodPractice
 }
@@ -17,6 +17,7 @@ const CARD_PADDING = 40
 export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
   currentLocale,
   goodPractice,
+  ...props
 }) => {
   const tUi = useUiTranslations(currentLocale)
   const macrocategories = goodPractice.tenantMacrocategories
@@ -27,8 +28,14 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
 
   return (
     <article
-      style={{ padding: CARD_PADDING, maxWidth: CARD_MAX_WIDTH, height: CARD_HEIGHT }}
-      className="it-card shadow border-bottom border-5 border-primary position-relative"
+      {...props}
+      style={{
+        padding: CARD_PADDING,
+        maxWidth: CARD_MAX_WIDTH,
+        height: CARD_HEIGHT,
+        ...props.style,
+      }}
+      className={`it-card shadow border-bottom border-5 border-primary position-relative ${props.className}`}
     >
       {/* Bookmark Icon */}
       <div className="position-absolute top-0">

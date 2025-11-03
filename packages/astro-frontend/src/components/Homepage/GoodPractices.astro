@@ -65,6 +65,8 @@ function getOrganizationTypeImgSrc(macroCategory: OrganizationType) {
                 <a
                   href={getOrganizationTypeHref(l.macroCategoryKey)}
                   class="list-item icon-right gap-2 border-0"
+                  data-mp-good-practice-catalog-referral="best-practice-section"
+                  data-mp-good-practice-category={l.macroCategoryKey}
                 >
                   <img
                     src={getOrganizationTypeImgSrc(l.macroCategoryKey)}
@@ -94,13 +96,21 @@ function getOrganizationTypeImgSrc(macroCategory: OrganizationType) {
       </div>
     </div>
 
-    {/* Section Content - Use Case Cards */}
+    {/* Section Content - Good Practices Cards */}
     <div style="max-width:1076px;" class="mx-auto mt-5">
       <div class="row g-4">
         {
           featuredGoodPractices.map((goodPractice) => (
             <div class="col-12 col-md-6 d-flex justify-content-center">
-              <GoodPracticeCard currentLocale={currentLocale} goodPractice={goodPractice} />
+              <GoodPracticeCard
+                currentLocale={currentLocale}
+                goodPractice={goodPractice}
+                data-mp-good-practice-card-data={JSON.stringify({
+                  goodPracticeId: goodPractice.id,
+                  goodPracticeCategory: goodPractice.category,
+                  goodPracticeTitle: goodPractice.title,
+                })}
+              />
             </div>
           ))
         }
@@ -110,12 +120,19 @@ function getOrganizationTypeImgSrc(macroCategory: OrganizationType) {
     {/* Section Footer - Call to Action */}
     <div class="d-flex justify-content-center mt-5 pb-5">
       <a
+        data-mp-good-practices-catalog-referral="footer"
         href={getLocalizedRoute(currentLocale, 'GOOD_PRACTICES_CATALOG')}
         id="explore-examples-button"
         class="btn btn-outline-primary"
+        data-mp-good-practice-catalog-referral="best-practice-section"
       >
         {t('good_practices.footer_cta')}
       </a>
     </div>
   </div>
 </section>
+
+<script>
+  import { mixpanelService } from '../../services/mixpanel.services'
+  mixpanelService.bindTrackingGoodPracticeCardClickEvent()
+</script>

@@ -6,7 +6,7 @@ import GoodPractices from '../../components/Homepage/GoodPractices.astro'
 import ApiShowcase from '../../components/Homepage/ApiShowcase.astro'
 import SuggestionSection from '../../components/shared/SuggestionSection.astro'
 import { EService } from '../../../../models/src/types/eservice'
-import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { getLangFromUrl, getLocalizedRoute } from '../../i18n/utils.i18n'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { sqlService, strapiService } from '../../server/services'
 import { isDevEnvironment, links } from '../../config/constants'
@@ -30,8 +30,7 @@ const HIGHLIGHTED_ESERVICE_IDS = [
  */
 const highlightedEServicesPromise: Promise<EService[]> = (async () => {
   if (isDevEnvironment(Astro.url.href)) {
-    const response = await sqlService.searchCatalog({ limit: 3, offset: 0 })
-    return response.results
+    return []
   }
 
   const results = await Promise.all(
@@ -75,3 +74,8 @@ const [highlightedEServices, featuredGoodPractices] = await Promise.all([
     }}
   />
 </Layout>
+
+<script>
+  import { mixpanelService } from '../../services/mixpanel.services'
+  mixpanelService.bindTrackingGoodPracticeReferralEvent()
+</script>

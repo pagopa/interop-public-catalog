@@ -1,5 +1,4 @@
-import type { SupportedLanguage } from '../i18n/types.i18n.js'
-import { getLocalizedRoute } from '../i18n/utils.i18n.js'
+import type { RouteKey } from './routes.js'
 
 // This check sucks, we should have this info from env vars
 export const isDevEnvironment = (href: string) =>
@@ -32,24 +31,24 @@ export const links = {
 export const CATALOG_API_SECTION_NAV_ITEMS = [
   {
     i18nKey: 'nav.explore_catalog',
-    getHref: (locale: SupportedLanguage) => getLocalizedRoute(locale, 'ESERVICE_CATALOG'),
+    routeKey: 'ESERVICE_CATALOG',
   },
   {
     i18nKey: 'nav.examples',
-    getHref: (locale: SupportedLanguage) => getLocalizedRoute(locale, 'GOOD_PRACTICES_CATALOG'),
+    routeKey: 'GOOD_PRACTICES_CATALOG',
   },
-] as const
+] as const satisfies Array<{ i18nKey: string; routeKey: RouteKey }>
 
 export const RESOURCES_SECTION_NAV_ITEMS = [
   {
     i18nKey: 'nav.what_is',
-    getHref: (locale: SupportedLanguage) => getLocalizedRoute(locale, 'ECOSYSTEM'),
+    routeKey: 'ECOSYSTEM',
   },
   {
     i18nKey: 'nav.faq',
-    getHref: (locale: SupportedLanguage) => getLocalizedRoute(locale, 'FAQ'),
+    routeKey: 'FAQ',
   },
-] as const
+] as const satisfies Array<{ i18nKey: string; routeKey: RouteKey }>
 
 export const TENANT_MACROCATEGORIES = [
   {

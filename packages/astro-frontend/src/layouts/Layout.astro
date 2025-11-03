@@ -110,22 +110,14 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale
 </style>
 
 <script>
-  import { initMixpanel } from '../utils/tracking.utils'
   import { initBootstrapItaliaComponents } from '../config/bootstrap-italia'
+  import { mixpanelService } from '../services/mixpanel.services'
 
   /**
    * Initializes Bootstrap Italia components that require JavaScript to work.
    * E.g.: modals, dropdowns, tooltips, etc.
    */
   initBootstrapItaliaComponents()
-
-  if (import.meta.env.PROD) {
-    initMixpanel({ projectId: window.env.mixpanelProjectId })
-  } else {
-    window.mixpanel = {
-      track: (event: string, data: Record<string, any>) => {
-        console.log(`[Mixpanel DEV] Tracked event: ${event}`, data)
-      },
-    }
-  }
+  mixpanelService.init({ projectId: window.env.mixpanelProjectId })
+  mixpanelService.bindTrackingExternalLinkVisitEvent()
 </script>

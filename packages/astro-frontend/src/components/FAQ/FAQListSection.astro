@@ -1,15 +1,12 @@
 ---
 import type { StrapiNode } from 'pagopa-interop-public-models'
-import {
-  renderRichTextStrapiNodes,
-} from '../../utils/rich-text-strapi-renderer.js'
+import { renderRichTextStrapiNodes } from '../../utils/rich-text-strapi-renderer.js'
 import { Section } from '../shared/Section'
 interface Props {
   sectionId: number
   title: string
   faqs: Array<{ id: number; question: string; answer: StrapiNode[] }>
 }
-
 
 const { sectionId, title, faqs } = Astro.props
 
@@ -19,7 +16,7 @@ const actualSectionId = `accordionGroup${sectionId}`
 <Section title={title} className="pb-0">
   <div class="row">
     <div class="col-12 col-md-8">
-      <div class="accordion" id={actualSectionId}>
+      <div class="accordion" id={actualSectionId} data-mp-faq-section>
         {
           faqs.map(({ question, answer, id }) => (
             <>
@@ -58,19 +55,7 @@ const actualSectionId = `accordionGroup${sectionId}`
   </div>
 </Section>
 
-<script define:vars={{ actualSectionId }} is:inline>
-  const myCollapsible = document.getElementById(actualSectionId)  
-
-  myCollapsible.addEventListener('shown.bs.collapse', (e) => {
-    const target = e.target
-    const faqId = target.getAttribute('data-mp-faqId')
-    const faqTitle = target.getAttribute('data-mp-faqTitle')
-    
-    if (faqId && faqTitle) {      
-      window.mixpanel.track("INTEROP_FAQ_OPEN", {
-        faqId,
-        faqTitle
-      })
-    }
-  })
+<script>
+  import { mixpanelService } from '../../services/mixpanel.services'
+  mixpanelService.bindTrackingFaqOpenEvent()
 </script>

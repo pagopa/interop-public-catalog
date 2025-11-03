@@ -4,6 +4,7 @@ import type { FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAu
 import type { CatalogFilterParams } from './types'
 import { useSearchParams } from '../../hooks/useSearchParams'
 import { z } from 'zod'
+import { mixpanelService } from '../../services/mixpanel.services'
 
 type EServiceCatalogCreateContextType = {
   eserviceFiltersState: CatalogFilterParams
@@ -171,14 +172,7 @@ const EServiceCatalogContextProvider: React.FC<EServiceCatalogContextProviderPro
   const applyFilters = useCallback(() => {
     const appliedFilters = { ...eserviceFiltersState, offset: 0 }
     setEserviceActiveFilterState(appliedFilters)
-
-    window.mixpanel.track('INTEROP_CATALOG_FILTERS_APPLY', {
-      q: eserviceFiltersState.q,
-      producersId: appliedFilters.provider.map((p) => p.value).join(','),
-      producersName: appliedFilters.provider.map((p) => p.label).join(','),
-      tenantMacrocategoriesId: appliedFilters.consumer.map((c) => c.value).join(','),
-      tenantMacrocategoriesName: appliedFilters.consumer.map((c) => c.label).join(','),
-    })
+    mixpanelService.trackInteropCatalogFiltersApplyEvent(appliedFilters)
   }, [eserviceFiltersState])
 
   React.useEffect(() => {
