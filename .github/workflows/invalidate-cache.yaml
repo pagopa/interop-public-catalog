@@ -3,6 +3,10 @@ name: "Invalidate CloudFront distribution cache"
 on:
   workflow_dispatch:
     inputs:
+      environment:
+        description: 'Environment'
+        required: true
+        type: environment
       cloudfront_distribution_id:
         description: "ID of the CloudFront distribution to invalidate"
         required: true
@@ -31,5 +35,5 @@ jobs:
           set -euo pipefail
 
           aws cloudfront create-invalidation \
-            --distribution-id ${{ github.event.inputs.cloudfront_distribution_id }} \
-            --paths ${{ github.event.inputs.invalidation_paths }}
+            --distribution-id ${{ inputs.cloudfront_distribution_id }} \
+            --paths ${{ inputs.invalidation_paths }}
