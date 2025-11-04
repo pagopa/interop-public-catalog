@@ -7,6 +7,7 @@ import {
   buildTenantTables,
   extractColumnNamesFromTable,
 } from "pagopa-interop-public-models";
+import { runAWSInvalidate } from "./invalidate.js";
 
 const jobConfig = {
   sourceDb: {
@@ -193,7 +194,24 @@ export async function handler() {
       break;
     }
   }
-  if (!err) await targetDb.query("COMMIT");
+  if (!err) {
+    await targetDb.query("COMMIT");
+
+    const invalidationRef = `ref-${Date.now()}`;
+    console.log(
+      `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Attempting to run invalidation`,
+    );
+    const awsInvalidationResult = await runAWSInvalidate(invalidationRef);
+    if ("err" in awsInvalidationResult) {
+      console.log(
+        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: ${awsInvalidationResult.err}`,
+      );
+    } else {
+      console.log(
+        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: ${awsInvalidationResult.Invalidation?.Status}`,
+      );
+    }
+  }
 
   await sourceDb.end();
   await targetDb.end();
