@@ -98,10 +98,6 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
                       },
                     ],
                   },
-                  {
-                    type: 'text',
-                    text: ' e scoprire come il tuo Ente può integrare le API nei suoi processi. Dopo aver individuato un API (e-service), puoi richiederne accesso tramite la Piattaforma Digitale Nazionale Dati (PDND).',
-                  },
                 ],
               },
               {
@@ -109,7 +105,7 @@ export const faqContentMockedIt: StrapiEntity<FaqContent> = {
                 children: [
                   {
                     type: 'text',
-                    text: 'Once you have identified an API (or e-service), you can request access through the National Data Platform (PDND).',
+                    text: 'Dopo aver individuato un API (e-service), puoi richiederne accesso tramite la Piattaforma Digitale Nazionale Dati (PDND).',
                   },
                 ],
               },

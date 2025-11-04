@@ -1,8 +1,6 @@
 ---
-import {
-  renderRichTextStrapiNodes,
-  type StrapiNode,
-} from '../../utils/rich-text-strapi-renderer.js'
+import type { StrapiNode } from 'pagopa-interop-public-models'
+import { renderRichTextStrapiNodes } from '../../utils/rich-text-strapi-renderer.js'
 import { Section } from '../shared/Section'
 interface Props {
   sectionId: number
@@ -16,7 +14,7 @@ const { sectionId, title, faqs } = Astro.props
 <Section title={title} className="pb-0">
   <div class="row">
     <div class="col-12 col-md-8">
-      <div class="accordion" id=`accordionGroup${sectionId}`>
+      <div class="accordion" id={`accordionGroup${sectionId}`} data-mp-faq-section>
         {
           faqs.map(({ question, answer, id }) => (
             <>
@@ -35,6 +33,8 @@ const { sectionId, title, faqs } = Astro.props
                 </h3>
                 <div
                   id={`collapse${sectionId}${id}`}
+                  data-mp-faqId={id}
+                  data-mp-faqTitle={question}
                   class="accordion-collapse collapse"
                   data-bs-parent={`#accordionGroup${sectionId}`}
                   role="region"
@@ -52,3 +52,8 @@ const { sectionId, title, faqs } = Astro.props
     </div>
   </div>
 </Section>
+
+<script>
+  import { mixpanelService } from '../../services/mixpanel.services'
+  mixpanelService.bindTrackingFaqOpenEvent()
+</script>
