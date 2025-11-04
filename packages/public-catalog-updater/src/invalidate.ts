@@ -8,22 +8,24 @@ import type {
 } from "@aws-sdk/client-cloudfront";
 
 export const runAWSInvalidate = async (ref: string) => {
-  const config: CloudFrontClientConfig = {};
-  const client = new CloudFrontClient(config);
-  const input: CreateInvalidationCommandInput = {
-    DistributionId: process.env.CDN_ID, // required
-    InvalidationBatch: {
-      Paths: {
-        // Paths
-        Quantity: 1, // required
-        Items: [process.env.CDN_INVALIDATION_PATH!],
-      },
-      CallerReference: ref, // required
-    },
-  };
-  const command = new CreateInvalidationCommand(input);
   try {
-    return client.send(command);
+    const config: CloudFrontClientConfig = {};
+    const client = new CloudFrontClient(config);
+    const paths = process.env.CDN_INVALIDATION_PATH!.split(",");
+    const input: CreateInvalidationCommandInput = {
+      DistributionId: process.env.CDN_ID, // required
+      InvalidationBatch: {
+        Paths: {
+          // Paths
+          Quantity: paths.length, // required
+          Items: paths,
+        },
+        CallerReference: ref, // required
+      },
+    };
+    const command = new CreateInvalidationCommand(input);
+    const response = await client.send(command);
+    return response;
   } catch (err) {
     return { err };
   }

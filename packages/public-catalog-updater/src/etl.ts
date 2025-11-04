@@ -219,7 +219,7 @@ export async function handler() {
 
     const invalidationRef = `ref-${Date.now()}`;
     console.log(
-      `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Attempting to run invalidation`,
+      `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Attempting to run invalidation on paths: ${process.env.CDN_INVALIDATION_PATH}`,
     );
     const awsInvalidationResult = await runAWSInvalidate(invalidationRef);
     if ("err" in awsInvalidationResult) {
