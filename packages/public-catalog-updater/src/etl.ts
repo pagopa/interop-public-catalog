@@ -196,6 +196,26 @@ export async function handler() {
   }
   if (!err) {
     await targetDb.query("COMMIT");
+  }
+
+  await sourceDb.end();
+  await targetDb.end();
+  console.log("All migrations are done.");
+
+  if (!err) {
+    const invalidationConfigFields = [
+      "AWS_REGION",
+      "CDN_ID",
+      "CDN_INVALIDATION_PATH",
+    ];
+    const missingFields = invalidationConfigFields
+      .map((field) => ({ key: field, value: process.env[field] }))
+      .filter((el) => !el.value);
+    if (missingFields.length > 0) {
+      console.error(
+        `[AWS-CreateInvalidation]: Missing env config on ${missingFields.map((el) => el.key).join(", ")}`,
+      );
+    }
 
     const invalidationRef = `ref-${Date.now()}`;
     console.log(
@@ -204,16 +224,12 @@ export async function handler() {
     const awsInvalidationResult = await runAWSInvalidate(invalidationRef);
     if ("err" in awsInvalidationResult) {
       console.log(
-        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: ${awsInvalidationResult.err}`,
+        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Error: ${awsInvalidationResult.err}`,
       );
     } else {
       console.log(
-        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: ${awsInvalidationResult.Invalidation?.Status}`,
+        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Status: ${awsInvalidationResult.Invalidation?.Status}`,
       );
     }
   }
-
-  await sourceDb.end();
-  await targetDb.end();
-  console.log("All migrations are done.");
 }
