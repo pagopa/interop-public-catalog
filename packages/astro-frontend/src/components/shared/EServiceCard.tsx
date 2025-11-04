@@ -31,11 +31,11 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
   return (
     <article
       style={{ height: CARD_HEIGHT }}
-      className="it-card rounded shadow d-flex flex-column px-2"
+      className="it-card rounded shadow d-flex flex-column p-4"
     >
       <header
         style={{ height: MIN_HEIGHT_PRODUCER_NAME }}
-        className="px-3 pt-4 d-flex justify-content-between align-items-center"
+        className="d-flex justify-content-between align-items-center pb-3"
       >
         <small className="mb-0 line-clamp-2 pe-4">{producerName}</small>
         <div className="shrink-0">
@@ -45,14 +45,14 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
       <a
         href={url}
         style={{ height: MIN_HEIGHT_TITLE }}
-        className="it-card-title h5 text-primary line-clamp-2"
+        className="it-card-title h5 text-primary line-clamp-2 my-0 px-0 pb-2"
       >
         {name}
       </a>
-      <div className="it-card-body flex-grow-1">
+      <div className="it-card-body flex-grow-1 p-0">
         <p className="it-card-text line-clamp-3">{description}</p>
       </div>
-      <footer className="it-card-related it-card-footer">
+      <footer className="it-card-related it-card-footer mx-0 pb-0 pt-4">
         <small className="it-card-taxonomy">
           <a
             href={url}
