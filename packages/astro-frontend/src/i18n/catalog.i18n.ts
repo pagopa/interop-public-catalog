@@ -11,7 +11,7 @@ const catalogTranslations = {
     'filters.q.label': 'Cerca per parola chiave',
     'filters.q.placeholder': 'Inserisci una o più parole chiave',
     'filters.provider.label': 'Filtra per ente erogatore',
-    'autocomplete.placeholder': 'Scegli un opzione',
+    'autocomplete.placeholder': "Scegli un'opzione",
     'filters.consumer.label': 'Filtra per ente fruitore',
     'filters.submit': 'Applica',
     resultsCount: 'Risultati',
