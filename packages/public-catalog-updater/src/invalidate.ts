@@ -11,7 +11,9 @@ export const runAWSInvalidate = async (ref: string) => {
   try {
     const config: CloudFrontClientConfig = {};
     const client = new CloudFrontClient(config);
-    const paths = process.env.CDN_INVALIDATION_PATH!.split(",");
+    const paths = process.env
+      .CDN_INVALIDATION_PATH!.split(",")
+      .map((el) => el.trim());
     const input: CreateInvalidationCommandInput = {
       DistributionId: process.env.CDN_ID, // required
       InvalidationBatch: {
