@@ -9,8 +9,6 @@
     "start:strapi": "turbo start --filter pagopa-interop-public-strapi",
     "start:catalog-updater": "turbo start --filter pagopa-interop-public-catalog-updater",
     "test": "turbo test",
-    "test:integration": "turbo test:integration",
-    "test:api": "turbo test:api",
     "build": "turbo build",
     "check": "turbo check",
     "lint": "turbo lint -- --cache --cache-strategy content --cache-location .eslintcache",

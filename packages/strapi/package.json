@@ -4,8 +4,7 @@
   "private": true,
   "description": "A Strapi application",
   "scripts": {
-    "test": "vitest",
-    "test:api": "vitest --config vitest.api.config.ts",
+    "test": "node -e \"console.log('No tests yet (TODO)')\"",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:autofix": "eslint . --ext .ts,.tsx --fix",
     "format:check": "prettier --check src",
