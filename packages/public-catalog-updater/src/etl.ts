@@ -7,6 +7,7 @@ import {
   buildTenantTables,
   extractColumnNamesFromTable,
 } from "pagopa-interop-public-models";
+import { runAWSInvalidate } from "./invalidate.js";
 
 const jobConfig = {
   sourceDb: {
@@ -193,9 +194,42 @@ export async function handler() {
       break;
     }
   }
-  if (!err) await targetDb.query("COMMIT");
+  if (!err) {
+    await targetDb.query("COMMIT");
+  }
 
   await sourceDb.end();
   await targetDb.end();
   console.log("All migrations are done.");
+
+  if (!err) {
+    const invalidationConfigFields = [
+      "AWS_REGION",
+      "CDN_ID",
+      "CDN_INVALIDATION_PATH",
+    ];
+    const missingFields = invalidationConfigFields
+      .map((field) => ({ key: field, value: process.env[field] }))
+      .filter((el) => !el.value);
+    if (missingFields.length > 0) {
+      console.error(
+        `[AWS-CreateInvalidation]: Missing env config on ${missingFields.map((el) => el.key).join(", ")}`,
+      );
+    }
+
+    const invalidationRef = `ref-${Date.now()}`;
+    console.log(
+      `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Attempting to run invalidation on paths: ${process.env.CDN_INVALIDATION_PATH}`,
+    );
+    const awsInvalidationResult = await runAWSInvalidate(invalidationRef);
+    if ("err" in awsInvalidationResult) {
+      console.log(
+        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Error: ${awsInvalidationResult.err}`,
+      );
+    } else {
+      console.log(
+        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Status: ${awsInvalidationResult.Invalidation?.Status}`,
+      );
+    }
+  }
 }
