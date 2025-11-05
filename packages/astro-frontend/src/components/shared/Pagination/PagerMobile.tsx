@@ -16,7 +16,7 @@ export const PagerMobile: React.FC<PagerMobileProps> = ({
   const { paginationProps } = usePagination(
     limit,
     totalCount,
-    idElementToScrollTo,
+    idElementToScrollTo
   );
   const { actualPage, totalPages } = paginationProps;
 
@@ -52,7 +52,9 @@ export const PagerMobile: React.FC<PagerMobileProps> = ({
         </li>
         <li className="page-item">
           <a
-            className={`page-link ${actualPage === totalPages ? "disabled" : ""}`}
+            className={`page-link ${
+              actualPage === totalPages ? "disabled" : ""
+            }`}
             onClick={() =>
               paginationProps.onPageChange(paginationProps.actualPage + 1)
             }

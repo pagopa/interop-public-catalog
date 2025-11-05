@@ -1,4 +1,3 @@
-import type { ClientEnvConfig } from "../config/config";
 declare module "accessible-autocomplete/react" {
   interface AutocompleteProps {
     id: string;
@@ -39,11 +38,11 @@ declare module "accessible-autocomplete/react" {
     tStatusSelectedOption?: (
       selectedOption: string,
       length: number,
-      index: number,
+      index: number
     ) => string;
     tStatusResults?: (
       length: number,
-      contentSelectedOption: React.ReactElement,
+      contentSelectedOption: React.ReactElement
     ) => React.ReactElement;
     tAssistiveHint?: () => string;
   }
@@ -57,7 +56,7 @@ declare module "accessible-autocomplete/react" {
 
 declare global {
   interface Window {
-    env: ClientEnvConfig;
+    env: import("../config/config").ClientEnvConfig;
 
     /** OneTrust */
     OptanonWrapper: () => void | undefined;

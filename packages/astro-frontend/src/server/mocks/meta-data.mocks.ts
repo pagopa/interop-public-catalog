@@ -7,7 +7,7 @@ export const getSeoMockData = (
   locale: SupportedLanguage,
   origin: string,
   routeKey: RouteKey | "DEFAULT",
-  pageParams?: Record<string, string>,
+  pageParams?: Record<string, string>
 ): MetaDataType => {
   const generalMockData: MetaDataType = {
     title: "Catalogo delle API della Pubblica Amministrazione",

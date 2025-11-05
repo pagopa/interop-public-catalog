@@ -29,7 +29,7 @@ const commaSeparatedStringToArray = <T extends z.ZodTypeAny>(itemSchema: T) =>
             .split(",")
             .map((s) => s.trim())
             .filter(Boolean)
-        : [],
+        : []
     )
     .pipe(z.array(itemSchema));
 
@@ -104,7 +104,7 @@ export type GetEServicesResponse = z.infer<typeof GetEServicesResponse>;
 
 export function parseQueryParams<T extends z.ZodTypeAny>(
   url: URL,
-  schema: T,
+  schema: T
 ): z.infer<T> {
   return schema.parse(parseQueryString(url.searchParams.toString()));
 }

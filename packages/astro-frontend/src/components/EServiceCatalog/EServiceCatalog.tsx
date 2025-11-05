@@ -35,11 +35,11 @@ export const EServiceCatalog: React.FC<{
         q: eserviceActiveFilterState.q,
         producerIds: eserviceActiveFilterState.provider.map((p) => p.value),
         categories: eserviceActiveFilterState.consumer.map(
-          (c) => c.label as keyof typeof categoriesMap,
+          (c) => c.label as keyof typeof categoriesMap
         ),
       },
     ],
-    async ([_, filters]) => apiService.getEServices(filters),
+    async ([_, filters]) => apiService.getEServices(filters)
   );
 
   const totalCount = data?.pagination.totalCount ?? 0;

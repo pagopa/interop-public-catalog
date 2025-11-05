@@ -58,7 +58,9 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({
             </span>
           )}
           <span
-            className={`ms-2 d-none d-lg-block ${totalCount > 0 ? "border-start" : ""}`}
+            className={`ms-2 d-none d-lg-block ${
+              totalCount > 0 ? "border-start" : ""
+            }`}
           ></span>
           <a
             className="ms-2 d-none d-lg-block"

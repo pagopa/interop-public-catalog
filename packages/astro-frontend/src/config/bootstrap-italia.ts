@@ -13,7 +13,7 @@ import { Popover, Tooltip, Dropdown, Collapse } from "bootstrap-italia";
 
 export const initPopover = (
   el: HTMLElement,
-  overrides?: ConstructorParameters<typeof Popover>[1],
+  overrides?: ConstructorParameters<typeof Popover>[1]
 ) => {
   try {
     return new Popover(el, {
@@ -28,7 +28,7 @@ export const initPopover = (
 
 export const initTooltip = (
   el: HTMLElement,
-  overrides?: ConstructorParameters<typeof Tooltip>[1],
+  overrides?: ConstructorParameters<typeof Tooltip>[1]
 ) => {
   try {
     return new Tooltip(el, {
@@ -59,7 +59,7 @@ export const initAccordion = (el: HTMLElement) => {
 };
 
 export const initBootstrapItaliaComponents = (
-  container: Document | HTMLElement = document,
+  container: Document | HTMLElement = document
 ) => {
   const selectors = [
     { selector: '[data-bs-toggle="popover"]', init: initPopover },

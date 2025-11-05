@@ -20,11 +20,11 @@ export function getLangFromUrl(url: string): SupportedLanguage {
 }
 
 export function getRouteKeyFromCurrentRoutePattern(
-  currentRoutePattern: string,
+  currentRoutePattern: string
 ): RouteKey | undefined {
   const currentLocale = getLangFromUrl(currentRoutePattern);
   let currentRoutePatternWithoutLangPrefix = currentRoutePattern.split(
-    `/${currentLocale}`,
+    `/${currentLocale}`
   )[1];
 
   if (currentRoutePatternWithoutLangPrefix === "") {
@@ -34,7 +34,7 @@ export function getRouteKeyFromCurrentRoutePattern(
   return (Object.keys(ROUTES) as RouteKey[]).find(
     (r) =>
       ROUTES[r][currentLocale].toLocaleLowerCase() ===
-      currentRoutePatternWithoutLangPrefix.toLocaleLowerCase(),
+      currentRoutePatternWithoutLangPrefix.toLocaleLowerCase()
   );
 }
 
@@ -67,7 +67,7 @@ export function switchLang({
  */
 export function buildUseTranslations<
   T extends Record<SupportedLanguage, Record<K, string>>,
-  K extends keyof T[SupportedLanguage],
+  K extends keyof T[SupportedLanguage]
 >(translationMap: T) {
   return (lang: SupportedLanguage) => {
     const isDev = process.env.NODE_ENV === "development";
@@ -78,7 +78,9 @@ export function buildUseTranslations<
       if (!translation) {
         if (isDev) {
           console.warn(
-            `Missing translation for key "${key as string}" in language "${lang}". Falling back to default language "${DEFAULT_LANG}".`,
+            `Missing translation for key "${
+              key as string
+            }" in language "${lang}". Falling back to default language "${DEFAULT_LANG}".`
           );
         }
         return translationMap[DEFAULT_LANG][key] ?? String(key);
@@ -92,9 +94,8 @@ export function buildUseTranslations<
 export function getLocalizedRoute<
   TLang extends SupportedLanguage,
   TRouteKey extends RouteKey,
-  Path extends
-    (typeof ROUTES)[TRouteKey][TLang] = (typeof ROUTES)[TRouteKey][TLang],
-  RouteParams extends ExtractRouteParams<Path> = ExtractRouteParams<Path>,
+  Path extends (typeof ROUTES)[TRouteKey][TLang] = (typeof ROUTES)[TRouteKey][TLang],
+  RouteParams extends ExtractRouteParams<Path> = ExtractRouteParams<Path>
 >(
   currentLocale: TLang,
   routeKey: TRouteKey,

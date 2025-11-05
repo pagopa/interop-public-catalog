@@ -22,7 +22,7 @@ const isDynamicPath = (routePath: string): boolean =>
 const toAbsoluteUrl = (
   base: string,
   locale: string,
-  routePath: string,
+  routePath: string
 ): string => {
   const normalizedPath = routePath.startsWith("/")
     ? routePath
@@ -60,7 +60,7 @@ const buildSitemapXml = <Locale extends string>({
       const alternates = localizedUrls
         .map(
           ({ locale, url }) =>
-            `<xhtml:link rel="alternate" hreflang="${locale}" href="${url}" />`,
+            `<xhtml:link rel="alternate" hreflang="${locale}" href="${url}" />`
         )
         .join("\n    ");
 
@@ -86,7 +86,7 @@ const buildSitemapXml = <Locale extends string>({
  * Astro integration that generates a localized `sitemap.xml` during dev (in-memory) and build (disk).
  */
 export const sitemapIntegration = <Locale extends string>(
-  options: SitemapIntegrationOptions<Locale>,
+  options: SitemapIntegrationOptions<Locale>
 ): AstroIntegration => {
   const outputFilename = options.outputFilename ?? "sitemap.xml";
   const generate = () => buildSitemapXml(options);
@@ -123,14 +123,14 @@ export const sitemapIntegration = <Locale extends string>(
       "astro:config:done"({ config }) {
         resolvedOutDir = path.resolve(
           config.root.toString(),
-          config.outDir.toString(),
+          config.outDir.toString()
         );
         rootDir = config.root.toString();
       },
       "astro:build:done"() {
         if (!resolvedOutDir) {
           options.logger?.warn?.(
-            "sitemap-integration: build outDir not resolved, skipping output.",
+            "sitemap-integration: build outDir not resolved, skipping output."
           );
           return;
         }
@@ -139,7 +139,10 @@ export const sitemapIntegration = <Locale extends string>(
         fs.mkdirSync(path.dirname(outputPath), { recursive: true });
         fs.writeFileSync(outputPath, generate(), "utf8");
         options.logger?.info?.(
-          `sitemap-integration: generated sitemap at ${path.relative(rootDir, outputPath)}`,
+          `sitemap-integration: generated sitemap at ${path.relative(
+            rootDir,
+            outputPath
+          )}`
         );
       },
     },

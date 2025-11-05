@@ -22,7 +22,7 @@ const isDynamicPath = (routePath: string): boolean =>
 const toAbsoluteUrl = (
   base: string,
   locale: string,
-  routePath: string,
+  routePath: string
 ): string => {
   const normalizedPath = routePath.startsWith("/")
     ? routePath
@@ -57,7 +57,7 @@ const buildSitemapXml = <Locale extends string>({
       const alternates = localizedUrls
         .map(
           ({ locale, url }) =>
-            `<xhtml:link rel="alternate" hreflang="${locale}" href="${url}" />`,
+            `<xhtml:link rel="alternate" hreflang="${locale}" href="${url}" />`
         )
         .join("\n    ");
       return `  <url>
@@ -78,7 +78,7 @@ const buildSitemapXml = <Locale extends string>({
 };
 
 export const sitemapPlugin = <Locale extends string>(
-  options: SitemapPluginOptions<Locale>,
+  options: SitemapPluginOptions<Locale>
 ): AstroIntegration => {
   const outputFilename = options.outputFilename ?? "sitemap.xml";
   const generate = () => buildSitemapXml(options);
@@ -103,7 +103,10 @@ export const sitemapPlugin = <Locale extends string>(
         const outputPath = path.join(outDir, outputFilename);
         fs.writeFileSync(outputPath, generate(), "utf8");
         logger.info(
-          `[astro-sitemap-plugin] generated sitemap at ${path.relative(rootDir, outputPath)}`,
+          `[astro-sitemap-plugin] generated sitemap at ${path.relative(
+            rootDir,
+            outputPath
+          )}`
         );
       },
     },
