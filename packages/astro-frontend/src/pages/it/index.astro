@@ -6,7 +6,11 @@ import GoodPractices from '../../components/Homepage/GoodPractices.astro'
 import ApiShowcase from '../../components/Homepage/ApiShowcase.astro'
 import SuggestionSection from '../../components/shared/SuggestionSection.astro'
 import { EService } from '../../../../models/src/types/eservice'
-import { getLangFromUrl, getLocalizedRoute, getRouteKeyFromCurrentRoutePattern } from '../../i18n/utils.i18n'
+import {
+  getLangFromUrl,
+  getLocalizedRoute,
+  getRouteKeyFromCurrentRoutePattern,
+} from '../../i18n/utils.i18n'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { sqlService, strapiService } from '../../server/services'
 import { isDevEnvironment, links } from '../../config/constants'

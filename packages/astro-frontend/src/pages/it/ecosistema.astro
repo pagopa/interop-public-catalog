@@ -7,7 +7,11 @@ import EcosystemPageHero from '../../components/Ecosystem/EcosystemPageHero.astr
 import EcosystemLegalReferencesSection from '../../components/Ecosystem/EcosystemLegalReferencesSection.astro'
 import EcosystemInteroperabilityTypesSection from '../../components/Ecosystem/EcosystemInteroperabilityTypesSection.astro'
 import { useEcosystemTranslations } from '../../i18n/ecosystem.i18n'
-import { getLangFromUrl, getLocalizedRoute, getRouteKeyFromCurrentRoutePattern } from '../../i18n/utils.i18n'
+import {
+  getLangFromUrl,
+  getLocalizedRoute,
+  getRouteKeyFromCurrentRoutePattern,
+} from '../../i18n/utils.i18n'
 import { links } from '../../config/constants'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
