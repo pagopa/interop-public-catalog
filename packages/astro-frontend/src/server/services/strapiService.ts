@@ -6,6 +6,8 @@ import type { MetaDataType } from '../types/metaData.types.js'
 import type { RouteKey } from '../../config/routes.js'
 import type { FaqContent } from '../types/faq.types.js'
 import { getFAQContentMockByLocale } from '../mocks/faq.mocks.js'
+import type { NormativaReferenceContent } from '../types/normativa.types.js'
+import { getNormativaDataMockByLocale } from '../mocks/normativa.mocks.js'
 
 // eslint-disable-next-line @typescript-eslint/explicit-function-return-type, max-params
 export function strapiServiceBuilder(_endpoint: string, _token: string) {
@@ -81,6 +83,12 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
 
     async getFaqContent(locale: SupportedLanguage): Promise<StrapiEntity<FaqContent> | undefined> {
       return Promise.resolve(getFAQContentMockByLocale(locale))
+    },
+
+    async getNormativaContent(
+      locale: SupportedLanguage
+    ): Promise<StrapiEntity<NormativaReferenceContent> | undefined> {
+      return Promise.resolve(getNormativaDataMockByLocale(locale))
     },
   }
 }
