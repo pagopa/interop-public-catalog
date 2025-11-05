@@ -1,44 +1,47 @@
-import { TENANT_MACROCATEGORIES } from '../../config/constants.js'
-import type { SupportedLanguage } from '../../i18n/types.i18n.js'
-import { useUiTranslations } from '../../i18n/ui.i18n.js'
+import { TENANT_MACROCATEGORIES } from "../../config/constants.js";
+import type { SupportedLanguage } from "../../i18n/types.i18n.js";
+import { useUiTranslations } from "../../i18n/ui.i18n.js";
 
 type MacroCategoryIdFilterProps = {
-  currentLocale: SupportedLanguage
-  onSelectedMacroCategoryIdChange: (macroCategoryId: number | null) => void
-  selectedMacroCategoryId: number | null
-}
+  currentLocale: SupportedLanguage;
+  onSelectedMacroCategoryIdChange: (macroCategoryId: number | null) => void;
+  selectedMacroCategoryId: number | null;
+};
 
-const MAX_WIDTH = 305
+const MAX_WIDTH = 305;
 
 export const MacroCategoryIdFilter: React.FC<MacroCategoryIdFilterProps> = ({
   currentLocale,
   selectedMacroCategoryId,
   onSelectedMacroCategoryIdChange,
 }) => {
-  const tUi = useUiTranslations(currentLocale)
+  const tUi = useUiTranslations(currentLocale);
 
   return (
     <div style={{ maxWidth: MAX_WIDTH }} className="it-list-wrapper">
       <ul id="category-filters-list" className="it-list border-start">
         {TENANT_MACROCATEGORIES.map((macrocategory) => {
-          const isActive = macrocategory.id === selectedMacroCategoryId
+          const isActive = macrocategory.id === selectedMacroCategoryId;
           return (
             <li key={macrocategory.id}>
               <a
-                onClick={onSelectedMacroCategoryIdChange.bind(null, macrocategory.id)}
+                onClick={onSelectedMacroCategoryIdChange.bind(
+                  null,
+                  macrocategory.id
+                )}
                 onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    onSelectedMacroCategoryIdChange(macrocategory.id)
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onSelectedMacroCategoryIdChange(macrocategory.id);
                   }
                 }}
                 role="button"
                 tabIndex={0}
                 className={
-                  'list-item border-bottom-0 ps-2 py-2' +
+                  "list-item border-bottom-0 ps-2 py-2" +
                   (isActive
-                    ? ' border-start border-2 border-primary bg-primary-c0 text-primary active'
-                    : ' text-secondary')
+                    ? " border-start border-2 border-primary bg-primary-c0 text-primary active"
+                    : " text-secondary")
                 }
               >
                 <div className="it-thumb">
@@ -57,9 +60,9 @@ export const MacroCategoryIdFilter: React.FC<MacroCategoryIdFilterProps> = ({
                 </div>
               </a>
             </li>
-          )
+          );
         })}
       </ul>
     </div>
-  )
-}
+  );
+};

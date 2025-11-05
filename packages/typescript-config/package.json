@@ -1,0 +1,7 @@
+{
+  "name": "pagopa-interop-public-typescript-config",
+  "devDependencies": {
+    "@tsconfig/strictest": "2.0.5",
+    "@tsconfig/node-lts": "20.1.3"
+  }
+}

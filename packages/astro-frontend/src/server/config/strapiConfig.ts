@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod";
 
 export const StrapiApiConfig = z
   .object({
@@ -8,6 +8,6 @@ export const StrapiApiConfig = z
   .transform((c) => ({
     strapiApiEndpoint: c.STRAPI_API_ENDPOINT,
     strapiApiToken: c.STRAPI_API_TOKEN,
-  }))
+  }));
 
-export type StrapiApiConfig = z.infer<typeof StrapiApiConfig>
+export type StrapiApiConfig = z.infer<typeof StrapiApiConfig>;

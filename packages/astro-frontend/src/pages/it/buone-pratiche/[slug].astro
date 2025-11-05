@@ -1,37 +1,37 @@
 ---
-import Layout from '../../../layouts/Layout.astro'
-import { GoodPracticeCard } from '../../../components/shared/GoodPracticeCard'
-import { Section } from '../../../components/shared/Section'
-import { Chip } from '../../../components/shared/Chip'
-import PageHero from '../../../components/shared/PageHero.astro'
-import { BootstrapItaliaIcon } from '../../../components/shared/BootstrapItaliaIcon'
-import { getLangFromUrl } from '../../../i18n/utils.i18n'
-import { useGoodPracticesTranslations } from '../../../i18n/good-practices.i18n'
-import { useUiTranslations } from '../../../i18n/ui.i18n'
-import GoodPracticeDetails from '../../../components/GoodPracticeDetails/GoodPracticeDetails.astro'
-import { strapiService } from '../../../server/services'
-import { CopyUrlButton } from '../../../components/shared/CopyUrlButton'
-import RatingSection from '../../../components/shared/RatingSection.astro'
+import Layout from "../../../layouts/Layout.astro";
+import { GoodPracticeCard } from "../../../components/shared/GoodPracticeCard";
+import { Section } from "../../../components/shared/Section";
+import { Chip } from "../../../components/shared/Chip";
+import PageHero from "../../../components/shared/PageHero.astro";
+import { BootstrapItaliaIcon } from "../../../components/shared/BootstrapItaliaIcon";
+import { getLangFromUrl } from "../../../i18n/utils.i18n";
+import { useGoodPracticesTranslations } from "../../../i18n/good-practices.i18n";
+import { useUiTranslations } from "../../../i18n/ui.i18n";
+import GoodPracticeDetails from "../../../components/GoodPracticeDetails/GoodPracticeDetails.astro";
+import { strapiService } from "../../../server/services";
+import { CopyUrlButton } from "../../../components/shared/CopyUrlButton";
+import RatingSection from "../../../components/shared/RatingSection.astro";
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const tGoodPractices = useGoodPracticesTranslations(currentLocale)
-const tUi = useUiTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tGoodPractices = useGoodPracticesTranslations(currentLocale);
+const tUi = useUiTranslations(currentLocale);
 
 const goodPracticeStrapiResponse = await strapiService.getGoodPracticeBySlug(
   Astro.params.slug!,
-  currentLocale
-)
+  currentLocale,
+);
 
 const randomGoodPractices = await strapiService.getGoodPractices(
   { limit: 2, offset: 0, random: true },
-  currentLocale
-)
+  currentLocale,
+);
 
 if (!goodPracticeStrapiResponse) {
-  return Astro.redirect('/404')
+  return Astro.redirect("/404");
 }
 
-const goodPractice = goodPracticeStrapiResponse.data
+const goodPractice = goodPracticeStrapiResponse.data;
 ---
 
 <Layout>
@@ -39,13 +39,13 @@ const goodPractice = goodPracticeStrapiResponse.data
     title={goodPractice.title}
     breadcrumbItems={[
       {
-        routeKey: 'HOME',
+        routeKey: "HOME",
       },
       {
-        routeKey: 'GOOD_PRACTICES_CATALOG',
+        routeKey: "GOOD_PRACTICES_CATALOG",
       },
       {
-        routeKey: 'GOOD_PRACTICES_DETAILS',
+        routeKey: "GOOD_PRACTICES_DETAILS",
         current: true,
       },
     ]}
@@ -59,8 +59,8 @@ const goodPractice = goodPracticeStrapiResponse.data
 
     <div slot="bottom-hero">
       <p>
-        <strong>{tUi('label.for')}:</strong>
-        {goodPractice.tenantMacrocategories.map((l) => l.label).join(', ')}
+        <strong>{tUi("label.for")}:</strong>
+        {goodPractice.tenantMacrocategories.map((l) => l.label).join(", ")}
       </p>
     </div>
   </PageHero>
@@ -71,13 +71,18 @@ const goodPractice = goodPracticeStrapiResponse.data
 
   <Section
     className="bg-muted-dark"
-    title={tGoodPractices('details.moreExamples')}
+    title={tGoodPractices("details.moreExamples")}
     titleClass="text-center"
   >
-    <div class="d-flex flex-column flex-md-row justify-content-center gap-4 mt-4">
+    <div
+      class="d-flex flex-column flex-md-row justify-content-center gap-4 mt-4"
+    >
       {
         randomGoodPractices.data.map((goodPractice) => (
-          <GoodPracticeCard currentLocale={currentLocale} goodPractice={goodPractice} />
+          <GoodPracticeCard
+            currentLocale={currentLocale}
+            goodPractice={goodPractice}
+          />
         ))
       }
     </div>

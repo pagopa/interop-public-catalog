@@ -1,16 +1,16 @@
 ---
-import Layout from '../../layouts/Layout.astro'
-import PageHero from '../../components/shared/PageHero.astro'
-import FAQListSection from '../../components/FAQ/FAQListSection.astro'
-import RatingSection from '../../components/shared/RatingSection.astro'
-import { strapiService } from '../../server/services'
-import { getLangFromUrl } from '../../i18n/utils.i18n'
+import Layout from "../../layouts/Layout.astro";
+import PageHero from "../../components/shared/PageHero.astro";
+import FAQListSection from "../../components/FAQ/FAQListSection.astro";
+import RatingSection from "../../components/shared/RatingSection.astro";
+import { strapiService } from "../../server/services";
+import { getLangFromUrl } from "../../i18n/utils.i18n";
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const faqContent = await strapiService.getFaqContent(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const faqContent = await strapiService.getFaqContent(currentLocale);
 
 if (!faqContent) {
-  throw new Error('Could not fetch FAQ content')
+  throw new Error("Could not fetch FAQ content");
 }
 ---
 
@@ -18,7 +18,7 @@ if (!faqContent) {
   <PageHero
     title={faqContent.data.title}
     description={faqContent.data.description}
-    breadcrumbItems={[{ routeKey: 'HOME' }, { routeKey: 'FAQ', current: true }]}
+    breadcrumbItems={[{ routeKey: "HOME" }, { routeKey: "FAQ", current: true }]}
   />
 
   <div class="bg-muted pb-5">
@@ -37,6 +37,6 @@ if (!faqContent) {
 </Layout>
 
 <script>
-  import { mixpanelService } from '../../services/mixpanel.services'
-  mixpanelService.bindTrackingFaqOpenEvent()
+  import { mixpanelService } from "../../services/mixpanel.services";
+  mixpanelService.bindTrackingFaqOpenEvent();
 </script>

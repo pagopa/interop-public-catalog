@@ -213,22 +213,24 @@ export async function handler() {
       .filter((el) => !el.value);
     if (missingFields.length > 0) {
       console.error(
-        `[AWS-CreateInvalidation]: Missing env config on ${missingFields.map((el) => el.key).join(", ")}`,
+        `[AWS-CreateInvalidation]: Missing env config on ${missingFields
+          .map((el) => el.key)
+          .join(", ")}`
       );
     }
 
     const invalidationRef = `ref-${Date.now()}`;
     console.log(
-      `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Attempting to run invalidation on paths: ${process.env.CDN_INVALIDATION_PATH}`,
+      `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Attempting to run invalidation on paths: ${process.env.CDN_INVALIDATION_PATH}`
     );
     const awsInvalidationResult = await runAWSInvalidate(invalidationRef);
     if ("err" in awsInvalidationResult) {
       console.log(
-        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Error: ${awsInvalidationResult.err}`,
+        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Error: ${awsInvalidationResult.err}`
       );
     } else {
       console.log(
-        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Status: ${awsInvalidationResult.Invalidation?.Status}`,
+        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Status: ${awsInvalidationResult.Invalidation?.Status}`
       );
     }
   }

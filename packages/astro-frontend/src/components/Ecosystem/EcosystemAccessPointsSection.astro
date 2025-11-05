@@ -1,57 +1,60 @@
 ---
-import { links } from '../../config/constants'
-import { useEcosystemTranslations } from '../../i18n/ecosystem.i18n'
-import { getLangFromUrl, getRouteKeyFromCurrentRoutePattern } from '../../i18n/utils.i18n'
-import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
-import { Section } from '../shared/Section'
+import { links } from "../../config/constants";
+import { useEcosystemTranslations } from "../../i18n/ecosystem.i18n";
+import {
+  getLangFromUrl,
+  getRouteKeyFromCurrentRoutePattern,
+} from "../../i18n/utils.i18n";
+import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon";
+import { Section } from "../shared/Section";
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const t = useEcosystemTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useEcosystemTranslations(currentLocale);
 
-const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern)
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
 const accessPoints = [
   {
-    title: t('access_points_section.access_point_1.title'),
-    subtitle: t('access_points_section.access_point_1.subtitle'),
-    description: t('access_points_section.access_point_1.description'),
+    title: t("access_points_section.access_point_1.title"),
+    subtitle: t("access_points_section.access_point_1.subtitle"),
+    description: t("access_points_section.access_point_1.description"),
     href: links.pagoPaLink,
     mixpanelAttributes: {
-      'data-mp-external-link-id': `${routeKey}_accessPointsSection_pagoPa`,
-      'data-mp-external-link-description': 'TODO',
+      "data-mp-external-link-id": `${routeKey}_accessPointsSection_pagoPa`,
+      "data-mp-external-link-description": "TODO",
     },
   },
   {
-    title: t('access_points_section.access_point_2.title'),
-    subtitle: t('access_points_section.access_point_2.subtitle'),
-    description: t('access_points_section.access_point_2.description'),
+    title: t("access_points_section.access_point_2.title"),
+    subtitle: t("access_points_section.access_point_2.subtitle"),
+    description: t("access_points_section.access_point_2.description"),
     href: links.euInteroperabilityFrameworkLink,
     mixpanelAttributes: {
-      'data-mp-external-link-id': `${routeKey}_accessPointsSection_euInteroperabilityFramework`,
-      'data-mp-external-link-description': 'TODO',
+      "data-mp-external-link-id": `${routeKey}_accessPointsSection_euInteroperabilityFramework`,
+      "data-mp-external-link-description": "TODO",
     },
   },
   {
-    title: t('access_points_section.access_point_3.title'),
-    subtitle: t('access_points_section.access_point_3.subtitle'),
-    description: t('access_points_section.access_point_3.description'),
+    title: t("access_points_section.access_point_3.title"),
+    subtitle: t("access_points_section.access_point_3.subtitle"),
+    description: t("access_points_section.access_point_3.description"),
     href: links.schemaSemanticLink,
     mixpanelAttributes: {
-      'data-mp-external-link-id': `${routeKey}_accessPointsSection_schemaSemantic`,
-      'data-mp-external-link-description': 'TODO',
+      "data-mp-external-link-id": `${routeKey}_accessPointsSection_schemaSemantic`,
+      "data-mp-external-link-description": "TODO",
     },
   },
   {
-    title: t('access_points_section.access_point_4.title'),
-    subtitle: t('access_points_section.access_point_4.subtitle'),
-    description: t('access_points_section.access_point_4.description'),
+    title: t("access_points_section.access_point_4.title"),
+    subtitle: t("access_points_section.access_point_4.subtitle"),
+    description: t("access_points_section.access_point_4.description"),
     href: links.openDataLink,
     mixpanelAttributes: {
-      'data-mp-external-link-id': `${routeKey}_accessPointsSection_openData`,
-      'data-mp-external-link-description': 'TODO',
+      "data-mp-external-link-id": `${routeKey}_accessPointsSection_openData`,
+      "data-mp-external-link-description": "TODO",
     },
   },
-] as const
+] as const;
 ---
 
 <Section className="position-relative pb-0 pb-md-5 pt-5 mb-md-4">
@@ -59,42 +62,46 @@ const accessPoints = [
   <div
     aria-hidden="true"
     style="inset:0;z-index:-1;"
-    class="position-absolute d-md-none bg-primary-c0"
+    className="position-absolute d-md-none bg-primary-c0"
   >
   </div>
 
-  <div class="position-relative py-5 px-md-5">
+  <div className="position-relative py-5 px-md-5">
     {/* Background - Desktop */}
     <div
       style="inset:0;z-index:-1;"
-      class="bg-primary-c0 rounded-5 border border-secondary position-absolute d-none d-md-block"
+      className="bg-primary-c0 rounded-5 border border-secondary position-absolute d-none d-md-block"
     >
     </div>
 
-    <h2 class="h3 mb-4">{t('access_points_section.title')}</h2>
-    <p class="mb-4 text-secondary">
-      {t('access_points_section.subtitle')}
+    <h2 className="h3 mb-4">{t("access_points_section.title")}</h2>
+    <p className="mb-4 text-secondary">
+      {t("access_points_section.subtitle")}
     </p>
-    <div class="d-flex flex-column flex-lg-row gap-4 gap-lg-3">
+    <div className="d-flex flex-column flex-lg-row gap-4 gap-lg-3">
       {
         accessPoints.map((accessPoint) => (
-          <article class="it-card rounded shadow-sm align-items-start p-1">
-            <h3 class="h5 it-card-title text-primary">{accessPoint.title}</h3>
-            <div class="it-card-body text-start">
-              <p class="it-card-text">{accessPoint.subtitle}</p>
-              <p class="it-card-text fw-bold mb-1">{t('access_points_section.what_is_it_for')}</p>
-              <p class="it-card-text">{accessPoint.description}</p>
+          <article className="it-card rounded shadow-sm align-items-start p-1">
+            <h3 className="h5 it-card-title text-primary">
+              {accessPoint.title}
+            </h3>
+            <div className="it-card-body text-start">
+              <p className="it-card-text">{accessPoint.subtitle}</p>
+              <p className="it-card-text fw-bold mb-1">
+                {t("access_points_section.what_is_it_for")}
+              </p>
+              <p className="it-card-text">{accessPoint.description}</p>
             </div>
-            <footer class="it-card-related it-card-footer mt-auto">
-              <div class="it-card-taxonomy">
+            <footer className="it-card-related it-card-footer mt-auto">
+              <div className="it-card-taxonomy">
                 <a
                   {...accessPoint.mixpanelAttributes}
                   href={accessPoint.href}
                   target="_blank"
                   rel="noreferrer noopener"
-                  class="it-card-link text-primary text-decoration-none fw-semibold"
+                  className="it-card-link text-primary text-decoration-none fw-semibold"
                 >
-                  {t('access_points_section.actions.go_to_site')}
+                  {t("access_points_section.actions.go_to_site")}
                   <BootstrapItaliaIcon
                     className="ms-1 mb-1"
                     name="it-external-link"

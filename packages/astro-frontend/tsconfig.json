@@ -1,5 +1,9 @@
 {
-  "extends": "astro/tsconfigs/strict",
-  "include": [".astro/types.d.ts", "**/*", "src/stories/EServiceCard.stories.tsx"],
-  "exclude": ["dist"]
+  "extends": ["pagopa-interop-public-typescript-config/base.json", "astro/tsconfigs/strict"],
+  "include": [".astro/types.d.ts", "**/*", "src/types"],
+  "exclude": ["dist", "node_modules"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "jsxImportSource": "react"
+  }
 }

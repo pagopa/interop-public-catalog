@@ -1,23 +1,27 @@
-import React from 'react'
-import { usePagination, type Page } from './hooks/usePagination'
-import { getLangFromUrl } from '../../../i18n/utils.i18n'
-import { useUiTranslations } from '../../../i18n/ui.i18n'
+import React from "react";
+import { usePagination, type Page } from "./hooks/usePagination";
+import { getLangFromUrl } from "../../../i18n/utils.i18n";
+import { useUiTranslations } from "../../../i18n/ui.i18n";
 
 type PagerProps = {
-  totalCount: number
-  limit: number
-  idElementToScrollTo: string
-}
+  totalCount: number;
+  limit: number;
+  idElementToScrollTo: string;
+};
 
-export const Pager: React.FC<PagerProps> = ({ totalCount, limit, idElementToScrollTo }) => {
+export const Pager: React.FC<PagerProps> = ({
+  totalCount,
+  limit,
+  idElementToScrollTo,
+}) => {
   const { previousPages, nextPages, paginationProps } = usePagination(
     limit,
     totalCount,
     idElementToScrollTo
-  )
-  const lang = getLangFromUrl(window.location.pathname)
-  const t = useUiTranslations(lang)
-  const { totalPages } = paginationProps
+  );
+  const lang = getLangFromUrl(window.location.pathname);
+  const t = useUiTranslations(lang);
+  const { totalPages } = paginationProps;
 
   const mapPagesToPagerElements = (pages: Page[]): React.ReactNode =>
     pages.map((page, index) => (
@@ -27,14 +31,16 @@ export const Pager: React.FC<PagerProps> = ({ totalCount, limit, idElementToScro
         ) : (
           <a
             className="page-link"
-            onClick={() => paginationProps.onPageChange(parseInt(page.value, 10))}
+            onClick={() =>
+              paginationProps.onPageChange(parseInt(page.value, 10))
+            }
             role="button"
           >
             {page.value}
           </a>
         )}
       </li>
-    ))
+    ));
 
   return (
     <nav className="pagination-wrapper justify-content-center">
@@ -43,10 +49,12 @@ export const Pager: React.FC<PagerProps> = ({ totalCount, limit, idElementToScro
           <li className="page-item">
             <a
               className="page-link text"
-              onClick={() => paginationProps.onPageChange(paginationProps.actualPage - 1)}
+              onClick={() =>
+                paginationProps.onPageChange(paginationProps.actualPage - 1)
+              }
               role="button"
             >
-              {t('pagination.previous')}
+              {t("pagination.previous")}
             </a>
           </li>
         )}
@@ -57,7 +65,9 @@ export const Pager: React.FC<PagerProps> = ({ totalCount, limit, idElementToScro
           <li className="page-item">
             <a
               className="page-link"
-              onClick={() => paginationProps.onPageChange(paginationProps.actualPage - 1)}
+              onClick={() =>
+                paginationProps.onPageChange(paginationProps.actualPage - 1)
+              }
               role="button"
               aria-current="page"
             >
@@ -72,14 +82,16 @@ export const Pager: React.FC<PagerProps> = ({ totalCount, limit, idElementToScro
           <li className="page-item">
             <a
               className="page-link text"
-              onClick={() => paginationProps.onPageChange(paginationProps.actualPage + 1)}
+              onClick={() =>
+                paginationProps.onPageChange(paginationProps.actualPage + 1)
+              }
               role="button"
             >
-              {t('pagination.next')}
+              {t("pagination.next")}
             </a>
           </li>
         )}
       </ul>
     </nav>
-  )
-}
+  );
+};

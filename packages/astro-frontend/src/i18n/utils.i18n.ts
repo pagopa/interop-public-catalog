@@ -1,9 +1,9 @@
-import { ROUTES, type RouteKey } from '../config/routes.js'
-import { DEFAULT_LANG, LANGUAGES } from './config.i18n.js'
-import type { ExtractRouteParams, SupportedLanguage } from './types.i18n.js'
+import { ROUTES, type RouteKey } from "../config/routes.js";
+import { DEFAULT_LANG, LANGUAGES } from "./config.i18n.js";
+import type { ExtractRouteParams, SupportedLanguage } from "./types.i18n.js";
 
 function isSupportedLanguage(lang: string): lang is SupportedLanguage {
-  return lang in LANGUAGES
+  return lang in LANGUAGES;
 }
 
 /**
@@ -11,29 +11,31 @@ function isSupportedLanguage(lang: string): lang is SupportedLanguage {
  * Returns the language if supported, otherwise falls back to the default language.
  */
 export function getLangFromUrl(url: string): SupportedLanguage {
-  const [, lang] = url.split('/')
+  const [, lang] = url.split("/");
   if (isSupportedLanguage(lang)) {
-    return lang
+    return lang;
   }
 
-  return DEFAULT_LANG
+  return DEFAULT_LANG;
 }
 
 export function getRouteKeyFromCurrentRoutePattern(
   currentRoutePattern: string
 ): RouteKey | undefined {
-  const currentLocale = getLangFromUrl(currentRoutePattern)
-  let currentRoutePatternWithoutLangPrefix = currentRoutePattern.split(`/${currentLocale}`)[1]
+  const currentLocale = getLangFromUrl(currentRoutePattern);
+  let currentRoutePatternWithoutLangPrefix = currentRoutePattern.split(
+    `/${currentLocale}`
+  )[1];
 
-  if (currentRoutePatternWithoutLangPrefix === '') {
-    currentRoutePatternWithoutLangPrefix = '/'
+  if (currentRoutePatternWithoutLangPrefix === "") {
+    currentRoutePatternWithoutLangPrefix = "/";
   }
 
   return (Object.keys(ROUTES) as RouteKey[]).find(
     (r) =>
       ROUTES[r][currentLocale].toLocaleLowerCase() ===
       currentRoutePatternWithoutLangPrefix.toLocaleLowerCase()
-  )
+  );
 }
 
 export function switchLang({
@@ -41,17 +43,20 @@ export function switchLang({
   currentRoutePattern,
   currentParams,
 }: {
-  toLang: SupportedLanguage
-  currentRoutePattern: string
-  currentParams: Record<string, string | undefined>
+  toLang: SupportedLanguage;
+  currentRoutePattern: string;
+  currentParams: Record<string, string | undefined>;
 }): string {
-  const currentRouteKey = getRouteKeyFromCurrentRoutePattern(currentRoutePattern)
+  const currentRouteKey =
+    getRouteKeyFromCurrentRoutePattern(currentRoutePattern);
 
   if (!currentRouteKey) {
-    return getLocalizedRoute(toLang, 'HOME')
+    return getLocalizedRoute(toLang, "HOME");
   }
 
-  return getLocalizedRoute(toLang, currentRouteKey, { params: currentParams } as never)
+  return getLocalizedRoute(toLang, currentRouteKey, {
+    params: currentParams,
+  } as never);
 }
 
 /**
@@ -62,45 +67,47 @@ export function switchLang({
  */
 export function buildUseTranslations<
   T extends Record<SupportedLanguage, Record<K, string>>,
-  K extends keyof T[SupportedLanguage],
+  K extends keyof T[SupportedLanguage]
 >(translationMap: T) {
   return (lang: SupportedLanguage) => {
-    const isDev = process.env.NODE_ENV === 'development'
+    const isDev = process.env.NODE_ENV === "development";
 
     return (key: K): string => {
-      const translation = translationMap[lang][key]
+      const translation = translationMap[lang][key];
 
       if (!translation) {
         if (isDev) {
           console.warn(
-            `Missing translation for key "${key as string}" in language "${lang}". Falling back to default language "${DEFAULT_LANG}".`
-          )
+            `Missing translation for key "${
+              key as string
+            }" in language "${lang}". Falling back to default language "${DEFAULT_LANG}".`
+          );
         }
-        return translationMap[DEFAULT_LANG][key] ?? key
+        return translationMap[DEFAULT_LANG][key] ?? String(key);
       }
 
-      return translation
-    }
-  }
+      return translation;
+    };
+  };
 }
 
 export function getLocalizedRoute<
   TLang extends SupportedLanguage,
   TRouteKey extends RouteKey,
   Path extends (typeof ROUTES)[TRouteKey][TLang] = (typeof ROUTES)[TRouteKey][TLang],
-  RouteParams extends ExtractRouteParams<Path> = ExtractRouteParams<Path>,
+  RouteParams extends ExtractRouteParams<Path> = ExtractRouteParams<Path>
 >(
   currentLocale: TLang,
   routeKey: TRouteKey,
   ...config: RouteParams extends undefined ? [] : [{ params: RouteParams }]
 ): string {
-  let route: string = ROUTES[routeKey][currentLocale]
+  let route: string = ROUTES[routeKey][currentLocale];
 
   if (config[0]?.params) {
     for (const [key, value] of Object.entries(config[0].params)) {
-      route = route.replace(`[${key}]`, value)
+      route = route.replace(`[${key}]`, value);
     }
   }
 
-  return `/${currentLocale}${route}`
+  return `/${currentLocale}${route}`;
 }

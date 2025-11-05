@@ -1,39 +1,53 @@
-import React from 'react'
-import type { SupportedLanguage } from '../../i18n/types.i18n.js'
-import { GoodPracticeCard, GoodPracticeCardSkeleton } from '../shared/GoodPracticeCard.js'
-import { useSearchParams } from '../../hooks/useSearchParams.js'
-import { z } from 'zod'
-import useSwr from 'swr'
-import { MacroCategoryIdFilter } from './MacroCategoryIdFilter.jsx'
-import { apiService } from '../../services/api.services.js'
+import React from "react";
+import type { SupportedLanguage } from "../../i18n/types.i18n.js";
+import {
+  GoodPracticeCard,
+  GoodPracticeCardSkeleton,
+} from "../shared/GoodPracticeCard.js";
+import { useSearchParams } from "../../hooks/useSearchParams.js";
+import { z } from "zod";
+import useSwr from "swr";
+import { MacroCategoryIdFilter } from "./MacroCategoryIdFilter.jsx";
+import { apiService } from "../../services/api.services.js";
 
 export const GoodPracticesCatalog: React.FC<{
-  defaultMacroCategoryId: number | undefined
-  currentLocale: SupportedLanguage
+  defaultMacroCategoryId: number | undefined;
+  currentLocale: SupportedLanguage;
 }> = ({ currentLocale, defaultMacroCategoryId }) => {
   const [searchParams, setSearchParams] = useSearchParams(
     z.object({
       macroCategoryId: z.coerce.number(),
     })
-  )
+  );
 
-  const isServer = typeof window === 'undefined'
-  const selectedMacroCategoryId = isServer ? defaultMacroCategoryId : searchParams.macroCategoryId
+  const isServer = typeof window === "undefined";
+  const selectedMacroCategoryId = isServer
+    ? defaultMacroCategoryId
+    : searchParams.macroCategoryId;
 
   const { data, isLoading } = useSwr(
     [currentLocale, selectedMacroCategoryId],
     async ([locale, macroCategoryId]) => {
       const [result] = await Promise.all([
-        apiService.getGoodPractices({ locale, macroCategoryId, limit: 50, offset: 0 }),
-        new Promise((resolve) => setTimeout(resolve, Math.random() * 800 + 200)), // Simulate network latency
-      ])
-      return result
+        apiService.getGoodPractices({
+          locale,
+          macroCategoryId,
+          limit: 50,
+          offset: 0,
+        }),
+        new Promise((resolve) =>
+          setTimeout(resolve, Math.random() * 800 + 200)
+        ), // Simulate network latency
+      ]);
+      return result;
     }
-  )
+  );
 
-  const handleSelectedMacroCategoryIdChange = (macroCategoryId: number | null) => {
-    setSearchParams({ macroCategoryId: macroCategoryId ?? undefined })
-  }
+  const handleSelectedMacroCategoryIdChange = (
+    macroCategoryId: number | null
+  ) => {
+    setSearchParams({ macroCategoryId: macroCategoryId ?? undefined });
+  };
 
   return (
     <div className="row">
@@ -64,12 +78,12 @@ export const GoodPracticesCatalog: React.FC<{
           ))}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export const GoodPracticesCatalogSkeleton: React.FC<{
-  selectedMacroCategoryId: number | null
-  currentLocale: SupportedLanguage
+  selectedMacroCategoryId: number | null;
+  currentLocale: SupportedLanguage;
 }> = ({ selectedMacroCategoryId, currentLocale }) => {
   return (
     <div className="row">
@@ -87,5 +101,5 @@ export const GoodPracticesCatalogSkeleton: React.FC<{
         <GoodPracticeCardSkeleton />
       </div>
     </div>
-  )
-}
+  );
+};

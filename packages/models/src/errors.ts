@@ -1,4 +1,3 @@
-/* eslint-disable max-classes-per-file */
 import { constants } from "http2";
 import { match, P } from "ts-pattern";
 import { ZodError } from "zod";

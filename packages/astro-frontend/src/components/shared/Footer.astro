@@ -1,49 +1,49 @@
 ---
-import mixpanel from 'mixpanel-browser'
+import mixpanel from "mixpanel-browser";
 import {
   CATALOG_API_SECTION_NAV_ITEMS,
   links,
   RESOURCES_SECTION_NAV_ITEMS,
-} from '../../config/constants'
-import type { SupportedLanguage } from '../../i18n/types.i18n'
-import { useUiTranslations } from '../../i18n/ui.i18n'
+} from "../../config/constants";
+import type { SupportedLanguage } from "../../i18n/types.i18n";
+import { useUiTranslations } from "../../i18n/ui.i18n";
 import {
   getLangFromUrl,
   getLocalizedRoute,
   getRouteKeyFromCurrentRoutePattern,
-} from '../../i18n/utils.i18n'
+} from "../../i18n/utils.i18n";
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const tUi = useUiTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tUi = useUiTranslations(currentLocale);
 
-const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern)
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
 // Footer small print links (legal, privacy, accessibility, etc.)
 const footerSmallPrintLinks = [
   {
-    label: tUi('footer.nav_section.legal_notes'),
-    href: getLocalizedRoute(currentLocale, 'LEGAL_NOTES'),
+    label: tUi("footer.nav_section.legal_notes"),
+    href: getLocalizedRoute(currentLocale, "LEGAL_NOTES"),
     mixpanelAttributes: {},
   },
   {
-    label: tUi('footer.nav_section.privacy_policy'),
-    href: getLocalizedRoute(currentLocale, 'PRIVACY_POLICY'),
+    label: tUi("footer.nav_section.privacy_policy"),
+    href: getLocalizedRoute(currentLocale, "PRIVACY_POLICY"),
     mixpanelAttributes: {},
   },
   {
-    label: tUi('footer.nav_section.sitemap'),
-    href: '/sitemap.xml',
+    label: tUi("footer.nav_section.sitemap"),
+    href: "/sitemap.xml",
     mixpanelAttributes: {},
   },
   {
-    label: tUi('footer.nav_section.accessibility_statement'),
+    label: tUi("footer.nav_section.accessibility_statement"),
     href: links.accessibilityStatementLink,
     mixpanelAttributes: {
-      'data-mp-external-link-id': `${routeKey}_footer_accessibility_statement`,
-      'data-mp-external-link-description': 'TODO',
+      "data-mp-external-link-id": `${routeKey}_footer_accessibility_statement`,
+      "data-mp-external-link-description": "TODO",
     },
   },
-] as const
+] as const;
 ---
 
 <footer class="it-footer mt-0">
@@ -59,6 +59,7 @@ const footerSmallPrintLinks = [
               data-mp-external-link-description="TODO"
               href={links.ueCommissionLink}
               target="_blank"
+              rel="noreferrer"
             >
               <img
                 src="/img/next-generation-eu-footer-logo.svg"
@@ -73,6 +74,7 @@ const footerSmallPrintLinks = [
               data-mp-external-link-description="TODO"
               href={links.dtdLogoLink}
               target="_blank"
+              rel="noreferrer"
             >
               <img
                 src="/img/dtd-footer-logo.svg"
@@ -87,37 +89,51 @@ const footerSmallPrintLinks = [
               data-mp-external-link-description="TODO"
               href={links.pagoPaLink}
               target="_blank"
+              rel="noreferrer"
             >
-              <img src="/img/pagopa-footer-logo.svg" alt="PagoPA logo" class="img-fluid" />
+              <img
+                src="/img/pagopa-footer-logo.svg"
+                alt="PagoPA logo"
+                class="img-fluid"
+              />
             </a>
           </div>
-          <div class="d-none d-md-flex col-12 col-md-5 pb-2 justify-content-end gap-5">
+          <div
+            class="d-none d-md-flex col-12 col-md-5 pb-2 justify-content-end gap-5"
+          >
             <!-- Catalogo API links column -->
             <div>
               <h4 class="text-uppercase">
-                {tUi('brand.title')}
+                {tUi("brand.title")}
               </h4>
               <div class="link-list-wrapper">
                 <ul class="footer-list link-list clearfix">
                   {
                     CATALOG_API_SECTION_NAV_ITEMS.map((item) => {
-                      const localizedHref = getLocalizedRoute(currentLocale, item.routeKey)
+                      const localizedHref = getLocalizedRoute(
+                        currentLocale,
+                        item.routeKey,
+                      );
 
                       const isGoodPracticeCatalogNavItem =
-                        item.routeKey === 'GOOD_PRACTICES_CATALOG'
+                        item.routeKey === "GOOD_PRACTICES_CATALOG";
                       const mixpanelAttributes = isGoodPracticeCatalogNavItem
                         ? {
-                            'data-mp-good-practice-catalog-referral': 'footer',
+                            "data-mp-good-practice-catalog-referral": "footer",
                           }
-                        : {}
+                        : {};
 
                       return (
                         <li>
-                          <a class="list-item" href={localizedHref} {...mixpanelAttributes}>
+                          <a
+                            class="list-item"
+                            href={localizedHref}
+                            {...mixpanelAttributes}
+                          >
                             {tUi(item.i18nKey)}
                           </a>
                         </li>
-                      )
+                      );
                     })
                   }
                 </ul>
@@ -126,14 +142,17 @@ const footerSmallPrintLinks = [
             <!-- Resources links column -->
             <div>
               <h4>
-                {tUi('footer.nav_section.resources')}
+                {tUi("footer.nav_section.resources")}
               </h4>
               <div class="link-list-wrapper">
                 <ul class="footer-list link-list clearfix">
                   {
                     RESOURCES_SECTION_NAV_ITEMS.map((item) => (
                       <li>
-                        <a class="list-item" href={getLocalizedRoute(currentLocale, item.routeKey)}>
+                        <a
+                          class="list-item"
+                          href={getLocalizedRoute(currentLocale, item.routeKey)}
+                        >
                           {tUi(item.i18nKey)}
                         </a>
                       </li>
@@ -150,7 +169,9 @@ const footerSmallPrintLinks = [
   <!-- Small print section: legal and accessibility links -->
   <div class="it-footer-small-prints clearfix border-top border-secondary">
     <div class="container">
-      <ul class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row">
+      <ul
+        class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row"
+      >
         {
           footerSmallPrintLinks.map((link) => (
             <li class="list-inline-item">

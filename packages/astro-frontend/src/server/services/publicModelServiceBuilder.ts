@@ -1,13 +1,13 @@
-import type { drizzle } from 'drizzle-orm/node-postgres'
-import type { NodePgQueryResultHKT } from 'drizzle-orm/node-postgres'
-import type { ExtractTablesWithRelations } from 'drizzle-orm'
-import { sql } from 'drizzle-orm'
-import { CompactTenant, EService } from 'pagopa-interop-public-models'
-import type { PgTransaction } from 'drizzle-orm/pg-core'
-import { categoriesMap } from '../config/categories'
-import type { GetEServicesQuery, GetTenantsQuery } from '../models/api'
-import { eserviceOrderBy } from '../models/api'
-import { z } from 'zod'
+import type { drizzle } from "drizzle-orm/node-postgres";
+import type { NodePgQueryResultHKT } from "drizzle-orm/node-postgres";
+import type { ExtractTablesWithRelations } from "drizzle-orm";
+import { sql } from "drizzle-orm";
+import { CompactTenant, EService } from "pagopa-interop-public-models";
+import type { PgTransaction } from "drizzle-orm/pg-core";
+import { categoriesMap } from "../config/categories";
+import type { GetEServicesQuery, GetTenantsQuery } from "../models/api";
+import { eserviceOrderBy } from "../models/api";
+import { z } from "zod";
 
 type SingleTransaction<T> = (
   tx: PgTransaction<
@@ -15,7 +15,7 @@ type SingleTransaction<T> = (
     Record<string, unknown>,
     ExtractTablesWithRelations<Record<string, unknown>>
   >
-) => Promise<T>
+) => Promise<T>;
 
 type Transaction<T> = (
   tx: PgTransaction<
@@ -24,20 +24,20 @@ type Transaction<T> = (
     ExtractTablesWithRelations<Record<string, unknown>>
   >
 ) => Promise<{
-  total: number
-  items: T[]
-}>
+  total: number;
+  items: T[];
+}>;
 
 type ServiceConfig = {
-  catalogSchema: string
-  tenantSchema: string
-  attributeSchema: string
-}
+  catalogSchema: string;
+  tenantSchema: string;
+  attributeSchema: string;
+};
 
 const _buildFullQueryWithFilters = (config: {
-  catalogSchema: string
-  attributeSchema: string
-  tenantSchema: string
+  catalogSchema: string;
+  attributeSchema: string;
+  tenantSchema: string;
 }) => {
   const baseSelect = (eservice: string, tenant: string) => sql`
   SELECT
@@ -53,17 +53,19 @@ const _buildFullQueryWithFilters = (config: {
       ${sql.identifier(eservice)}.is_client_access_delegable,
       ${sql.identifier(eservice)}.template_id,
       ${sql.identifier(tenant)}.name AS tenant_name
-  `
+  `;
 
   const fullSelect = (eservice: string, tenant: string) => sql`
       ${baseSelect(eservice, tenant)},
       to_jsonb(d_full) AS active_descriptor
-  `
+  `;
   const conditionalCategoriesCheck = (categories: string[]) => sql`
   -- filter by categories
     JOIN LATERAL (
     SELECT 1
-    FROM ${sql.identifier(config.catalogSchema)}.eservice_descriptor_attribute da2
+    FROM ${sql.identifier(
+      config.catalogSchema
+    )}.eservice_descriptor_attribute da2
     JOIN ${sql.identifier(config.attributeSchema)}.attribute a2
       ON a2.id = da2.attribute_id
     WHERE da2.descriptor_id = chosen.id
@@ -73,7 +75,7 @@ const _buildFullQueryWithFilters = (config: {
       )})
     LIMIT 1
   ) attr_filter ON TRUE
-  `
+  `;
 
   const _attributeGroupBuilder = (kind: string) => sql`
   COALESCE((
@@ -81,20 +83,24 @@ const _buildFullQueryWithFilters = (config: {
       FROM (
         SELECT jsonb_agg(a.*) AS attrs
         FROM ${sql.identifier(config.attributeSchema)}.attribute a
-        JOIN ${sql.identifier(config.catalogSchema)}.eservice_descriptor_attribute da ON da.attribute_id = a.id
+        JOIN ${sql.identifier(
+          config.catalogSchema
+        )}.eservice_descriptor_attribute da ON da.attribute_id = a.id
         WHERE da.descriptor_id = d.id
           AND a.kind = ${sql`${kind}`}
         GROUP BY da.group_id
       ) g
     ), '[]'::jsonb)
-  `
+  `;
 
   const activeDescriptorPopulator = (
     attributes: boolean,
     eservice: string,
     categories?: string[]
   ) => sql`
-  JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = ${sql.identifier(eservice)}.producer_id
+  JOIN ${sql.identifier(
+    config.tenantSchema
+  )}.tenant t ON t.id = ${sql.identifier(eservice)}.producer_id
   -- pick the latest PUBLISHED descriptor id
   JOIN LATERAL (
     SELECT md.id
@@ -105,7 +111,11 @@ const _buildFullQueryWithFilters = (config: {
     ) md
     WHERE rn = 1 AND md.eservice_id = e.id
   ) AS chosen ON TRUE
-  ${categories && categories.length > 0 ? conditionalCategoriesCheck(categories) : sql``}
+  ${
+    categories && categories.length > 0
+      ? conditionalCategoriesCheck(categories)
+      : sql``
+  }
   -- build full descriptor w/ attributes
   ${
     attributes
@@ -115,14 +125,16 @@ const _buildFullQueryWithFilters = (config: {
       d.*,
       jsonb_build_object(
         'verified',
-        ${_attributeGroupBuilder('Verified')},
+        ${_attributeGroupBuilder("Verified")},
         'declared',
-        ${_attributeGroupBuilder('Declared')},
+        ${_attributeGroupBuilder("Declared")},
         'certified',
-        ${_attributeGroupBuilder('Certified')}
+        ${_attributeGroupBuilder("Certified")}
       ) AS attributes
     FROM ${sql.identifier(config.catalogSchema)}.eservice_descriptor d
-    LEFT JOIN ${sql.identifier(config.catalogSchema)}.eservice_descriptor_attribute da
+    LEFT JOIN ${sql.identifier(
+      config.catalogSchema
+    )}.eservice_descriptor_attribute da
       ON da.descriptor_id = d.id
     LEFT JOIN ${sql.identifier(config.attributeSchema)}.attribute a
       ON a.id = da.attribute_id
@@ -132,7 +144,7 @@ const _buildFullQueryWithFilters = (config: {
     `
       : sql``
   }
-  `
+  `;
 
   const activeDescriptorPopulatorGroupBy = (
     attributes: boolean,
@@ -141,47 +153,56 @@ const _buildFullQueryWithFilters = (config: {
   ) =>
     sql`
     GROUP BY 
-    ${sql.identifier(eservice)}.id, ${sql.identifier(tenant)}.name, ${sql.identifier(tenant)}.id
+    ${sql.identifier(eservice)}.id, ${sql.identifier(
+      tenant
+    )}.name, ${sql.identifier(tenant)}.id
     ${attributes ? sql`, d_full` : sql``}
-    `
+    `;
 
   return {
     baseSelect,
     fullSelect,
     activeDescriptorPopulator,
     activeDescriptorPopulatorGroupBy,
-  }
-}
+  };
+};
 
 export async function getEService(
   db: ReturnType<typeof drizzle>,
   config: ServiceConfig,
   id: string
 ): Promise<EService | undefined> {
-  const { fullSelect, activeDescriptorPopulator, activeDescriptorPopulatorGroupBy } =
-    _buildFullQueryWithFilters({
-      catalogSchema: config.catalogSchema,
-      attributeSchema: config.attributeSchema,
-      tenantSchema: config.tenantSchema,
-    })
+  const {
+    fullSelect,
+    activeDescriptorPopulator,
+    activeDescriptorPopulatorGroupBy,
+  } = _buildFullQueryWithFilters({
+    catalogSchema: config.catalogSchema,
+    attributeSchema: config.attributeSchema,
+    tenantSchema: config.tenantSchema,
+  });
 
-  const getEServiceById: SingleTransaction<EService | undefined> = async (tx) => {
+  const getEServiceById: SingleTransaction<EService | undefined> = async (
+    tx
+  ) => {
     const pageRes = await tx.execute(sql`
-    ${fullSelect('e', 't')}
+    ${fullSelect("e", "t")}
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
-    ${activeDescriptorPopulator(true, 'e')}
+    ${activeDescriptorPopulator(true, "e")}
     WHERE e.id = ${id}
-    ${activeDescriptorPopulatorGroupBy(true, 'e', 't')}
-  `)
+    ${activeDescriptorPopulatorGroupBy(true, "e", "t")}
+  `);
 
     if (pageRes.rows[0] === undefined) {
-      return undefined
+      return undefined;
     }
 
-    return EService.parse(pageRes.rows[0])
-  }
+    return EService.parse(pageRes.rows[0]);
+  };
 
-  return await db.transaction(getEServiceById, { isolationLevel: 'repeatable read' })
+  return await db.transaction(getEServiceById, {
+    isolationLevel: "repeatable read",
+  });
 }
 
 export async function searchCatalog(
@@ -189,18 +210,19 @@ export async function searchCatalog(
   config: ServiceConfig,
   query: GetEServicesQuery
 ): Promise<{ results: EService[]; totalCount: number }> {
-  const { limit, offset, q, orderBy, producerIds, categories } = query
+  const { limit, offset, q, orderBy, producerIds, categories } = query;
 
-  const mappedOrderBy = orderBy?.map((entry) => eserviceOrderBy[entry])
+  const mappedOrderBy = orderBy?.map((entry) => eserviceOrderBy[entry]);
 
   // Categories are already filtered in the catalog API interface
   // Here we can assume we have valid categories ex. ['Comuni', '...', ...]
-  const mappedCategories = categories?.flatMap((cat) => categoriesMap[cat])
+  const mappedCategories = categories?.flatMap((cat) => categoriesMap[cat]);
 
   // Build WHERE condition
-  const conds = [sql`true`]
+  const conds = [sql`true`];
 
   if (categories && categories.length > 0) {
+    // Do nothing
   } else if (producerIds && producerIds.length > 0) {
     conds.push(
       sql`
@@ -208,44 +230,49 @@ export async function searchCatalog(
         producerIds.map((id) => sql`${id}`),
         sql`, `
       )})`
-    )
+    );
   }
 
-  const { baseSelect, activeDescriptorPopulator, activeDescriptorPopulatorGroupBy } =
-    _buildFullQueryWithFilters({
-      catalogSchema: config.catalogSchema,
-      attributeSchema: config.attributeSchema,
-      tenantSchema: config.tenantSchema,
-    })
+  const {
+    baseSelect,
+    activeDescriptorPopulator,
+    activeDescriptorPopulatorGroupBy,
+  } = _buildFullQueryWithFilters({
+    catalogSchema: config.catalogSchema,
+    attributeSchema: config.attributeSchema,
+    tenantSchema: config.tenantSchema,
+  });
 
   const orderByFragment = sql.raw(`
   e.${
     mappedOrderBy && mappedOrderBy.length > 0
-      ? mappedOrderBy?.map((el) => `${el}`).join(', e.')
-      : 'created_at DESC'
+      ? mappedOrderBy?.map((el) => `${el}`).join(", e.")
+      : "created_at DESC"
   }
-  `)
+  `);
 
-  const textlessSearchTx: Transaction<EService & { [k: string]: unknown }> = async (tx) => {
+  const textlessSearchTx: Transaction<
+    EService & { [k: string]: unknown }
+  > = async (tx) => {
     const pageRes = await tx.execute(sql`
-    ${baseSelect('e', 't')},
+    ${baseSelect("e", "t")},
     count(*) over() AS total
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
-    ${activeDescriptorPopulator(false, 'e', mappedCategories)}
+    ${activeDescriptorPopulator(false, "e", mappedCategories)}
     WHERE ${sql.join(conds, sql` AND `)}
-    ${activeDescriptorPopulatorGroupBy(false, 'e', 't')}
+    ${activeDescriptorPopulatorGroupBy(false, "e", "t")}
     ORDER BY ${orderByFragment}
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
-  `)
+  `);
 
-    const items = z.array(EService).parse(pageRes.rows)
+    const items = z.array(EService).parse(pageRes.rows);
     const total = z.coerce
       .number()
       .catch(() => 0)
-      .parse(pageRes?.rows[0]?.total)
+      .parse(pageRes?.rows[0]?.total);
 
-    return { items, total }
-  }
+    return { items, total };
+  };
 
   const textSearchTx: Transaction<EService & { [k: string]: unknown }> = async (
     tx
@@ -262,7 +289,9 @@ export async function searchCatalog(
     fts_ids AS (
       SELECT e.id
       FROM ${sql.identifier(config.catalogSchema)}.eservice e
-      JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = e.producer_id
+      JOIN ${sql.identifier(
+        config.tenantSchema
+      )}.tenant t ON t.id = e.producer_id
       CROSS JOIN params p
       WHERE p.tsq IS NOT NULL
         AND (e.search_vector @@ p.tsq OR t.search_vector @@ p.tsq)
@@ -270,7 +299,9 @@ export async function searchCatalog(
     trgm_ids AS (
       SELECT e.id
       FROM ${sql.identifier(config.catalogSchema)}.eservice e
-      JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = e.producer_id
+      JOIN ${sql.identifier(
+        config.tenantSchema
+      )}.tenant t ON t.id = e.producer_id
       CROSS JOIN params p
       WHERE
         public.normalize_text(e.name) % p.nq
@@ -285,7 +316,7 @@ export async function searchCatalog(
       WHERE NOT EXISTS (SELECT 1 FROM fts_ids)
     ),
     scored AS (
-      ${baseSelect('e', 't')},
+      ${baseSelect("e", "t")},
         count(*) over() AS total,
         -- gives priority to tenant name matches when ordering
         -- based on coverage + density (ts_rank_cd)
@@ -297,38 +328,40 @@ export async function searchCatalog(
         )::real AS fuzzy_sim
       FROM picked x
       JOIN ${sql.identifier(config.catalogSchema)}.eservice e ON e.id = x.id
-      ${activeDescriptorPopulator(false, 'e', mappedCategories)}
+      ${activeDescriptorPopulator(false, "e", mappedCategories)}
       CROSS JOIN params p
       WHERE ${sql.join(conds, sql` AND `)}
-      ${activeDescriptorPopulatorGroupBy(false, 'e', 't')}, p.tsq, p.nq
+      ${activeDescriptorPopulatorGroupBy(false, "e", "t")}, p.tsq, p.nq
     )
     SELECT s.*,
       (s.fts_rank + 0.5 * s.fuzzy_sim)::real AS score
     FROM scored s
     JOIN ${sql.identifier(config.catalogSchema)}.eservice e ON e.id = s.id
-    ORDER BY score DESC${orderByFragment ? sql.join([sql`, `, orderByFragment]) : sql``}
+    ORDER BY score DESC${
+      orderByFragment ? sql.join([sql`, `, orderByFragment]) : sql``
+    }
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
-  `)
+  `);
 
-    const items = z.array(EService).parse(pageRes.rows)
+    const items = z.array(EService).parse(pageRes.rows);
     const total = z.coerce
       .number()
       .catch(() => 0)
-      .parse(pageRes?.rows[0]?.total)
+      .parse(pageRes?.rows[0]?.total);
 
-    return { items, total }
-  }
+    return { items, total };
+  };
 
-  const transactionToExecute = q?.trim() ? textSearchTx : textlessSearchTx
+  const transactionToExecute = q?.trim() ? textSearchTx : textlessSearchTx;
   const { items, total } = await db.transaction(
     transactionToExecute,
-    { isolationLevel: 'repeatable read' } // prevents mismatch between reads
-  )
+    { isolationLevel: "repeatable read" } // prevents mismatch between reads
+  );
 
   return {
     totalCount: total,
     results: items,
-  }
+  };
 }
 
 export async function searchTenants(
@@ -345,16 +378,16 @@ export async function searchTenants(
     FROM ${sql.identifier(config.tenantSchema)}.tenant t
     ORDER BY t.created_at DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
-  `)
+  `);
 
-    const items = z.array(CompactTenant).parse(pageRes.rows)
+    const items = z.array(CompactTenant).parse(pageRes.rows);
     const total = z.coerce
       .number()
       .catch(() => 0)
-      .parse(pageRes?.rows[0]?.total)
+      .parse(pageRes?.rows[0]?.total);
 
-    return { items, total }
-  }
+    return { items, total };
+  };
 
   const textSearchTx: Transaction<CompactTenant> = async (
     tx
@@ -404,33 +437,38 @@ export async function searchTenants(
     FROM scored s
     ORDER BY score DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
-  `
-    const pageRes = await tx.execute(builtQuery)
+  `;
+    const pageRes = await tx.execute(builtQuery);
 
-    const items = z.array(CompactTenant).parse(pageRes.rows)
+    const items = z.array(CompactTenant).parse(pageRes.rows);
     const total = z.coerce
       .number()
       .catch(() => 0)
-      .parse(pageRes?.rows[0]?.total)
+      .parse(pageRes?.rows[0]?.total);
 
-    return { items, total }
-  }
+    return { items, total };
+  };
 
-  const { items, total } = await db.transaction(q?.trim() ? textSearchTx : textlessSearchTx, {
-    isolationLevel: 'repeatable read',
-  })
+  const { items, total } = await db.transaction(
+    q?.trim() ? textSearchTx : textlessSearchTx,
+    {
+      isolationLevel: "repeatable read",
+    }
+  );
 
   return {
     results: items,
     totalCount: total,
-  }
+  };
 }
 
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export function publicModelServiceBuilder(db: ReturnType<typeof drizzle>, config: ServiceConfig) {
+export function publicModelServiceBuilder(
+  db: ReturnType<typeof drizzle>,
+  config: ServiceConfig
+) {
   return {
     searchCatalog: searchCatalog.bind(null, db, config),
     getEService: getEService.bind(null, db, config),
     searchTenants: searchTenants.bind(null, db, config),
-  }
+  };
 }

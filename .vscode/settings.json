@@ -14,5 +14,6 @@
   "search.exclude": {
     "packages/astro-frontend/src/pages/en/**": true
   },
+  "eslint.useFlatConfig": true,
   "vitest.disableWorkspaceWarning": true
 }

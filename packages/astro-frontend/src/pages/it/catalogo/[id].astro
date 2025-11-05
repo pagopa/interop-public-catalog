@@ -1,26 +1,26 @@
 ---
-import Layout from '../../../layouts/Layout.astro'
-import EServiceDetails from '../../../components/EServiceDetails/EServiceDetails.astro'
-import { EServiceId } from '../../../../../models/src/brandedIds'
+import Layout from "../../../layouts/Layout.astro";
+import EServiceDetails from "../../../components/EServiceDetails/EServiceDetails.astro";
+import { EServiceId } from "../../../../../models/src/brandedIds";
 
-import { getLangFromUrl } from '../../../i18n/utils.i18n'
-import PageHero from '../../../components/shared/PageHero.astro'
-import { useEServiceDetailsTranslations } from '../../../i18n/eservice-details.i18n.js'
-import RatingSection from '../../../components/shared/RatingSection.astro'
-import { EServiceDataAccessChip } from '../../../components/shared/EServiceDataAccessChip'
-import { sqlService } from '../../../server/services'
-import { CopyUrlButton } from '../../../components/shared/CopyUrlButton.jsx'
-import { OtherProducerEServices } from '../../../components/EServiceDetails/OtherProducerEServices'
+import { getLangFromUrl } from "../../../i18n/utils.i18n";
+import PageHero from "../../../components/shared/PageHero.astro";
+import { useEServiceDetailsTranslations } from "../../../i18n/eservice-details.i18n.js";
+import RatingSection from "../../../components/shared/RatingSection.astro";
+import { EServiceDataAccessChip } from "../../../components/shared/EServiceDataAccessChip";
+import { sqlService } from "../../../server/services";
+import { CopyUrlButton } from "../../../components/shared/CopyUrlButton.jsx";
+import { OtherProducerEServices } from "../../../components/EServiceDetails/OtherProducerEServices";
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const tEserviceDetails = useEServiceDetailsTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tEserviceDetails = useEServiceDetailsTranslations(currentLocale);
 
-const eserviceId: EServiceId = Astro.params.id as EServiceId
+const eserviceId: EServiceId = Astro.params.id as EServiceId;
 
-const eservice = await sqlService.getEService(eserviceId)
+const eservice = await sqlService.getEService(eserviceId);
 
 if (!eservice) {
-  return Astro.redirect('/404')
+  return Astro.redirect("/404");
 }
 ---
 
@@ -30,25 +30,33 @@ if (!eservice) {
     marginFromTitle="0"
     breadcrumbItems={[
       {
-        routeKey: 'HOME',
+        routeKey: "HOME",
       },
       {
-        routeKey: 'ESERVICE_CATALOG',
+        routeKey: "ESERVICE_CATALOG",
       },
       {
-        routeKey: 'ESERVICE_DETAILS',
+        routeKey: "ESERVICE_DETAILS",
         current: true,
       },
     ]}
   >
-    <div class="d-flex flex-row align-items-center justify-content-between" slot="top-hero">
+    <div
+      className="d-flex flex-row align-items-center justify-content-between"
+      slot="top-hero"
+    >
       <div>
-        <EServiceDataAccessChip isOpenData={false} currentLocale={currentLocale} />
+        <EServiceDataAccessChip
+          isOpenData={false}
+          currentLocale={currentLocale}
+        />
       </div>
       <CopyUrlButton currentLocale={currentLocale} />
     </div>
     <p slot="bottom-hero">
-      {tEserviceDetails('producer')}: <strong><u>{eservice.tenant_name}</u></strong>
+      {tEserviceDetails("producer")}: <strong
+        ><u>{eservice.tenant_name}</u></strong
+      >
     </p>
   </PageHero>
   <EServiceDetails eservice={eservice} />

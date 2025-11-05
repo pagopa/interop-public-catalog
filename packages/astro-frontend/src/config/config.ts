@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import { z } from "zod";
 
 /**
  * Schema extracting the subset of environment variables that are safe to expose to the client
@@ -14,10 +14,10 @@ const ClientEnvConfig = z
   .transform((c) => ({
     onetrustDomainScriptId: c.PUBLIC_ONETRUST_DOMAIN_SCRIPT_ID,
     mixpanelProjectId: c.PUBLIC_MIXPANEL_PROJECT_ID,
-  }))
+  }));
 
 export const clientEnvConfig = import.meta.env.DEV
   ? ClientEnvConfig.parse(import.meta.env)
-  : ClientEnvConfig.parse(process.env)
+  : ClientEnvConfig.parse(process.env);
 
-export type ClientEnvConfig = z.infer<typeof ClientEnvConfig>
+export type ClientEnvConfig = z.infer<typeof ClientEnvConfig>;
