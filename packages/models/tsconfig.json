@@ -1,9 +1,10 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "pagopa-interop-public-typescript-config/node.json",
   "compilerOptions": {
     "declaration": true,
     "declarationMap": true,
-    "outDir": "dist"
+    "outDir": "dist",
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["dist", "**/dist", "node_modules"]
 }

@@ -1,5 +1,5 @@
 {
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "prettier.requireConfig": false,
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit"
@@ -14,5 +14,6 @@
   "search.exclude": {
     "packages/astro-frontend/src/pages/en/**": true
   },
+  "eslint.useFlatConfig": true,
   "vitest.disableWorkspaceWarning": true
 }

@@ -55,8 +55,8 @@ const t = useUiTranslations(currentLocale)
 </section>
 
 <script>
-  import { getLangFromUrl } from '../../i18n/utils.i18n'
-  import { useUiTranslations } from '../../i18n/ui.i18n'
+  import { getLangFromUrl } from '../../i18n/utils.i18n.js'
+  import { useUiTranslations } from '../../i18n/ui.i18n.js'
 
   const currentLocale = getLangFromUrl(window.location.pathname)
   const t = useUiTranslations(currentLocale)

@@ -14,7 +14,7 @@
     "format:check": "prettier --check src",
     "format:write": "prettier --write src",
     "build": "tsc",
-    "check": "tsc --project tsconfig.check.json"
+    "check": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -31,9 +31,9 @@
   },
   "devDependencies": {
     "@types/node": "20.19.17",
-    "eslint": "8.57.1",
     "mkdirp": "3.0.1",
-    "prettier": "2.8.8",
+    "pagopa-interop-public-eslint-config": "workspace:*",
+    "pagopa-interop-public-typescript-config": "workspace:*",
     "tsc-esm-fix": "2.20.27",
     "typescript": "5.4.5"
   }

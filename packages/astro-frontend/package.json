@@ -1,7 +1,7 @@
 {
   "name": "pagopa-interop-public-astro-frontend",
   "version": "0.0.1",
-  "description": "PagoPA Interop Backend for Frontend",
+  "description": "Public catalog frontend built with Astro",
   "main": "dist",
   "type": "module",
   "scripts": {
@@ -13,7 +13,7 @@
     "format:write": "prettier --write src",
     "start": "astro dev",
     "build": "astro build",
-    "check": "tsc --project tsconfig.check.json",
+    "check": "tsc --noEmit",
     "preview": "astro preview",
     "astro": "astro",
     "storybook": "storybook dev -p 6006",
@@ -55,19 +55,13 @@
     "@types/node": "20.19.17",
     "@types/qs": "6.9.15",
     "@types/supertest": "6.0.3",
-    "@typescript-eslint/eslint-plugin": "8.44.1",
-    "@typescript-eslint/parser": "8.44.1",
-    "eslint": "8.57.1",
-    "eslint-plugin-prettier": "5.5.4",
-    "eslint-plugin-react-hooks": "7.0.1",
-    "eslint-plugin-storybook": "^9.1.15",
-    "prettier": "^3.6.2",
-    "prettier-plugin-astro": "0.14.1",
     "storybook": "^9.1.15",
     "supertest": "7.0.0",
     "tsx": "4.19.1",
     "typescript": "5.4.5",
     "vite": "7.1.11",
-    "vitest": "1.6.1"
+    "vitest": "1.6.1",
+    "pagopa-interop-public-eslint-config": "workspace:*",
+    "pagopa-interop-public-typescript-config": "workspace:*"
   }
 }

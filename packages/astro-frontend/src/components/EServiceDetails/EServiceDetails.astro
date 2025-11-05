@@ -220,7 +220,7 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern)
                   data-mp-external-link-id={`${routeKey}_documentationSection_accessLink`}
                   data-mp-external-link-description="TODO"
                   href={links.interopPlatformLink}
-                  target="_blank"
+                  target="_blank" rel="noreferrer"
                 >
                   {t('documentation_section.access_link')}
                   <BootstrapItaliaIcon name="it-external-link" color="primary" size="sm" />
@@ -239,7 +239,7 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern)
                 data-mp-external-link-id={`${routeKey}_documentationSection_authentication_link`}
                 data-mp-external-link-description="TODO"
                 href={links.interopPlatformLink}
-                target="_blank"
+                target="_blank" rel="noreferrer"
               >
                 {t('implementation_section.authentication_link')}
                 <BootstrapItaliaIcon name="it-external-link" color="white" className={'ms-1'} />

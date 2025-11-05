@@ -1,12 +1,15 @@
-import { BootstrapItaliaIcon, type BootstrapItaliaIconProps } from './BootstrapItaliaIcon.js'
+import {
+  BootstrapItaliaIcon,
+  type BootstrapItaliaIconProps,
+} from "./BootstrapItaliaIcon.js";
 
 interface TooltipIconProps {
-  title: string
-  content: string
-  iconName: BootstrapItaliaIconProps['name']
-  iconColor?: BootstrapItaliaIconProps['color']
-  iconSize?: BootstrapItaliaIconProps['size']
-  ariaLabel?: string
+  title: string;
+  content: string;
+  iconName: BootstrapItaliaIconProps["name"];
+  iconColor?: BootstrapItaliaIconProps["color"];
+  iconSize?: BootstrapItaliaIconProps["size"];
+  ariaLabel?: string;
 }
 
 export const TooltipIcon: React.FC<TooltipIconProps> = ({
@@ -28,4 +31,4 @@ export const TooltipIcon: React.FC<TooltipIconProps> = ({
   >
     <BootstrapItaliaIcon name={iconName} color={iconColor} size={iconSize} />
   </button>
-)
+);

@@ -1,38 +1,38 @@
-import type { StrapiNode } from 'pagopa-interop-public-models'
+import type { StrapiNode } from "pagopa-interop-public-models";
 
 type NormativeSectionTitleComponent = {
-  __component: 'shared.section-title'
-  id: number
-  sectionTitle: string
-  slug: string
-}
+  __component: "shared.section-title";
+  id: number;
+  sectionTitle: string;
+  slug: string;
+};
 
 type NormativeBodyComponent = {
-  __component: 'shared.body'
-  id: number
-  text: StrapiNode[]
-}
+  __component: "shared.body";
+  id: number;
+  text: StrapiNode[];
+};
 
 type NormativeUrlComponent = {
-  __component: 'shared.url'
-  id: number
-  externalLink: string
-}
+  __component: "shared.url";
+  id: number;
+  externalLink: string;
+};
 
 type NormativeReferencesBodyComponent =
   | NormativeSectionTitleComponent
   | NormativeBodyComponent
-  | NormativeUrlComponent
+  | NormativeUrlComponent;
 
 export type NormativaReferenceContent = {
-  id: number
-  documentId: string
-  title: string
-  description: string
-  createdAt: string
-  updatedAt: string
-  publishedAt: string
-  locale: string
-  publishedDate: string
-  body: NormativeReferencesBodyComponent[]
-}
+  id: number;
+  documentId: string;
+  title: string;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+  locale: string;
+  publishedDate: string;
+  body: NormativeReferencesBodyComponent[];
+};

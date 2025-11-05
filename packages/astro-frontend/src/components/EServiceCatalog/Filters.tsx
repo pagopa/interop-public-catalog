@@ -1,50 +1,60 @@
-import { Button, Col, Form, FormGroup, Icon, Input, Row } from 'design-react-kit'
-import React from 'react'
+import {
+  Button,
+  Col,
+  Form,
+  FormGroup,
+  Icon,
+  Input,
+  Row,
+} from "design-react-kit";
+import React from "react";
 import {
   type FilterAutoCompleteValue,
   MultipleAutoComplete,
-} from '../MultipleAutoComplete/MultipleAutoComplete.js'
-import { TooltipIcon } from '../shared/TooltipIcon.js'
-import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
-import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
-import type { CatalogFilterParams } from './types.js'
-import { useAutocompleteTextInput } from '../../hooks/useAutoCompleteTextInput.jsx'
-import type { SupportedLanguage } from '../../i18n/types.i18n.js'
-import useSWRImmutable from 'swr/immutable'
-import { apiService } from '../../services/api.services.js'
-import { categoriesMap } from '../../server/config/categories.js'
+} from "../MultipleAutoComplete/MultipleAutoComplete.js";
+import { TooltipIcon } from "../shared/TooltipIcon.js";
+import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
+import { useEServiceCatalogContext } from "./EServiceCatalogContext.jsx";
+import type { CatalogFilterParams } from "./types.js";
+import { useAutocompleteTextInput } from "../../hooks/useAutoCompleteTextInput.jsx";
+import type { SupportedLanguage } from "../../i18n/types.i18n.js";
+import useSWRImmutable from "swr/immutable";
+import { apiService } from "../../services/api.services.js";
+import { categoriesMap } from "../../server/config/categories.js";
 
-const FILTER_ROW_HEIGHT = 70
+const FILTER_ROW_HEIGHT = 70;
 
 export type FiltersParams = {
-  q?: string
-  theme?: string
-  provider?: FilterAutoCompleteValue[]
-  consumer?: FilterAutoCompleteValue[]
-}
+  q?: string;
+  theme?: string;
+  provider?: FilterAutoCompleteValue[];
+  consumer?: FilterAutoCompleteValue[];
+};
 
-export type FilterParamsKeys = keyof FiltersParams
+export type FilterParamsKeys = keyof FiltersParams;
 
-const TENANT_MACROCATEGORIES_OPTIONS = Object.keys(categoriesMap).map((categoryName) => {
-  return {
-    value: categoryName,
-    label: categoryName,
-  }
-})
+const TENANT_MACROCATEGORIES_OPTIONS = Object.keys(categoriesMap).map(
+  (categoryName) => {
+    return {
+      value: categoryName,
+      label: categoryName,
+    };
+  },
+);
 
 type FiltersProps = {
   handleDraftFilterValueChange: (
     key: keyof CatalogFilterParams,
-    value: string | FilterAutoCompleteValue[]
-  ) => void
-  onSubmit?: (e: React.FormEvent<HTMLButtonElement>) => void
+    value: string | FilterAutoCompleteValue[],
+  ) => void;
+  onSubmit?: (e: React.FormEvent<HTMLButtonElement>) => void;
   handleActiveFilterValueChange: (
     key: keyof CatalogFilterParams,
-    value: string | number | FilterAutoCompleteValue[]
-  ) => void
-  isMobile: boolean
-  currentLocale: SupportedLanguage
-}
+    value: string | number | FilterAutoCompleteValue[],
+  ) => void;
+  isMobile: boolean;
+  currentLocale: SupportedLanguage;
+};
 const Filters: React.FC<FiltersProps> = ({
   handleDraftFilterValueChange,
   onSubmit,
@@ -52,54 +62,77 @@ const Filters: React.FC<FiltersProps> = ({
   handleActiveFilterValueChange,
   currentLocale,
 }) => {
-  const t = useCatalogTranslations(currentLocale)
+  const t = useCatalogTranslations(currentLocale);
 
-  const { eserviceFiltersState } = useEServiceCatalogContext()
+  const { eserviceFiltersState } = useEServiceCatalogContext();
 
-  const [autoCompleteProviderInput, setAutoCompleteProviderInput] = useAutocompleteTextInput('')
+  const [autoCompleteProviderInput, setAutoCompleteProviderInput] =
+    useAutocompleteTextInput("");
 
   const { data: producerList = [] } = useSWRImmutable(
-    ['producers', autoCompleteProviderInput],
+    ["producers", autoCompleteProviderInput],
     async ([_, q]) =>
       apiService
         .getTenants(q)
-        .then((res) => res.results.map((r) => ({ value: r.producer_id, label: r.name })))
-  )
+        .then((res) =>
+          res.results.map((r) => ({ value: r.producer_id, label: r.name })),
+        ),
+  );
 
   return (
     <Form>
       <Row id="eservice-filters">
-        <Col className="pe-1" lg="3" xs="12" style={{ maxHeight: FILTER_ROW_HEIGHT }}>
+        <Col
+          className="pe-1"
+          lg="3"
+          xs="12"
+          style={{ maxHeight: FILTER_ROW_HEIGHT }}
+        >
           <FormGroup className="input-filter-key">
             <Input
               hasIconLeft
-              iconLeft={<Icon aria-hidden icon="it-search" size="sm" className="icon-search" />}
-              label={t('filters.q.label')}
+              iconLeft={
+                <Icon
+                  aria-hidden
+                  icon="it-search"
+                  size="sm"
+                  className="icon-search"
+                />
+              }
+              label={t("filters.q.label")}
               id="completeValidation-name"
               type="text"
               maxLength={100}
               className="mt-4"
-              placeholder={t('filters.q.placeholder')}
-              value={eserviceFiltersState.q ?? ''}
+              placeholder={t("filters.q.placeholder")}
+              value={eserviceFiltersState.q ?? ""}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                e.preventDefault()
-                handleDraftFilterValueChange('q', e.target.value)
+                e.preventDefault();
+                handleDraftFilterValueChange("q", e.target.value);
               }}
               onKeyDown={(e: React.KeyboardEvent) => {
-                if (e.key === 'Enter') {
-                  e.preventDefault()
+                if (e.key === "Enter") {
+                  e.preventDefault();
                 }
               }}
             />
           </FormGroup>
         </Col>
-        <Col lg="3" className="pe-1 mt-lg-0 mt-3" style={{ maxHeight: FILTER_ROW_HEIGHT }}>
+        <Col
+          lg="3"
+          className="pe-1 mt-lg-0 mt-3"
+          style={{ maxHeight: FILTER_ROW_HEIGHT }}
+        >
           <MultipleAutoComplete
-            label={t('filters.provider.label')}
+            label={t("filters.provider.label")}
             options={producerList}
-            values={eserviceFiltersState.provider as unknown as FilterAutoCompleteValue[]}
+            values={
+              eserviceFiltersState.provider as unknown as FilterAutoCompleteValue[]
+            }
             onTextInputChange={setAutoCompleteProviderInput}
-            handleValuesChange={(values) => handleDraftFilterValueChange('provider', values)}
+            handleValuesChange={(values) =>
+              handleDraftFilterValueChange("provider", values)
+            }
             currentLocale={currentLocale}
           />
         </Col>
@@ -111,7 +144,7 @@ const Filters: React.FC<FiltersProps> = ({
               size="xs"
               onClick={(e) => onSubmit && onSubmit(e)}
             >
-              {t('filters.submit')}
+              {t("filters.submit")}
             </Button>
           </Col>
         )}
@@ -120,21 +153,24 @@ const Filters: React.FC<FiltersProps> = ({
         <Col lg="3" xs="12" className="pe-1">
           <FormGroup>
             <MultipleAutoComplete
-              label={t('filters.consumer.label')}
+              label={t("filters.consumer.label")}
               options={TENANT_MACROCATEGORIES_OPTIONS}
-              values={eserviceFiltersState.consumer as unknown as FilterAutoCompleteValue[]}
+              values={
+                eserviceFiltersState.consumer as unknown as FilterAutoCompleteValue[]
+              }
               onTextInputChange={() => {}}
               handleValuesChange={
                 isMobile
-                  ? (values) => handleDraftFilterValueChange('consumer', values)
-                  : (values) => handleActiveFilterValueChange('consumer', values)
+                  ? (values) => handleDraftFilterValueChange("consumer", values)
+                  : (values) =>
+                      handleActiveFilterValueChange("consumer", values)
               }
               tooltipIconRender={
                 <div>
-                  {' '}
+                  {" "}
                   <TooltipIcon
-                    title={t('filter.popover.consumer.title')}
-                    content={t('filter.popover.consumer.content')}
+                    title={t("filter.popover.consumer.title")}
+                    content={t("filter.popover.consumer.content")}
                     iconName="it-info-circle"
                     iconColor="primary"
                     iconSize="sm"
@@ -147,7 +183,7 @@ const Filters: React.FC<FiltersProps> = ({
         </Col>
       </Row>
     </Form>
-  )
-}
+  );
+};
 
-export default Filters
+export default Filters;

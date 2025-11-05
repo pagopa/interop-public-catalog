@@ -1,6 +1,6 @@
 type SpinnerProps = {
-  label: string
-}
+  label: string;
+};
 
 export const Spinner = ({ label }: SpinnerProps) => {
   return (
@@ -12,5 +12,5 @@ export const Spinner = ({ label }: SpinnerProps) => {
         <strong>{label}</strong>
       </div>
     </div>
-  )
-}
+  );
+};

@@ -35,38 +35,38 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern)
 ---
 
 <Section title={t('interoperabily_types.title')}>
-  <div class="row">
-    <div class="col-12 col-lg-8">
-      <p class="mb-5">
+  <div className="row">
+    <div className="col-12 col-lg-8">
+      <p className="mb-5">
         <a
           data-mp-external-link-id={`${routeKey}_interoperabilityTypesSection`}
           data-mp-external-link-description="TODO"
           href={links.euInteroperabilityFrameworkLink}
-          target="_blank">{t('interoperabily_types.subtitle_link')}</a
+          target="_blank" rel="noreferrer">{t('interoperabily_types.subtitle_link')}</a
         >
         {t('interoperabily_types.subtitle')}
       </p>
     </div>
   </div>
 
-  <div class="row">
+  <div className="row">
     {
       INTEROPERABILITY_TYPES.map((type) => (
-        <div class="col-xs-12 col-lg-6 mb-4">
-          <div class="d-flex flex-row gap-3">
-            <div class="p-4">
+        <div className="col-xs-12 col-lg-6 mb-4">
+          <div className="d-flex flex-row gap-3">
+            <div className="p-4">
               <img
                 src={type.srcImg}
                 height="48"
                 width="48"
-                class="rounded d-block image-xl"
+                className="rounded d-block image-xl"
                 role="presentation"
                 alt=""
               />
             </div>
             <div>
-              <h3 class="h5">{type.label}</h3>
-              <p style="font-size:1rem;line-height:24px;" class="text-secondary">
+              <h3 className="h5">{type.label}</h3>
+              <p style="font-size:1rem;line-height:24px;" className="text-secondary">
                 {type.description}
               </p>
             </div>

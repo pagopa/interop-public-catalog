@@ -1,36 +1,36 @@
-import { Button } from 'design-react-kit'
-import React, { useEffect } from 'react'
-import { type FilterAutoCompleteValue } from '../MultipleAutoComplete/MultipleAutoComplete.js'
-import { FiltersChips } from './FiltersChips.js'
-import { Popover } from 'bootstrap-italia'
-import { FiltersMobile } from './FiltersMobile.jsx'
-import Filters from './Filters.jsx'
-import { useIsMobile } from '../../hooks/useIsMobile.jsx'
-import { useCatalogTranslations } from '../../i18n/catalog.i18n.js'
-import { useEServiceCatalogContext } from './EServiceCatalogContext.jsx'
-import type { CatalogFilterParams } from './types.js'
-import type { SupportedLanguage } from '../../i18n/types.i18n.js'
+import { Button } from "design-react-kit";
+import React, { useEffect } from "react";
+import { type FilterAutoCompleteValue } from "../MultipleAutoComplete/MultipleAutoComplete.js";
+import { FiltersChips } from "./FiltersChips.js";
+import { Popover } from "bootstrap-italia";
+import { FiltersMobile } from "./FiltersMobile.jsx";
+import Filters from "./Filters.jsx";
+import { useIsMobile } from "../../hooks/useIsMobile.jsx";
+import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
+import { useEServiceCatalogContext } from "./EServiceCatalogContext.jsx";
+import type { CatalogFilterParams } from "./types.js";
+import type { SupportedLanguage } from "../../i18n/types.i18n.js";
 
 export type EServiceCatalogFiltersParams = {
-  q?: string
-  theme?: string
-  provider?: FilterAutoCompleteValue[]
-  consumer?: FilterAutoCompleteValue[]
-}
+  q?: string;
+  theme?: string;
+  provider?: FilterAutoCompleteValue[];
+  consumer?: FilterAutoCompleteValue[];
+};
 
-export type EServiceCatalogFilterKeys = keyof EServiceCatalogFiltersParams
+export type EServiceCatalogFilterKeys = keyof EServiceCatalogFiltersParams;
 
 type EServiceCatalogFiltersProps = {
-  handleSubmitRequest: () => void
-  currentLocale: SupportedLanguage
-}
+  handleSubmitRequest: () => void;
+  currentLocale: SupportedLanguage;
+};
 const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
   handleSubmitRequest,
   currentLocale,
 }) => {
-  const t = useCatalogTranslations(currentLocale)
-  const [isModalOpen, setIsModalOpen] = React.useState(false)
-  const isMobile = useIsMobile()
+  const t = useCatalogTranslations(currentLocale);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const isMobile = useIsMobile();
 
   const {
     eserviceActiveFilterState,
@@ -38,38 +38,43 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
     handleActiveFilterValueChange,
     handleRemoveActiveFilterValue,
     handleRemoveAllActiveFilterValues,
-  } = useEServiceCatalogContext()
+  } = useEServiceCatalogContext();
 
   useEffect(() => {
     const popoverTriggerList = [].slice.call(
-      document.querySelectorAll('[data-bs-toggle="popover"]')
-    )
+      document.querySelectorAll('[data-bs-toggle="popover"]'),
+    );
     popoverTriggerList.map(function (popoverTriggerEl) {
       return new Popover(popoverTriggerEl, {
-        trigger: 'click focus',
-      })
-    })
-  }, [])
+        trigger: "click focus",
+      });
+    });
+  }, []);
 
   const onSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
-    e.preventDefault()
-    handleSubmitRequest()
-  }
+    e.preventDefault();
+    handleSubmitRequest();
+  };
 
   const handleRemoveFilterValue = (
     key: keyof CatalogFilterParams,
-    value: string | FilterAutoCompleteValue
+    value: string | FilterAutoCompleteValue,
   ) => {
-    handleRemoveActiveFilterValue(key, value)
-  }
+    handleRemoveActiveFilterValue(key, value);
+  };
 
   return (
     <>
-      <h5 className="mb-4 d-none d-lg-block">{t('filters.title')}</h5>
+      <h5 className="mb-4 d-none d-lg-block">{t("filters.title")}</h5>
       <div className="d-block d-sm-none d-flex justify-content-between align-items-center mb-4">
-        <h5>{t('filters.title')}</h5>
-        <Button color="primary" outline size="sm" onClick={() => setIsModalOpen(true)}>
-          {t('filters.mobile.button')}
+        <h5>{t("filters.title")}</h5>
+        <Button
+          color="primary"
+          outline
+          size="sm"
+          onClick={() => setIsModalOpen(true)}
+        >
+          {t("filters.mobile.button")}
         </Button>
       </div>
 
@@ -82,7 +87,11 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
           currentLocale={currentLocale}
         />
       ) : (
-        <FiltersMobile onSubmit={onSubmit} isOpen={isModalOpen} toggleModal={setIsModalOpen}>
+        <FiltersMobile
+          onSubmit={onSubmit}
+          isOpen={isModalOpen}
+          toggleModal={setIsModalOpen}
+        >
           <Filters
             handleActiveFilterValueChange={handleActiveFilterValueChange}
             handleDraftFilterValueChange={handleDraftFilterValueChange}
@@ -99,7 +108,7 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
         currentLocale={currentLocale}
       ></FiltersChips>
     </>
-  )
-}
+  );
+};
 
-export default EServiceCatalogFilters
+export default EServiceCatalogFilters;
