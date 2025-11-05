@@ -144,7 +144,7 @@ const topNavNavItems = [
                     {
                       RESOURCES_SECTION_NAV_ITEMS.map((navItem) => {
                         const localizedHref = getLocalizedRoute(currentLocale, navItem.routeKey)
-                        const isActive = Astro.url.pathname === localizedHref
+                        const isActive = Astro.url.pathname.startsWith(localizedHref)
 
                         return (
                           <li class:list={['nav-item', isActive && 'active']}>
@@ -164,7 +164,7 @@ const topNavNavItems = [
                       [...CATALOG_API_SECTION_NAV_ITEMS, ...RESOURCES_SECTION_NAV_ITEMS].map(
                         (navItem) => {
                           const localizedHref = getLocalizedRoute(currentLocale, navItem.routeKey)
-                          const isActive = Astro.url.pathname === localizedHref
+                          const isActive = Astro.url.pathname.startsWith(localizedHref)
 
                           const isGoodPracticeCatalogNavItem =
                             navItem.routeKey === 'GOOD_PRACTICES_CATALOG'
