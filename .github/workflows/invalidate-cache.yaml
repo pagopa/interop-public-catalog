@@ -16,8 +16,9 @@ on:
 
 jobs:
   invalidate_cache:
-    name: Invalidate CloudFront distirbution cache
+    name: Invalidate CloudFront distribution cache
     runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
 
     steps:
       - name: Checkout repository
