@@ -15,7 +15,7 @@ import { getRouteKeyFromCurrentRoutePattern } from '../i18n/utils.i18n'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 
-const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern, currentLocale)
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern)
 
 const { data: generalData } = await strapiService.getSeoMetaData(
   currentLocale,
@@ -124,4 +124,5 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale
   initBootstrapItaliaComponents()
   mixpanelService.init({ projectId: window.env.mixpanelProjectId })
   mixpanelService.bindTrackingExternalLinkVisitEvent()
+  mixpanelService.bindTrackingTooltipOpenEvent()
 </script>

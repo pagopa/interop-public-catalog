@@ -1,12 +1,18 @@
 ---
 import { links } from '../../config/constants'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
-import { getLangFromUrl, getLocalizedRoute } from '../../i18n/utils.i18n'
+import {
+  getLangFromUrl,
+  getLocalizedRoute,
+  getRouteKeyFromCurrentRoutePattern,
+} from '../../i18n/utils.i18n'
 import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
 import { Section } from '../shared/Section'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useHomepageTranslations(currentLocale)
+
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern)
 
 const howItWorksSteps = [
   {
@@ -25,7 +31,10 @@ const howItWorksSteps = [
     icon: 'it-layers',
     href: links.selfcareLink,
     imageSrc: '/img/077-network.svg',
-    mixpanelAttributes: {},
+    mixpanelAttributes: {
+      'data-mp-external-link-id': `${routeKey}_howItWorks_step2_selfcare`,
+      'data-mp-external-link-description': 'TODO',
+    },
   },
   {
     title: t('how_it_works.step_3.title'),

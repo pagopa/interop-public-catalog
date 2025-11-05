@@ -35,3 +35,8 @@ if (!faqContent) {
 
   <RatingSection />
 </Layout>
+
+<script>
+  import { mixpanelService } from '../../services/mixpanel.services'
+  mixpanelService.bindTrackingFaqOpenEvent()
+</script>

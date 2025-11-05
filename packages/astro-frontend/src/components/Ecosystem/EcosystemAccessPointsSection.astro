@@ -1,12 +1,14 @@
 ---
 import { links } from '../../config/constants'
 import { useEcosystemTranslations } from '../../i18n/ecosystem.i18n'
-import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { getLangFromUrl, getRouteKeyFromCurrentRoutePattern } from '../../i18n/utils.i18n'
 import { BootstrapItaliaIcon } from '../shared/BootstrapItaliaIcon'
 import { Section } from '../shared/Section'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const t = useEcosystemTranslations(currentLocale)
+
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern)
 
 const accessPoints = [
   {
@@ -14,24 +16,40 @@ const accessPoints = [
     subtitle: t('access_points_section.access_point_1.subtitle'),
     description: t('access_points_section.access_point_1.description'),
     href: links.pagoPaLink,
+    mixpanelAttributes: {
+      'data-mp-external-link-id': `${routeKey}_accessPointsSection_pagoPa`,
+      'data-mp-external-link-description': 'TODO',
+    },
   },
   {
     title: t('access_points_section.access_point_2.title'),
     subtitle: t('access_points_section.access_point_2.subtitle'),
     description: t('access_points_section.access_point_2.description'),
-    href: 'https://interoperable-europe.ec.europa.eu/interoperable-europe',
+    href: links.euInteroperabilityFrameworkLink,
+    mixpanelAttributes: {
+      'data-mp-external-link-id': `${routeKey}_accessPointsSection_euInteroperabilityFramework`,
+      'data-mp-external-link-description': 'TODO',
+    },
   },
   {
     title: t('access_points_section.access_point_3.title'),
     subtitle: t('access_points_section.access_point_3.subtitle'),
     description: t('access_points_section.access_point_3.description'),
-    href: 'https://schema.gov.it',
+    href: links.schemaSemanticLink,
+    mixpanelAttributes: {
+      'data-mp-external-link-id': `${routeKey}_accessPointsSection_schemaSemantic`,
+      'data-mp-external-link-description': 'TODO',
+    },
   },
   {
     title: t('access_points_section.access_point_4.title'),
     subtitle: t('access_points_section.access_point_4.subtitle'),
     description: t('access_points_section.access_point_4.description'),
-    href: 'https://dati.gov.it',
+    href: links.openDataLink,
+    mixpanelAttributes: {
+      'data-mp-external-link-id': `${routeKey}_accessPointsSection_openData`,
+      'data-mp-external-link-description': 'TODO',
+    },
   },
 ] as const
 ---
@@ -70,6 +88,7 @@ const accessPoints = [
             <footer class="it-card-related it-card-footer mt-auto">
               <div class="it-card-taxonomy">
                 <a
+                  {...accessPoint.mixpanelAttributes}
                   href={accessPoint.href}
                   target="_blank"
                   rel="noreferrer noopener"
