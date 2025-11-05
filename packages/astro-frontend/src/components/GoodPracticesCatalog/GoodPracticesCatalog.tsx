@@ -17,7 +17,7 @@ export const GoodPracticesCatalog: React.FC<{
   const [searchParams, setSearchParams] = useSearchParams(
     z.object({
       macroCategoryId: z.coerce.number(),
-    }),
+    })
   );
 
   const isServer = typeof window === "undefined";
@@ -36,15 +36,15 @@ export const GoodPracticesCatalog: React.FC<{
           offset: 0,
         }),
         new Promise((resolve) =>
-          setTimeout(resolve, Math.random() * 800 + 200),
+          setTimeout(resolve, Math.random() * 800 + 200)
         ), // Simulate network latency
       ]);
       return result;
-    },
+    }
   );
 
   const handleSelectedMacroCategoryIdChange = (
-    macroCategoryId: number | null,
+    macroCategoryId: number | null
   ) => {
     setSearchParams({ macroCategoryId: macroCategoryId ?? undefined });
   };

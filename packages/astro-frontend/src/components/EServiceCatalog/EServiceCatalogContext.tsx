@@ -11,15 +11,15 @@ type EServiceCatalogCreateContextType = {
   eserviceActiveFilterState: CatalogFilterParams;
   handleDraftFilterValueChange: (
     key: keyof CatalogFilterParams,
-    value: string | number | FilterAutoCompleteValue[],
+    value: string | number | FilterAutoCompleteValue[]
   ) => void;
   handleActiveFilterValueChange: (
     key: keyof CatalogFilterParams,
-    value: string | number | FilterAutoCompleteValue[],
+    value: string | number | FilterAutoCompleteValue[]
   ) => void;
   handleRemoveActiveFilterValue: (
     key: keyof CatalogFilterParams,
-    value: string | FilterAutoCompleteValue,
+    value: string | FilterAutoCompleteValue
   ) => void;
   handleRemoveAllActiveFilterValues: () => void;
 
@@ -62,14 +62,14 @@ const EServiceCatalogContextProvider: React.FC<
         .optional(),
       provider: z.string().optional(),
       consumer: z.string().optional(),
-    }),
+    })
   );
 
   const searchParamsProvider: Array<string> = JSON.parse(
-    searchParams.provider || "[]",
+    searchParams.provider || "[]"
   );
   const searchParamsConsumer: Array<string> = JSON.parse(
-    searchParams.consumer || "[]",
+    searchParams.consumer || "[]"
   );
 
   const initialCatalogFilterParams: CatalogFilterParams = {
@@ -99,17 +99,17 @@ const EServiceCatalogContextProvider: React.FC<
   const handleDraftFilterValueChange = useCallback(
     (
       key: keyof CatalogFilterParams,
-      value: string | number | FilterAutoCompleteValue[],
+      value: string | number | FilterAutoCompleteValue[]
     ) => {
       setEserviceFiltersState((prev) => ({ ...prev, [key]: value }));
     },
-    [],
+    []
   );
 
   const handleActiveFilterValueChange = useCallback(
     (
       key: keyof CatalogFilterParams,
-      value: string | number | FilterAutoCompleteValue[],
+      value: string | number | FilterAutoCompleteValue[]
     ) => {
       const offset = key !== "offset" ? 0 : eserviceActiveFilterState.offset;
 
@@ -120,13 +120,13 @@ const EServiceCatalogContextProvider: React.FC<
         [key]: value,
       }));
     },
-    [eserviceActiveFilterState.offset],
+    [eserviceActiveFilterState.offset]
   );
 
   const handleRemoveActiveFilterValue = useCallback(
     (
       key: keyof CatalogFilterParams,
-      value: string | FilterAutoCompleteValue,
+      value: string | FilterAutoCompleteValue
     ) => {
       const previousState = eserviceActiveFilterState;
 
@@ -151,7 +151,7 @@ const EServiceCatalogContextProvider: React.FC<
       setEserviceActiveFilterState(getCurrentState());
       setEserviceFiltersState(getCurrentState());
     },
-    [eserviceActiveFilterState],
+    [eserviceActiveFilterState]
   );
 
   const handleRemoveAllActiveFilterValues = useCallback(() => {
@@ -184,12 +184,12 @@ const EServiceCatalogContextProvider: React.FC<
           }
           return acc;
         },
-        {} as Record<string, string>,
+        {} as Record<string, string>
       );
 
       replaceSetParams(filterStateParams);
     },
-    [replaceSetParams],
+    [replaceSetParams]
   );
 
   const applyFilters = useCallback(() => {

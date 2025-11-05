@@ -16,7 +16,7 @@ const escapeHtmlAttribute = (value: string): string =>
 const wrapIf = (
   condition: boolean | undefined,
   tag: string,
-  content: string,
+  content: string
 ): string => (condition ? `<${tag}>${content}</${tag}>` : content);
 
 const renderNodes = (nodes?: StrapiNode[]): string =>
@@ -53,13 +53,13 @@ const renderNode = (node: StrapiNode): string =>
     .with({ type: "link" }, renderLinkNode)
     .with(
       { type: "paragraph" },
-      (paragraph) => `<p>${renderNodes(paragraph.children)}</p>`,
+      (paragraph) => `<p>${renderNodes(paragraph.children)}</p>`
     )
     .with({ type: "heading" }, renderHeadingNode)
     .with({ type: "list" }, renderListNode)
     .with(
       { type: "list-item" },
-      (item) => `<li>${renderNodes(item.children)}</li>`,
+      (item) => `<li>${renderNodes(item.children)}</li>`
     )
     .otherwise(() => {
       console.warn("Strapi rich text renderer: unexpected Node", node);
@@ -74,7 +74,7 @@ const renderNode = (node: StrapiNode): string =>
  * @returns The HTML representation ready to inject on the page.
  */
 export function renderRichTextStrapiNodes(
-  content: StrapiNode[] | undefined,
+  content: StrapiNode[] | undefined
 ): string {
   return renderNodes(content);
 }

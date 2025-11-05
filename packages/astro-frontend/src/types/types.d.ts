@@ -38,11 +38,11 @@ declare module "accessible-autocomplete/react" {
     tStatusSelectedOption?: (
       selectedOption: string,
       length: number,
-      index: number,
+      index: number
     ) => string;
     tStatusResults?: (
       length: number,
-      contentSelectedOption: React.ReactElement,
+      contentSelectedOption: React.ReactElement
     ) => React.ReactElement;
     tAssistiveHint?: () => string;
   }

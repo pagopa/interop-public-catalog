@@ -16,7 +16,7 @@ export const PagerMobile: React.FC<PagerMobileProps> = ({
   const { paginationProps } = usePagination(
     limit,
     totalCount,
-    idElementToScrollTo,
+    idElementToScrollTo
   );
   const { actualPage, totalPages } = paginationProps;
 

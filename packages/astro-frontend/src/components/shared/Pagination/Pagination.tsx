@@ -22,7 +22,7 @@ const Pagination: React.FC<PaginationProps> = ({
   const { paginationProps } = usePagination(
     limit,
     totalCount,
-    idElementToScrollTo,
+    idElementToScrollTo
   );
   const lang = getLangFromUrl(window.location.pathname);
   const { totalPages } = paginationProps;

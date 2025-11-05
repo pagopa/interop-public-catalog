@@ -17,7 +17,7 @@ export const Pager: React.FC<PagerProps> = ({
   const { previousPages, nextPages, paginationProps } = usePagination(
     limit,
     totalCount,
-    idElementToScrollTo,
+    idElementToScrollTo
   );
   const lang = getLangFromUrl(window.location.pathname);
   const t = useUiTranslations(lang);

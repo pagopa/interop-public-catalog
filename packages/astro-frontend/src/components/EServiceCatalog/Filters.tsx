@@ -39,18 +39,18 @@ const TENANT_MACROCATEGORIES_OPTIONS = Object.keys(categoriesMap).map(
       value: categoryName,
       label: categoryName,
     };
-  },
+  }
 );
 
 type FiltersProps = {
   handleDraftFilterValueChange: (
     key: keyof CatalogFilterParams,
-    value: string | FilterAutoCompleteValue[],
+    value: string | FilterAutoCompleteValue[]
   ) => void;
   onSubmit?: (e: React.FormEvent<HTMLButtonElement>) => void;
   handleActiveFilterValueChange: (
     key: keyof CatalogFilterParams,
-    value: string | number | FilterAutoCompleteValue[],
+    value: string | number | FilterAutoCompleteValue[]
   ) => void;
   isMobile: boolean;
   currentLocale: SupportedLanguage;
@@ -75,8 +75,8 @@ const Filters: React.FC<FiltersProps> = ({
       apiService
         .getTenants(q)
         .then((res) =>
-          res.results.map((r) => ({ value: r.producer_id, label: r.name })),
-        ),
+          res.results.map((r) => ({ value: r.producer_id, label: r.name }))
+        )
   );
 
   return (

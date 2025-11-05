@@ -34,6 +34,7 @@
     "@types/pg": "^8.15.5",
     "pagopa-interop-public-eslint-config": "workspace:*",
     "pagopa-interop-public-typescript-config": "workspace:*",
+    "prettier": "2.8.8",
     "typescript": "5.4.5"
   }
 }

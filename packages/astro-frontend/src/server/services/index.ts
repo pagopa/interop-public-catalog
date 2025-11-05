@@ -23,12 +23,12 @@ export const sqlService: ReturnType<typeof publicModelServiceBuilder> =
       catalogSchema: sqlConfig.publicModelSQLDbSchemaCatalog,
       tenantSchema: sqlConfig.publicModelSQLDbSchemaTenant,
       attributeSchema: sqlConfig.publicModelSQLDbSchemaAttribute,
-    },
+    }
   );
 
 const strapiConfig = StrapiApiConfig.parse(process.env);
 
 export const strapiService = strapiServiceBuilder(
   strapiConfig.strapiApiEndpoint,
-  strapiConfig.strapiApiToken,
+  strapiConfig.strapiApiToken
 );

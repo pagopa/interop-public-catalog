@@ -1137,7 +1137,7 @@ export const faqContentMockedEn: StrapiEntity<FaqContent> = {
 };
 
 export function getFAQContentMockByLocale(
-  locale: SupportedLanguage,
+  locale: SupportedLanguage
 ): StrapiEntity<FaqContent> {
   return match(locale)
     .with("en", () => faqContentMockedEn)

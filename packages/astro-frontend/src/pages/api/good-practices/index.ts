@@ -14,7 +14,7 @@ export const GET: APIRoute = async ({ url, locals }) => {
     const { locale, macroCategoryId, limit, offset } = queryParams;
 
     locals.logger.info(
-      `Fetching good practices. Locale: ${locale}, Macro Category ID: ${macroCategoryId}, Limit: ${limit}, Offset: ${offset}`,
+      `Fetching good practices. Locale: ${locale}, Macro Category ID: ${macroCategoryId}, Limit: ${limit}, Offset: ${offset}`
     );
     const rawData = await strapiService.getGoodPractices(
       {
@@ -25,7 +25,7 @@ export const GET: APIRoute = async ({ url, locals }) => {
         limit,
         offset,
       },
-      locale,
+      locale
     );
 
     const data = GetGoodPracticesResponse.parse({

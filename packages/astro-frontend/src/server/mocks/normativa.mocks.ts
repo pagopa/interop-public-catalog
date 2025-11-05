@@ -492,7 +492,7 @@ const normativaDataMockEn: StrapiEntity<NormativaReferenceContent> = {
 };
 
 export function getNormativaDataMockByLocale(
-  locale: SupportedLanguage,
+  locale: SupportedLanguage
 ): StrapiEntity<NormativaReferenceContent> {
   return match(locale)
     .with("en", () => normativaDataMockEn)

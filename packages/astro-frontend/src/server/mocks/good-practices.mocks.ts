@@ -2201,7 +2201,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
 ];
 
 export function getGoodPracticesDataMockByLocale(
-  locale: SupportedLanguage,
+  locale: SupportedLanguage
 ): StrapiEntity<GoodPractice>[] {
   return match(locale)
     .with("en", () => goodPracticesDataMockEn)

@@ -36,6 +36,7 @@
     "mkdirp": "3.0.1",
     "pagopa-interop-public-eslint-config": "workspace:*",
     "pagopa-interop-public-typescript-config": "workspace:*",
+    "prettier": "2.8.8",
     "tsc-esm-fix": "2.20.27",
     "tsx": "4.19.1",
     "typescript": "5.4.5"
