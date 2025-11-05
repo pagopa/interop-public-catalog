@@ -20,30 +20,32 @@ export function getLangFromUrl(url: string): SupportedLanguage {
 }
 
 export function getRouteKeyFromCurrentRoutePattern(
-  currentRoutePattern: string,
-  currentLocale: SupportedLanguage
+  currentRoutePattern: string
 ): RouteKey | undefined {
-  console.log(currentRoutePattern)
+  const currentLocale = getLangFromUrl(currentRoutePattern)
+  let currentRoutePatternWithoutLangPrefix = currentRoutePattern.split(`/${currentLocale}`)[1]
+
+  if (currentRoutePatternWithoutLangPrefix === '') {
+    currentRoutePatternWithoutLangPrefix = '/'
+  }
 
   return (Object.keys(ROUTES) as RouteKey[]).find(
     (r) =>
-      `/${currentLocale}${ROUTES[r][currentLocale]}`.toLocaleLowerCase() ===
-      currentRoutePattern.toLocaleLowerCase()
+      ROUTES[r][currentLocale].toLocaleLowerCase() ===
+      currentRoutePatternWithoutLangPrefix.toLocaleLowerCase()
   )
 }
 
 export function switchLang({
-  fromLang,
   toLang,
   currentRoutePattern,
   currentParams,
 }: {
-  fromLang: SupportedLanguage
   toLang: SupportedLanguage
   currentRoutePattern: string
   currentParams: Record<string, string | undefined>
 }): string {
-  const currentRouteKey = getRouteKeyFromCurrentRoutePattern(currentRoutePattern, fromLang)
+  const currentRouteKey = getRouteKeyFromCurrentRoutePattern(currentRoutePattern)
 
   if (!currentRouteKey) {
     return getLocalizedRoute(toLang, 'HOME')

@@ -23,6 +23,7 @@ export const links = {
     'https://www.dati.gov.it/view-dataset/dataset?id=0dfbeb46-736d-4af3-841c-9593d8f6c434',
   euInteroperabilityFrameworkLink:
     'https://interoperable-europe.ec.europa.eu/collection/iopeu-monitoring/european-interoperability-framework-detail',
+  accessibilityStatementLink: 'https://form.agid.gov.it/view/c8912450-b5a2-11f0-81d4-97119d1a7eb7',
 } as const
 
 /**

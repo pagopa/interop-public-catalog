@@ -7,8 +7,14 @@ import { getLangFromUrl } from '../../i18n/utils.i18n'
 type SuggestionCard = {
   title: string
   description: string
-  buttonLabel: string
-  href: string
+  buttonLink: {
+    href: string
+    label: string
+    mixpanelAttributes?: {
+      "data-mp-external-link-id": string
+      "data-mp-external-link-description": string
+    }
+  }
   externalLink: boolean
   imageSrc: string
 }
@@ -35,7 +41,7 @@ const suggestions = [providedLeftCard, providedRightCard] as const
   >
     <div class="d-flex flex-column flex-lg-row gap-4">
       {
-        suggestions.map(({ title, imageSrc, description, buttonLabel, href, externalLink }) => (
+        suggestions.map(({ title, imageSrc, description, buttonLink, externalLink }) => (
           <article class="bg-white rounded shadow-sm p-5" style="flex: 1;">
             <img
               style="fill: var(--bs-primary);"
@@ -50,11 +56,12 @@ const suggestions = [providedLeftCard, providedRightCard] as const
             <p class="it-card-text text-secondary mb-3">{description}</p>
             <footer>
               <a
-                href={href}
+                href={buttonLink.href}
                 class="btn btn-primary btn-icon"
+                {...buttonLink.mixpanelAttributes}
                 {...(externalLink ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
               >
-                {buttonLabel}
+                {buttonLink.label}
                 {externalLink && (
                   <BootstrapItaliaIcon className="ms-2" name="it-external-link" color="white" />
                 )}

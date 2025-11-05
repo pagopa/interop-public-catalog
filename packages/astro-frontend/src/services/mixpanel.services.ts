@@ -156,8 +156,6 @@ export function bindTrackingHomepageCatalogFilterApplyEvent(heroFormId: string) 
     return
   }
 
-  let alreadySent = false
-
   form.addEventListener('submit', (event) => {
     if (!event.target || !(event.target instanceof HTMLFormElement)) {
       mixpanelLogger.error('Event target not found on form submit.', {
@@ -165,18 +163,6 @@ export function bindTrackingHomepageCatalogFilterApplyEvent(heroFormId: string) 
       })
       return
     }
-
-    if (alreadySent) {
-      mixpanelLogger.warn(
-        'Event already sent for this form submit. Ignoring subsequent submissions.',
-        {
-          event: EVENT,
-        }
-      )
-      return
-    }
-
-    alreadySent = true
 
     const formData = new FormData(event.target)
     const query = formData.get('q')?.toString().trim()
@@ -207,58 +193,46 @@ export function trackCatalogFiltersApplyEvent(eserviceFiltersState: CatalogFilte
 
 /**
  * Binds the INTEROP_FAQ_OPEN event tracking to the FAQ section.
- * The event should be triggered when the user opens a FAQ item.
+ * The event should be triggered when the user expands a FAQ accordion.
  *
- * The FAQ section should have the attribute `data-mp-faq-section` to identify it.
- * Each FAQ item should have the following attributes:
- * - data-mp-faqId: the unique identifier of the FAQ item
- * - data-mp-faqTitle: the title of the FAQ item
+ * Each FAQ accordion item should have the following attributes:
+ * - data-mp-faq-id: the unique identifier of the FAQ item
+ * - data-mp-faq-title: the title of the FAQ item
  */
 function bindTrackingFaqOpenEvent() {
-  const MP_DATA_SECTION_ATTR = 'data-mp-faq-section'
-  const MP_DATA_FAQ_ID_ATTR = 'data-mp-faqId'
-  const MP_DATA_FAQ_TITLE_ATTR = 'data-mp-faqTitle'
+  const MP_DATA_FAQ_ID_ATTR = 'data-mp-faq-id'
+  const MP_DATA_FAQ_TITLE_ATTR = 'data-mp-faq-title'
   const EVENT = 'INTEROP_FAQ_OPEN' as const satisfies MixpanelTrackingData['key']
 
-  function initializeFaqSectionTracking(section: HTMLElement) {
-    mixpanelLogger.info(`Binding ${EVENT} event tracking to FAQ section.`, {
-      section,
+  document.addEventListener('shown.bs.collapse', (e) => {
+    const target = e.target
+
+    if (!(target instanceof HTMLElement)) {
+      mixpanelLogger.error('Event target is not an HTMLElement.', { event: EVENT })
+      return
+    }
+
+    const faqId = target.getAttribute(MP_DATA_FAQ_ID_ATTR)
+    const faqTitle = target.getAttribute(MP_DATA_FAQ_TITLE_ATTR)
+
+    if (!faqId || !faqTitle) {
+      mixpanelLogger.error(
+        ` ${MP_DATA_FAQ_ID_ATTR} or ${MP_DATA_FAQ_TITLE_ATTR} attributes not found on the target element.`,
+        {
+          event: EVENT,
+          target,
+          faqTitle,
+          faqId,
+        }
+      )
+      return
+    }
+
+    track(EVENT, {
+      faqId,
+      faqTitle,
     })
-
-    section.addEventListener('shown.bs.collapse', (e) => {
-      const target = e.target
-
-      if (!(target instanceof HTMLElement)) {
-        mixpanelLogger.error('Event target is not an HTMLElement.', { event: EVENT })
-        return
-      }
-
-      const faqId = target.getAttribute(MP_DATA_FAQ_ID_ATTR)
-      const faqTitle = target.getAttribute(MP_DATA_FAQ_TITLE_ATTR)
-
-      if (!faqId || !faqTitle) {
-        mixpanelLogger.error(
-          ` ${MP_DATA_FAQ_ID_ATTR} or ${MP_DATA_FAQ_TITLE_ATTR} attributes not found on the target element.`,
-          {
-            event: EVENT,
-            target,
-            faqTitle,
-            faqId,
-          }
-        )
-        return
-      }
-
-      track(EVENT, {
-        faqId,
-        faqTitle,
-      })
-    })
-  }
-
-  document
-    .querySelectorAll<HTMLElement>(`[${MP_DATA_SECTION_ATTR}]`)
-    .forEach((section) => initializeFaqSectionTracking(section))
+  })
 }
 
 /**
@@ -346,6 +320,8 @@ function bindTrackingGoodPracticeCardClickEvent() {
   })
 }
 
+let isExternalLinkVisitEventBound = false
+
 /**
  * Binds the INTEROP_EXTERNAL_LINK_VISIT event tracking to all external links.
  * The event should be triggered when the user clicks on an external link.
@@ -353,13 +329,23 @@ function bindTrackingGoodPracticeCardClickEvent() {
  * not only statically by astro. Therefore, we need to capture clicks on the document level.
  *
  * Each external link should have the following attributes:
- * - data-mp-linkId: the unique identifier of the link
+ * - data-mp-external-link-id: the unique identifier of the link
  * - data-mp-linkDescription: a short description of the link
  */
 function bindTrackingExternalLinkVisitEvent() {
-  const MIXPANEL_DATA_ATTRIBUTE_LINK_ID = 'data-mp-linkId'
-  const MIXPANEL_DATA_ATTRIBUTE_LINK_DESCRIPTION = 'data-mp-link-description'
+  const MIXPANEL_DATA_ATTRIBUTE_LINK_ID = 'data-mp-external-link-id'
+  const MIXPANEL_DATA_ATTRIBUTE_LINK_DESCRIPTION = 'data-mp-external-link-description'
   const EVENT = 'INTEROP_EXTERNAL_LINK_VISIT' as const satisfies MixpanelTrackingData['key']
+
+  if (isExternalLinkVisitEventBound) {
+    mixpanelLogger.warn(
+      'External link visit event tracking already bound. Ignoring subsequent binding calls.',
+      {
+        event: EVENT,
+      }
+    )
+    return
+  }
 
   function isExternalLink(a: HTMLElement | null | undefined): a is HTMLAnchorElement {
     if (!a || a.tagName !== 'A') return false
@@ -374,7 +360,7 @@ function bindTrackingExternalLinkVisitEvent() {
       return false
     }
 
-    return url.protocol === 'http:' || url.protocol === 'https:'
+    return url.origin !== location.origin
   }
 
   document.addEventListener(
@@ -416,6 +402,8 @@ function bindTrackingExternalLinkVisitEvent() {
     },
     true
   )
+
+  isExternalLinkVisitEventBound = true
 }
 
 /**
@@ -488,6 +476,48 @@ function bindTrackingGoodPracticeReferralEvent() {
   })
 }
 
+/**
+ * Binds the INTEROP_TOOLTIP_OPEN event tracking to tooltip opens.
+ * The event should be triggered when the user opens a tooltip.
+ *
+ * The tooltip id is taken from the `data-bs-title` attribute of the tooltip trigger element.
+ * The tooltip type is hardcoded as 'info' for now. vbdsx
+ */
+function bindTrackingTooltipOpenEvent() {
+  const EVENT = 'INTEROP_TOOLTIP_OPEN' as const satisfies MixpanelTrackingData['key']
+
+  document.addEventListener('show.bs.popover', function (e) {
+    const target = e.target
+
+    if (!(target instanceof HTMLElement)) {
+      mixpanelLogger.error('Event target is not an HTMLElement.', { event: EVENT })
+      return
+    }
+
+    const tooltipId = target
+      .getAttribute('data-bs-title')
+      ?.trim()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+
+    const tooltipType = 'info' as const
+
+    if (!tooltipId) {
+      mixpanelLogger.error(`data-bs-title attribute not found on the target element.`, {
+        event: EVENT,
+        target,
+        tooltipId,
+      })
+      return
+    }
+
+    track(EVENT, {
+      tooltipId,
+      tooltipType,
+    })
+  })
+}
+
 export const mixpanelService = {
   init,
   bindTrackingHomepageCatalogFilterApplyEvent,
@@ -496,4 +526,5 @@ export const mixpanelService = {
   bindTrackingGoodPracticeCardClickEvent,
   bindTrackingExternalLinkVisitEvent,
   bindTrackingGoodPracticeReferralEvent,
+  bindTrackingTooltipOpenEvent,
 }

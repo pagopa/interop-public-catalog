@@ -11,6 +11,7 @@ import type { SupportedLanguage } from '../../i18n/types.i18n'
 import { apiService } from '../../services/api.services'
 import useSWRImmutable from 'swr/immutable'
 import type { categoriesMap } from '../../server/config/categories'
+import type { RouteKey } from '../../config/routes'
 
 export const EServiceCatalog: React.FC<{ currentLocale: SupportedLanguage }> = ({
   currentLocale,
@@ -43,6 +44,8 @@ export const EServiceCatalog: React.FC<{ currentLocale: SupportedLanguage }> = (
   const totalCount = data?.pagination.totalCount ?? 0
   const eservices = data?.results ?? []
 
+  const routeKey: RouteKey = 'ESERVICE_CATALOG'
+
   return (
     <>
       <Container className="p-3">
@@ -62,6 +65,8 @@ export const EServiceCatalog: React.FC<{ currentLocale: SupportedLanguage }> = (
           <h4 className="p-3">{t('finder.title')}</h4>
           <div className="p-3">
             <a
+              data-mp-external-link-id={`${routeKey}_finder_apiListLink`}
+              data-mp-external-link-description="TODO"
               href={links.apiListLink}
               target="_blank"
               className="btn btn-outline-primary btn-icon me-1"
@@ -71,6 +76,8 @@ export const EServiceCatalog: React.FC<{ currentLocale: SupportedLanguage }> = (
               {<BootstrapItaliaIcon className="ms-2" name="it-external-link" color="primary" />}
             </a>
             <a
+              data-mp-external-link-id={`${routeKey}_finder_providerListLink`}
+              data-mp-external-link-description="TODO"
               href={links.membersListLink}
               target="_blank"
               className="btn btn-outline-primary btn-icon mt-1 mt-sm-0"

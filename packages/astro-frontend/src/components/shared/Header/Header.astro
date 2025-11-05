@@ -7,14 +7,34 @@ import {
   RESOURCES_SECTION_NAV_ITEMS,
   links,
 } from '../../../config/constants.js'
-import { getLangFromUrl, getLocalizedRoute } from '../../../i18n/utils.i18n'
+import {
+  getLangFromUrl,
+  getLocalizedRoute,
+  getRouteKeyFromCurrentRoutePattern,
+} from '../../../i18n/utils.i18n'
 
 const currentLocale = getLangFromUrl(Astro.url.pathname)
 const tUi = useUiTranslations(currentLocale)
 
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern)
+
 const topNavNavItems = [
-  { label: tUi('header.top_nav.semantic'), href: links.schemaSemanticLink },
-  { label: tUi('header.top_nav.open_data'), href: links.openDataLink },
+  {
+    label: tUi('header.top_nav.semantic'),
+    href: links.schemaSemanticLink,
+    mixpanelAttributes: {
+      'data-mp-external-link-id': `${routeKey}_topNav_semantic`,
+      'data-mp-external-link-description': 'TODO',
+    },
+  },
+  {
+    label: tUi('header.top_nav.open_data'),
+    href: links.openDataLink,
+    mixpanelAttributes: {
+      'data-mp-external-link-id': `${routeKey}_topNav_openData`,
+      'data-mp-external-link-description': 'TODO',
+    },
+  },
 ]
 ---
 
@@ -26,14 +46,23 @@ const topNavNavItems = [
           <div class="it-header-slim-wrapper-content">
             {/* Top Navbar */}
             <span class="navbar-brand">
-              <a target="_blank" class="text-decoration-underline" href={links.dtdLink}
+              <a
+                target="_blank"
+                data-mp-external-link-id={`${routeKey}_header_dtd_link`}
+                data-mp-external-link-description="TODO"
+                class="text-decoration-underline"
+                href={links.dtdLink}
                 ><span class="d-none d-md-inline">{tUi('header.top_nav.DTD')}</span><span
                   class="d-md-none d-inline">DTD</span
                 ></a
               >
               {tUi('header.top_nav.and')}
-              <a target="_blank" class="text-decoration-underline" href={links.pagoPaLink}
-                >PagoPA S.p.A.</a
+              <a
+                data-mp-external-link-id={`${routeKey}_header_pagoPa_link`}
+                data-mp-external-link-description="TODO"
+                target="_blank"
+                class="text-decoration-underline"
+                href={links.pagoPaLink}>PagoPA S.p.A.</a
               >
             </span>
             <div class="nav-mobile">
@@ -48,7 +77,12 @@ const topNavNavItems = [
                     {
                       topNavNavItems.map((item) => (
                         <li>
-                          <a class="list-item" href={item.href} target="_blank">
+                          <a
+                            class="list-item"
+                            href={item.href}
+                            {...item.mixpanelAttributes}
+                            target="_blank"
+                          >
                             {item.label}
                           </a>
                         </li>

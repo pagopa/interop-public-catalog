@@ -79,15 +79,14 @@
 }
 
 #filter-chip .chip-label {
-  height:100%
+  height: 100%;
 }
 
-@media (max-width:767px) {
-
+@media (max-width: 767px) {
   #filter-chip {
-    height:100%;
+    height: 100%;
   }
   #filter-chip .chip-label {
-  height:100%
-}
+    height: 100%;
+  }
 }

@@ -6,7 +6,7 @@ import GoodPractices from '../../components/Homepage/GoodPractices.astro'
 import ApiShowcase from '../../components/Homepage/ApiShowcase.astro'
 import SuggestionSection from '../../components/shared/SuggestionSection.astro'
 import { EService } from '../../../../models/src/types/eservice'
-import { getLangFromUrl, getLocalizedRoute } from '../../i18n/utils.i18n'
+import { getLangFromUrl, getLocalizedRoute, getRouteKeyFromCurrentRoutePattern } from '../../i18n/utils.i18n'
 import { useHomepageTranslations } from '../../i18n/homepage.i18n'
 import { sqlService, strapiService } from '../../server/services'
 import { isDevEnvironment, links } from '../../config/constants'
@@ -48,6 +48,8 @@ const [highlightedEServices, featuredGoodPractices] = await Promise.all([
   highlightedEServicesPromise,
   featuredGoodPracticesPromise,
 ])
+
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern)
 ---
 
 <Layout>
@@ -59,16 +61,28 @@ const [highlightedEServices, featuredGoodPractices] = await Promise.all([
     leftCard={{
       title: t('suggestion_section.left_card.title'),
       description: t('suggestion_section.left_card.description'),
-      buttonLabel: t('suggestion_section.left_card.button_label'),
-      href: links.interopPlatformLink,
+      buttonLink: {
+        href: links.interopPlatformLink,
+        label: t('suggestion_section.left_card.button_label'),
+        mixpanelAttributes: {
+          'data-mp-external-link-id': `${routeKey}_suggestionSection_leftCard_interopPlatformLink`,
+          'data-mp-external-link-description': 'TODO',
+        },
+      },
       externalLink: true,
       imageSrc: '/img/077-network-primary-color.svg',
     }}
     rightCard={{
       title: t('suggestion_section.right_card.title'),
       description: t('suggestion_section.right_card.description'),
-      buttonLabel: t('suggestion_section.right_card.button_label'),
-      href: links.interopManualLink,
+      buttonLink: {
+        href: links.interopManualLink,
+        label: t('suggestion_section.right_card.button_label'),
+        mixpanelAttributes: {
+          'data-mp-external-link-id': `${routeKey}_suggestionSection_rightCard_interopManualLink`,
+          'data-mp-external-link-description': 'TODO',
+        },
+      },
       externalLink: true,
       imageSrc: '/img/059-data-collection.svg',
     }}

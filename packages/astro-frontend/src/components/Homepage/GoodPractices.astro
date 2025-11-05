@@ -23,7 +23,9 @@ const macroCategoriesLinks: Array<{ text: string; macroCategoryKey: Organization
 ] as const
 
 function getOrganizationTypeHref(macroCategory: OrganizationType) {
-  const macroCategoryId = TENANT_MACROCATEGORIES.find((o) => o.key === macroCategory)?.id?.toString()!;
+  const macroCategoryId = TENANT_MACROCATEGORIES.find(
+    (o) => o.key === macroCategory
+  )?.id?.toString()!
   const urlSearchParams = new URLSearchParams({ macroCategoryId }).toString()
   return `${getLocalizedRoute(currentLocale, 'GOOD_PRACTICES_CATALOG')}?${urlSearchParams}`
 }
