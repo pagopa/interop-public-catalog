@@ -78,11 +78,11 @@ export const EServiceCardSkeleton: React.FC = () => {
   return (
     <article
       style={{ height: CARD_HEIGHT }}
-      className="it-card rounded shadow d-flex flex-column px-2"
+      className="it-card rounded shadow d-flex flex-column p-4"
     >
       <header
         style={{ height: MIN_HEIGHT_PRODUCER_NAME }}
-        className="px-3 pt-4 d-flex justify-content-between align-items-center"
+        className="d-flex justify-content-between align-items-center pb-3"
       >
         <small className="mb-0 line-clamp-2 pe-4 placeholder-glow">
           <span style={{ width: 120 }} className="placeholder rounded-2" />
@@ -96,12 +96,12 @@ export const EServiceCardSkeleton: React.FC = () => {
       </header>
       <a
         // style={{ height: MIN_HEIGHT_TITLE }}
-        className="it-card-title h5 text-primary line-clamp-2 placeholder-glow"
+        className="it-card-title h5 text-primary line-clamp-2 placeholder-glow my-0 px-0 pb-2"
       >
         <span style={{ width: '100%' }} className="placeholder placeholder-sm rounded-2" />
         <span style={{ width: '40%' }} className="placeholder placeholder-sm rounded-2" />
       </a>
-      <div className="it-card-body flex-grow-1">
+      <div className="it-card-body flex-grow-1 p-0">
         <p className="it-card-text line-clamp-3 placeholder-glow mt-1">
           <span
             style={{ width: '100%' }}
@@ -114,7 +114,7 @@ export const EServiceCardSkeleton: React.FC = () => {
           <span style={{ width: '80%' }} className="placeholder placeholder-sm d-block rounded-2" />
         </p>
       </div>
-      <footer className="it-card-related it-card-footer">
+      <footer className="it-card-related it-card-footer mx-0 pb-0 pt-4">
         <small className="it-card-taxonomy">
           <a className="it-card-link text-primary text-uppercase fw-semibold placeholder-glow">
             <span
