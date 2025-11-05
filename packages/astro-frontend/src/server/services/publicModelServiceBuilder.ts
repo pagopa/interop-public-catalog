@@ -14,7 +14,7 @@ type SingleTransaction<T> = (
     NodePgQueryResultHKT,
     Record<string, unknown>,
     ExtractTablesWithRelations<Record<string, unknown>>
-  >
+  >,
 ) => Promise<T>;
 
 type Transaction<T> = (
@@ -22,7 +22,7 @@ type Transaction<T> = (
     NodePgQueryResultHKT,
     Record<string, unknown>,
     ExtractTablesWithRelations<Record<string, unknown>>
-  >
+  >,
 ) => Promise<{
   total: number;
   items: T[];
@@ -64,14 +64,14 @@ const _buildFullQueryWithFilters = (config: {
     JOIN LATERAL (
     SELECT 1
     FROM ${sql.identifier(
-      config.catalogSchema
+      config.catalogSchema,
     )}.eservice_descriptor_attribute da2
     JOIN ${sql.identifier(config.attributeSchema)}.attribute a2
       ON a2.id = da2.attribute_id
     WHERE da2.descriptor_id = chosen.id
       AND a2.code IN (${sql.join(
         categories.map((cat) => sql`${cat}`),
-        sql`, `
+        sql`, `,
       )})
     LIMIT 1
   ) attr_filter ON TRUE
@@ -84,7 +84,7 @@ const _buildFullQueryWithFilters = (config: {
         SELECT jsonb_agg(a.*) AS attrs
         FROM ${sql.identifier(config.attributeSchema)}.attribute a
         JOIN ${sql.identifier(
-          config.catalogSchema
+          config.catalogSchema,
         )}.eservice_descriptor_attribute da ON da.attribute_id = a.id
         WHERE da.descriptor_id = d.id
           AND a.kind = ${sql`${kind}`}
@@ -96,10 +96,10 @@ const _buildFullQueryWithFilters = (config: {
   const activeDescriptorPopulator = (
     attributes: boolean,
     eservice: string,
-    categories?: string[]
+    categories?: string[],
   ) => sql`
   JOIN ${sql.identifier(
-    config.tenantSchema
+    config.tenantSchema,
   )}.tenant t ON t.id = ${sql.identifier(eservice)}.producer_id
   -- pick the latest PUBLISHED descriptor id
   JOIN LATERAL (
@@ -133,7 +133,7 @@ const _buildFullQueryWithFilters = (config: {
       ) AS attributes
     FROM ${sql.identifier(config.catalogSchema)}.eservice_descriptor d
     LEFT JOIN ${sql.identifier(
-      config.catalogSchema
+      config.catalogSchema,
     )}.eservice_descriptor_attribute da
       ON da.descriptor_id = d.id
     LEFT JOIN ${sql.identifier(config.attributeSchema)}.attribute a
@@ -149,12 +149,12 @@ const _buildFullQueryWithFilters = (config: {
   const activeDescriptorPopulatorGroupBy = (
     attributes: boolean,
     eservice: string,
-    tenant: string
+    tenant: string,
   ) =>
     sql`
     GROUP BY 
     ${sql.identifier(eservice)}.id, ${sql.identifier(
-      tenant
+      tenant,
     )}.name, ${sql.identifier(tenant)}.id
     ${attributes ? sql`, d_full` : sql``}
     `;
@@ -170,7 +170,7 @@ const _buildFullQueryWithFilters = (config: {
 export async function getEService(
   db: ReturnType<typeof drizzle>,
   config: ServiceConfig,
-  id: string
+  id: string,
 ): Promise<EService | undefined> {
   const {
     fullSelect,
@@ -183,7 +183,7 @@ export async function getEService(
   });
 
   const getEServiceById: SingleTransaction<EService | undefined> = async (
-    tx
+    tx,
   ) => {
     const pageRes = await tx.execute(sql`
     ${fullSelect("e", "t")}
@@ -208,7 +208,7 @@ export async function getEService(
 export async function searchCatalog(
   db: ReturnType<typeof drizzle>,
   config: ServiceConfig,
-  query: GetEServicesQuery
+  query: GetEServicesQuery,
 ): Promise<{ results: EService[]; totalCount: number }> {
   const { limit, offset, q, orderBy, producerIds, categories } = query;
 
@@ -228,8 +228,8 @@ export async function searchCatalog(
       sql`
       t.id IN (${sql.join(
         producerIds.map((id) => sql`${id}`),
-        sql`, `
-      )})`
+        sql`, `,
+      )})`,
     );
   }
 
@@ -275,7 +275,7 @@ export async function searchCatalog(
   };
 
   const textSearchTx: Transaction<EService & { [k: string]: unknown }> = async (
-    tx
+    tx,
   ): Promise<{ total: number; items: EService[] }> => {
     const pageRes = await tx.execute(sql`
     WITH params AS (
@@ -290,7 +290,7 @@ export async function searchCatalog(
       SELECT e.id
       FROM ${sql.identifier(config.catalogSchema)}.eservice e
       JOIN ${sql.identifier(
-        config.tenantSchema
+        config.tenantSchema,
       )}.tenant t ON t.id = e.producer_id
       CROSS JOIN params p
       WHERE p.tsq IS NOT NULL
@@ -300,7 +300,7 @@ export async function searchCatalog(
       SELECT e.id
       FROM ${sql.identifier(config.catalogSchema)}.eservice e
       JOIN ${sql.identifier(
-        config.tenantSchema
+        config.tenantSchema,
       )}.tenant t ON t.id = e.producer_id
       CROSS JOIN params p
       WHERE
@@ -355,7 +355,7 @@ export async function searchCatalog(
   const transactionToExecute = q?.trim() ? textSearchTx : textlessSearchTx;
   const { items, total } = await db.transaction(
     transactionToExecute,
-    { isolationLevel: "repeatable read" } // prevents mismatch between reads
+    { isolationLevel: "repeatable read" }, // prevents mismatch between reads
   );
 
   return {
@@ -367,7 +367,7 @@ export async function searchCatalog(
 export async function searchTenants(
   db: ReturnType<typeof drizzle>,
   config: ServiceConfig,
-  { limit, offset, q }: GetTenantsQuery
+  { limit, offset, q }: GetTenantsQuery,
 ): Promise<{ results: CompactTenant[]; totalCount: number }> {
   const textlessSearchTx: Transaction<CompactTenant> = async (tx) => {
     const pageRes = await tx.execute(sql`
@@ -390,7 +390,7 @@ export async function searchTenants(
   };
 
   const textSearchTx: Transaction<CompactTenant> = async (
-    tx
+    tx,
   ): Promise<{ total: number; items: CompactTenant[] }> => {
     const builtQuery = sql`
     WITH params AS (
@@ -453,7 +453,7 @@ export async function searchTenants(
     q?.trim() ? textSearchTx : textlessSearchTx,
     {
       isolationLevel: "repeatable read",
-    }
+    },
   );
 
   return {
@@ -464,7 +464,7 @@ export async function searchTenants(
 
 export function publicModelServiceBuilder(
   db: ReturnType<typeof drizzle>,
-  config: ServiceConfig
+  config: ServiceConfig,
 ) {
   return {
     searchCatalog: searchCatalog.bind(null, db, config),

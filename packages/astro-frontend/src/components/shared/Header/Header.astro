@@ -1,41 +1,41 @@
 ---
-import { useUiTranslations } from '../../../i18n/ui.i18n'
-import { BootstrapItaliaIcon } from '../BootstrapItaliaIcon'
-import LanguageSwitchDropdown from './LanguageSwitchDropdown.astro'
+import { useUiTranslations } from "../../../i18n/ui.i18n";
+import { BootstrapItaliaIcon } from "../BootstrapItaliaIcon";
+import LanguageSwitchDropdown from "./LanguageSwitchDropdown.astro";
 import {
   CATALOG_API_SECTION_NAV_ITEMS,
   RESOURCES_SECTION_NAV_ITEMS,
   links,
-} from '../../../config/constants.js'
+} from "../../../config/constants.js";
 import {
   getLangFromUrl,
   getLocalizedRoute,
   getRouteKeyFromCurrentRoutePattern,
-} from '../../../i18n/utils.i18n'
+} from "../../../i18n/utils.i18n";
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const tUi = useUiTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tUi = useUiTranslations(currentLocale);
 
-const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern)
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
 const topNavNavItems = [
   {
-    label: tUi('header.top_nav.semantic'),
+    label: tUi("header.top_nav.semantic"),
     href: links.schemaSemanticLink,
     mixpanelAttributes: {
-      'data-mp-external-link-id': `${routeKey}_topNav_semantic`,
-      'data-mp-external-link-description': 'TODO',
+      "data-mp-external-link-id": `${routeKey}_topNav_semantic`,
+      "data-mp-external-link-description": "TODO",
     },
   },
   {
-    label: tUi('header.top_nav.open_data'),
+    label: tUi("header.top_nav.open_data"),
     href: links.openDataLink,
     mixpanelAttributes: {
-      'data-mp-external-link-id': `${routeKey}_topNav_openData`,
-      'data-mp-external-link-description': 'TODO',
+      "data-mp-external-link-id": `${routeKey}_topNav_openData`,
+      "data-mp-external-link-description": "TODO",
     },
   },
-]
+];
 ---
 
 <header class="it-header-wrapper">
@@ -51,18 +51,20 @@ const topNavNavItems = [
                 data-mp-external-link-id={`${routeKey}_header_dtd_link`}
                 data-mp-external-link-description="TODO"
                 class="text-decoration-underline"
-                href={links.dtdLink} rel="noreferrer"
-                ><span class="d-none d-md-inline">{tUi('header.top_nav.DTD')}</span><span
-                  class="d-md-none d-inline">DTD</span
-                ></a
+                href={links.dtdLink}
+                rel="noreferrer"
+                ><span class="d-none d-md-inline"
+                  >{tUi("header.top_nav.DTD")}</span
+                ><span class="d-md-none d-inline">DTD</span></a
               >
-              {tUi('header.top_nav.and')}
+              {tUi("header.top_nav.and")}
               <a
                 data-mp-external-link-id={`${routeKey}_header_pagoPa_link`}
                 data-mp-external-link-description="TODO"
                 target="_blank"
                 class="text-decoration-underline"
-                href={links.pagoPaLink} rel="noreferrer">PagoPA S.p.A.</a
+                href={links.pagoPaLink}
+                rel="noreferrer">PagoPA S.p.A.</a
               >
             </span>
             <div class="nav-mobile">
@@ -71,7 +73,7 @@ const topNavNavItems = [
                   <ul class="link-list">
                     <li>
                       <a class="list-item fw-semibold text-decoration-none"
-                        >{tUi('header.top_nav.other_catalogues')}:</a
+                        >{tUi("header.top_nav.other_catalogues")}:</a
                       >
                     </li>
                     {
@@ -107,11 +109,11 @@ const topNavNavItems = [
           <div class="col-12">
             <div class="it-header-center-content-wrapper">
               <div class="it-brand-wrapper">
-                <a href={getLocalizedRoute(currentLocale, 'HOME')}>
+                <a href={getLocalizedRoute(currentLocale, "HOME")}>
                   <div class="it-brand-text">
-                    <div class="it-brand-title">{tUi('brand.title')}</div>
+                    <div class="it-brand-title">{tUi("brand.title")}</div>
                     <div class="it-brand-tagline d-none d-md-block">
-                      {tUi('header.brand.tagline')}
+                      {tUi("header.brand.tagline")}
                     </div>
                   </div>
                 </a>
@@ -130,7 +132,7 @@ const topNavNavItems = [
                 class="custom-navbar-toggler"
                 type="button"
                 aria-controls="navC1"
-                aria-label={tUi('header.nav.toggle')}
+                aria-label={tUi("header.nav.toggle")}
                 data-bs-toggle="navbarcollapsible"
                 data-bs-target="#navC1"
               >
@@ -139,54 +141,69 @@ const topNavNavItems = [
               <div class="navbar-collapsable" id="navC1" tabindex="-1">
                 <div class="close-div">
                   <button class="btn close-menu" type="button">
-                    <span class="visually-hidden">{tUi('header.nav.hide')}</span>
+                    <span class="visually-hidden">{tUi("header.nav.hide")}</span
+                    >
                     <BootstrapItaliaIcon name="it-close-big" />
                   </button>
                 </div>
                 {/** Main NavBar - Desktop */}
-                <div class="menu-wrapper d-none d-md-flex justify-content-between">
+                <div
+                  class="menu-wrapper d-none d-md-flex justify-content-between"
+                >
                   <ul class="navbar-nav">
                     {
                       CATALOG_API_SECTION_NAV_ITEMS.map((navItem) => {
-                        const localizedHref = getLocalizedRoute(currentLocale, navItem.routeKey)
-                        const isActive = Astro.url.pathname.startsWith(localizedHref)
+                        const localizedHref = getLocalizedRoute(
+                          currentLocale,
+                          navItem.routeKey,
+                        );
+                        const isActive =
+                          Astro.url.pathname.startsWith(localizedHref);
 
                         const isGoodPracticeCatalogNavItem =
-                          navItem.routeKey === 'GOOD_PRACTICES_CATALOG'
+                          navItem.routeKey === "GOOD_PRACTICES_CATALOG";
                         const mixpanelAttributes = isGoodPracticeCatalogNavItem
                           ? {
-                              'data-mp-good-practice-catalog-referral': 'header',
+                              "data-mp-good-practice-catalog-referral":
+                                "header",
                             }
-                          : {}
+                          : {};
 
                         return (
-                          <li class:list={['nav-item', isActive && 'active']}>
+                          <li class:list={["nav-item", isActive && "active"]}>
                             <a
-                              class:list={['nav-link', isActive && 'active']}
-                              aria-current={isActive ? 'page' : undefined}
+                              class:list={["nav-link", isActive && "active"]}
+                              aria-current={isActive ? "page" : undefined}
                               href={localizedHref}
                               {...mixpanelAttributes}
                             >
                               <span>{tUi(navItem.i18nKey)}</span>
                             </a>
                           </li>
-                        )
+                        );
                       })
                     }
                   </ul>
                   <ul class="navbar-nav">
                     {
                       RESOURCES_SECTION_NAV_ITEMS.map((navItem) => {
-                        const localizedHref = getLocalizedRoute(currentLocale, navItem.routeKey)
-                        const isActive = Astro.url.pathname.startsWith(localizedHref)
+                        const localizedHref = getLocalizedRoute(
+                          currentLocale,
+                          navItem.routeKey,
+                        );
+                        const isActive =
+                          Astro.url.pathname.startsWith(localizedHref);
 
                         return (
-                          <li class:list={['nav-item', isActive && 'active']}>
-                            <a class:list={['nav-link', isActive && 'active']} href={localizedHref}>
+                          <li class:list={["nav-item", isActive && "active"]}>
+                            <a
+                              class:list={["nav-link", isActive && "active"]}
+                              href={localizedHref}
+                            >
                               <span>{tUi(navItem.i18nKey)}</span>
                             </a>
                           </li>
-                        )
+                        );
                       })
                     }
                   </ul>
@@ -195,32 +212,38 @@ const topNavNavItems = [
                 <div class="menu-wrapper d-md-none">
                   <ul class="navbar-nav">
                     {
-                      [...CATALOG_API_SECTION_NAV_ITEMS, ...RESOURCES_SECTION_NAV_ITEMS].map(
-                        (navItem) => {
-                          const localizedHref = getLocalizedRoute(currentLocale, navItem.routeKey)
-                          const isActive = Astro.url.pathname.startsWith(localizedHref)
+                      [
+                        ...CATALOG_API_SECTION_NAV_ITEMS,
+                        ...RESOURCES_SECTION_NAV_ITEMS,
+                      ].map((navItem) => {
+                        const localizedHref = getLocalizedRoute(
+                          currentLocale,
+                          navItem.routeKey,
+                        );
+                        const isActive =
+                          Astro.url.pathname.startsWith(localizedHref);
 
-                          const isGoodPracticeCatalogNavItem =
-                            navItem.routeKey === 'GOOD_PRACTICES_CATALOG'
-                          const mixpanelAttributes = isGoodPracticeCatalogNavItem
-                            ? {
-                                'data-mp-good-practice-catalog-referral': 'header',
-                              }
-                            : {}
+                        const isGoodPracticeCatalogNavItem =
+                          navItem.routeKey === "GOOD_PRACTICES_CATALOG";
+                        const mixpanelAttributes = isGoodPracticeCatalogNavItem
+                          ? {
+                              "data-mp-good-practice-catalog-referral":
+                                "header",
+                            }
+                          : {};
 
-                          return (
-                            <li class:list={['nav-item', isActive && 'active']}>
-                              <a
-                                class:list={['nav-link', isActive && 'active']}
-                                href={localizedHref}
-                                {...mixpanelAttributes}
-                              >
-                                <span>{tUi(navItem.i18nKey)}</span>
-                              </a>
-                            </li>
-                          )
-                        }
-                      )
+                        return (
+                          <li class:list={["nav-item", isActive && "active"]}>
+                            <a
+                              class:list={["nav-link", isActive && "active"]}
+                              href={localizedHref}
+                              {...mixpanelAttributes}
+                            >
+                              <span>{tUi(navItem.i18nKey)}</span>
+                            </a>
+                          </li>
+                        );
+                      })
                     }
                   </ul>
                 </div>
@@ -234,9 +257,9 @@ const topNavNavItems = [
 </header>
 
 <script>
-  import { NavBarCollapsible } from 'bootstrap-italia'
+  import { NavBarCollapsible } from "bootstrap-italia";
   const navbarCollapseEl = document.querySelector(
-    '[data-bs-toggle="navbarcollapsible"]'
-  ) as HTMLElement
-  new NavBarCollapsible(navbarCollapseEl)
+    '[data-bs-toggle="navbarcollapsible"]',
+  ) as HTMLElement;
+  new NavBarCollapsible(navbarCollapseEl);
 </script>

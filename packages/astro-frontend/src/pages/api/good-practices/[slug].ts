@@ -19,7 +19,7 @@ export const GET: APIRoute = async ({ params, url, locals }) => {
     const slug = GoodPracticeSlug.parse(params.slug);
 
     locals.logger.info(
-      `Fetching good practice by slug: ${slug}, Locale: ${locale}`
+      `Fetching good practice by slug: ${slug}, Locale: ${locale}`,
     );
 
     const rawData = await strapiService.getGoodPracticeBySlug(slug, locale);

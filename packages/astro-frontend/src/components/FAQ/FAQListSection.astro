@@ -1,14 +1,14 @@
 ---
-import type { StrapiNode } from 'pagopa-interop-public-models'
-import { renderRichTextStrapiNodes } from '../../utils/rich-text-strapi-renderer.js'
-import { Section } from '../shared/Section'
+import type { StrapiNode } from "pagopa-interop-public-models";
+import { renderRichTextStrapiNodes } from "../../utils/rich-text-strapi-renderer.js";
+import { Section } from "../shared/Section";
 interface Props {
-  sectionId: number
-  title: string
-  faqs: Array<{ id: number; question: string; answer: StrapiNode[] }>
+  sectionId: number;
+  title: string;
+  faqs: Array<{ id: number; question: string; answer: StrapiNode[] }>;
 }
 
-const { sectionId, title, faqs } = Astro.props
+const { sectionId, title, faqs } = Astro.props;
 ---
 
 <Section title={title} className="pb-0">

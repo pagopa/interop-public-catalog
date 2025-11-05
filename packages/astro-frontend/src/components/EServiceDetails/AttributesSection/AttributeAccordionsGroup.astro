@@ -1,64 +1,68 @@
 ---
-import { EServiceAttributes } from '../../../../../models/src/types/eservice'
-import { useEServiceDetailsTranslations } from '../../../i18n/eservice-details.i18n.js'
-import { getLangFromUrl } from '../../../i18n/utils.i18n'
-import { TooltipIcon } from '../../shared/TooltipIcon.js'
+import { EServiceAttributes } from "../../../../../models/src/types/eservice";
+import { useEServiceDetailsTranslations } from "../../../i18n/eservice-details.i18n.js";
+import { getLangFromUrl } from "../../../i18n/utils.i18n";
+import { TooltipIcon } from "../../shared/TooltipIcon.js";
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const t = useEServiceDetailsTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useEServiceDetailsTranslations(currentLocale);
 
 interface Props {
-  groupIndex: number
-  attributeType: keyof EServiceAttributes
-  attributes: EServiceAttributes[keyof EServiceAttributes]
+  groupIndex: number;
+  attributeType: keyof EServiceAttributes;
+  attributes: EServiceAttributes[keyof EServiceAttributes];
 }
 
-const { groupIndex, attributeType, attributes } = Astro.props
+const { groupIndex, attributeType, attributes } = Astro.props;
 
 function getTitle(attributeType: keyof EServiceAttributes) {
-  if (attributeType === 'certified') {
-    return t('attributes_section.certified_group.title')
+  if (attributeType === "certified") {
+    return t("attributes_section.certified_group.title");
   }
 
-  if (attributeType === 'verified') {
-    return t('attributes_section.verified_group.title')
+  if (attributeType === "verified") {
+    return t("attributes_section.verified_group.title");
   }
 
   // attributeType === 'declared'
-  return t('attributes_section.declared_group.title')
+  return t("attributes_section.declared_group.title");
 }
 
 function getTooltip(attributeType: keyof EServiceAttributes) {
-  if (attributeType === 'certified') {
+  if (attributeType === "certified") {
     return {
-      title: t('attributes_section.certified_group_tooltip.title'),
-      content: t('attributes_section.certified_group_tooltip.content'),
-    }
+      title: t("attributes_section.certified_group_tooltip.title"),
+      content: t("attributes_section.certified_group_tooltip.content"),
+    };
   }
 
-  if (attributeType === 'verified') {
+  if (attributeType === "verified") {
     return {
-      title: t('attributes_section.verified_group_tooltip.title'),
-      content: t('attributes_section.verified_group_tooltip.content'),
-    }
+      title: t("attributes_section.verified_group_tooltip.title"),
+      content: t("attributes_section.verified_group_tooltip.content"),
+    };
   }
 
   // attributeType === 'declared'
   return {
-    title: t('attributes_section.declared_group_tooltip.title'),
-    content: t('attributes_section.declared_group_tooltip.content'),
-  }
+    title: t("attributes_section.declared_group_tooltip.title"),
+    content: t("attributes_section.declared_group_tooltip.content"),
+  };
 }
 
-const tooltip = getTooltip(attributeType)
+const tooltip = getTooltip(attributeType);
 ---
 
 <div class="p-3 rounded-3 bg-primary-c0">
   <h6 class="me-2">
     {getTitle(attributeType)}
-    <TooltipIcon title={tooltip.title} content={tooltip.content} iconName="it-info-circle" />
+    <TooltipIcon
+      title={tooltip.title}
+      content={tooltip.content}
+      iconName="it-info-circle"
+    />
   </h6>
-  <p>{t('attributes_section.group_description')}</p>
+  <p>{t("attributes_section.group_description")}</p>
   <div class="accordion border-0" id={`accordionGroup${groupIndex}`}>
     {
       attributes.map(({ id, description, name }, index) => (
@@ -84,12 +88,14 @@ const tooltip = getTooltip(attributeType)
               aria-labelledby={`heading${groupIndex}${index}`}
             >
               <div class="accordion-body">
-                {' '}
+                {" "}
                 {description} {/* description */}
               </div>
             </div>
           </div>
-          {index < attributes.length - 1 && <p class="my-2">{t('attributes_section.group.or')}</p>}
+          {index < attributes.length - 1 && (
+            <p class="my-2">{t("attributes_section.group.or")}</p>
+          )}
         </>
       ))
     }

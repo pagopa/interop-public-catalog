@@ -105,13 +105,13 @@ let didMixpanelInit = false;
 function init({ projectId }: { projectId: string }) {
   if (didMixpanelInit) {
     mixpanelLogger.warn(
-      "Initialization function called more than once. Ignoring subsequent calls."
+      "Initialization function called more than once. Ignoring subsequent calls.",
     );
     return;
   }
   if (typeof window === "undefined") {
     mixpanelLogger.warn(
-      "Mixpanel initialization attempted during SSR. Initialization skipped."
+      "Mixpanel initialization attempted during SSR. Initialization skipped.",
     );
     return;
   }
@@ -128,7 +128,7 @@ function track<Key extends MixpanelTrackingData["key"]>(
   event: Key,
   payload: Extract<MixpanelTrackingData, { key: Key }>["payload"],
   options?: Parameters<typeof mixpanel.track>[2],
-  callback?: Parameters<typeof mixpanel.track>[3]
+  callback?: Parameters<typeof mixpanel.track>[3],
 ) {
   if (typeof window === "undefined") {
     mixpanelLogger.warn("Tracking attempted during SSR. Tracking skipped.", {
@@ -144,7 +144,7 @@ function track<Key extends MixpanelTrackingData["key"]>(
       {
         event,
         payload,
-      }
+      },
     );
     return;
   }
@@ -161,7 +161,7 @@ function track<Key extends MixpanelTrackingData["key"]>(
  * The event should be triggered when the user submits the search form located in the hero homepage.
  */
 export function bindTrackingHomepageCatalogFilterApplyEvent(
-  heroFormId: string
+  heroFormId: string,
 ) {
   const EVENT =
     "INTEROP_HOMEPAGE_CATALOG_FILTER_APPLY" as const satisfies MixpanelTrackingData["key"];
@@ -198,7 +198,7 @@ export function bindTrackingHomepageCatalogFilterApplyEvent(
  * The event should be triggered when the user applies filters in the e-service catalog page.
  */
 export function trackCatalogFiltersApplyEvent(
-  eserviceFiltersState: CatalogFilterParams
+  eserviceFiltersState: CatalogFilterParams,
 ) {
   const payload = {
     q: eserviceFiltersState.q,
@@ -250,7 +250,7 @@ function bindTrackingFaqOpenEvent() {
           target,
           faqTitle,
           faqId,
-        }
+        },
       );
       return;
     }
@@ -283,11 +283,11 @@ function bindTrackingGoodPracticeCardClickEvent() {
       goodPracticeId: z.number(),
       goodPracticeCategory: z.string(),
       goodPracticeTitle: z.string(),
-    })
+    }),
   );
 
   const cards = Array.from(
-    document.querySelectorAll<HTMLElement>(`[${MIXPANEL_DATA_ATTRIBUTE_NAME}]`)
+    document.querySelectorAll<HTMLElement>(`[${MIXPANEL_DATA_ATTRIBUTE_NAME}]`),
   );
 
   if (!cards.length) {
@@ -303,7 +303,7 @@ function bindTrackingGoodPracticeCardClickEvent() {
       totalCards: cards.length,
       cards: cards,
       event: EVENT,
-    }
+    },
   );
 
   cards.forEach((c) => {
@@ -312,7 +312,7 @@ function bindTrackingGoodPracticeCardClickEvent() {
         "Card already bound for good practice card click tracking. Skipping.",
         {
           card: c,
-        }
+        },
       );
       return;
     }
@@ -320,7 +320,7 @@ function bindTrackingGoodPracticeCardClickEvent() {
     c.setAttribute(ATTR_CARD_BOUND, "true");
 
     const metadataResult = CardMetadataSchema.safeParse(
-      c.getAttribute(MIXPANEL_DATA_ATTRIBUTE_NAME)
+      c.getAttribute(MIXPANEL_DATA_ATTRIBUTE_NAME),
     );
 
     if (!metadataResult.success) {
@@ -329,7 +329,7 @@ function bindTrackingGoodPracticeCardClickEvent() {
         {
           card: c,
           errors: metadataResult.error.errors,
-        }
+        },
       );
       return;
     }
@@ -346,7 +346,7 @@ function bindTrackingGoodPracticeCardClickEvent() {
           },
           {
             transport: "sendBeacon",
-          }
+          },
         );
       });
     });
@@ -377,13 +377,13 @@ function bindTrackingExternalLinkVisitEvent() {
       "External link visit event tracking already bound. Ignoring subsequent binding calls.",
       {
         event: EVENT,
-      }
+      },
     );
     return;
   }
 
   function isExternalLink(
-    a: HTMLElement | null | undefined
+    a: HTMLElement | null | undefined,
   ): a is HTMLAnchorElement {
     if (!a || a.tagName !== "A") return false;
     const href = a.getAttribute("href") || "";
@@ -410,7 +410,7 @@ function bindTrackingExternalLinkVisitEvent() {
 
       const linkId = anchor.getAttribute(MIXPANEL_DATA_ATTRIBUTE_LINK_ID);
       const linkDescription = anchor.getAttribute(
-        MIXPANEL_DATA_ATTRIBUTE_LINK_DESCRIPTION
+        MIXPANEL_DATA_ATTRIBUTE_LINK_DESCRIPTION,
       );
       const href = anchor.href;
 
@@ -422,7 +422,7 @@ function bindTrackingExternalLinkVisitEvent() {
             anchor,
             linkId,
             linkDescription,
-          }
+          },
         );
         return;
       }
@@ -436,10 +436,10 @@ function bindTrackingExternalLinkVisitEvent() {
         },
         {
           transport: "sendBeacon",
-        }
+        },
       );
     },
-    true
+    true,
   );
 
   isExternalLinkVisitEventBound = true;
@@ -472,7 +472,7 @@ function bindTrackingGoodPracticeReferralEvent() {
   >["payload"]["referral"][]);
 
   const goodPracticeAnchorElements = document.querySelectorAll<HTMLElement>(
-    `[${MIXPANEL_DATA_ATTRIBUTE_REFERRAL_TYPE_NAME}]`
+    `[${MIXPANEL_DATA_ATTRIBUTE_REFERRAL_TYPE_NAME}]`,
   );
 
   if (!goodPracticeAnchorElements.length) {
@@ -480,7 +480,7 @@ function bindTrackingGoodPracticeReferralEvent() {
       "No good practice referral elements found for binding.",
       {
         event: EVENT,
-      }
+      },
     );
     return;
   }
@@ -493,7 +493,7 @@ function bindTrackingGoodPracticeReferralEvent() {
 
   goodPracticeAnchorElements.forEach((element) => {
     const validationResult = GoodPracticeCatalogReferralTypeSchema.safeParse(
-      element.getAttribute(MIXPANEL_DATA_ATTRIBUTE_REFERRAL_TYPE_NAME)
+      element.getAttribute(MIXPANEL_DATA_ATTRIBUTE_REFERRAL_TYPE_NAME),
     );
 
     if (!validationResult.success) {
@@ -502,7 +502,7 @@ function bindTrackingGoodPracticeReferralEvent() {
         {
           event: EVENT,
           element,
-        }
+        },
       );
       return;
     }
@@ -510,7 +510,7 @@ function bindTrackingGoodPracticeReferralEvent() {
     const referral = validationResult.data;
     const goodPracticeCategory =
       element.getAttribute(
-        MIXPANEL_DATA_ATTRIBUTE_GOOD_PRACTICE_CATEGORY_NAME
+        MIXPANEL_DATA_ATTRIBUTE_GOOD_PRACTICE_CATEGORY_NAME,
       ) || undefined;
 
     element.addEventListener("click", () => {
@@ -558,7 +558,7 @@ function bindTrackingTooltipOpenEvent() {
           event: EVENT,
           target,
           tooltipId,
-        }
+        },
       );
       return;
     }

@@ -30,6 +30,7 @@ export const config = [
           varsIgnorePattern: "^_",
         },
       ],
+      "sort-imports": ["error"],
     },
   },
   globalIgnores(["dist/**"]),

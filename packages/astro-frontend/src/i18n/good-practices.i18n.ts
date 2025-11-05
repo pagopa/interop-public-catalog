@@ -33,5 +33,5 @@ const goodPracticesTranslations = {
 } as const satisfies TranslationsMap;
 
 export const useGoodPracticesTranslations = buildUseTranslations(
-  goodPracticesTranslations
+  goodPracticesTranslations,
 );

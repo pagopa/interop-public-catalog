@@ -61,6 +61,7 @@
     "vite": "7.1.11",
     "vitest": "1.6.1",
     "pagopa-interop-public-eslint-config": "workspace:*",
-    "pagopa-interop-public-typescript-config": "workspace:*"
+    "pagopa-interop-public-typescript-config": "workspace:*",
+    "prettier-plugin-astro": "0.14.1"
   }
 }

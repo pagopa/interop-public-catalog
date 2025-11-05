@@ -6,7 +6,7 @@ import type {
 
 export const chunkEServiceArray = (
   eservices: EService[],
-  eservicesPerRow: number
+  eservicesPerRow: number,
 ): EService[][] => {
   const chunkedArray: EService[][] = [];
   for (
@@ -34,7 +34,7 @@ type Groups = Array<Group>;
  * @returns Un array Groups mappato.
  */
 export function mapEServiceAttributesToGroups(
-  attributes: EServiceAttributes
+  attributes: EServiceAttributes,
 ): Groups {
   // Definiamo l'ordine desiderato delle chiavi
   const keys: Array<keyof EServiceAttributes> = [
@@ -66,7 +66,7 @@ export function mapEServiceAttributesToGroups(
 
 export function debounce<F extends (...args: Parameters<F>) => ReturnType<F>>(
   func: F,
-  waitFor: number
+  waitFor: number,
 ): (...args: Parameters<F>) => void {
   let timeout: NodeJS.Timeout;
   return (...args: Parameters<F>): void => {
