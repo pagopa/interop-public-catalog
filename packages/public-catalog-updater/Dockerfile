@@ -21,6 +21,7 @@ COPY turbo.json ./
 
 COPY packages/public-catalog-updater/ ./packages/public-catalog-updater/
 COPY packages/models/ ./packages/models/
+COPY packages/typescript-config/ ./packages/typescript-config/
 
 RUN pnpm run build
 
