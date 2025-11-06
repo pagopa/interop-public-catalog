@@ -226,13 +226,12 @@ export async function searchCatalog(
     SELECT a.id
     FROM ${sql.identifier(config.attributeSchema)}.attribute a
     WHERE a.code IN (${sql.join(
-        mappedCategories!.map((id) => sql`${id}`),
-        sql`, `
-      )})
+      mappedCategories!.map((id) => sql`${id}`),
+      sql`, `
+    )})
     `
-    )
+    );
     categoriesIds = categoriesIdsQuery.rows.map((el) => el.id as string);
-
   } else if (producerIds && producerIds.length > 0) {
     conds.push(
       sql`
