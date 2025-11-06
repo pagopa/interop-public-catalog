@@ -12,12 +12,13 @@ COPY .npmrc ./
 COPY packages/commons/package.json ./packages/commons/
 COPY packages/strapi/package.json ./packages/strapi/
 COPY packages/models/package.json ./packages/models/
+COPY packages/typescript-config/package.json ./packages/typescript-config/
+COPY packages/eslint-config/package.json ./packages/eslint-config/
 
 RUN pnpm install --frozen-lockfile
 
 ENV PATH=/opt/app/node_modules/.bin:$PATH
 
-COPY tsconfig.json ./
 COPY turbo.json ./
 
 COPY packages/commons/ ./packages/commons/
