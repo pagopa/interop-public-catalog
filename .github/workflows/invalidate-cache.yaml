@@ -33,4 +33,4 @@ jobs:
 
           aws cloudfront create-invalidation \
             --distribution-id ${{ inputs.cloudfront_distribution_id }} \
-            --paths ${{ inputs.invalidation_paths }}
+            --paths "${{ inputs.invalidation_paths }}"  #space separated
