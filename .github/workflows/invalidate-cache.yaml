@@ -25,7 +25,7 @@ jobs:
         with:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
-          role-session-name: interop-public-catalog-invalidate-cloudfront-distribution-cache-${{ github.run_number }}
+          role-session-name: interop-public-catalog-invalidate-cache
 
       - name: Invalidate CloudFront Cache
         run: |
@@ -33,4 +33,4 @@ jobs:
 
           aws cloudfront create-invalidation \
             --distribution-id ${{ inputs.cloudfront_distribution_id }} \
-            --paths ${{ inputs.invalidation_paths }}
+            --paths "${{ inputs.invalidation_paths }}"  #space separated
