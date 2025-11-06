@@ -1,16 +1,17 @@
 import type { APIRoute } from "astro";
 import { sqlService } from "../../../server/services/index.js";
 import {
-  GetEServicesQuery,
-  GetEServicesResponse,
   parseQueryParams,
+  EServicesQuerySchema,
+  EServicesResponseSchema,
+  type EServicesResponse,
 } from "../../../server/models/api.js";
 import { emptyErrorMapper } from "pagopa-interop-public-models";
 import { makeApiProblem } from "../../../server/models/errors.js";
 
 export const GET: APIRoute = async ({ url, locals }) => {
   try {
-    const queryParams = parseQueryParams(url, GetEServicesQuery);
+    const queryParams = parseQueryParams(url, EServicesQuerySchema);
     const { q, orderBy, producerIds, categories, limit, offset } = queryParams;
 
     locals.logger.info(
@@ -25,14 +26,14 @@ export const GET: APIRoute = async ({ url, locals }) => {
       offset,
     });
 
-    const data = GetEServicesResponse.parse({
+    const data = EServicesResponseSchema.parse({
       results: rawData.results,
       pagination: {
         offset,
         limit,
         totalCount: rawData.totalCount,
       },
-    } satisfies GetEServicesResponse);
+    } satisfies EServicesResponse);
 
     return new Response(JSON.stringify(data), {
       headers: { "Content-Type": "application/json" },

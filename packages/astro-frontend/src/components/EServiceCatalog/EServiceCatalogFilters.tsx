@@ -8,7 +8,7 @@ import Filters from "./Filters.jsx";
 import { useIsMobile } from "../../hooks/useIsMobile.jsx";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
 import { useEServiceCatalogContext } from "./EServiceCatalogContext.jsx";
-import type { CatalogFilterParams } from "./types.js";
+import type { EServiceCatalogSearchParams } from "./utils.js";
 import type { SupportedLanguage } from "../../i18n/types.i18n.js";
 
 export type EServiceCatalogFiltersParams = {
@@ -42,7 +42,7 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
 
   useEffect(() => {
     const popoverTriggerList = [].slice.call(
-      document.querySelectorAll('[data-bs-toggle="popover"]')
+      document.querySelectorAll('[data-bs-toggle="popover"]'),
     );
     popoverTriggerList.map(function (popoverTriggerEl) {
       return new Popover(popoverTriggerEl, {
@@ -57,8 +57,8 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
   };
 
   const handleRemoveFilterValue = (
-    key: keyof CatalogFilterParams,
-    value: string | FilterAutoCompleteValue
+    key: keyof EServiceCatalogSearchParams,
+    value: string | FilterAutoCompleteValue,
   ) => {
     handleRemoveActiveFilterValue(key, value);
   };

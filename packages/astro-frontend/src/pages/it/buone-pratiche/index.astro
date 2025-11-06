@@ -5,18 +5,14 @@ import { getLangFromUrl } from "../../../i18n/utils.i18n";
 import { useGoodPracticesTranslations } from "../../../i18n/good-practices.i18n";
 import Layout from "../../../layouts/Layout.astro";
 import PageHero from "../../../components/shared/PageHero.astro";
-import { z } from "zod";
+import { parseAsInteger, createLoader } from "nuqs/server";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const tGoodPractices = useGoodPracticesTranslations(currentLocale);
 
-const parsedDefaultMacroCategoryId = z
-  .number()
-  .safeParse(parseInt(Astro.url.searchParams.get("macroCategoryId") ?? "", 10));
-
-const defaultMacroCategoryId = parsedDefaultMacroCategoryId.success
-  ? parsedDefaultMacroCategoryId.data
-  : undefined;
+const { macroCategoryId } = createLoader({ macroCategoryId: parseAsInteger })(
+  Astro.url.searchParams,
+);
 ---
 
 <Layout>
@@ -37,7 +33,7 @@ const defaultMacroCategoryId = parsedDefaultMacroCategoryId.success
   <Section className="bg-muted">
     <GoodPracticesCatalog
       client:idle
-      defaultMacroCategoryId={defaultMacroCategoryId}
+      defaultMacroCategoryId={macroCategoryId}
       currentLocale={currentLocale}
     />
   </Section>

@@ -4,26 +4,23 @@ import {
   GoodPracticeCard,
   GoodPracticeCardSkeleton,
 } from "../shared/GoodPracticeCard.js";
-import { useSearchParams } from "../../hooks/useSearchParams.js";
-import { z } from "zod";
 import useSwr from "swr";
 import { MacroCategoryIdFilter } from "./MacroCategoryIdFilter.jsx";
 import { apiService } from "../../services/api.services.js";
+import { parseAsInteger, useQueryState } from "nuqs";
 
 export const GoodPracticesCatalog: React.FC<{
-  defaultMacroCategoryId: number | undefined;
+  defaultMacroCategoryId: number | null;
   currentLocale: SupportedLanguage;
 }> = ({ currentLocale, defaultMacroCategoryId }) => {
-  const [searchParams, setSearchParams] = useSearchParams(
-    z.object({
-      macroCategoryId: z.coerce.number(),
-    })
+  const [searchParams, setSearchParams] = useQueryState(
+    "macroCategoryId", parseAsInteger
   );
 
   const isServer = typeof window === "undefined";
   const selectedMacroCategoryId = isServer
     ? defaultMacroCategoryId
-    : searchParams.macroCategoryId;
+    : searchParams;
 
   const { data, isLoading } = useSwr(
     [currentLocale, selectedMacroCategoryId],
@@ -31,22 +28,22 @@ export const GoodPracticesCatalog: React.FC<{
       const [result] = await Promise.all([
         apiService.getGoodPractices({
           locale,
-          macroCategoryId,
+          macroCategoryId: macroCategoryId ?? undefined,
           limit: 50,
           offset: 0,
         }),
         new Promise((resolve) =>
-          setTimeout(resolve, Math.random() * 800 + 200)
+          setTimeout(resolve, Math.random() * 800 + 200),
         ), // Simulate network latency
       ]);
       return result;
-    }
+    },
   );
 
   const handleSelectedMacroCategoryIdChange = (
-    macroCategoryId: number | null
+    macroCategoryId: number | null,
   ) => {
-    setSearchParams({ macroCategoryId: macroCategoryId ?? undefined });
+    setSearchParams(macroCategoryId);
   };
 
   return (

@@ -1,11 +1,11 @@
 import axios from "axios";
 import { serializeQueryString } from "../utils/qs.utils";
 import type {
-  GetEServicesResponse,
-  GetGoodPracticesResponse,
-  GetGoodPracticesQuery,
-  GetTenantsResponse,
-  GetEServicesQuery,
+  EServicesResponse,
+  GoodPracticesResponse,
+  GoodPracticesQuery,
+  TenantsResponse,
+  EServicesQuery,
 } from "../server/models/api";
 import type { EService } from "pagopa-interop-public-models";
 import type { SupportedLanguage } from "../i18n/types.i18n";
@@ -20,14 +20,14 @@ export const apiService = {
     const response = await apiClient.get<EService>(`/api/catalog/${id}`);
     return response.data;
   },
-  getEServices: async (params: GetEServicesQuery) => {
-    const response = await apiClient.get<GetEServicesResponse>("/api/catalog", {
+  getEServices: async (params: EServicesQuery) => {
+    const response = await apiClient.get<EServicesResponse>("/api/catalog", {
       params,
     });
     return response.data;
   },
   getTenants: async (q: string) => {
-    const response = await apiClient.get<GetTenantsResponse>("/api/tenants", {
+    const response = await apiClient.get<TenantsResponse>("/api/tenants", {
       params: {
         q,
         limit: 50,
@@ -43,8 +43,8 @@ export const apiService = {
     });
     return response.data;
   },
-  getGoodPractices: async (params: GetGoodPracticesQuery) => {
-    const response = await apiClient.get<GetGoodPracticesResponse>(
+  getGoodPractices: async (params: GoodPracticesQuery) => {
+    const response = await apiClient.get<GoodPracticesResponse>(
       "/api/good-practices",
       {
         params,

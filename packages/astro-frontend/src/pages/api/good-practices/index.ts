@@ -3,14 +3,15 @@ import { strapiService } from "../../../server/services/index.js";
 import { makeApiProblem } from "../../../server/models/errors.js";
 import { emptyErrorMapper } from "pagopa-interop-public-models";
 import {
-  GetGoodPracticesResponse,
-  GetGoodPracticesQuery,
   parseQueryParams,
+  type GoodPracticesResponse,
+  GoodPracticesResponseSchema,
+  GoodPracticesQuerySchema,
 } from "../../../server/models/api.js";
 
 export const GET: APIRoute = async ({ url, locals }) => {
   try {
-    const queryParams = parseQueryParams(url, GetGoodPracticesQuery);
+    const queryParams = parseQueryParams(url, GoodPracticesQuerySchema);
     const { locale, macroCategoryId, limit, offset } = queryParams;
 
     locals.logger.info(
@@ -28,14 +29,14 @@ export const GET: APIRoute = async ({ url, locals }) => {
       locale
     );
 
-    const data = GetGoodPracticesResponse.parse({
+    const data = GoodPracticesResponseSchema.parse({
       results: rawData.data,
       pagination: {
         offset,
         limit,
         totalCount: rawData.meta.pagination.total,
       },
-    } satisfies GetGoodPracticesResponse);
+    } satisfies GoodPracticesResponse);
 
     return new Response(JSON.stringify(data), {
       headers: { "Content-Type": "application/json" },

@@ -15,7 +15,7 @@ import {
 import { TooltipIcon } from "../shared/TooltipIcon.js";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
 import { useEServiceCatalogContext } from "./EServiceCatalogContext.jsx";
-import type { CatalogFilterParams } from "./types.js";
+import type { EServiceCatalogSearchParams } from "./utils.js";
 import { useAutocompleteTextInput } from "../../hooks/useAutoCompleteTextInput.jsx";
 import type { SupportedLanguage } from "../../i18n/types.i18n.js";
 import useSWRImmutable from "swr/immutable";
@@ -39,18 +39,18 @@ const TENANT_MACROCATEGORIES_OPTIONS = Object.keys(categoriesMap).map(
       value: categoryName,
       label: categoryName,
     };
-  }
+  },
 );
 
 type FiltersProps = {
   handleDraftFilterValueChange: (
-    key: keyof CatalogFilterParams,
-    value: string | FilterAutoCompleteValue[]
+    key: keyof EServiceCatalogSearchParams,
+    value: string | FilterAutoCompleteValue[],
   ) => void;
   onSubmit?: (e: React.FormEvent<HTMLButtonElement>) => void;
   handleActiveFilterValueChange: (
-    key: keyof CatalogFilterParams,
-    value: string | number | FilterAutoCompleteValue[]
+    key: keyof EServiceCatalogSearchParams,
+    value: string | number | FilterAutoCompleteValue[],
   ) => void;
   isMobile: boolean;
   currentLocale: SupportedLanguage;
@@ -75,8 +75,8 @@ const Filters: React.FC<FiltersProps> = ({
       apiService
         .getTenants(q)
         .then((res) =>
-          res.results.map((r) => ({ value: r.producer_id, label: r.name }))
-        )
+          res.results.map((r) => ({ value: r.producer_id, label: r.name })),
+        ),
   );
 
   return (

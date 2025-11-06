@@ -40,7 +40,7 @@ importers:
         version: 19.2.2(@types/react@19.2.2)
       '@zodios/core':
         specifier: 10.9.6
-        version: 10.9.6(axios@1.12.0)(zod@3.23.8)
+        version: 10.9.6(axios@1.12.0)(zod@4.1.12)
       accessible-autocomplete:
         specifier: ^3.0.1
         version: 3.0.1
@@ -65,6 +65,9 @@ importers:
       mixpanel-browser:
         specifier: 2.71.0
         version: 2.71.0
+      nuqs:
+        specifier: 2.7.2
+        version: 2.7.2(react-router-dom@6.30.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-router@6.30.1(react@19.2.0))(react@19.2.0)
       pagopa-interop-public-commons:
         specifier: workspace:*
         version: link:../commons
@@ -93,12 +96,12 @@ importers:
         specifier: 3.16.0
         version: 3.16.0
       zod:
-        specifier: 3.23.8
-        version: 3.23.8
+        specifier: 4.1.12
+        version: 4.1.12
     devDependencies:
       '@anatine/zod-mock':
         specifier: 3.14.0
-        version: 3.14.0(zod@3.23.8)
+        version: 3.14.0(zod@4.1.12)
       '@pagopa/eslint-config':
         specifier: 3.0.0
         version: 3.0.0(tsutils@3.21.0(typescript@5.4.5))(typescript@5.4.5)
@@ -149,7 +152,7 @@ importers:
     dependencies:
       '@zodios/core':
         specifier: 10.9.6
-        version: 10.9.6(axios@1.12.0)(zod@3.23.8)
+        version: 10.9.6(axios@1.12.0)(zod@4.1.12)
       axios:
         specifier: 1.12.0
         version: 1.12.0
@@ -172,11 +175,11 @@ importers:
         specifier: 2.4.5
         version: 2.4.5
       zod:
-        specifier: 3.23.8
-        version: 3.23.8
+        specifier: 4.1.12
+        version: 4.1.12
       zod-validation-error:
         specifier: 3.3.0
-        version: 3.3.0(zod@3.23.8)
+        version: 3.3.0(zod@4.1.12)
     devDependencies:
       '@types/node':
         specifier: 20.19.17
@@ -251,11 +254,11 @@ importers:
         specifier: 5.2.0
         version: 5.2.0
       zod:
-        specifier: 3.23.8
-        version: 3.23.8
+        specifier: 4.1.12
+        version: 4.1.12
       zod-validation-error:
         specifier: 3.3.0
-        version: 3.3.0(zod@3.23.8)
+        version: 3.3.0(zod@4.1.12)
     devDependencies:
       '@types/node':
         specifier: 20.19.17
@@ -300,11 +303,11 @@ importers:
         specifier: 5.2.0
         version: 5.2.0
       zod:
-        specifier: 3.23.8
-        version: 3.23.8
+        specifier: 4.1.12
+        version: 4.1.12
       zod-validation-error:
         specifier: 3.3.0
-        version: 3.3.0(zod@3.23.8)
+        version: 3.3.0(zod@4.1.12)
     devDependencies:
       '@types/node':
         specifier: 20.19.17
@@ -3238,6 +3241,9 @@ packages:
 
   '@splidejs/splide@4.1.4':
     resolution: {integrity: sha512-5I30evTJcAJQXt6vJ26g2xEkG+l1nXcpEw4xpKh0/FWQ8ozmAeTbtniVtVmz2sH1Es3vgfC4SS8B2X4o5JMptA==}
+
+  '@standard-schema/spec@1.0.0':
+    resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
 
   '@storybook/builder-vite@9.1.15':
     resolution: {integrity: sha512-GZkx72cBnCuTL/cVOIWIicB4GCmZWx52zFGSC/qHOT/sKcUkrIoQSpVljqyPa66woHyUeSZX4mu7aGj5A27QVg==}
@@ -7543,6 +7549,27 @@ packages:
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
 
+  nuqs@2.7.2:
+    resolution: {integrity: sha512-wOPJoz5om7jMJQick9zU1S/Q+joL+B2DZTZxfCleHEcUzjUnPoujGod4+nAmUWb+G9TwZnyv+mfNqlyfEi8Zag==}
+    peerDependencies:
+      '@remix-run/react': '>=2'
+      '@tanstack/react-router': ^1
+      next: '>=14.2.0'
+      react: '>=18.2.0 || ^19.0.0-0'
+      react-router: ^6 || ^7
+      react-router-dom: ^6 || ^7
+    peerDependenciesMeta:
+      '@remix-run/react':
+        optional: true
+      '@tanstack/react-router':
+        optional: true
+      next:
+        optional: true
+      react-router:
+        optional: true
+      react-router-dom:
+        optional: true
+
   oauth-sign@0.9.0:
     resolution: {integrity: sha512-fexhUFFPTGV8ybAtSIGbV6gOkSv8UtRbDBnAyLQw4QPKkgNlsH2ByPGtMUqdWkos6YCRmAqViwgZrJc/mRDzZQ==}
 
@@ -10221,14 +10248,14 @@ packages:
     peerDependencies:
       zod: ^3.18.0
 
-  zod@3.23.8:
-    resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
-
   zod@3.25.67:
     resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
+
+  zod@4.1.12:
+    resolution: {integrity: sha512-JInaHOamG8pt5+Ey8kGmdcAcg3OL9reK8ltczgHTAwNhMys/6ThXHityHxVV2p3fkw/c+MAvBHFVYHFZDmjMCQ==}
 
   zwitch@2.0.4:
     resolution: {integrity: sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A==}
@@ -10237,10 +10264,10 @@ snapshots:
 
   '@adobe/css-tools@4.4.4': {}
 
-  '@anatine/zod-mock@3.14.0(zod@3.23.8)':
+  '@anatine/zod-mock@3.14.0(zod@4.1.12)':
     dependencies:
       randexp: 0.5.3
-      zod: 3.23.8
+      zod: 4.1.12
 
   '@astrojs/compiler@2.13.0': {}
 
@@ -13923,6 +13950,8 @@ snapshots:
 
   '@splidejs/splide@4.1.4': {}
 
+  '@standard-schema/spec@1.0.0': {}
+
   '@storybook/builder-vite@9.1.15(storybook@9.1.15(@testing-library/dom@10.1.0)(prettier@2.8.8)(vite@7.1.11(@types/node@20.19.17)(terser@5.44.0)(tsx@4.19.1)(yaml@2.4.5)))(vite@7.1.11(@types/node@20.19.17)(terser@5.44.0)(tsx@4.19.1)(yaml@2.4.5))':
     dependencies:
       '@storybook/csf-plugin': 9.1.15(storybook@9.1.15(@testing-library/dom@10.1.0)(prettier@2.8.8)(vite@7.1.11(@types/node@20.19.17)(terser@5.44.0)(tsx@4.19.1)(yaml@2.4.5)))
@@ -15752,10 +15781,10 @@ snapshots:
 
   '@xtuc/long@4.2.2': {}
 
-  '@zodios/core@10.9.6(axios@1.12.0)(zod@3.23.8)':
+  '@zodios/core@10.9.6(axios@1.12.0)(zod@4.1.12)':
     dependencies:
       axios: 1.12.0
-      zod: 3.23.8
+      zod: 4.1.12
 
   accepts@1.3.8:
     dependencies:
@@ -18909,7 +18938,7 @@ snapshots:
       '@types/koa': 2.15.0
       co-body: 6.2.0
       formidable: 2.1.5
-      zod: 3.23.8
+      zod: 3.25.76
 
   koa-compose@4.1.0: {}
 
@@ -19814,6 +19843,14 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
+  nuqs@2.7.2(react-router-dom@6.30.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(react-router@6.30.1(react@19.2.0))(react@19.2.0):
+    dependencies:
+      '@standard-schema/spec': 1.0.0
+      react: 19.2.0
+    optionalDependencies:
+      react-router: 6.30.1(react@19.2.0)
+      react-router-dom: 6.30.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+
   oauth-sign@0.9.0: {}
 
   object-assign@4.1.1: {}
@@ -20628,10 +20665,24 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       react-router: 6.30.1(react@18.3.1)
 
+  react-router-dom@6.30.1(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
+    dependencies:
+      '@remix-run/router': 1.23.0
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+      react-router: 6.30.1(react@19.2.0)
+    optional: true
+
   react-router@6.30.1(react@18.3.1):
     dependencies:
       '@remix-run/router': 1.23.0
       react: 18.3.1
+
+  react-router@6.30.1(react@19.2.0):
+    dependencies:
+      '@remix-run/router': 1.23.0
+      react: 19.2.0
+    optional: true
 
   react-select@5.8.0(@types/react@18.3.26)(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
@@ -22687,14 +22738,14 @@ snapshots:
       typescript: 5.4.5
       zod: 3.25.76
 
-  zod-validation-error@3.3.0(zod@3.23.8):
+  zod-validation-error@3.3.0(zod@4.1.12):
     dependencies:
-      zod: 3.23.8
-
-  zod@3.23.8: {}
+      zod: 4.1.12
 
   zod@3.25.67: {}
 
   zod@3.25.76: {}
+
+  zod@4.1.12: {}
 
   zwitch@2.0.4: {}

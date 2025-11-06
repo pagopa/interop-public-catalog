@@ -3,7 +3,7 @@ import { strapiService } from "../../../server/services/index.js";
 import {
   parseQueryParams,
   LocaleQuerySchema,
-  GoodPracticeSlug,
+  GoodPracticeSlugSchema,
 } from "../../../server/models/api.js";
 import {
   emptyErrorMapper,
@@ -16,7 +16,7 @@ export const GET: APIRoute = async ({ params, url, locals }) => {
   try {
     const queryParams = parseQueryParams(url, LocaleQuerySchema);
     const { locale } = queryParams;
-    const slug = GoodPracticeSlug.parse(params.slug);
+    const slug = GoodPracticeSlugSchema.parse(params.slug);
 
     locals.logger.info(
       `Fetching good practice by slug: ${slug}, Locale: ${locale}`
