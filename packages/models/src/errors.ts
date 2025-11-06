@@ -81,12 +81,12 @@ type MakeApiProblemFn<T extends string> = (
     };
     correlationId: string;
   },
-  operationalLogMessage?: string
+  operationalLogMessage?: string,
 ) => Problem;
 
 const makeProblemLogString = (
   problem: Problem,
-  originalError: unknown
+  originalError: unknown,
 ): string => {
   const errorsString = problem.errors.map((e) => e.detail).join(" - ");
   return `- title: ${problem.title} - detail: ${problem.detail} - errors: ${errorsString} - original error: ${originalError}`;
@@ -101,11 +101,11 @@ export function makeApiProblemBuilder<T extends string>(errors: {
     error,
     httpMapper,
     { logger, correlationId },
-    operationalLogMessage
+    operationalLogMessage,
   ) => {
     const makeProblem = (
       httpStatus: number,
-      { title, detail, errors }: ApiError<T | CommonErrorCodes>
+      { title, detail, errors }: ApiError<T | CommonErrorCodes>,
     ): Problem => ({
       type: "about:blank",
       title,
@@ -120,7 +120,7 @@ export function makeApiProblemBuilder<T extends string>(errors: {
 
     const genericProblem = makeProblem(
       HTTP_STATUS_INTERNAL_SERVER_ERROR,
-      genericError("Unexpected error")
+      genericError("Unexpected error"),
     );
 
     if (operationalLogMessage) {
@@ -175,7 +175,7 @@ const defaultCommonErrorMapper = (code: CommonErrorCodes): number =>
 
 export function badRequestError(
   detail: string,
-  errors?: Error[]
+  errors?: Error[],
 ): ApiError<CommonErrorCodes> {
   return new ApiError({
     detail,

@@ -48,7 +48,7 @@ export const apiService = {
       "/api/good-practices",
       {
         params,
-      }
+      },
     );
     return response.data;
   },

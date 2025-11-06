@@ -102,7 +102,7 @@ const tables: TableMap[] = [
     target: `${jobConfig.targetDbSchemaCatalog}.eservice_descriptor_template_version_ref`,
     orderBy: "eservice_template_version_id, descriptor_id",
     columns: extractColumnNamesFromTable(
-      catalog.tables.eservice_descriptor_template_version_ref
+      catalog.tables.eservice_descriptor_template_version_ref,
     ),
   },
   {
@@ -110,7 +110,7 @@ const tables: TableMap[] = [
     target: `${jobConfig.targetDbSchemaCatalog}.eservice_descriptor_attribute`,
     orderBy: "eservice_id, attribute_id, group_id",
     columns: extractColumnNamesFromTable(
-      catalog.tables.eservice_descriptor_attribute
+      catalog.tables.eservice_descriptor_attribute,
     ),
   },
 ];
@@ -119,7 +119,7 @@ async function migrateTable({ source, target, orderBy, columns }: TableMap) {
   console.log(`Migrating ${source} -> ${target}`);
 
   const { rows } = await sourceDb.query(
-    `SELECT COUNT(*) AS count FROM ${source}`
+    `SELECT COUNT(*) AS count FROM ${source}`,
   );
   const total = Number(rows[0].count) || 0;
 
@@ -140,7 +140,7 @@ async function migrateTable({ source, target, orderBy, columns }: TableMap) {
         FROM ${source}
         ORDER BY ${orderBy}
         OFFSET $1 LIMIT $2`,
-        [offset, jobConfig.batchSize]
+        [offset, jobConfig.batchSize],
       );
 
       // Construct placeholder string for insert of batch elements
@@ -155,7 +155,7 @@ async function migrateTable({ source, target, orderBy, columns }: TableMap) {
 
       // Extract values in the correct order
       const valuesForPlaceholders = batch.flatMap((row) =>
-        columns.map((col) => row[col])
+        columns.map((col) => row[col]),
       );
 
       // Insert rows into targetDb
@@ -164,7 +164,7 @@ async function migrateTable({ source, target, orderBy, columns }: TableMap) {
         INSERT INTO ${target} (${cols})
         VALUES ${placeholders}
         `,
-        valuesForPlaceholders
+        valuesForPlaceholders,
       );
 
       console.log(`Inserted batch offset ${offset} (${batch.length} rows)`);
@@ -215,22 +215,22 @@ export async function handler() {
       console.error(
         `[AWS-CreateInvalidation]: Missing env config on ${missingFields
           .map((el) => el.key)
-          .join(", ")}`
+          .join(", ")}`,
       );
     }
 
     const invalidationRef = `ref-${Date.now()}`;
     console.log(
-      `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Attempting to run invalidation on paths: ${process.env.CDN_INVALIDATION_PATH}`
+      `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Attempting to run invalidation on paths: ${process.env.CDN_INVALIDATION_PATH}`,
     );
     const awsInvalidationResult = await runAWSInvalidate(invalidationRef);
     if ("err" in awsInvalidationResult) {
       console.log(
-        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Error: ${awsInvalidationResult.err}`
+        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Error: ${awsInvalidationResult.err}`,
       );
     } else {
       console.log(
-        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Status: ${awsInvalidationResult.Invalidation?.Status}`
+        `[AWS-CreateInvalidation][CallerReference: ${invalidationRef}]: Status: ${awsInvalidationResult.Invalidation?.Status}`,
       );
     }
   }

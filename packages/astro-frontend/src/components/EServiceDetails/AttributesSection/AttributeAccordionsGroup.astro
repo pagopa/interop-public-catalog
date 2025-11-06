@@ -10,7 +10,7 @@ const t = useEServiceDetailsTranslations(currentLocale);
 interface Props {
   groupIndex: number;
   attributeType: keyof EServiceAttributes;
-  attributes: EServiceAttributes[keyof EServiceAttributes];
+  attributes: EServiceAttributes[keyof EServiceAttributes][number];
 }
 
 const { groupIndex, attributeType, attributes } = Astro.props;
@@ -65,7 +65,7 @@ const tooltip = getTooltip(attributeType);
   <p>{t("attributes_section.group_description")}</p>
   <div class="accordion border-0" id={`accordionGroup${groupIndex}`}>
     {
-      attributes.map(({ id, description, name }, index) => (
+      attributes.map(({ description, name }, index) => (
         <>
           <div class="accordion-item rounded-2">
             <h2 class="accordion-header" id={`heading${groupIndex}${index}`}>

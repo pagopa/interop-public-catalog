@@ -16,15 +16,15 @@ export const GoodPracticeRelatedEService: React.FC<{
     ["good-practice-related-eservices", eserviceIds],
     async ([_, ids]) => {
       const results = await Promise.allSettled(
-        ids.map((id) => apiService.getEServiceById(id))
+        ids.map((id) => apiService.getEServiceById(id)),
       );
       return results
         .filter(
           (result): result is PromiseFulfilledResult<EService> =>
-            result.status === "fulfilled" && result.value != null
+            result.status === "fulfilled" && result.value != null,
         )
         .map((result) => result.value);
-    }
+    },
   );
 
   const t = useGoodPracticesTranslations(currentLocale);

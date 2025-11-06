@@ -27,7 +27,7 @@ export const MacroCategoryIdFilter: React.FC<MacroCategoryIdFilterProps> = ({
               <a
                 onClick={onSelectedMacroCategoryIdChange.bind(
                   null,
-                  macrocategory.id
+                  macrocategory.id,
                 )}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {

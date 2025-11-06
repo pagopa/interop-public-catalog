@@ -34,7 +34,7 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
 
   const handleChange = (
     _event: React.SyntheticEvent,
-    values: FilterAutoCompleteValue[]
+    values: FilterAutoCompleteValue[],
   ) => {
     handleValuesChange(values);
   };
