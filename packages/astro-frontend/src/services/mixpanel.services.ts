@@ -75,7 +75,7 @@ type MixpanelTrackingData =
           | "how-it-works"
           | "best-practice-section"
           | "footer";
-        goodPracticeCategory?: string;
+        goodPracticeTenantMacrocategoryId?: string;
       };
     };
 
@@ -457,7 +457,7 @@ function bindTrackingGoodPracticeReferralEvent() {
   const MIXPANEL_DATA_ATTRIBUTE_REFERRAL_TYPE_NAME =
     "data-mp-good-practice-catalog-referral";
   const MIXPANEL_DATA_ATTRIBUTE_GOOD_PRACTICE_CATEGORY_NAME =
-    "data-mp-good-practice-category";
+    "data-mp-good-practice-category-id";
   const EVENT =
     "INTEROP_HOMEPAGE_GOOD_PRACTICE_REFERRAL" as const satisfies MixpanelTrackingData["key"];
 
@@ -508,15 +508,14 @@ function bindTrackingGoodPracticeReferralEvent() {
     }
 
     const referral = validationResult.data;
-    const goodPracticeCategory =
-      element.getAttribute(
-        MIXPANEL_DATA_ATTRIBUTE_GOOD_PRACTICE_CATEGORY_NAME
-      ) || undefined;
 
     element.addEventListener("click", () => {
       track(EVENT, {
         referral,
-        goodPracticeCategory,
+        goodPracticeTenantMacrocategoryId:
+          element.getAttribute(
+            MIXPANEL_DATA_ATTRIBUTE_GOOD_PRACTICE_CATEGORY_NAME
+          ) || undefined,
       });
     });
   });
