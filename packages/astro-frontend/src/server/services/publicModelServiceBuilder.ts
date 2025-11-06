@@ -66,10 +66,8 @@ const _buildFullQueryWithFilters = (config: {
     FROM ${sql.identifier(
       config.catalogSchema
     )}.eservice_descriptor_attribute da2
-    JOIN ${sql.identifier(config.attributeSchema)}.attribute a2
-      ON a2.id = da2.attribute_id
     WHERE da2.descriptor_id = chosen.id
-      AND a2.code IN (${sql.join(
+      AND da2.attribute_id IN (${sql.join(
         categories.map((cat) => sql`${cat}`),
         sql`, `
       )})
@@ -221,8 +219,20 @@ export async function searchCatalog(
   // Build WHERE condition
   const conds = [sql`true`];
 
+  let categoriesIds: string[];
   if (categories && categories.length > 0) {
-    // Do nothing
+    const categoriesIdsQuery = await db.execute(
+      sql`
+    SELECT a.id
+    FROM ${sql.identifier(config.attributeSchema)}.attribute a
+    WHERE a.code IN (${sql.join(
+        mappedCategories!.map((id) => sql`${id}`),
+        sql`, `
+      )})
+    `
+    )
+    categoriesIds = categoriesIdsQuery.rows.map((el) => el.id as string);
+
   } else if (producerIds && producerIds.length > 0) {
     conds.push(
       sql`
@@ -258,7 +268,7 @@ export async function searchCatalog(
     ${baseSelect("e", "t")},
     count(*) over() AS total
     FROM ${sql.identifier(config.catalogSchema)}.eservice e
-    ${activeDescriptorPopulator(false, "e", mappedCategories)}
+    ${activeDescriptorPopulator(false, "e", categoriesIds)}
     WHERE ${sql.join(conds, sql` AND `)}
     ${activeDescriptorPopulatorGroupBy(false, "e", "t")}
     ORDER BY ${orderByFragment}
@@ -328,7 +338,7 @@ export async function searchCatalog(
         )::real AS fuzzy_sim
       FROM picked x
       JOIN ${sql.identifier(config.catalogSchema)}.eservice e ON e.id = x.id
-      ${activeDescriptorPopulator(false, "e", mappedCategories)}
+      ${activeDescriptorPopulator(false, "e", categoriesIds)}
       CROSS JOIN params p
       WHERE ${sql.join(conds, sql` AND `)}
       ${activeDescriptorPopulatorGroupBy(false, "e", "t")}, p.tsq, p.nq
