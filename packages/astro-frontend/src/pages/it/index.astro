@@ -8,7 +8,6 @@ import SuggestionSection from "../../components/shared/SuggestionSection.astro";
 import { EService } from "../../../../models/src/types/eservice";
 import {
   getLangFromUrl,
-  getLocalizedRoute,
   getRouteKeyFromCurrentRoutePattern,
 } from "../../i18n/utils.i18n";
 import { useHomepageTranslations } from "../../i18n/homepage.i18n";
@@ -41,7 +40,7 @@ const highlightedEServicesPromise: Promise<EService[]> = (async () => {
     HIGHLIGHTED_ESERVICE_IDS.map((id) => sqlService.getEService(id)),
   );
 
-  return results.filter((result) => result !== undefined);
+  return results.filter((result): result is EService => result !== undefined);
 })();
 
 const featuredGoodPracticesPromise: Promise<GoodPractice[]> = strapiService

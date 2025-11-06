@@ -14,7 +14,7 @@ export const GET: APIRoute = async ({ url, locals }) => {
     const { q, limit, offset } = queryParams;
 
     locals.logger.info(
-      `Fetching tenants with query: ${q}, Limit: ${limit}, Offset: ${offset}`
+      `Fetching tenants with query: ${q}, Limit: ${limit}, Offset: ${offset}`,
     );
 
     const rawData = await sqlService.searchTenants({ q, limit, offset });

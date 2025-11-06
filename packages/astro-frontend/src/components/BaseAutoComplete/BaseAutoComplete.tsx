@@ -270,7 +270,7 @@ export const BaseAutoComplete = ({ id }: BaseAutoCompleteProps) => {
         ? results.filter(function (result) {
             return result.toLowerCase().indexOf(query.toLowerCase()) !== -1;
           })
-        : []
+        : [],
     );
   }
   return (

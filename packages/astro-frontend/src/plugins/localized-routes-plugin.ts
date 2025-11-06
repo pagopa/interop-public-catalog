@@ -48,7 +48,7 @@ const resolveSource = (
   routePath: string,
   routeKey: string,
   fileExtensions: readonly string[],
-  logger: Pick<Console, "info" | "warn" | "error">
+  logger: Pick<Console, "info" | "warn" | "error">,
 ): SourceResolution | null => {
   const normalizedRoutePath = normalizeRoutePath(routePath);
   const baseRelPath =
@@ -88,14 +88,14 @@ const resolveSource = (
   }
 
   logger?.warn(
-    `[localized-routes-plugin] unable to resolve source file for route "${routeKey}" path "${routePath}"`
+    `[localized-routes-plugin] unable to resolve source file for route "${routeKey}" path "${routePath}"`,
   );
   return null;
 };
 
 const buildDestinationRelativePath = (
   targetRoutePath: string,
-  source: SourceResolution
+  source: SourceResolution,
 ): string => {
   const targetNormalized = normalizeRoutePath(targetRoutePath);
 
@@ -103,11 +103,13 @@ const buildDestinationRelativePath = (
     return targetNormalized || source.relativePath;
   }
 
+  const extension = source.extension ?? "";
+
   if (!targetNormalized) {
     return source.relativePath;
   }
 
-  return targetNormalized;
+  return `${targetNormalized}${extension}`;
 };
 
 const copyLocalizedRoutes = <Locale extends string>(
@@ -119,14 +121,14 @@ const copyLocalizedRoutes = <Locale extends string>(
     targetLocales: Locale[];
     fileExtensions: readonly string[];
     logger: Pick<Console, "info" | "warn" | "error">;
-  }
+  },
 ): void => {
   Object.entries(routes).forEach(([routeKey, localizedRoutes]) => {
     const defaultLocalePath = localizedRoutes[options.defaultLocale];
 
     if (!defaultLocalePath) {
       options.logger.warn(
-        `[localized-routes-plugin] route "${routeKey}" is missing a definition for the default locale "${options.defaultLocale}"`
+        `[localized-routes-plugin] route "${routeKey}" is missing a definition for the default locale "${options.defaultLocale}"`,
       );
       return;
     }
@@ -136,7 +138,7 @@ const copyLocalizedRoutes = <Locale extends string>(
       defaultLocalePath,
       routeKey,
       options.fileExtensions,
-      options.logger
+      options.logger,
     );
     if (!source) return;
 
@@ -146,7 +148,7 @@ const copyLocalizedRoutes = <Locale extends string>(
       const targetRoutePath = localizedRoutes[locale];
       if (!targetRoutePath) {
         options.logger.warn(
-          `[localized-routes-plugin] skipping route "${routeKey}" for locale "${locale}" (missing path)`
+          `[localized-routes-plugin] skipping route "${routeKey}" for locale "${locale}" (missing path)`,
         );
         return;
       }
@@ -154,7 +156,7 @@ const copyLocalizedRoutes = <Locale extends string>(
       const destBase = destBaseByLocale[locale];
       const destRelativePath = buildDestinationRelativePath(
         targetRoutePath,
-        source
+        source,
       );
       const destAbsolutePath = path.join(destBase, destRelativePath);
 
@@ -170,7 +172,7 @@ const copyLocalizedRoutes = <Locale extends string>(
         options.logger.error(
           `[localized-routes-plugin] failed to copy "${routeKey}" to locale "${locale}": ${
             error instanceof Error ? error.message : String(error)
-          }`
+          }`,
         );
       }
     });
@@ -191,13 +193,16 @@ export const localizedRoutesPlugin = <Locale extends string>({
 }: LocalizedRoutesPluginOptions<Locale>): AstroIntegration => {
   const defaultLocaleDir = path.join(pagesRoot, defaultLocale);
 
-  const destBaseByLocale = targetLocales.reduce((acc, locale) => {
-    acc[locale] = path.join(pagesRoot, locale);
-    return acc;
-  }, {} as Record<Locale, string>);
+  const destBaseByLocale = targetLocales.reduce(
+    (acc, locale) => {
+      acc[locale] = path.join(pagesRoot, locale);
+      return acc;
+    },
+    {} as Record<Locale, string>,
+  );
 
   const normalizedWatchFiles = watchFiles.map((filePath) =>
-    path.normalize(path.resolve(filePath))
+    path.normalize(path.resolve(filePath)),
   );
   const defaultLocaleDirNormalized = path.normalize(defaultLocaleDir);
   let hasInitialCopy = false;
@@ -206,7 +211,7 @@ export const localizedRoutesPlugin = <Locale extends string>({
     const logger = options?.logger ?? console;
     if (!targetLocales.length) {
       logger.info(
-        "[localized-routes-plugin] no target locales configured, skipping copy"
+        "[localized-routes-plugin] no target locales configured, skipping copy",
       );
       return;
     }
@@ -251,7 +256,7 @@ export const localizedRoutesPlugin = <Locale extends string>({
               runCopy({ logger });
             }
             next();
-          }
+          },
         );
       },
     },

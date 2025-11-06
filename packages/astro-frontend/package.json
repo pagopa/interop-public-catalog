@@ -12,13 +12,14 @@
     "format:write": "prettier --write src",
     "start": "astro dev",
     "build": "astro build",
-    "check": "tsc --noEmit",
+    "check": "tsc --noEmit && astro check",
     "preview": "astro preview",
     "astro": "astro",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@astrojs/check": "0.9.5",
     "@astrojs/node": "9.5.0",
     "@astrojs/react": "^4.4.0",
     "@emotion/react": "11.14.0",
@@ -48,21 +49,19 @@
     "zod": "3.23.8"
   },
   "devDependencies": {
-    "@anatine/zod-mock": "3.14.0",
-    "@pagopa/eslint-config": "3.0.0",
     "@storybook/react-vite": "^9.1.15",
     "@types/node": "20.19.17",
     "@types/qs": "6.9.15",
     "@types/supertest": "6.0.3",
+    "pagopa-interop-public-eslint-config": "workspace:*",
+    "pagopa-interop-public-typescript-config": "workspace:*",
+    "prettier": "3.6.2",
+    "prettier-plugin-astro": "0.14.1",
     "storybook": "^9.1.15",
     "supertest": "7.0.0",
     "tsx": "4.19.1",
-    "typescript": "5.4.5",
+    "typescript": "5.9.3",
     "vite": "7.1.11",
-    "vitest": "1.6.1",
-    "pagopa-interop-public-eslint-config": "workspace:*",
-    "pagopa-interop-public-typescript-config": "workspace:*",
-    "prettier": "2.8.8",
-    "prettier-plugin-astro": "0.14.1"
+    "vitest": "1.6.1"
   }
 }

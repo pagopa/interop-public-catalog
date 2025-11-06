@@ -25,7 +25,7 @@ export const OtherProducerEServices: FC<{
         producerIds: [producerId],
         limit: MAX_ESERVICES_DISPLAYED + 1,
         offset: 0,
-      })
+      }),
   );
 
   const displayedEServices = eservices?.results
@@ -34,7 +34,7 @@ export const OtherProducerEServices: FC<{
 
   const catalogLocalizedUrl = getLocalizedRoute(
     currentLocale,
-    "ESERVICE_CATALOG"
+    "ESERVICE_CATALOG",
   );
   const catalogUrl = `${catalogLocalizedUrl}?${new URLSearchParams({
     provider: JSON.stringify([[producerName, producerId]]),

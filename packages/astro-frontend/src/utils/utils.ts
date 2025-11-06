@@ -1,12 +1,12 @@
 import type {
-  EService,
-  // EServiceAttribute,
+  Attribute,
   EServiceAttributes,
-} from "../../../models/src/types/eservice.js";
+  EService,
+} from "pagopa-interop-public-models";
 
 export const chunkEServiceArray = (
   eservices: EService[],
-  eservicesPerRow: number
+  eservicesPerRow: number,
 ): EService[][] => {
   const chunkedArray: EService[][] = [];
   for (
@@ -21,7 +21,7 @@ export const chunkEServiceArray = (
 
 type Group = {
   attributeType: keyof EServiceAttributes;
-  attributesGroup: Array<EServiceAttributes[keyof EServiceAttributes][0]>;
+  attributesGroup: Array<Attribute>;
 };
 
 type Groups = Array<Group>;
@@ -34,7 +34,7 @@ type Groups = Array<Group>;
  * @returns Un array Groups mappato.
  */
 export function mapEServiceAttributesToGroups(
-  attributes: EServiceAttributes
+  attributes: EServiceAttributes,
 ): Groups {
   // Definiamo l'ordine desiderato delle chiavi
   const keys: Array<keyof EServiceAttributes> = [
@@ -54,9 +54,7 @@ export function mapEServiceAttributesToGroups(
     for (const group of attributeGroups) {
       groups.push({
         attributeType: key, // La chiave corrente (e.g., 'certified')
-        // TODO - Please remove this any cast !!
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        attributesGroup: group as any, // L'array interno (e.g., Array<{id: string; name: string}>)
+        attributesGroup: group, // L'array interno (e.g., Array<{id: string; name: string}>)
       });
     }
   }
@@ -66,7 +64,7 @@ export function mapEServiceAttributesToGroups(
 
 export function debounce<F extends (...args: Parameters<F>) => ReturnType<F>>(
   func: F,
-  waitFor: number
+  waitFor: number,
 ): (...args: Parameters<F>) => void {
   let timeout: NodeJS.Timeout;
   return (...args: Parameters<F>): void => {

@@ -1,6 +1,9 @@
 ---
 import type { GoodPractice } from "pagopa-interop-public-models";
-import { TENANT_MACROCATEGORIES, type OrganizationType } from "../../config/constants";
+import {
+  TENANT_MACROCATEGORIES,
+  type OrganizationType,
+} from "../../config/constants";
 import { useHomepageTranslations } from "../../i18n/homepage.i18n";
 import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
 import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon";
@@ -57,9 +60,17 @@ function getOrganizationTypeImgSrc(macroCategory: OrganizationType) {
 }
 ---
 
-<section class="section position-relative pb-0" aria-labelledby="use-cases-section-title">
+<section
+  class="section position-relative pb-0"
+  aria-labelledby="use-cases-section-title"
+>
   {/* Background - Mobile */}
-  <div aria-hidden="true" style="inset:0;z-index:-1;" class="position-absolute d-md-none bg-primary-c0"></div>
+  <div
+    aria-hidden="true"
+    style="inset:0;z-index:-1;"
+    class="position-absolute d-md-none bg-primary-c0"
+  >
+  </div>
   <div class="position-relative">
     {/* Background - Desktop */}
     <div
@@ -102,13 +113,20 @@ function getOrganizationTypeImgSrc(macroCategory: OrganizationType) {
                     <span style="font-size:1rem;" class="text">
                       {l.text}
                     </span>
-                    <BootstrapItaliaIcon name="it-chevron-right" size="sm" color="primary" />
+                    <BootstrapItaliaIcon
+                      name="it-chevron-right"
+                      size="sm"
+                      color="primary"
+                    />
                   </div>
                 </a>
                 {i <= 2 && (
                   <div
                     style="height:1px;background-color:var(--bs-border-color);bottom:0px;"
-                    class:list={["position-absolute w-100 px-4", i === 2 && "d-block d-md-none"]}
+                    class:list={[
+                      "position-absolute w-100 px-4",
+                      i === 2 && "d-block d-md-none",
+                    ]}
                     role="presentation"
                   />
                 )}

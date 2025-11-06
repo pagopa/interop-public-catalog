@@ -9,7 +9,7 @@ export type Page = {
 export function usePagination(
   limit: number,
   totalCount: number,
-  idElementToScrollTo: string
+  idElementToScrollTo: string,
 ): {
   previousPages: Page[];
   nextPages: Page[];
@@ -57,11 +57,11 @@ export function usePagination(
       window.history.replaceState(
         {},
         "",
-        `${window.location.pathname}?${urlParams}`
+        `${window.location.pathname}?${urlParams}`,
       );
       handleActiveFilterValueChange("offset", newOffset);
     },
-    [handleActiveFilterValueChange, limit, idElementToScrollTo]
+    [handleActiveFilterValueChange, limit, idElementToScrollTo],
   );
 
   const paginationProps = {

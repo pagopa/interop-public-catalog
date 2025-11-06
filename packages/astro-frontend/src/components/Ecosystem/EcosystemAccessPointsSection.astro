@@ -62,44 +62,42 @@ const accessPoints = [
   <div
     aria-hidden="true"
     style="inset:0;z-index:-1;"
-    className="position-absolute d-md-none bg-primary-c0"
+    class="position-absolute d-md-none bg-primary-c0"
   >
   </div>
 
-  <div className="position-relative py-5 px-md-5">
+  <div class="position-relative py-5 px-md-5">
     {/* Background - Desktop */}
     <div
       style="inset:0;z-index:-1;"
-      className="bg-primary-c0 rounded-5 border border-secondary position-absolute d-none d-md-block"
+      class="bg-primary-c0 rounded-5 border border-secondary position-absolute d-none d-md-block"
     >
     </div>
 
-    <h2 className="h3 mb-4">{t("access_points_section.title")}</h2>
-    <p className="mb-4 text-secondary">
+    <h2 class="h3 mb-4">{t("access_points_section.title")}</h2>
+    <p class="mb-4 text-secondary">
       {t("access_points_section.subtitle")}
     </p>
-    <div className="d-flex flex-column flex-lg-row gap-4 gap-lg-3">
+    <div class="d-flex flex-column flex-lg-row gap-4 gap-lg-3">
       {
         accessPoints.map((accessPoint) => (
-          <article className="it-card rounded shadow-sm align-items-start p-1">
-            <h3 className="h5 it-card-title text-primary">
-              {accessPoint.title}
-            </h3>
-            <div className="it-card-body text-start">
-              <p className="it-card-text">{accessPoint.subtitle}</p>
-              <p className="it-card-text fw-bold mb-1">
+          <article class="it-card rounded shadow-sm align-items-start p-1">
+            <h3 class="h5 it-card-title text-primary">{accessPoint.title}</h3>
+            <div class="it-card-body text-start">
+              <p class="it-card-text">{accessPoint.subtitle}</p>
+              <p class="it-card-text fw-bold mb-1">
                 {t("access_points_section.what_is_it_for")}
               </p>
-              <p className="it-card-text">{accessPoint.description}</p>
+              <p class="it-card-text">{accessPoint.description}</p>
             </div>
-            <footer className="it-card-related it-card-footer mt-auto">
-              <div className="it-card-taxonomy">
+            <footer class="it-card-related it-card-footer mt-auto">
+              <div class="it-card-taxonomy">
                 <a
                   {...accessPoint.mixpanelAttributes}
                   href={accessPoint.href}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="it-card-link text-primary text-decoration-none fw-semibold"
+                  class="it-card-link text-primary text-decoration-none fw-semibold"
                 >
                   {t("access_points_section.actions.go_to_site")}
                   <BootstrapItaliaIcon
