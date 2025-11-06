@@ -15,16 +15,17 @@ COPY ./packages/astro-frontend/package.json /app/packages/astro-frontend/package
 COPY ./packages/commons/package.json /app/packages/commons/package.json
 COPY ./packages/models/package.json /app/packages/models/package.json
 COPY ./packages/strapi/package.json /app/packages/strapi/package.json
+COPY ./packages/typescript-config/package.json /app/packages/typescript-config/package.json
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
-COPY tsconfig.json /app/
 COPY turbo.json /app/
 
 COPY ./packages/astro-frontend /app/packages/astro-frontend
 COPY ./packages/commons /app/packages/commons
 COPY ./packages/models /app/packages/models
 COPY ./packages/strapi /app/packages/strapi
+COPY ./packages/typescript-config /app/packages/typescript-config
 
 RUN pnpm build && \
   rm -rf /app/node_modules/.modules.yaml && \
@@ -36,6 +37,7 @@ RUN pnpm build && \
   packages/commons \
   packages/models \
   packages/strapi \
+  packages/typescript-config \
   packages/astro-frontend/dist && \
   find /out -exec touch -h --date=@0 {} \;
 
