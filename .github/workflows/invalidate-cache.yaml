@@ -19,11 +19,7 @@ jobs:
     name: Invalidate CloudFront distribution cache
     runs-on: ubuntu-latest
     environment: ${{ inputs.environment }}
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
         with:

@@ -139,24 +139,12 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
-        with:
-          aws-region: ${{ vars.AWS_REGION }}
-          role-to-assume: ${{ vars.IAM_ROLE_ARN }}
-          role-session-name: interop-public-catalog-pr-validation-${{ github.run_number }}
-
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@062b18b96a7aff071d4dc91bc00c4c1a7945b076 # v2
 
       - name: Build Docker image
         uses: docker/build-push-action@55146d969b0dff1a5c12630229609757af5b1081
         with:
           context: .
           file: packages/${{ matrix.package }}/Dockerfile
-          build-args: |
-            NODE_REGISTRY=${{ vars.NODE_REGISTRY }}
           push: false
 
   check_build_result:
