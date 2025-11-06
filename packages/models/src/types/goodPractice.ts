@@ -54,13 +54,13 @@ export const GoodPractice = z.object({
   eserviceId: z.array(
     z.object({
       eserviceId: z.string(),
-    })
+    }),
   ),
   tenantMacrocategories: z.array(
     z.object({
       id: z.number(),
       label: z.string(),
-    })
+    }),
   ),
   category: z.string(),
   body: z.array(StrapiBodyComponent),

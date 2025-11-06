@@ -132,6 +132,7 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale;
 
 <script>
   import { initBootstrapItaliaComponents } from "../config/bootstrap-italia";
+  import type { ClientEnvConfig } from "../config/config";
   import { mixpanelService } from "../services/mixpanel.services";
 
   /**
@@ -139,7 +140,10 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale;
    * E.g.: modals, dropdowns, tooltips, etc.
    */
   initBootstrapItaliaComponents();
-  mixpanelService.init({ projectId: window.env.mixpanelProjectId });
+  mixpanelService.init({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    projectId: ((window as any).env as ClientEnvConfig).mixpanelProjectId,
+  });
   mixpanelService.bindTrackingExternalLinkVisitEvent();
   mixpanelService.bindTrackingTooltipOpenEvent();
 </script>

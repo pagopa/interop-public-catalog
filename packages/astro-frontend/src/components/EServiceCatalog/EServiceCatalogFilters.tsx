@@ -42,7 +42,7 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
 
   useEffect(() => {
     const popoverTriggerList = [].slice.call(
-      document.querySelectorAll('[data-bs-toggle="popover"]')
+      document.querySelectorAll('[data-bs-toggle="popover"]'),
     );
     popoverTriggerList.map(function (popoverTriggerEl) {
       return new Popover(popoverTriggerEl, {
@@ -58,7 +58,7 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
 
   const handleRemoveFilterValue = (
     key: keyof CatalogFilterParams,
-    value: string | FilterAutoCompleteValue
+    value: string | FilterAutoCompleteValue,
   ) => {
     handleRemoveActiveFilterValue(key, value);
   };

@@ -49,7 +49,7 @@ const getLogger = () =>
     format: winston.format.combine(
       winston.format.timestamp(),
       winston.format.errors({ stack: true }),
-      lineFormat()
+      lineFormat(),
     ),
     silent: process.env.NODE_ENV === "test",
   });

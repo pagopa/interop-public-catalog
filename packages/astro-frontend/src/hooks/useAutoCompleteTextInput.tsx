@@ -2,7 +2,7 @@ import React from "react";
 import { debounce } from "../utils/utils";
 
 export function useAutocompleteTextInput(
-  initialState = ""
+  initialState = "",
 ): readonly [string, (value: string) => void] {
   const [autocompleteInput, setAutocompleteInput] =
     React.useState(initialState);
@@ -16,7 +16,7 @@ export function useAutocompleteTextInput(
         }
         setAutocompleteInput("");
       }, 300),
-    []
+    [],
   );
 
   return [autocompleteInput, setDebouncedAutocompleteInput] as const;

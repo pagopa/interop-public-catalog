@@ -7,7 +7,8 @@
   font-weight: 300;
   font-display: swap;
   src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */
@@ -31,7 +32,8 @@
   font-weight: 300;
   font-display: swap;
   src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-300italic.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */
@@ -55,7 +57,8 @@
   font-weight: 400;
   font-display: swap;
   src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-regular.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */
@@ -79,7 +82,8 @@
   font-weight: 400;
   font-display: swap;
   src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-italic.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */
@@ -103,7 +107,8 @@
   font-weight: 700;
   font-display: swap;
   src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */
@@ -127,7 +132,8 @@
   font-weight: 700;
   font-display: swap;
   src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-700italic.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */
@@ -150,7 +156,8 @@
   font-weight: 600;
   font-display: swap;
   src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */
@@ -174,7 +181,8 @@
   font-weight: 600;
   font-display: swap;
   src: url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Titillium_Web/titillium-web-v10-latin-ext_latin-600italic.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */
@@ -200,7 +208,8 @@
   font-weight: 400;
   font-display: swap;
   src: url("/fonts/Lora/lora-v20-latin-ext_latin-regular.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Lora/lora-v20-latin-ext_latin-regular.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */ url("/fonts/Lora/lora-v20-latin-ext_latin-regular.woff2")
@@ -220,7 +229,8 @@
   font-weight: 700;
   font-display: swap;
   src: url("/fonts/Lora/lora-v20-latin-ext_latin-700.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Lora/lora-v20-latin-ext_latin-700.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */ url("/fonts/Lora/lora-v20-latin-ext_latin-700.woff2")
@@ -240,7 +250,8 @@
   font-weight: 400;
   font-display: swap;
   src: url("/fonts/Lora/lora-v20-latin-ext_latin-italic.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Lora/lora-v20-latin-ext_latin-italic.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */ url("/fonts/Lora/lora-v20-latin-ext_latin-italic.woff2")
@@ -260,7 +271,8 @@
   font-weight: 700;
   font-display: swap;
   src: url("/fonts/Lora/lora-v20-latin-ext_latin-700italic.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Lora/lora-v20-latin-ext_latin-700italic.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */ url("/fonts/Lora/lora-v20-latin-ext_latin-700italic.woff2")
@@ -284,7 +296,8 @@
   font-weight: 400;
   font-display: swap;
   src: url("/fonts/Roboto_Mono/roboto-mono-v13-latin-ext_latin-regular.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Roboto_Mono/roboto-mono-v13-latin-ext_latin-regular.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */
@@ -308,7 +321,8 @@
   font-weight: 700;
   font-display: swap;
   src: url("/fonts/Roboto_Mono/roboto-mono-v13-latin-ext_latin-700.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Roboto_Mono/roboto-mono-v13-latin-ext_latin-700.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */
@@ -332,7 +346,8 @@
   font-weight: 400;
   font-display: swap;
   src: url("/fonts/Roboto_Mono/roboto-mono-v13-latin-ext_latin-italic.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Roboto_Mono/roboto-mono-v13-latin-ext_latin-italic.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */
@@ -356,7 +371,8 @@
   font-weight: 700;
   font-display: swap;
   src: url("/fonts/Roboto_Mono/roboto-mono-v13-latin-ext_latin-700italic.eot"); /* IE9 Compat Modes */
-  src: local(""),
+  src:
+    local(""),
     url("/fonts/Roboto_Mono/roboto-mono-v13-latin-ext_latin-700italic.eot?#iefix")
       format("embedded-opentype"),
     /* IE6-IE8 */

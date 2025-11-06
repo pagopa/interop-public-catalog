@@ -23,7 +23,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         limit: number;
         offset: number;
       },
-      locale: SupportedLanguage
+      locale: SupportedLanguage,
     ): Promise<StrapiEntityList<GoodPractice>> => {
       const { offset, limit, macroCategoryIds, isFeaturedInHomepage, random } =
         filters;
@@ -32,14 +32,14 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         .filter((g) =>
           macroCategoryIds
             ? g.data.tenantMacrocategories.some((mc) =>
-                macroCategoryIds.includes(mc.id)
+                macroCategoryIds.includes(mc.id),
               )
-            : true
+            : true,
         )
         .filter((g) =>
           typeof isFeaturedInHomepage === "boolean"
             ? g.data.isFeaturedInHomepage === isFeaturedInHomepage
-            : true
+            : true,
         )
         .sort(() => (random ? (Math.random() > 0.5 ? 1 : -1) : 0));
 
@@ -66,19 +66,19 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
 
     getGoodPracticeBySlug: async (
       slug: string,
-      locale: SupportedLanguage
+      locale: SupportedLanguage,
     ): Promise<StrapiEntity<GoodPractice> | undefined> =>
       Promise.resolve(
         getGoodPracticesDataMockByLocale(locale).find(
-          (g) => g.data.slug === slug
-        )
+          (g) => g.data.slug === slug,
+        ),
       ),
 
     async getSeoMetaData(
       locale: SupportedLanguage,
       origin: string,
       routeKey: RouteKey | "DEFAULT",
-      pageParams?: { eserviceId?: string; pageSlug?: string }
+      pageParams?: { eserviceId?: string; pageSlug?: string },
     ): Promise<StrapiEntityList<MetaDataType>> {
       return Promise.resolve({
         data: [getSeoMockData(locale, origin, routeKey, pageParams)],
@@ -94,13 +94,13 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     },
 
     async getFaqContent(
-      locale: SupportedLanguage
+      locale: SupportedLanguage,
     ): Promise<StrapiEntity<FaqContent> | undefined> {
       return Promise.resolve(getFAQContentMockByLocale(locale));
     },
 
     async getNormativaContent(
-      locale: SupportedLanguage
+      locale: SupportedLanguage,
     ): Promise<StrapiEntity<NormativaReferenceContent> | undefined> {
       return Promise.resolve(getNormativaDataMockByLocale(locale));
     },

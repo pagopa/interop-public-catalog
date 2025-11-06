@@ -53,11 +53,6 @@ export default defineConfig({
     defaultLocale: DEFAULT_LANG,
     routing: {
       prefixDefaultLocale: true,
-      /**
-       * It does not work in dev/prod. Idk, why.
-       * I implemented the logic directly in `pages/index.astro`
-       */
-      redirectToDefaultLocale: false,
     },
   },
   vite: {

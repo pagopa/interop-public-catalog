@@ -9,7 +9,7 @@ type FiltersChipsProps = {
   filters: CatalogFilterParams;
   handleRemoveValue: (
     key: keyof CatalogFilterParams,
-    value: string | FilterAutoCompleteValue
+    value: string | FilterAutoCompleteValue,
   ) => void;
   handleRemoveAll: () => void;
   currentLocale: SupportedLanguage;
@@ -82,7 +82,7 @@ export const FiltersChips: React.FC<FiltersChipsProps> = ({
                   handleRemoveValue={() =>
                     handleRemoveValue(
                       key as keyof CatalogFilterParams,
-                      value as string
+                      value as string,
                     )
                   }
                 />
