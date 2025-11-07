@@ -1,16 +1,18 @@
 import Autocomplete from "@mui/material/Autocomplete";
-import { FormGroup, Icon, Input } from "design-react-kit";
+import { FormGroup, Icon } from "design-react-kit";
 import "./MultiSelectChips.css";
 import React from "react";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
 import { useUiTranslations } from "../../i18n/ui.i18n.js";
 import type { SupportedLanguage } from "../../i18n/types.i18n.js";
+import Checkbox from "@mui/material/Checkbox";
 
 export type FilterAutoCompleteValue = {
   label: string;
   value: string;
 };
 type MultipleAutoCompleteProps = {
+  id: string;
   label: string;
   options: FilterAutoCompleteValue[];
   values: FilterAutoCompleteValue[];
@@ -21,6 +23,7 @@ type MultipleAutoCompleteProps = {
 };
 
 export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
+  id,
   label,
   options,
   handleValuesChange,
@@ -50,11 +53,12 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
   return (
     <>
       <div className="d-flex input-filter-key">
-        <label>{label}</label>
+        <label htmlFor={id} className="active">{label}</label>
         {tooltipIconRender}
       </div>
       <FormGroup className="form-group">
         <Autocomplete
+          id={id}
           disableCloseOnSelect
           multiple
           noOptionsText={tUi("autocomplete.noOptions")}
@@ -88,27 +92,19 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
           isOptionEqualToValue={(option, { value }) => {
             return option.value === value;
           }}
-          renderOption={(props, option, { selected }) => {
+          renderOption={(props, option, { selected}) => {
             const { key, ...optionProps } = props;
 
             return (
-              <FormGroup check>
-                <li className="autocomplete-wrapper" key={key} {...optionProps}>
-                  <Input
-                    id={`checkbox-${key}`}
-                    type="checkbox"
-                    checked={selected}
-                  />
-                  <label
-                    style={{
-                      fontFamily: "Titillium Web",
-                      fontWeight: "normal",
-                    }}
-                  >
-                    {option.label}
-                  </label>
-                </li>
-              </FormGroup>
+              <li key={key} {...optionProps}>
+            <Checkbox suppressHydrationWarning
+              checked={selected}
+            />
+            <span style={{ fontFamily: "Titillium Web, sans-serif", fontWeight: "normal" }}>
+
+            {option.label}
+            </span>
+          </li>
             );
           }}
           renderInput={(params) => {
@@ -141,7 +137,6 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
             );
           }}
         />
-        <div></div>
       </FormGroup>
     </>
   );

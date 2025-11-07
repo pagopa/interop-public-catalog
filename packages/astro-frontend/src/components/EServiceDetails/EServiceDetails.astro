@@ -3,7 +3,7 @@ import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon.js";
 import AttributeSection from "./AttributesSection/AttributeSection.astro";
 import InformationContainer from "./InformationContainer.astro";
 import type { EService } from "pagopa-interop-public-models";
-import { TooltipIcon } from "../shared/TooltipIcon.js";
+import { PopoverIcon } from "../shared/PopoverIcon.js";
 import { useEServiceDetailsTranslations } from "../../i18n/eservice-details.i18n.js";
 import PageIndexNav from "../shared/PageIndexNav.astro";
 import {
@@ -72,7 +72,7 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
                     <h6 class="mb-0">
                       {t("api_details_section.api_state_label")}
                     </h6>
-                    <TooltipIcon
+                    <PopoverIcon
                       title={t("stateapi.tooltip.title")}
                       content={t("stateapi.tooltip.content")}
                       iconName="it-info-circle"

@@ -1,8 +1,7 @@
 import { Button } from "design-react-kit";
-import React, { useEffect } from "react";
+import React from "react";
 import { type FilterAutoCompleteValue } from "../MultipleAutoComplete/MultipleAutoComplete.js";
 import { FiltersChips } from "./FiltersChips.js";
-import { Popover } from "bootstrap-italia";
 import { FiltersMobile } from "./FiltersMobile.jsx";
 import Filters from "./Filters.jsx";
 import { useIsMobile } from "../../hooks/useIsMobile.jsx";
@@ -37,17 +36,6 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
   const t = useCatalogTranslations(currentLocale);
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const isMobile = useIsMobile();
-
-  useEffect(() => {
-    const popoverTriggerList = [].slice.call(
-      document.querySelectorAll('[data-bs-toggle="popover"]'),
-    );
-    popoverTriggerList.map(function (popoverTriggerEl) {
-      return new Popover(popoverTriggerEl, {
-        trigger: "click focus",
-      });
-    });
-  }, []);
 
   const onSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();

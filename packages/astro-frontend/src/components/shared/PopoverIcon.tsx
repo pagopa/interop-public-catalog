@@ -1,9 +1,11 @@
+import { useEffect, useRef } from "react";
 import {
   BootstrapItaliaIcon,
   type BootstrapItaliaIconProps,
 } from "./BootstrapItaliaIcon.js";
+import { initPopover } from "../../config/bootstrap-italia.js";
 
-interface TooltipIconProps {
+interface PopoverIconProps {
   title: string;
   content: string;
   iconName: BootstrapItaliaIconProps["name"];
@@ -12,15 +14,33 @@ interface TooltipIconProps {
   ariaLabel?: string;
 }
 
-export const TooltipIcon: React.FC<TooltipIconProps> = ({
+export const PopoverIcon: React.FC<PopoverIconProps> = ({
   title,
   content,
   iconName,
   iconColor,
   iconSize,
   ariaLabel,
-}) => (
+}) => {
+    const ref = useRef<HTMLButtonElement>(null);
+  
+    useEffect(() => {
+      let popover = null;
+      if (ref.current) {
+        popover = initPopover(ref.current);
+      }
+  
+      return () => {
+        if (popover) {
+          popover.dispose();
+        }
+      };
+    }, []);
+  
+  
+  return (
   <button
+    ref={ref}
     type="button"
     className="btn btn-link p-0 d-inline-flex align-items-center ms-2"
     data-bs-toggle="popover"
@@ -31,4 +51,4 @@ export const TooltipIcon: React.FC<TooltipIconProps> = ({
   >
     <BootstrapItaliaIcon name={iconName} color={iconColor} size={iconSize} />
   </button>
-);
+)};
