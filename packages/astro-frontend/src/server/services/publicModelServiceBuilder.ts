@@ -5,7 +5,7 @@ import { sql } from "drizzle-orm";
 import { CompactTenant, EService } from "pagopa-interop-public-models";
 import type { PgTransaction } from "drizzle-orm/pg-core";
 import { categoriesMap } from "../config/categories";
-import type { GetEServicesQuery, GetTenantsQuery } from "../models/api";
+import type { EServicesQuery, TenantsQuery } from "../models/api";
 import { eserviceOrderBy } from "../models/api";
 import { z } from "zod";
 
@@ -206,7 +206,7 @@ export async function getEService(
 export async function searchCatalog(
   db: ReturnType<typeof drizzle>,
   config: ServiceConfig,
-  query: GetEServicesQuery,
+  query: EServicesQuery,
 ): Promise<{ results: EService[]; totalCount: number }> {
   const { limit, offset, q, orderBy, producerIds, categories } = query;
 
@@ -376,7 +376,7 @@ export async function searchCatalog(
 export async function searchTenants(
   db: ReturnType<typeof drizzle>,
   config: ServiceConfig,
-  { limit, offset, q }: GetTenantsQuery,
+  { limit, offset, q }: TenantsQuery,
 ): Promise<{ results: CompactTenant[]; totalCount: number }> {
   const hasRelationshipsConditional = sql`
   WHERE EXISTS (

@@ -1,4 +1,4 @@
-import z from "zod";
+import { z } from "zod";
 import { TenantId } from "../brandedIds.js";
 
 export const tenantKind = {

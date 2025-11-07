@@ -37,6 +37,7 @@
     "dotenv-flow": "4.1.0",
     "drizzle-orm": "0.39.3",
     "mixpanel-browser": "2.71.0",
+    "nuqs": "2.7.2",
     "pagopa-interop-public-commons": "workspace:*",
     "pagopa-interop-public-models": "workspace:*",
     "pg": "8.16.3",
@@ -46,7 +47,7 @@
     "swr": "2.3.6",
     "ts-pattern": "5.2.0",
     "winston": "3.16.0",
-    "zod": "3.23.8"
+    "zod": "4.1.12"
   },
   "devDependencies": {
     "@storybook/react-vite": "^9.1.15",

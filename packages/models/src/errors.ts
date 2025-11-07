@@ -1,13 +1,10 @@
-import { constants } from "http2";
 import { match, P } from "ts-pattern";
 import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 
-const {
-  HTTP_STATUS_INTERNAL_SERVER_ERROR,
-  HTTP_STATUS_BAD_REQUEST,
-  HTTP_STATUS_NOT_FOUND,
-} = constants;
+const HTTP_STATUS_INTERNAL_SERVER_ERROR = 500;
+const HTTP_STATUS_BAD_REQUEST = 400;
+const HTTP_STATUS_NOT_FOUND = 404;
 
 export const emptyErrorMapper = (): number => HTTP_STATUS_INTERNAL_SERVER_ERROR;
 

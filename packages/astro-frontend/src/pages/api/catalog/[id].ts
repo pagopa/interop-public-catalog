@@ -10,7 +10,7 @@ import { makeApiProblem } from "../../../server/models/errors.js";
 
 export const GET: APIRoute = async ({ params, locals }) => {
   try {
-    const id = z.string().uuid().parse(params.id);
+    const id = z.uuid().parse(params.id);
     locals.logger.info(`Fetching eService by id: ${id}`);
 
     const rawData = await sqlService.getEService(id);

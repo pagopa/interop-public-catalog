@@ -1,7 +1,7 @@
 import mixpanel, { type Config } from "mixpanel-browser";
-import type { CatalogFilterParams } from "../components/EServiceCatalog/types";
 import { isDevEnvironment } from "../config/constants";
 import { z } from "zod";
+import type { EServiceCatalogSearchParams } from "../hooks/useEServiceCatalogSearchParams";
 
 const MIXPANEL_CONFIG: Partial<Config> = {
   api_host: "https://api-eu.mixpanel.com",
@@ -198,7 +198,7 @@ export function bindTrackingHomepageCatalogFilterApplyEvent(
  * The event should be triggered when the user applies filters in the e-service catalog page.
  */
 export function trackCatalogFiltersApplyEvent(
-  eserviceFiltersState: CatalogFilterParams,
+  eserviceFiltersState: EServiceCatalogSearchParams,
 ) {
   const payload = {
     q: eserviceFiltersState.q,
@@ -328,7 +328,7 @@ function bindTrackingGoodPracticeCardClickEvent() {
         `Invalid or missing Mixpanel good practice card data attribute on card element.`,
         {
           card: c,
-          errors: metadataResult.error.errors,
+          errors: metadataResult.error,
         },
       );
       return;

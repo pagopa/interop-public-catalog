@@ -27,7 +27,7 @@
     "pagopa-interop-public-models": "workspace:*",
     "pg": "8.16.3",
     "ts-pattern": "5.2.0",
-    "zod": "3.23.8",
+    "zod": "4.1.12",
     "zod-validation-error": "3.3.0"
   },
   "devDependencies": {

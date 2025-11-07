@@ -7,21 +7,17 @@ import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n";
 import { links } from "../../config/constants";
 import { EServiceCardSkeleton } from "../shared/EServiceCard";
-import type { SupportedLanguage } from "../../i18n/types.i18n";
 import { apiService } from "../../services/api.services";
 import useSWRImmutable from "swr/immutable";
 import type { categoriesMap } from "../../server/config/categories";
 import type { RouteKey } from "../../config/routes";
 
-export const EServiceCatalog: React.FC<{
-  currentLocale: SupportedLanguage;
-}> = ({ currentLocale }) => {
+export const EServiceCatalog: React.FC = () => {
+  const { eserviceActiveFilterState, applyFilters, currentLocale } =
+    useEServiceCatalogContext();
   const t = useCatalogTranslations(currentLocale);
 
-  const { eserviceActiveFilterState, applyFilters } =
-    useEServiceCatalogContext();
-
-  const onFiltersApply = async () => {
+  const onFiltersApply = () => {
     applyFilters();
   };
 
@@ -50,10 +46,7 @@ export const EServiceCatalog: React.FC<{
   return (
     <>
       <Container className="p-3">
-        <EServiceCatalogFilters
-          currentLocale={currentLocale}
-          handleSubmitRequest={onFiltersApply}
-        />
+        <EServiceCatalogFilters handleSubmitRequest={onFiltersApply} />
       </Container>
 
       {!isLoading ? (
