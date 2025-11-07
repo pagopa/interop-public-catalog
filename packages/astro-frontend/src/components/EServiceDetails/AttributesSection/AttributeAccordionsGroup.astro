@@ -2,7 +2,7 @@
 import type { EServiceAttributes } from "pagopa-interop-public-models";
 import { useEServiceDetailsTranslations } from "../../../i18n/eservice-details.i18n.js";
 import { getLangFromUrl } from "../../../i18n/utils.i18n";
-import { TooltipIcon } from "../../shared/TooltipIcon.js";
+import { PopoverIcon } from "../../shared/PopoverIcon.js";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const t = useEServiceDetailsTranslations(currentLocale);
@@ -56,7 +56,7 @@ const tooltip = getTooltip(attributeType);
 <div class="p-3 rounded-3 bg-primary-c0">
   <h6 class="me-2">
     {getTitle(attributeType)}
-    <TooltipIcon
+    <PopoverIcon
       title={tooltip.title}
       content={tooltip.content}
       iconName="it-info-circle"

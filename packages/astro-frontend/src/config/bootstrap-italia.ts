@@ -16,10 +16,13 @@ export const initPopover = (
   overrides?: ConstructorParameters<typeof Popover>[1],
 ) => {
   try {
-    return new Popover(el, {
-      trigger: "focus",
-      ...overrides,
-    });
+    return (
+      Popover.getInstance(el) ||
+      new Popover(el, {
+        trigger: "focus",
+        ...overrides,
+      })
+    );
   } catch (error) {
     console.warn("Failed to initialize popover:", error);
     return null;
@@ -31,9 +34,12 @@ export const initTooltip = (
   overrides?: ConstructorParameters<typeof Tooltip>[1],
 ) => {
   try {
-    return new Tooltip(el, {
-      ...overrides,
-    });
+    return (
+      Tooltip.getInstance(el) ||
+      new Tooltip(el, {
+        ...overrides,
+      })
+    );
   } catch (error) {
     console.warn("Failed to initialize tooltip:", error);
     return null;
@@ -42,7 +48,7 @@ export const initTooltip = (
 
 export const initDropdown = (el: HTMLElement) => {
   try {
-    return new Dropdown(el);
+    return Dropdown.getInstance(el) || new Dropdown(el);
   } catch (error) {
     console.warn("Failed to initialize dropdown:", error);
     return null;
@@ -51,7 +57,7 @@ export const initDropdown = (el: HTMLElement) => {
 
 export const initAccordion = (el: HTMLElement) => {
   try {
-    return new Collapse(el);
+    return Collapse.getInstance(el) || new Collapse(el);
   } catch (error) {
     console.warn("Failed to initialize accordion:", error);
     return null;

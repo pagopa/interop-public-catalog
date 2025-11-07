@@ -46,6 +46,7 @@ body {
 
 .no-hover:hover {
   background-color: transparent !important;
+  color: var(--bs-primary) !important;
 }
 
 .image-xxl {

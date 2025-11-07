@@ -12,7 +12,7 @@ import {
   type FilterAutoCompleteValue,
   MultipleAutoComplete,
 } from "../MultipleAutoComplete/MultipleAutoComplete.js";
-import { TooltipIcon } from "../shared/TooltipIcon.js";
+import { PopoverIcon } from "../shared/PopoverIcon.js";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
 import { useEServiceCatalogContext } from "./EServiceCatalogContext.jsx";
 import { useAutocompleteTextInput } from "../../hooks/useAutoCompleteTextInput.jsx";
@@ -124,6 +124,7 @@ const Filters: React.FC<FiltersProps> = ({
           style={{ maxHeight: FILTER_ROW_HEIGHT }}
         >
           <MultipleAutoComplete
+            id="provider-autocomplete"
             label={t("filters.provider.label")}
             options={producerList}
             values={
@@ -153,6 +154,7 @@ const Filters: React.FC<FiltersProps> = ({
         <Col lg="3" xs="12" className="pe-1">
           <FormGroup>
             <MultipleAutoComplete
+              id="consumer-autocomplete"
               label={t("filters.consumer.label")}
               options={TENANT_MACROCATEGORIES_OPTIONS}
               values={
@@ -166,16 +168,13 @@ const Filters: React.FC<FiltersProps> = ({
                       handleActiveFilterValueChange("consumer", values)
               }
               tooltipIconRender={
-                <div>
-                  {" "}
-                  <TooltipIcon
-                    title={t("filter.popover.consumer.title")}
-                    content={t("filter.popover.consumer.content")}
-                    iconName="it-info-circle"
-                    iconColor="primary"
-                    iconSize="sm"
-                  />
-                </div>
+                <PopoverIcon
+                  title={t("filter.popover.consumer.title")}
+                  content={t("filter.popover.consumer.content")}
+                  iconName="it-info-circle"
+                  iconColor="primary"
+                  iconSize="sm"
+                />
               }
               currentLocale={currentLocale}
             />

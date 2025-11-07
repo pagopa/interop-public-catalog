@@ -1,6 +1,6 @@
 ---
 import type { BootstrapItaliaIconProps } from "../shared/BootstrapItaliaIcon.js";
-import { TooltipIcon } from "../shared/TooltipIcon.js";
+import { PopoverIcon } from "../shared/PopoverIcon.js";
 
 interface Props {
   label: string;
@@ -23,7 +23,7 @@ const { label, content, icon } = Astro.props;
     </span>
     {
       icon && (
-        <TooltipIcon
+        <PopoverIcon
           title={icon.tooltipTitle}
           content={icon.tooltipContent}
           iconName={icon.iconName}

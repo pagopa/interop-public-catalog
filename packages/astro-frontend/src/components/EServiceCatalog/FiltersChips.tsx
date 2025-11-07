@@ -1,4 +1,4 @@
-import { Button, Chip as DRKChip, ChipLabel, Icon } from "design-react-kit";
+import { Button, Icon } from "design-react-kit";
 import type { FilterAutoCompleteValue } from "../MultipleAutoComplete/MultipleAutoComplete.js";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
 import type { SupportedLanguage } from "../../i18n/types.i18n.js";
@@ -20,16 +20,15 @@ const Chip: React.FC<{
   handleRemoveValue?: () => void;
 }> = ({ label, handleRemoveValue }) => {
   return (
-    <DRKChip id="filter-chip" color="primary" className="no-hover me-1 mb-1">
-      <ChipLabel className="no-hover text-primary chip-label">
-        {label}
-      </ChipLabel>
-      <Button onClick={handleRemoveValue}>
-        <Icon icon="it-close" color="primary" />
-      </Button>
-    </DRKChip>
+    <div className="chip chip-primary me-1 mb-1">
+      <span className="chip-label">{label}</span>
+      <button className="text-primary" onClick={handleRemoveValue}>
+        <Icon fill="currentColor" icon="it-close" />
+      </button>
+    </div>
   );
 };
+
 export const FiltersChips: React.FC<FiltersChipsProps> = ({
   filters,
   handleRemoveValue,
