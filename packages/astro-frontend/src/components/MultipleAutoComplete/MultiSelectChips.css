@@ -8,7 +8,7 @@
   font-weight: 600;
 }
 
-#rights-holders-input[type='text'] {
+#rights-holders-input[type="text"] {
   font-weight: 700;
 }
 
@@ -22,7 +22,7 @@
   font-weight: 600;
 }
 
-#rights-holders-input-mobile[type='text'] {
+#rights-holders-input-mobile[type="text"] {
   font-weight: 700;
 }
 
@@ -60,11 +60,11 @@
   }
 }
 
-.dropdown-menu.show[data-popper-placement='top-start'] {
+.dropdown-menu.show[data-popper-placement="top-start"] {
   animation: dropdownFadeInTop forwards 0.3s;
 }
 
-.dropdown-menu.show[data-popper-placement='bottom-start'] {
+.dropdown-menu.show[data-popper-placement="bottom-start"] {
   animation: dropdownFadeIn forwards 0.3s;
 }
 
@@ -79,15 +79,14 @@
 }
 
 #filter-chip .chip-label {
-  height:100%
+  height: 100%;
 }
 
-@media (max-width:767px) {
-
+@media (max-width: 767px) {
   #filter-chip {
-    height:100%;
+    height: 100%;
   }
   #filter-chip .chip-label {
-  height:100%
-}
+    height: 100%;
+  }
 }

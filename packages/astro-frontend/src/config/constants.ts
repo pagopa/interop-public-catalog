@@ -1,29 +1,31 @@
-import type { RouteKey } from './routes.js'
+import type { RouteKey } from "./routes.js";
 
 // This check sucks, we should have this info from env vars
 export const isDevEnvironment = (href: string) =>
-  import.meta.env.DEV || href.includes('.dev.interop')
+  import.meta.env.DEV || href.includes(".dev.interop");
 
 export const links = {
-  dtdLink: 'http://innovazione.gov.it/',
-  pagoPaLink: 'https://www.pagopa.it/it/',
-  selfcareLink: 'https://selfcare.pagopa.it',
-  schemaSemanticLink: 'https://schema.gov.it/',
-  openDataLink: 'https://www.dati.gov.it/',
-  interopPlatformLink: 'https://www.interop.pagopa.it/',
+  dtdLink: "http://innovazione.gov.it/",
+  pagoPaLink: "https://www.pagopa.it/it/",
+  selfcareLink: "https://selfcare.pagopa.it",
+  schemaSemanticLink: "https://schema.gov.it/",
+  openDataLink: "https://www.dati.gov.it/",
+  interopPlatformLink: "https://www.interop.pagopa.it/",
   interopManualLink:
-    'https://developer.pagopa.it/pdnd-interoperabilita/guides/manuale-operativo-pdnd-interoperabilita',
-  interopNumbersLink: 'https://www.interop.pagopa.it/numeri',
-  interopDevelopersLink: 'https://developers.italia.it/it/interoperabilita',
-  ueCommissionLink: 'https://commission.europa.eu/index_it',
-  dtdLogoLink: 'https://innovazione.gov.it/dipartimento/',
+    "https://developer.pagopa.it/pdnd-interoperabilita/guides/manuale-operativo-pdnd-interoperabilita",
+  interopNumbersLink: "https://www.interop.pagopa.it/numeri",
+  interopDevelopersLink: "https://developers.italia.it/it/interoperabilita",
+  ueCommissionLink: "https://commission.europa.eu/index_it",
+  dtdLogoLink: "https://innovazione.gov.it/dipartimento/",
   membersListLink:
-    'https://www.dati.gov.it/view-dataset/dataset?id=b6e909a0-53cd-417d-a37f-04c11fed8939',
+    "https://www.dati.gov.it/view-dataset/dataset?id=b6e909a0-53cd-417d-a37f-04c11fed8939",
   apiListLink:
-    'https://www.dati.gov.it/view-dataset/dataset?id=0dfbeb46-736d-4af3-841c-9593d8f6c434',
+    "https://www.dati.gov.it/view-dataset/dataset?id=0dfbeb46-736d-4af3-841c-9593d8f6c434",
   euInteroperabilityFrameworkLink:
-    'https://interoperable-europe.ec.europa.eu/collection/iopeu-monitoring/european-interoperability-framework-detail',
-} as const
+    "https://interoperable-europe.ec.europa.eu/collection/iopeu-monitoring/european-interoperability-framework-detail",
+  accessibilityStatementLink:
+    "https://form.agid.gov.it/view/c8912450-b5a2-11f0-81d4-97119d1a7eb7",
+} as const;
 
 /**
  * Navigation items for the footer and header components.
@@ -31,46 +33,46 @@ export const links = {
  */
 export const CATALOG_API_SECTION_NAV_ITEMS = [
   {
-    i18nKey: 'nav.explore_catalog',
-    routeKey: 'ESERVICE_CATALOG',
+    i18nKey: "nav.explore_catalog",
+    routeKey: "ESERVICE_CATALOG",
   },
   {
-    i18nKey: 'nav.examples',
-    routeKey: 'GOOD_PRACTICES_CATALOG',
+    i18nKey: "nav.examples",
+    routeKey: "GOOD_PRACTICES_CATALOG",
   },
-] as const satisfies Array<{ i18nKey: string; routeKey: RouteKey }>
+] as const satisfies Array<{ i18nKey: string; routeKey: RouteKey }>;
 
 export const RESOURCES_SECTION_NAV_ITEMS = [
   {
-    i18nKey: 'nav.what_is',
-    routeKey: 'ECOSYSTEM',
+    i18nKey: "nav.what_is",
+    routeKey: "ECOSYSTEM",
   },
   {
-    i18nKey: 'nav.faq',
-    routeKey: 'FAQ',
+    i18nKey: "nav.faq",
+    routeKey: "FAQ",
   },
-] as const satisfies Array<{ i18nKey: string; routeKey: RouteKey }>
+] as const satisfies Array<{ i18nKey: string; routeKey: RouteKey }>;
 
 export const TENANT_MACROCATEGORIES = [
   {
-    key: 'tutti',
+    key: "tutti",
     id: null,
-    imgSrc: '/img/027-pillars.svg',
+    imgSrc: "/img/027-pillars.svg",
   },
   {
-    key: 'pac',
+    key: "pac",
     id: 1,
-    imgSrc: '/img/030-city.svg',
+    imgSrc: "/img/030-city.svg",
   },
   {
-    key: 'comuni',
+    key: "comuni",
     id: 2,
-    imgSrc: '/img/bank-1.svg',
+    imgSrc: "/img/bank-1.svg",
   },
   {
-    key: 'regioni',
+    key: "regioni",
     id: 3,
-    imgSrc: '/img/066-hospital.svg',
+    imgSrc: "/img/066-hospital.svg",
   },
   // {
   //   key: 'universita',
@@ -78,10 +80,10 @@ export const TENANT_MACROCATEGORIES = [
   //   imgSrc: '/img/library-1.svg',
   // },
   {
-    key: 'altre',
+    key: "altre",
     id: 5,
-    imgSrc: '/img/073-shopping-mall.svg',
+    imgSrc: "/img/073-shopping-mall.svg",
   },
-] as const
+] as const;
 
-export type OrganizationType = (typeof TENANT_MACROCATEGORIES)[number]['key']
+export type OrganizationType = (typeof TENANT_MACROCATEGORIES)[number]["key"];

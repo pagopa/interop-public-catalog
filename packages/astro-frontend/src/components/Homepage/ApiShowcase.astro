@@ -1,25 +1,25 @@
 ---
-import { EService } from '../../../../models/src/types/eservice'
-import { useHomepageTranslations } from '../../i18n/homepage.i18n'
-import { getLangFromUrl, getLocalizedRoute } from '../../i18n/utils.i18n'
-import { EServiceCard } from '../shared/EServiceCard'
-import { Section } from '../shared/Section'
+import type { EService } from "pagopa-interop-public-models";
+import { useHomepageTranslations } from "../../i18n/homepage.i18n";
+import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
+import { EServiceCard } from "../shared/EServiceCard";
+import { Section } from "../shared/Section";
 
 interface Props {
-  highlightedEServices: EService[]
+  highlightedEServices: EService[];
 }
 
-const { highlightedEServices } = Astro.props
+const { highlightedEServices } = Astro.props;
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const t = useHomepageTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useHomepageTranslations(currentLocale);
 ---
 
 <Section
-  title={t('featured_api.title')}
+  title={t("featured_api.title")}
   sectionLink={{
-    text: t('featured_api.explore_catalog'),
-    href: getLocalizedRoute(currentLocale, 'ESERVICE_CATALOG'),
+    text: t("featured_api.explore_catalog"),
+    href: getLocalizedRoute(currentLocale, "ESERVICE_CATALOG"),
   }}
 >
   <div class="px-0">

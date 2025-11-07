@@ -1,19 +1,19 @@
 ---
-import ErrorDisplayer from '../components/shared/ErrorDisplayer.astro'
-import Layout from '../layouts/Layout.astro'
-import { getLangFromUrl } from '../i18n/utils.i18n'
-import { useUiTranslations } from '../i18n/ui.i18n'
+import ErrorDisplayer from "../components/shared/ErrorDisplayer.astro";
+import Layout from "../layouts/Layout.astro";
+import { getLangFromUrl } from "../i18n/utils.i18n";
+import { useUiTranslations } from "../i18n/ui.i18n";
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const tUi = useUiTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tUi = useUiTranslations(currentLocale);
 ---
 
 <Layout>
   <ErrorDisplayer
     error={{
-      iconSrc: '/img/016-plug.svg',
-      title: tUi('error.system_unavailable.title'),
-      message: tUi('error.system_unavailable.message'),
+      iconSrc: "/img/016-plug.svg",
+      title: tUi("error.system_unavailable.title"),
+      message: tUi("error.system_unavailable.message"),
     }}
   />
 </Layout>

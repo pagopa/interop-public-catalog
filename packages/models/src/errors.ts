@@ -1,14 +1,10 @@
-/* eslint-disable max-classes-per-file */
-import { constants } from "http2";
 import { match, P } from "ts-pattern";
 import { ZodError } from "zod";
 import { fromZodError } from "zod-validation-error";
 
-const {
-  HTTP_STATUS_INTERNAL_SERVER_ERROR,
-  HTTP_STATUS_BAD_REQUEST,
-  HTTP_STATUS_NOT_FOUND,
-} = constants;
+const HTTP_STATUS_INTERNAL_SERVER_ERROR = 500;
+const HTTP_STATUS_BAD_REQUEST = 400;
+const HTTP_STATUS_NOT_FOUND = 404;
 
 export const emptyErrorMapper = (): number => HTTP_STATUS_INTERNAL_SERVER_ERROR;
 
@@ -82,12 +78,12 @@ type MakeApiProblemFn<T extends string> = (
     };
     correlationId: string;
   },
-  operationalLogMessage?: string
+  operationalLogMessage?: string,
 ) => Problem;
 
 const makeProblemLogString = (
   problem: Problem,
-  originalError: unknown
+  originalError: unknown,
 ): string => {
   const errorsString = problem.errors.map((e) => e.detail).join(" - ");
   return `- title: ${problem.title} - detail: ${problem.detail} - errors: ${errorsString} - original error: ${originalError}`;
@@ -102,11 +98,11 @@ export function makeApiProblemBuilder<T extends string>(errors: {
     error,
     httpMapper,
     { logger, correlationId },
-    operationalLogMessage
+    operationalLogMessage,
   ) => {
     const makeProblem = (
       httpStatus: number,
-      { title, detail, errors }: ApiError<T | CommonErrorCodes>
+      { title, detail, errors }: ApiError<T | CommonErrorCodes>,
     ): Problem => ({
       type: "about:blank",
       title,
@@ -121,7 +117,7 @@ export function makeApiProblemBuilder<T extends string>(errors: {
 
     const genericProblem = makeProblem(
       HTTP_STATUS_INTERNAL_SERVER_ERROR,
-      genericError("Unexpected error")
+      genericError("Unexpected error"),
     );
 
     if (operationalLogMessage) {
@@ -176,7 +172,7 @@ const defaultCommonErrorMapper = (code: CommonErrorCodes): number =>
 
 export function badRequestError(
   detail: string,
-  errors?: Error[]
+  errors?: Error[],
 ): ApiError<CommonErrorCodes> {
   return new ApiError({
     detail,

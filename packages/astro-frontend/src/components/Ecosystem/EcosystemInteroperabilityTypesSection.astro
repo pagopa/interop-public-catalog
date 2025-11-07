@@ -1,44 +1,53 @@
 ---
-import { links } from '../../config/constants'
-import { useEcosystemTranslations } from '../../i18n/ecosystem.i18n'
-import { getLangFromUrl } from '../../i18n/utils.i18n'
-import { Section } from '../shared/Section'
+import { links } from "../../config/constants";
+import { useEcosystemTranslations } from "../../i18n/ecosystem.i18n";
+import {
+  getLangFromUrl,
+  getRouteKeyFromCurrentRoutePattern,
+} from "../../i18n/utils.i18n";
+import { Section } from "../shared/Section";
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const t = useEcosystemTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useEcosystemTranslations(currentLocale);
 
 const INTEROPERABILITY_TYPES = [
   {
-    label: t('interoperabily_types.type_1.label'),
-    description: t('interoperabily_types.type_1.description'),
-    srcImg: '/img/060-data-cable.svg',
+    label: t("interoperabily_types.type_1.label"),
+    description: t("interoperabily_types.type_1.description"),
+    srcImg: "/img/060-data-cable.svg",
   },
   {
-    label: t('interoperabily_types.type_3.label'),
-    description: t('interoperabily_types.type_3.description'),
-    srcImg: '/img/075-chatting.svg',
+    label: t("interoperabily_types.type_3.label"),
+    description: t("interoperabily_types.type_3.description"),
+    srcImg: "/img/075-chatting.svg",
   },
   {
-    label: t('interoperabily_types.type_2.label'),
-    description: t('interoperabily_types.type_2.description'),
-    srcImg: '/img/072-business-report.svg',
+    label: t("interoperabily_types.type_2.label"),
+    description: t("interoperabily_types.type_2.description"),
+    srcImg: "/img/072-business-report.svg",
   },
   {
-    label: t('interoperabily_types.type_4.label'),
-    description: t('interoperabily_types.type_4.description'),
-    srcImg: '/img/044-pen-and-paper.svg',
+    label: t("interoperabily_types.type_4.label"),
+    description: t("interoperabily_types.type_4.description"),
+    srcImg: "/img/044-pen-and-paper.svg",
   },
-]
+];
+
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 ---
 
-<Section title={t('interoperabily_types.title')}>
+<Section title={t("interoperabily_types.title")}>
   <div class="row">
     <div class="col-12 col-lg-8">
       <p class="mb-5">
-        <a href={links.euInteroperabilityFrameworkLink} target="_blank"
-          >{t('interoperabily_types.subtitle_link')}</a
+        <a
+          data-mp-external-link-id={`${routeKey}_interoperabilityTypesSection`}
+          data-mp-external-link-description="TODO"
+          href={links.euInteroperabilityFrameworkLink}
+          target="_blank"
+          rel="noreferrer">{t("interoperabily_types.subtitle_link")}</a
         >
-        {t('interoperabily_types.subtitle')}
+        {t("interoperabily_types.subtitle")}
       </p>
     </div>
   </div>
@@ -60,7 +69,10 @@ const INTEROPERABILITY_TYPES = [
             </div>
             <div>
               <h3 class="h5">{type.label}</h3>
-              <p style="font-size:1rem;line-height:24px;" class="text-secondary">
+              <p
+                style="font-size:1rem;line-height:24px;"
+                class="text-secondary"
+              >
                 {type.description}
               </p>
             </div>

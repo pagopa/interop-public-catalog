@@ -1,14 +1,14 @@
-import mixpanel, { type Config } from 'mixpanel-browser'
-import type { CatalogFilterParams } from '../components/EServiceCatalog/types'
-import { isDevEnvironment } from '../config/constants'
-import { z } from 'zod'
+import mixpanel, { type Config } from "mixpanel-browser";
+import { isDevEnvironment } from "../config/constants";
+import { z } from "zod";
+import type { EServiceCatalogSearchParams } from "../hooks/useEServiceCatalogSearchParams";
 
 const MIXPANEL_CONFIG: Partial<Config> = {
-  api_host: 'https://api-eu.mixpanel.com',
-  persistence: 'localStorage',
+  api_host: "https://api-eu.mixpanel.com",
+  persistence: "localStorage",
   debug: false,
   autocapture: {
-    pageview: 'full-url',
+    pageview: "full-url",
     rage_click: false,
     submit: false,
     input: false,
@@ -17,248 +17,249 @@ const MIXPANEL_CONFIG: Partial<Config> = {
     click: false,
   },
   ip: false,
-  property_blacklist: ['$current_url', '$initial_referrer', '$referrer'],
-}
+  property_blacklist: ["$current_url", "$initial_referrer", "$referrer"],
+};
 
 type MixpanelTrackingData =
   | {
-      key: 'INTEROP_FAQ_OPEN'
+      key: "INTEROP_FAQ_OPEN";
       payload: {
-        faqId: string
-        faqTitle: string
-      }
+        faqId: string;
+        faqTitle: string;
+      };
     }
   | {
-      key: 'INTEROP_TOOLTIP_OPEN'
+      key: "INTEROP_TOOLTIP_OPEN";
       payload: {
-        tooltipId: string
-        tooltipType: 'info'
-      }
+        tooltipId: string;
+        tooltipType: "info";
+      };
     }
   | {
-      key: 'INTEROP_EXTERNAL_LINK_VISIT'
+      key: "INTEROP_EXTERNAL_LINK_VISIT";
       payload: {
-        linkId: string
-        linkDescription: string
-        href: string
-      }
+        linkId: string;
+        linkDescription: string;
+        href: string;
+      };
     }
   | {
-      key: 'INTEROP_CATALOG_FILTERS_APPLY'
+      key: "INTEROP_CATALOG_FILTERS_APPLY";
       payload: {
-        q: string
-        producersId: string
-        producersName: string
-        tenantMacrocategoriesId: string
-        tenantMacrocategoriesName: string
-      }
+        q: string;
+        producersId: string;
+        producersName: string;
+        tenantMacrocategoriesId: string;
+        tenantMacrocategoriesName: string;
+      };
     }
   | {
-      key: 'INTEROP_HOMEPAGE_CATALOG_FILTER_APPLY'
+      key: "INTEROP_HOMEPAGE_CATALOG_FILTER_APPLY";
       payload: {
-        q: string
-      }
+        q: string;
+      };
     }
   | {
-      key: 'INTEROP_HOMEPAGE_GOOD_PRACTICE_CARD_CLICK'
+      key: "INTEROP_HOMEPAGE_GOOD_PRACTICE_CARD_CLICK";
       payload: {
-        goodPracticeId: number
-        goodPracticeCategory: string
-        goodPracticeTitle: string
-      }
+        goodPracticeId: number;
+        goodPracticeCategory: string;
+        goodPracticeTitle: string;
+      };
     }
   | {
-      key: 'INTEROP_HOMEPAGE_GOOD_PRACTICE_REFERRAL'
+      key: "INTEROP_HOMEPAGE_GOOD_PRACTICE_REFERRAL";
       payload: {
-        referral: 'header' | 'how-it-works' | 'best-practice-section' | 'footer'
-        goodPracticeCategory?: string
-      }
-    }
+        referral:
+          | "header"
+          | "how-it-works"
+          | "best-practice-section"
+          | "footer";
+        goodPracticeTenantMacrocategoryId?: string;
+      };
+    };
 
 const createLogMessage = (message: string) => {
-  return `[Mixpanel] ${message}`
-}
+  return `[Mixpanel] ${message}`;
+};
 
 const shouldLog = () => {
-  return typeof window !== 'undefined' && isDevEnvironment(window.location.href)
-}
+  return (
+    typeof window !== "undefined" && isDevEnvironment(window.location.href)
+  );
+};
 
 const mixpanelLogger = {
   warn: (message: string, data?: unknown) => {
-    if (shouldLog()) console.warn(createLogMessage(message), data)
+    if (shouldLog()) console.warn(createLogMessage(message), data);
   },
   info: (message: string, data?: unknown) => {
-    if (shouldLog()) console.info(createLogMessage(message), data)
+    if (shouldLog()) console.info(createLogMessage(message), data);
   },
   error: (message: string, data?: unknown) => {
-    if (shouldLog()) console.error(createLogMessage(message), data)
+    if (shouldLog()) console.error(createLogMessage(message), data);
   },
-}
+};
 
-let didMixpanelInit = false
+let didMixpanelInit = false;
 function init({ projectId }: { projectId: string }) {
   if (didMixpanelInit) {
-    mixpanelLogger.warn('Initialization function called more than once. Ignoring subsequent calls.')
-    return
+    mixpanelLogger.warn(
+      "Initialization function called more than once. Ignoring subsequent calls.",
+    );
+    return;
   }
-  if (typeof window === 'undefined') {
-    mixpanelLogger.warn('Mixpanel initialization attempted during SSR. Initialization skipped.')
-    return
+  if (typeof window === "undefined") {
+    mixpanelLogger.warn(
+      "Mixpanel initialization attempted during SSR. Initialization skipped.",
+    );
+    return;
   }
 
   if (!import.meta.env.DEV) {
-    mixpanel.init(projectId, MIXPANEL_CONFIG)
+    mixpanel.init(projectId, MIXPANEL_CONFIG);
   }
 
-  mixpanelLogger.info('Mixpanel initialized successfully.')
-  didMixpanelInit = true
+  mixpanelLogger.info("Mixpanel initialized successfully.");
+  didMixpanelInit = true;
 }
 
-function track<Key extends MixpanelTrackingData['key']>(
+function track<Key extends MixpanelTrackingData["key"]>(
   event: Key,
-  payload: Extract<MixpanelTrackingData, { key: Key }>['payload'],
+  payload: Extract<MixpanelTrackingData, { key: Key }>["payload"],
   options?: Parameters<typeof mixpanel.track>[2],
-  callback?: Parameters<typeof mixpanel.track>[3]
+  callback?: Parameters<typeof mixpanel.track>[3],
 ) {
-  if (typeof window === 'undefined') {
-    mixpanelLogger.warn('Tracking attempted during SSR. Tracking skipped.', { event, payload })
-    return
+  if (typeof window === "undefined") {
+    mixpanelLogger.warn("Tracking attempted during SSR. Tracking skipped.", {
+      event,
+      payload,
+    });
+    return;
   }
 
   if (!didMixpanelInit) {
-    mixpanelLogger.warn('Tracking attempted before Mixpanel initialization. Tracking skipped.', {
-      event,
-      payload,
-    })
-    return
+    mixpanelLogger.warn(
+      "Tracking attempted before Mixpanel initialization. Tracking skipped.",
+      {
+        event,
+        payload,
+      },
+    );
+    return;
   }
 
   if (!import.meta.env.DEV) {
-    mixpanel.track(event, payload, options, callback)
+    mixpanel.track(event, payload, options, callback);
   }
 
-  mixpanelLogger.info(`Tracked ${event} event`, { payload })
+  mixpanelLogger.info(`Tracked ${event} event`, { payload });
 }
 
 /**
  * Binds the INTEROP_HOMEPAGE_CATALOG_FILTER_APPLY event tracking to the hero search form submission.
  * The event should be triggered when the user submits the search form located in the hero homepage.
  */
-export function bindTrackingHomepageCatalogFilterApplyEvent(heroFormId: string) {
+export function bindTrackingHomepageCatalogFilterApplyEvent(
+  heroFormId: string,
+) {
   const EVENT =
-    'INTEROP_HOMEPAGE_CATALOG_FILTER_APPLY' as const satisfies MixpanelTrackingData['key']
-  const form = document.getElementById(heroFormId)
+    "INTEROP_HOMEPAGE_CATALOG_FILTER_APPLY" as const satisfies MixpanelTrackingData["key"];
+  const form = document.getElementById(heroFormId);
 
   if (!form) {
     mixpanelLogger.error(`Form with id "${heroFormId}" not found.`, {
       event: EVENT,
-    })
-    return
+    });
+    return;
   }
 
-  let alreadySent = false
-
-  form.addEventListener('submit', (event) => {
+  form.addEventListener("submit", (event) => {
     if (!event.target || !(event.target instanceof HTMLFormElement)) {
-      mixpanelLogger.error('Event target not found on form submit.', {
+      mixpanelLogger.error("Event target not found on form submit.", {
         event: EVENT,
-      })
-      return
+      });
+      return;
     }
 
-    if (alreadySent) {
-      mixpanelLogger.warn(
-        'Event already sent for this form submit. Ignoring subsequent submissions.',
-        {
-          event: EVENT,
-        }
-      )
-      return
-    }
+    const formData = new FormData(event.target);
+    const query = formData.get("q")?.toString().trim();
 
-    alreadySent = true
-
-    const formData = new FormData(event.target)
-    const query = formData.get('q')?.toString().trim()
-
-    const payload = { q: query || '' }
+    const payload = { q: query || "" };
 
     track(EVENT, payload, {
-      transport: 'sendBeacon',
-    })
-  })
+      transport: "sendBeacon",
+    });
+  });
 }
 
 /**
  * Tracks the INTEROP_CATALOG_FILTERS_APPLY event with Mixpanel.
  * The event should be triggered when the user applies filters in the e-service catalog page.
  */
-export function trackCatalogFiltersApplyEvent(eserviceFiltersState: CatalogFilterParams) {
+export function trackCatalogFiltersApplyEvent(
+  eserviceFiltersState: EServiceCatalogSearchParams,
+) {
   const payload = {
     q: eserviceFiltersState.q,
-    producersId: eserviceFiltersState.provider.map((p) => p.value).join(','),
-    producersName: eserviceFiltersState.provider.map((p) => p.label).join(','),
-    tenantMacrocategoriesId: eserviceFiltersState.consumer.map((c) => c.value).join(','),
-    tenantMacrocategoriesName: eserviceFiltersState.consumer.map((c) => c.label).join(','),
-  }
+    producersId: eserviceFiltersState.provider.map((p) => p.value).join(","),
+    producersName: eserviceFiltersState.provider.map((p) => p.label).join(","),
+    tenantMacrocategoriesId: eserviceFiltersState.consumer
+      .map((c) => c.value)
+      .join(","),
+    tenantMacrocategoriesName: eserviceFiltersState.consumer
+      .map((c) => c.label)
+      .join(","),
+  };
 
-  track('INTEROP_CATALOG_FILTERS_APPLY', payload)
+  track("INTEROP_CATALOG_FILTERS_APPLY", payload);
 }
 
 /**
  * Binds the INTEROP_FAQ_OPEN event tracking to the FAQ section.
- * The event should be triggered when the user opens a FAQ item.
+ * The event should be triggered when the user expands a FAQ accordion.
  *
- * The FAQ section should have the attribute `data-mp-faq-section` to identify it.
- * Each FAQ item should have the following attributes:
- * - data-mp-faqId: the unique identifier of the FAQ item
- * - data-mp-faqTitle: the title of the FAQ item
+ * Each FAQ accordion item should have the following attributes:
+ * - data-mp-faq-id: the unique identifier of the FAQ item
+ * - data-mp-faq-title: the title of the FAQ item
  */
 function bindTrackingFaqOpenEvent() {
-  const MP_DATA_SECTION_ATTR = 'data-mp-faq-section'
-  const MP_DATA_FAQ_ID_ATTR = 'data-mp-faqId'
-  const MP_DATA_FAQ_TITLE_ATTR = 'data-mp-faqTitle'
-  const EVENT = 'INTEROP_FAQ_OPEN' as const satisfies MixpanelTrackingData['key']
+  const MP_DATA_FAQ_ID_ATTR = "data-mp-faq-id";
+  const MP_DATA_FAQ_TITLE_ATTR = "data-mp-faq-title";
+  const EVENT =
+    "INTEROP_FAQ_OPEN" as const satisfies MixpanelTrackingData["key"];
 
-  function initializeFaqSectionTracking(section: HTMLElement) {
-    mixpanelLogger.info(`Binding ${EVENT} event tracking to FAQ section.`, {
-      section,
-    })
+  document.addEventListener("shown.bs.collapse", (e) => {
+    const target = e.target;
 
-    section.addEventListener('shown.bs.collapse', (e) => {
-      const target = e.target
+    if (!(target instanceof HTMLElement)) {
+      mixpanelLogger.error("Event target is not an HTMLElement.", {
+        event: EVENT,
+      });
+      return;
+    }
 
-      if (!(target instanceof HTMLElement)) {
-        mixpanelLogger.error('Event target is not an HTMLElement.', { event: EVENT })
-        return
-      }
+    const faqId = target.getAttribute(MP_DATA_FAQ_ID_ATTR);
+    const faqTitle = target.getAttribute(MP_DATA_FAQ_TITLE_ATTR);
 
-      const faqId = target.getAttribute(MP_DATA_FAQ_ID_ATTR)
-      const faqTitle = target.getAttribute(MP_DATA_FAQ_TITLE_ATTR)
+    if (!faqId || !faqTitle) {
+      mixpanelLogger.error(
+        ` ${MP_DATA_FAQ_ID_ATTR} or ${MP_DATA_FAQ_TITLE_ATTR} attributes not found on the target element.`,
+        {
+          event: EVENT,
+          target,
+          faqTitle,
+          faqId,
+        },
+      );
+      return;
+    }
 
-      if (!faqId || !faqTitle) {
-        mixpanelLogger.error(
-          ` ${MP_DATA_FAQ_ID_ATTR} or ${MP_DATA_FAQ_TITLE_ATTR} attributes not found on the target element.`,
-          {
-            event: EVENT,
-            target,
-            faqTitle,
-            faqId,
-          }
-        )
-        return
-      }
-
-      track(EVENT, {
-        faqId,
-        faqTitle,
-      })
-    })
-  }
-
-  document
-    .querySelectorAll<HTMLElement>(`[${MP_DATA_SECTION_ATTR}]`)
-    .forEach((section) => initializeFaqSectionTracking(section))
+    track(EVENT, {
+      faqId,
+      faqTitle,
+    });
+  });
 }
 
 /**
@@ -271,10 +272,10 @@ function bindTrackingFaqOpenEvent() {
  * - goodPracticeTitle: string
  */
 function bindTrackingGoodPracticeCardClickEvent() {
-  const MIXPANEL_DATA_ATTRIBUTE_NAME = 'data-mp-good-practice-card-data'
-  const ATTR_CARD_BOUND = 'data-mp-good-practice-card-bound'
+  const MIXPANEL_DATA_ATTRIBUTE_NAME = "data-mp-good-practice-card-data";
+  const ATTR_CARD_BOUND = "data-mp-good-practice-card-bound";
   const EVENT =
-    'INTEROP_HOMEPAGE_GOOD_PRACTICE_CARD_CLICK' as const satisfies MixpanelTrackingData['key']
+    "INTEROP_HOMEPAGE_GOOD_PRACTICE_CARD_CLICK" as const satisfies MixpanelTrackingData["key"];
 
   const CardMetadataSchema = z.preprocess(
     (val) => JSON.parse(String(val)),
@@ -282,54 +283,60 @@ function bindTrackingGoodPracticeCardClickEvent() {
       goodPracticeId: z.number(),
       goodPracticeCategory: z.string(),
       goodPracticeTitle: z.string(),
-    })
-  )
+    }),
+  );
 
   const cards = Array.from(
-    document.querySelectorAll<HTMLElement>(`[${MIXPANEL_DATA_ATTRIBUTE_NAME}]`)
-  )
+    document.querySelectorAll<HTMLElement>(`[${MIXPANEL_DATA_ATTRIBUTE_NAME}]`),
+  );
 
   if (!cards.length) {
-    mixpanelLogger.warn('No good practice cards found for binding.', {
+    mixpanelLogger.warn("No good practice cards found for binding.", {
       event: EVENT,
-    })
-    return
+    });
+    return;
   }
 
-  mixpanelLogger.info('Binding good practice card click tracking (delegation).', {
-    totalCards: cards.length,
-    cards: cards,
-    event: EVENT,
-  })
+  mixpanelLogger.info(
+    "Binding good practice card click tracking (delegation).",
+    {
+      totalCards: cards.length,
+      cards: cards,
+      event: EVENT,
+    },
+  );
 
   cards.forEach((c) => {
-    if (c.getAttribute(ATTR_CARD_BOUND) === 'true') {
-      mixpanelLogger.warn('Card already bound for good practice card click tracking. Skipping.', {
-        card: c,
-      })
-      return
+    if (c.getAttribute(ATTR_CARD_BOUND) === "true") {
+      mixpanelLogger.warn(
+        "Card already bound for good practice card click tracking. Skipping.",
+        {
+          card: c,
+        },
+      );
+      return;
     }
 
-    c.setAttribute(ATTR_CARD_BOUND, 'true')
+    c.setAttribute(ATTR_CARD_BOUND, "true");
 
     const metadataResult = CardMetadataSchema.safeParse(
-      c.getAttribute(MIXPANEL_DATA_ATTRIBUTE_NAME)
-    )
+      c.getAttribute(MIXPANEL_DATA_ATTRIBUTE_NAME),
+    );
 
     if (!metadataResult.success) {
       mixpanelLogger.error(
         `Invalid or missing Mixpanel good practice card data attribute on card element.`,
         {
           card: c,
-          errors: metadataResult.error.errors,
-        }
-      )
-      return
+          errors: metadataResult.error,
+        },
+      );
+      return;
     }
 
-    c.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => {
-        const data = metadataResult.data
+    c.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        const data = metadataResult.data;
         track(
           EVENT,
           {
@@ -338,13 +345,15 @@ function bindTrackingGoodPracticeCardClickEvent() {
             goodPracticeTitle: data.goodPracticeTitle,
           },
           {
-            transport: 'sendBeacon',
-          }
-        )
-      })
-    })
-  })
+            transport: "sendBeacon",
+          },
+        );
+      });
+    });
+  });
 }
+
+let isExternalLinkVisitEventBound = false;
 
 /**
  * Binds the INTEROP_EXTERNAL_LINK_VISIT event tracking to all external links.
@@ -353,41 +362,57 @@ function bindTrackingGoodPracticeCardClickEvent() {
  * not only statically by astro. Therefore, we need to capture clicks on the document level.
  *
  * Each external link should have the following attributes:
- * - data-mp-linkId: the unique identifier of the link
+ * - data-mp-external-link-id: the unique identifier of the link
  * - data-mp-linkDescription: a short description of the link
  */
 function bindTrackingExternalLinkVisitEvent() {
-  const MIXPANEL_DATA_ATTRIBUTE_LINK_ID = 'data-mp-linkId'
-  const MIXPANEL_DATA_ATTRIBUTE_LINK_DESCRIPTION = 'data-mp-link-description'
-  const EVENT = 'INTEROP_EXTERNAL_LINK_VISIT' as const satisfies MixpanelTrackingData['key']
+  const MIXPANEL_DATA_ATTRIBUTE_LINK_ID = "data-mp-external-link-id";
+  const MIXPANEL_DATA_ATTRIBUTE_LINK_DESCRIPTION =
+    "data-mp-external-link-description";
+  const EVENT =
+    "INTEROP_EXTERNAL_LINK_VISIT" as const satisfies MixpanelTrackingData["key"];
 
-  function isExternalLink(a: HTMLElement | null | undefined): a is HTMLAnchorElement {
-    if (!a || a.tagName !== 'A') return false
-    const href = a.getAttribute('href') || ''
-    if (!href || href.startsWith('#') || href.startsWith('/')) return false
-    if (href.startsWith('mailto:') || href.startsWith('tel:')) return false
+  if (isExternalLinkVisitEventBound) {
+    mixpanelLogger.warn(
+      "External link visit event tracking already bound. Ignoring subsequent binding calls.",
+      {
+        event: EVENT,
+      },
+    );
+    return;
+  }
 
-    let url
+  function isExternalLink(
+    a: HTMLElement | null | undefined,
+  ): a is HTMLAnchorElement {
+    if (!a || a.tagName !== "A") return false;
+    const href = a.getAttribute("href") || "";
+    if (!href || href.startsWith("#") || href.startsWith("/")) return false;
+    if (href.startsWith("mailto:") || href.startsWith("tel:")) return false;
+
+    let url;
     try {
-      url = new URL(href, location.origin)
+      url = new URL(href, location.origin);
     } catch {
-      return false
+      return false;
     }
 
-    return url.protocol === 'http:' || url.protocol === 'https:'
+    return url.origin !== location.origin;
   }
 
   document.addEventListener(
-    'click',
+    "click",
     (event) => {
-      const target = event.target as HTMLElement | null
-      const anchor = target?.closest('a')
+      const target = event.target as HTMLElement | null;
+      const anchor = target?.closest("a");
 
-      if (!isExternalLink(anchor)) return
+      if (!isExternalLink(anchor)) return;
 
-      const linkId = anchor.getAttribute(MIXPANEL_DATA_ATTRIBUTE_LINK_ID)
-      const linkDescription = anchor.getAttribute(MIXPANEL_DATA_ATTRIBUTE_LINK_DESCRIPTION)
-      const href = anchor.href
+      const linkId = anchor.getAttribute(MIXPANEL_DATA_ATTRIBUTE_LINK_ID);
+      const linkDescription = anchor.getAttribute(
+        MIXPANEL_DATA_ATTRIBUTE_LINK_DESCRIPTION,
+      );
+      const href = anchor.href;
 
       if (!linkId || !linkDescription) {
         mixpanelLogger.error(
@@ -397,9 +422,9 @@ function bindTrackingExternalLinkVisitEvent() {
             anchor,
             linkId,
             linkDescription,
-          }
-        )
-        return
+          },
+        );
+        return;
       }
 
       track(
@@ -410,12 +435,14 @@ function bindTrackingExternalLinkVisitEvent() {
           href,
         },
         {
-          transport: 'sendBeacon',
-        }
-      )
+          transport: "sendBeacon",
+        },
+      );
     },
-    true
-  )
+    true,
+  );
+
+  isExternalLinkVisitEventBound = true;
 }
 
 /**
@@ -427,42 +454,47 @@ function bindTrackingExternalLinkVisitEvent() {
  * Optionally, it can have the attribute `data-mp-good-practice-category` to specify the category of the good practice.
  */
 function bindTrackingGoodPracticeReferralEvent() {
-  const MIXPANEL_DATA_ATTRIBUTE_REFERRAL_TYPE_NAME = 'data-mp-good-practice-catalog-referral'
-  const MIXPANEL_DATA_ATTRIBUTE_GOOD_PRACTICE_CATEGORY_NAME = 'data-mp-good-practice-category'
+  const MIXPANEL_DATA_ATTRIBUTE_REFERRAL_TYPE_NAME =
+    "data-mp-good-practice-catalog-referral";
+  const MIXPANEL_DATA_ATTRIBUTE_GOOD_PRACTICE_CATEGORY_NAME =
+    "data-mp-good-practice-category-id";
   const EVENT =
-    'INTEROP_HOMEPAGE_GOOD_PRACTICE_REFERRAL' as const satisfies MixpanelTrackingData['key']
+    "INTEROP_HOMEPAGE_GOOD_PRACTICE_REFERRAL" as const satisfies MixpanelTrackingData["key"];
 
   const GoodPracticeCatalogReferralTypeSchema = z.enum([
-    'header',
-    'how-it-works',
-    'best-practice-section',
-    'footer',
+    "header",
+    "how-it-works",
+    "best-practice-section",
+    "footer",
   ] as const satisfies Extract<
     MixpanelTrackingData,
     { key: typeof EVENT }
-  >['payload']['referral'][])
+  >["payload"]["referral"][]);
 
   const goodPracticeAnchorElements = document.querySelectorAll<HTMLElement>(
-    `[${MIXPANEL_DATA_ATTRIBUTE_REFERRAL_TYPE_NAME}]`
-  )
+    `[${MIXPANEL_DATA_ATTRIBUTE_REFERRAL_TYPE_NAME}]`,
+  );
 
   if (!goodPracticeAnchorElements.length) {
-    mixpanelLogger.warn('No good practice referral elements found for binding.', {
-      event: EVENT,
-    })
-    return
+    mixpanelLogger.warn(
+      "No good practice referral elements found for binding.",
+      {
+        event: EVENT,
+      },
+    );
+    return;
   }
 
-  mixpanelLogger.info('Binding good practice catalog referral tracking.', {
+  mixpanelLogger.info("Binding good practice catalog referral tracking.", {
     totalElements: goodPracticeAnchorElements.length,
     elements: goodPracticeAnchorElements,
     event: EVENT,
-  })
+  });
 
   goodPracticeAnchorElements.forEach((element) => {
     const validationResult = GoodPracticeCatalogReferralTypeSchema.safeParse(
-      element.getAttribute(MIXPANEL_DATA_ATTRIBUTE_REFERRAL_TYPE_NAME)
-    )
+      element.getAttribute(MIXPANEL_DATA_ATTRIBUTE_REFERRAL_TYPE_NAME),
+    );
 
     if (!validationResult.success) {
       mixpanelLogger.error(
@@ -470,22 +502,71 @@ function bindTrackingGoodPracticeReferralEvent() {
         {
           event: EVENT,
           element,
-        }
-      )
-      return
+        },
+      );
+      return;
     }
 
-    const referral = validationResult.data
-    const goodPracticeCategory =
-      element.getAttribute(MIXPANEL_DATA_ATTRIBUTE_GOOD_PRACTICE_CATEGORY_NAME) || undefined
+    const referral = validationResult.data;
 
-    element.addEventListener('click', () => {
+    element.addEventListener("click", () => {
       track(EVENT, {
         referral,
-        goodPracticeCategory,
-      })
-    })
-  })
+        goodPracticeTenantMacrocategoryId:
+          element.getAttribute(
+            MIXPANEL_DATA_ATTRIBUTE_GOOD_PRACTICE_CATEGORY_NAME,
+          ) || undefined,
+      });
+    });
+  });
+}
+
+/**
+ * Binds the INTEROP_TOOLTIP_OPEN event tracking to tooltip opens.
+ * The event should be triggered when the user opens a tooltip.
+ *
+ * The tooltip id is taken from the `data-bs-title` attribute of the tooltip trigger element.
+ * The tooltip type is hardcoded as 'info' for now. vbdsx
+ */
+function bindTrackingTooltipOpenEvent() {
+  const EVENT =
+    "INTEROP_TOOLTIP_OPEN" as const satisfies MixpanelTrackingData["key"];
+
+  document.addEventListener("show.bs.popover", function (e) {
+    const target = e.target;
+
+    if (!(target instanceof HTMLElement)) {
+      mixpanelLogger.error("Event target is not an HTMLElement.", {
+        event: EVENT,
+      });
+      return;
+    }
+
+    const tooltipId = target
+      .getAttribute("data-bs-title")
+      ?.trim()
+      .toLowerCase()
+      .replace(/\s+/g, "-");
+
+    const tooltipType = "info" as const;
+
+    if (!tooltipId) {
+      mixpanelLogger.error(
+        `data-bs-title attribute not found on the target element.`,
+        {
+          event: EVENT,
+          target,
+          tooltipId,
+        },
+      );
+      return;
+    }
+
+    track(EVENT, {
+      tooltipId,
+      tooltipType,
+    });
+  });
 }
 
 export const mixpanelService = {
@@ -496,4 +577,5 @@ export const mixpanelService = {
   bindTrackingGoodPracticeCardClickEvent,
   bindTrackingExternalLinkVisitEvent,
   bindTrackingGoodPracticeReferralEvent,
-}
+  bindTrackingTooltipOpenEvent,
+};

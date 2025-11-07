@@ -9,8 +9,6 @@
     "start:strapi": "turbo start --filter pagopa-interop-public-strapi",
     "start:catalog-updater": "turbo start --filter pagopa-interop-public-catalog-updater",
     "test": "turbo test",
-    "test:integration": "turbo test:integration",
-    "test:api": "turbo test:api",
     "build": "turbo build",
     "check": "turbo check",
     "lint": "turbo lint -- --cache --cache-strategy content --cache-location .eslintcache",
@@ -25,12 +23,7 @@
     "prune-modules": "find . -name 'node_modules' -type d -exec rm -rf {} +"
   },
   "devDependencies": {
-    "@tsconfig/strictest": "2.0.5",
-    "@tsconfig/node-lts": "20.1.3",
-    "turbo": "2.2.3",
-    "@typescript-eslint/parser": "8.44.1",
-    "@typescript-eslint/eslint-plugin": "8.44.1",
-    "eslint-plugin-prettier": "5.5.4"
+    "turbo": "2.2.3"
   },
   "config": {
     "protocVersion": "26.1"

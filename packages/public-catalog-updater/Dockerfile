@@ -11,21 +11,23 @@ COPY .npmrc ./
 
 COPY packages/public-catalog-updater/package.json ./packages/public-catalog-updater/
 COPY packages/models/package.json ./packages/models/
+COPY packages/typescript-config/package.json ./packages/typescript-config/
 
 RUN pnpm install --frozen-lockfile
 
 ENV PATH=/opt/app/node_modules/.bin:$PATH
 
-COPY tsconfig.json ./
 COPY turbo.json ./
 
 COPY packages/public-catalog-updater/ ./packages/public-catalog-updater/
 COPY packages/models/ ./packages/models/
+COPY packages/typescript-config/ ./packages/typescript-config/
 
 RUN pnpm run build
 
 # Creating final image
 FROM node:22-alpine
+
 RUN corepack enable
 WORKDIR /opt/app
 COPY --from=build --chown=node:node /opt/app ./
@@ -33,4 +35,5 @@ ENV PATH=/opt/app/node_modules/.bin:$PATH
 
 USER node
 EXPOSE 1337
+
 CMD ["node", "packages/public-catalog-updater/dist/index.js"]

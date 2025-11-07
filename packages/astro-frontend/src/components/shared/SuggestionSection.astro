@@ -1,67 +1,84 @@
 ---
-import { BootstrapItaliaIcon } from './BootstrapItaliaIcon'
-import { useUiTranslations } from '../../i18n/ui.i18n'
-import { Section } from './Section'
-import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { BootstrapItaliaIcon } from "./BootstrapItaliaIcon";
+import { useUiTranslations } from "../../i18n/ui.i18n";
+import { Section } from "./Section";
+import { getLangFromUrl } from "../../i18n/utils.i18n";
 
 type SuggestionCard = {
-  title: string
-  description: string
-  buttonLabel: string
-  href: string
-  externalLink: boolean
-  imageSrc: string
-}
+  title: string;
+  description: string;
+  buttonLink: {
+    href: string;
+    label: string;
+    mixpanelAttributes?: {
+      "data-mp-external-link-id": string;
+      "data-mp-external-link-description": string;
+    };
+  };
+  externalLink: boolean;
+  imageSrc: string;
+};
 
 type Props = {
-  leftCard: SuggestionCard
-  rightCard: SuggestionCard
-}
+  leftCard: SuggestionCard;
+  rightCard: SuggestionCard;
+};
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const t = useUiTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useUiTranslations(currentLocale);
 
-const { leftCard: providedLeftCard, rightCard: providedRightCard } = Astro.props as Props
+const { leftCard: providedLeftCard, rightCard: providedRightCard } =
+  Astro.props as Props;
 
-const suggestions = [providedLeftCard, providedRightCard] as const
+const suggestions = [providedLeftCard, providedRightCard] as const;
 ---
 
 <div class="pb-4" id="suggestion-section">
   <Section
-    style={{ maxWidth: '1076px' }}
+    style={{ maxWidth: "1076px" }}
     className="mx-auto"
-    title={t('suggestion_section.title')}
+    title={t("suggestion_section.title")}
     titleClass="text-white"
   >
     <div class="d-flex flex-column flex-lg-row gap-4">
       {
-        suggestions.map(({ title, imageSrc, description, buttonLabel, href, externalLink }) => (
-          <article class="bg-white rounded shadow-sm p-5" style="flex: 1;">
-            <img
-              style="fill: var(--bs-primary);"
-              src={imageSrc}
-              class="mb-4 color-primary"
-              alt=""
-              role="presentation"
-              width="96"
-              height="96"
-            />
-            <h3 class="h4 mb-3">{title}</h3>
-            <p class="it-card-text text-secondary mb-3">{description}</p>
-            <footer>
-              <a
-                href={href}
-                class="btn btn-primary btn-icon"
-                {...(externalLink ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              >
-                {buttonLabel}
-                {externalLink && (
-                  <BootstrapItaliaIcon className="ms-2" name="it-external-link" color="white" />
-                )}
-              </a>
-            </footer>
-          </article>
-        ))
+        suggestions.map(
+          ({ title, imageSrc, description, buttonLink, externalLink }) => (
+            <article class="bg-white rounded shadow-sm p-5" style="flex: 1;">
+              <img
+                style="fill: var(--bs-primary);"
+                src={imageSrc}
+                class="mb-4 color-primary"
+                alt=""
+                loading="lazy"
+                role="presentation"
+                width="96"
+                height="96"
+              />
+              <h3 class="h4 mb-3">{title}</h3>
+              <p class="it-card-text text-secondary mb-3">{description}</p>
+              <footer>
+                <a
+                  href={buttonLink.href}
+                  class="btn btn-primary btn-icon"
+                  {...buttonLink.mixpanelAttributes}
+                  {...(externalLink
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
+                  {buttonLink.label}
+                  {externalLink && (
+                    <BootstrapItaliaIcon
+                      className="ms-2"
+                      name="it-external-link"
+                      color="white"
+                    />
+                  )}
+                </a>
+              </footer>
+            </article>
+          ),
+        )
       }
     </div>
   </Section>

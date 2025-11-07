@@ -1,27 +1,30 @@
 ---
-import type { HTMLAttributes } from 'astro/types'
-import { getLangFromUrl } from '../../i18n/utils.i18n'
-import { useUiTranslations } from '../../i18n/ui.i18n'
+import type { HTMLAttributes } from "astro/types";
+import { getLangFromUrl } from "../../i18n/utils.i18n";
+import { useUiTranslations } from "../../i18n/ui.i18n";
 
-interface Props extends HTMLAttributes<'nav'> {
-  headings: { id: string; label: string }[]
+interface Props extends HTMLAttributes<"nav"> {
+  headings: { id: string; label: string }[];
 }
 
-const { headings, ...rest } = Astro.props
+const { headings, ...rest } = Astro.props;
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const tUi = useUiTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tUi = useUiTranslations(currentLocale);
 ---
 
-<aside class:list={['link-list-wrapper', rest.class]} {...rest}>
-  <h2 class="h6" class="link-list-heading">
-    {tUi('page_index_nav.title')}
+<aside class:list={["link-list-wrapper", rest.class]} {...rest}>
+  <h2 class="h6 link-list-heading">
+    {tUi("page_index_nav.title")}
   </h2>
   <ul class="link-list mt-4 border-end">
     {
       headings.map((heading) => (
         <li>
-          <a href={`#${heading.id}`} class="link-list-item ps-0 active py-3 fw-semibold lh-base">
+          <a
+            href={`#${heading.id}`}
+            class="link-list-item ps-0 active py-3 fw-semibold lh-base"
+          >
             {heading.label}
           </a>
         </li>
@@ -31,29 +34,31 @@ const tUi = useUiTranslations(currentLocale)
 </aside>
 
 <script is:inline define:vars={{ headings }}>
-  const linkActiveClass = 'active-link-list-item'
-  window.addEventListener('scroll', () => {
-    const linkItems = document.querySelectorAll('.link-list-item')
-    let closestId = null
-    let minAbsTop = Infinity
+  const linkActiveClass = "active-link-list-item";
+  window.addEventListener("scroll", () => {
+    const linkItems = document.querySelectorAll(".link-list-item");
+    let closestId = null;
+    let minAbsTop = Infinity;
 
     headings.forEach(({ id }) => {
-      const section = document.getElementById(id)
+      const section = document.getElementById(id);
       if (section) {
-        const absTop = Math.abs(section.getBoundingClientRect().top)
+        const absTop = Math.abs(section.getBoundingClientRect().top);
         if (absTop < minAbsTop) {
-          minAbsTop = absTop
-          closestId = id
+          minAbsTop = absTop;
+          closestId = id;
         }
       }
-    })
+    });
 
-    linkItems.forEach((item) => item.classList.remove(linkActiveClass))
+    linkItems.forEach((item) => item.classList.remove(linkActiveClass));
     if (closestId) {
-      const linkItem = document.querySelector(`.link-list-item[href="#${closestId}"]`)
+      const linkItem = document.querySelector(
+        `.link-list-item[href="#${closestId}"]`,
+      );
       if (linkItem) {
-        linkItem.classList.add(linkActiveClass)
+        linkItem.classList.add(linkActiveClass);
       }
     }
-  })
+  });
 </script>

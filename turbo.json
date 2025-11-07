@@ -28,14 +28,7 @@
       "outputs": ["dist/**"]
     },
     "test": {
-      "dependsOn": [
-        "build",
-        "^test",
-        "^test:old",
-        "test:integration",
-        "test:integration:old",
-        "test:api"
-      ]
+      "dependsOn": ["build", "^test"]
     },
     "test:old": {
       "dependsOn": ["build", "^test:old", "test:integration:old"]

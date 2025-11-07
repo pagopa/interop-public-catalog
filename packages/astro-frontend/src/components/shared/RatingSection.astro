@@ -1,15 +1,15 @@
 ---
-import { useUiTranslations } from '../../i18n/ui.i18n'
-import { getLangFromUrl } from '../../i18n/utils.i18n'
+import { useUiTranslations } from "../../i18n/ui.i18n";
+import { getLangFromUrl } from "../../i18n/utils.i18n";
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const t = useUiTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useUiTranslations(currentLocale);
 ---
 
 <section class="section bg-dark px-0 px-md-auto py-5">
   <div class="section-content">
     <div class="container">
-      <h4 class="text-white mb-4">{t('rating.title')}</h4>
+      <h4 class="text-white mb-4">{t("rating.title")}</h4>
 
       <form id="ratingForm">
         <fieldset class="d-flex flex-row">
@@ -23,8 +23,11 @@ const t = useUiTranslations(currentLocale)
                 value="Yes"
                 required
               />
-              <label class="form-check-label text-primary pe-5" for="inlineRadioYes">
-                {t('rating.yes')}
+              <label
+                class="form-check-label text-primary pe-5"
+                for="inlineRadioYes"
+              >
+                {t("rating.yes")}
               </label>
             </div>
           </div>
@@ -39,14 +42,21 @@ const t = useUiTranslations(currentLocale)
                 value="No"
                 required
               />
-              <label class="form-check-label text-primary pe-5" for="inlineRadioNo">
-                {t('rating.no')}
+              <label
+                class="form-check-label text-primary pe-5"
+                for="inlineRadioNo"
+              >
+                {t("rating.no")}
               </label>
             </div>
           </div>
 
-          <button type="submit" class="btn btn-outline-primary ms-2" id="submitButton">
-            {t('actions.submit')}
+          <button
+            type="submit"
+            class="btn btn-outline-primary ms-2"
+            id="submitButton"
+          >
+            {t("actions.submit")}
           </button>
         </fieldset>
       </form>
@@ -55,38 +65,38 @@ const t = useUiTranslations(currentLocale)
 </section>
 
 <script>
-  import { getLangFromUrl } from '../../i18n/utils.i18n'
-  import { useUiTranslations } from '../../i18n/ui.i18n'
+  import { getLangFromUrl } from "../../i18n/utils.i18n.js";
+  import { useUiTranslations } from "../../i18n/ui.i18n.js";
 
-  const currentLocale = getLangFromUrl(window.location.pathname)
-  const t = useUiTranslations(currentLocale)
+  const currentLocale = getLangFromUrl(window.location.pathname);
+  const t = useUiTranslations(currentLocale);
 
-  const form = document.getElementById('ratingForm') as HTMLFormElement | null
+  const form = document.getElementById("ratingForm") as HTMLFormElement | null;
 
   if (form) {
-    form.addEventListener('submit', (e) => {
-      e.preventDefault()
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-      const formData = new FormData(e!.target as HTMLFormElement)
-      const selectedValue = formData.get('inlineRadioOption')
+      const formData = new FormData(e!.target as HTMLFormElement);
+      const selectedValue = formData.get("inlineRadioOption");
 
       if (selectedValue) {
-        const subject = t('rating.email_subject')
+        const subject = t("rating.email_subject");
         const body =
-          selectedValue === 'Yes'
-            ? t('rating.email_body_positive')
-            : t('rating.email_body_negative')
+          selectedValue === "Yes"
+            ? t("rating.email_body_positive")
+            : t("rating.email_body_negative");
 
-        const encodedSubject = encodeURIComponent(subject)
-        const encodedBody = encodeURIComponent(body)
+        const encodedSubject = encodeURIComponent(subject);
+        const encodedBody = encodeURIComponent(body);
 
-        const recipient = 'info@pagopa.it'
-        const mailtoURL = `mailto:${recipient}?subject=${encodedSubject}&body=${encodedBody}`
+        const recipient = "info@pagopa.it";
+        const mailtoURL = `mailto:${recipient}?subject=${encodedSubject}&body=${encodedBody}`;
 
-        window.location.href = mailtoURL
+        window.location.href = mailtoURL;
       } else {
-        alert(t('rating.alert'))
+        alert(t("rating.alert"));
       }
-    })
+    });
   }
 </script>

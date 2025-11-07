@@ -1,39 +1,39 @@
 ---
 // !! Careful: CSS order of imports matters
-import '../styles/fonts.css'
-import 'bootstrap-italia/dist/css/bootstrap-italia.min.css'
-import '../styles/onetrust.css'
-import '../styles/styles.css'
+import "../styles/fonts.css";
+import "bootstrap-italia/dist/css/bootstrap-italia.min.css";
+import "../styles/onetrust.css";
+import "../styles/styles.css";
 
-import Header from '../components/shared/Header/Header.astro'
-import Footer from '../components/shared/Footer.astro'
-import { getLangFromUrl } from '../i18n/utils.i18n'
-import { clientEnvConfig } from '../config/config'
-import type { MetaDataType } from '../server/types/metaData.types'
-import { strapiService } from '../server/services'
-import { getRouteKeyFromCurrentRoutePattern } from '../i18n/utils.i18n'
+import Header from "../components/shared/Header/Header.astro";
+import Footer from "../components/shared/Footer.astro";
+import { getLangFromUrl } from "../i18n/utils.i18n";
+import { clientEnvConfig } from "../config/config";
+import type { MetaDataType } from "../server/types/metaData.types";
+import { strapiService } from "../server/services";
+import { getRouteKeyFromCurrentRoutePattern } from "../i18n/utils.i18n";
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
 
-const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern, currentLocale)
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
 const { data: generalData } = await strapiService.getSeoMetaData(
   currentLocale,
   Astro.url.origin,
-  'DEFAULT'
-)
+  "DEFAULT",
+);
 
 const { data: pageData } = await strapiService.getSeoMetaData(
   currentLocale,
   Astro.url.origin,
-  routeKey ?? 'DEFAULT',
-  Astro.params
-)
+  routeKey ?? "DEFAULT",
+  Astro.params,
+);
 
-const generalMetaData = generalData[0] as MetaDataType
-const pageMetaData = pageData[0] as MetaDataType
+const generalMetaData = generalData[0] as MetaDataType;
+const pageMetaData = pageData[0] as MetaDataType;
 
-const metaLocale = pageMetaData.locale ?? generalMetaData.locale
+const metaLocale = pageMetaData.locale ?? generalMetaData.locale;
 ---
 
 <!doctype html>
@@ -42,7 +42,7 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale
     <meta charset="UTF-8" />
     <script
       is:inline
-      set:html={`window.env = ${JSON.stringify(clientEnvConfig).replace(/</g, '\\u003c')}`}
+      set:html={`window.env = ${JSON.stringify(clientEnvConfig).replace(/</g, "\\u003c")}`}
     />
     {
       import.meta.env.PROD && (
@@ -64,7 +64,8 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale
     <title>{pageMetaData.title ?? generalMetaData.title}</title>
     <meta
       name="description"
-      content={pageMetaData.seo.metaDescription ?? generalMetaData.seo.metaDescription}
+      content={pageMetaData.seo.metaDescription ??
+        generalMetaData.seo.metaDescription}
     />
     <meta name="twitter:card" content="summary_large_image" />
     <meta
@@ -73,13 +74,18 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale
     />
     <meta
       name="twitter:description"
-      content={pageMetaData.seo.metaDescription ?? generalMetaData.seo.metaDescription}
+      content={pageMetaData.seo.metaDescription ??
+        generalMetaData.seo.metaDescription}
     />
     <meta
       name="twitter:image"
-      content={pageMetaData.seo.twitterImage?.url ?? generalMetaData.seo.twitterImage?.url}
+      content={pageMetaData.seo.twitterImage?.url ??
+        generalMetaData.seo.twitterImage?.url}
     />
-    <meta property="og:locale" content={metaLocale === 'it' ? 'it_IT' : 'en_US'} />
+    <meta
+      property="og:locale"
+      content={metaLocale === "it" ? "it_IT" : "en_US"}
+    />
     <meta property="og:type" content="website" />
     <meta
       property="og:title"
@@ -87,15 +93,26 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale
     />
     <meta
       property="og:description"
-      content={pageMetaData.seo.metaDescription ?? generalMetaData.seo.metaDescription}
+      content={pageMetaData.seo.metaDescription ??
+        generalMetaData.seo.metaDescription}
     />
-    <meta property="og:url" content={pageMetaData.seo.canonical ?? generalMetaData.seo.canonical} />
-    <meta property="og:site_name" content={pageMetaData.siteName ?? generalMetaData.siteName} />
+    <meta
+      property="og:url"
+      content={pageMetaData.seo.canonical ?? generalMetaData.seo.canonical}
+    />
+    <meta
+      property="og:site_name"
+      content={pageMetaData.siteName ?? generalMetaData.siteName}
+    />
     <meta
       property="og:image"
-      content={pageMetaData.seo.opengraphImage?.url ?? generalMetaData.seo.opengraphImage?.url}
+      content={pageMetaData.seo.opengraphImage?.url ??
+        generalMetaData.seo.opengraphImage?.url}
     />
-    <link rel="canonical" href={pageMetaData.seo.canonical ?? generalMetaData.seo.canonical} />
+    <link
+      rel="canonical"
+      href={pageMetaData.seo.canonical ?? generalMetaData.seo.canonical}
+    />
   </head>
   <body>
     <Header />
@@ -114,14 +131,19 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale
 </style>
 
 <script>
-  import { initBootstrapItaliaComponents } from '../config/bootstrap-italia'
-  import { mixpanelService } from '../services/mixpanel.services'
+  import { initBootstrapItaliaComponents } from "../config/bootstrap-italia";
+  import type { ClientEnvConfig } from "../config/config";
+  import { mixpanelService } from "../services/mixpanel.services";
 
   /**
    * Initializes Bootstrap Italia components that require JavaScript to work.
    * E.g.: modals, dropdowns, tooltips, etc.
    */
-  initBootstrapItaliaComponents()
-  mixpanelService.init({ projectId: window.env.mixpanelProjectId })
-  mixpanelService.bindTrackingExternalLinkVisitEvent()
+  initBootstrapItaliaComponents();
+  mixpanelService.init({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    projectId: ((window as any).env as ClientEnvConfig).mixpanelProjectId,
+  });
+  mixpanelService.bindTrackingExternalLinkVisitEvent();
+  mixpanelService.bindTrackingTooltipOpenEvent();
 </script>

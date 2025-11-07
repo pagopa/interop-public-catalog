@@ -1,20 +1,21 @@
 ---
-import { Section } from './Section'
-import { useUiTranslations } from '../../i18n/ui.i18n'
-import { getLangFromUrl, getLocalizedRoute } from '../../i18n/utils.i18n'
-import type { RouteKey } from '../../config/routes.js'
+import { Section } from "./Section";
+import { useUiTranslations } from "../../i18n/ui.i18n";
+import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
+import type { RouteKey } from "../../config/routes.js";
 
 interface Props {
-  title: string
-  marginFromTitle?: string
-  description?: string
-  breadcrumbItems: Array<{ routeKey: RouteKey; current?: boolean }>
+  title: string;
+  marginFromTitle?: string;
+  description?: string;
+  breadcrumbItems: Array<{ routeKey: RouteKey; current?: boolean }>;
 }
 
-const { title, description, breadcrumbItems, marginFromTitle } = Astro.props as Props
+const { title, description, breadcrumbItems, marginFromTitle } =
+  Astro.props as Props;
 
-const currentLocale = getLangFromUrl(Astro.url.pathname)
-const tUi = useUiTranslations(currentLocale)
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tUi = useUiTranslations(currentLocale);
 ---
 
 <Section as="nav" className="breadcrumb-container pt-4 pb-0">
@@ -22,22 +23,26 @@ const tUi = useUiTranslations(currentLocale)
     {
       breadcrumbItems.map((item, idx) => {
         const routeLabel = tUi(
-          `breadcrumb_label.${item.routeKey as Exclude<RouteKey, 'NOT_FOUND_ERROR' | 'SERVER_ERROR'>}`
-        )
+          `breadcrumb_label.${item.routeKey as Exclude<RouteKey, "NOT_FOUND_ERROR" | "SERVER_ERROR">}`,
+        );
 
         return (
           <li
-            class={`breadcrumb-item ${item.current ? 'active' : ''}`}
-            aria-current={item.current ? 'page' : undefined}
+            class={`breadcrumb-item ${item.current ? "active" : ""}`}
+            aria-current={item.current ? "page" : undefined}
           >
             {!item.current ? (
-              <a href={getLocalizedRoute(currentLocale, item.routeKey)}>{routeLabel}</a>
+              <a href={getLocalizedRoute(currentLocale, item.routeKey)}>
+                {routeLabel}
+              </a>
             ) : (
               routeLabel
             )}
-            {idx < breadcrumbItems.length - 1 && <span class="separator">/</span>}
+            {idx < breadcrumbItems.length - 1 && (
+              <span class="separator">/</span>
+            )}
           </li>
-        )
+        );
       })
     }
   </ol>
@@ -48,7 +53,7 @@ const tUi = useUiTranslations(currentLocale)
     <span class="it-category">
       <slot name="top-hero" />
     </span>
-    <h1 class={`mt-${marginFromTitle ?? '3'} h2`}>{title}</h1>
+    <h1 class={`mt-${marginFromTitle ?? "3"} h2`}>{title}</h1>
     <div class="mt-4">
       {
         description && (
