@@ -391,10 +391,11 @@ export async function searchTenants(
     SELECT
       t.name,
       t.id AS producer_id,
+      t.updated_at,
       count(*) over() AS total
     FROM ${sql.identifier(config.tenantSchema)}.tenant t
     ${hasRelationshipsConditional}
-    ORDER BY t.created_at DESC
+    ORDER BY t.updated_at DESC, t.name ASC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `);
 
@@ -449,6 +450,7 @@ export async function searchTenants(
       SELECT
         t.name,
         t.id AS producer_id,
+        t.updated_at,
         count(*) over() as total,
         COALESCE(ts_rank_cd(t.search_vector, p.tsq), 0)::real AS fts_rank,
         similarity(public.normalize_text(t.name), p.nq) AS fuzzy_sim
@@ -458,7 +460,7 @@ export async function searchTenants(
     )
     SELECT s.*, (s.fts_rank + 0.5 * s.fuzzy_sim)::real AS score
     FROM scored s
-    ORDER BY score DESC
+    ORDER BY score DESC, s.updated_at DESC, s.name ASC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `;
     const pageRes = await tx.execute(builtQuery);
