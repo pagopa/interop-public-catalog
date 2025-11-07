@@ -1,7 +1,7 @@
 import { Modal, ModalBody, ModalFooter, Button } from "design-react-kit";
 import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon";
-import { getLangFromUrl } from "../../i18n/utils.i18n";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n";
+import { useEServiceCatalogContext } from "./EServiceCatalogContext";
 
 type FiltersMobileProps = {
   isOpen: boolean;
@@ -15,12 +15,13 @@ export const FiltersMobile = ({
   children,
   onSubmit,
 }: FiltersMobileProps) => {
+  const { currentLocale } = useEServiceCatalogContext();
   const handleSubmit = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     onSubmit(e);
     toggleModal(false);
   };
-  const t = useCatalogTranslations(getLangFromUrl(window.location.pathname));
+  const t = useCatalogTranslations(currentLocale);
   return (
     <Modal
       className="filters-modal"

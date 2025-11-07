@@ -1,7 +1,6 @@
 ---
 import Layout from "../../../layouts/Layout.astro";
 import EServiceDetails from "../../../components/EServiceDetails/EServiceDetails.astro";
-import { EServiceId } from "../../../../../models/src/brandedIds";
 
 import { getLangFromUrl } from "../../../i18n/utils.i18n";
 import PageHero from "../../../components/shared/PageHero.astro";
@@ -15,7 +14,7 @@ import { OtherProducerEServices } from "../../../components/EServiceDetails/Othe
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const tEserviceDetails = useEServiceDetailsTranslations(currentLocale);
 
-const eserviceId: EServiceId = Astro.params.id as EServiceId;
+const eserviceId = Astro.params.id as string;
 
 const eservice = await sqlService.getEService(eserviceId);
 

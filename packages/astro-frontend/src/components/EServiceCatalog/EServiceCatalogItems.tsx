@@ -12,8 +12,7 @@ import {
 import React from "react";
 import { EServiceCard } from "../shared/EServiceCard.jsx";
 import { chunkEServiceArray } from "../../utils/utils.js";
-import { getLangFromUrl } from "../../i18n/utils.i18n.js";
-import { type EService } from "../../../../models/src/types/eservice.js";
+import { type EService } from "pagopa-interop-public-models";
 import Pagination from "../shared/Pagination/Pagination.jsx";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
 import { useEServiceCatalogContext } from "./EServiceCatalogContext.jsx";
@@ -25,18 +24,20 @@ type EServiceCatalogItemsProps = {
   totalCount: number;
 };
 
-const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({
+export const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({
   eservices,
   totalCount,
 }) => {
-  const { eserviceActiveFilterState, handleActiveFilterValueChange } =
-    useEServiceCatalogContext();
+  const {
+    eserviceActiveFilterState,
+    handleActiveFilterValueChange,
+    currentLocale,
+  } = useEServiceCatalogContext();
   const { orderBy: order } = eserviceActiveFilterState;
 
   const rows = chunkEServiceArray(eservices, 3);
-  const currentLanguage = getLangFromUrl(window.location.pathname);
-  const t = useCatalogTranslations(currentLanguage);
-  const tUi = useUiTranslations(currentLanguage);
+  const t = useCatalogTranslations(currentLocale);
+  const tUi = useUiTranslations(currentLocale);
 
   const handleCopyUrl = () => {
     const url = window.location.href;
@@ -125,7 +126,7 @@ const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({
             <Col xs="12" key={eserviceIndex} className="col-12 col-lg-4 mb-4">
               <EServiceCard
                 eserviceId={eservice.id}
-                currentLocale={getLangFromUrl(window.location.pathname)}
+                currentLocale={currentLocale}
                 name={eservice.name}
                 producerName={eservice.tenant_name}
                 description={eservice.description}

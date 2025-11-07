@@ -12,11 +12,16 @@ import { EServiceCatalogApp } from "../../../components/EServiceCatalog/EService
 import RatingSection from "../../../components/shared/RatingSection.astro";
 import { Section } from "../../../components/shared/Section";
 import { links } from "../../../config/constants";
+import { loadEServiceCatalogSearchParams } from "../../../hooks/useEServiceCatalogSearchParams";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const t = useCatalogTranslations(currentLocale);
 
 const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
+
+const searchParamsInitialState = loadEServiceCatalogSearchParams(
+  Astro.url.search,
+);
 ---
 
 <Layout>
@@ -35,7 +40,11 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
   />
 
   <Section className="section-muted py-5">
-    <EServiceCatalogApp client:idle currentLocale={currentLocale} />
+    <EServiceCatalogApp
+      client:idle
+      currentLocale={currentLocale}
+      eserviceFilterInitialState={searchParamsInitialState}
+    />
   </Section>
 
   <RatingSection />

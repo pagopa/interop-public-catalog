@@ -1,11 +1,11 @@
 import { useCatalogTranslations } from "../../i18n/catalog.i18n";
-import { getLangFromUrl } from "../../i18n/utils.i18n";
+import { useEServiceCatalogContext } from "./EServiceCatalogContext";
 
 const imageSrc = "/img/024-search.svg";
 
 export const EServiceNoItems: React.FC = () => {
-  const currentLanguage = getLangFromUrl(window.location.pathname);
-  const t = useCatalogTranslations(currentLanguage);
+  const { currentLocale } = useEServiceCatalogContext();
+  const t = useCatalogTranslations(currentLocale);
   return (
     <div className="d-flex justify-content-center p-2 p-sm-5 mt-5">
       <div className="d-flex flex-column justify-content-center align-items-center">

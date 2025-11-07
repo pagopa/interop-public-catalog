@@ -1,16 +1,17 @@
 import type { APIRoute } from "astro";
 import { sqlService } from "../../server/services/index.js";
 import {
-  GetTenantsQuery,
-  GetTenantsResponse,
   parseQueryParams,
+  TenantsQuerySchema,
+  TenantsResponseSchema,
+  type TenantsResponse,
 } from "../../server/models/api.js";
 import { makeApiProblem } from "../../server/models/errors.js";
 import { emptyErrorMapper } from "pagopa-interop-public-models";
 
 export const GET: APIRoute = async ({ url, locals }) => {
   try {
-    const queryParams = parseQueryParams(url, GetTenantsQuery);
+    const queryParams = parseQueryParams(url, TenantsQuerySchema);
     const { q, limit, offset } = queryParams;
 
     locals.logger.info(
@@ -19,14 +20,14 @@ export const GET: APIRoute = async ({ url, locals }) => {
 
     const rawData = await sqlService.searchTenants({ q, limit, offset });
 
-    const data = GetTenantsResponse.parse({
+    const data = TenantsResponseSchema.parse({
       results: rawData.results,
       pagination: {
         offset,
         limit,
         totalCount: rawData.totalCount,
       },
-    } satisfies GetTenantsResponse);
+    } satisfies TenantsResponse);
 
     return new Response(JSON.stringify(data), {
       headers: { "Content-Type": "application/json" },

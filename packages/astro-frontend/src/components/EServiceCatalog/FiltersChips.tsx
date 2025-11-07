@@ -1,14 +1,14 @@
 import { Button, Chip as DRKChip, ChipLabel, Icon } from "design-react-kit";
 import type { FilterAutoCompleteValue } from "../MultipleAutoComplete/MultipleAutoComplete.js";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
-import type { CatalogFilterParams } from "./types.js";
 import type { SupportedLanguage } from "../../i18n/types.i18n.js";
+import type { EServiceCatalogSearchParams } from "../../hooks/useEServiceCatalogSearchParams.js";
 
 type FiltersChipsProps = {
   label?: string;
-  filters: CatalogFilterParams;
+  filters: EServiceCatalogSearchParams;
   handleRemoveValue: (
-    key: keyof CatalogFilterParams,
+    key: keyof EServiceCatalogSearchParams,
     value: string | FilterAutoCompleteValue,
   ) => void;
   handleRemoveAll: () => void;
@@ -16,17 +16,11 @@ type FiltersChipsProps = {
 };
 
 const Chip: React.FC<{
-  key: string;
   label: string;
   handleRemoveValue?: () => void;
-}> = ({ key, label, handleRemoveValue }) => {
+}> = ({ label, handleRemoveValue }) => {
   return (
-    <DRKChip
-      id="filter-chip"
-      key={key}
-      color="primary"
-      className="no-hover me-1 mb-1"
-    >
+    <DRKChip id="filter-chip" color="primary" className="no-hover me-1 mb-1">
       <ChipLabel className="no-hover text-primary chip-label">
         {label}
       </ChipLabel>
@@ -67,7 +61,10 @@ export const FiltersChips: React.FC<FiltersChipsProps> = ({
                 key={`${key}-${v.value}`}
                 label={`${t(`chip.${key}`)}: ${v.label}`}
                 handleRemoveValue={() =>
-                  handleRemoveValue(key as keyof CatalogFilterParams, v.value)
+                  handleRemoveValue(
+                    key as keyof EServiceCatalogSearchParams,
+                    v.value,
+                  )
                 }
               />
             ));
@@ -81,7 +78,7 @@ export const FiltersChips: React.FC<FiltersChipsProps> = ({
                   label={`${t(`chip.${key}`)}: ${value}`}
                   handleRemoveValue={() =>
                     handleRemoveValue(
-                      key as keyof CatalogFilterParams,
+                      key as keyof EServiceCatalogSearchParams,
                       value as string,
                     )
                   }

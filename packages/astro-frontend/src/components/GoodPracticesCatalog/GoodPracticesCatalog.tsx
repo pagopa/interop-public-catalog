@@ -4,26 +4,30 @@ import {
   GoodPracticeCard,
   GoodPracticeCardSkeleton,
 } from "../shared/GoodPracticeCard.js";
-import { useSearchParams } from "../../hooks/useSearchParams.js";
-import { z } from "zod";
 import useSwr from "swr";
 import { MacroCategoryIdFilter } from "./MacroCategoryIdFilter.jsx";
 import { apiService } from "../../services/api.services.js";
+import { parseAsInteger, useQueryState } from "nuqs";
+import { NuqsAdapter } from "nuqs/adapters/react";
 
-export const GoodPracticesCatalog: React.FC<{
-  defaultMacroCategoryId: number | undefined;
+type GoodPracticesCatalogProps = {
+  defaultMacroCategoryId: number | null;
   currentLocale: SupportedLanguage;
-}> = ({ currentLocale, defaultMacroCategoryId }) => {
-  const [searchParams, setSearchParams] = useSearchParams(
-    z.object({
-      macroCategoryId: z.coerce.number(),
-    }),
+};
+
+export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
+  currentLocale,
+  defaultMacroCategoryId,
+}) => {
+  const [searchParams, setSearchParams] = useQueryState(
+    "macroCategoryId",
+    parseAsInteger,
   );
 
   const isServer = typeof window === "undefined";
   const selectedMacroCategoryId = isServer
     ? defaultMacroCategoryId
-    : searchParams.macroCategoryId;
+    : searchParams;
 
   const { data, isLoading } = useSwr(
     [currentLocale, selectedMacroCategoryId],
@@ -31,7 +35,7 @@ export const GoodPracticesCatalog: React.FC<{
       const [result] = await Promise.all([
         apiService.getGoodPractices({
           locale,
-          macroCategoryId,
+          macroCategoryId: macroCategoryId ?? undefined,
           limit: 50,
           offset: 0,
         }),
@@ -46,7 +50,7 @@ export const GoodPracticesCatalog: React.FC<{
   const handleSelectedMacroCategoryIdChange = (
     macroCategoryId: number | null,
   ) => {
-    setSearchParams({ macroCategoryId: macroCategoryId ?? undefined });
+    setSearchParams(macroCategoryId);
   };
 
   return (
@@ -78,6 +82,16 @@ export const GoodPracticesCatalog: React.FC<{
           ))}
       </div>
     </div>
+  );
+};
+
+export const GoodPracticesCatalog: React.FC<GoodPracticesCatalogProps> = (
+  props,
+) => {
+  return (
+    <NuqsAdapter>
+      <GoodPracticesCatalog_ {...props} />
+    </NuqsAdapter>
   );
 };
 

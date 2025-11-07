@@ -9,34 +9,18 @@ import {
 import { categoriesMap } from "../config/categories";
 import { parseQueryString } from "../../utils/qs.utils";
 
-export const LocaleQuerySchema = z.object({
-  locale: z
-    .enum(Object.keys(LANGUAGES) as [SupportedLanguage, ...SupportedLanguage[]])
-    .optional()
-    .default(DEFAULT_LANG),
-});
-
-const SearchQuerySchema = z.object({
-  q: z.string().trim().max(100).optional(),
-});
-
-const commaSeparatedStringToArray = <T extends z.ZodTypeAny>(itemSchema: T) =>
-  z
-    .string()
-    .transform((str) =>
-      str.trim()
-        ? str
-            .split(",")
-            .map((s) => s.trim())
-            .filter(Boolean)
-        : [],
-    )
-    .pipe(z.array(itemSchema));
-
-const PaginationQuerySchema = z.object({
-  limit: z.coerce.number().min(1).max(100).optional().default(12),
-  offset: z.coerce.number().min(0).optional().default(0),
-});
+/* --------------------------------- Helpers --------------------------------- */
+function commaSeparatedStringToArray<T extends z.ZodTypeAny>(itemSchema: T) {
+  return z.preprocess((v) => {
+    if (typeof v !== "string") return v;
+    const t = v.trim();
+    if (!t) return [];
+    return t
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }, z.array(itemSchema));
+}
 
 const PaginatedResultSchema = <T extends z.ZodTypeAny>(itemSchema: T) =>
   z.object({
@@ -48,25 +32,14 @@ const PaginatedResultSchema = <T extends z.ZodTypeAny>(itemSchema: T) =>
     }),
   });
 
-export const GetGoodPracticesQuery = z
-  .object({
-    macroCategoryId: z.coerce.number().positive().optional(),
-  })
-  .and(LocaleQuerySchema)
-  .and(PaginationQuerySchema);
+function buildEnumFromObjectKeys<const O extends Record<string, unknown>>(
+  obj: O,
+) {
+  const keys = Object.keys(obj) as [keyof O & string, ...(keyof O & string)[]];
+  return z.enum(keys);
+}
 
-export type GetGoodPracticesQuery = z.infer<typeof GetGoodPracticesQuery>;
-
-export const GoodPracticeSlug = z.string().min(1);
-export const GetGoodPracticesResponse = PaginatedResultSchema(GoodPractice);
-export type GetGoodPracticesResponse = z.infer<typeof GetGoodPracticesResponse>;
-
-export const GetTenantsQuery = PaginationQuerySchema.and(SearchQuerySchema);
-export type GetTenantsQuery = z.infer<typeof GetTenantsQuery>;
-
-export const GetTenantsResponse = PaginatedResultSchema(CompactTenant);
-export type GetTenantsResponse = z.infer<typeof GetTenantsResponse>;
-
+/* ---------------------------------- Enums ---------------------------------- */
 export const eserviceOrderBy = {
   recent_asc: "created_at ASC",
   recent_desc: "created_at DESC",
@@ -74,34 +47,66 @@ export const eserviceOrderBy = {
   name_desc: "name DESC",
 } as const;
 
-export const EServiceOrderBy = z.enum([
-  (Object.keys(eserviceOrderBy) as Array<keyof typeof eserviceOrderBy>)[0],
-  ...(
-    Object.keys(eserviceOrderBy) as Array<keyof typeof eserviceOrderBy>
-  ).slice(1),
-]);
-export type EServiceOrderBy = z.infer<typeof EServiceOrderBy>;
+export const EServiceOrderBySchema = buildEnumFromObjectKeys(eserviceOrderBy);
+export type EServiceOrderBy = z.infer<typeof EServiceOrderBySchema>;
 
-export const EServiceCategory = z.enum([
-  (Object.keys(categoriesMap) as Array<keyof typeof categoriesMap>)[0],
-  ...(Object.keys(categoriesMap) as Array<keyof typeof categoriesMap>).slice(1),
-]);
-export type EServiceCategory = z.infer<typeof EServiceCategory>;
+export const EServiceCategorySchema = buildEnumFromObjectKeys(categoriesMap);
+export type EServiceCategory = z.infer<typeof EServiceCategorySchema>;
 
-export const GetEServicesQuery = z
+/* ------------------------------ Common Schemas ------------------------------ */
+export const LocaleQuerySchema = z.object({
+  locale: z
+    .enum(Object.keys(LANGUAGES) as [SupportedLanguage, ...SupportedLanguage[]])
+    .optional()
+    .default(DEFAULT_LANG),
+});
+
+export const SearchQuerySchema = z.object({
+  q: z.string().trim().max(100).optional(),
+});
+
+export const PaginationQuerySchema = z.object({
+  limit: z.coerce.number().min(1).max(100).optional().default(12),
+  offset: z.coerce.number().min(0).optional().default(0),
+});
+
+/* -------------------------- Good Practices Schemas ------------------------- */
+export const GoodPracticesQuerySchema = z
   .object({
-    orderBy: commaSeparatedStringToArray(EServiceOrderBy).optional(),
-    producerIds: commaSeparatedStringToArray(z.string().uuid()).optional(),
-    categories: commaSeparatedStringToArray(EServiceCategory).optional(),
+    macroCategoryId: z.coerce.number().positive().optional(),
+  })
+  .and(LocaleQuerySchema)
+  .and(PaginationQuerySchema);
+export type GoodPracticesQuery = z.infer<typeof GoodPracticesQuerySchema>;
+
+export const GoodPracticeSlugSchema = z.string().min(1);
+export type GoodPracticeSlug = z.infer<typeof GoodPracticeSlugSchema>;
+
+export const GoodPracticesResponseSchema = PaginatedResultSchema(GoodPractice);
+export type GoodPracticesResponse = z.infer<typeof GoodPracticesResponseSchema>;
+
+/* ------------------------------ Tenants Schemas ----------------------------- */
+export const TenantsQuerySchema = PaginationQuerySchema.and(SearchQuerySchema);
+export type TenantsQuery = z.infer<typeof TenantsQuerySchema>;
+
+export const TenantsResponseSchema = PaginatedResultSchema(CompactTenant);
+export type TenantsResponse = z.infer<typeof TenantsResponseSchema>;
+
+/* ----------------------------- EServices Schemas ---------------------------- */
+export const EServicesQuerySchema = z
+  .object({
+    orderBy: commaSeparatedStringToArray(EServiceOrderBySchema).optional(),
+    producerIds: commaSeparatedStringToArray(z.uuid()).optional(),
+    categories: commaSeparatedStringToArray(EServiceCategorySchema).optional(),
   })
   .and(SearchQuerySchema)
   .and(PaginationQuerySchema);
+export type EServicesQuery = z.infer<typeof EServicesQuerySchema>;
 
-export type GetEServicesQuery = z.infer<typeof GetEServicesQuery>;
+export const EServicesResponseSchema = PaginatedResultSchema(EService);
+export type EServicesResponse = z.infer<typeof EServicesResponseSchema>;
 
-export const GetEServicesResponse = PaginatedResultSchema(EService);
-export type GetEServicesResponse = z.infer<typeof GetEServicesResponse>;
-
+/* ------------------------------- Parse Helpers ------------------------------ */
 export function parseQueryParams<T extends z.ZodTypeAny>(
   url: URL,
   schema: T,

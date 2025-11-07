@@ -8,8 +8,7 @@ import Filters from "./Filters.jsx";
 import { useIsMobile } from "../../hooks/useIsMobile.jsx";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
 import { useEServiceCatalogContext } from "./EServiceCatalogContext.jsx";
-import type { CatalogFilterParams } from "./types.js";
-import type { SupportedLanguage } from "../../i18n/types.i18n.js";
+import type { EServiceCatalogSearchParams } from "../../hooks/useEServiceCatalogSearchParams.js";
 
 export type EServiceCatalogFiltersParams = {
   q?: string;
@@ -22,23 +21,22 @@ export type EServiceCatalogFilterKeys = keyof EServiceCatalogFiltersParams;
 
 type EServiceCatalogFiltersProps = {
   handleSubmitRequest: () => void;
-  currentLocale: SupportedLanguage;
 };
 const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
   handleSubmitRequest,
-  currentLocale,
 }) => {
-  const t = useCatalogTranslations(currentLocale);
-  const [isModalOpen, setIsModalOpen] = React.useState(false);
-  const isMobile = useIsMobile();
-
   const {
     eserviceActiveFilterState,
+    currentLocale,
     handleDraftFilterValueChange,
     handleActiveFilterValueChange,
     handleRemoveActiveFilterValue,
     handleRemoveAllActiveFilterValues,
   } = useEServiceCatalogContext();
+
+  const t = useCatalogTranslations(currentLocale);
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     const popoverTriggerList = [].slice.call(
@@ -57,7 +55,7 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
   };
 
   const handleRemoveFilterValue = (
-    key: keyof CatalogFilterParams,
+    key: keyof EServiceCatalogSearchParams,
     value: string | FilterAutoCompleteValue,
   ) => {
     handleRemoveActiveFilterValue(key, value);
