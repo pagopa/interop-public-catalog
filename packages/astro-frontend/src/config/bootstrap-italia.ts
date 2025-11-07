@@ -16,10 +16,13 @@ export const initPopover = (
   overrides?: ConstructorParameters<typeof Popover>[1],
 ) => {
   try {
-    return Popover.getInstance(el) || new Popover(el, {
-      trigger: "focus",
-      ...overrides,
-    });
+    return (
+      Popover.getInstance(el) ||
+      new Popover(el, {
+        trigger: "focus",
+        ...overrides,
+      })
+    );
   } catch (error) {
     console.warn("Failed to initialize popover:", error);
     return null;
@@ -31,9 +34,12 @@ export const initTooltip = (
   overrides?: ConstructorParameters<typeof Tooltip>[1],
 ) => {
   try {
-    return Tooltip.getInstance(el) || new Tooltip(el, {
-      ...overrides,
-    });
+    return (
+      Tooltip.getInstance(el) ||
+      new Tooltip(el, {
+        ...overrides,
+      })
+    );
   } catch (error) {
     console.warn("Failed to initialize tooltip:", error);
     return null;

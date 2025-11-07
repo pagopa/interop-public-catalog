@@ -53,7 +53,9 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
   return (
     <>
       <div className="d-flex input-filter-key">
-        <label htmlFor={id} className="active">{label}</label>
+        <label htmlFor={id} className="active">
+          {label}
+        </label>
         {tooltipIconRender}
       </div>
       <FormGroup className="form-group">
@@ -92,19 +94,21 @@ export const MultipleAutoComplete: React.FC<MultipleAutoCompleteProps> = ({
           isOptionEqualToValue={(option, { value }) => {
             return option.value === value;
           }}
-          renderOption={(props, option, { selected}) => {
+          renderOption={(props, option, { selected }) => {
             const { key, ...optionProps } = props;
 
             return (
               <li key={key} {...optionProps}>
-            <Checkbox suppressHydrationWarning
-              checked={selected}
-            />
-            <span style={{ fontFamily: "Titillium Web, sans-serif", fontWeight: "normal" }}>
-
-            {option.label}
-            </span>
-          </li>
+                <Checkbox suppressHydrationWarning checked={selected} />
+                <span
+                  style={{
+                    fontFamily: "Titillium Web, sans-serif",
+                    fontWeight: "normal",
+                  }}
+                >
+                  {option.label}
+                </span>
+              </li>
             );
           }}
           renderInput={(params) => {

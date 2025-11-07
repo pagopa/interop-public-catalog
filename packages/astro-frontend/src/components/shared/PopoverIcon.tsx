@@ -22,33 +22,33 @@ export const PopoverIcon: React.FC<PopoverIconProps> = ({
   iconSize,
   ariaLabel,
 }) => {
-    const ref = useRef<HTMLButtonElement>(null);
-  
-    useEffect(() => {
-      let popover = null;
-      if (ref.current) {
-        popover = initPopover(ref.current);
+  const ref = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    let popover = null;
+    if (ref.current) {
+      popover = initPopover(ref.current);
+    }
+
+    return () => {
+      if (popover) {
+        popover.dispose();
       }
-  
-      return () => {
-        if (popover) {
-          popover.dispose();
-        }
-      };
-    }, []);
-  
-  
+    };
+  }, []);
+
   return (
-  <button
-    ref={ref}
-    type="button"
-    className="btn btn-link p-0 d-inline-flex align-items-center ms-2"
-    data-bs-toggle="popover"
-    data-bs-placement="bottom"
-    data-bs-title={title}
-    data-bs-content={content}
-    aria-label={ariaLabel || title}
-  >
-    <BootstrapItaliaIcon name={iconName} color={iconColor} size={iconSize} />
-  </button>
-)};
+    <button
+      ref={ref}
+      type="button"
+      className="btn btn-link p-0 d-inline-flex align-items-center ms-2"
+      data-bs-toggle="popover"
+      data-bs-placement="bottom"
+      data-bs-title={title}
+      data-bs-content={content}
+      aria-label={ariaLabel || title}
+    >
+      <BootstrapItaliaIcon name={iconName} color={iconColor} size={iconSize} />
+    </button>
+  );
+};
