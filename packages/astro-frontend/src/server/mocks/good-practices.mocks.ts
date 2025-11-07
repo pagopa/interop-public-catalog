@@ -870,7 +870,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
         },
       ],
       tenantMacrocategories: [],
-      category: "Servizi al cittadino",
+      category: 'Servizi al cittadino',
       body: [
         {
           __component: "buona-pratica.description",
@@ -1054,21 +1054,6 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
           ],
         },
         {
-          __component: "buona-pratica.nota-tecnica",
-          id: 8,
-          example: [
-            {
-              type: "paragraph",
-              children: [
-                {
-                  type: "text",
-                  text: "Alcune API del Ministero dell’Interno sono erogate in due varianti: con approvazione automatica o manuale. Importante: prima di richiedere la fruizione controlla i requisiti di accesso nella scheda API per verificare se il tuo Ente può accedere a quelle con approvazione automatica.",
-                },
-              ],
-            },
-          ],
-        },
-        {
           __component: "buona-pratica.esempio-concreto",
           id: 8,
           example: [
@@ -1092,6 +1077,21 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                 {
                   type: "text",
                   text: " (ANPR) con i servizi digitali del comune, la compilazione è automatica: al momento dell’iscrizione, il sistema recupera in tempo reale le informazioni su residenza e stato di famiglia. In questo modo è necessario solo confermare i dati, e la pratica è immediatamente pronta per essere gestita dagli uffici, senza passaggi aggiuntivi o errori di trascrizione.",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          __component: "buona-pratica.nota-tecnica",
+          id: 8,
+          example: [
+            {
+              type: "paragraph",
+              children: [
+                {
+                  type: "text",
+                  text: "Alcune API del Ministero dell’Interno sono erogate in due varianti: con approvazione automatica o manuale. Importante: prima di richiedere la fruizione controlla i requisiti di accesso nella scheda API per verificare se il tuo Ente può accedere a quelle con approvazione automatica.",
                 },
               ],
             },
@@ -1964,7 +1964,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         },
       ],
       tenantMacrocategories: [],
-      category: "Citizen Services",
+      category: 'Citizen Services',
       body: [
         {
           __component: "buona-pratica.description",
@@ -2152,21 +2152,6 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
           ],
         },
         {
-          __component: "buona-pratica.nota-tecnica",
-          id: 8,
-          example: [
-            {
-              type: "paragraph",
-              children: [
-                {
-                  type: "text",
-                  text: "Some APIs provided by the Ministry of the Interior are available in two variants: with automatic or manual approval. Important: before requesting access, check the API information sheet to verify the eligibility requirements for your organization and whether it can access the versions with automatic approval.",
-                },
-              ],
-            },
-          ],
-        },
-        {
           __component: "buona-pratica.esempio-concreto",
           id: 8,
           example: [
@@ -2190,6 +2175,21 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                 {
                   type: "text",
                   text: " (ANPR) APIs with the municipality’s digital services, the process is automatic: when submitting the request, the system retrieves residence and family status data in real time. Citizens simply confirm the information, and the application is immediately ready to be processed by the offices, with no additional steps or transcription errors.",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          __component: "buona-pratica.nota-tecnica",
+          id: 8,
+          example: [
+            {
+              type: "paragraph",
+              children: [
+                {
+                  type: "text",
+                  text: "Some APIs provided by the Ministry of the Interior are available in two variants: with automatic or manual approval. Important: before requesting access, check the API information sheet to verify the eligibility requirements for your organization and whether it can access the versions with automatic approval.",
                 },
               ],
             },
