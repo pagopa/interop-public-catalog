@@ -378,6 +378,14 @@ export async function searchTenants(
   config: ServiceConfig,
   { limit, offset, q }: TenantsQuery,
 ): Promise<{ results: CompactTenant[]; totalCount: number }> {
+  const hasRelationshipsConditional = sql`
+  WHERE EXISTS (
+      SELECT 1
+      FROM ${sql.identifier(config.catalogSchema)}.eservice e
+      WHERE e.producer_id = t.id
+    )
+  `;
+
   const textlessSearchTx: Transaction<CompactTenant> = async (tx) => {
     const pageRes = await tx.execute(sql`
     SELECT
@@ -385,6 +393,7 @@ export async function searchTenants(
       t.id AS producer_id,
       count(*) over() AS total
     FROM ${sql.identifier(config.tenantSchema)}.tenant t
+    ${hasRelationshipsConditional}
     ORDER BY t.created_at DESC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `);
@@ -410,9 +419,13 @@ export async function searchTenants(
         END AS tsq,
         public.normalize_text(coalesce(${q}, '')) AS nq
     ),
+    has_match AS (
+      SELECT t.id FROM ${sql.identifier(config.tenantSchema)}.tenant t ${hasRelationshipsConditional}
+    ),
     fts_ids AS (
       SELECT t.id
       FROM ${sql.identifier(config.tenantSchema)}.tenant t
+      JOIN has_match h ON h.id = t.id
       CROSS JOIN params p
       WHERE p.tsq IS NOT NULL
         AND (t.search_vector @@ p.tsq)
@@ -420,6 +433,7 @@ export async function searchTenants(
     trgm_ids AS (
       SELECT t.id
       FROM ${sql.identifier(config.tenantSchema)}.tenant t
+      JOIN has_match h ON h.id = t.id
       CROSS JOIN params p
       WHERE
         public.normalize_text(t.name) % p.nq
