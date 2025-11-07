@@ -8,7 +8,7 @@ import Filters from "./Filters.jsx";
 import { useIsMobile } from "../../hooks/useIsMobile.jsx";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
 import { useEServiceCatalogContext } from "./EServiceCatalogContext.jsx";
-import type { EServiceCatalogSearchParams } from "./utils.js";
+import type { EServiceCatalogSearchParams } from "../../hooks/useEServiceCatalogSearchParams.js";
 
 export type EServiceCatalogFiltersParams = {
   q?: string;

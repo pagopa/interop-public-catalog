@@ -15,12 +15,12 @@ import {
 import { TooltipIcon } from "../shared/TooltipIcon.js";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
 import { useEServiceCatalogContext } from "./EServiceCatalogContext.jsx";
-import type { EServiceCatalogSearchParams } from "./utils.js";
 import { useAutocompleteTextInput } from "../../hooks/useAutoCompleteTextInput.jsx";
 import type { SupportedLanguage } from "../../i18n/types.i18n.js";
 import useSWRImmutable from "swr/immutable";
 import { apiService } from "../../services/api.services.js";
 import { categoriesMap } from "../../server/config/categories.js";
+import type { EServiceCatalogSearchParams } from "../../hooks/useEServiceCatalogSearchParams.js";
 
 const FILTER_ROW_HEIGHT = 70;
 

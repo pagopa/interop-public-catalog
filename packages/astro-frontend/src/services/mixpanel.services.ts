@@ -1,7 +1,7 @@
 import mixpanel, { type Config } from "mixpanel-browser";
 import { isDevEnvironment } from "../config/constants";
 import { z } from "zod";
-import type { EServiceCatalogSearchParams } from "../components/EServiceCatalog/utils";
+import type { EServiceCatalogSearchParams } from "../hooks/useEServiceCatalogSearchParams";
 
 const MIXPANEL_CONFIG: Partial<Config> = {
   api_host: "https://api-eu.mixpanel.com",
