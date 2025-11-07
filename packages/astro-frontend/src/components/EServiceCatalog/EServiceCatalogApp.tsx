@@ -12,8 +12,9 @@ export const EServiceCatalogApp: React.FC<{
     <NuqsAdapter>
       <EServiceCatalogContextProvider
         eserviceFilterInitialState={eserviceFilterInitialState}
+        currentLocale={currentLocale}
       >
-        <EServiceCatalog currentLocale={currentLocale} />
+        <EServiceCatalog />
       </EServiceCatalogContextProvider>
     </NuqsAdapter>
   );

@@ -6,7 +6,8 @@ import {
   type inferParserType,
   createLoader,
 } from "nuqs";
-import z from "zod";
+import { z } from "zod";
+import type { EServiceOrderBy } from "../../server/models/api";
 
 export const autocompleteSearchParamParser = createParser({
   parse(query) {
@@ -36,7 +37,7 @@ export const eserviceCatalogSearchParamsParser = {
     "recent_desc",
     "name_asc",
     "name_desc",
-  ]).withDefault("recent_desc"),
+  ] satisfies Array<EServiceOrderBy>).withDefault("recent_desc"),
   provider: autocompleteSearchParamParser,
   consumer: autocompleteSearchParamParser,
 };

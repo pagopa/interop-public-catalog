@@ -8,13 +8,20 @@ import useSwr from "swr";
 import { MacroCategoryIdFilter } from "./MacroCategoryIdFilter.jsx";
 import { apiService } from "../../services/api.services.js";
 import { parseAsInteger, useQueryState } from "nuqs";
+import { NuqsAdapter } from "nuqs/adapters/react";
 
-export const GoodPracticesCatalog: React.FC<{
+type GoodPracticesCatalogProps = {
   defaultMacroCategoryId: number | null;
   currentLocale: SupportedLanguage;
-}> = ({ currentLocale, defaultMacroCategoryId }) => {
+};
+
+export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
+  currentLocale,
+  defaultMacroCategoryId,
+}) => {
   const [searchParams, setSearchParams] = useQueryState(
-    "macroCategoryId", parseAsInteger
+    "macroCategoryId",
+    parseAsInteger,
   );
 
   const isServer = typeof window === "undefined";
@@ -75,6 +82,16 @@ export const GoodPracticesCatalog: React.FC<{
           ))}
       </div>
     </div>
+  );
+};
+
+export const GoodPracticesCatalog: React.FC<GoodPracticesCatalogProps> = (
+  props,
+) => {
+  return (
+    <NuqsAdapter>
+      <GoodPracticesCatalog_ {...props} />
+    </NuqsAdapter>
   );
 };
 
