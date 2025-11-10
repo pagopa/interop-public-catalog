@@ -31,9 +31,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       const filteredData = getGoodPracticesDataMockByLocale(locale)
         .filter((g) =>
           macroCategoryIds
-            ? (g.data.tenantMacrocategories.some((mc) =>
+            ? g.data.tenantMacrocategories.some((mc) =>
                 macroCategoryIds.includes(mc.id),
-              ) || g.data.tenantMacrocategories.length === 0)
+              ) || g.data.tenantMacrocategories.length === 0
             : true,
         )
         .filter((g) =>
