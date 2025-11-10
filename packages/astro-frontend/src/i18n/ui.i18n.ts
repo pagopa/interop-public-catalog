@@ -18,10 +18,10 @@ const breadcrumbLabels = {
   en: {
     "breadcrumb_label.HOME": "Home",
     "breadcrumb_label.ECOSYSTEM": "What is interoperability",
-    "breadcrumb_label.ESERVICE_CATALOG": "Explore the catalog",
+    "breadcrumb_label.ESERVICE_CATALOG": "Browse the catalogue",
     "breadcrumb_label.ESERVICE_DETAILS": "API details",
     "breadcrumb_label.FAQ": "Frequently asked questions",
-    "breadcrumb_label.GOOD_PRACTICES_CATALOG": "Practical examples",
+    "breadcrumb_label.GOOD_PRACTICES_CATALOG": "Use cases",
     "breadcrumb_label.GOOD_PRACTICES_DETAILS": "Good practice details",
     "breadcrumb_label.LEGISLATION": "Legislation",
     "breadcrumb_label.PRIVACY_POLICY": "Privacy policy",
