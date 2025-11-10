@@ -108,7 +108,7 @@ const tables: TableMap[] = [
   {
     source: `${jobConfig.sourceDbSchemaCatalog}.eservice_descriptor_attribute`,
     target: `${jobConfig.targetDbSchemaCatalog}.eservice_descriptor_attribute`,
-    orderBy: "eservice_id, attribute_id, group_id",
+    orderBy: "attribute_id, descriptor_id, group_id",
     columns: extractColumnNamesFromTable(
       catalog.tables.eservice_descriptor_attribute,
     ),
