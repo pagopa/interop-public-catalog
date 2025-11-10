@@ -870,7 +870,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
         },
       ],
       tenantMacrocategories: [],
-      category: 'Servizi al cittadino',
+      category: "Servizi al cittadino",
       body: [
         {
           __component: "buona-pratica.description",
@@ -1964,7 +1964,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         },
       ],
       tenantMacrocategories: [],
-      category: 'Citizen Services',
+      category: "Citizen Services",
       body: [
         {
           __component: "buona-pratica.description",
