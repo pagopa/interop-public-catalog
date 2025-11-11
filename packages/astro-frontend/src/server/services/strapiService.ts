@@ -33,7 +33,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           macroCategoryIds
             ? g.data.tenantMacrocategories.some((mc) =>
                 macroCategoryIds.includes(mc.id),
-              )
+              ) || g.data.tenantMacrocategories.length === 0
             : true,
         )
         .filter((g) =>

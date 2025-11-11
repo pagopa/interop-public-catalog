@@ -59,7 +59,11 @@ const goodPractice = goodPracticeStrapiResponse.data;
     <div slot="bottom-hero">
       <p>
         <strong>{tUi("label.for")}:</strong>
-        {goodPractice.tenantMacrocategories.map((l) => l.label).join(", ")}
+        {
+          goodPractice.tenantMacrocategories.length === 0
+            ? tUi("tenant_macrocategory_.tutti_short")
+            : goodPractice.tenantMacrocategories.map((m) => m.label).join(", ")
+        }
       </p>
     </div>
   </PageHero>

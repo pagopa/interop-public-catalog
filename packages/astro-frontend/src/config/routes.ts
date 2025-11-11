@@ -2,14 +2,17 @@ import type { SupportedLanguage } from "../i18n/types.i18n.js";
 
 export const ROUTES = {
   HOME: { it: "/", en: "/" },
-  GOOD_PRACTICES_CATALOG: { it: "/buone-pratiche", en: "/good-practices" },
+  GOOD_PRACTICES_CATALOG: { it: "/esempi-pratici", en: "/use-cases" },
   GOOD_PRACTICES_DETAILS: {
-    it: "/buone-pratiche/[slug]",
-    en: "/good-practices/[slug]",
+    it: "/esempi-pratici/[slug]",
+    en: "/use-cases/[slug]",
   },
-  ESERVICE_CATALOG: { it: "/catalogo", en: "/catalog" },
-  ESERVICE_DETAILS: { it: "/catalogo/[id]", en: "/catalog/[id]" },
-  ECOSYSTEM: { it: "/ecosistema", en: "/ecosystem" },
+  ESERVICE_CATALOG: { it: "/catalogo", en: "/catalogue" },
+  ESERVICE_DETAILS: { it: "/catalogo/[id]", en: "/catalogue/[id]" },
+  ECOSYSTEM: {
+    it: "/cos-e-l-interoperabilita",
+    en: "/what-is-interoperability",
+  },
   FAQ: { it: "/FAQ", en: "/FAQ" },
   LEGISLATION: { it: "/normativa", en: "/legislation" },
   PRIVACY_POLICY: { it: "/privacy-policy", en: "/privacy-policy" },
