@@ -139,7 +139,7 @@ export const ui = {
     "nav.what_is": "What is interoperability",
     "nav.faq": "FAQ",
 
-    "header.brand.tagline": "The Public Administration APIs",
+    "header.brand.tagline": "Public Administration APIs",
     "header.nav.toggle": "Show/Hide navigation",
     "header.nav.hide": "Hide navigation",
     "header.top_nav.DTD": "Department for Digital Transformation",
