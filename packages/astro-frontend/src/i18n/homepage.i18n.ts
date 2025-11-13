@@ -61,7 +61,7 @@ export const homepage = {
     scroll_hint: "Scroll to learn more",
     "api_info.title": "WHAT ARE API?",
     "api_info.content":
-      "API (Application Programming Interfaces) are digital tools that enable public entities to communicate and exchange data securely and automatically.",
+      "API (Application Programming Interfaces) are digital tools that enable organizations to communicate and exchange data securely and automatically.",
 
     "how_it_works.title": "How it works",
     "how_it_works.step_1.title": "1. Search for APIs in the catalogue",
