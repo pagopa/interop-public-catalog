@@ -126,7 +126,7 @@ export const eserviceDetails = {
     "attributes_section.verified_group.title": "Verified attribute",
     "attributes_section.verified_group_tooltip.title": "Verified attribute",
     "attributes_section.verified_group_tooltip.content":
-      "These are attributes already verified by other public bodies for the same consumer. The provider may still request a new verification if necessary.",
+      "These are attributes already verified by other organizations for the same consumer. The provider may still request a new verification if necessary.",
     "attributes_section.declared_group.title": "Declared attribute",
     "attributes_section.declared_group_tooltip.title": "Declared attribute",
     "attributes_section.declared_group_tooltip.content":
