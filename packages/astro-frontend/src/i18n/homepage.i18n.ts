@@ -83,7 +83,7 @@ export const homepage = {
       "Get inspired by practical examples for your organization",
     "good_practices.description":
       "Learn how to integrate APIs into your organization’s processes: find inspiration in a set of meaningful and easy-to-replicate examples.",
-    "good_practices.target.pa_centrali": "Central government administrations",
+    "good_practices.target.pa_centrali": "Central Government Administrations",
     "good_practices.target.regioni": "Regions",
     "good_practices.target.comuni": "Municipalities",
     "good_practices.target.view_all": "View all",
