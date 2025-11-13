@@ -10,16 +10,16 @@ const goodPracticesTranslations = {
     "details.moreExamples": "Altre buone pratiche",
     "details.lastUpdate": "Ultimo aggiornamento:",
 
-    "details.section.apis.heading": "API collegate a questa buona pratica",
+    "details.section.apis.heading": "API utilizzate",
     "details.section.apis.description": "Descrizione",
     "details.section.apis.example": "Un esempio dal territorio",
     "details.section.apis.technical_notes": "Note tecniche",
     "details.section.apis.show_more_button_label": "Mostra di più",
   },
   en: {
-    "catalog.title": "Use cases for your Public body",
+    "catalog.title": "Use cases for your organization",
     "catalog.subtitle":
-      "Discover how to integrate APIs into your public body’s processes and get inspired by meaningful, easy-to-replicate use cases featured in this ever-evolving collection.",
+      "Discover how to integrate APIs into your organization’s processes and get inspired by meaningful, easy-to-replicate use cases featured in this ever-evolving collection.",
 
     "details.moreExamples": "Other Use Cases",
     "details.lastUpdate": "Last updated:",
