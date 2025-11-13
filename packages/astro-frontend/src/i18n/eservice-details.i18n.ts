@@ -92,7 +92,7 @@ export const eserviceDetails = {
     "api_details_section.delegation_label": "Delegated access",
     "api_details_section.delegation_tooltip.title": "Delegated access",
     "api_details_section.delegation_tooltip.content":
-      "If available, you can delegate another Public body to submit the API usage request on your behalf.",
+      "If available, you can delegate another organization to submit the API usage request on your behalf.",
     "api_details_section.agreements_label":
       "Automatic acceptance of usage requests",
     "api_details_section.agreements_tooltip.title": "Automatic acceptance",
