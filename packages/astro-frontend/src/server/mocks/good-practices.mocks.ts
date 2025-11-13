@@ -55,7 +55,16 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: "text",
-                  text: " (Contrassegno Unificato Disabili Europeo) è il documento che permette alle persone con disabilità di accedere alle ZTL e parcheggiare negli stalli riservati. Con la digitalizzazione e centralizzazione della ",
+                  text: " (Contrassegno Unificato Disabili Europeo) è ",
+                },
+                {
+                  type: "text",
+                  text: "il documento che permette alle persone con disabilità di accedere",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: "alle ZTL e parcheggiare negli stalli riservati. Con la digitalizzazione e centralizzazione della ",
                 },
                 {
                   type: "link",
@@ -69,7 +78,16 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: "text",
-                  text: " e la sua erogazione tramite la Piattaforma Digitale Nazionale Dati (PDND), i comuni possono consultare in tempo reale i dati dei contrassegni rilasciati da altri enti, riconoscere automaticamente i diritti di accesso e di sosta delle persone con disabilità su tutto il territorio nazionale, eliminando la necessità di registrazioni manuali delle targhe. L’obiettivo è che tutti i Comuni alimentino la banca dati centrale, così da garantire che le persone aventi diritto, possano circolare nelle ZTL o parcheggiare negli stalli riservati su tutto il territorio nazionale, senza dover fare nuove richieste ogni volta.",
+                  text: " e la sua erogazione tramite la Piattaforma Digitale Nazionale Dati (PDND), ",
+                },
+                {
+                  type: "text",
+                  text: "i comuni possono consultare in tempo reale i dati dei contrassegni rilasciati da altri enti",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", riconoscere automaticamente i diritti di accesso e di sosta delle persone con disabilità su tutto il territorio nazionale, eliminando la necessità di registrazioni manuali delle targhe. L’obiettivo è che tutti i Comuni alimentino la banca dati centrale, così da garantire che le persone aventi diritto, possano circolare nelle ZTL o parcheggiare negli stalli riservati su tutto il territorio nazionale, senza dover fare nuove richieste ogni volta.",
                 },
               ],
             },
@@ -117,7 +135,39 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "In precedenza, se il cittadino titolare del CUDE si fosse recato in un comune non aderente alla banca dati nazionale, avrebbe dovuto seguire l’iter precedente: comunicare preventivamente la targa al Comune, seguire procedure diverse per ogni amministrazione ed esporre sempre il contrassegno cartaceo per evitare sanzioni. Ora, grazie a questo sistema che permette di accedere in tempo reale ai dati aggiornati, i cittadini con contrassegno valido possono circolare e parcheggiare in tutti i comuni che hanno aderito alla banca dati nazionale CUDE (un numero sempre crescente e destinato ad aumentare), senza dover presentare nuove richieste a ogni spostamento. Con l’integrazione delle API disponibili su PDND, inoltre, i varchi elettronici riconoscono automaticamente il veicolo associato al CUDE, permettendo l’accesso alle ZTL e la sosta negli stalli riservati su tutto il territorio nazionale. ",
+                  text: "In precedenza",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", se il cittadino titolare del CUDE si fosse recato in un comune non aderente alla banca dati nazionale, ",
+                },
+                {
+                  type: "text",
+                  text: "avrebbe dovuto seguire l’iter precedente",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ": comunicare preventivamente la targa al Comune, seguire procedure diverse per ogni amministrazione ed esporre sempre il contrassegno cartaceo per evitare sanzioni. ",
+                },
+                {
+                  type: "text",
+                  text: "Ora",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", grazie a questo sistema che permette di accedere in tempo reale ai dati aggiornati, ",
+                },
+                {
+                  type: "text",
+                  text: "i cittadini con contrassegno valido possono circolare e parcheggiare in tutti i comuni",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " che hanno aderito alla banca dati nazionale CUDE (un numero sempre crescente e destinato ad aumentare), senza dover presentare nuove richieste a ogni spostamento. Con l’integrazione delle API disponibili su PDND, inoltre, i varchi elettronici riconoscono automaticamente il veicolo associato al CUDE, permettendo l’accesso alle ZTL e la sosta negli stalli riservati su tutto il territorio nazionale. ",
                 },
               ],
             },
@@ -250,8 +300,22 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Il comune di Mortara ha integrato con successo la fruizione delle API per l’accesso alla banca dati del CUDE nei suoi sistemi gestionali e grazie a questo lavoro oggi la Polizia locale può accedere direttamente, tramite i palmari in dotazione, ai dati ed effettuare i controlli sui mezzi che usufruiscono dei diritti legati al contrassegno. Questo consente di evitare sanzioni a chi parcheggia negli spazi riservati avendone diritto, anche se il contrassegno non è visibile, e aiuta la Polizia locale a individuare eventuali usi impropri del CUDE.",
+                  text: "Il comune di Mortara ha integrato con successo la fruizione delle API per l’accesso alla banca dati del CUDE nei suoi sistemi gestionali",
+                  bold: true,
                 },
+                {
+                  type: "text",
+                  text: " e grazie a questo lavoro oggi la Polizia locale può accedere direttamente, tramite i palmari in dotazione, ai dati ed effettuare i controlli sui mezzi che usufruiscono dei diritti legati al contrassegno. Questo consente di ",
+                },
+                {
+                  type: "text",
+                  text: "evitare sanzioni",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " a chi parcheggia negli spazi riservati avendone diritto, anche se il contrassegno non è visibile, e aiuta la Polizia locale a individuare eventuali usi impropri del CUDE.",
+                }
               ],
             },
           ],
@@ -306,7 +370,25 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Nell’ambito delle politiche per il diritto allo studio, le Regioni e altri enti erogano borse di studio a favore degli studenti delle scuole secondarie di secondo grado, al fine di sostenere l’acquisto di libri di testo, strumenti e servizi utili alla crescita culturale e formativa.",
+                  text: "Nell’ambito delle politiche per il diritto allo studio, ",
+                },
+                {
+                  type: "text",
+                  text: "le Regioni e altri enti erogano borse di studio a favore degli studenti delle scuole secondarie di secondo grado",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: "Nell’ambito delle politiche per il diritto allo studio, ",
+                },
+                {
+                  type: "text",
+                  text: "le Regioni e altri enti erogano borse di studio a favore degli studenti delle scuole secondarie di secondo grado",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", al fine di sostenere l’acquisto di libri di testo, strumenti e servizi utili alla crescita culturale e formativa.",
                 },
               ],
             },
@@ -321,7 +403,16 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Per garantire la corretta attribuzione dei benefici, le strutture competenti possono avvalersi delle API dell’",
+                  text: "Per garantire la corretta attribuzione dei benefici, ",
+                },
+                {
+                  type: "text",
+                  text: "le strutture competenti possono avvalersi delle API",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " dell’",
                 },
                 {
                   type: "link",
@@ -335,7 +426,16 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: "text",
-                  text: " messe a disposizione su PDND dal Ministero dell’istruzione e del merito (MIM), che consentono l’accertamento automatico della frequenza scolastica.",
+                  text: " messe a disposizione su PDND dal Ministero dell’istruzione e del merito (MIM), che ",
+                },
+                {
+                  type: "text",
+                  text: "consentono l’accertamento automatico",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " della frequenza scolastica.",
                 },
               ],
             },
@@ -383,7 +483,30 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "In assenza di integrazione del processo di verifica tramite PDND, le famiglie devono presentare certificati o autodichiarazioni per attestare la frequenza scolastica, con procedure diverse e tempi lunghi.Con la PDND e le API di ANIST, gli enti possono accertare automaticamente la frequenza consultando i dati ufficiali del Ministero, rendendo i controlli più rapidi, standardizzati e sicuri, e accelerando l’erogazione dei contributi.",
+                  text: "In assenza di integrazione del processo di verifica tramite PDND, ",
+                },
+                {
+                  type: "text",
+                  text: "le famiglie devono presentare certificati o autodichiarazioni per attestare la frequenza scolastica",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", con procedure diverse e tempi lunghi.",
+                },
+              ],
+            },
+            {
+              type: "paragraph",
+              children: [
+                {
+                  type: "text",
+                  text: "Con la PDND e le API di ANIST, gli enti possono accertare",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " automaticamente la frequenza consultando i dati ufficiali del Ministero, rendendo i controlli più rapidi, standardizzati e sicuri, e accelerando l’erogazione dei contributi.",
                 },
               ],
             },
@@ -502,7 +625,34 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Per l’anno scolastico 2024/2025, quasi 30.000 studenti campani, a fronte di oltre 60000 domande pervenute, hanno ricevuto un sostegno economico per la crescita culturale a supporto della loro formazione grazie al bando #IoStudio della Regione Campania. In passato le famiglie erano tenute a presentare certificati o autodichiarazioni per attestare la frequenza scolastica, con tempi lunghi e procedure diverse da scuola a scuola. Con l’integrazione tra i sistemi regionali e la PDND, invece, la Regione Campania ha potuto accertare la frequenza scolastica direttamente dai dati del Ministero dell’istruzione e del merito tramite gli e-service esposti a catalogo, in modo automatico e senza passaggi aggiuntivi per i cittadini. L’assegnazione delle borse di studio è così diventata più rapida, trasparente e mirata, garantendo che i fondi arrivassero tempestivamente a chi ne avesse davvero diritto.",
+                  text: "Per l’anno scolastico 2024/2025, quasi 30.000 studenti campani, a fronte di oltre 60000 domande pervenute, hanno ricevuto un ",
+                },
+                {
+                  type: "text",
+                  text: "sostegno economico per la crescita culturale a supporto della loro formazione",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " grazie al bando #IoStudio della Regione Campania. In passato le famiglie erano tenute a presentare certificati o autodichiarazioni per attestare la frequenza scolastica, con tempi lunghi e procedure diverse da scuola a scuola. Con l’integrazione tra i sistemi regionali e la PDND, invece, la Regione Campania ha potuto accertare la frequenza scolastica direttamente dai dati del Ministero dell’istruzione e del merito tramite gli e-service esposti a catalogo, in modo automatico e senza passaggi aggiuntivi per i cittadini. L’assegnazione delle borse di studio è così diventata più rapida, trasparente e mirata, garantendo che i fondi arrivassero tempestivamente a chi ne avesse davvero diritto.",
+                },
+              ],
+            },
+            {
+              type: "paragraph",
+              children: [
+                {
+                  type: "text",
+                  text: "In passato le famiglie erano tenute a presentare certificati o autodichiarazioni per attestare la frequenza scolastica, con tempi lunghi e procedure diverse da scuola a scuola. ",
+                },
+                {
+                  type: "text",
+                  text: "Con l’integrazione tra i sistemi regionali e la PDND, invece, la Regione Campania ha potuto accertare la frequenza scolastica direttamente dai dati del Ministero dell’istruzione e del merito",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " tramite gli e-service esposti a catalogo, in modo automatico e senza passaggi aggiuntivi per i cittadini. L’assegnazione delle borse di studio è così diventata più rapida, trasparente e mirata, garantendo che i fondi arrivassero tempestivamente a chi ne avesse davvero diritto.",
                 },
               ],
             },
@@ -574,12 +724,41 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "I bonus economici prevedono la presentazione di documenti e autodichiarazioni per verificare la legittimità della richiesta, con procedure diverse tra enti e tempi lunghi per i controlli. Attraverso le API disponibili su PDND gli enti possono verificare automaticamente i requisiti dei cittadini recuperando dati, come ISEE e stato di famiglia, direttamente alla fonte, durante la presentazione dell’istanza da parte del cittadino, senza che quest’ultimo debba fornirli con certificati o autodichiarazioni, attuando così il principio del ",
+                  text: "I bonus economici prevedono ",
+                },
+                {
+                  type: "text",
+                  text: "la presentazione di documenti e autodichiarazioni per verificare la legittimità della richiesta",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", con procedure diverse tra enti e tempi lunghi per i controlli.",
+                },
+              ],
+            },
+            {
+              type: "paragraph",
+              children: [
+                {
+                  type: "text",
+                  text: "Attraverso le API disponibili su PDND",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " gli enti possono verificare automaticamente i requisiti dei cittadini recuperando dati, come ISEE e stato di famiglia, direttamente alla fonte, durante la presentazione dell’istanza da parte del cittadino, ",
+                },
+                {
+                  type: "text",
+                  text: "senza che quest’ultimo debba fornirli con certificati o autodichiarazioni, attuando così il principio del ",
+                  bold: true,
                 },
                 {
                   type: "text",
                   text: "once only",
                   italic: true,
+                  bold: true,
                 },
                 {
                   type: "text",
@@ -631,7 +810,16 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "In passato, i cittadini dovevano raccogliere e presentare certificati o autodichiarazioni per dimostrare il possesso di determinati requisiti (es. ISEE, stato di famiglia). Gli enti li controllavano successivamente con istruttorie manuali, allungando i tempi e aumentando il rischio di errori. Oggi l’ente può accedere direttamente alle banche dati ufficiali esposte sulla PDND per la verifica di requisiti, semplificando notevolmente la procedura, riducendo i tempi per l’erogazione e i possibili errori.",
+                  text: "In passato, i cittadini dovevano raccogliere e presentare certificati o autodichiarazioni per dimostrare il possesso di determinati requisiti (es. ISEE, stato di famiglia). Gli enti li controllavano successivamente con istruttorie manuali, allungando i tempi e aumentando il rischio di errori. ",
+                },
+                {
+                  type: "text",
+                  text: "Oggi l’ente può accedere direttamente alle banche dati ufficiali esposte sulla PDND per la verifica di requisiti",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", semplificando notevolmente la procedura, riducendo i tempi per l’erogazione e i possibili errori.",
                 },
               ],
             },
@@ -765,6 +953,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                       type: "text",
                       text: "Consultazione Attestazione/Indicatore ISEE",
                       underline: true,
+                      bold: true,
                     },
                     {
                       type: "text",
@@ -784,6 +973,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                       type: "text",
                       text: "Consultazione Attestazione/Indicatore ISEE Operatori",
                       underline: true,
+                      bold: true,
                     },
                     {
                       type: "text",
@@ -803,6 +993,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                       type: "text",
                       text: "Consultazione Attestazione/Indicatore Residenti ISEE",
                       underline: true,
+                      bold: true,
                     },
                     {
                       type: "text",
@@ -828,7 +1019,30 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "In occasione dell’attivazione Bonus bici, la regione Emilia-Romagna ha registrato un’elevata partecipazione da parte dei cittadini, con migliaia di domande presentate in tempi brevi. In passato, ogni richiesta avrebbe comportato la raccolta manuale dei documenti, l’invio di autocertificazioni e controlli successivi su ogni pratica da parte degli uffici competenti, con il rischio di impattare significativamente sui tempi di erogazione dei fondi. Integrando la PDND nei propri sistemi, la Regione ha potuto verificare in automatico la residenza di tutti i richiedenti tramite i dati dell’ANPR. L’istruttoria è così diventata molto più veloce e trasparente, permettendo di destinare i contributi in modo puntuale e senza chiedere documentazione aggiuntiva ai cittadini.",
+                  text: "In occasione dell’attivazione Bonus bici, la regione Emilia-Romagna ha registrato un’elevata partecipazione da parte dei cittadini, con migliaia di domande presentate in tempi brevi. ",
+                },
+                {
+                  type: "text",
+                  text: "In passato, ogni richiesta avrebbe comportato la raccolta manuale dei documenti, l’invio di autocertificazioni e controlli successivi su ogni pratica",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " da parte degli uffici competenti, con il rischio di impattare significativamente sui tempi di erogazione dei fondi.",
+                },
+              ],
+            },
+            {
+              type: "paragraph",
+              children: [
+                {
+                  type: "text",
+                  text: "Integrando la PDND nei propri sistemi, la Regione ha potuto verificare in automatico",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " la residenza di tutti i richiedenti tramite i dati dell’ANPR. L’istruttoria è così diventata molto più veloce e trasparente, permettendo di destinare i contributi in modo puntuale e senza chiedere documentazione aggiuntiva ai cittadini.",
                 },
               ],
             },
@@ -887,10 +1101,20 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                   type: "text",
                   text: "once only",
                   italic: true,
+                  bold: true,
                 },
                 {
                   type: "text",
-                  text: " prevede che il cittadino fornisca i propri dati una sola volta alla Pubblica Amministrazione, senza doverli reinserire a ogni nuova richiesta di servizio.Grazie alla PDND, gli enti possono accedere in modo sicuro e automatico ai dati già disponibili presso altre amministrazioni e precompilare i campi dei moduli online durante la presentazione delle istanze. Questo permette di velocizzare le procedure per il cittadino che non deve autocertificare dati, ridurre la burocrazia e migliorare la qualità e la coerenza dei dati condivisi tra enti.",
+                  text: " prevede che il cittadino fornisca i propri dati una sola volta alla Pubblica Amministrazione, senza doverli reinserire a ogni nuova richiesta di servizio. Grazie alla PDND, gli enti possono ",
+                },
+                {
+                  type: "text",
+                  text: "accedere in modo sicuro e automatico ai dati già disponibili presso altre amministrazioni",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " e precompilare i campi dei moduli online durante la presentazione delle istanze. Questo permette di velocizzare le procedure per il cittadino che non deve autocertificare dati, ridurre la burocrazia e migliorare la qualità e la coerenza dei dati condivisi tra enti.",
                 },
               ],
             },
@@ -938,7 +1162,39 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Prima, per ogni nuova richiesta di servizio, ogni cittadino era tenuto a inserire manualmente i propri dati, anche se li aveva già forniti in precedenza alla Pubblica Amministrazione. Questa modalità comportava una duplicazione delle informazioni, un aumento del rischio di errori e la necessità di controlli successivi da parte degli enti, con conseguenti rallentamenti nei processi. Grazie alla Piattaforma Digitale Nazionale Dati, l’ente può ora attingere al dato direttamente alla fonte ufficiale nel momento in cui il cittadino utilizza un servizio digitale.",
+                  text: "Prima",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", per ogni nuova richiesta di servizio, ",
+                },
+                {
+                  type: "text",
+                  text: "ogni cittadino era tenuto a inserire manualmente i propri dati",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", anche se li aveva già forniti in precedenza alla Pubblica Amministrazione. Questa modalità comportava una ",
+                },
+                {
+                  type: "text",
+                  text: "duplicazione delle informazioni",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", un aumento del rischio di errori e la necessità di controlli successivi da parte degli enti, con conseguenti rallentamenti nei processi. ",
+                },
+                {
+                  type: "text",
+                  text: "Grazie alla Piattaforma Digitale Nazionale Dati, l’ente può ora attingere al dato direttamente alla fonte ufficiale",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " nel momento in cui il cittadino utilizza un servizio digitale.",
                 },
               ],
             },
@@ -1062,7 +1318,36 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Nel Comune di Bordighera, le famiglie che necessitano del servizio di trasporto scolastico per accompagnare i propri figli possono iscriversi online sul sito del comune. In passato, la procedura prevedeva la compilazione di tutti i dati anagrafici e familiari, l’allegazione di documenti e attendere i successivi controlli da parte degli uffici comunali. Oggi, grazie all’integrazione delle API dell’",
+                  text: "Nel Comune di Bordighera, ",
+                },
+                {
+                  type: "text",
+                  text: "le famiglie che necessitano del servizio di trasporto scolastico per accompagnare i propri figli possono iscriversi ",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: "online",
+                  bold: true,
+                  italic: true,
+                },
+                {
+                  type: "text",
+                  text: " sul sito del comune",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ". In passato, la procedura prevedeva la compilazione di tutti i dati anagrafici e familiari, l’allegazione di documenti e attendere i successivi controlli da parte degli uffici comunali. ",
+                },
+                {
+                  type: "text",
+                  text: "Oggi",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", grazie all’integrazione delle API dell’",
                 },
                 {
                   type: "link",
@@ -1076,7 +1361,16 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: "text",
-                  text: " (ANPR) con i servizi digitali del comune, la compilazione è automatica: al momento dell’iscrizione, il sistema recupera in tempo reale le informazioni su residenza e stato di famiglia. In questo modo è necessario solo confermare i dati, e la pratica è immediatamente pronta per essere gestita dagli uffici, senza passaggi aggiuntivi o errori di trascrizione.",
+                  text: " (ANPR) con i servizi digitali del comune, ",
+                },
+                {
+                  type: "text",
+                  text: "la compilazione è automatica",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ": al momento dell’iscrizione, il sistema recupera in tempo reale le informazioni su residenza e stato di famiglia. In questo modo è necessario solo confermare i dati, e la pratica è immediatamente pronta per essere gestita dagli uffici, senza passaggi aggiuntivi o errori di trascrizione.",
                 },
               ],
             },
@@ -1091,7 +1385,25 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Alcune API del Ministero dell’Interno sono erogate in due varianti: con approvazione automatica o manuale. Importante: prima di richiedere la fruizione controlla i requisiti di accesso nella scheda API per verificare se il tuo Ente può accedere a quelle con approvazione automatica.",
+                  text: "Alcune API del Ministero dell’Interno sono erogate in due varianti: con ",
+                },
+                {
+                  type: "text",
+                  text: "approvazione automatica o manuale",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ".",
+                },
+              ],
+            },
+            {
+              type: "paragraph",
+              children: [
+                {
+                  type: "text",
+                  text: "Importante: prima di richiedere la fruizione controlla i requisiti di accesso nella scheda API per verificare se il tuo Ente può accedere a quelle con approvazione automatica.",
                 },
               ],
             },
