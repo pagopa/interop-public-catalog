@@ -199,7 +199,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
         {
           __component: "buona-pratica.title",
           id: 6,
-          Text: "Vantaggi per il cittadino",
+          Text: "Vantaggi per i cittadini",
         },
         {
           __component: "buona-pratica.description",
@@ -250,7 +250,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Il comune di Mortara ha integrato con successo la fruizione delle api per l’accesso alla banca dati del CUDE nei suoi sistemi gestionali e grazie a questo lavoro oggi la Polizia locale può accedere direttamente, tramite i palmari in dotazione, ai dati ed effettuare i controlli sui mezzi che usufruiscono dei diritti legati al contrassegno. Questo permette a chi parcheggia negli stalli preposti avendone diritto, per esempio anche a chi non lo ha esposto in modo visibile, di evitare sanzioni, aiuta inoltre ad individuare un uso fraudolento dei CUDE.",
+                  text: "Il comune di Mortara ha integrato con successo la fruizione delle API per l’accesso alla banca dati del CUDE nei suoi sistemi gestionali e grazie a questo lavoro oggi la Polizia locale può accedere direttamente, tramite i palmari in dotazione, ai dati ed effettuare i controlli sui mezzi che usufruiscono dei diritti legati al contrassegno. Questo consente di evitare sanzioni a chi parcheggia negli spazi riservati avendone diritto, anche se il contrassegno non è visibile, e aiuta la Polizia locale a individuare eventuali usi impropri del CUDE.",
                 },
               ],
             },
@@ -451,7 +451,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
         {
           __component: "buona-pratica.title",
           id: 6,
-          Text: "Vantaggi per il cittadino",
+          Text: "Vantaggi per i cittadini",
         },
         {
           __component: "buona-pratica.description",
@@ -699,7 +699,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
         {
           __component: "buona-pratica.title",
           id: 6,
-          Text: "Vantaggi per il cittadino",
+          Text: "Vantaggi per i cittadini",
         },
         {
           __component: "buona-pratica.description",
@@ -1006,7 +1006,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
         {
           __component: "buona-pratica.title",
           id: 6,
-          Text: "Vantaggi per il cittadino",
+          Text: "Vantaggi per i cittadini",
         },
         {
           __component: "buona-pratica.description",
@@ -1226,7 +1226,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: "buona-pratica.title",
           id: 5,
-          Text: "Benefits for Public Bodies",
+          Text: "Benefits for Organizations",
         },
         {
           __component: "buona-pratica.description",
@@ -1299,7 +1299,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: "buona-pratica.title",
           id: 6,
-          Text: "Benefits for People",
+          Text: "Benefits for citizens",
         },
         {
           __component: "buona-pratica.description",
@@ -1350,7 +1350,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "The Municipality of Mortara has successfully integrated the APIs for accessing the CUDE database into its management systems. Thanks to this work, local police officers can now directly access the data from their handheld devices to verify vehicles that benefit from CUDE-related rights. This allows eligible drivers who park in reserved spaces, even when the physical permit is not visibly displayed, to avoid fines, while also helping authorities identify fraudulent use of CUDE permits.",
+                  text: "The Municipality of Mortara has successfully integrated the APIs for accessing the CUDE database into its management systems. Thanks to this work, local police officers can now directly access the data from their handheld devices to verify vehicles that benefit from CUDE-related rights. This allows eligible users to avoid fines when parking in reserved spaces, even if the permit is not visibly displayed, and helps local police detect any improper use of CUDE permits.",
                 },
               ],
             },
@@ -1406,7 +1406,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "As part of education support policies, Regions and other public bodies provide scholarships to students in upper secondary schools to help cover the cost of textbooks, learning materials, and services that support their educational growth.",
+                  text: "As part of education support policies, Regions and other organizations provide scholarships to students in upper secondary schools to help cover the cost of textbooks, learning materials, and services that support their educational growth.",
                 },
               ],
             },
@@ -1477,7 +1477,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Without PDND integration, families are required to submit certificates or self declarations to prove school attendance, a process that varies by institution and often involves long waiting times. With PDND and the ANIST APIs, public bodies can automatically verify attendance by consulting official data from the Ministry of Education. This makes verification processes faster, standardised, and more secure, and speeds up the distribution of financial support.",
+                  text: "Without PDND integration, families are required to submit certificates or self declarations to prove school attendance, a process that varies by institution and often involves long waiting times. With PDND and the ANIST APIs, organizations can automatically verify attendance by consulting official data from the Ministry of Education. This makes verification processes faster, standardised, and more secure, and speeds up the distribution of financial support.",
                 },
               ],
             },
@@ -1486,7 +1486,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: "buona-pratica.title",
           id: 5,
-          Text: "Benefits for Public Bodies",
+          Text: "Benefits for Organizations",
         },
         {
           __component: "buona-pratica.description",
@@ -1545,7 +1545,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: "buona-pratica.title",
           id: 6,
-          Text: "Benefits for people",
+          Text: "Benefits for citizens",
         },
         {
           __component: "buona-pratica.description",
@@ -1668,7 +1668,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Financial aid programmes often require the submission of documents and self declarations to verify eligibility, with different procedures across public bodies and lengthy verification times. Through the APIs available on PDND, public bodies can automatically verify citizens’ eligibility by retrieving data such as ISEE (Equivalent Economic Situation Indicator) and family status directly from the source, during the submission of the application. This allows the application of the ",
+                  text: "Financial aid programmes often require the submission of documents and self declarations to verify eligibility, with different procedures across organizations and lengthy verification times. Through the APIs available on PDND, organizations can automatically verify citizens’ eligibility by retrieving data such as ISEE (Equivalent Economic Situation Indicator) and family status directly from the source, during the submission of the application. This allows the application of the ",
                 },
                 {
                   type: "text",
@@ -1725,7 +1725,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "In the past, citizens had to collect and submit certificates or self-declarations to prove that they met certain requirements (e.g. ISEE, family status). Public bodies then carried out manual verifications, which slowed down processing times and increased the risk of errors. Today, thanks to PDND, institutions can directly access official databases published on the platform to verify eligibility, greatly simplifying the procedure, reducing processing times, and minimising potential errors.",
+                  text: "In the past, citizens had to collect and submit certificates or self-declarations to prove that they met certain requirements (e.g. ISEE, family status). Organizations then carried out manual verifications, which slowed down processing times and increased the risk of errors. Today, thanks to PDND, institutions can directly access official databases published on the platform to verify eligibility, greatly simplifying the procedure, reducing processing times, and minimising potential errors.",
                 },
               ],
             },
@@ -1734,7 +1734,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: "buona-pratica.title",
           id: 5,
-          Text: "Benefits for Public Bodies",
+          Text: "Benefits for Organizations",
         },
         {
           __component: "buona-pratica.description",
@@ -1793,7 +1793,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: "buona-pratica.title",
           id: 6,
-          Text: "Benefits for people",
+          Text: "Benefits for citizens",
         },
         {
           __component: "buona-pratica.description",
@@ -1862,11 +1862,11 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                     },
                     {
                       type: "text",
-                      text: ": allows consultation for all citizens and requires the exchange of digital certificates between public bodies to enable mutual authentication ",
+                      text: ": allows consultation for all citizens and requires the exchange of digital certificates between organizations to enable mutual authentication ",
                     },
                     {
                       type: "text",
-                      text: "Recommended for large municipalities and central public bodies",
+                      text: "Recommended for large municipalities and central organizations",
                       bold: true,
                     },
                   ],
@@ -1984,7 +1984,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: "text",
-                  text: " principle states that citizens should provide their personal data to public administrations only once, without having to re-enter the same information for each new service request. Thanks to PDND, public bodies can securely and automatically access data already held by other administrations and pre-fill online forms when citizens submit applications. This streamlines procedures, removes the need for self-declarations, reduces bureaucracy, and improves the quality and consistency of data shared between public entities.",
+                  text: " principle states that citizens should provide their personal data to public administrations only once, without having to re-enter the same information for each new service request. Thanks to PDND, organizations can securely and automatically access data already held by other administrations and pre-fill online forms when citizens submit applications. This streamlines procedures, removes the need for self-declarations, reduces bureaucracy, and improves the quality and consistency of data shared between public entities.",
                 },
               ],
             },
@@ -2032,7 +2032,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Previously, for every new service request, citizens were required to manually enter their personal data, even when the same information had already been provided to another public administration. This led to data duplication, an increased risk of errors, and the need for subsequent checks by public bodies, resulting in slower processing. With the National Data Platform (PDND), public bodies can now retrieve data directly from official sources at the time a citizen accesses a digital service, ensuring accuracy, consistency, and faster delivery.",
+                  text: "Previously, for every new service request, citizens were required to manually enter their personal data, even when the same information had already been provided to another public administration. This led to data duplication, an increased risk of errors, and the need for subsequent checks by organizations, resulting in slower processing. With the National Data Platform (PDND), organizations can now retrieve data directly from official sources at the time a citizen accesses a digital service, ensuring accuracy, consistency, and faster delivery.",
                 },
               ],
             },
@@ -2041,7 +2041,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: "buona-pratica.title",
           id: 5,
-          Text: "Benefits for Public Bodies",
+          Text: "Benefits for Organizations",
         },
         {
           __component: "buona-pratica.description",
@@ -2100,7 +2100,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
         {
           __component: "buona-pratica.title",
           id: 6,
-          Text: "Benefits for people",
+          Text: "Benefits for citizens",
         },
         {
           __component: "buona-pratica.description",
