@@ -64,7 +64,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: "text",
-                  text: "alle ZTL e parcheggiare negli stalli riservati. Con la digitalizzazione e centralizzazione della ",
+                  text: " alle ZTL e parcheggiare negli stalli riservati. Con la digitalizzazione e centralizzazione della ",
                 },
                 {
                   type: "link",
@@ -379,25 +379,10 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: "text",
-                  text: "Nell’ambito delle politiche per il diritto allo studio, ",
-                },
-                {
-                  type: "text",
-                  text: "le Regioni e altri enti erogano borse di studio a favore degli studenti delle scuole secondarie di secondo grado",
-                  bold: true,
-                },
-                {
-                  type: "text",
                   text: ", al fine di sostenere l’acquisto di libri di testo, strumenti e servizi utili alla crescita culturale e formativa.",
                 },
               ],
             },
-          ],
-        },
-        {
-          __component: "buona-pratica.description",
-          id: 1,
-          Text: [
             {
               type: "paragraph",
               children: [
@@ -421,6 +406,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                     {
                       type: "text",
                       text: "Anagrafe Nazionale dell’Istruzione (ANIST)",
+                      bold: true,
                     },
                   ],
                 },
@@ -1467,7 +1453,16 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: "text",
-                  text: " (European Unified Disabled Parking Permit) is the document that allows people with disabilities to access restricted traffic zones (ZTL) and park in designated spaces. Through the digitalisation and centralisation of the ",
+                  text: " (European Unified Disabled Parking Permit) is the ",
+                },
+                {
+                  type: "text",
+                  text: "document that allows people with disabilities to access",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " restricted traffic zones (ZTL) and park in designated spaces. Through the digitalisation and centralisation of the ",
                 },
                 {
                   type: "link",
@@ -1481,7 +1476,16 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: "text",
-                  text: ", and its distribution via the National Data Platform (PDND), municipalities can now consult, in real time, the permits issued by other public administrations. This enables them to automatically recognise parking and access rights for people with disabilities across the entire national territory, eliminating the need for manual vehicle registration. The goal is for all municipalities to contribute to the central database, ensuring that eligible citizens can circulate within restricted traffic zones or park in designated spaces anywhere in Italy, without having to submit new requests each time.",
+                  text: ", and its distribution via the National Data Platform (PDND), ",
+                },
+                {
+                  type: "text",
+                  text: "municipalities can now consult, in real time, the permits issued by other public administrations",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ". This enables them to automatically recognise parking and access rights for people with disabilities across the entire national territory, eliminating the need for manual vehicle registration. The goal is for all municipalities to contribute to the central database, ensuring that eligible citizens can circulate within restricted traffic zones or park in designated spaces anywhere in Italy, without having to submit new requests each time.",
                 },
               ],
             },
@@ -1529,7 +1533,39 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Previously, if a CUDE holder travelled to a municipality not connected to the national database, they had to follow the old procedure: manually communicate their license plate to the local administration, comply with varying procedures for each municipality, and always display the paper permit to avoid fines. Now, thanks to real-time access to up-to-date data, citizens with a valid CUDE can drive and park in all municipalities connected to the national CUDE database (a number that is steadily increasing) without having to submit new requests every time they move. Through the integration of APIs available on PDND, electronic gates automatically recognise vehicles associated with a valid CUDE, granting access to restricted traffic zones (ZTL) and parking areas reserved for people with disabilities across the country.",
+                  text: "Previously",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", if a CUDE holder travelled to a municipality not connected to the national database, ",
+                },
+                {
+                  type: "text",
+                  text: "they had to follow the old procedure",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ": manually communicate their license plate to the local administration, comply with varying procedures for each municipality, and always display the paper permit to avoid fines. ",
+                },
+                {
+                  type: "text",
+                  text: "Now",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", thanks to real-time access to up-to-date data, ",
+                },
+                {
+                  type: "text",
+                  text: "citizens with a valid CUDE can drive and park in all municipalities",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " connected to the national CUDE database (a number that is steadily increasing) without having to submit new requests every time they move. Through the integration of APIs available on PDND, electronic gates automatically recognise vehicles associated with a valid CUDE, granting access to restricted traffic zones (ZTL) and parking areas reserved for people with disabilities across the country.",
                 },
               ],
             },
@@ -1662,7 +1698,21 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "The Municipality of Mortara has successfully integrated the APIs for accessing the CUDE database into its management systems. Thanks to this work, local police officers can now directly access the data from their handheld devices to verify vehicles that benefit from CUDE-related rights. This allows eligible users to avoid fines when parking in reserved spaces, even if the permit is not visibly displayed, and helps local police detect any improper use of CUDE permits.",
+                  text: "The Municipality of Mortara has successfully integrated the APIs for accessing the CUDE database into its management systems",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ". Thanks to this work, local police officers can now directly access the data from their handheld devices to verify vehicles that benefit from CUDE-related rights. This allows eligible users to ",
+                },
+                {
+                  type: "text",
+                  text: "avoid fines",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " when parking in reserved spaces, even if the permit is not visibly displayed, and helps local police detect any improper use of CUDE permits.",
                 },
               ],
             },
@@ -1718,7 +1768,16 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "As part of education support policies, Regions and other organizations provide scholarships to students in upper secondary schools to help cover the cost of textbooks, learning materials, and services that support their educational growth.",
+                  text: "As part of education support policies, ",
+                },
+                {
+                  type: "text",
+                  text: "Regions and other organizations provide scholarships to students in upper secondary schools",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " to help cover the cost of textbooks, learning materials, and services that support their educational growth.",
                 },
               ],
             },
@@ -1727,7 +1786,16 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "To ensure the correct allocation of benefits, the competent authorities can use the APIs of the ",
+                  text: "To ensure the correct allocation of benefits, ",
+                },
+                {
+                  type: "text",
+                  text: "the competent authorities can use the APIs",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " of the ",
                 },
                 {
                   type: "link",
@@ -1736,12 +1804,22 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                     {
                       type: "text",
                       text: "National Education Register (ANIST)",
+                      bold: true,
                     },
                   ],
                 },
                 {
                   type: "text",
-                  text: ",  made available on PDND by the Ministry of Education and Merit (MIM). These APIs enable the automatic verification of school attendance.",
+                  text: ",  made available on PDND by the Ministry of Education and Merit (MIM). ",
+                },
+                {
+                  type: "text",
+                  text: "These APIs enable the automatic verification",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " of school attendance.",
                 },
               ],
             },
@@ -1789,7 +1867,30 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Without PDND integration, families are required to submit certificates or self declarations to prove school attendance, a process that varies by institution and often involves long waiting times. With PDND and the ANIST APIs, organizations can automatically verify attendance by consulting official data from the Ministry of Education. This makes verification processes faster, standardised, and more secure, and speeds up the distribution of financial support.",
+                  text: "Without PDND integration, ",
+                },
+                {
+                  type: "text",
+                  text: "families are required to submit certificates or self declarations to prove school attendance",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", a process that varies by institution and often involves long waiting times.",
+                },
+              ],
+            },
+            {
+              type: "paragraph",
+              children: [
+                {
+                  type: "text",
+                  text: "With PDND and the ANIST APIs, organizations can automatically verify attendance",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " by consulting official data from the Ministry of Education. This makes verification processes faster, standardised, and more secure, and speeds up the distribution of financial support.",
                 },
               ],
             },
@@ -1908,7 +2009,30 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "For the 2024/2025 school year, nearly 30,000 students in the Campania Region, out of more than 60,000 applicants, received financial support for their educational and cultural development through the #IoStudio programme. In the past, families had to provide certificates or self-declarations to prove school attendance, facing lengthy and inconsistent procedures from one school to another. Thanks to the integration between the regional systems and PDND, the Campania Region can now verify attendance directly from the Ministry of Education and Merit’s official data, using the available e-services automatically and without additional steps for citizens. This has made the scholarship allocation process faster, more transparent, and better targeted, ensuring that funds are delivered promptly to those who are truly entitled to them.",
+                  text: "For the 2024/2025 school year, nearly 30,000 students in the Campania Region, out of more than 60,000 applicants, received ",
+                },
+                {
+                  type: "text",
+                  text: "financial support for their educational and cultural development",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " through the #IoStudio programme. In the past, families had to provide certificates or self-declarations to prove school attendance, facing lengthy and inconsistent procedures from one school to another.",
+                },
+              ],
+            },
+            {
+              type: "paragraph",
+              children: [
+                {
+                  type: "text",
+                  text: "Thanks to the integration between the regional systems and PDND, the Campania Region can now verify attendance directly from the Ministry of Education and Merit’s official data",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", using the available e-services automatically and without additional steps for citizens. This has made the scholarship allocation process faster, more transparent, and better targeted, ensuring that funds are delivered promptly to those who are truly entitled to them.",
                 },
               ],
             },
@@ -1980,16 +2104,50 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Financial aid programmes often require the submission of documents and self declarations to verify eligibility, with different procedures across organizations and lengthy verification times. Through the APIs available on PDND, organizations can automatically verify citizens’ eligibility by retrieving data such as ISEE (Equivalent Economic Situation Indicator) and family status directly from the source, during the submission of the application. This allows the application of the ",
+                  text: "Financial aid programmes often require ",
+                },
+                {
+                  type: "text",
+                  text: "the submission of documents and self declarations to verify eligibility",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", with different procedures across organizations and lengthy verification times.",
+                },
+              ],
+            },
+            {
+              type: "paragraph",
+              children: [
+                {
+                  type: "text",
+                  text: "Through the APIs available on PDND",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", organizations can automatically verify citizens’ eligibility by retrieving data such as ISEE (Equivalent Economic Situation Indicator) and family status directly from the source, during the submission of the application. ",
+                },
+                {
+                  type: "text",
+                  text: "This allows the application of the ",
+                  bold: true,
                 },
                 {
                   type: "text",
                   text: "once only",
                   italic: true,
+                  bold: true,
                 },
                 {
                   type: "text",
-                  text: " principle, whereby citizens are not required to provide public administrations with data that they already possess.",
+                  text: " principle, whereby citizens are not required to provide public administrations with data",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " that they already possess.",
                 },
               ],
             },
@@ -2037,7 +2195,16 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "In the past, citizens had to collect and submit certificates or self-declarations to prove that they met certain requirements (e.g. ISEE, family status). Organizations then carried out manual verifications, which slowed down processing times and increased the risk of errors. Today, thanks to PDND, institutions can directly access official databases published on the platform to verify eligibility, greatly simplifying the procedure, reducing processing times, and minimising potential errors.",
+                  text: "In the past, citizens had to collect and submit certificates or self-declarations to prove that they met certain requirements (e.g. ISEE, family status). Organizations then carried out manual verifications, which slowed down processing times and increased the risk of errors. ",
+                },
+                {
+                  type: "text",
+                  text: "Today, thanks to PDND, institutions can directly access official databases",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " published on the platform to verify eligibility, greatly simplifying the procedure, reducing processing times, and minimising potential errors.",
                 },
               ],
             },
@@ -2171,6 +2338,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                       type: "text",
                       text: "ISEE Certificate/Indicator Consultation",
                       underline: true,
+                      bold: true,
                     },
                     {
                       type: "text",
@@ -2190,6 +2358,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                       type: "text",
                       text: "ISEE Certificate/Indicator Consultation for Operators",
                       underline: true,
+                      bold: true,
                     },
                     {
                       type: "text",
@@ -2209,6 +2378,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                       type: "text",
                       text: "ISEE Certificate/Indicator Consultation for Residents",
                       underline: true,
+                      bold: true,
                     },
                     {
                       type: "text",
@@ -2234,7 +2404,30 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "During the Bike Bonus initiative, the Emilia-Romagna Region recorded high citizen participation, with thousands of applications submitted in a short period. In the past, each application required manual document collection, self-declarations, and individual checks by administrative offices, significantly delaying the disbursement of funds. By integrating PDND into its systems, the Region was able to automatically verify the residence of all applicants using data from the National Population Register (ANPR). The verification process thus became much faster and more transparent, enabling the targeted allocation of funds without requiring citizens to provide additional documentation.",
+                  text: "During the Bike Bonus initiative, the Emilia-Romagna Region recorded high citizen participation, with thousands of applications submitted in a short period. ",
+                },
+                {
+                  type: "text",
+                  text: "In the past, each application required manual document collection, self-declarations, and individual checks",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " by administrative offices, significantly delaying the disbursement of funds.",
+                },
+              ],
+            },
+            {
+              type: "paragraph",
+              children: [
+                {
+                  type: "text",
+                  text: "By integrating PDND into its systems, the Region was able to automatically verify the residence of all applicants",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " using data from the National Population Register (ANPR). The verification process thus became much faster and more transparent, enabling the targeted allocation of funds without requiring citizens to provide additional documentation.",
                 },
               ],
             },
@@ -2293,10 +2486,20 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                   type: "text",
                   text: "once only",
                   italic: true,
+                  bold: true,
                 },
                 {
                   type: "text",
-                  text: " principle states that citizens should provide their personal data to public administrations only once, without having to re-enter the same information for each new service request. Thanks to PDND, organizations can securely and automatically access data already held by other administrations and pre-fill online forms when citizens submit applications. This streamlines procedures, removes the need for self-declarations, reduces bureaucracy, and improves the quality and consistency of data shared between public entities.",
+                  text: " principle states that citizens should provide their personal data to public administrations only once, without having to re-enter the same information for each new service request. Thanks to PDND, ",
+                },
+                {
+                  type: "text",
+                  text: "organizations can securely and automatically access data already held by other administrations",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: " and pre-fill online forms when citizens submit applications. This streamlines procedures, removes the need for self-declarations, reduces bureaucracy, and improves the quality and consistency of data shared between public entities.",
                 },
               ],
             },
@@ -2344,7 +2547,39 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Previously, for every new service request, citizens were required to manually enter their personal data, even when the same information had already been provided to another public administration. This led to data duplication, an increased risk of errors, and the need for subsequent checks by organizations, resulting in slower processing. With the National Data Platform (PDND), organizations can now retrieve data directly from official sources at the time a citizen accesses a digital service, ensuring accuracy, consistency, and faster delivery.",
+                  text: "Previously",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", for every new service request, ",
+                },
+                {
+                  type: "text",
+                  text: "citizens were required to manually enter their personal data",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", even when the same information had already been provided to another public administration. ",
+                },
+                {
+                  type: "text",
+                  text: "This led to data duplication",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", an increased risk of errors, and the need for subsequent checks by organizations, resulting in slower processing. ",
+                },
+                {
+                  type: "text",
+                  text: "With the National Data Platform (PDND), organizations can now retrieve data directly from official sources at the time a citizen accesses a digital service",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", ensuring accuracy, consistency, and faster delivery.",
                 },
               ],
             },
@@ -2472,7 +2707,36 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "In the Municipality of Bordighera, families who need school transport services for their children can now register online directly through the municipal website. In the past, the procedure required citizens to manually fill in all personal and family data, attach documents, and wait for the subsequent verification by municipal offices. Today, thanks to the integration of the",
+                  text: "In the Municipality of Bordighera, ",
+                },
+                {
+                  type: "text",
+                  text: "families who need school transport services for their children can now register ",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: "online",
+                  bold: true,
+                  italic: true,
+                },
+                {
+                  type: "text",
+                  text: " directly through the municipal website",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ". In the past, the procedure required citizens to manually fill in all personal and family data, attach documents, and wait for the subsequent verification by municipal offices. ",
+                },
+                {
+                  type: "text",
+                  text: "Today",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ", thanks to the integration of the ",
                 },
                 {
                   type: "link",
@@ -2486,7 +2750,16 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
                 },
                 {
                   type: "text",
-                  text: " (ANPR) APIs with the municipality’s digital services, the process is automatic: when submitting the request, the system retrieves residence and family status data in real time. Citizens simply confirm the information, and the application is immediately ready to be processed by the offices, with no additional steps or transcription errors.",
+                  text: " (ANPR) APIs with the municipality’s digital services, ",
+                },
+                {
+                  type: "text",
+                  text: "the process is automatic",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ": when submitting the request, the system retrieves residence and family status data in real time. Citizens simply confirm the information, and the application is immediately ready to be processed by the offices, with no additional steps or transcription errors.",
                 },
               ],
             },
@@ -2501,7 +2774,25 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
               children: [
                 {
                   type: "text",
-                  text: "Some APIs provided by the Ministry of the Interior are available in two variants: with automatic or manual approval. Important: before requesting access, check the API information sheet to verify the eligibility requirements for your organization and whether it can access the versions with automatic approval.",
+                  text: "Some APIs provided by the Ministry of the Interior are available in two variants: with ",
+                },
+                {
+                  type: "text",
+                  text: "automatic or manual approval",
+                  bold: true,
+                },
+                {
+                  type: "text",
+                  text: ".",
+                },
+              ],
+            },
+            {
+              type: "paragraph",
+              children: [
+                {
+                  type: "text",
+                  text: "Important: before requesting access, check the API information sheet to verify the eligibility requirements for your organization and whether it can access the versions with automatic approval.",
                 },
               ],
             },
