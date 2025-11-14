@@ -159,7 +159,7 @@ export const ecosystem = {
 
     "interoperabily_types.type_2.label": "Organisational interoperability",
     "interoperabily_types.type_2.description":
-      "It is the alignment of operational processes and responsibilities among different organisations in order to collaborate effectively.",
+      "It is the alignment of operational processes and responsibilities among different organizations in order to collaborate effectively.",
 
     "interoperabily_types.type_3.label": "Semantic interoperability",
     "interoperabily_types.type_3.description":
@@ -167,7 +167,7 @@ export const ecosystem = {
 
     "interoperabily_types.type_4.label": "Legal interoperability",
     "interoperabily_types.type_4.description":
-      "It is the harmonisation of laws and regulations governing the exchange of information between organisations.",
+      "It is the harmonisation of laws and regulations governing the exchange of information between organizations.",
 
     "ecosystem_legal_references.title": "Legal and Regulatory Framework",
     "ecosystem_legal_references.subtitle":
