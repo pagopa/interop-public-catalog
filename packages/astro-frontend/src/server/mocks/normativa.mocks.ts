@@ -420,7 +420,25 @@ const normativaDataMockEn: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "Article 50-ter of the CAD regulates the development and implementation of the National Data Platform (PDND), aimed at enabling data sharing among authorized entities and simplifying administrative procedures for citizens and businesses.",
+                text: "Article 50-",
+              },
+              {
+                type: "text",
+                text: "ter",
+                italic: true,
+              },
+              {
+                type: "text",
+                text: " of the CAD regulates ",
+              },
+              {
+                type: "text",
+                text: "the development and implementation of the National Data Platform (PDND), aimed at enabling data sharing among authorized organizations",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: " and simplifying administrative procedures for citizens and businesses.",
               },
             ],
           },
@@ -442,7 +460,7 @@ const normativaDataMockEn: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "Decree of the Minister for Technological Innovation and Digital Transition of September 22, 2022",
+                text: "Decree of the Minister for Technological Innovation and Digital Transition of September 22, 2022 ",
               },
             ],
             level: 6,
@@ -452,7 +470,25 @@ const normativaDataMockEn: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "This decree implements Article 50-ter of the CAD, defining the terms and procedures for accreditation to PDND and establishing the mandatory participation requirement, including for entities that continue to use pre-existing interoperability systems.",
+                text: "This decree implements Article 50-",
+              },
+              {
+                type: "text",
+                text: "ter",
+                italic: true,
+              },
+              {
+                type: "text",
+                text: " of the CAD, ",
+              },
+              {
+                type: "text",
+                text: "defining the terms and procedures for accreditation to PDND",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: " and establishing the mandatory participation requirement, including for organizations that continue to use pre-existing interoperability systems.",
               },
             ],
           },
@@ -484,7 +520,25 @@ const normativaDataMockEn: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "The directive provides operational guidelines for the use of PDND, establishing the creation of coordination structures to manage membership and operations on the platform. It also requires the development and coordination of APIs, promotes the enhancement of interoperability and the sharing of public sector information assets, and strengthens PDND’s role as an enabler for digital transformation through measures for training, awareness, and data alignment.",
+                text: "The directive provides ",
+              },
+              {
+                type: "text",
+                text: "operational guidelines for the use of PDND",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: ", establishing the creation of coordination structures to manage membership and operations on the platform. ",
+              },
+              {
+                type: "text",
+                text: "It also requires the development and coordination of APIs",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: ", promotes the enhancement of interoperability and the sharing of public sector information assets, and strengthens PDND’s role as an enabler for digital transformation through measures for training, awareness, and data alignment.",
               },
             ],
           },
@@ -516,7 +570,16 @@ const normativaDataMockEn: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "A reference document within the Three-Year Plan for ICT in Public Administration, it identifies the technologies and standards that public administrations must adopt for the design and implementation of their information systems.",
+                text: "A reference document within the ",
+              },
+              {
+                type: "text",
+                text: "Three-Year Plan for ICT in Public Administration, it identifies the technologies and standards that public administrations must adopt",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: " for the design and implementation of their information systems.",
               },
             ],
           },
@@ -548,7 +611,25 @@ const normativaDataMockEn: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "This set of Guidelines defines and establishes the technologies, rules, and standards that enable interoperability between information systems and databases of public administrations.",
+                text: "This set of Guidelines ",
+              },
+              {
+                type: "text",
+                text: "defines and establishes the technologies, rules, and standards",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: "that",
+              },
+              {
+                type: "text",
+                text: "enable interoperability",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: " between information systems and databases of public administrations.",
               },
             ],
           },
@@ -579,7 +660,16 @@ const normativaDataMockEn: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "The European regulation governing the protection of personal data of natural persons, also applicable to data exchanges between public administrations through PDND.",
+                text: "The European regulation governing the ",
+              },
+              {
+                type: "text",
+                text: "protection of personal data of natural persons",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: ", also applicable to data exchanges between public administrations through PDND.",
               },
             ],
           },
@@ -610,7 +700,25 @@ const normativaDataMockEn: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "Defines the core principles and levels of interoperability at the European level, introducing the four dimensions of interoperability: technical, semantic, legal, and organizational. It is referenced by the ModI and by the Three-Year Plan for ICT in Public Administration as a key framework for national interoperability.",
+                text: "Defines the ",
+              },
+              {
+                type: "text",
+                text: "core principles and levels of interoperability at the European level",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: ", introducing the four dimensions of interoperability: technical, semantic, legal, and organizational. It is ",
+              },
+              {
+                type: "text",
+                text: "referenced by the ModI and by the Three-Year Plan for ICT in Public Administration",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: " as a key framework for national interoperability.",
               },
             ],
           },
