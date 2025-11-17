@@ -41,7 +41,25 @@ const normativaDataMockIt: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "Riconosce il diritto dei cittadini a interagire digitalmente con la PA e stabilisce il principio di interoperabilità come cardine dell'azione amministrativa.",
+                text: "L’articolo 50-",
+              },
+              {
+                type: "text",
+                text: "ter",
+                italic: true,
+              },
+              {
+                type: "text",
+                text: " del CAD disciplina lo ",
+              },
+              {
+                type: "text",
+                text: "sviluppo e la realizzazione della Piattaforma Digitale Nazionale Dati (PDND)",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: ", finalizzata alla condivisione dei dati tra i soggetti autorizzati e alla semplificazione degli adempimenti amministrativi per cittadini e imprese.",
               },
             ],
           },
@@ -73,7 +91,25 @@ const normativaDataMockIt: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "Il decreto dà attuazione all’articolo 50-ter del CAD, definendo termini e modalità di accreditamento alla PDND e stabilendo l’obbligatorietà dell’accreditamento, anche per i soggetti che continuano a utilizzare sistemi di interoperabilità preesistenti.",
+                text: "Il decreto dà attuazione all’articolo 50-",
+              },
+              {
+                type: "text",
+                text: "ter",
+                italic: true,
+              },
+              {
+                type: "text",
+                text: " del CAD, definendo ",
+              },
+              {
+                type: "text",
+                text: "termini e modalità di accreditamento alla PDND",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: " e stabilendo l’obbligatorietà dell’accreditamento, anche per i soggetti che continuano a utilizzare sistemi di interoperabilità preesistenti.",
               },
             ],
           },
@@ -105,7 +141,52 @@ const normativaDataMockIt: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "La direttiva fornisce gli indirizzi operativi per l’utilizzo della PDND, stabilendo la creazione di strutture di coordinamento per la gestione dell’adesione e dell’operatività sulla piattaforma. Inoltre, impone lo sviluppo e il coordinamento delle API, promuove la valorizzazione dell’interoperabilità e la condivisione del patrimonio informativo della Pubblica Amministrazione; rafforza il ruolo della PDND come strumento abilitante per la digitalizzazione, prevedendo misure di formazione, sensibilizzazione e allineamento delle basi di dati.",
+                text: "La direttiva fornisce gli ",
+              },
+              {
+                type: "text",
+                text: "indirizzi operativi per l’utilizzo della PDND",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: ", stabilendo la creazione di strutture di coordinamento per la gestione dell’adesione e dell’operatività sulla piattaforma. Inoltre, ",
+              },
+              {
+                type: "text",
+                text: "impone lo sviluppo e il coordinamento delle API",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: ", promuove la ",
+              },
+              {
+                type: "text",
+                text: "valorizzazione dell’interoperabilità",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: " e la ",
+              },
+              {
+                type: "text",
+                text: "condivisione del patrimonio informativo",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: " della Pubblica Amministrazione; rafforza ",
+              },
+              {
+                type: "text",
+                text: "il ruolo della PDND come strumento abilitante",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: " per la digitalizzazione, prevedendo misure di formazione, sensibilizzazione e allineamento delle basi di dati.",
               },
             ],
           },
@@ -137,7 +218,16 @@ const normativaDataMockIt: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "Atto di riferimento del Piano Triennale per l’Informatica nella Pubblica Amministrazione, individua le tecnologie e gli standard che le amministrazioni devono adottare per la realizzazione dei propri sistemi informatici.",
+                text: "Atto di riferimento del ",
+              },
+              {
+                type: "text",
+                text: "Piano Triennale per l’Informatica nella Pubblica Amministrazione",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: ", individua le tecnologie e gli standard che le amministrazioni devono adottare per la realizzazione dei propri sistemi informatici.",
               },
             ],
           },
@@ -169,7 +259,25 @@ const normativaDataMockIt: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "Questo insieme di Linee guida definisce e stabilisce le tecnologie, le regole e gli standard che abilitano l’interoperabilità tra i sistemi informativi e le basi di dati delle pubbliche amministrazioni.",
+                text: "Questo ",
+              },
+              {
+                type: "text",
+                text: "insieme di Linee guida definisce e stabilisce le tecnologie, le regole e gli standard",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: " che ",
+              },
+              {
+                type: "text",
+                text: "abilitano l’interoperabilità",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: " tra i sistemi informativi e le basi di dati delle pubbliche amministrazioni.",
               },
             ],
           },
@@ -200,7 +308,16 @@ const normativaDataMockIt: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "È la normativa europea che disciplina la protezione dei dati personali delle persone fisiche, applicabile anche allo scambio di dati tra amministrazioni tramite la PDND.",
+                text: "È la normativa europea che disciplina la ",
+              },
+              {
+                type: "text",
+                text: "protezione dei dati personali delle persone fisiche",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: ", applicabile anche allo scambio di dati tra amministrazioni tramite la PDND.",
               },
             ],
           },
@@ -231,7 +348,25 @@ const normativaDataMockIt: StrapiEntity<NormativaReferenceContent> = {
             children: [
               {
                 type: "text",
-                text: "Definisce i principi e i livelli fondamentali dell’interoperabilità a livello europeo, introducendo i quattro livelli di interoperabilità (tecnica, semantica, legale e organizzativa). È ripreso dal ModI e dal Piano Triennale per l’Informatica nella Pubblica Amministrazione come riferimento per l’interoperabilità nazionale.",
+                text: "Definisce i ",
+              },
+              {
+                type: "text",
+                text: "principi e i livelli fondamentali dell’interoperabilità a livello europeo",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: ", introducendo i quattro livelli di interoperabilità (tecnica, semantica, legale e organizzativa). È ",
+              },
+              {
+                type: "text",
+                text: "ripreso dal ModI e dal Piano Triennale per l’Informatica nella Pubblica Amministrazione",
+                bold: true,
+              },
+              {
+                type: "text",
+                text: " come riferimento per l’interoperabilità nazionale.",
               },
             ],
           },
