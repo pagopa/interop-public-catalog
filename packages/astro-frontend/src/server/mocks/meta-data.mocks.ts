@@ -43,7 +43,7 @@ export const getSeoMockData = (
       "I vantaggi dell’interoperabilità dei dati tra Pubbliche Amministrazioni",
     locale: "it",
     seo: {
-      canonical: `${origin}/it/ecosistema`,
+      canonical: `${origin}/it/cos-e-l-interoperabilita`,
       metaTitle:
         "I vantaggi dell’interoperabilità dei dati tra Pubbliche Amministrazioni",
       metaDescription:

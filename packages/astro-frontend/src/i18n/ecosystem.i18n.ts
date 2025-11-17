@@ -157,7 +157,7 @@ export const ecosystem = {
     "interoperabily_types.type_1.description":
       "It is the ability of two IT systems to connect and exchange data using common technical standards and protocols.",
 
-    "interoperabily_types.type_2.label": "Organisational interoperability",
+    "interoperabily_types.type_2.label": "Organizational interoperability",
     "interoperabily_types.type_2.description":
       "It is the alignment of operational processes and responsibilities among different organizations in order to collaborate effectively.",
 

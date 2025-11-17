@@ -143,7 +143,7 @@ export const eserviceDetails = {
     "implementation_section.title": "Do you want to implement this API?",
     "implementation_section.authentication_link": "Sign in to PDND",
 
-    "featured_api.title": "Other APIs provided by this entity",
+    "featured_api.title": "Other APIs provided by this organization",
     "featured_api.explore_catalog": "Browse the catalogue",
     "signalhub.tooltip.title": "SIGNAL HUB",
     "signalhub.tooltip.content":
