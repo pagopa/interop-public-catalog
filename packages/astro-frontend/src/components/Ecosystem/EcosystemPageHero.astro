@@ -27,9 +27,10 @@ const ECOSYSTEM_CHARACTERISTICS = [
 ];
 
 const ecosystemPageHeroImgSrc: Record<SupportedLanguage, string> = {
-  it: "/img/ecosystem-it.svg",
-  en: "/img/ecosystem-en.svg",
+  it: "/img/infografica_it.webp",
+  en: "/img/infografica_en.webp",
 };
+
 ---
 
 <PageHero
@@ -45,7 +46,7 @@ const ecosystemPageHeroImgSrc: Record<SupportedLanguage, string> = {
       class="img-fluid"
       width="416"
       height="544"
-      alt=""
+      alt={t("ecosystem.image_alt")}
     />
   </div>
   <div slot="bottom-hero">

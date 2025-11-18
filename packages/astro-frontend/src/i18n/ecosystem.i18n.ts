@@ -7,6 +7,8 @@ export const ecosystem = {
     subtitle:
       "L’interoperabilità della Pubblica Amministrazione è la capacità degli enti e dei loro sistemi di condividere dati in modo sicuro, standardizzato e trasparente. Nel contesto italiano, questo sistema è abilitato dalla Piattaforma Digitale Nazionale Dati (PDND) e da un ecosistema di strumenti a supporto.",
 
+    "ecosystem.image_alt": "Schema dell’interoperabilità della Pubblica Amministrazione: Schema.gov.it, la Piattaforma Digitale Nazionale Dati e gli enti pubblici collaborano per fornire servizi ai cittadini.",
+
     "ecosystem.characteristic_1.label": "Principio del “Once only”",
     "ecosystem.characteristic_1.description":
       "Le persone non devono più fornire informazioni già comunicate in precedenza alla Pubblica Amministrazione.",
@@ -97,6 +99,8 @@ export const ecosystem = {
     title: "What is interoperability",
     subtitle:
       "The interoperability of the Public Administration is the ability of public bodies and their systems to share data securely, in a standardised and transparent way. In the Italian context, this system is enabled by the National Digital Data Platform (PDND) and supported by an ecosystem of complementary tools.",
+    
+    "ecosystem.image_alt": "Interoperability framework of the Public Administration: Schema.gov.it, the National Data Platform and organizations collaborate, within the European framework, to provide integrated services to citizens.",
 
     "ecosystem.characteristic_1.label": "“Once only” principle",
     "ecosystem.characteristic_1.description":
