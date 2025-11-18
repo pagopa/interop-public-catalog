@@ -176,7 +176,8 @@ export const ui = {
     "tenant_macrocategory_.regioni_long": "Regions",
     "tenant_macrocategory_.universita_long":
       "Universities and Higher Education Institutions (AFAM)",
-    "tenant_macrocategory_.altre_long": "Other Local Government Administrations",
+    "tenant_macrocategory_.altre_long":
+      "Other Local Government Administrations",
 
     "tenant_macrocategory_.tutti_short": "All",
     "tenant_macrocategory_.pac_short": "Central PAs",

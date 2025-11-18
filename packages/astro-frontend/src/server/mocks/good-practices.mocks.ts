@@ -315,7 +315,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
                 {
                   type: "text",
                   text: " a chi parcheggia negli spazi riservati avendone diritto, anche se il contrassegno non è visibile, e aiuta la Polizia locale a individuare eventuali usi impropri del CUDE.",
-                }
+                },
               ],
             },
           ],

@@ -729,7 +729,7 @@ export const faqContentMockedEn: StrapiEntity<FaqContent> = {
                     type: "text",
                     text: " Application Programming Interface",
                     italic: true,
-                  }, 
+                  },
                   {
                     type: "text",
                     text: ") are",
@@ -788,7 +788,7 @@ export const faqContentMockedEn: StrapiEntity<FaqContent> = {
                     text: " in the PDND (National Data Platform) API Catalogue, while an API (Application Programming Interface) is the technical specification that defines how to interact with that service.",
                   },
                 ],
-              }
+              },
             ],
           },
           {
