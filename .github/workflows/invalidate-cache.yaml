@@ -28,9 +28,12 @@ jobs:
           role-session-name: interop-public-catalog-invalidate-cache
 
       - name: Invalidate CloudFront Cache
+        env: 
+          CF_DISTRIBUTION_ID: ${{ inputs.cloudfront_distribution_id }}
+          CF_INVALIDATION_PATHS: ${{ inputs.invalidation_paths }}
         run: |
           set -euo pipefail
 
           aws cloudfront create-invalidation \
-            --distribution-id ${{ inputs.cloudfront_distribution_id }} \
-            --paths "${{ inputs.invalidation_paths }}"  #space separated
+            --distribution-id "$CF_DISTRIBUTION_ID" \
+            --paths "$CF_INVALIDATION_PATHS"  #space separated

@@ -23,9 +23,11 @@ export function getRouteKeyFromCurrentRoutePattern(
   currentRoutePattern: string,
 ): RouteKey | undefined {
   const currentLocale = getLangFromUrl(currentRoutePattern);
-  let currentRoutePatternWithoutLangPrefix = currentRoutePattern.split(
+  let currentRoutePatternWithoutLangPrefix = currentRoutePattern.startsWith(
     `/${currentLocale}`,
-  )[1];
+  )
+    ? currentRoutePattern.split(`/${currentLocale}`)[1]
+    : currentRoutePattern;
 
   if (currentRoutePatternWithoutLangPrefix === "") {
     currentRoutePatternWithoutLangPrefix = "/";
