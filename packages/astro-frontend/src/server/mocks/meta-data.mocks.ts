@@ -72,7 +72,7 @@ export const getSeoMockData = (
     title: "Esempi pratici di utilizzo delle API per il tuo ente",
     locale: "it",
     seo: {
-      canonical: `${origin}/it/buone-pratiche`,
+      canonical: `${origin}/it/esempi-pratici`,
       metaTitle: "Esempi pratici di utilizzo delle API per il tuo ente",
       metaDescription:
         "Lasciati ispirare da una raccolta di esempi significativi e semplici di come integrare servizi per il tuo ente e i cittadini.",
@@ -149,7 +149,7 @@ export const getSeoMockData = (
     title: "Esempi pratici di utilizzo delle API per il tuo ente",
     locale: "it",
     seo: {
-      canonical: `${origin}/it/buone-pratiche/${pageSlug}`,
+      canonical: `${origin}/it/esempi-pratici/${pageSlug}`,
       metaTitle: "Esempi pratici di utilizzo delle API per il tuo ente",
       metaDescription:
         "Lasciati ispirare da una raccolta di esempi significativi e semplici di come integrare servizi per il tuo ente e i cittadini.",
@@ -181,7 +181,7 @@ export const getSeoMockData = (
       canonical: `${origin}/en/catalog`,
       metaTitle: "APIs on the National Digital Data Platform (PDND)",
       metaDescription:
-        "Find the API you need by filtering by keyword, producer, or consumer. Start the integration for your entity now to provide efficient services.",
+        "Find the API you need by filtering by keyword, producer, or consumer. Start the integration for your organization now to provide efficient services.",
     },
   };
 
@@ -189,11 +189,11 @@ export const getSeoMockData = (
     title: "Benefits of Data Interoperability among Public Administrations",
     locale: "en",
     seo: {
-      canonical: `${origin}/en/ecosystem`,
+      canonical: `${origin}/en/what-is-interoperability`,
       metaTitle:
         "Benefits of Data Interoperability among Public Administrations",
       metaDescription:
-        "Data interoperability allows entities to pursue the once-only principle. Consult the benefits and supporting tools available.",
+        "Data interoperability allows organizations to pursue the once-only principle. Consult the benefits and supporting tools available.",
       twitterImage: {
         url: `${origin}/img/twitter_ecosistema.jpg`,
       },
@@ -215,13 +215,13 @@ export const getSeoMockData = (
   };
 
   const goodPracticesMockDataEn: MetaDataType = {
-    title: "Practical examples of API Usage for your Entity",
+    title: "Practical examples of API Usage for your Organization",
     locale: "en",
     seo: {
       canonical: `${origin}/en/good-practices`,
-      metaTitle: "Practical examples of API Usage for your Entity",
+      metaTitle: "Practical examples of API Usage for your Organization",
       metaDescription:
-        "Get inspired by a collection of significant and simple examples of how to integrate services for your entity and citizens.",
+        "Get inspired by a collection of significant and simple examples of how to integrate services for your organization and citizens.",
     },
   };
 
@@ -287,18 +287,18 @@ export const getSeoMockData = (
       canonical: `${origin}/en/catalog/${eserviceId}`,
       metaTitle: "APIs on the National Digital Data Platform (PDND)",
       metaDescription:
-        "Find the API you need by filtering by keyword, producer, or consumer. Start the integration for your entity now to provide efficient services.",
+        "Find the API you need by filtering by keyword, producer, or consumer. Start the integration for your organization now to provide efficient services.",
     },
   });
 
   const getGoodPracticeSingleMockDataEn = (pageSlug: string): MetaDataType => ({
-    title: "Practical examples of API Usage for your Entity",
+    title: "Practical examples of API Usage for your Organization",
     locale: "en",
     seo: {
       canonical: `${origin}/en/good-practices/${pageSlug}`,
-      metaTitle: "Practical examples of API Usage for your Entity",
+      metaTitle: "Practical examples of API Usage for your Organization",
       metaDescription:
-        "Get inspired by a collection of significant and simple examples of how to integrate services for your entity and citizens.",
+        "Get inspired by a collection of significant and simple examples of how to integrate services for your organization and citizens.",
     },
   });
 
