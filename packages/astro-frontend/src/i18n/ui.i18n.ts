@@ -71,6 +71,8 @@ export const ui = {
     "footer.nav_section.accessibility_statement":
       "Dichiarazione di accessibilità",
 
+    "back_to_top_button.aria_label": "Torna su",
+
     "page_index_nav.title": "Indice della pagina",
 
     "eservice_card.access_reserved": "Accesso riservato",
@@ -153,6 +155,8 @@ export const ui = {
     "footer.nav_section.privacy_policy": "Privacy policy",
     "footer.nav_section.sitemap": "Site map",
     "footer.nav_section.accessibility_statement": "Accessibility statement",
+
+    "back_to_top_button.aria_label": "Back to top",
 
     "page_index_nav.title": "Page index",
 
