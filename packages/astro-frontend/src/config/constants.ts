@@ -29,8 +29,8 @@ export const links = {
 
 export const RESOURCE_LINKS = {
   DEV: "https://api-gov.dev.interop.pagopa.it",
-  PROD: "https://api.gov.it"
-}
+  PROD: "https://api.gov.it",
+};
 
 /**
  * Navigation items for the footer and header components.
