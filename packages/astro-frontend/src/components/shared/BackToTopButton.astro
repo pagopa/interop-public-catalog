@@ -16,3 +16,10 @@ const tUi = useUiTranslations(currentLocale);
 >
   <BootstrapItaliaIcon name="it-arrow-up" color="light" />
 </a>
+
+<script>
+  import { BackToTop } from "bootstrap-italia";
+
+  const backToTopElement = document.getElementById("backToTopButton");
+  const backToTop = new BackToTop(backToTopElement, options);
+</script>
