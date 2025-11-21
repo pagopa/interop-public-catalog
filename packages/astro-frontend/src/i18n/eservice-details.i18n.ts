@@ -92,7 +92,7 @@ export const eserviceDetails = {
     "api_details_section.delegation_label": "Delegated access",
     "api_details_section.delegation_tooltip.title": "Delegated access",
     "api_details_section.delegation_tooltip.content":
-      "If available, you can delegate another Public body to submit the API usage request on your behalf.",
+      "If available, you can delegate another organization to submit the API usage request on your behalf.",
     "api_details_section.agreements_label":
       "Automatic acceptance of usage requests",
     "api_details_section.agreements_tooltip.title": "Automatic acceptance",
@@ -126,7 +126,7 @@ export const eserviceDetails = {
     "attributes_section.verified_group.title": "Verified attribute",
     "attributes_section.verified_group_tooltip.title": "Verified attribute",
     "attributes_section.verified_group_tooltip.content":
-      "These are attributes already verified by other public bodies for the same consumer. The provider may still request a new verification if necessary.",
+      "These are attributes already verified by other organizations for the same consumer. The provider may still request a new verification if necessary.",
     "attributes_section.declared_group.title": "Declared attribute",
     "attributes_section.declared_group_tooltip.title": "Declared attribute",
     "attributes_section.declared_group_tooltip.content":
@@ -143,7 +143,7 @@ export const eserviceDetails = {
     "implementation_section.title": "Do you want to implement this API?",
     "implementation_section.authentication_link": "Sign in to PDND",
 
-    "featured_api.title": "Other APIs provided by this entity",
+    "featured_api.title": "Other APIs provided by this organization",
     "featured_api.explore_catalog": "Browse the catalogue",
     "signalhub.tooltip.title": "SIGNAL HUB",
     "signalhub.tooltip.content":
