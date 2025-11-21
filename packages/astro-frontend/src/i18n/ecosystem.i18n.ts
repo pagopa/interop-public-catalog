@@ -96,7 +96,7 @@ export const ecosystem = {
   en: {
     title: "What is interoperability",
     subtitle:
-      "The interoperability of the Public Administration is the ability of public bodies and their systems to share data securely, in a standardised and transparent way. In the Italian context, this system is enabled by the National Digital Data Platform (PDND) and supported by an ecosystem of complementary tools.",
+      "The interoperability of the Public Administration is the ability of organizations and their systems to share data securely, in a standardised and transparent way. In the Italian context, this system is enabled by the National Digital Data Platform (PDND) and supported by an ecosystem of complementary tools.",
 
     "ecosystem.characteristic_1.label": "“Once only” principle",
     "ecosystem.characteristic_1.description":
@@ -104,7 +104,7 @@ export const ecosystem = {
 
     "ecosystem.characteristic_2.label": "Simpler, more efficient services",
     "ecosystem.characteristic_2.description":
-      "Public bodies simplify processes by reducing bureaucracy and making services more efficient.",
+      "Organizations simplify processes by reducing bureaucracy and making services more efficient.",
 
     "ecosystem.characteristic_3.label": "Source-certified data",
     "ecosystem.characteristic_3.description":
@@ -116,13 +116,13 @@ export const ecosystem = {
 
     "access_points_section.title": "Resources for Interoperability",
     "access_points_section.subtitle":
-      "To achieve interoperability, public administrations connect to a network of tools, portals and digital resources that enable data exchange. Discover the main access points that make system integration possible.",
+      "To achieve interoperability, organizations connect to a network of tools, portals and digital resources that enable data exchange. Discover the main access points that make system integration possible.",
 
     "access_points_section.what_is_it_for": "Purpose",
 
     "access_points_section.access_point_1.title": "PDND Interoperability",
     "access_points_section.access_point_1.subtitle":
-      "A platform for the secure exchange of data between public bodies.",
+      "A platform for the secure exchange of data between organizations.",
     "access_points_section.access_point_1.description":
       "It provides a single infrastructure that enables public administrations to connect through APIs and share information in a standardised and secure way.",
 
@@ -136,11 +136,11 @@ export const ecosystem = {
     "access_points_section.access_point_3.subtitle":
       "Supporting the semantic interoperability of public data",
     "access_points_section.access_point_3.description":
-      "It enables data to be described in a standardised and consistent way, making them easier to understand and share across public bodies.",
+      "It enables data to be described in a standardised and consistent way, making them easier to understand and share across organizations.",
 
     "access_points_section.access_point_4.title": "dati.gov.it",
     "access_points_section.access_point_4.subtitle":
-      "Catalogue of open datasets from Italian Public bodies.",
+      "Catalogue of open datasets from Italian Public Administration.",
     "access_points_section.access_point_4.description":
       "It promotes transparency and encourages the reuse of open data by citizens, researchers, businesses and institutions.",
 
@@ -157,9 +157,9 @@ export const ecosystem = {
     "interoperabily_types.type_1.description":
       "It is the ability of two IT systems to connect and exchange data using common technical standards and protocols.",
 
-    "interoperabily_types.type_2.label": "Organisational interoperability",
+    "interoperabily_types.type_2.label": "Organizational interoperability",
     "interoperabily_types.type_2.description":
-      "It is the alignment of operational processes and responsibilities among different organisations in order to collaborate effectively.",
+      "It is the alignment of operational processes and responsibilities among different organizations in order to collaborate effectively.",
 
     "interoperabily_types.type_3.label": "Semantic interoperability",
     "interoperabily_types.type_3.description":
@@ -167,7 +167,7 @@ export const ecosystem = {
 
     "interoperabily_types.type_4.label": "Legal interoperability",
     "interoperabily_types.type_4.description":
-      "It is the harmonisation of laws and regulations governing the exchange of information between organisations.",
+      "It is the harmonisation of laws and regulations governing the exchange of information between organizations.",
 
     "ecosystem_legal_references.title": "Legal and Regulatory Framework",
     "ecosystem_legal_references.subtitle":
