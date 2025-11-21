@@ -39,15 +39,6 @@ const ecosystemPageHeroImgSrc: Record<SupportedLanguage, string> = {
     { routeKey: "ECOSYSTEM", current: true },
   ]}
 >
-  <div class="d-block d-lg-none" slot="top-hero">
-    <img
-      src={ecosystemPageHeroImgSrc[currentLocale]}
-      class="img-fluid"
-      width="416"
-      height="544"
-      alt={t("ecosystem.image_alt")}
-    />
-  </div>
   <div slot="bottom-hero">
     <div class="row">
       <div class="col-12 col-lg-7">
@@ -84,5 +75,15 @@ const ecosystemPageHeroImgSrc: Record<SupportedLanguage, string> = {
         />
       </div>
     </div>
+  </div>
+
+  <div class="d-block d-lg-none" slot="bottom-hero">
+    <img
+      src={ecosystemPageHeroImgSrc[currentLocale]}
+      class="img-fluid"
+      width="416"
+      height="544"
+      alt={t("ecosystem.image_alt")}
+    />
   </div>
 </PageHero>
