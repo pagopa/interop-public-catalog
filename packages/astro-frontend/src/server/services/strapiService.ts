@@ -19,14 +19,12 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       filters: {
         macroCategoryIds?: number[];
         isFeaturedInHomepage?: boolean;
-        random?: boolean;
         limit: number;
         offset: number;
       },
       locale: SupportedLanguage,
     ): Promise<StrapiEntityList<GoodPractice>> => {
-      const { offset, limit, macroCategoryIds, isFeaturedInHomepage, random } =
-        filters;
+      const { offset, limit, macroCategoryIds, isFeaturedInHomepage } = filters;
 
       const filteredData = getGoodPracticesDataMockByLocale(locale)
         .filter((g) =>
@@ -40,8 +38,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           typeof isFeaturedInHomepage === "boolean"
             ? g.data.isFeaturedInHomepage === isFeaturedInHomepage
             : true,
-        )
-        .sort(() => (random ? (Math.random() > 0.5 ? 1 : -1) : 0));
+        );
 
       const paginatedResult = filteredData
         .slice(offset, offset + limit)
@@ -59,6 +56,46 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
             pageSize: limit,
             pageCount,
             total,
+          },
+        },
+      });
+    },
+
+    getGoodPracticesExamples: async (
+      currentGoodPracticeSlug: string,
+      locale: SupportedLanguage,
+      numberOfExamples: number = 2,
+    ): Promise<StrapiEntityList<GoodPractice>> => {
+      const allGoodPractices = getGoodPracticesDataMockByLocale(locale);
+      const currentGoodPracticeIndex = allGoodPractices.findIndex(
+        (g) => g.data.slug === currentGoodPracticeSlug,
+      );
+
+      const examples: GoodPractice[] = [];
+      let offset = 1;
+
+      while (
+        examples.length < numberOfExamples &&
+        offset < allGoodPractices.length
+      ) {
+        const nextIndex =
+          (currentGoodPracticeIndex + offset) % allGoodPractices.length;
+
+        if (allGoodPractices[nextIndex].data.slug !== currentGoodPracticeSlug) {
+          examples.push(allGoodPractices[nextIndex].data);
+        }
+
+        offset++;
+      }
+
+      return Promise.resolve({
+        data: examples,
+        meta: {
+          pagination: {
+            page: 1,
+            pageSize: examples.length,
+            pageCount: 1,
+            total: examples.length,
           },
         },
       });
