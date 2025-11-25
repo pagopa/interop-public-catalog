@@ -1,0 +1,84 @@
+---
+import { links } from "../../config/constants";
+import { useEcosystemTranslations } from "../../i18n/ecosystem.i18n";
+import {
+  getLangFromUrl,
+  getRouteKeyFromCurrentRoutePattern,
+} from "../../i18n/utils.i18n";
+import { Section } from "../shared/Section";
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useEcosystemTranslations(currentLocale);
+
+const INTEROPERABILITY_TYPES = [
+  {
+    label: t("interoperabily_types.type_1.label"),
+    description: t("interoperabily_types.type_1.description"),
+    srcImg: "/img/060-data-cable.svg",
+  },
+  {
+    label: t("interoperabily_types.type_3.label"),
+    description: t("interoperabily_types.type_3.description"),
+    srcImg: "/img/075-chatting.svg",
+  },
+  {
+    label: t("interoperabily_types.type_2.label"),
+    description: t("interoperabily_types.type_2.description"),
+    srcImg: "/img/072-business-report.svg",
+  },
+  {
+    label: t("interoperabily_types.type_4.label"),
+    description: t("interoperabily_types.type_4.description"),
+    srcImg: "/img/044-pen-and-paper.svg",
+  },
+];
+
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
+---
+
+<Section title={t("interoperabily_types.title")}>
+  <div class="row">
+    <div class="col-12 col-lg-8">
+      <p class="mb-5">
+        <a
+          data-mp-external-link-id={`${routeKey}_interoperabilityTypesSection`}
+          data-mp-external-link-description="TODO"
+          href={links.euInteroperabilityFrameworkLink}
+          target="_blank"
+          rel="noreferrer">{t("interoperabily_types.subtitle_link")}</a
+        >
+        {t("interoperabily_types.subtitle")}
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    {
+      INTEROPERABILITY_TYPES.map((type) => (
+        <div class="col-xs-12 col-lg-6 mb-4">
+          <div class="d-flex flex-row gap-3">
+            <div class="p-4">
+              <img
+                src={type.srcImg}
+                height="48"
+                width="48"
+                class="rounded d-block image-xl"
+                role="presentation"
+                alt=""
+              />
+            </div>
+            <div>
+              <h3 class="h5">{type.label}</h3>
+              <p
+                style="font-size:1rem;line-height:24px;"
+                class="text-secondary"
+              >
+                {type.description}
+              </p>
+            </div>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</Section>

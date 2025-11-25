@@ -1,0 +1,100 @@
+---
+import PageHero from "../../components/shared/PageHero.astro";
+import PageIndexNav from "../../components/shared/PageIndexNav.astro";
+import { Section } from "../../components/shared/Section";
+import Layout from "../../layouts/Layout.astro";
+import { match } from "ts-pattern";
+import { renderRichTextStrapiNodes } from "../../utils/rich-text-strapi-renderer";
+import { getLangFromUrl } from "../../i18n/utils.i18n";
+import { useUiTranslations } from "../../i18n/ui.i18n";
+import { BootstrapItaliaIcon } from "../../components/shared/BootstrapItaliaIcon";
+import { strapiService } from "../../server/services";
+import type { NormativaReferenceContent } from "../../server/types/normativa.types";
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tUi = useUiTranslations(currentLocale);
+
+const strapiResponse = await strapiService.getNormativaContent(currentLocale);
+
+if (!strapiResponse) {
+  throw new Error("Could not fetch Normativa content");
+}
+
+const contents = strapiResponse.data;
+const body = contents.body;
+
+const sectionTitles = body
+  .filter(
+    (
+      s,
+    ): s is NormativaReferenceContent["body"][number] & {
+      __component: "shared.section-title";
+    } =>
+      Boolean(
+        s.__component === "shared.section-title" && s.sectionTitle && s.slug,
+      ),
+  )
+  .map((s) => ({ label: s.sectionTitle, id: s.slug }));
+---
+
+<Layout>
+  <PageHero
+    breadcrumbItems={[
+      {
+        routeKey: "HOME",
+      },
+      {
+        routeKey: "LEGISLATION",
+        current: true,
+      },
+    ]}
+    title={contents.title}
+    description={contents.description}
+  />
+
+  <Section className="bg-muted">
+    <div class="row">
+      <div class="d-none d-md-block col-3">
+        <PageIndexNav
+          headings={sectionTitles}
+          style="top: 1rem;"
+          class="position-sticky"
+        />
+      </div>
+
+      <div class="col-12 col-md-9">
+        {
+          body.map((s) =>
+            match(s)
+              .with({ __component: "shared.section-title" }, (c) => (
+                <h2 class="h5 mb-4" id={c.slug}>
+                  {c.sectionTitle}
+                </h2>
+              ))
+              .with({ __component: "shared.body" }, (c) => (
+                <Fragment set:html={renderRichTextStrapiNodes(c.text)} />
+              ))
+              .with({ __component: "shared.url" }, (c) => (
+                <a
+                  href={c.externalLink}
+                  target="_blank"
+                  class="it-card-link text-primary text-uppercase fw-semibold mb-5 d-inline-block"
+                  rel="noreferrer"
+                >
+                  {tUi("eservice_card.read_more")}
+                  <BootstrapItaliaIcon
+                    aria-hidden="true"
+                    name="it-arrow-right"
+                    size="sm"
+                    color="primary"
+                    padded
+                  />
+                </a>
+              ))
+              .otherwise(() => ""),
+          )
+        }
+      </div>
+    </div>
+  </Section>
+</Layout>

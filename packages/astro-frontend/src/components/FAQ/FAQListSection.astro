@@ -1,0 +1,54 @@
+---
+import type { StrapiNode } from "pagopa-interop-public-models";
+import { renderRichTextStrapiNodes } from "../../utils/rich-text-strapi-renderer.js";
+import { Section } from "../shared/Section";
+interface Props {
+  sectionId: number;
+  title: string;
+  faqs: Array<{ id: number; question: string; answer: StrapiNode[] }>;
+}
+
+const { sectionId, title, faqs } = Astro.props;
+---
+
+<Section title={title} className="pb-0">
+  <div class="row">
+    <div class="col-12 col-md-8">
+      <div class="accordion" id={`accordionGroup${sectionId}`}>
+        {
+          faqs.map(({ question, answer, id }) => (
+            <>
+              <div class="accordion-item bg-transparent">
+                <h3 class="accordion-header" id={`heading${sectionId}${id}`}>
+                  <button
+                    class="accordion-button collapsed py-3"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target={`#collapse${sectionId}${id}`}
+                    aria-expanded="false"
+                    aria-controls={`collapse${sectionId}${id}`}
+                  >
+                    {question}
+                  </button>
+                </h3>
+                <div
+                  id={`collapse${sectionId}${id}`}
+                  data-mp-faq-id={id}
+                  data-mp-faq-title={question}
+                  class="accordion-collapse collapse"
+                  data-bs-parent={`#accordionGroup${sectionId}`}
+                  role="region"
+                  aria-labelledby={`heading${sectionId}${id}`}
+                >
+                  <div class="accordion-body">
+                    <div set:html={renderRichTextStrapiNodes(answer)} />
+                  </div>
+                </div>
+              </div>
+            </>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</Section>

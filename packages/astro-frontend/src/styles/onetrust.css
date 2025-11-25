@@ -1,0 +1,23 @@
+.otnotice table {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.otnotice-menu {
+  z-index: -1;
+}
+
+.otnotice p {
+  font-size: 1.125rem !important;
+}
+
+.otnotice h1 {
+  margin-bottom: 24px !important;
+}
+
+.otnotice h2 {
+  font-size: 1.75rem !important;
+  color: inherit !important;
+}

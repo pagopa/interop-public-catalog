@@ -1,0 +1,46 @@
+{
+  "extends": [
+    "github>pagopa/eng-renovate",
+    ":combinePatchMinorReleases",
+    ":ignoreUnstable",
+    ":rebaseStalePrs",
+    ":dependencyDashboard"
+  ],
+  "prConcurrentLimit": 2,
+  "labels": [
+    "dependencies"
+  ],
+  "ignorePaths": [
+    "docker/docker-compose.yml"
+  ],
+  "packageRules": [
+    {
+      "enabled": true,
+      "matchDepTypes": [
+        "devDependencies"
+      ]
+    }
+  ],
+  "major": {
+    "enabled": true
+  },
+  "minor": {
+    "enabled": true
+  },
+  "npmrc": "save-prefix=\nauto-install-peers=false\nstrict-peer-dependencies=false",
+  "patch": {
+    "enabled": true
+  },
+  "digest": {
+    "enabled": true
+  },
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "rollback": {
+    "enabled": true
+  },
+  "replacement": {
+    "enabled": true
+  }
+}

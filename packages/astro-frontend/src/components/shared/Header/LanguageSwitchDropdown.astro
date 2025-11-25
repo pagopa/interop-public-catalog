@@ -1,0 +1,60 @@
+---
+import { LANGUAGES } from "../../../i18n/config.i18n";
+import { getLangFromUrl, switchLang } from "../../../i18n/utils.i18n";
+import { BootstrapItaliaIcon } from "../BootstrapItaliaIcon";
+import { useUiTranslations } from "../../../i18n/ui.i18n.js";
+import type { SupportedLanguage } from "../../../i18n/types.i18n";
+
+const currentLang = getLangFromUrl(Astro.url.pathname);
+const tUi = useUiTranslations(currentLang);
+---
+
+<div class="nav-item dropdown">
+  <a
+    class="nav-link dropdown-toggle"
+    role="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    <span class="visually-hidden">{tUi("languageSwitch.selected_lang")}</span>
+    <span>{LANGUAGES[currentLang]}</span>
+    <BootstrapItaliaIcon
+      name="it-expand"
+      className="d-none d-md-block"
+      aria-hidden="true"
+    />
+  </a>
+  <div class="dropdown-menu dropdown-menu-end mt-md-2 me-md-4">
+    <div class="row">
+      <div class="col-12">
+        <div class="link-list-wrapper">
+          <ul class="link-list">
+            {
+              (Object.keys(LANGUAGES) as SupportedLanguage[]).map((lang) => (
+                <li>
+                  <a
+                    class="dropdown-item list-item"
+                    href={switchLang({
+                      toLang: lang,
+                      currentRoutePattern: Astro.routePattern,
+                      currentParams: Astro.params,
+                    })}
+                  >
+                    <span>
+                      {LANGUAGES[lang]}{" "}
+                      {lang === currentLang && (
+                        <span class="visually-hidden">
+                          {tUi("label.current")}
+                        </span>
+                      )}
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

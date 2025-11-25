@@ -1,0 +1,89 @@
+---
+import { useEcosystemTranslations } from "../../i18n/ecosystem.i18n";
+import type { SupportedLanguage } from "../../i18n/types.i18n";
+import { getLangFromUrl } from "../../i18n/utils.i18n";
+import PageHero from "../shared/PageHero.astro";
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useEcosystemTranslations(currentLocale);
+
+const ECOSYSTEM_CHARACTERISTICS = [
+  {
+    label: t("ecosystem.characteristic_1.label"),
+    description: t("ecosystem.characteristic_1.description"),
+  },
+  {
+    label: t("ecosystem.characteristic_3.label"),
+    description: t("ecosystem.characteristic_3.description"),
+  },
+  {
+    label: t("ecosystem.characteristic_2.label"),
+    description: t("ecosystem.characteristic_2.description"),
+  },
+  {
+    label: t("ecosystem.characteristic_4.label"),
+    description: t("ecosystem.characteristic_4.description"),
+  },
+];
+
+const ecosystemPageHeroImgSrc: Record<SupportedLanguage, string> = {
+  it: "/img/infografica_it.webp",
+  en: "/img/infografica_en.webp",
+};
+---
+
+<PageHero
+  title={t("title")}
+  breadcrumbItems={[
+    { routeKey: "HOME" },
+    { routeKey: "ECOSYSTEM", current: true },
+  ]}
+>
+  <div slot="bottom-hero">
+    <div class="row">
+      <div class="col-12 col-lg-7">
+        <p>{t("subtitle")}</p>
+
+        <div class="row row-cols-lg-2 row-cols-1 mt-5 pt-4">
+          {
+            ECOSYSTEM_CHARACTERISTICS.map((characteristic) => (
+              <div class="pe-4 pb-4">
+                <div class="border-start border-3 px-3">
+                  <h2 style="font-size:1.25rem;" class="h6">
+                    {characteristic.label}
+                  </h2>
+                  <p
+                    style="font-size:1rem;line-height:24px;"
+                    class="text-secondary"
+                  >
+                    {characteristic.description}
+                  </p>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+      <div class="col-12 col-lg-5 position-relative d-none d-lg-block">
+        <img
+          src={ecosystemPageHeroImgSrc[currentLocale]}
+          style="right:0px;"
+          class="position-absolute img-fluid bottom-0"
+          width="416"
+          height="544"
+          alt=""
+        />
+      </div>
+    </div>
+  </div>
+
+  <div class="d-block d-lg-none" slot="bottom-hero">
+    <img
+      src={ecosystemPageHeroImgSrc[currentLocale]}
+      class="img-fluid"
+      width="416"
+      height="544"
+      alt={t("ecosystem.image_alt")}
+    />
+  </div>
+</PageHero>

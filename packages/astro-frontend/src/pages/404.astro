@@ -1,0 +1,19 @@
+---
+import ErrorDisplayer from "../components/shared/ErrorDisplayer.astro";
+import Layout from "../layouts/Layout.astro";
+import { getLangFromUrl } from "../i18n/utils.i18n";
+import { useUiTranslations } from "../i18n/ui.i18n";
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tUi = useUiTranslations(currentLocale);
+---
+
+<Layout>
+  <ErrorDisplayer
+    error={{
+      iconSrc: "/img/070-error 404.svg",
+      title: tUi("error.page_not_found.title"),
+      message: tUi("error.page_not_found.message"),
+    }}
+  />
+</Layout>

@@ -1,0 +1,137 @@
+---
+import { getLangFromUrl } from "../../i18n/utils.i18n";
+import { useGoodPracticesTranslations } from "../../i18n/good-practices.i18n";
+import PageIndexNav from "../shared/PageIndexNav.astro";
+import { match } from "ts-pattern";
+import { renderRichTextStrapiNodes } from "../../utils/rich-text-strapi-renderer";
+import type { GoodPractice, StrapiNode } from "pagopa-interop-public-models";
+import { GoodPracticeRelatedEService } from "./GoodPracticeRelatedEService";
+
+interface Props {
+  goodPractice: GoodPractice;
+}
+
+const { goodPractice } = Astro.props;
+
+const goodPracticeBody = goodPractice.body;
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tGoodPractices = useGoodPracticesTranslations(currentLocale);
+
+const sectionTitles = goodPracticeBody
+  .filter((s) => s.__component === "buona-pratica.title")
+  .map((s) => ({ label: s.Text, id: s.id.toString() }));
+
+const formatDate = (dateString: string, locale: string) => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat(locale, {
+    month: "long",
+    year: "numeric",
+  }).format(date);
+};
+
+const formattedDate = formatDate(goodPractice.updatedAt, currentLocale);
+
+const customRenderRichTextStrapiNodes = (nodes: StrapiNode[]) => {
+  return renderRichTextStrapiNodes(nodes)
+    .replaceAll("<p>", `<p style="margin-bottom:${MARGIN_BOTTOM}px">`)
+    .replaceAll("<ul>", `<ul style="margin-bottom:${MARGIN_BOTTOM}px">`);
+};
+
+const MARGIN_BOTTOM = 40;
+const HEADING_CLASS = "h5 mb-3";
+---
+
+<div class="row">
+  <div class="d-none d-lg-block col-3">
+    <PageIndexNav
+      headings={[
+        {
+          label: tGoodPractices("details.section.apis.description"),
+          id: "description",
+        },
+        ...sectionTitles,
+        {
+          label: tGoodPractices("details.section.apis.heading"),
+          id: "api-utilizzate",
+        },
+      ]}
+      style="top: 1rem;"
+      class="position-sticky"
+    />
+  </div>
+  <div class="col-12 col-lg-9">
+    <article>
+      <h2 id={"description"} class={HEADING_CLASS}>
+        {tGoodPractices("details.section.apis.description")}
+      </h2>
+      {
+        goodPracticeBody.map((c) =>
+          match(c)
+            .with({ __component: "buona-pratica.image" }, (c) => (
+              <figure class="" style={`margin-bottom:${MARGIN_BOTTOM}px`}>
+                <img
+                  src={c.image.url}
+                  alt={c.image.alternativeText}
+                  width={c.image.width}
+                  height={c.image.height}
+                  class="mb-3 img-fluid w-100"
+                />
+                <figcaption class="text-center">{c.caption}</figcaption>
+              </figure>
+            ))
+            .with({ __component: "buona-pratica.title" }, (c) => (
+              <h2 id={c.id.toString()} class={HEADING_CLASS}>
+                {c.Text}
+              </h2>
+            ))
+            .with({ __component: "buona-pratica.description" }, (c) => (
+              <p
+                style={`margin-bottom:${MARGIN_BOTTOM}px`}
+                set:html={customRenderRichTextStrapiNodes(c.Text)}
+              />
+            ))
+            .with({ __component: "buona-pratica.esempio-concreto" }, (c) => (
+              <div
+                style={`background-color:#BFDFFF;padding:${MARGIN_BOTTOM}px;margin-bottom:${MARGIN_BOTTOM}px`}
+              >
+                <h3 class="h5 mb-3">
+                  {tGoodPractices("details.section.apis.example")}
+                </h3>
+                <Fragment set:html={renderRichTextStrapiNodes(c.example)} />
+              </div>
+            ))
+            .with({ __component: "buona-pratica.nota-tecnica" }, (c) => (
+              <div class="alert alert-primary py-4 mb-4">
+                <h3 class="h5">
+                  {tGoodPractices("details.section.apis.technical_notes")}
+                </h3>
+                <Fragment set:html={renderRichTextStrapiNodes(c.example)} />
+              </div>
+            ))
+            .exhaustive(),
+        )
+      }
+
+      <h2 id="api-utilizzate" class="h4 mb-4">
+        {tGoodPractices("details.section.apis.heading")}
+      </h2>
+
+      <GoodPracticeRelatedEService
+        client:visible
+        currentLocale={currentLocale}
+        eserviceIds={goodPractice.eserviceId.map((e) => e.eserviceId)}
+      />
+
+      <div class="mt-4 text-secondary pt-4">
+        <em>{tGoodPractices("details.lastUpdate")} {formattedDate}</em>
+      </div>
+    </article>
+  </div>
+</div>
+
+<style>
+  .alert-primary {
+    background-position: 20px 23px;
+  }
+</style>

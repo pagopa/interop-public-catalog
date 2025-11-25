@@ -1,0 +1,183 @@
+---
+import {
+  CATALOG_API_SECTION_NAV_ITEMS,
+  links,
+  RESOURCES_SECTION_NAV_ITEMS,
+} from "../../config/constants";
+import { useUiTranslations } from "../../i18n/ui.i18n";
+import {
+  getLangFromUrl,
+  getLocalizedRoute,
+  getRouteKeyFromCurrentRoutePattern,
+} from "../../i18n/utils.i18n";
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tUi = useUiTranslations(currentLocale);
+
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
+
+// Footer small print links (legal, privacy, accessibility, etc.)
+const footerSmallPrintLinks = [
+  {
+    label: tUi("footer.nav_section.legal_notes"),
+    href: getLocalizedRoute(currentLocale, "LEGAL_NOTES"),
+    mixpanelAttributes: {},
+  },
+  {
+    label: tUi("footer.nav_section.privacy_policy"),
+    href: getLocalizedRoute(currentLocale, "PRIVACY_POLICY"),
+    mixpanelAttributes: {},
+  },
+  {
+    label: tUi("footer.nav_section.sitemap"),
+    href: "/sitemap.xml",
+    mixpanelAttributes: {},
+  },
+  {
+    label: tUi("footer.nav_section.accessibility_statement"),
+    href: links.accessibilityStatementLink,
+    mixpanelAttributes: {
+      "data-mp-external-link-id": `${routeKey}_footer_accessibility_statement`,
+      "data-mp-external-link-description": "TODO",
+    },
+  },
+] as const;
+---
+
+<footer class="it-footer mt-0">
+  <!-- Main footer section: logos and navigation -->
+  <div class="it-footer-main it-footer-small-prints">
+    <div class="container pb-3">
+      <section class="container py-4">
+        {/* Logos and navigation columns */}
+        <div class="row g-4">
+          <div class="col-12 col-md-2 pb-2">
+            <a
+              data-mp-external-link-id={`${routeKey}_footer_ueCommissionLink`}
+              data-mp-external-link-description="TODO"
+              href={links.ueCommissionLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src="/img/next-generation-eu-footer-logo.svg"
+                alt="Next Generation EU logo"
+                class="img-fluid"
+              />
+            </a>
+          </div>
+          <div class="col-12 col-md-3 pb-2">
+            <a
+              data-mp-external-link-id={`${routeKey}_footer_dtdLogoLink`}
+              data-mp-external-link-description="TODO"
+              href={links.dtdLogoLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src="/img/dtd-footer-logo.svg"
+                alt="Dipartimento per la trasformazione digitale logo"
+                class="img-fluid"
+              />
+            </a>
+          </div>
+          <div class="col-12 col-md-2 pb-2">
+            <a
+              data-mp-external-link-id={`${routeKey}_footer_pagopa_logo`}
+              data-mp-external-link-description="TODO"
+              href={links.pagoPaLink}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <img
+                src="/img/pagopa-footer-logo.svg"
+                alt="PagoPA logo"
+                class="img-fluid"
+              />
+            </a>
+          </div>
+          <div
+            class="d-none d-md-flex col-12 col-md-5 pb-2 justify-content-end gap-5"
+          >
+            <!-- Catalogo API links column -->
+            <div>
+              <h4 class="text-uppercase">
+                {tUi("brand.title")}
+              </h4>
+              <div class="link-list-wrapper">
+                <ul class="footer-list link-list clearfix">
+                  {
+                    CATALOG_API_SECTION_NAV_ITEMS.map((item) => {
+                      const localizedHref = getLocalizedRoute(
+                        currentLocale,
+                        item.routeKey,
+                      );
+
+                      const isGoodPracticeCatalogNavItem =
+                        item.routeKey === "GOOD_PRACTICES_CATALOG";
+                      const mixpanelAttributes = isGoodPracticeCatalogNavItem
+                        ? {
+                            "data-mp-good-practice-catalog-referral": "footer",
+                          }
+                        : {};
+
+                      return (
+                        <li>
+                          <a
+                            class="list-item"
+                            href={localizedHref}
+                            {...mixpanelAttributes}
+                          >
+                            {tUi(item.i18nKey)}
+                          </a>
+                        </li>
+                      );
+                    })
+                  }
+                </ul>
+              </div>
+            </div>
+            <!-- Resources links column -->
+            <div>
+              <h4>
+                {tUi("footer.nav_section.resources")}
+              </h4>
+              <div class="link-list-wrapper">
+                <ul class="footer-list link-list clearfix">
+                  {
+                    RESOURCES_SECTION_NAV_ITEMS.map((item) => (
+                      <li>
+                        <a
+                          class="list-item"
+                          href={getLocalizedRoute(currentLocale, item.routeKey)}
+                        >
+                          {tUi(item.i18nKey)}
+                        </a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <!-- Small print section: legal and accessibility links -->
+  <div class="it-footer-small-prints clearfix border-top border-secondary">
+    <div class="container">
+      <ul
+        class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row"
+      >
+        {
+          footerSmallPrintLinks.map((link) => (
+            <li class="list-inline-item">
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</footer>

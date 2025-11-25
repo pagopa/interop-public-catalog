@@ -1,0 +1,42 @@
+---
+import type { EService } from "pagopa-interop-public-models";
+import { useHomepageTranslations } from "../../i18n/homepage.i18n";
+import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
+import { EServiceCard } from "../shared/EServiceCard";
+import { Section } from "../shared/Section";
+
+interface Props {
+  highlightedEServices: EService[];
+}
+
+const { highlightedEServices } = Astro.props;
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useHomepageTranslations(currentLocale);
+---
+
+<Section
+  title={t("featured_api.title")}
+  sectionLink={{
+    text: t("featured_api.explore_catalog"),
+    href: getLocalizedRoute(currentLocale, "ESERVICE_CATALOG"),
+  }}
+>
+  <div class="px-0">
+    <div class="row">
+      {
+        highlightedEServices.map(({ name, description, tenant_name, id }) => (
+          <div class="col-12 col-lg-4 mb-4">
+            <EServiceCard
+              eserviceId={id}
+              currentLocale={currentLocale}
+              name={name}
+              description={description}
+              producerName={tenant_name}
+            />
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Section>

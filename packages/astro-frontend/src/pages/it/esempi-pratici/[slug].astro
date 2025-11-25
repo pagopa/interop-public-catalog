@@ -1,0 +1,97 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import { GoodPracticeCard } from "../../../components/shared/GoodPracticeCard";
+import { Section } from "../../../components/shared/Section";
+import { Chip } from "../../../components/shared/Chip";
+import PageHero from "../../../components/shared/PageHero.astro";
+import { getLangFromUrl } from "../../../i18n/utils.i18n";
+import { useGoodPracticesTranslations } from "../../../i18n/good-practices.i18n";
+import { useUiTranslations } from "../../../i18n/ui.i18n";
+import GoodPracticeDetails from "../../../components/GoodPracticeDetails/GoodPracticeDetails.astro";
+import { strapiService } from "../../../server/services";
+import { CopyUrlButton } from "../../../components/shared/CopyUrlButton";
+import RatingSection from "../../../components/shared/RatingSection.astro";
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tGoodPractices = useGoodPracticesTranslations(currentLocale);
+const tUi = useUiTranslations(currentLocale);
+
+const currentSlug = Astro.params.slug;
+
+const goodPracticeStrapiResponse = await strapiService.getGoodPracticeBySlug(
+  currentSlug!,
+  currentLocale,
+);
+
+const goodPracticesExample = await strapiService.getGoodPracticesExamples(
+  currentSlug!,
+  currentLocale,
+  2,
+);
+
+if (!goodPracticeStrapiResponse) {
+  return Astro.redirect("/404");
+}
+
+const goodPractice = goodPracticeStrapiResponse.data;
+---
+
+<Layout>
+  <PageHero
+    title={goodPractice.title}
+    breadcrumbItems={[
+      {
+        routeKey: "HOME",
+      },
+      {
+        routeKey: "GOOD_PRACTICES_CATALOG",
+      },
+      {
+        routeKey: "GOOD_PRACTICES_DETAILS",
+        current: true,
+      },
+    ]}
+  >
+    <div slot="top-hero">
+      <div class="d-flex align-items-center justify-content-between">
+        <Chip label={goodPractice.category} />
+        <CopyUrlButton currentLocale={currentLocale} />
+      </div>
+    </div>
+
+    <div slot="bottom-hero">
+      <p>
+        <strong>{tUi("label.for")}:</strong>
+        {
+          goodPractice.tenantMacrocategories.length === 0
+            ? tUi("tenant_macrocategory_.tutti_short")
+            : goodPractice.tenantMacrocategories.map((m) => m.label).join(", ")
+        }
+      </p>
+    </div>
+  </PageHero>
+
+  <Section className="bg-muted">
+    <GoodPracticeDetails goodPractice={goodPractice} />
+  </Section>
+
+  <Section
+    className="bg-muted-dark"
+    title={tGoodPractices("details.moreExamples")}
+    titleClass="text-center"
+  >
+    <div
+      class="d-flex flex-column flex-md-row justify-content-center gap-4 mt-4"
+    >
+      {
+        goodPracticesExample.data.map((goodPractice) => (
+          <GoodPracticeCard
+            currentLocale={currentLocale}
+            goodPractice={goodPractice}
+          />
+        ))
+      }
+    </div>
+  </Section>
+  <RatingSection />
+</Layout>

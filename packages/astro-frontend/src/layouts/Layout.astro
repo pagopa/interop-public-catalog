@@ -1,0 +1,151 @@
+---
+// !! Careful: CSS order of imports matters
+import "../styles/fonts.css";
+import "bootstrap-italia/dist/css/bootstrap-italia.min.css";
+import "../styles/onetrust.css";
+import "../styles/styles.css";
+
+import Header from "../components/shared/Header/Header.astro";
+import Footer from "../components/shared/Footer.astro";
+import { getLangFromUrl } from "../i18n/utils.i18n";
+import { clientEnvConfig } from "../config/config";
+import type { MetaDataType } from "../server/types/metaData.types";
+import { strapiService } from "../server/services";
+import { getRouteKeyFromCurrentRoutePattern } from "../i18n/utils.i18n";
+import BackToTopButton from "../components/shared/BackToTopButton.astro";
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
+
+const { data: generalData } = await strapiService.getSeoMetaData(
+  currentLocale,
+  Astro.url.origin,
+  "DEFAULT",
+);
+
+const { data: pageData } = await strapiService.getSeoMetaData(
+  currentLocale,
+  Astro.url.origin,
+  routeKey ?? "DEFAULT",
+  Astro.params,
+);
+
+const generalMetaData = generalData[0] as MetaDataType;
+const pageMetaData = pageData[0] as MetaDataType;
+
+const metaLocale = pageMetaData.locale ?? generalMetaData.locale;
+---
+
+<!doctype html>
+<html lang={currentLocale}>
+  <head>
+    <meta charset="UTF-8" />
+    <script
+      is:inline
+      set:html={`window.env = ${JSON.stringify(clientEnvConfig).replace(/</g, "\\u003c")}`}
+    />
+    {
+      import.meta.env.PROD && (
+        <script
+          is:inline
+          src="https://cdn.cookielaw.org/scripttemplates/otSDKStub.js"
+          type="text/javascript"
+          charset="UTF-8"
+          data-domain-script={clientEnvConfig.onetrustDomainScriptId}
+          data-language={currentLocale}
+        />
+      )
+    }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="sitemap" href="/sitemap.xml" />
+    <meta name="generator" content={Astro.generator} />
+
+    <title>{pageMetaData.title ?? generalMetaData.title}</title>
+    <meta
+      name="description"
+      content={pageMetaData.seo.metaDescription ??
+        generalMetaData.seo.metaDescription}
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content={pageMetaData.seo.metaTitle ?? generalMetaData.seo.metaTitle}
+    />
+    <meta
+      name="twitter:description"
+      content={pageMetaData.seo.metaDescription ??
+        generalMetaData.seo.metaDescription}
+    />
+    <meta
+      name="twitter:image"
+      content={pageMetaData.seo.twitterImage?.url ??
+        generalMetaData.seo.twitterImage?.url}
+    />
+    <meta
+      property="og:locale"
+      content={metaLocale === "it" ? "it_IT" : "en_US"}
+    />
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content={pageMetaData.seo.metaTitle ?? generalMetaData.seo.metaTitle}
+    />
+    <meta
+      property="og:description"
+      content={pageMetaData.seo.metaDescription ??
+        generalMetaData.seo.metaDescription}
+    />
+    <meta
+      property="og:url"
+      content={pageMetaData.seo.canonical ?? generalMetaData.seo.canonical}
+    />
+    <meta
+      property="og:site_name"
+      content={pageMetaData.siteName ?? generalMetaData.siteName}
+    />
+    <meta
+      property="og:image"
+      content={pageMetaData.seo.opengraphImage?.url ??
+        generalMetaData.seo.opengraphImage?.url}
+    />
+    <link
+      rel="canonical"
+      href={pageMetaData.seo.canonical ?? generalMetaData.seo.canonical}
+    />
+  </head>
+  <body>
+    <Header />
+    <BackToTopButton />
+    <slot />
+    <Footer />
+  </body>
+</html>
+
+<style>
+  html,
+  body {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<script>
+  import { initBootstrapItaliaComponents } from "../config/bootstrap-italia";
+  import type { ClientEnvConfig } from "../config/config";
+  import { mixpanelService } from "../services/mixpanel.services";
+
+  /**
+   * Initializes Bootstrap Italia components that require JavaScript to work.
+   * E.g.: modals, dropdowns, tooltips, etc.
+   */
+  initBootstrapItaliaComponents();
+  mixpanelService.init({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    projectId: ((window as any).env as ClientEnvConfig).mixpanelProjectId,
+  });
+  mixpanelService.bindTrackingExternalLinkVisitEvent();
+  mixpanelService.bindTrackingTooltipOpenEvent();
+</script>

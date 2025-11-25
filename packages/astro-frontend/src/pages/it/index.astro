@@ -1,0 +1,100 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import HomepageHero from "../../components/Homepage/HomepageHero.astro";
+import HowItWorks from "../../components/Homepage/HowItWorks.astro";
+import GoodPractices from "../../components/Homepage/GoodPractices.astro";
+import ApiShowcase from "../../components/Homepage/ApiShowcase.astro";
+import SuggestionSection from "../../components/shared/SuggestionSection.astro";
+import {
+  getLangFromUrl,
+  getRouteKeyFromCurrentRoutePattern,
+} from "../../i18n/utils.i18n";
+import { useHomepageTranslations } from "../../i18n/homepage.i18n";
+import { sqlService, strapiService } from "../../server/services";
+import { isDevEnvironment, links } from "../../config/constants";
+import type { EService, GoodPractice } from "pagopa-interop-public-models";
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useHomepageTranslations(currentLocale);
+
+const HIGHLIGHTED_ESERVICE_IDS = [
+  // Consultazione Attestazione ISEE (INPS)
+  "843ac013-941a-4afe-8243-e668142e73e6",
+  // ANIST - Accertamento Frequenze (Ministero dell'istruzione e del merito)
+  "463cf9fe-9d72-463e-922d-e200ba45fdae",
+  // C020-servizioAccertamentoResidenza (Ministero dell'Interno)
+  "8fe27f7f-b559-4c51-90b6-a4d6eae4ae01",
+];
+
+/**
+ * In dev environment we show the first 3 eservices from the catalog
+ * since the highlighted ones are not available.
+ */
+const highlightedEServicesPromise: Promise<EService[]> = (async () => {
+  if (isDevEnvironment(Astro.url.href)) {
+    return [];
+  }
+
+  const results = await Promise.all(
+    HIGHLIGHTED_ESERVICE_IDS.map((id) => sqlService.getEService(id)),
+  );
+
+  return results.filter((result): result is EService => result !== undefined);
+})();
+
+const featuredGoodPracticesPromise: Promise<GoodPractice[]> = strapiService
+  .getGoodPractices(
+    { offset: 0, limit: 4, isFeaturedInHomepage: true },
+    currentLocale,
+  )
+  .then((response) => response.data);
+
+const [highlightedEServices, featuredGoodPractices] = await Promise.all([
+  highlightedEServicesPromise,
+  featuredGoodPracticesPromise,
+]);
+
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
+---
+
+<Layout>
+  <HomepageHero />
+  <HowItWorks />
+  <GoodPractices featuredGoodPractices={featuredGoodPractices} />
+  <ApiShowcase highlightedEServices={highlightedEServices} />
+  <SuggestionSection
+    leftCard={{
+      title: t("suggestion_section.left_card.title"),
+      description: t("suggestion_section.left_card.description"),
+      buttonLink: {
+        href: links.interopPlatformLink,
+        label: t("suggestion_section.left_card.button_label"),
+        mixpanelAttributes: {
+          "data-mp-external-link-id": `${routeKey}_suggestionSection_leftCard_interopPlatformLink`,
+          "data-mp-external-link-description": "TODO",
+        },
+      },
+      externalLink: true,
+      imageSrc: "/img/077-network-primary-color.svg",
+    }}
+    rightCard={{
+      title: t("suggestion_section.right_card.title"),
+      description: t("suggestion_section.right_card.description"),
+      buttonLink: {
+        href: links.interopManualLink,
+        label: t("suggestion_section.right_card.button_label"),
+        mixpanelAttributes: {
+          "data-mp-external-link-id": `${routeKey}_suggestionSection_rightCard_interopManualLink`,
+          "data-mp-external-link-description": "TODO",
+        },
+      },
+      externalLink: true,
+      imageSrc: "/img/059-data-collection.svg",
+    }}
+  />
+</Layout>
+
+<script>
+  import { mixpanelService } from "../../services/mixpanel.services";
+  mixpanelService.bindTrackingGoodPracticeReferralEvent();
+</script>

@@ -1,0 +1,68 @@
+---
+import { Section } from "./Section";
+import { useUiTranslations } from "../../i18n/ui.i18n";
+import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
+import type { RouteKey } from "../../config/routes.js";
+
+interface Props {
+  title: string;
+  marginFromTitle?: string;
+  description?: string;
+  breadcrumbItems: Array<{ routeKey: RouteKey; current?: boolean }>;
+}
+
+const { title, description, breadcrumbItems, marginFromTitle } =
+  Astro.props as Props;
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tUi = useUiTranslations(currentLocale);
+---
+
+<Section as="nav" className="breadcrumb-container pt-4 pb-0">
+  <ol class="breadcrumb">
+    {
+      breadcrumbItems.map((item, idx) => {
+        const routeLabel = tUi(
+          `breadcrumb_label.${item.routeKey as Exclude<RouteKey, "NOT_FOUND_ERROR" | "SERVER_ERROR">}`,
+        );
+
+        return (
+          <li
+            class={`breadcrumb-item ${item.current ? "active" : ""}`}
+            aria-current={item.current ? "page" : undefined}
+          >
+            {!item.current ? (
+              <a href={getLocalizedRoute(currentLocale, item.routeKey)}>
+                {routeLabel}
+              </a>
+            ) : (
+              routeLabel
+            )}
+            {idx < breadcrumbItems.length - 1 && (
+              <span class="separator">/</span>
+            )}
+          </li>
+        );
+      })
+    }
+  </ol>
+</Section>
+
+<Section className="pt-0 pb-5">
+  <div class="it-hero-text-wrapper">
+    <span class="it-category">
+      <slot name="top-hero" />
+    </span>
+    <h1 class={`mt-${marginFromTitle ?? "3"} h2`}>{title}</h1>
+    <div class="mt-4">
+      {
+        description && (
+          <p style="max-width:860px; " class="lead text-description-secondary">
+            {description}
+          </p>
+        )
+      }
+      <slot name="bottom-hero" />
+    </div>
+  </div>
+</Section>

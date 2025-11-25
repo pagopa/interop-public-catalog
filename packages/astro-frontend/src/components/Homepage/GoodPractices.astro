@@ -1,0 +1,179 @@
+---
+import type { GoodPractice } from "pagopa-interop-public-models";
+import {
+  TENANT_MACROCATEGORIES,
+  type OrganizationType,
+} from "../../config/constants";
+import { useHomepageTranslations } from "../../i18n/homepage.i18n";
+import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
+import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon";
+import { GoodPracticeCard } from "../shared/GoodPracticeCard";
+
+interface Props {
+  featuredGoodPractices: GoodPractice[];
+}
+
+const { featuredGoodPractices } = Astro.props;
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useHomepageTranslations(currentLocale);
+
+const getMacroCategoryIdByKey = (key: OrganizationType) =>
+  TENANT_MACROCATEGORIES.find((o) => o.key === key)?.id?.toString() ?? "";
+
+const macroCategoriesLinks: Array<{
+  text: string;
+  macroCategoryKey: OrganizationType;
+  macroCategoryId: string;
+}> = [
+  {
+    text: t("good_practices.target.pa_centrali"),
+    macroCategoryKey: "pac",
+    macroCategoryId: getMacroCategoryIdByKey("pac"),
+  },
+  {
+    text: t("good_practices.target.regioni"),
+    macroCategoryKey: "regioni",
+    macroCategoryId: getMacroCategoryIdByKey("regioni"),
+  },
+  {
+    text: t("good_practices.target.comuni"),
+    macroCategoryKey: "comuni",
+    macroCategoryId: getMacroCategoryIdByKey("comuni"),
+  },
+  {
+    text: t("good_practices.target.view_all"),
+    macroCategoryKey: "tutti",
+    macroCategoryId: getMacroCategoryIdByKey("tutti"),
+  },
+] as const;
+
+function getOrganizationTypeHref(macroCategory: OrganizationType) {
+  const macroCategoryId = getMacroCategoryIdByKey(macroCategory);
+
+  const urlSearchParams = new URLSearchParams({ macroCategoryId }).toString();
+  return `${getLocalizedRoute(currentLocale, "GOOD_PRACTICES_CATALOG")}?${urlSearchParams}`;
+}
+
+function getOrganizationTypeImgSrc(macroCategory: OrganizationType) {
+  return TENANT_MACROCATEGORIES.find((o) => o.key === macroCategory)!.imgSrc;
+}
+---
+
+<section
+  class="section position-relative pb-0"
+  aria-labelledby="use-cases-section-title"
+>
+  {/* Background - Mobile */}
+  <div
+    aria-hidden="true"
+    style="inset:0;z-index:-1;"
+    class="position-absolute d-md-none bg-primary-c0"
+  >
+  </div>
+  <div class="position-relative">
+    {/* Background - Desktop */}
+    <div
+      aria-hidden="true"
+      style="inset:0;max-width:865px;z-index:-1;"
+      class="position-absolute mx-auto rounded-5 border border-primary d-none d-md-block bg-primary-c0"
+    >
+    </div>
+
+    <div style="max-width:856px;" class="mx-auto pt-md-5 px-md-5">
+      {/* Section Header - Title and Description*/}
+      <div>
+        <h2 id="use-cases-section-title" class="text-primary h4">
+          {t("good_practices.title")}
+        </h2>
+        <p class="text-secondary">
+          {t("good_practices.description")}
+        </p>
+      </div>
+
+      <div class="it-list-wrapper mt-4">
+        <ul class="it-list row">
+          {
+            macroCategoriesLinks.map((l, i) => (
+              <li class:list={["col-12 col-md-6 px-2 py-2 position-relative"]}>
+                <a
+                  href={getOrganizationTypeHref(l.macroCategoryKey)}
+                  class="list-item icon-right gap-2 border-0"
+                  data-mp-good-practice-catalog-referral="best-practice-section"
+                  data-mp-good-practice-category-id={l.macroCategoryId}
+                >
+                  <img
+                    src={getOrganizationTypeImgSrc(l.macroCategoryKey)}
+                    alt=""
+                    role="presentation"
+                    height="40"
+                    width="40"
+                  />
+                  <div class="it-right-zone">
+                    <span style="font-size:1rem;" class="text">
+                      {l.text}
+                    </span>
+                    <BootstrapItaliaIcon
+                      name="it-chevron-right"
+                      size="sm"
+                      color="primary"
+                    />
+                  </div>
+                </a>
+                {i <= 2 && (
+                  <div
+                    style="height:1px;background-color:var(--bs-border-color);bottom:0px;"
+                    class:list={[
+                      "position-absolute w-100 px-4",
+                      i === 2 && "d-block d-md-none",
+                    ]}
+                    role="presentation"
+                  />
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    {/* Section Content - Good Practices Cards */}
+    <div style="max-width:1076px;" class="mx-auto mt-5">
+      <div class="row g-4">
+        {
+          featuredGoodPractices.map((goodPractice) => (
+            <div class="col-12 col-md-6 d-flex justify-content-center">
+              <GoodPracticeCard
+                currentLocale={currentLocale}
+                goodPractice={goodPractice}
+                data-mp-good-practice-card-data={JSON.stringify({
+                  goodPracticeId: goodPractice.id,
+                  goodPracticeCategory: goodPractice.category,
+                  goodPracticeTitle: goodPractice.title,
+                })}
+              />
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    {/* Section Footer - Call to Action */}
+    <div class="d-flex justify-content-center mt-5 pb-5">
+      <a
+        data-mp-good-practices-catalog-referral="footer"
+        href={getLocalizedRoute(currentLocale, "GOOD_PRACTICES_CATALOG")}
+        id="explore-examples-button"
+        class="btn btn-outline-primary"
+        data-mp-good-practice-catalog-referral="best-practice-section"
+      >
+        {t("good_practices.footer_cta")}
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  import { mixpanelService } from "../../services/mixpanel.services";
+  mixpanelService.bindTrackingGoodPracticeCardClickEvent();
+</script>

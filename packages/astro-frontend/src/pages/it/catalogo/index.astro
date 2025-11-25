@@ -1,0 +1,81 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import SuggestionSection from "../../../components/shared/SuggestionSection.astro";
+import PageHero from "..//../../components/shared/PageHero.astro";
+import { useCatalogTranslations } from "../../../i18n/catalog.i18n";
+import {
+  getLangFromUrl,
+  getRouteKeyFromCurrentRoutePattern,
+} from "../../../i18n/utils.i18n";
+
+import { EServiceCatalogApp } from "../../../components/EServiceCatalog/EServiceCatalogApp";
+import RatingSection from "../../../components/shared/RatingSection.astro";
+import { Section } from "../../../components/shared/Section";
+import { links } from "../../../config/constants";
+import { loadEServiceCatalogSearchParams } from "../../../hooks/useEServiceCatalogSearchParams";
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useCatalogTranslations(currentLocale);
+
+const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
+
+const searchParamsInitialState = loadEServiceCatalogSearchParams(
+  Astro.url.search,
+);
+---
+
+<Layout>
+  <PageHero
+    title={t("title")}
+    description={t("description")}
+    breadcrumbItems={[
+      {
+        routeKey: "HOME",
+      },
+      {
+        routeKey: "ESERVICE_CATALOG",
+        current: true,
+      },
+    ]}
+  />
+
+  <Section className="section-muted py-5">
+    <EServiceCatalogApp
+      client:idle
+      currentLocale={currentLocale}
+      eserviceFilterInitialState={searchParamsInitialState}
+    />
+  </Section>
+
+  <RatingSection />
+  <SuggestionSection
+    leftCard={{
+      title: t("suggestion_section.left_card.title"),
+      description: t("suggestion_section.left_card.description"),
+      buttonLink: {
+        href: links.interopPlatformLink,
+        label: t("suggestion_section.left_card.button_label"),
+        mixpanelAttributes: {
+          "data-mp-external-link-id": `${routeKey}_suggestionSection_leftCard_interopPlatformLink`,
+          "data-mp-external-link-description": "TODO",
+        },
+      },
+      externalLink: true,
+      imageSrc: "/img/077-network-primary-color.svg",
+    }}
+    rightCard={{
+      title: t("suggestion_section.right_card.title"),
+      description: t("suggestion_section.right_card.description"),
+      buttonLink: {
+        href: links.interopNumbersLink,
+        label: t("suggestion_section.right_card.button_label"),
+        mixpanelAttributes: {
+          "data-mp-external-link-id": `${routeKey}_suggestionSection_rightCard_interopNumbersLink`,
+          "data-mp-external-link-description": "TODO",
+        },
+      },
+      externalLink: true,
+      imageSrc: "/img/080-growth-graph.svg",
+    }}
+  />
+</Layout>

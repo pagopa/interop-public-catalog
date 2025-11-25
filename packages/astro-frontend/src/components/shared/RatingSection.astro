@@ -1,0 +1,116 @@
+---
+import { useUiTranslations } from "../../i18n/ui.i18n";
+import { getLangFromUrl } from "../../i18n/utils.i18n";
+import { BootstrapItaliaIcon } from "./BootstrapItaliaIcon";
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useUiTranslations(currentLocale);
+
+const recipient = "info@pagopa.it";
+const mailtoURL = `mailto:${recipient}`;
+---
+
+<section class="section bg-dark px-0 px-md-auto py-5">
+  <div class="section-content">
+    <div class="container px-3">
+      <h4 class="text-white mb-4">{t("rating.title")}</h4>
+
+      <a class="btn btn-primary" href={mailtoURL} role="button">
+        {t("rating.button_label")}
+        <BootstrapItaliaIcon
+          name={"it-mail"}
+          color={"primary"}
+          size={"sm"}
+          className="ms-2"
+        />
+      </a>
+
+      <!-- <form id="ratingForm">
+        <fieldset class="d-flex flex-row">
+          <div class="bg-white rounded-2 px-4 me-2 d-flex align-items-center">
+            <div class="form-check form-check-group pb-0 mb-0 shadow-none">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOption"
+                id="inlineRadioYes"
+                value="Yes"
+                required
+              />
+              <label
+                class="form-check-label text-primary pe-5"
+                for="inlineRadioYes"
+              >
+                {t("rating.yes")}
+              </label>
+            </div>
+          </div>
+
+          <div class="bg-white rounded-2 px-4 d-flex align-items-center">
+            <div class="form-check form-check-group mb-0 pb-0 shadow-none">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="inlineRadioOption"
+                id="inlineRadioNo"
+                value="No"
+                required
+              />
+              <label
+                class="form-check-label text-primary pe-5"
+                for="inlineRadioNo"
+              >
+                {t("rating.no")}
+              </label>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            class="btn btn-outline-primary ms-2"
+            id="submitButton"
+          >
+            {t("actions.submit")}
+          </button>
+        </fieldset>
+      </form> -->
+    </div>
+  </div>
+</section>
+
+<!-- <script>
+  import { getLangFromUrl } from "../../i18n/utils.i18n.js";
+  import { useUiTranslations } from "../../i18n/ui.i18n.js";
+
+  const currentLocale = getLangFromUrl(window.location.pathname);
+  const t = useUiTranslations(currentLocale);
+
+  const form = document.getElementById("ratingForm") as HTMLFormElement | null;
+
+  if (form) {
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(e!.target as HTMLFormElement);
+      const selectedValue = formData.get("inlineRadioOption");
+
+      if (selectedValue) {
+        const subject = t("rating.email_subject");
+        const body =
+          selectedValue === "Yes"
+            ? t("rating.email_body_positive")
+            : t("rating.email_body_negative");
+
+        const encodedSubject = encodeURIComponent(subject);
+        const encodedBody = encodeURIComponent(body);
+
+        const recipient = "info@pagopa.it";
+        const mailtoURL = `mailto:${recipient}?subject=${encodedSubject}&body=${encodedBody}`;
+
+        window.location.href = mailtoURL;
+      } else {
+        alert(t("rating.alert"));
+      }
+    });
+  }
+</script> -->

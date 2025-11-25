@@ -1,0 +1,37 @@
+---
+import type { BootstrapItaliaIconProps } from "../shared/BootstrapItaliaIcon.js";
+import { PopoverIcon } from "../shared/PopoverIcon.js";
+
+interface Props {
+  label: string;
+  content: string;
+  icon?: {
+    iconName: BootstrapItaliaIconProps["name"];
+    tooltipTitle: string;
+    tooltipContent: string;
+    iconSize?: BootstrapItaliaIconProps["size"];
+  };
+}
+
+const { label, content, icon } = Astro.props;
+---
+
+<div class="d-flex flex-column flex-md-row align-items-md-center">
+  <div class="d-flex flex-row align-items-center justify-content-between">
+    <span class="h6 mb-0">
+      {label}
+    </span>
+    {
+      icon && (
+        <PopoverIcon
+          title={icon.tooltipTitle}
+          content={icon.tooltipContent}
+          iconName={icon.iconName}
+          iconSize={icon.iconSize}
+          iconColor="primary"
+        />
+      )
+    }
+  </div>
+  <span class="ms-md-3">{content}</span>
+</div>

@@ -1,0 +1,59 @@
+---
+import type { EServiceAttributes } from "pagopa-interop-public-models";
+import AttributeAccordionsGroup from "./AttributeAccordionsGroup.astro";
+import { mapEServiceAttributesToGroups } from "../../../utils/utils.js";
+import { useEServiceDetailsTranslations } from "../../../i18n/eservice-details.i18n.js";
+import { getLangFromUrl } from "../../../i18n/utils.i18n";
+
+type Props = {
+  attributes: EServiceAttributes;
+};
+
+const { attributes } = Astro.props;
+
+const groups = mapEServiceAttributesToGroups(attributes);
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const t = useEServiceDetailsTranslations(currentLocale);
+---
+
+<div>
+  <h4 id="requisiti" class="mb-4">
+    {
+      `${t("attributes_section.title")} ${groups.length !== 0 ? `(${groups.length} ${t("attributes_section.title_requirements")})` : ""}`
+    }
+  </h4>
+  <div class="p-3 bg-white">
+    {
+      groups.length === 0 && (
+        <p class="mb-0">{t("attributes_section.no_attributes")}</p>
+      )
+    }
+    {
+      groups.length !== 0 && (
+        <div class="it-list-wrapper">
+          <ul class="it-list">
+            {groups.map(({ attributeType, attributesGroup }, index) => (
+              <li>
+                <div class="list-item border-0">
+                  <div class="avatar size-lg align-self-start mt-3 bg-primary-c0 border border-primary-light">
+                    <h5 class="text-dark m-0">
+                      {(index + 1).toString().padStart(2, "0")}
+                    </h5>
+                  </div>
+                  <div class="it-right-zone">
+                    <AttributeAccordionsGroup
+                      groupIndex={index}
+                      attributeType={attributeType}
+                      attributes={attributesGroup}
+                    />
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+</div>

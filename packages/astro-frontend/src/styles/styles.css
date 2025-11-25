@@ -1,0 +1,163 @@
+body {
+  color: #1a1a1a;
+}
+
+.mx-6 {
+  margin-left: calc(1rem * 4.5);
+  margin-right: calc(1rem * 4.5);
+}
+
+.px-6 {
+  padding-left: calc(1rem * 4.5);
+  padding-right: calc(1rem * 4.5);
+}
+
+.p-9 {
+  padding: calc(9rem);
+}
+.py-default {
+  padding-top: calc(1rem * 2.5);
+  padding-bottom: calc(1rem * 2.5);
+}
+
+.pt-default {
+  padding-top: calc(1rem * 2.5);
+}
+
+.pb-default {
+  padding-bottom: calc(1rem * 2.5);
+}
+
+.p-default {
+  padding: calc(1rem * 2.5);
+}
+
+.mb-default {
+  margin-bottom: calc(1rem * 2.5);
+}
+
+.mt-n-default {
+  margin-top: calc(1rem * -2.5);
+}
+
+.mt-n3 {
+  margin-top: calc(1rem * -4.5);
+}
+
+.no-hover:hover {
+  background-color: transparent !important;
+  color: var(--bs-primary) !important;
+}
+
+.image-xxl {
+  width: calc(1rem * 7.5);
+  height: calc(1rem * 7.5);
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.bg-primary-c0 {
+  background-color: #f2f7fc !important;
+}
+
+.border-primary-light {
+  border-color: #bfdfff !important;
+}
+
+.bg-muted {
+  background-color: #fafafa !important;
+}
+
+.bg-muted-dark {
+  background-color: #f5f5f5 !important;
+}
+
+.popover-header {
+  font-size: 1rem !important;
+}
+
+.popover-body {
+  padding-top: 0px !important;
+  font-size: 1rem !important;
+  color: var(--bs-secondary) !important;
+}
+
+.active-link-list-item {
+  border-right: 2px solid #003366;
+  color: #003366;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.line-clamp-3 {
+  overflow: hidden;
+  display: -webkit-box;
+  line-clamp: 3;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.lead {
+  font-size: 1.25rem;
+}
+
+a.list-item:hover {
+  background-color: inherit !important;
+  box-shadow: inherit !important;
+}
+
+#category-filters-list a.active:hover {
+  background-color: #f2f7fc !important;
+}
+
+.input-filter-key label {
+  font-weight: 600;
+  padding-left: 0;
+  font-size: 0.875rem;
+  top: 1.5rem;
+}
+
+.input-filter-key input {
+  margin-top: 25px !important ;
+}
+
+.input-filter-key .input-group-text {
+  align-self: flex-end;
+}
+
+#order-by svg {
+  margin-left: 0.5rem;
+  fill: var(--bs-primary) !important;
+}
+
+.filters-modal {
+  margin: 0 !important;
+}
+
+.filters-modal .filters-modal-header {
+  border-bottom: 1px solid #bfdfff;
+}
+
+.filters-modal .filters-modal-footer {
+  border-top: 1px solid #bfdfff;
+}
+
+.text-description-secondary {
+  color: #2f475e !important;
+}
+
+.bg-dark {
+  background-color: #2f475e !important;
+}
