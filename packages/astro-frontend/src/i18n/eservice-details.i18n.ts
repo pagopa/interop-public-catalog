@@ -12,8 +12,8 @@ export const eserviceDetails = {
     "api_details_section.api_state_label": "Stato API",
     "api_details_section.api_state_active": "Attivo",
     "api_details_section.api_state_suspended": "Sospeso",
-    "api_details_section.creation_date_label": "Data di creazione",
-    "api_details_section.last_update_date_label": "Data di ultima modifica",
+    "api_details_section.creation_date_label": "Data di pubblicazione",
+    "api_details_section.last_update_date_label": "Data ultima versione",
     "api_details_section.delegation_label": "Fruizione tramite delega",
     "api_details_section.delegation_tooltip.title": "Fruizione tramite delega",
     "api_details_section.delegation_tooltip.content":
@@ -87,8 +87,8 @@ export const eserviceDetails = {
     "api_details_section.api_state_label": "API status",
     "api_details_section.api_state_active": "Active",
     "api_details_section.api_state_suspended": "Suspended",
-    "api_details_section.creation_date_label": "Creation date",
-    "api_details_section.last_update_date_label": "Last modified date",
+    "api_details_section.creation_date_label": "Published date",
+    "api_details_section.last_update_date_label": "Last version date",
     "api_details_section.delegation_label": "Delegated access",
     "api_details_section.delegation_tooltip.title": "Delegated access",
     "api_details_section.delegation_tooltip.content":

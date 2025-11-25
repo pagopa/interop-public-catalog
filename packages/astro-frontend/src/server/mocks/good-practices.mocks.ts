@@ -1,6 +1,7 @@
 import { match } from "ts-pattern";
 import type { SupportedLanguage } from "../../i18n/types.i18n";
 import type { GoodPractice, StrapiEntity } from "pagopa-interop-public-models";
+import { RESOURCE_LINKS } from "../../config/constants";
 
 const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
   {
@@ -112,7 +113,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
             ext: ".jpeg",
             mime: "image/jpeg",
             size: 7.5,
-            url: "https://api-gov.dev.interop.pagopa.it/static/01_cude.webp",
+            url: `${RESOURCE_LINKS.PROD}/static/01_cude.webp`,
             previewUrl: null,
             provider: "local",
             provider_metadata: null,
@@ -446,7 +447,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
             ext: ".jpeg",
             mime: "image/jpeg",
             size: 7.5,
-            url: "https://api-gov.dev.interop.pagopa.it/static/02_borse_studio.webp",
+            url: `${RESOURCE_LINKS.PROD}/static/02_borse_studio.webp`,
             previewUrl: null,
             provider: "local",
             provider_metadata: null,
@@ -773,7 +774,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
             ext: ".jpeg",
             mime: "image/jpeg",
             size: 7.5,
-            url: "https://api-gov.dev.interop.pagopa.it/static/03_bonus_cittadini.webp",
+            url: `${RESOURCE_LINKS.PROD}/static/03_bonus_cittadini.webp`,
             previewUrl: null,
             provider: "local",
             provider_metadata: null,
@@ -1110,7 +1111,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
           __component: "buona-pratica.image",
           id: 19,
           caption:
-            " Schema del flusso d’interoperabilità: utilizzo delle API di PDND per la precompilazione di dati anagrafici",
+            "Schema del flusso d’interoperabilità: utilizzo delle API di PDND per la precompilazione di dati anagrafici",
           image: {
             id: 9,
             documentId: "xzdko1cg6j66un763ziw4jrk",
@@ -1118,14 +1119,14 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
             alternativeText:
               "Schema del flusso di utilizzo delle API di ANPR per offrire servizi al cittadino che evidenzia l’integrazione con la PDND",
             caption:
-              " Schema del flusso d’interoperabilità: utilizzo delle API di PDND per la precompilazione di dati anagrafici",
+              "Schema del flusso d’interoperabilità: utilizzo delle API di PDND per la precompilazione di dati anagrafici",
             width: 800,
             height: 466,
             hash: "what_s_inside_a_black_hole_b1560bb7f4",
             ext: ".jpeg",
             mime: "image/jpeg",
             size: 7.5,
-            url: "https://api-gov.dev.interop.pagopa.it/static/04_dati_anagrafici.webp",
+            url: `${RESOURCE_LINKS.PROD}/static/04_dati_anagrafici.webp`,
             previewUrl: null,
             provider: "local",
             provider_metadata: null,
@@ -1510,7 +1511,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
             ext: ".jpeg",
             mime: "image/jpeg",
             size: 7.5,
-            url: "https://api-gov.dev.interop.pagopa.it/static/01_cude.webp",
+            url: `${RESOURCE_LINKS.PROD}/static/01_cude_en.webp`,
             previewUrl: null,
             provider: "local",
             provider_metadata: null,
@@ -1844,7 +1845,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
             ext: ".jpeg",
             mime: "image/jpeg",
             size: 7.5,
-            url: "https://api-gov.dev.interop.pagopa.it/static/02_borse_studio.webp",
+            url: `${RESOURCE_LINKS.PROD}/static/02_borse_studio_en.webp`,
             previewUrl: null,
             provider: "local",
             provider_metadata: null,
@@ -2172,7 +2173,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
             ext: ".jpeg",
             mime: "image/jpeg",
             size: 7.5,
-            url: "https://api-gov.dev.interop.pagopa.it/static/03_bonus_cittadini.webp",
+            url: `${RESOURCE_LINKS.PROD}/static/03_bonus_cittadini_en.webp`,
             previewUrl: null,
             provider: "local",
             provider_metadata: null,
@@ -2524,7 +2525,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
             ext: ".jpeg",
             mime: "image/jpeg",
             size: 7.5,
-            url: "https://api-gov.dev.interop.pagopa.it/static/04_dati_anagrafici.webp",
+            url: `${RESOURCE_LINKS.PROD}/static/04_dati_anagrafici_en.webp`,
             previewUrl: null,
             provider: "local",
             provider_metadata: null,

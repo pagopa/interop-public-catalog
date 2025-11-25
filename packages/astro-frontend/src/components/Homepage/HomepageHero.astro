@@ -1,8 +1,7 @@
 ---
-import { getRelativeLocaleUrl } from "astro:i18n";
 import { useHomepageTranslations } from "../../i18n/homepage.i18n";
 import { useUiTranslations } from "../../i18n/ui.i18n";
-import { getLangFromUrl } from "../../i18n/utils.i18n";
+import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
 import { PopoverIcon } from "../shared/PopoverIcon.jsx";
 import HomepageHeroBackground from "./HomepageHeroBackground.astro";
 
@@ -28,7 +27,7 @@ const tUi = useUiTranslations(currentLocale);
           <form
             id="hero-form-group"
             class="form-group rounded border border-white mb-4 overflow-hidden"
-            action={getRelativeLocaleUrl(currentLocale, "/catalogo")}
+            action={getLocalizedRoute(currentLocale, "ESERVICE_CATALOG")}
             method="GET"
           >
             <div class="input-group">

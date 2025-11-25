@@ -1,17 +1,31 @@
 ---
 import { useUiTranslations } from "../../i18n/ui.i18n";
 import { getLangFromUrl } from "../../i18n/utils.i18n";
+import { BootstrapItaliaIcon } from "./BootstrapItaliaIcon";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const t = useUiTranslations(currentLocale);
+
+const recipient = "info@pagopa.it";
+const mailtoURL = `mailto:${recipient}`;
 ---
 
 <section class="section bg-dark px-0 px-md-auto py-5">
   <div class="section-content">
-    <div class="container">
+    <div class="container px-3">
       <h4 class="text-white mb-4">{t("rating.title")}</h4>
 
-      <form id="ratingForm">
+      <a class="btn btn-primary" href={mailtoURL} role="button">
+        {t("rating.button_label")}
+        <BootstrapItaliaIcon
+          name={"it-mail"}
+          color={"primary"}
+          size={"sm"}
+          className="ms-2"
+        />
+      </a>
+
+      <!-- <form id="ratingForm">
         <fieldset class="d-flex flex-row">
           <div class="bg-white rounded-2 px-4 me-2 d-flex align-items-center">
             <div class="form-check form-check-group pb-0 mb-0 shadow-none">
@@ -59,12 +73,12 @@ const t = useUiTranslations(currentLocale);
             {t("actions.submit")}
           </button>
         </fieldset>
-      </form>
+      </form> -->
     </div>
   </div>
 </section>
 
-<script>
+<!-- <script>
   import { getLangFromUrl } from "../../i18n/utils.i18n.js";
   import { useUiTranslations } from "../../i18n/ui.i18n.js";
 
@@ -99,4 +113,4 @@ const t = useUiTranslations(currentLocale);
       }
     });
   }
-</script>
+</script> -->

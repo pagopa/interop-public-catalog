@@ -27,6 +27,11 @@ export const links = {
     "https://form.agid.gov.it/view/c8912450-b5a2-11f0-81d4-97119d1a7eb7",
 } as const;
 
+export const RESOURCE_LINKS = {
+  DEV: "https://api-gov.dev.interop.pagopa.it",
+  PROD: "https://api.gov.it",
+};
+
 /**
  * Navigation items for the footer and header components.
  * TODO: Links
