@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "@types/node": "20.19.17",
-    "@types/pg": "^8.15.5",
+    "@types/pg": "8.15.5",
     "pagopa-interop-public-eslint-config": "workspace:*",
     "pagopa-interop-public-typescript-config": "workspace:*",
     "prettier": "3.6.2",
