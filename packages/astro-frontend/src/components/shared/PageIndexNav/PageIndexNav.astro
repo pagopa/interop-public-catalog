@@ -1,6 +1,6 @@
 ---
 import PageIndexNavMobile from "./PageIndexNavMobile.astro";
-import PageIndexNavDesktop from "../PageIndexNav.astro";
+import PageIndexNavDesktop from "./PageIndexNav.astro";
 import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"nav"> {
@@ -10,13 +10,5 @@ interface Props extends HTMLAttributes<"nav"> {
 const { headings, ...rest } = Astro.props;
 ---
 
-<PageIndexNavMobile
-  headings={headings}
-  class:list={[rest.class, "visible-on-mobile"]}
-  {...rest}
-/>
-<PageIndexNavDesktop
-  headings={headings}
-  class:list={[rest.class, "visible-on-desktop"]}
-  {...rest}
-/>
+<PageIndexNavDesktop headings={headings} {...rest} />
+<PageIndexNavMobile headings={headings} {...rest} />
