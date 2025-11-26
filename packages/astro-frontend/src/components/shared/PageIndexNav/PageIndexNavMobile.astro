@@ -2,29 +2,36 @@
 import type { HTMLAttributes } from "astro/types";
 import { getLangFromUrl } from "../../../i18n/utils.i18n";
 import { useUiTranslations } from "../../../i18n/ui.i18n";
+import { BootstrapItaliaIcon } from "../BootstrapItaliaIcon";
 
 interface Props extends HTMLAttributes<"nav"> {
   headings: { id: string; label: string }[];
 }
 
-const { headings, ...rest } = Astro.props;
+const { headings } = Astro.props;
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const tUi = useUiTranslations(currentLocale);
 ---
 
 <nav
-  class="navbar it-navscroll-wrapper navbar-expand-lg it-bottom-navscroll it-left-side"
+  class:list={[
+    "navbar it-navscroll-wrapper it-bottom-navscroll visible-on-mobile py-0",
+  ]}
   data-bs-navscroll
 >
   <button
-    class="custom-navbar-toggler"
+    id="button-open-navbar"
+    class="custom-navbar-toggler w-100"
     type="button"
+    style="padding: 0.5rem"
     aria-controls="navbarNav"
     aria-label="Apri/Chiudi indice"
     data-bs-toggle="navbarcollapsible"
     data-bs-target="#navbarNav"
-    ><span class="it-list"></span>1. Introduzione
+  >
+    <span class="it-list"></span>
+    1. Introduzione
   </button>
   <div class="navbar-collapsable" id="navbarNav" tabindex="-1">
     <div class="close-div visually-hidden">
@@ -33,87 +40,67 @@ const tUi = useUiTranslations(currentLocale);
       </button>
     </div>
     <button type="button" class="it-back-button btn w-100 text-start">
-      <svg class="icon icon-sm icon-primary align-top"
-        ><use
-          href="/bootstrap-italia/dist/svg/sprites.svg#it-chevron-left"
-          xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-chevron-left"
-        ></use></svg
-      >
+      <BootstrapItaliaIcon name="it-chevron-left" color="primary" />
       <span>Indietro</span>
     </button>
     <div class="menu-wrapper" tabindex="-1">
-      <div class="link-list-wrapper">
-        <h3>header</h3>
-        <ul class="link-list">
-          <li class="nav-item active">
-            <a class="nav-link active" href="#"><span>1. Introduzione </span></a
-            >
-            <ul class="link-list">
-              <li class="nav-link active">
-                <a class="nav-link active" href="#"
-                  ><span>1.1 Elemento annidato (attivo) </span></a
+      <div class="link-list-wrapper px-3">
+        <h2 class="h6 link-list-heading p-0">
+          {tUi("page_index_nav.title")}
+        </h2>
+        <ul class="link-list mt-4 border-end">
+          {
+            headings.map((heading) => (
+              <li>
+                <a
+                  id={`nav-link-mobile-${heading.id}`}
+                  href={`#${heading.id}`}
+                  class="link-list-item ps-0 active py-3 fw-semibold lh-base"
+                  style="border-left: 0"
                 >
-                <ul class="tertiary link-list">
-                  <li class="nav-link">
-                    <a class="nav-link" href="#"
-                      ><span>1.1.1 Elemento annidato </span></a>
-                  </li>
-                  <li class="nav-link">
-                    <a class="nav-link" href="#"
-                      ><span>1.1.2 Elemento annidato </span></a>
-                  </li>
-                  <li class="nav-link">
-                    <a class="nav-link" href="#"
-                      ><span>1.1.3 Elemento annidato </span></a>
-                  </li>
-                </ul>
+                  {heading.label}
+                </a>
               </li>
-              <li class="nav-link">
-                <a class="nav-link" href="#"
-                  ><span>1.2 Elemento annidato </span></a
-                >
-              </li>
-              <li class="nav-link">
-                <a class="nav-link" href="#"
-                  ><span>1.3 Elemento annidato </span></a
-                >
-              </li>
-            </ul>
-            <a class="nav-link" href="#"><span>2. Sezione </span></a>
-            <ul class="link-list">
-              <li class="nav-link">
-                <a class="nav-link" href="#"
-                  ><span>2.1 Elemento annidato </span></a
-                >
-                <ul class="tertiary link-list">
-                  <li class="nav-link">
-                    <a class="nav-link" href="#"
-                      ><span>2.1.1 Elemento annidato </span></a>
-                  </li>
-                  <li class="nav-link">
-                    <a class="nav-link" href="#"
-                      ><span>2.1.2 Elemento annidato </span></a>
-                  </li>
-                  <li class="nav-link">
-                    <a class="nav-link" href="#"
-                      ><span>2.1.3 Elemento annidato </span></a>
-                  </li>
-                </ul>
-              </li>
-              <li class="nav-link">
-                <a class="nav-link" href="#"
-                  ><span>2.2 Elemento annidato </span></a
-                >
-              </li>
-              <li class="nav-link">
-                <a class="nav-link" href="#"
-                  ><span>2.3 Elemento annidato </span></a
-                >
-              </li>
-            </ul>
-          </li>
+            ))
+          }
         </ul>
       </div>
     </div>
   </div>
 </nav>
+
+<script is:inline define:vars={{ headings }}>
+  const linkActiveClass = "active-link-list-item";
+  window.addEventListener("scroll", () => {
+    const linkItems = document.querySelectorAll(".link-list-item");
+    let closestId = null;
+    let minAbsTop = Infinity;
+
+    headings.forEach(({ id }) => {
+      const section = document.getElementById(id);
+      if (section) {
+        const absTop = Math.abs(section.getBoundingClientRect().top);
+        if (absTop < minAbsTop) {
+          minAbsTop = absTop;
+          closestId = id;
+        }
+      }
+    });
+
+    linkItems.forEach((item) => item.classList.remove(linkActiveClass));
+    if (closestId) {
+      const linkItem = document.getElementById(`nav-link-mobile-${closestId}`);
+      if (linkItem) {
+        linkItem.classList.add(linkActiveClass);
+      }
+
+      const openNavButton = document.getElementById("button-open-navbar");
+      if (openNavButton) {
+        const closestLabel = headings.find(
+          (heading) => heading.id === closestId,
+        ).label;
+        openNavButton.textContent = closestLabel;
+      }
+    }
+  });
+</script>
