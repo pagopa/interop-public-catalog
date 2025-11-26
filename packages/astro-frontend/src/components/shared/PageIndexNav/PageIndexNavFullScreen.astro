@@ -1,7 +1,7 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import { getLangFromUrl } from "../../i18n/utils.i18n";
-import { useUiTranslations } from "../../i18n/ui.i18n";
+import { getLangFromUrl } from "../../../i18n/utils.i18n";
+import { useUiTranslations } from "../../../i18n/ui.i18n";
 
 interface Props extends HTMLAttributes<"nav"> {
   headings: { id: string; label: string }[];
@@ -13,7 +13,10 @@ const currentLocale = getLangFromUrl(Astro.url.pathname);
 const tUi = useUiTranslations(currentLocale);
 ---
 
-<aside class:list={["link-list-wrapper", rest.class]} {...rest}>
+<aside
+  class:list={["link-list-wrapper", "visible-on-desktop", rest.class]}
+  {...rest}
+>
   <h2 class="h6 link-list-heading p-0">
     {tUi("page_index_nav.title")}
   </h2>
@@ -22,6 +25,7 @@ const tUi = useUiTranslations(currentLocale);
       headings.map((heading) => (
         <li>
           <a
+            id={`nav-link-${heading.id}`}
             href={`#${heading.id}`}
             class="link-list-item ps-0 active py-3 fw-semibold lh-base"
           >
@@ -53,9 +57,10 @@ const tUi = useUiTranslations(currentLocale);
 
     linkItems.forEach((item) => item.classList.remove(linkActiveClass));
     if (closestId) {
-      const linkItem = document.querySelector(
-        `.link-list-item[href="#${closestId}"]`,
-      );
+      // const linkItem = document.querySelector(
+      //   `.link-list-item[href="#${closestId}"]`,
+      // );
+      const linkItem = document.getElementById(`nav-link-${closestId}`);
       if (linkItem) {
         linkItem.classList.add(linkActiveClass);
       }
