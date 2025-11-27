@@ -41,6 +41,7 @@ export const ui = {
     "actions.copied": "Copiato!",
     "actions.learnMore": "Scopri di più",
     "actions.submit": "Invia",
+    "actions.back": "Indietro",
 
     "suggestion_section.title": "Come fare per",
 
@@ -74,6 +75,7 @@ export const ui = {
     "back_to_top_button.aria_label": "Torna su",
 
     "page_index_nav.title": "Indice della pagina",
+    "page_index_nav.hide": "Chiudi indice della pagina",
 
     "eservice_card.access_reserved": "Accesso riservato",
     "eservice_card.read_more": "leggi tutto",
@@ -128,6 +130,7 @@ export const ui = {
     "actions.copied": "Copied!",
     "actions.learnMore": "Learn more",
     "actions.submit": "Submit",
+    "actions.back": "Back",
 
     "suggestion_section.title": "How to",
 
@@ -160,6 +163,7 @@ export const ui = {
     "back_to_top_button.aria_label": "Back to top",
 
     "page_index_nav.title": "Page index",
+    "page_index_nav.hide": "Close page index",
 
     "eservice_card.access_reserved": "Restricted access",
     "eservice_card.read_more": "Read more",
