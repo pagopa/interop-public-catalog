@@ -1,7 +1,7 @@
 ---
 import { getLangFromUrl } from "../../i18n/utils.i18n";
 import { useGoodPracticesTranslations } from "../../i18n/good-practices.i18n";
-import PageIndexNav from "../shared/PageIndexNav.astro";
+import PageIndexNav from "../shared/PageIndexNav/PageIndexNav.astro";
 import { match } from "ts-pattern";
 import { renderRichTextStrapiNodes } from "../../utils/rich-text-strapi-renderer";
 import type { GoodPractice, StrapiNode } from "pagopa-interop-public-models";
@@ -43,7 +43,7 @@ const HEADING_CLASS = "h5 mb-3";
 ---
 
 <div class="row">
-  <div class="d-none d-lg-block col-3">
+  <div class="col-12 col-md-3">
     <PageIndexNav
       headings={[
         {
@@ -60,7 +60,7 @@ const HEADING_CLASS = "h5 mb-3";
       class="position-sticky"
     />
   </div>
-  <div class="col-12 col-lg-9">
+  <div class="col-12 col-md-9">
     <article>
       <h2 id={"description"} class={HEADING_CLASS}>
         {tGoodPractices("details.section.apis.description")}
