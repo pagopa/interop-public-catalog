@@ -40,7 +40,7 @@ const tUi = useUiTranslations(currentLocale);
 <script is:inline define:vars={{ headings }}>
   const linkActiveClass = "active-link-list-item";
   window.addEventListener("scroll", () => {
-    const linkItems = document.querySelectorAll(".link-list-item");
+    const linkItems = document.querySelectorAll('[id^="nav-link-"]');
     let closestId = null;
     let minAbsTop = Infinity;
 
@@ -57,9 +57,6 @@ const tUi = useUiTranslations(currentLocale);
 
     linkItems.forEach((item) => item.classList.remove(linkActiveClass));
     if (closestId) {
-      // const linkItem = document.querySelector(
-      //   `.link-list-item[href="#${closestId}"]`,
-      // );
       const linkItem = document.getElementById(`nav-link-${closestId}`);
       if (linkItem) {
         linkItem.classList.add(linkActiveClass);

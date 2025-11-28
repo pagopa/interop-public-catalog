@@ -24,24 +24,25 @@ const tUi = useUiTranslations(currentLocale);
     id="button-open-navbar"
     class="custom-navbar-toggler w-100"
     type="button"
-    style="padding: 0.5rem"
+    style="padding: 0.5rem 1rem"
     aria-controls="navbarNav"
     aria-label="Apri/Chiudi indice"
     data-bs-toggle="navbarcollapsible"
     data-bs-target="#navbarNav"
   >
     <span class="it-list"></span>
-    1. Introduzione
+    {tUi("page_index_nav.title")}
   </button>
   <div class="navbar-collapsable" id="navbarNav" tabindex="-1">
     <div class="close-div visually-hidden">
       <button class="btn close-menu" type="button">
-        <span class="it-close"></span>Chiudi
+        <span class="it-close"></span>
+        {tUi("page_index_nav.hide")}
       </button>
     </div>
-    <button type="button" class="it-back-button btn w-100 text-start">
+    <button type="button" class="it-back-button btn w-100 text-start px-3">
       <BootstrapItaliaIcon name="it-chevron-left" color="primary" />
-      <span>Indietro</span>
+      <span class="text-primary">{tUi("actions.back")}</span>
     </button>
     <div class="menu-wrapper" tabindex="-1">
       <div class="link-list-wrapper px-3">
@@ -72,7 +73,7 @@ const tUi = useUiTranslations(currentLocale);
 <script is:inline define:vars={{ headings }}>
   const linkActiveClass = "active-link-list-item";
   window.addEventListener("scroll", () => {
-    const linkItems = document.querySelectorAll(".link-list-item");
+    const linkItems = document.querySelectorAll('[id^="nav-link-mobile-"]');
     let closestId = null;
     let minAbsTop = Infinity;
 
