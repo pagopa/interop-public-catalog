@@ -1,6 +1,6 @@
 ---
+import PageIndexNavFullScreen from "./PageIndexNavFullScreen.astro";
 import PageIndexNavMobile from "./PageIndexNavMobile.astro";
-import PageIndexNavDesktop from "./PageIndexNav.astro";
 import type { HTMLAttributes } from "astro/types";
 
 interface Props extends HTMLAttributes<"nav"> {
@@ -10,5 +10,54 @@ interface Props extends HTMLAttributes<"nav"> {
 const { headings, ...rest } = Astro.props;
 ---
 
-<PageIndexNavDesktop headings={headings} {...rest} />
-<PageIndexNavMobile headings={headings} {...rest} />
+<PageIndexNavFullScreen headings={headings} {...rest} />
+<PageIndexNavMobile headings={headings} />
+
+<!-- <script is:inline define:vars={{ headings }}>
+  const linkActiveClass = "active-link-list-item";
+  window.addEventListener("scroll", () => {
+    const linkItems = document.querySelectorAll(".link-list-item");
+    let closestId = null;
+    let minAbsTop = Infinity;
+
+    headings.forEach(({ id }) => {
+      const section = document.getElementById(id);
+      if (section) {
+        const absTop = Math.abs(section.getBoundingClientRect().top);
+        if (absTop < minAbsTop) {
+          minAbsTop = absTop;
+          closestId = id;
+        }
+      }
+    });
+
+    linkItems.forEach((item) => item.classList.remove(linkActiveClass));
+    if (closestId) {
+      // const linkItem = document.querySelectorAll(
+      //   `.link-list-item[href="#${closestId}"]`,
+      // );
+      // if (linkItem) {
+      //   linkItem.forEach((item) => item.classList.add(linkActiveClass));
+      // }
+      const linkItem = document.getElementById(`nav-link-${closestId}`);
+      if (linkItem) {
+        linkItem.classList.add(linkActiveClass);
+      }
+
+      const linkItemMobile = document.getElementById(
+        `nav-link-mobile-${closestId}`,
+      );
+      if (linkItemMobile) {
+        linkItemMobile.classList.add(linkActiveClass);
+      }
+
+      const openNavButton = document.getElementById("button-open-navbar");
+      if (openNavButton) {
+        const closestLabel = headings.find(
+          (heading) => heading.id === closestId,
+        ).label;
+        openNavButton.textContent = closestLabel;
+      }
+    }
+  });
+</script> -->
