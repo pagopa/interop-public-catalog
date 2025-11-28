@@ -1,0 +1,107 @@
+---
+import type { HTMLAttributes } from "astro/types";
+import { getLangFromUrl } from "../../../i18n/utils.i18n";
+import { useUiTranslations } from "../../../i18n/ui.i18n";
+import { BootstrapItaliaIcon } from "../BootstrapItaliaIcon";
+
+interface Props extends HTMLAttributes<"nav"> {
+  headings: { id: string; label: string }[];
+}
+
+const { headings } = Astro.props;
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+const tUi = useUiTranslations(currentLocale);
+---
+
+<nav
+  class:list={[
+    "navbar it-navscroll-wrapper it-bottom-navscroll visible-on-mobile py-0",
+  ]}
+  data-bs-navscroll
+>
+  <button
+    id="button-open-navbar"
+    class="custom-navbar-toggler w-100"
+    type="button"
+    style="padding: 0.5rem 1rem"
+    aria-controls="navbarNav"
+    aria-label="Apri/Chiudi indice"
+    data-bs-toggle="navbarcollapsible"
+    data-bs-target="#navbarNav"
+  >
+    <span class="it-list"></span>
+    {tUi("page_index_nav.title")}
+  </button>
+  <div class="navbar-collapsable" id="navbarNav" tabindex="-1">
+    <div class="close-div visually-hidden">
+      <button class="btn close-menu" type="button">
+        <span class="it-close"></span>
+        {tUi("page_index_nav.hide")}
+      </button>
+    </div>
+    <button type="button" class="it-back-button btn w-100 text-start px-3">
+      <BootstrapItaliaIcon name="it-chevron-left" color="primary" />
+      <span class="text-primary">{tUi("actions.back")}</span>
+    </button>
+    <div class="menu-wrapper" tabindex="-1">
+      <div class="link-list-wrapper px-3">
+        <h2 class="h6 link-list-heading p-0">
+          {tUi("page_index_nav.title")}
+        </h2>
+        <ul class="link-list mt-4 border-end">
+          {
+            headings.map((heading) => (
+              <li>
+                <a
+                  id={`nav-link-mobile-${heading.id}`}
+                  href={`#${heading.id}`}
+                  class="link-list-item ps-0 active py-3 fw-semibold lh-base"
+                  style="border-left: 0"
+                >
+                  {heading.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script is:inline define:vars={{ headings }}>
+  const linkActiveClass = "active-link-list-item";
+  window.addEventListener("scroll", () => {
+    const linkItems = document.querySelectorAll('[id^="nav-link-mobile-"]');
+    let closestId = null;
+    let minAbsTop = Infinity;
+
+    headings.forEach(({ id }) => {
+      const section = document.getElementById(id);
+      if (section) {
+        const absTop = Math.abs(section.getBoundingClientRect().top);
+        if (absTop < minAbsTop) {
+          minAbsTop = absTop;
+          closestId = id;
+        }
+      }
+    });
+
+    linkItems.forEach((item) => item.classList.remove(linkActiveClass));
+    if (closestId) {
+      const linkItem = document.getElementById(`nav-link-mobile-${closestId}`);
+      if (linkItem) {
+        linkItem.classList.add(linkActiveClass);
+      }
+
+      const openNavButton = document.getElementById("button-open-navbar");
+      if (openNavButton) {
+        const closestLabel = headings.find(
+          (heading) => heading.id === closestId,
+        ).label;
+        openNavButton.textContent = closestLabel;
+      }
+    }
+  });
+</script>
