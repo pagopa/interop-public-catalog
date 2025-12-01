@@ -55,7 +55,7 @@ export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
 
   return (
     <div className="row">
-      <div className="col-4 d-none d-lg-block">
+      <div className="col-12 col-lg-4 mb-default mb-lg-0">
         <MacroCategoryIdFilter
           currentLocale={currentLocale}
           onSelectedMacroCategoryIdChange={handleSelectedMacroCategoryIdChange}

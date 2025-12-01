@@ -12,6 +12,7 @@ import { clientEnvConfig } from "../config/config";
 import type { MetaDataType } from "../server/types/metaData.types";
 import { strapiService } from "../server/services";
 import { getRouteKeyFromCurrentRoutePattern } from "../i18n/utils.i18n";
+import BackToTopButton from "../components/shared/BackToTopButton.astro";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 
@@ -116,6 +117,7 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale;
   </head>
   <body>
     <Header />
+    <BackToTopButton />
     <slot />
     <Footer />
   </body>

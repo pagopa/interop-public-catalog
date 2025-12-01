@@ -71,6 +71,8 @@ export const ui = {
     "footer.nav_section.accessibility_statement":
       "Dichiarazione di accessibilità",
 
+    "back_to_top_button.aria_label": "Torna su",
+
     "page_index_nav.title": "Indice della pagina",
 
     "eservice_card.access_reserved": "Accesso riservato",
@@ -111,12 +113,13 @@ export const ui = {
     "pagination.next": "Successiva",
 
     "rating.title": "Questa pagina ti è stata utile?",
-    "rating.yes": "Si",
-    "rating.no": "No",
-    "rating.email_subject": "Feedback sul Catalogo delle API",
-    "rating.email_body_positive": "La pagina è stata utile perché",
-    "rating.email_body_negative": "La pagina non è stata utile perché",
-    "rating.alert": "Per favore, seleziona un’opzione prima di inviare.",
+    "rating.button_label": "Invia una segnalazione",
+    // "rating.yes": "Si",
+    // "rating.no": "No",
+    // "rating.email_subject": "Feedback sul Catalogo delle API",
+    // "rating.email_body_positive": "La pagina è stata utile perché",
+    // "rating.email_body_negative": "La pagina non è stata utile perché",
+    // "rating.alert": "Per favore, seleziona un’opzione prima di inviare.",
     "spinner.loading": "Caricamento...",
   },
   en: {
@@ -139,7 +142,7 @@ export const ui = {
     "nav.what_is": "What is interoperability",
     "nav.faq": "FAQ",
 
-    "header.brand.tagline": "The Public Administration APIs",
+    "header.brand.tagline": "Public Administration APIs",
     "header.nav.toggle": "Show/Hide navigation",
     "header.nav.hide": "Hide navigation",
     "header.top_nav.DTD": "Department for Digital Transformation",
@@ -153,6 +156,8 @@ export const ui = {
     "footer.nav_section.privacy_policy": "Privacy policy",
     "footer.nav_section.sitemap": "Site map",
     "footer.nav_section.accessibility_statement": "Accessibility statement",
+
+    "back_to_top_button.aria_label": "Back to top",
 
     "page_index_nav.title": "Page index",
 
@@ -170,13 +175,14 @@ export const ui = {
     "error.back_to_home": "Go to homepage",
 
     // Organization Types
-    "tenant_macrocategory_.tutti_long": "All Public Bodies",
+    "tenant_macrocategory_.tutti_long": "All Organizations",
     "tenant_macrocategory_.pac_long": "Central Government Administrations",
     "tenant_macrocategory_.comuni_long": "Municipalities",
     "tenant_macrocategory_.regioni_long": "Regions",
     "tenant_macrocategory_.universita_long":
       "Universities and Higher Education Institutions (AFAM)",
-    "tenant_macrocategory_.altre_long": "Other Local Public Bodies",
+    "tenant_macrocategory_.altre_long":
+      "Other Local Government Administrations",
 
     "tenant_macrocategory_.tutti_short": "All",
     "tenant_macrocategory_.pac_short": "Central PAs",
@@ -192,12 +198,14 @@ export const ui = {
     "pagination.next": "Next",
 
     "rating.title": "Was this page helpful?",
-    "rating.yes": "Yes",
-    "rating.no": "No",
-    "rating.email_subject": "Feedback on the API Catalog",
-    "rating.email_body_positive": "The page was useful because",
-    "rating.email_body_negative": "The page was not helpful because",
-    "rating.alert": "Please select an option before submitting.",
+    "rating.button_label": "Send a report",
+    // "rating.yes": "Yes",
+    // "rating.no": "No",
+    // "rating.email_subject": "Feedback on the API Catalog",
+    // "rating.email_body_positive": "The page was useful because",
+    // "rating.email_body_negative": "The page was not helpful because",
+    // "rating.alert": "Please select an option before submitting.",
+
     "spinner.loading": "Loading...",
   },
 } as const satisfies TranslationsMap;

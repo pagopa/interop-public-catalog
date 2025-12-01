@@ -27,8 +27,8 @@ const ECOSYSTEM_CHARACTERISTICS = [
 ];
 
 const ecosystemPageHeroImgSrc: Record<SupportedLanguage, string> = {
-  it: "/img/ecosystem-it.svg",
-  en: "/img/ecosystem-en.svg",
+  it: "/img/infografica_it.webp",
+  en: "/img/infografica_en.webp",
 };
 ---
 
@@ -39,15 +39,6 @@ const ecosystemPageHeroImgSrc: Record<SupportedLanguage, string> = {
     { routeKey: "ECOSYSTEM", current: true },
   ]}
 >
-  <div class="d-block d-lg-none" slot="top-hero">
-    <img
-      src={ecosystemPageHeroImgSrc[currentLocale]}
-      class="img-fluid"
-      width="416"
-      height="544"
-      alt=""
-    />
-  </div>
   <div slot="bottom-hero">
     <div class="row">
       <div class="col-12 col-lg-7">
@@ -84,5 +75,15 @@ const ecosystemPageHeroImgSrc: Record<SupportedLanguage, string> = {
         />
       </div>
     </div>
+  </div>
+
+  <div class="d-block d-lg-none" slot="bottom-hero">
+    <img
+      src={ecosystemPageHeroImgSrc[currentLocale]}
+      class="img-fluid"
+      width="416"
+      height="544"
+      alt={t("ecosystem.image_alt")}
+    />
   </div>
 </PageHero>

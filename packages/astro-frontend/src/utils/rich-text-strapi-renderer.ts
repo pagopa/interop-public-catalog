@@ -32,7 +32,7 @@ const renderTextNode = (node: StrapiTextNode): string => {
 const renderLinkNode = (node: StrapiLinkNode): string => {
   const href = escapeHtmlAttribute(node.url);
   const content = renderNodes(node.children);
-  return `<a href="${href}" rel="noopener noreferrer">${content}</a>`;
+  return `<a href="${href}" target="_blank" rel="noopener noreferrer">${content}</a>`;
 };
 
 const renderHeadingNode = (node: StrapiHeadingNode): string => {

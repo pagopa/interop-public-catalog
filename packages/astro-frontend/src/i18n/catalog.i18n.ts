@@ -81,7 +81,7 @@ const catalogTranslations = {
     "autocomplete.selectedElements": " items selected",
     "autocomplete.selectedElement": " item selected",
     "finder.title":
-      "Are you looking for the full list of participants and APIs available on PDND?",
+      "Are you looking for open data from participants and the APIs available on PDND?",
     "finder.api.label": "Go to the list of APIIs",
     "finder.provider.label": "Go to the list of participants",
     "no-results.title": "No results found",

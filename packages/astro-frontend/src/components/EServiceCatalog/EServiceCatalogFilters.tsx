@@ -51,40 +51,42 @@ const EServiceCatalogFilters: React.FC<EServiceCatalogFiltersProps> = ({
 
   return (
     <>
-      <h5 className="mb-4 d-none d-lg-block">{t("filters.title")}</h5>
-      <div className="d-block d-sm-none d-flex justify-content-between align-items-center mb-4">
-        <h5>{t("filters.title")}</h5>
-        <Button
-          color="primary"
-          outline
-          size="sm"
-          onClick={() => setIsModalOpen(true)}
-        >
-          {t("filters.mobile.button")}
-        </Button>
-      </div>
-
       {!isMobile ? (
-        <Filters
-          handleActiveFilterValueChange={handleActiveFilterValueChange}
-          handleDraftFilterValueChange={handleDraftFilterValueChange}
-          isMobile={false}
-          onSubmit={onSubmit}
-          currentLocale={currentLocale}
-        />
-      ) : (
-        <FiltersMobile
-          onSubmit={onSubmit}
-          isOpen={isModalOpen}
-          toggleModal={setIsModalOpen}
-        >
+        <>
+          <h5 className="mb-4">{t("filters.title")}</h5>
           <Filters
             handleActiveFilterValueChange={handleActiveFilterValueChange}
             handleDraftFilterValueChange={handleDraftFilterValueChange}
-            isMobile={true}
+            isMobile={false}
+            onSubmit={onSubmit}
             currentLocale={currentLocale}
           />
-        </FiltersMobile>
+        </>
+      ) : (
+        <>
+          <div className="d-flex justify-content-end mb-4">
+            <Button
+              color="primary"
+              outline
+              size="sm"
+              onClick={() => setIsModalOpen(true)}
+            >
+              {t("filters.mobile.button")}
+            </Button>
+          </div>
+          <FiltersMobile
+            onSubmit={onSubmit}
+            isOpen={isModalOpen}
+            toggleModal={setIsModalOpen}
+          >
+            <Filters
+              handleActiveFilterValueChange={handleActiveFilterValueChange}
+              handleDraftFilterValueChange={handleDraftFilterValueChange}
+              isMobile={true}
+              currentLocale={currentLocale}
+            />
+          </FiltersMobile>
+        </>
       )}
 
       <FiltersChips

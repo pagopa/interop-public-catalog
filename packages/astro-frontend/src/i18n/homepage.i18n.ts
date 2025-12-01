@@ -61,7 +61,7 @@ export const homepage = {
     scroll_hint: "Scroll to learn more",
     "api_info.title": "WHAT ARE API?",
     "api_info.content":
-      "API (Application Programming Interfaces) are digital tools that enable public entities to communicate and exchange data securely and automatically.",
+      "API (Application Programming Interfaces) are digital tools that enable organizations to communicate and exchange data securely and automatically.",
 
     "how_it_works.title": "How it works",
     "how_it_works.step_1.title": "1. Search for APIs in the catalogue",
@@ -83,7 +83,7 @@ export const homepage = {
       "Get inspired by practical examples for your organization",
     "good_practices.description":
       "Learn how to integrate APIs into your organization’s processes: find inspiration in a set of meaningful and easy-to-replicate examples.",
-    "good_practices.target.pa_centrali": "Central government administrations",
+    "good_practices.target.pa_centrali": "Central Government Administrations",
     "good_practices.target.regioni": "Regions",
     "good_practices.target.comuni": "Municipalities",
     "good_practices.target.view_all": "View all",
