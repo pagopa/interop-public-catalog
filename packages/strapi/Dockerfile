@@ -37,4 +37,4 @@ ENV NODE_ENV=development
 
 USER node
 EXPOSE 1337
-CMD ["pnpm", "--filter", "./packages/strapi", "strapi", "start"]
+CMD ["pnpm", "--filter", "./packages/strapi", "strapi", "develop"]
