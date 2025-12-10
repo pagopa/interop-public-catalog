@@ -33,6 +33,7 @@ RUN corepack enable
 WORKDIR /opt/app
 COPY --from=build --chown=node:node /opt/app ./
 ENV PATH=/opt/app/node_modules/.bin:$PATH
+ENV NODE_ENV=development
 
 USER node
 EXPOSE 1337
