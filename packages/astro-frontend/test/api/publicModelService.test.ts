@@ -133,7 +133,7 @@ describe("Catalog search", () => {
     await generateDescriptor({ db, tables: catalogTables.tables }, { eserviceId: eservices[0].id, state: "Published" })
     await generateDescriptor({ db, tables: catalogTables.tables }, { eserviceId: eservices[1].id, state: "Suspended" })
 
-    // this eservice must now show up in results
+    // this eservice must not show up in results
     const draftedEserviceId = eservices[2].id
     await generateDescriptor({ db, tables: catalogTables.tables }, { eserviceId: draftedEserviceId, state: "Draft" })
 
@@ -369,11 +369,18 @@ describe("Catalog search", () => {
 });
 
 describe("Search Tenants", () => {
-  it("returns only tenants with at least one EService", async () => {
+  it("returns only tenants with at least one published EService", async () => {
     const { id: tenantMilanId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
         name: "Comune di Milano"
+      }
+    );
+
+    const { id: tenantWNoPublished } = await generateTenant(
+      { db, tables: tenantTables.tables },
+      {
+        name: "Tenant non pubblicato"
       }
     );
 
@@ -384,11 +391,26 @@ describe("Search Tenants", () => {
       }
     );
 
-    await generateEservice({ db, tables: catalogTables.tables }, {
+    const e1 = await generateEservice({ db, tables: catalogTables.tables }, {
       producerId: tenantMilanId,
       name: "com",
       description: "com"
     });
+
+    const draftedEservice = await generateEservice({ db, tables: catalogTables.tables }, {
+      producerId: tenantWNoPublished,
+      name: "com",
+      description: "com"
+    });
+
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: e1.id, state: "Published" }
+    );
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: draftedEservice.id, state: "Draft" }
+    );
 
     const result = await publicModelService.searchTenants({
       limit: 10,
@@ -398,6 +420,7 @@ describe("Search Tenants", () => {
     expect(result.results).toHaveLength(1);
     expect(result.totalCount).toBe(1);
     expect(result.results[0].producer_id).toBe(tenantMilanId)
+    expect(result.results.map((e) => e.producer_id)).not.toContain(tenantWNoPublished);
   })
 
   it("returns only relevant matches on text search", async () => {
@@ -415,17 +438,26 @@ describe("Search Tenants", () => {
       }
     );
 
-    await generateEservice({ db, tables: catalogTables.tables }, {
+    const e1 = await generateEservice({ db, tables: catalogTables.tables }, {
       producerId: tenantMilanId,
       name: "com",
       description: "com"
     });
 
-    await generateEservice({ db, tables: catalogTables.tables }, {
+    const e2 = await generateEservice({ db, tables: catalogTables.tables }, {
       producerId: throwawayTenantId,
       name: "com",
       description: "com"
     });
+
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: e1.id, state: "Published" }
+    );
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: e2.id, state: "Draft" }
+    );
 
     const result = await publicModelService.searchTenants({
       limit: 10,
