@@ -2,7 +2,7 @@
 import Layout from "../../../layouts/Layout.astro";
 import EServiceDetails from "../../../components/EServiceDetails/EServiceDetails.astro";
 
-import { getLangFromUrl } from "../../../i18n/utils.i18n";
+import { getLangFromUrl, getLocalizedRoute } from "../../../i18n/utils.i18n";
 import PageHero from "../../../components/shared/PageHero.astro";
 import { useEServiceDetailsTranslations } from "../../../i18n/eservice-details.i18n.js";
 import RatingSection from "../../../components/shared/RatingSection.astro";
@@ -21,6 +21,15 @@ const eservice = await sqlService.getEService(eserviceId);
 if (!eservice) {
   return Astro.redirect("/404");
 }
+
+const catalogLocalizedUrl = getLocalizedRoute(
+  currentLocale,
+  "ESERVICE_CATALOG",
+);
+
+const catalogUrl = `${catalogLocalizedUrl}?${new URLSearchParams({
+  provider: JSON.stringify([[eservice.tenant_name, eservice.producer_id]]),
+}).toString()}`;
 ---
 
 <Layout>
@@ -53,9 +62,12 @@ if (!eservice) {
       <CopyUrlButton currentLocale={currentLocale} />
     </div>
     <p slot="bottom-hero">
-      {tEserviceDetails("producer")}: <strong
-        ><u>{eservice.tenant_name}</u></strong
-      >
+      {tEserviceDetails("producer")}:
+      <a class="text-decoration-none" href={catalogUrl}>
+        <strong>
+          <u>{eservice.tenant_name}</u>
+        </strong>
+      </a>
     </p>
   </PageHero>
   <EServiceDetails eservice={eservice} />
