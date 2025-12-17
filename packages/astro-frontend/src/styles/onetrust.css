@@ -5,11 +5,21 @@
   max-width: 100%;
 }
 
-.otnotice-menu {
+.otnotice-menu,
+.otnotice-menu-mobile {
   z-index: -1;
+  display: none !important;
 }
 
-.otnotice p {
+.otnotice-sections {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.otnotice p,
+ul,
+ol,
+span {
   font-size: 1.125rem !important;
 }
 
