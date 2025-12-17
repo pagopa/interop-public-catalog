@@ -5,7 +5,7 @@ import InformationContainer from "./InformationContainer.astro";
 import type { EService } from "pagopa-interop-public-models";
 import { PopoverIcon } from "../shared/PopoverIcon.js";
 import { useEServiceDetailsTranslations } from "../../i18n/eservice-details.i18n.js";
-import PageIndexNav from "../shared/PageIndexNav.astro";
+import PageIndexNav from "../shared/PageIndexNav/PageIndexNav.astro";
 import {
   getLangFromUrl,
   getRouteKeyFromCurrentRoutePattern,
@@ -34,7 +34,7 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
   <div class="section-content">
     <div class="container">
       <div class="row">
-        <div class="col-md-4 d-none d-md-block">
+        <div class="col-12 col-md-4">
           <PageIndexNav
             headings={[
               { label: t("description_section.title"), id: "descrizione" },
@@ -51,7 +51,7 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
           />
         </div>
 
-        <div class="col-xs-12 col-md-8">
+        <div class="col-12 col-md-8">
           <div class="mb-default">
             <h4 id="descrizione" class="mb-4">
               {t("description_section.title")}

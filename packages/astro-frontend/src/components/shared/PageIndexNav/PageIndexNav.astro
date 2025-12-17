@@ -1,0 +1,14 @@
+---
+import PageIndexNavFullScreen from "./PageIndexNavFullScreen.astro";
+import PageIndexNavMobile from "./PageIndexNavMobile.astro";
+import type { HTMLAttributes } from "astro/types";
+
+interface Props extends HTMLAttributes<"nav"> {
+  headings: { id: string; label: string }[];
+}
+
+const { headings, ...rest } = Astro.props;
+---
+
+<PageIndexNavFullScreen headings={headings} {...rest} />
+<PageIndexNavMobile headings={headings} />
