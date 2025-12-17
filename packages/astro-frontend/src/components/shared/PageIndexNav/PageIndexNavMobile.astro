@@ -26,7 +26,7 @@ const tUi = useUiTranslations(currentLocale);
     type="button"
     style="padding: 0.5rem 1rem"
     aria-controls="navbarNav"
-    aria-label="Apri/Chiudi indice"
+    aria-label={tUi("page_index_nav.button_aria_label")}
     data-bs-toggle="navbarcollapsible"
     data-bs-target="#navbarNav"
   >
@@ -52,7 +52,12 @@ const tUi = useUiTranslations(currentLocale);
         <ul class="link-list mt-4 border-end">
           {
             headings.map((heading) => (
-              <li>
+              <li
+                aria-controls="navbarNav"
+                aria-label={tUi("page_index_nav.list_item_aria_label")}
+                data-bs-toggle="navbarcollapsible"
+                data-bs-target="#navbarNav"
+              >
                 <a
                   id={`nav-link-mobile-${heading.id}`}
                   href={`#${heading.id}`}

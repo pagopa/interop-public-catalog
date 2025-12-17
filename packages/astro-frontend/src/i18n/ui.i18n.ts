@@ -76,6 +76,9 @@ export const ui = {
 
     "page_index_nav.title": "Indice della pagina",
     "page_index_nav.hide": "Chiudi indice della pagina",
+    "page_index_nav.button_aria_label": "Apri/chiudi indice della pagina",
+    "page_index_nav.list_item_aria_label":
+      "Vai alla sezione e chiudi indice della pagina",
 
     "eservice_card.access_reserved": "Accesso riservato",
     "eservice_card.read_more": "leggi tutto",
@@ -164,6 +167,8 @@ export const ui = {
 
     "page_index_nav.title": "Page index",
     "page_index_nav.hide": "Close page index",
+    "page_index_nav.button_aria_label": "Open/close page index",
+    "page_index_nav.list_item_aria_label": "Go to section and close page index",
 
     "eservice_card.access_reserved": "Restricted access",
     "eservice_card.read_more": "Read more",
