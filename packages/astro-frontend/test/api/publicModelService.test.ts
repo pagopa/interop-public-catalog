@@ -93,9 +93,9 @@ describe("Get EService by id", () => {
 
 
     expect(result).toHaveProperty("active_descriptor");
-    expect(result.active_descriptor).toHaveProperty("attributes");
-    expect(result.active_descriptor.attributes).toHaveProperty("certified");
-    expect(result.active_descriptor.attributes.certified[0][0].id).toBe(attributeToMatch!.id);
+    expect(result!.active_descriptor).toHaveProperty("attributes");
+    expect(result!.active_descriptor!.attributes).toHaveProperty("certified");
+    expect(result!.active_descriptor!.attributes.certified[0][0].id).toBe(attributeToMatch!.id);
   })
 })
 
