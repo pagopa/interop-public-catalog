@@ -5,12 +5,33 @@
   max-width: 100%;
 }
 
-.otnotice-menu {
-  z-index: -1;
+.otnotice-menu,
+.otnotice-menu-mobile {
+  display: none !important;
+  visibility: hidden;
 }
 
-.otnotice p {
+.otnotice-sections {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  max-width: 1076px;
+  width: 100%;
+}
+
+.otnotice-section-content {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}
+
+.otnotice-section {
   font-size: 1.125rem !important;
+}
+
+.otnotice p,
+ul,
+ol,
+span {
+  font-size: unset !important;
 }
 
 .otnotice h1 {
@@ -18,6 +39,8 @@
 }
 
 .otnotice h2 {
+  margin-left: 0 !important;
+  margin-top: 40px !important;
   font-size: 1.75rem !important;
   color: inherit !important;
 }
