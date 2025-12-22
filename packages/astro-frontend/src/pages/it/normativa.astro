@@ -1,6 +1,6 @@
 ---
 import PageHero from "../../components/shared/PageHero.astro";
-import PageIndexNav from "../../components/shared/PageIndexNav.astro";
+import PageIndexNav from "../../components/shared/PageIndexNav/PageIndexNav.astro";
 import { Section } from "../../components/shared/Section";
 import Layout from "../../layouts/Layout.astro";
 import { match } from "ts-pattern";
@@ -54,7 +54,7 @@ const sectionTitles = body
 
   <Section className="bg-muted">
     <div class="row">
-      <div class="d-none d-md-block col-3">
+      <div class="col-12 col-md-3">
         <PageIndexNav
           headings={sectionTitles}
           style="top: 1rem;"
