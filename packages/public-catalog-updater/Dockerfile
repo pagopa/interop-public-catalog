@@ -1,5 +1,5 @@
 # Creating multi-stage build
-FROM node:22-alpine AS build
+FROM node:22-alpine@sha256:0340fa682d72068edf603c305bfbc10e23219fb0e40df58d9ea4d6f33a9798bf AS build
 RUN corepack enable
 
 WORKDIR /opt/app
@@ -26,7 +26,7 @@ COPY packages/typescript-config/ ./packages/typescript-config/
 RUN pnpm run build
 
 # Creating final image
-FROM node:22-alpine
+FROM node:22-alpine@sha256:0340fa682d72068edf603c305bfbc10e23219fb0e40df58d9ea4d6f33a9798bf
 
 RUN corepack enable
 WORKDIR /opt/app
