@@ -161,3 +161,35 @@ a.list-item:hover {
 .bg-dark {
   background-color: #2f475e !important;
 }
+
+/* on desktop */
+@media (min-width: 768px) {
+  .visible-on-mobile {
+    display: none;
+  }
+
+  .visible-on-desktop {
+    display: initial;
+  }
+
+  .back-to-top-position {
+    bottom: 32px;
+    right: 32px;
+  }
+}
+
+/* on mobile */
+@media (max-width: 768px) {
+  .visible-on-mobile {
+    display: initial;
+  }
+
+  .visible-on-desktop {
+    display: none;
+  }
+
+  .back-to-top-position {
+    bottom: 58px;
+    right: 32px;
+  }
+}
