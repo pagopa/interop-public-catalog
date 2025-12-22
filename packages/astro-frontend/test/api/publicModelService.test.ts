@@ -1,14 +1,24 @@
-
 import { describe, it, expect, beforeEach, beforeAll } from "vitest";
 
 import { GenericContainer } from "testcontainers";
 import { drizzle, NodePgDatabase } from "drizzle-orm/node-postgres";
 import { Client } from "pg";
 
-import { buildAttributeTables, buildCatalogTables, buildTenantTables } from "pagopa-interop-public-models";
+import {
+  buildAttributeTables,
+  buildCatalogTables,
+  buildTenantTables,
+} from "pagopa-interop-public-models";
 
 import { publicModelServiceBuilder } from "../../src/server/services/publicModelServiceBuilder";
-import { clearDb, generateCategoryAttributes, generateDescriptor, generateEservice, generateEserviceDescriptorAttribute, generateTenant } from "./helpers";
+import {
+  clearDb,
+  generateCategoryAttributes,
+  generateDescriptor,
+  generateEservice,
+  generateEserviceDescriptorAttribute,
+  generateTenant,
+} from "./helpers";
 
 const TEST_POSTGRES_DB_PORT = 5432;
 const TEST_POSTGRES_DB_IMAGE = "postgres:14";
@@ -21,7 +31,7 @@ const attributeTables = buildAttributeTables("publicmodel_attribute");
 let db: NodePgDatabase;
 beforeAll(async () => {
   const container = await new GenericContainer(TEST_POSTGRES_DB_IMAGE)
-    .withEnvironment({ "POSTGRES_PASSWORD": "pass" })
+    .withEnvironment({ POSTGRES_PASSWORD: "pass" })
     .withExposedPorts(TEST_POSTGRES_DB_PORT)
     .withCopyDirectoriesToContainer([
       {
@@ -43,12 +53,14 @@ beforeAll(async () => {
 
   db = drizzle(client);
 
-  publicModelService = publicModelServiceBuilder(db as unknown as ReturnType<typeof drizzle>,
+  publicModelService = publicModelServiceBuilder(
+    db as unknown as ReturnType<typeof drizzle>,
     {
       catalogSchema: "publicmodel_catalog",
       attributeSchema: "publicmodel_attribute",
-      tenantSchema: "publicmodel_tenant"
-    });
+      tenantSchema: "publicmodel_tenant",
+    },
+  );
 });
 
 beforeEach(async () => {
@@ -57,25 +69,31 @@ beforeEach(async () => {
 
 describe("Get EService by id", () => {
   it("returns EService with activeDescriptor's attributes", async () => {
-    const attributes = await generateCategoryAttributes({ db, tables: attributeTables.tables });
+    const attributes = await generateCategoryAttributes({
+      db,
+      tables: attributeTables.tables,
+    });
     const attributeToMatch = attributes.find((a) => a.code == "L6"); //Comuni
 
     const { id: tenantMilanId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "Comune di Milano"
-      }
+        name: "Comune di Milano",
+      },
     );
 
-    const eservice = await generateEservice({ db, tables: catalogTables.tables }, {
-      producerId: tenantMilanId,
-      name: "com",
-      description: "com"
-    });
+    const eservice = await generateEservice(
+      { db, tables: catalogTables.tables },
+      {
+        producerId: tenantMilanId,
+        name: "com",
+        description: "com",
+      },
+    );
 
     const descriptor = await generateDescriptor(
       { db, tables: catalogTables.tables },
-      { eserviceId: eservice.id, state: "Published" }
+      { eserviceId: eservice.id, state: "Published" },
     );
 
     await generateEserviceDescriptorAttribute(
@@ -85,219 +103,275 @@ describe("Get EService by id", () => {
         descriptor_id: descriptor.id,
         group_id: 1,
         kind: "Certified",
-        attribute_id: attributeToMatch!.id
-      }
-    )
+        attribute_id: attributeToMatch!.id,
+      },
+    );
 
     const result = await publicModelService.getEService(eservice.id);
-
 
     expect(result).toHaveProperty("active_descriptor");
     expect(result!.active_descriptor).toHaveProperty("attributes");
     expect(result!.active_descriptor!.attributes).toHaveProperty("certified");
-    expect(result!.active_descriptor!.attributes.certified[0][0].id).toBe(attributeToMatch!.id);
-  })
-})
+    expect(result!.active_descriptor!.attributes.certified[0][0].id).toBe(
+      attributeToMatch!.id,
+    );
+  });
+});
 
 describe("Catalog search", () => {
   it("returns only eservices w/ 'Published' or 'Suspended' active descriptors", async () => {
     const { id: tenantMilanId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "Comune di Milano"
-      }
+        name: "Comune di Milano",
+      },
     );
 
     const eservicesToInsert = [
       {
         producerId: tenantMilanId,
         name: "accesso dati sensibili",
-        description: "accesso dati sensibili per consultazione e sincronizzazione record utente"
+        description:
+          "accesso dati sensibili per consultazione e sincronizzazione record utente",
       },
       {
         producerId: tenantMilanId,
         name: "consultazione profili",
-        description: "consultazione profili utente per suggerimenti e personalizzazione"
+        description:
+          "consultazione profili utente per suggerimenti e personalizzazione",
       },
       {
         producerId: tenantMilanId,
         name: "accesso eventi",
-        description: "accesso eventi di sistema e notifiche per audit e monitoraggio"
-      }
+        description:
+          "accesso eventi di sistema e notifiche per audit e monitoraggio",
+      },
     ];
 
-    const eservices = await Promise.all(eservicesToInsert.map((e) =>
-      generateEservice({ db, tables: catalogTables.tables }, e)
-    ))
+    const eservices = await Promise.all(
+      eservicesToInsert.map((e) =>
+        generateEservice({ db, tables: catalogTables.tables }, e),
+      ),
+    );
 
-    await generateDescriptor({ db, tables: catalogTables.tables }, { eserviceId: eservices[0].id, state: "Published" })
-    await generateDescriptor({ db, tables: catalogTables.tables }, { eserviceId: eservices[1].id, state: "Suspended" })
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: eservices[0].id, state: "Published" },
+    );
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: eservices[1].id, state: "Suspended" },
+    );
 
-    // this eservice must now show up in results
-    const draftedEserviceId = eservices[2].id
-    await generateDescriptor({ db, tables: catalogTables.tables }, { eserviceId: draftedEserviceId, state: "Draft" })
-
+    // this eservice must not show up in results
+    const draftedEserviceId = eservices[2].id;
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: draftedEserviceId, state: "Draft" },
+    );
 
     const result = await publicModelService.searchCatalog({
       limit: 10,
-      offset: 0
+      offset: 0,
     });
     expect(result.results).toHaveLength(2);
     expect(result.totalCount).toBe(2);
     expect(result.results.map((e) => e.id)).not.toContain(draftedEserviceId);
-  })
+  });
 
   it("returns only matches on text query", async () => {
     const { id: tenantMilanId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "Comune di Milano"
-      }
+        name: "Comune di Milano",
+      },
     );
 
     const eservicesToInsert = [
       {
         producerId: tenantMilanId,
         name: "accesso dati sensibili",
-        description: "accesso dati sensibili per consultazione e sincronizzazione record utente"
+        description:
+          "accesso dati sensibili per consultazione e sincronizzazione record utente",
       },
       {
         producerId: tenantMilanId,
         name: "consultazione profili",
-        description: "consultazione profili utente per suggerimenti e personalizzazione"
+        description:
+          "consultazione profili utente per suggerimenti e personalizzazione",
       },
       {
         producerId: tenantMilanId,
         name: "accesso eventi",
-        description: "accesso eventi di sistema e notifiche per audit e monitoraggio"
-      }
+        description:
+          "accesso eventi di sistema e notifiche per audit e monitoraggio",
+      },
     ];
 
-    const eservices = await Promise.all(eservicesToInsert.map((e) =>
-      generateEservice({ db, tables: catalogTables.tables }, e)
-    ))
+    const eservices = await Promise.all(
+      eservicesToInsert.map((e) =>
+        generateEservice({ db, tables: catalogTables.tables }, e),
+      ),
+    );
 
-    await generateDescriptor({ db, tables: catalogTables.tables }, { eserviceId: eservices[0].id, state: "Published" })
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: eservices[0].id, state: "Published" },
+    );
 
     const elementToMatchId = eservices[1].id;
-    await generateDescriptor({ db, tables: catalogTables.tables }, { eserviceId: elementToMatchId, state: "Suspended" })
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: elementToMatchId, state: "Suspended" },
+    );
 
-    await generateDescriptor({ db, tables: catalogTables.tables }, { eserviceId: eservices[2].id, state: "Published" })
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: eservices[2].id, state: "Published" },
+    );
 
     const result = await publicModelService.searchCatalog({
       limit: 10,
       offset: 0,
-      q: "profili"
+      q: "profili",
     });
     expect(result.results).toHaveLength(1);
     expect(result.results[0].id).toBe(elementToMatchId);
-  })
+  });
 
   it("matches on trigrams with text query", async () => {
     const { id: tenantMilanId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "Comune di Milano"
-      }
+        name: "Comune di Milano",
+      },
     );
 
-    const eserviceToMatch = await generateEservice({ db, tables: catalogTables.tables }, {
-      producerId: tenantMilanId,
-      name: "consultazione profili",
-      description: "consultazione profili utente per suggerimenti e personalizzazione"
-    })
+    const eserviceToMatch = await generateEservice(
+      { db, tables: catalogTables.tables },
+      {
+        producerId: tenantMilanId,
+        name: "consultazione profili",
+        description:
+          "consultazione profili utente per suggerimenti e personalizzazione",
+      },
+    );
 
-    await generateDescriptor({ db, tables: catalogTables.tables }, { eserviceId: eserviceToMatch.id, state: "Published" })
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: eserviceToMatch.id, state: "Published" },
+    );
 
     const result = await publicModelService.searchCatalog({
       limit: 10,
       offset: 0,
-      q: "profil"
+      q: "profil",
     });
     expect(result.results).toHaveLength(1);
     expect(result.results[0].id).toBe(eserviceToMatch.id);
-  })
+  });
 
   it("ignores dots on text query", async () => {
     const { id: tenantMilanId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "Comune"
-      }
+        name: "Comune",
+      },
     );
 
-    const eserviceToMatch = await generateEservice({ db, tables: catalogTables.tables }, {
-      producerId: tenantMilanId,
-      name: "a.n.a.c.",
-      description: "a.n.a.c."
-    })
+    const eserviceToMatch = await generateEservice(
+      { db, tables: catalogTables.tables },
+      {
+        producerId: tenantMilanId,
+        name: "a.n.a.c.",
+        description: "a.n.a.c.",
+      },
+    );
 
-    await generateDescriptor({ db, tables: catalogTables.tables }, { eserviceId: eserviceToMatch.id, state: "Published" })
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: eserviceToMatch.id, state: "Published" },
+    );
 
     const result = await publicModelService.searchCatalog({
       limit: 10,
       offset: 0,
-      q: "ana.c"
+      q: "ana.c",
     });
     expect(result.results).toHaveLength(1);
     expect(result.results[0].id).toBe(eserviceToMatch.id);
-  })
+  });
 
   it("considers special characters as spaces", async () => {
     const { id: tenantMilanId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "Comune"
-      }
+        name: "Comune",
+      },
     );
 
-    const eserviceToMatch = await generateEservice({ db, tables: catalogTables.tables }, {
-      producerId: tenantMilanId,
-      name: "parola+composta",
-      description: "parola+composta"
-    })
+    const eserviceToMatch = await generateEservice(
+      { db, tables: catalogTables.tables },
+      {
+        producerId: tenantMilanId,
+        name: "parola+composta",
+        description: "parola+composta",
+      },
+    );
 
-    await generateDescriptor({ db, tables: catalogTables.tables }, { eserviceId: eserviceToMatch.id, state: "Published" })
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: eserviceToMatch.id, state: "Published" },
+    );
 
     const result = await publicModelService.searchCatalog({
       limit: 10,
       offset: 0,
-      q: "parola*composta"
+      q: "parola*composta",
     });
     expect(result.results).toHaveLength(1);
     expect(result.results[0].id).toBe(eserviceToMatch.id);
-  })
+  });
 
   it("matches based on macrocategory", async () => {
-    const attributes = await generateCategoryAttributes({ db, tables: attributeTables.tables });
+    const attributes = await generateCategoryAttributes({
+      db,
+      tables: attributeTables.tables,
+    });
     const attributeToMatch = attributes.find((a) => a.code == "L6"); //Comuni
 
     const { id: tenantMilanId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "Comune"
-      }
+        name: "Comune",
+      },
     );
 
-    const eservice = await generateEservice({ db, tables: catalogTables.tables }, {
-      producerId: tenantMilanId,
-      name: "com",
-      description: "com"
-    });
+    const eservice = await generateEservice(
+      { db, tables: catalogTables.tables },
+      {
+        producerId: tenantMilanId,
+        name: "com",
+        description: "com",
+      },
+    );
 
-    const throwaway = await generateEservice({ db, tables: catalogTables.tables }, {
-      producerId: tenantMilanId,
-      name: "throwaway",
-      description: "throwaway"
-    });
+    const throwaway = await generateEservice(
+      { db, tables: catalogTables.tables },
+      {
+        producerId: tenantMilanId,
+        name: "throwaway",
+        description: "throwaway",
+      },
+    );
 
     const descriptor = await generateDescriptor(
       { db, tables: catalogTables.tables },
-      { eserviceId: eservice.id, state: "Published" }
+      { eserviceId: eservice.id, state: "Published" },
     );
     await generateDescriptor(
       { db, tables: catalogTables.tables },
-      { eserviceId: throwaway.id, state: "Published" }
+      { eserviceId: throwaway.id, state: "Published" },
     );
 
     await generateEserviceDescriptorAttribute(
@@ -307,134 +381,187 @@ describe("Catalog search", () => {
         descriptor_id: descriptor.id,
         group_id: 1,
         kind: "Certified",
-        attribute_id: attributeToMatch!.id
-      }
-    )
+        attribute_id: attributeToMatch!.id,
+      },
+    );
 
     const result = await publicModelService.searchCatalog({
       limit: 10,
       offset: 0,
-      categories: ["Comuni"]
+      categories: ["Comuni"],
     });
 
     expect(result.results).toHaveLength(1);
     expect(result.results[0].id).toBe(eservice.id); //throwaway should not be present
-  })
+  });
 
   it("matches on producerId", async () => {
     const { id: tenantMilanId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "Comune"
-      }
+        name: "Comune",
+      },
     );
 
     const { id: throawayTenantId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "throwaway"
-      }
+        name: "throwaway",
+      },
     );
 
-    const eservice = await generateEservice({ db, tables: catalogTables.tables }, {
-      producerId: tenantMilanId,
-      name: "comune",
-      description: "comune"
-    });
+    const eservice = await generateEservice(
+      { db, tables: catalogTables.tables },
+      {
+        producerId: tenantMilanId,
+        name: "comune",
+        description: "comune",
+      },
+    );
 
-    const throwaway = await generateEservice({ db, tables: catalogTables.tables }, {
-      producerId: throawayTenantId,
-      name: "throwaway",
-      description: "throwaway"
-    });
+    const throwaway = await generateEservice(
+      { db, tables: catalogTables.tables },
+      {
+        producerId: throawayTenantId,
+        name: "throwaway",
+        description: "throwaway",
+      },
+    );
 
     await generateDescriptor(
       { db, tables: catalogTables.tables },
-      { eserviceId: eservice.id, state: "Published" }
+      { eserviceId: eservice.id, state: "Published" },
     );
     await generateDescriptor(
       { db, tables: catalogTables.tables },
-      { eserviceId: throwaway.id, state: "Published" }
+      { eserviceId: throwaway.id, state: "Published" },
     );
 
     const result = await publicModelService.searchCatalog({
       limit: 10,
       offset: 0,
-      producerIds: [tenantMilanId]
+      producerIds: [tenantMilanId],
     });
 
     expect(result.results).toHaveLength(1);
     expect(result.results[0].id).toBe(eservice.id); //throwaway should not be present
-  })
+  });
 });
 
 describe("Search Tenants", () => {
-  it("returns only tenants with at least one EService", async () => {
-    const { id: tenantMilanId } = await generateTenant(
+  it("returns only tenants with at least one published EService", async () => {
+    const { id: tenantWithPublishedEserviceId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "Comune di Milano"
-      }
+        name: "Ente con Eservice pubblicati",
+      },
+    );
+
+    const { id: tenantWithOnlyDraftEserviceId } = await generateTenant(
+      { db, tables: tenantTables.tables },
+      {
+        name: "Ente con Eservice non pubblicati",
+      },
     );
 
     await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "Comune senza EService"
-      }
+        name: "Ente on-boardato ma senza Eservice pubblicati",
+      },
     );
 
-    await generateEservice({ db, tables: catalogTables.tables }, {
-      producerId: tenantMilanId,
-      name: "com",
-      description: "com"
-    });
+    const publishedEservice = await generateEservice(
+      { db, tables: catalogTables.tables },
+      {
+        producerId: tenantWithPublishedEserviceId,
+        name: "com",
+        description: "com",
+      },
+    );
+
+    const draftEservice = await generateEservice(
+      { db, tables: catalogTables.tables },
+      {
+        producerId: tenantWithOnlyDraftEserviceId,
+        name: "com",
+        description: "com",
+      },
+    );
+
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: publishedEservice.id, state: "Published" },
+    );
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: draftEservice.id, state: "Draft" },
+    );
 
     const result = await publicModelService.searchTenants({
       limit: 10,
-      offset: 0
+      offset: 0,
     });
 
     expect(result.results).toHaveLength(1);
     expect(result.totalCount).toBe(1);
-    expect(result.results[0].producer_id).toBe(tenantMilanId)
-  })
+    expect(result.results[0].producer_id).toBe(tenantWithPublishedEserviceId);
+    expect(result.results.map((e) => e.producer_id)).not.toContain(
+      tenantWithOnlyDraftEserviceId,
+    );
+  });
 
   it("returns only relevant matches on text search", async () => {
+    const qTextSearch = "mil";
     const { id: tenantMilanId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "Comune di Milano"
-      }
+        name: "Comune di Milano",
+      },
     );
 
     const { id: throwawayTenantId } = await generateTenant(
       { db, tables: tenantTables.tables },
       {
-        name: "Comune senza EService"
-      }
+        name: "Comune senza EService",
+      },
     );
 
-    await generateEservice({ db, tables: catalogTables.tables }, {
-      producerId: tenantMilanId,
-      name: "com",
-      description: "com"
-    });
+    const e1 = await generateEservice(
+      { db, tables: catalogTables.tables },
+      {
+        producerId: tenantMilanId,
+        name: "com",
+        description: "com",
+      },
+    );
 
-    await generateEservice({ db, tables: catalogTables.tables }, {
-      producerId: throwawayTenantId,
-      name: "com",
-      description: "com"
-    });
+    const e2 = await generateEservice(
+      { db, tables: catalogTables.tables },
+      {
+        producerId: throwawayTenantId,
+        name: "com",
+        description: "com",
+      },
+    );
+
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: e1.id, state: "Published" },
+    );
+    await generateDescriptor(
+      { db, tables: catalogTables.tables },
+      { eserviceId: e2.id, state: "Draft" },
+    );
 
     const result = await publicModelService.searchTenants({
       limit: 10,
       offset: 0,
-      q: "mil"
+      q: qTextSearch,
     });
 
     expect(result.results).toHaveLength(1);
     expect(result.totalCount).toBe(1);
-    expect(result.results[0].producer_id).toBe(tenantMilanId)
-  })
+    expect(result.results[0].producer_id).toBe(tenantMilanId);
+  });
 });

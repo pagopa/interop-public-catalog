@@ -378,26 +378,40 @@ export async function searchTenants(
   config: ServiceConfig,
   { limit, offset, q }: TenantsQuery,
 ): Promise<{ results: CompactTenant[]; totalCount: number }> {
-  const hasRelationshipsConditional = sql`
-  WHERE EXISTS (
-      SELECT 1
-      FROM ${sql.identifier(config.catalogSchema)}.eservice e
-      WHERE e.producer_id = t.id
-    )
+  const eservicesCount = sql`
+  latest_desc AS MATERIALIZED (
+    SELECT d.eservice_id, d.id
+    FROM (
+      SELECT d.id, d.eservice_id,
+        ROW_NUMBER() OVER (PARTITION BY d.eservice_id ORDER BY d.version DESC) AS rn
+      FROM ${sql.identifier(config.catalogSchema)}.eservice_descriptor d
+    WHERE d.state IN ('Published','Suspended')
+    ) d
+    WHERE d.rn = 1
+  ),
+  es_count_by_producer AS MATERIALIZED (
+    SELECT e.producer_id, COUNT(*) AS es_count
+    FROM ${sql.identifier(config.catalogSchema)}.eservice e
+    JOIN latest_desc ld ON ld.eservice_id = e.id
+    GROUP BY e.producer_id
+  )
   `;
 
   const textlessSearchTx: Transaction<CompactTenant> = async (tx) => {
-    const pageRes = await tx.execute(sql`
+    const builtQuery = sql`
+    WITH ${eservicesCount}
     SELECT
       t.name,
       t.id AS producer_id,
       t.updated_at,
-      count(*) over() AS total
+      count(*) over() AS total,
+      COALESCE(ec.es_count, 0) AS eservices_count
     FROM ${sql.identifier(config.tenantSchema)}.tenant t
-    ${hasRelationshipsConditional}
-    ORDER BY t.updated_at DESC, t.name ASC
+    JOIN es_count_by_producer ec ON ec.producer_id = t.id
+    ORDER BY eservices_count DESC, t.updated_at DESC, t.name ASC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
-  `);
+    `;
+    const pageRes = await tx.execute(builtQuery);
 
     const items = z.array(CompactTenant).parse(pageRes.rows);
     const total = z.coerce
@@ -420,13 +434,9 @@ export async function searchTenants(
         END AS tsq,
         public.normalize_text(coalesce(${q}, '')) AS nq
     ),
-    has_match AS (
-      SELECT t.id FROM ${sql.identifier(config.tenantSchema)}.tenant t ${hasRelationshipsConditional}
-    ),
     fts_ids AS (
       SELECT t.id
       FROM ${sql.identifier(config.tenantSchema)}.tenant t
-      JOIN has_match h ON h.id = t.id
       CROSS JOIN params p
       WHERE p.tsq IS NOT NULL
         AND (t.search_vector @@ p.tsq)
@@ -434,7 +444,6 @@ export async function searchTenants(
     trgm_ids AS (
       SELECT t.id
       FROM ${sql.identifier(config.tenantSchema)}.tenant t
-      JOIN has_match h ON h.id = t.id
       CROSS JOIN params p
       WHERE
         public.normalize_text(t.name) % p.nq
@@ -446,6 +455,7 @@ export async function searchTenants(
       SELECT id FROM trgm_ids
       WHERE NOT EXISTS (SELECT 1 FROM fts_ids)
     ),
+    ${eservicesCount},
     scored AS (
       SELECT
         t.name,
@@ -453,14 +463,16 @@ export async function searchTenants(
         t.updated_at,
         count(*) over() as total,
         COALESCE(ts_rank_cd(t.search_vector, p.tsq), 0)::real AS fts_rank,
-        similarity(public.normalize_text(t.name), p.nq) AS fuzzy_sim
+        similarity(public.normalize_text(t.name), p.nq) AS fuzzy_sim,
+        COALESCE(ec.es_count, 0) AS eservices_count
       FROM picked x
       JOIN ${sql.identifier(config.tenantSchema)}.tenant t ON t.id = x.id
+      INNER JOIN es_count_by_producer ec ON ec.producer_id = t.id
       CROSS JOIN params p
     )
     SELECT s.*, (s.fts_rank + 0.5 * s.fuzzy_sim)::real AS score
     FROM scored s
-    ORDER BY score DESC, s.updated_at DESC, s.name ASC
+    ORDER BY s.eservices_count DESC, score DESC, s.updated_at DESC, s.name ASC
     LIMIT ${limit ?? 50} OFFSET ${offset ?? 0};
   `;
     const pageRes = await tx.execute(builtQuery);
