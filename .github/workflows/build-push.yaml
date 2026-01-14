@@ -76,7 +76,7 @@ jobs:
       - name: (branch) Docker metadata
         id: meta_branch
         if: ${{ github.ref_type == 'branch' }}
-        uses: docker/metadata-action@c1e51972afc2121e065aed6d45c65596fe445f3f
+        uses: docker/metadata-action@ed95091677497158a9ff38b314264cd965388d5e
         with:
           images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ env.PACKAGE_NAME }}
           flavor: |
@@ -89,7 +89,7 @@ jobs:
       - name: (tag) Docker metadata
         id: meta_tag
         if: ${{ github.ref_type == 'tag' }}
-        uses: docker/metadata-action@c1e51972afc2121e065aed6d45c65596fe445f3f
+        uses: docker/metadata-action@ed95091677497158a9ff38b314264cd965388d5e
         with:
           images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ env.PACKAGE_NAME }}
           flavor: |
@@ -149,7 +149,7 @@ jobs:
       - name: (tag) Docker metadata
         id: meta_tag
         if: ${{ github.ref_type == 'tag' }}
-        uses: docker/metadata-action@c1e51972afc2121e065aed6d45c65596fe445f3f
+        uses: docker/metadata-action@ed95091677497158a9ff38b314264cd965388d5e
         with:
           images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ env.PACKAGE_NAME }}
           flavor: |
