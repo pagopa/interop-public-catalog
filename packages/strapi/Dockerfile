@@ -36,4 +36,4 @@ ENV PATH=/opt/app/node_modules/.bin:$PATH
 
 USER node
 EXPOSE 1337
-CMD ["pnpm", "--filter", "./packages/strapi", "strapi", "develop"]
+CMD ["pnpm", "--filter", "./packages/strapi", "strapi", "start"]
