@@ -1,5 +1,4 @@
 export default [
-  "global::healthcheck-silencer",
   "strapi::logger",
   "strapi::errors",
   "strapi::cors",

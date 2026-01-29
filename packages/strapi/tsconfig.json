@@ -4,10 +4,6 @@
     "@strapi/typescript-utils/tsconfigs/server"
   ],
   "compilerOptions": {
-    "lib": [
-      "ES2015",
-      "DOM"
-    ],
     "outDir": "dist",
     "rootDir": ".",
   },
