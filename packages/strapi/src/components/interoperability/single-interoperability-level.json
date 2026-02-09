@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_interoperability_single_interoperability_levels",
+  "info": {
+    "displayName": "SingleInteroperabilityLevel"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Subtitle": {
+      "type": "string"
+    },
+    "Illustration": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    }
+  },
+  "config": {}
+}

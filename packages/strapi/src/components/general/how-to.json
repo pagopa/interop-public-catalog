@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_general_how_tos",
+  "info": {
+    "displayName": "HowTo"
+  },
+  "options": {},
+  "attributes": {
+    "Illustration": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    },
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "LinkLabel": {
+      "type": "string"
+    },
+    "LinkURL": {
+      "type": "string"
+    },
+    "IsLinkInternal": {
+      "type": "boolean"
+    }
+  },
+  "config": {}
+}

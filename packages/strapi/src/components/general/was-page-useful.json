@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_general_was_page_usefuls",
+  "info": {
+    "displayName": "WasPageUseful"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "EmailLabel": {
+      "type": "string"
+    },
+    "EmailMailTo": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

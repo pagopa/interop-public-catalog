@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_interoperability_interoperability_levels",
+  "info": {
+    "displayName": "InteroperabilityLevels"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "blocks"
+    },
+    "SingleInteroperabilityLevel": {
+      "type": "component",
+      "component": "interoperability.single-interoperability-level",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

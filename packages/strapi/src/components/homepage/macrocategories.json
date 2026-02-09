@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_homepage_macrocategories",
+  "info": {
+    "displayName": "Macrocategories"
+  },
+  "options": {},
+  "attributes": {
+    "macrocategory": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::macrocategory.macrocategory"
+    }
+  },
+  "config": {}
+}

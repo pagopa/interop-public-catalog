@@ -1,0 +1,42 @@
+{
+  "collectionName": "components_homepage_heroes",
+  "info": {
+    "displayName": "Hero"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Subtitle": {
+      "type": "string"
+    },
+    "InputPlaceholderText": {
+      "type": "string"
+    },
+    "SearchButtonLabel": {
+      "type": "string"
+    },
+    "APIQuestion": {
+      "type": "string"
+    },
+    "APITooltipTitle": {
+      "type": "string"
+    },
+    "APITooltipDescription": {
+      "type": "string"
+    },
+    "ScrollDownLabel": {
+      "type": "string"
+    },
+    "Illustration": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    }
+  },
+  "config": {}
+}

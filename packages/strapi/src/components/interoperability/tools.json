@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_interoperability_tools",
+  "info": {
+    "displayName": "Tools"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Subtitle": {
+      "type": "string"
+    },
+    "SingleTool": {
+      "type": "component",
+      "component": "interoperability.single-tool",
+      "repeatable": true
+    },
+    "UsageLabel": {
+      "type": "string"
+    },
+    "LinkLabel": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
