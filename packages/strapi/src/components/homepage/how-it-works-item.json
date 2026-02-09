@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_homepage_how_it_works_items",
+  "info": {
+    "displayName": "HowItWorksItem"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "LinkLabel": {
+      "type": "string"
+    },
+    "LinkURL": {
+      "type": "string"
+    },
+    "IsLinkInternal": {
+      "type": "boolean"
+    },
+    "Illustration": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
+    }
+  },
+  "config": {}
+}

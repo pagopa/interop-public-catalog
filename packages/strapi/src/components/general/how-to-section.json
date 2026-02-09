@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_general_how_to_sections",
+  "info": {
+    "displayName": "HowToSection"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "HowTo": {
+      "type": "component",
+      "component": "general.how-to",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

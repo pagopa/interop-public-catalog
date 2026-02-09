@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_esempi_pratici_technical_notes",
+  "info": {
+    "displayName": "TechnicalNotes"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "blocks"
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_normativa_section_section_items",
+  "info": {
+    "displayName": "SectionItem"
+  },
+  "options": {},
+  "attributes": {
+    "NormativaSectionItemTitle": {
+      "type": "string"
+    },
+    "NormativaSectionItemDescription": {
+      "type": "blocks"
+    },
+    "NormativaSectionItemLink": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

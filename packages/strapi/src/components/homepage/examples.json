@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_homepage_examples",
+  "info": {
+    "displayName": "Examples"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "macrocategories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::macrocategory.macrocategory"
+    },
+    "SeeAllMacrocategoriesLinkLabel": {
+      "type": "string"
+    },
+    "esempi_praticis": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::esempio-pratico.esempio-pratico"
+    },
+    "SeeAllExamplesLinkLabel": {
+      "type": "string"
+    },
+    "SeeAllExamplesLinkURL": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
