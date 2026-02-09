@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_faq_section_faq_section_items",
+  "info": {
+    "displayName": "SectionItem"
+  },
+  "options": {},
+  "attributes": {
+    "FAQQuestion": {
+      "type": "string"
+    },
+    "FAQAnswer": {
+      "type": "blocks"
+    }
+  },
+  "config": {}
+}

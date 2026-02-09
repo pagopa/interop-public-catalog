@@ -25,6 +25,8 @@ COPY packages/strapi/ ./packages/strapi/
 COPY packages/models/ ./packages/models/
 COPY packages/typescript-config/ ./packages/typescript-config/
 
+RUN pnpm --filter ./packages/strapi strapi ts:generate-types
+
 RUN pnpm run build
 
 # Creating final image
