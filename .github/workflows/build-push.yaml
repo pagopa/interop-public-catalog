@@ -10,6 +10,7 @@ on:
       - "packages/**"
       - "!packages/*/scripts/**"
       - ".github/workflows/build-push.yaml"
+      - "pnpm-lock.yaml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
