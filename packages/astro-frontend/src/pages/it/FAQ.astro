@@ -16,18 +16,18 @@ if (!faqContent) {
 
 <Layout>
   <PageHero
-    title={faqContent.data.title}
-    description={faqContent.data.description}
+    title={faqContent.data.Title}
+    description={faqContent.data.SubTitle}
     breadcrumbItems={[{ routeKey: "HOME" }, { routeKey: "FAQ", current: true }]}
   />
 
   <div class="bg-muted pb-5">
     {
-      faqContent.data.faqSection.map((faqSection) => (
+      faqContent.data.FAQSection.map((faqSection) => (
         <FAQListSection
           sectionId={faqSection.id}
-          title={faqSection.sectionTitle}
-          faqs={faqSection.faqList}
+          title={faqSection.FAQSectionTitle}
+          faqs={faqSection.FAQSectionItem}
         />
       ))
     }
