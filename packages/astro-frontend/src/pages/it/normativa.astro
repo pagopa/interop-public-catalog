@@ -17,7 +17,7 @@ const currentLocale = getLangFromUrl(Astro.url.pathname);
 const strapiResponse = await strapiService.getNormativaContent(currentLocale);
 
 if (!strapiResponse) {
-  throw new Error("Could not fetch Normativa content");
+  throw new Error("Could not fetch content from strapi");
 }
 
 const contents = strapiResponse.data;
