@@ -1,25 +1,54 @@
 ---
 import type { EService } from "pagopa-interop-public-models";
-import { useHomepageTranslations } from "../../i18n/homepage.i18n";
-import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
+// import { useHomepageTranslations } from "../../i18n/homepage.i18n";
+import { getLangFromUrl /* getLocalizedRoute */ } from "../../i18n/utils.i18n";
 import { EServiceCard } from "../shared/EServiceCard";
 import { Section } from "../shared/Section";
+import type { ShowcaseEservices } from "../../types/pages";
+import { isDevEnvironment } from "../../config/constants";
+import { sqlService } from "../../server/services";
 
 interface Props {
-  highlightedEServices: EService[];
+  content: ShowcaseEservices;
+  // highlightedEServices: EService[];
 }
 
-const { highlightedEServices } = Astro.props;
+const { content } = Astro.props;
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
-const t = useHomepageTranslations(currentLocale);
+// const t = useHomepageTranslations(currentLocale);
+
+/**
+ * In dev environment we show the first 3 eservices from the catalog
+ * since the highlighted ones are not available.
+ */
+const highlightedEServicesPromise: Promise<EService[]> = (async () => {
+  if (isDevEnvironment(Astro.url.href)) {
+    return [];
+  }
+
+  const results = await Promise.all(
+    content.Eservices.map((eservice) =>
+      sqlService.getEService(eservice.EServiceId),
+    ),
+  );
+
+  return results.filter((result): result is EService => result !== undefined);
+})();
+
+const highlightedEServices = await highlightedEServicesPromise;
+
+// TODO remove strings and comments
+// t("featured_api.title")
+// t("featured_api.explore_catalog")
+// getLocalizedRoute(currentLocale, "ESERVICE_CATALOG")
 ---
 
 <Section
-  title={t("featured_api.title")}
+  title={content.Title}
   sectionLink={{
-    text: t("featured_api.explore_catalog"),
-    href: getLocalizedRoute(currentLocale, "ESERVICE_CATALOG"),
+    text: content.LinkLabel,
+    href: content.LinkURL,
   }}
 >
   <div class="px-0">

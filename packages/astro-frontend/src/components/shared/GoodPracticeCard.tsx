@@ -3,11 +3,12 @@ import { BootstrapItaliaIcon } from "./BootstrapItaliaIcon.js";
 import { useUiTranslations } from "../../i18n/ui.i18n.js";
 import type { SupportedLanguage } from "../../i18n/types.i18n.js";
 import { getLocalizedRoute } from "../../i18n/utils.i18n.js";
-import type { GoodPractice } from "pagopa-interop-public-models";
+// import type { GoodPractice } from "pagopa-interop-public-models";
+import type { EsempiPratici } from "../../types/collectionTypes.js";
 
 interface GoodPracticeCardProps extends HTMLAttributes<HTMLDivElement> {
   currentLocale: SupportedLanguage;
-  goodPractice: GoodPractice;
+  goodPractice: EsempiPratici;
 }
 
 const CARD_MAX_WIDTH = 636;
@@ -20,10 +21,10 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
   ...props
 }) => {
   const tUi = useUiTranslations(currentLocale);
-  const macrocategories = goodPractice.tenantMacrocategories;
+  const macrocategories = goodPractice.macrocategories;
 
   const route = getLocalizedRoute(currentLocale, "GOOD_PRACTICES_DETAILS", {
-    params: { slug: goodPractice.slug },
+    params: { slug: goodPractice.Slug },
   });
 
   return (
@@ -60,7 +61,7 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
           style={{ lineHeight: "1rem", color: "#2F475E" }}
           className="fw-semibold"
         >
-          {goodPractice.category}
+          {goodPractice.GoodPracticeTenantDestination}
         </small>
       </header>
 
@@ -70,10 +71,10 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
         className="text-primary h4 line-clamp-3 mb-0"
       >
         <a
-          aria-label={tUi("actions.learnMore") + " " + goodPractice.title}
+          aria-label={tUi("actions.learnMore") + " " + goodPractice.Title}
           href={route}
         >
-          {goodPractice.title}
+          {goodPractice.Title}
         </a>
       </h3>
 
@@ -86,12 +87,12 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
           <strong>{tUi("label.for")}: </strong>
           {macrocategories.length === 0
             ? tUi("tenant_macrocategory_.tutti_short")
-            : macrocategories.map((m) => m.label).join(", ")}
+            : macrocategories.map((m) => m.MacroCategoryLabel).join(", ")}
         </div>
         <a
           href={route}
           className="it-card-link text-primary flex-shrink-0"
-          aria-label={tUi("actions.learnMore") + " " + goodPractice.title}
+          aria-label={tUi("actions.learnMore") + " " + goodPractice.Title}
         >
           {tUi("actions.learnMore")}
           <BootstrapItaliaIcon
