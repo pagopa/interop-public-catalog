@@ -1,14 +1,17 @@
 {
-  "collectionName": "components_catalog_single_links",
+  "collectionName": "components_e_service_documentation_sections",
   "info": {
-    "displayName": "SingleLink"
+    "displayName": "DocumentationSection"
   },
   "options": {},
   "attributes": {
-    "LinkLabel": {
+    "Title": {
       "type": "string"
     },
-    "LinkURL": {
+    "Description": {
+      "type": "string"
+    },
+    "LoginLabel": {
       "type": "string"
     },
     "MixpanelExternalLinkId": {

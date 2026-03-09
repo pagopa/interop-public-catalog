@@ -16,6 +16,12 @@
     },
     "LinkURL": {
       "type": "string"
+    },
+    "MixpanelExternalLinkId": {
+      "type": "string"
+    },
+    "MixpanelExternalLinkDescription": {
+      "type": "string"
     }
   },
   "config": {}

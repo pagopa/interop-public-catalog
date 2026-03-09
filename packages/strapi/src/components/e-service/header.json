@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_e_service_headers",
+  "info": {
+    "displayName": "Header"
+  },
+  "options": {},
+  "attributes": {
+    "CopyUrlLabel": {
+      "type": "string"
+    },
+    "ProducerLabel": {
+      "type": "string"
+    },
+    "RestrictedAccessLabel": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

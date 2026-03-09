@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_e_service_api_details_sections",
+  "info": {
+    "displayName": "APIDetailsSection"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "EServiceState": {
+      "type": "component",
+      "component": "e-service.e-service-state",
+      "repeatable": false
+    },
+    "PublishDate": {
+      "type": "component",
+      "component": "e-service.publish-date",
+      "repeatable": false
+    },
+    "LastVersionPublishDate": {
+      "type": "component",
+      "component": "e-service.last-version-publish-date",
+      "repeatable": false
+    },
+    "Delegations": {
+      "type": "component",
+      "component": "e-service.delegations",
+      "repeatable": false
+    },
+    "RequestAcceptancePolicy": {
+      "type": "component",
+      "component": "e-service.request-acceptance-policy",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}

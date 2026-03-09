@@ -27,6 +27,12 @@
     },
     "IsLinkInternal": {
       "type": "boolean"
+    },
+    "MixpanelExternalLinkId": {
+      "type": "string"
+    },
+    "MixpanelExternalLinkDescription": {
+      "type": "string"
     }
   },
   "config": {}

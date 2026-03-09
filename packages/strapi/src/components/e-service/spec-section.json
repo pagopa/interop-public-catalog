@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_e_service_spec_sections",
+  "info": {
+    "displayName": "SpecSection"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Version": {
+      "type": "component",
+      "component": "e-service.version",
+      "repeatable": false
+    },
+    "Technology": {
+      "type": "component",
+      "component": "e-service.technology",
+      "repeatable": false
+    },
+    "Mode": {
+      "type": "component",
+      "component": "e-service.mode",
+      "repeatable": false
+    },
+    "SignalHub": {
+      "type": "component",
+      "component": "e-service.signal-hub",
+      "repeatable": false
+    }
+  },
+  "config": {}
+}
