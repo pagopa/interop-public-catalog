@@ -2,6 +2,6 @@
  * macrocategory service
  */
 
-import { factories } from '@strapi/strapi';
+import { factories } from "@strapi/strapi";
 
-export default factories.createCoreService('api::macrocategory.macrocategory');
+export default factories.createCoreService("api::macrocategory.macrocategory");
