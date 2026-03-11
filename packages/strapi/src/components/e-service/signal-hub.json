@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_e_service_signal_hubs",
+  "info": {
+    "displayName": "SignalHub"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    },
+    "TrueValueLabel": {
+      "type": "string"
+    },
+    "FalseValueLabel": {
+      "type": "string"
+    },
+    "TooltipTitle": {
+      "type": "string"
+    },
+    "TooltipContent": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

@@ -10,6 +10,9 @@
     },
     "FAQAnswer": {
       "type": "blocks"
+    },
+    "FaqId": {
+      "type": "string"
     }
   },
   "config": {}

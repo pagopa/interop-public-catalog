@@ -552,6 +552,65 @@ export interface ApiError500Error500 extends Struct.SingleTypeSchema {
   };
 }
 
+export interface ApiEsempiPraticiArchivioEsempiPraticiArchivio
+  extends Struct.SingleTypeSchema {
+  collectionName: 'esempi_pratici_archivios';
+  info: {
+    displayName: 'Esempi Pratici (Archivio)';
+    pluralName: 'esempi-pratici-archivios';
+    singularName: 'esempi-pratici-archivio';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::esempi-pratici-archivio.esempi-pratici-archivio'
+    >;
+    Macrocategories: Schema.Attribute.Component<
+      'esempi-pratici-archive.macrocategories',
+      true
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    Seo: Schema.Attribute.Component<'seo.seo', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Subtitle: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Title: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiEsempioPraticoEsempioPratico
   extends Struct.CollectionTypeSchema {
   collectionName: 'esempi_pratici';
@@ -1096,6 +1155,98 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSchedaEServiceSchedaEService
+  extends Struct.SingleTypeSchema {
+  collectionName: 'scheda_e_services';
+  info: {
+    displayName: 'Scheda e-service';
+    pluralName: 'scheda-e-services';
+    singularName: 'scheda-e-service';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  pluginOptions: {
+    i18n: {
+      localized: true;
+    };
+  };
+  attributes: {
+    APIDetailsSection: Schema.Attribute.Component<
+      'e-service.api-details-section',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    DescriptionSection: Schema.Attribute.Component<
+      'e-service.description-section',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    DocumentationSection: Schema.Attribute.Component<
+      'e-service.documentation-section',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Header: Schema.Attribute.Component<'e-service.header', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    Label: Schema.Attribute.Component<'e-service.api-implement', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    locale: Schema.Attribute.String;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::scheda-e-service.scheda-e-service'
+    >;
+    PageIndexLabel: Schema.Attribute.String &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    RequirementsSection: Schema.Attribute.Component<
+      'e-service.requirements-section',
+      false
+    > &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    SpecSection: Schema.Attribute.Component<'e-service.spec-section', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiSingleCatalogSingleCatalog extends Struct.SingleTypeSchema {
   collectionName: 'catalog';
   info: {
@@ -1408,8 +1559,8 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    alternativeText: Schema.Attribute.String;
-    caption: Schema.Attribute.String;
+    alternativeText: Schema.Attribute.Text;
+    caption: Schema.Attribute.Text;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1433,7 +1584,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     mime: Schema.Attribute.String & Schema.Attribute.Required;
     name: Schema.Attribute.String & Schema.Attribute.Required;
-    previewUrl: Schema.Attribute.String;
+    previewUrl: Schema.Attribute.Text;
     provider: Schema.Attribute.String & Schema.Attribute.Required;
     provider_metadata: Schema.Attribute.JSON;
     publishedAt: Schema.Attribute.DateTime;
@@ -1442,7 +1593,7 @@ export interface PluginUploadFile extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    url: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.Text & Schema.Attribute.Required;
     width: Schema.Attribute.Integer;
   };
 }
@@ -1663,6 +1814,7 @@ declare module '@strapi/strapi' {
       'admin::user': AdminUser;
       'api::error-404.error-404': ApiError404Error404;
       'api::error-500.error-500': ApiError500Error500;
+      'api::esempi-pratici-archivio.esempi-pratici-archivio': ApiEsempiPraticiArchivioEsempiPraticiArchivio;
       'api::esempio-pratico.esempio-pratico': ApiEsempioPraticoEsempioPratico;
       'api::faq.faq': ApiFaqFaq;
       'api::general.general': ApiGeneralGeneral;
@@ -1671,6 +1823,7 @@ declare module '@strapi/strapi' {
       'api::macrocategory.macrocategory': ApiMacrocategoryMacrocategory;
       'api::normativa.normativa': ApiNormativaNormativa;
       'api::page.page': ApiPagePage;
+      'api::scheda-e-service.scheda-e-service': ApiSchedaEServiceSchedaEService;
       'api::single-catalog.single-catalog': ApiSingleCatalogSingleCatalog;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

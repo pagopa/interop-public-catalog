@@ -11,7 +11,7 @@
     "SingleLink": {
       "type": "component",
       "component": "catalog.single-link",
-      "repeatable": false
+      "repeatable": true
     }
   },
   "config": {}

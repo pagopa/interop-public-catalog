@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_e_service_documentation_sections",
+  "info": {
+    "displayName": "DocumentationSection"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "LoginLabel": {
+      "type": "string"
+    },
+    "MixpanelExternalLinkId": {
+      "type": "string"
+    },
+    "MixpanelExternalLinkDescription": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

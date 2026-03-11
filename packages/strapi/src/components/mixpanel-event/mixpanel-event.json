@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_mixpanel_event_mixpanel_events",
+  "info": {
+    "displayName": "MixpanelEvent"
+  },
+  "options": {},
+  "attributes": {
+    "EventName": {
+      "type": "string"
+    },
+    "CustomProperty": {
+      "type": "component",
+      "component": "mixpanel-event.custom-properties",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

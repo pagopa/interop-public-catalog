@@ -12,6 +12,9 @@
       "type": "component",
       "component": "normativa-section.section-item",
       "repeatable": true
+    },
+    "NormativaId": {
+      "type": "string"
     }
   },
   "config": {}

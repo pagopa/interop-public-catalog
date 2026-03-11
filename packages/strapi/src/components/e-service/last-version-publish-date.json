@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_e_service_last_version_publish_dates",
+  "info": {
+    "displayName": "LastVersionPublishDate"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

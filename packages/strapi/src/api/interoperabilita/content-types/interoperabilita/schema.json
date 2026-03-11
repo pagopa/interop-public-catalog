@@ -49,10 +49,7 @@
         }
       },
       "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
+      "allowedTypes": ["images", "files"]
     },
     "Tools": {
       "type": "component",

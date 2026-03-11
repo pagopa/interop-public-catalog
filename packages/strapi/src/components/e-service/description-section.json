@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_e_service_description_sections",
+  "info": {
+    "displayName": "DescriptionSection"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

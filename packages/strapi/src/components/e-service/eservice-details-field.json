@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_e_service_eservice_details_fields",
+  "info": {
+    "displayName": "EserviceDetailsField"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    },
+    "TooltipTitle": {
+      "type": "string"
+    },
+    "TooltipContent": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}
