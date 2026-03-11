@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_e_service_request_acceptance_policies",
+  "info": {
+    "displayName": "RequestAcceptancePolicy"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    },
+    "TrueValueLabel": {
+      "type": "string"
+    },
+    "FalseValueLabel": {
+      "type": "string"
+    },
+    "TooltipTitle": {
+      "type": "string"
+    },
+    "TooltipContent": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

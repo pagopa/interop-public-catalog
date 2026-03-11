@@ -8,10 +8,7 @@
     "Image": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
+      "allowedTypes": ["images", "files"]
     },
     "Caption": {
       "type": "string"

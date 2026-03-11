@@ -1,0 +1,55 @@
+{
+  "kind": "singleType",
+  "collectionName": "esempi_pratici_archivios",
+  "info": {
+    "singularName": "esempi-pratici-archivio",
+    "pluralName": "esempi-pratici-archivios",
+    "displayName": "Esempi Pratici (Archivio)"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "Subtitle": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "Seo": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "seo.seo",
+      "repeatable": false
+    },
+    "Macrocategories": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "esempi-pratici-archive.macrocategories",
+      "repeatable": true
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_e_service_versions",
+  "info": {
+    "displayName": "Version"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

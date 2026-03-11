@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_e_service_requirements_sections",
+  "info": {
+    "displayName": "RequirementsSection"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

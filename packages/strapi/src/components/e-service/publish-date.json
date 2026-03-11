@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_e_service_publish_dates",
+  "info": {
+    "displayName": "PublishDate"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

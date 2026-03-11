@@ -14,18 +14,12 @@
     "OpenGraphImage": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
+      "allowedTypes": ["images", "files"]
     },
     "TwitterImage": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
+      "allowedTypes": ["images", "files"]
     }
   },
   "config": {}

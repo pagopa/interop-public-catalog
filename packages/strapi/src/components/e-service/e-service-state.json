@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_e_service_e_service_states",
+  "info": {
+    "displayName": "EServiceState"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    },
+    "ActiveValueLabel": {
+      "type": "string"
+    },
+    "SuspendedValueLabel": {
+      "type": "string"
+    },
+    "TooltipTitle": {
+      "type": "string"
+    },
+    "TooltipContent": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

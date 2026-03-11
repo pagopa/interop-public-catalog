@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_e_service_modes",
+  "info": {
+    "displayName": "Mode"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    },
+    "ReceiveValueLabel": {
+      "type": "string"
+    },
+    "DeliverValueLabel": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

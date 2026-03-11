@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_e_service_technologies",
+  "info": {
+    "displayName": "Technology"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

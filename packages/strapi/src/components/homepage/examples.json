@@ -29,6 +29,9 @@
     },
     "SeeAllExamplesLinkURL": {
       "type": "string"
+    },
+    "MixpanelGoodPracticeCatalogReferral": {
+      "type": "string"
     }
   },
   "config": {}

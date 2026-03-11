@@ -39,10 +39,7 @@
         }
       },
       "multiple": false,
-      "allowedTypes": [
-        "images",
-        "files"
-      ]
+      "allowedTypes": ["images", "files"]
     },
     "LinkLabel": {
       "type": "string",

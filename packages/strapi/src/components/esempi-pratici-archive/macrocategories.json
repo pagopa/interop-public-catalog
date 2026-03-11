@@ -1,0 +1,15 @@
+{
+  "collectionName": "components_esempi_pratici_archive_macrocategories",
+  "info": {
+    "displayName": "Macrocategories"
+  },
+  "options": {},
+  "attributes": {
+    "macrocategorie": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::macrocategory.macrocategory"
+    }
+  },
+  "config": {}
+}
