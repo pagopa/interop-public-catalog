@@ -17,7 +17,7 @@
     "TrueValueLabel": {
       "type": "string"
     },
-    "FalseLabelValue": {
+    "FalseValueLabel": {
       "type": "string"
     }
   },
