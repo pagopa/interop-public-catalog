@@ -24,7 +24,7 @@ const contents = strapiResponse.data;
 const body = contents.NormativaSection;
 
 const sectionTitles = body.map((section) => ({
-  id: section.documentId,
+  id: section.NormativaId,
   label: section.NormativaSectionTitle,
 }));
 ---
@@ -60,7 +60,7 @@ const sectionTitles = body.map((section) => ({
           body.map((section) => {
             return (
               <>
-                <h2 class="h5 mb-4" id={section.documentId}>
+                <h2 class="h5 mb-4" id={section.NormativaId}>
                   {section.NormativaSectionTitle}
                 </h2>
                 {section.NormativaSectionItem.map((item) => {
