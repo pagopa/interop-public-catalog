@@ -1,29 +1,25 @@
 import { StrapiNodeSchema } from "pagopa-interop-public-models";
-import { Seo } from "../seo.js";
 import { Section } from "../../components/shared/Section.js";
 import z from "zod";
+import { SeoSchema } from "../seo.js";
 
 export const SectionItemSchema = z.object({
-  id: z.number(),
-  documentId: z.string(),
   FAQQuestion: z.string(),
   FAQAnswer: z.array(StrapiNodeSchema),
+  FAQId: z.string(),
 });
 
 export const SectionSchema = z.object({
-  id: z.number(),
-  documentId: z.string(),
+  FAQSectionId: z.string(),
   FAQSectionTitle: z.string(),
   FAQSectionItem: z.array(SectionItemSchema),
 });
 
 export const FaqSchema = z.object({
-  id: z.number(),
-  documentId: z.string(),
   Title: z.string(),
   SubTitle: z.string(),
   FAQSection: z.array(SectionSchema),
-  Seo: Seo,
+  Seo: SeoSchema,
 });
 
 export type SectionItem = z.infer<typeof SectionItemSchema>;

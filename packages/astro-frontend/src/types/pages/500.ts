@@ -3,8 +3,6 @@ import { RouteKeySchema } from "../../config/routes";
 import z from "zod";
 
 export const Error500Schema = z.object({
-  id: z.number(),
-  documentId: z.string(),
   Title: z.string(),
   Description: z.string(),
   Illustration: StrapiImageSchema,

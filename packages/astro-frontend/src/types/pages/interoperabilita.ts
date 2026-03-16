@@ -1,11 +1,11 @@
 import z from "zod";
-import { Seo } from "../seo.js";
 import {
   StrapiImageSchema,
   StrapiNodeSchema,
 } from "pagopa-interop-public-models";
+import { SeoSchema } from "../seo";
 
-export const FeaturesSchema = z.object({
+export const FeatureSchema = z.object({
   Title: z.string(),
   Description: z.string(),
 });
@@ -15,6 +15,8 @@ export const SingleToolSchema = z.object({
   Subtitle: z.string(),
   Description: z.string(),
   LinkURL: z.string(),
+  MixpanelExternalLinkId: z.string(),
+  MixpanelExternalLinkDescription: z.string(),
 });
 
 export const ToolsSchema = z.object({
@@ -47,15 +49,15 @@ export const InteroperabilityLevelsSchema = z.object({
 export const Interoperabilita = z.object({
   Title: z.string(),
   Description: z.string(),
-  Features: z.array(FeaturesSchema),
+  Features: z.array(FeatureSchema),
   InfoGraphic: StrapiImageSchema,
   Tools: ToolsSchema,
   Legislation: LegislationSchema,
   InteroperabilityLevels: InteroperabilityLevelsSchema,
-  Seo: Seo,
+  Seo: SeoSchema,
 });
 
-export type Features = z.infer<typeof FeaturesSchema>;
+export type Feature = z.infer<typeof FeatureSchema>;
 export type SingleTool = z.infer<typeof SingleToolSchema>;
 export type Tools = z.infer<typeof ToolsSchema>;
 export type Legislation = z.infer<typeof LegislationSchema>;

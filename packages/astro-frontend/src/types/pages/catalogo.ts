@@ -1,9 +1,11 @@
 import z from "zod";
-import { Seo } from "../seo.js";
+import { SeoSchema } from "../seo";
 
 export const SingleLinkSchema = z.object({
   LinkLabel: z.string(),
   LinkURL: z.string(),
+  MixpanelExternalLinkId: z.string(),
+  MixpanelExternalLinkDescription: z.string(),
 });
 
 export const LinksSchema = z.object({
@@ -14,7 +16,7 @@ export const LinksSchema = z.object({
 export const CatalogSchema = z.object({
   Title: z.string(),
   SubTitle: z.string(),
-  Seo: Seo,
+  Seo: SeoSchema,
   Links: LinksSchema,
 });
 

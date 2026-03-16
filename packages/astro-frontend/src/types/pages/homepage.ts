@@ -1,8 +1,8 @@
 import z from "zod";
-import { Seo } from "../seo.js";
+import { SeoSchema } from "../seo.js";
 import {
   EsempiPraticiSchema,
-  MacroCategoriesSchema,
+  MacroCategorySchema,
 } from "../collectionTypes.js";
 import { StrapiImageSchema } from "pagopa-interop-public-models";
 
@@ -25,6 +25,9 @@ export const HowItWorksItemSchema = z.object({
   LinkURL: z.string(),
   IsLinkInternal: z.boolean(),
   Illustration: StrapiImageSchema,
+  MixpanelGoodpracticeCatalogReferral: z.optional(z.string()),
+  MixpanelExternalLinkId: z.optional(z.string()),
+  MixpanelExternalLinkDescription: z.optional(z.string()),
 });
 
 export const HowItWorksSchema = z.object({
@@ -32,7 +35,7 @@ export const HowItWorksSchema = z.object({
   HowItWorksItem: z.array(HowItWorksItemSchema),
 });
 
-export const EservicesSchema = z.object({
+export const EserviceSchema = z.object({
   EServiceId: z.string(),
 });
 
@@ -40,17 +43,18 @@ export const ShowcaseEservicesSchema = z.object({
   Title: z.string(),
   LinkLabel: z.string(),
   LinkURL: z.string(),
-  Eservices: z.array(EservicesSchema),
+  Eservices: z.array(EserviceSchema),
 });
 
 export const ExamplesSchema = z.object({
   Title: z.string(),
   Description: z.string(),
-  macrocategories: z.array(MacroCategoriesSchema),
+  macrocategories: z.array(MacroCategorySchema),
   SeeAllMacrocategoriesLinkLabel: z.string(),
   esempi_praticis: z.array(EsempiPraticiSchema),
   SeeAllExamplesLinkLabel: z.string(),
   SeeAllEamplesLinkURL: z.string(),
+  MixpanelGoodpracticeCatalogReferral: z.string(),
 });
 
 export const HomepageSchema = z.object({
@@ -58,13 +62,13 @@ export const HomepageSchema = z.object({
   HowItWorks: HowItWorksSchema,
   Examples: ExamplesSchema,
   ShowcaseEservices: ShowcaseEservicesSchema,
-  Seo: Seo,
+  Seo: SeoSchema,
 });
 
 export type Hero = z.infer<typeof HeroSchema>;
 export type HowItWorksItem = z.infer<typeof HowItWorksItemSchema>;
 export type HowItWorks = z.infer<typeof HowItWorksSchema>;
-export type Eservices = z.infer<typeof EservicesSchema>;
+export type Eservice = z.infer<typeof EserviceSchema>;
 export type ShowcaseEservices = z.infer<typeof ShowcaseEservicesSchema>;
 export type Examples = z.infer<typeof ExamplesSchema>;
 export type Homepage = z.infer<typeof HomepageSchema>;

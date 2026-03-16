@@ -3,8 +3,6 @@ import z from "zod";
 import { RouteKeySchema } from "../../config/routes";
 
 export const Error404Schema = z.object({
-  id: z.number(),
-  documentId: z.string(),
   Title: z.string(),
   Description: z.string(),
   Illustration: StrapiImageSchema,

@@ -1,6 +1,6 @@
 import z from "zod";
-import { Route } from "./collectionTypes.js";
-import { Seo } from "./seo.js";
+import { RouteSchema } from "./collectionTypes.js";
+import { SeoSchema } from "./seo.js";
 import { StrapiImageSchema } from "pagopa-interop-public-models";
 
 export const WasPageUsefulSchema = z.object({
@@ -16,6 +16,8 @@ export const HowToSchema = z.object({
   LinkLabel: z.string(),
   LinkURL: z.string(),
   IsLinkInternal: z.boolean(),
+  MixpanelExternalLinkId: z.optional(z.string()),
+  MixpanelExternalLinkDescription: z.optional(z.string()),
 });
 
 export const HowToSectionSchema = z.object({
@@ -25,7 +27,7 @@ export const HowToSectionSchema = z.object({
 
 export const FooterLinksSchema = z.object({
   RowTitle: z.string(),
-  Pagines: z.array(Route),
+  pagines: z.array(RouteSchema),
 });
 
 export const GeneralSchema = z.object({
@@ -33,7 +35,7 @@ export const GeneralSchema = z.object({
   WebsiteTagline: z.string(),
   WasPageUseful: WasPageUsefulSchema,
   HowToSection: HowToSectionSchema,
-  DefaultSeo: Seo,
+  DefaultSeo: SeoSchema,
   FooterLinks: z.array(FooterLinksSchema),
 });
 
