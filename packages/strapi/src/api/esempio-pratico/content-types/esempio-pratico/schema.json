@@ -68,16 +68,6 @@
         }
       }
     },
-    "RelatedEservices": {
-      "type": "component",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "esempi-pratici.related-eservices",
-      "repeatable": true
-    },
     "EsempiPraticiSection": {
       "type": "dynamiczone",
       "pluginOptions": {
@@ -91,6 +81,16 @@
         "esempi-pratici.technical-notes",
         "esempi-pratici.example"
       ]
+    },
+    "RelatedEservices": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "esempi-pratici.related-eservices",
+      "repeatable": true
     },
     "Seo": {
       "type": "component",

@@ -8,6 +8,9 @@
     "FAQSectionTitle": {
       "type": "string"
     },
+    "FAQSectionId": {
+      "type": "string"
+    },
     "FAQSectionItem": {
       "type": "component",
       "component": "faq-section.faq-section-item",
