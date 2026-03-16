@@ -67,7 +67,7 @@ export interface EServiceDelegations extends Struct.ComponentSchema {
     displayName: 'Delegations';
   };
   attributes: {
-    FalseLabelValue: Schema.Attribute.String;
+    FalseValueLabel: Schema.Attribute.String;
     Label: Schema.Attribute.String;
     TooltipContent: Schema.Attribute.String;
     TooltipTitle: Schema.Attribute.String;
@@ -296,6 +296,7 @@ export interface EsempiPraticiSimpleDescription extends Struct.ComponentSchema {
   };
   attributes: {
     Description: Schema.Attribute.Blocks;
+    SectionId: Schema.Attribute.String;
     Title: Schema.Attribute.String;
   };
 }
@@ -329,6 +330,7 @@ export interface FaqSectionSection extends Struct.ComponentSchema {
     displayName: 'Section';
   };
   attributes: {
+    FAQSectionId: Schema.Attribute.String;
     FAQSectionItem: Schema.Attribute.Component<
       'faq-section.faq-section-item',
       true
