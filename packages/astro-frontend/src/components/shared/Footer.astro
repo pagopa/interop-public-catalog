@@ -1,8 +1,8 @@
 ---
 import {
-  CATALOG_API_SECTION_NAV_ITEMS,
+  // CATALOG_API_SECTION_NAV_ITEMS,
   links,
-  RESOURCES_SECTION_NAV_ITEMS,
+  // RESOURCES_SECTION_NAV_ITEMS,
 } from "../../config/constants";
 import { useUiTranslations } from "../../i18n/ui.i18n";
 import {
@@ -10,11 +10,22 @@ import {
   getLocalizedRoute,
   getRouteKeyFromCurrentRoutePattern,
 } from "../../i18n/utils.i18n";
+import { strapiService } from "../../server/services";
+
+//TODO check comments
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const tUi = useUiTranslations(currentLocale);
 
 const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
+
+const strapiResponse = await strapiService.getGeneralContent(currentLocale);
+
+if (!strapiResponse) {
+  throw new Error("Could not fetch content from strapi");
+}
+
+const footerLinks = strapiResponse.data.FooterLinks;
 
 // Footer small print links (legal, privacy, accessibility, etc.)
 const footerSmallPrintLinks = [
@@ -99,8 +110,46 @@ const footerSmallPrintLinks = [
           <div
             class="d-none d-md-flex col-12 col-md-5 pb-2 justify-content-end gap-5"
           >
+            {
+              footerLinks.map((footerLinksGroup) => (
+                <div>
+                  <h4 class="text-uppercase">{footerLinksGroup.RowTitle}</h4>
+                  <div class="link-list-wrapper">
+                    <ul class="footer-list link-list clearfix">
+                      {footerLinksGroup.pagines.map((item) => {
+                        const localizedHref = getLocalizedRoute(
+                          currentLocale,
+                          item.RouteKey,
+                        );
+
+                        const isGoodPracticeCatalogNavItem =
+                          item.RouteKey === "GOOD_PRACTICES_CATALOG";
+                        const mixpanelAttributes = isGoodPracticeCatalogNavItem
+                          ? {
+                              "data-mp-good-practice-catalog-referral":
+                                "footer",
+                            }
+                          : {};
+
+                        return (
+                          <li>
+                            <a
+                              class="list-item"
+                              href={localizedHref}
+                              {...mixpanelAttributes}
+                            >
+                              {item.PageTitle}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              ))
+            }
             <!-- Catalogo API links column -->
-            <div>
+            <!-- <div>
               <h4 class="text-uppercase">
                 {tUi("brand.title")}
               </h4>
@@ -136,9 +185,9 @@ const footerSmallPrintLinks = [
                   }
                 </ul>
               </div>
-            </div>
+            </div> -->
             <!-- Resources links column -->
-            <div>
+            <!-- <div>
               <h4>
                 {tUi("footer.nav_section.resources")}
               </h4>
@@ -158,7 +207,7 @@ const footerSmallPrintLinks = [
                   }
                 </ul>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </section>
