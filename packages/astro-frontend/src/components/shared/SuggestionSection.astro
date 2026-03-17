@@ -4,7 +4,7 @@ import { BootstrapItaliaIcon } from "./BootstrapItaliaIcon";
 import { Section } from "./Section";
 import {
   getLangFromUrl,
-  getRouteKeyFromCurrentRoutePattern,
+  // getRouteKeyFromCurrentRoutePattern,
 } from "../../i18n/utils.i18n";
 import { strapiService } from "../../server/services";
 
@@ -31,7 +31,7 @@ import { strapiService } from "../../server/services";
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 // const t = useUiTranslations(currentLocale);
 
-const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
+// const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
 const strapiResponse = await strapiService.getGeneralContent(currentLocale);
 
@@ -41,19 +41,19 @@ if (!strapiResponse) {
 
 const contents = strapiResponse.data.HowToSection;
 
-const suggestions = contents.HowTo.map((suggestion, index) => {
-  const mixpanelAttributes =
-    index === 0
-      ? {
-          "data-mp-external-link-id": `${routeKey}_suggestionSection_leftCard_interopDevelopersLink`,
-          "data-mp-external-link-description": "TODO",
-        }
-      : undefined;
-  return {
-    ...suggestion,
-    mixpanelAttributes: mixpanelAttributes,
-  };
-});
+// const suggestions = contents.HowTo.map((suggestion, index) => {
+//   const mixpanelAttributes =
+//     index === 0
+//       ? {
+//           "data-mp-external-link-id": `${routeKey}_suggestionSection_leftCard_interopDevelopersLink`,
+//           "data-mp-external-link-description": "TODO",
+//         }
+//       : undefined;
+//   return {
+//     ...suggestion,
+//     mixpanelAttributes: mixpanelAttributes,
+//   };
+// });
 
 // const { leftCard: providedLeftCard, rightCard: providedRightCard } =
 //   Astro.props as Props;
@@ -73,7 +73,7 @@ const suggestions = contents.HowTo.map((suggestion, index) => {
   >
     <div class="d-flex flex-column flex-lg-row gap-4">
       {
-        suggestions.map((suggestion) => (
+        contents.HowTo.map((suggestion) => (
           <article class="bg-white rounded shadow-sm p-5" style="flex: 1;">
             <img
               style="fill: var(--bs-primary);"
@@ -93,7 +93,10 @@ const suggestions = contents.HowTo.map((suggestion, index) => {
               <a
                 href={suggestion.LinkURL}
                 class="btn btn-primary btn-icon"
-                {...suggestion.mixpanelAttributes}
+                data-mp-external-link-id={suggestion.MixpanelExternalLinkId}
+                data-mp-external-link-description={
+                  suggestion.MixpanelExternalLinkDescription
+                }
                 {...(!suggestion.IsLinkInternal
                   ? { target: "_blank", rel: "noopener noreferrer" }
                   : {})}
