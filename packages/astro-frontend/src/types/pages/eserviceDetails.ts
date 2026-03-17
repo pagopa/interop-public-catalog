@@ -1,9 +1,7 @@
 import z from "zod";
 
 export const HeaderSchema = z.object({
-  CopyUrlLabel: z.string(),
   ProducerLabel: z.string(),
-  RestrictedAccessLabel: z.string(),
 });
 
 export const DescriptionSectionSchema = z.object({
@@ -101,6 +99,11 @@ export const APIImplementSchema = z.object({
   MixpanelExternalLinkDescription: z.string(),
 });
 
+export const OtherProducerAPIsSchema = z.object({
+  Label: z.string(),
+  LinkLabel: z.string(),
+});
+
 export const EServiceDetailsSchema = z.object({
   Header: HeaderSchema,
   DescriptionSection: DescriptionSectionSchema,
@@ -110,6 +113,7 @@ export const EServiceDetailsSchema = z.object({
   DocumentationSection: DocumentationSectionSchema,
   PageIndexLabel: z.string(),
   Label: APIImplementSchema,
+  OtherProducerAPIs: OtherProducerAPIsSchema,
 });
 
 export type Header = z.infer<typeof HeaderSchema>;
@@ -135,4 +139,5 @@ export type SpecSection = z.infer<typeof SpecSectionSchema>;
 export type RequirementsSection = z.infer<typeof RequirementsSectionSchema>;
 export type DocumentationSection = z.infer<typeof DocumentationSectionSchema>;
 export type APIImplement = z.infer<typeof APIImplementSchema>;
+export type OtherProducerAPIs = z.infer<typeof OtherProducerAPIsSchema>;
 export type EServiceDetails = z.infer<typeof EServiceDetailsSchema>;

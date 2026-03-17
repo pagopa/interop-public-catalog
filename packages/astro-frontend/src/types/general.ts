@@ -30,6 +30,18 @@ export const FooterLinksSchema = z.object({
   pagines: z.array(RouteSchema),
 });
 
+export const CopyUrlSchema = z.object({
+  Label: z.string(),
+  TooltipLabel: z.string(),
+});
+
+export const EServiceAccessSchema = z.object({
+  RestrictedAccessLabel: z.string(),
+  RestrictedAccessTooltipLabel: z.string(),
+  FreeAccessLabel: z.string(),
+  FreeAccessTooltipLabel: z.string(),
+});
+
 export const GeneralSchema = z.object({
   WebsiteTitle: z.string(),
   WebsiteTagline: z.string(),
@@ -37,10 +49,14 @@ export const GeneralSchema = z.object({
   HowToSection: HowToSectionSchema,
   DefaultSeo: SeoSchema,
   FooterLinks: z.array(FooterLinksSchema),
+  CopyURL: CopyUrlSchema,
+  EServiceAccess: EServiceAccessSchema,
 });
 
 export type WasPageUseful = z.infer<typeof WasPageUsefulSchema>;
 export type HowTo = z.infer<typeof HowToSchema>;
 export type HowToSection = z.infer<typeof HowToSectionSchema>;
 export type FooterLinks = z.infer<typeof FooterLinksSchema>;
+export type CopyURL = z.infer<typeof CopyUrlSchema>;
+export type EServiceAccess = z.infer<typeof EServiceAccessSchema>;
 export type General = z.infer<typeof GeneralSchema>;
