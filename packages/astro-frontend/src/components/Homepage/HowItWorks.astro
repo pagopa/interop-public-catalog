@@ -1,11 +1,11 @@
 ---
 // import { links } from "../../config/constants";
 // import { useHomepageTranslations } from "../../i18n/homepage.i18n";
-import {
-  // getLangFromUrl,
-  // getLocalizedRoute,
-  getRouteKeyFromCurrentRoutePattern,
-} from "../../i18n/utils.i18n";
+// import {
+//   // getLangFromUrl,
+//   // getLocalizedRoute,
+//   getRouteKeyFromCurrentRoutePattern,
+// } from "../../i18n/utils.i18n";
 import type { HowItWorks } from "../../types/pages";
 import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon";
 import { Section } from "../shared/Section";
@@ -13,7 +13,7 @@ import { Section } from "../shared/Section";
 // const currentLocale = getLangFromUrl(Astro.url.pathname);
 // const t = useHomepageTranslations(currentLocale);
 
-const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
+// const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
 interface Props {
   content: HowItWorks;
@@ -21,7 +21,7 @@ interface Props {
 
 const { content } = Astro.props;
 
-// TODO remove strings and comments and watch for mixpanel
+// TODO remove strings and comments and watch for mixpanel (set as optional in type definition, control if same in strapi)
 // t("how_it_works.title")
 
 // const howItWorksSteps = [
@@ -59,16 +59,16 @@ const { content } = Astro.props;
 //   },
 // ] as const;
 
-const mixpanelAttributes = [
-  {},
-  {
-    "data-mp-external-link-id": `${routeKey}_howItWorks_step2_selfcare`,
-    "data-mp-external-link-description": "TODO",
-  },
-  {
-    "data-mp-good-practice-catalog-referral": "how-it-works",
-  },
-];
+// const mixpanelAttributes = [
+//   {},
+//   {
+//     "data-mp-external-link-id": `${routeKey}_howItWorks_step2_selfcare`,
+//     "data-mp-external-link-description": "TODO",
+//   },
+//   {
+//     "data-mp-good-practice-catalog-referral": "how-it-works",
+//   },
+// ];
 ---
 
 <Section className="section-muted py-5" title={content.Title}>
@@ -98,7 +98,13 @@ const mixpanelAttributes = [
                 <div class="it-card-taxonomy">
                   <a
                     href={item.LinkURL}
-                    {...mixpanelAttributes[index]}
+                    data-mp-external-link-id={item.MixpanelExternalLinkId}
+                    data-mp-external-link-description={
+                      item.MixpanelExternalLinkDescription
+                    }
+                    data-mp-good-practice-catalog-referral={
+                      item.MixpanelGoodpracticeCatalogReferral
+                    }
                     {...(!item.IsLinkInternal
                       ? { target: "_blank", rel: "noopener noreferrer" }
                       : {})}

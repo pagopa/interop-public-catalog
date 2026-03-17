@@ -1,14 +1,15 @@
 ---
 // import type { GoodPractice } from "pagopa-interop-public-models";
-import {
-  TENANT_MACROCATEGORIES,
-  type OrganizationType,
-} from "../../config/constants";
+// import {
+//   TENANT_MACROCATEGORIES,
+//   type OrganizationType,
+// } from "../../config/constants";
 import { useHomepageTranslations } from "../../i18n/homepage.i18n";
 import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
 import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon";
 import { GoodPracticeCard } from "../shared/GoodPracticeCard";
 import type { Examples } from "../../types/pages";
+import type { MacroCategory } from "../../types/collectionTypes";
 // import { strapiService } from "../../server/services";
 
 interface Props {
@@ -20,8 +21,8 @@ const { content } = Astro.props;
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const t = useHomepageTranslations(currentLocale);
 
-const getMacroCategoryIdByKey = (key: OrganizationType) =>
-  TENANT_MACROCATEGORIES.find((o) => o.key === key)?.id?.toString() ?? "";
+// const getMacroCategoryIdByKey = (key: OrganizationType) =>
+//   TENANT_MACROCATEGORIES.find((o) => o.key === key)?.id?.toString() ?? "";
 
 // TODO remove strings and comments
 
@@ -52,8 +53,9 @@ const getMacroCategoryIdByKey = (key: OrganizationType) =>
 //   },
 // ] as const;
 
-function getOrganizationTypeHref(macroCategory: OrganizationType) {
-  const macroCategoryId = getMacroCategoryIdByKey(macroCategory);
+function getOrganizationTypeHref(macroCategory: MacroCategory) {
+  // const macroCategoryId = getMacroCategoryIdByKey(macroCategory);
+  const macroCategoryId = macroCategory.MacroCategoryId;
 
   const urlSearchParams = new URLSearchParams({ macroCategoryId }).toString();
   return `${getLocalizedRoute(currentLocale, "GOOD_PRACTICES_CATALOG")}?${urlSearchParams}`;
@@ -114,9 +116,7 @@ function getOrganizationTypeHref(macroCategory: OrganizationType) {
             content.macrocategories.map((macroCategory, index) => (
               <li class:list={["col-12 col-md-6 px-2 py-2 position-relative"]}>
                 <a
-                  href={getOrganizationTypeHref(
-                    macroCategory.MacroCategoryId as OrganizationType,
-                  )}
+                  href={getOrganizationTypeHref(macroCategory)}
                   class="list-item icon-right gap-2 border-0"
                   data-mp-good-practice-catalog-referral="best-practice-section"
                   data-mp-good-practice-category-id={
