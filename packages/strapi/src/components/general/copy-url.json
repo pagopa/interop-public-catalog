@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_general_copy_urls",
+  "info": {
+    "displayName": "CopyURL"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    },
+    "TooltipLabel": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

@@ -5,13 +5,7 @@
   },
   "options": {},
   "attributes": {
-    "CopyUrlLabel": {
-      "type": "string"
-    },
     "ProducerLabel": {
-      "type": "string"
-    },
-    "RestrictedAccessLabel": {
       "type": "string"
     }
   },
