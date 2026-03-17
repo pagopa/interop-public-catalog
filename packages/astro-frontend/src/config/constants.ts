@@ -1,4 +1,4 @@
-import type { RouteKey } from "./routes.js";
+import type { RouteKey } from "./routes";
 
 // This check sucks, we should have this info from env vars
 export const isDevEnvironment = (href: string) =>
@@ -58,37 +58,38 @@ export const RESOURCES_SECTION_NAV_ITEMS = [
   },
 ] as const satisfies Array<{ i18nKey: string; routeKey: RouteKey }>;
 
-export const TENANT_MACROCATEGORIES = [
-  {
-    key: "tutti",
-    id: null,
-    imgSrc: "/img/027-pillars.svg",
-  },
-  {
-    key: "pac",
-    id: 1,
-    imgSrc: "/img/030-city.svg",
-  },
-  {
-    key: "comuni",
-    id: 2,
-    imgSrc: "/img/bank-1.svg",
-  },
-  {
-    key: "regioni",
-    id: 3,
-    imgSrc: "/img/066-hospital.svg",
-  },
-  // {
-  //   key: 'universita',
-  //   id: 4,
-  //   imgSrc: '/img/library-1.svg',
-  // },
-  {
-    key: "altre",
-    id: 5,
-    imgSrc: "/img/073-shopping-mall.svg",
-  },
-] as const;
+// TODO check comments
+// export const TENANT_MACROCATEGORIES = [
+//   {
+//     key: "tutti",
+//     id: null,
+//     imgSrc: "/img/027-pillars.svg",
+//   },
+//   {
+//     key: "pac",
+//     id: 1,
+//     imgSrc: "/img/030-city.svg",
+//   },
+//   {
+//     key: "comuni",
+//     id: 2,
+//     imgSrc: "/img/bank-1.svg",
+//   },
+//   {
+//     key: "regioni",
+//     id: 3,
+//     imgSrc: "/img/066-hospital.svg",
+//   },
+//   // {
+//   //   key: 'universita',
+//   //   id: 4,
+//   //   imgSrc: '/img/library-1.svg',
+//   // },
+//   {
+//     key: "altre",
+//     id: 5,
+//     imgSrc: "/img/073-shopping-mall.svg",
+//   },
+// ] as const;
 
-export type OrganizationType = (typeof TENANT_MACROCATEGORIES)[number]["key"];
+// export type OrganizationType = (typeof TENANT_MACROCATEGORIES)[number]["key"];
