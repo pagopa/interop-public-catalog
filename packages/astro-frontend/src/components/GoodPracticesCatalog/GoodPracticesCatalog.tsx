@@ -7,21 +7,26 @@ import {
 import useSwr from "swr";
 import { MacroCategoryIdFilter } from "./MacroCategoryIdFilter.jsx";
 import { apiService } from "../../services/api.services.js";
-import { parseAsInteger, useQueryState } from "nuqs";
+import { /* parseAsInteger,  */ parseAsString, useQueryState } from "nuqs";
 import { NuqsAdapter } from "nuqs/adapters/react";
+import type { MacroCategory } from "../../types/collectionTypes.js";
+
+//TODO watch comments
 
 type GoodPracticesCatalogProps = {
-  defaultMacroCategoryId: number | null;
+  defaultMacroCategoryId: string | null;
   currentLocale: SupportedLanguage;
+  tenantMacrocategories: MacroCategory[];
 };
 
 export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
   currentLocale,
   defaultMacroCategoryId,
+  tenantMacrocategories,
 }) => {
   const [searchParams, setSearchParams] = useQueryState(
     "macroCategoryId",
-    parseAsInteger,
+    parseAsString,
   );
 
   const isServer = typeof window === "undefined";
@@ -48,7 +53,7 @@ export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
   );
 
   const handleSelectedMacroCategoryIdChange = (
-    macroCategoryId: number | null,
+    macroCategoryId: string | null,
   ) => {
     setSearchParams(macroCategoryId);
   };
@@ -57,9 +62,10 @@ export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
     <div className="row">
       <div className="col-12 col-lg-4 mb-default mb-lg-0">
         <MacroCategoryIdFilter
-          currentLocale={currentLocale}
+          // currentLocale={currentLocale}
           onSelectedMacroCategoryIdChange={handleSelectedMacroCategoryIdChange}
           selectedMacroCategoryId={selectedMacroCategoryId ?? null}
+          tenantMacrocategories={tenantMacrocategories}
         />
       </div>
       <div className="col-12 col-lg-8 d-flex flex-column align-items-center gap-4 flex-fill">
@@ -75,7 +81,7 @@ export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
         {!isLoading &&
           data?.results.map((goodPractice) => (
             <GoodPracticeCard
-              key={goodPractice.slug}
+              key={goodPractice.Slug}
               currentLocale={currentLocale}
               goodPractice={goodPractice}
             />
@@ -96,16 +102,21 @@ export const GoodPracticesCatalog: React.FC<GoodPracticesCatalogProps> = (
 };
 
 export const GoodPracticesCatalogSkeleton: React.FC<{
-  selectedMacroCategoryId: number | null;
-  currentLocale: SupportedLanguage;
-}> = ({ selectedMacroCategoryId, currentLocale }) => {
+  selectedMacroCategoryId: string | null;
+  tenantMacrocategories: MacroCategory[];
+  // currentLocale: SupportedLanguage;
+}> = ({
+  selectedMacroCategoryId,
+  tenantMacrocategories /* currentLocale */,
+}) => {
   return (
     <div className="row">
       <div className="col-4 d-none d-lg-block">
         <MacroCategoryIdFilter
-          currentLocale={currentLocale}
+          // currentLocale={currentLocale}
           onSelectedMacroCategoryIdChange={() => {}}
           selectedMacroCategoryId={selectedMacroCategoryId}
+          tenantMacrocategories={tenantMacrocategories}
         />
       </div>
       <div className="col-12 col-lg-8 d-flex flex-column align-items-center gap-4 flex-fill">
