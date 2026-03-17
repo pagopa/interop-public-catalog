@@ -1,10 +1,10 @@
 ---
 // import { links } from "../../config/constants";
 // import { useEcosystemTranslations } from "../../i18n/ecosystem.i18n";
-import {
-  // getLangFromUrl,
-  getRouteKeyFromCurrentRoutePattern,
-} from "../../i18n/utils.i18n";
+// import {
+//   getLangFromUrl,
+//   getRouteKeyFromCurrentRoutePattern,
+// } from "../../i18n/utils.i18n";
 import type { Tools } from "../../types/pages";
 import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon";
 import { Section } from "../shared/Section";
@@ -18,7 +18,7 @@ interface Props {
 
 const { toolsSection } = Astro.props;
 
-const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
+// const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
 // TODO remove strings and comments
 // t("access_points_section.title")
@@ -26,29 +26,31 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 // t("access_points_section.actions.go_to_site")
 // t("access_points_section.what_is_it_for")
 
-const mixpanelAttributes = [
-  {
-    "data-mp-external-link-id": `${routeKey}_accessPointsSection_pagoPa`,
-    "data-mp-external-link-description": "TODO",
-  },
-  {
-    "data-mp-external-link-id": `${routeKey}_accessPointsSection_euInteroperabilityFramework`,
-    "data-mp-external-link-description": "TODO",
-  },
-  {
-    "data-mp-external-link-id": `${routeKey}_accessPointsSection_schemaSemantic`,
-    "data-mp-external-link-description": "TODO",
-  },
-  {
-    "data-mp-external-link-id": `${routeKey}_accessPointsSection_openData`,
-    "data-mp-external-link-description": "TODO",
-  },
-] as const;
+// const mixpanelAttributes = [
+//   {
+//     "data-mp-external-link-id": `${routeKey}_accessPointsSection_pagoPa`,
+//     "data-mp-external-link-description": "TODO",
+//   },
+//   {
+//     "data-mp-external-link-id": `${routeKey}_accessPointsSection_euInteroperabilityFramework`,
+//     "data-mp-external-link-description": "TODO",
+//   },
+//   {
+//     "data-mp-external-link-id": `${routeKey}_accessPointsSection_schemaSemantic`,
+//     "data-mp-external-link-description": "TODO",
+//   },
+//   {
+//     "data-mp-external-link-id": `${routeKey}_accessPointsSection_openData`,
+//     "data-mp-external-link-description": "TODO",
+//   },
+// ] as const;
 
-const tools = toolsSection.SingleTool.map((tool, index) => ({
-  ...tool,
-  mixpanelAttributes: mixpanelAttributes[index],
-}));
+// const tools = toolsSection.SingleTool.map((tool, index) => ({
+//   ...tool,
+//   mixpanelAttributes: {
+//     "data-mp-external-link-id": tool.MixpanelExternalLinkId,
+//   },
+// }));
 
 // const accessPoints = [
 //   {
@@ -117,7 +119,7 @@ const tools = toolsSection.SingleTool.map((tool, index) => ({
     </p>
     <div class="d-flex flex-column flex-lg-row gap-4 gap-lg-3">
       {
-        tools.map((tool) => (
+        toolsSection.SingleTool.map((tool) => (
           <article class="it-card rounded shadow-sm align-items-start p-1">
             <h3 class="h5 it-card-title text-primary">{tool.Title}</h3>
             <div class="it-card-body text-start">
@@ -128,7 +130,10 @@ const tools = toolsSection.SingleTool.map((tool, index) => ({
             <footer class="it-card-related it-card-footer mt-auto">
               <div class="it-card-taxonomy">
                 <a
-                  {...tool.mixpanelAttributes}
+                  data-mp-external-link-id={tool.MixpanelExternalLinkId}
+                  data-mp-external-link-description={
+                    tool.MixpanelExternalLinkDescription
+                  }
                   href={tool.LinkURL}
                   target="_blank"
                   rel="noreferrer noopener"
