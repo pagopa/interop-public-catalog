@@ -92,6 +92,16 @@
       },
       "component": "e-service.api-implement",
       "repeatable": false
+    },
+    "OtherProducerAPIs": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "e-service.other-producer-ap-is",
+      "repeatable": false
     }
   }
 }

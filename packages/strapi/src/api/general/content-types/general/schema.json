@@ -70,6 +70,26 @@
       },
       "component": "general.footer-links",
       "repeatable": true
+    },
+    "CopyURL": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.copy-url",
+      "repeatable": false
+    },
+    "EServiceAccess": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.e-service-access",
+      "repeatable": false
     }
   }
 }
