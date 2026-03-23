@@ -61,7 +61,7 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
           style={{ lineHeight: "1rem", color: "#2F475E" }}
           className="fw-semibold"
         >
-          {goodPractice.GoodPracticeTenantDestination}
+          {goodPractice.Field}
         </small>
       </header>
 
@@ -84,7 +84,10 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
         style={{ gap: 42, marginTop: "auto" }}
       >
         <div className="d-md-inline-block text-truncate mb-1 mb-md-0">
-          <strong>{tUi("label.for")}: </strong>
+          <strong>
+            {goodPractice.GoodPracticeTenantDestination /* tUi("label.for") */}
+            :{" "}
+          </strong>
           {macrocategories.length === 0
             ? tUi("tenant_macrocategory_.tutti_short")
             : macrocategories.map((m) => m.MacroCategoryLabel).join(", ")}
