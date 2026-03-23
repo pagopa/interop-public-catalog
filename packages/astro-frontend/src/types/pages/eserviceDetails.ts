@@ -82,6 +82,16 @@ export const SpecSectionSchema = z.object({
 export const RequirementsSectionSchema = z.object({
   Title: z.string(),
   Description: z.string(),
+  NoAttributesLabel: z.string(),
+  CertifiedAttributeLabel: z.string(),
+  CertifiedAttributeTooltip: z.string(),
+  CertifiedAttributeDescription: z.string(),
+  VerifiedAttributeLabel: z.string(),
+  VerifiedAttributeTooltip: z.string(),
+  VerifiedAttributeDescription: z.string(),
+  DeclaredAttributeLabel: z.string(),
+  DeclaredAttributeTooltip: z.string(),
+  DeclaredAttributeDescription: z.string(),
 });
 
 export const DocumentationSectionSchema = z.object({
@@ -93,6 +103,7 @@ export const DocumentationSectionSchema = z.object({
 });
 
 export const APIImplementSchema = z.object({
+  Title: z.string(),
   LinkLabel: z.string(),
   LinkURL: z.string(),
   MixpanelExternalLinkId: z.string(),
