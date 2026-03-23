@@ -165,7 +165,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<Error404> | undefined> {
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/error-404?populate=*&locale=${locale}`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/error-404?locale=${locale}&pLevel`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -180,7 +180,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<Error500> | undefined> {
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/error-500?populate=*&locale=${locale}`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/error-500?locale=${locale}&pLevel`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
