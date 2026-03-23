@@ -49,10 +49,10 @@ const HEADING_CLASS = "h5 mb-3";
     <PageIndexNav
       title={goodPractice.PageIndexLabel}
       headings={[
-        {
-          label: tGoodPractices("details.section.apis.description"),
-          id: "description",
-        },
+        // {
+        //   label: tGoodPractices("details.section.apis.description"),
+        //   id: "description",
+        // },
         ...sectionTitles,
         {
           label: tGoodPractices("details.section.apis.heading"),
@@ -65,9 +65,9 @@ const HEADING_CLASS = "h5 mb-3";
   </div>
   <div class="col-12 col-md-9">
     <article>
-      <h2 id={"description"} class={HEADING_CLASS}>
+      <!-- <h2 id={"description"} class={HEADING_CLASS}>
         {tGoodPractices("details.section.apis.description")}
-      </h2>
+      </h2> -->
       {
         goodPracticeBody.map((c) =>
           match(c)
