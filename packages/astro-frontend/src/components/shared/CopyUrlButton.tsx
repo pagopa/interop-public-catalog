@@ -1,19 +1,23 @@
 import React, { useEffect, useId } from "react";
-import { useUiTranslations } from "../../i18n/ui.i18n";
+// import { useUiTranslations } from "../../i18n/ui.i18n";
 import { BootstrapItaliaIcon } from "./BootstrapItaliaIcon";
-import type { SupportedLanguage } from "../../i18n/types.i18n";
+// import type { SupportedLanguage } from "../../i18n/types.i18n";
 import { initTooltip } from "../../config/bootstrap-italia";
+import type { CopyURL } from "../../types/general";
 
 interface CopyUrlButtonProps {
-  currentLocale: SupportedLanguage;
+  // currentLocale: SupportedLanguage;
+  strapiContent: CopyURL;
   className?: string;
 }
 
 export const CopyUrlButton: React.FC<CopyUrlButtonProps> = ({
-  currentLocale,
+  // currentLocale,
+  strapiContent,
   className = "",
 }) => {
-  const tUi = useUiTranslations(currentLocale);
+  // TODO remove comments
+  // const tUi = useUiTranslations(currentLocale);
   const id = useId();
   const ref = React.useRef<HTMLButtonElement>(null);
 
@@ -37,10 +41,11 @@ export const CopyUrlButton: React.FC<CopyUrlButtonProps> = ({
         id={id}
         data-bs-toggle="tooltip"
         data-bs-trigger="toggle"
-        title={tUi("actions.copied")}
+        // title={tUi("actions.copied")}
+        title={strapiContent.TooltipLabel}
         className={`btn btn-sm btn-link fw-semibold text-decoration-none ${className}`}
       >
-        <span>{tUi("actions.copyUrl")}</span>
+        <span>{/* tUi("actions.copyUrl") */ strapiContent.Label}</span>
         <BootstrapItaliaIcon name="it-copy" className="ms-2" color="primary" />
       </button>
 
