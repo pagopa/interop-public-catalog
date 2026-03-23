@@ -11,6 +11,8 @@ import type {
 import type { EService, StrapiEntity } from "pagopa-interop-public-models";
 import type { General } from "../types/general";
 import type { EsempiPratici } from "../types/collectionTypes";
+import type { SupportedLanguage } from "../i18n/types.i18n";
+import type { Catalog } from "../types/pages";
 // import type { SupportedLanguage } from "../i18n/types.i18n";
 // TODO check comments
 
@@ -57,9 +59,18 @@ export const apiService = {
     );
     return response.data;
   },
-  getGeneralContent: async (locale: string) => {
+  getGeneralContent: async (locale: SupportedLanguage) => {
     const response = await apiClient.get<StrapiEntity<General>>(
       `/api/general-content`,
+      {
+        params: { locale: locale, pLevel: 3 },
+      },
+    );
+    return response.data;
+  },
+  getCatalogContent: async (locale: SupportedLanguage) => {
+    const response = await apiClient.get<StrapiEntity<Catalog>>(
+      `/api/catalog`,
       {
         params: { locale: locale, pLevel: 3 },
       },
