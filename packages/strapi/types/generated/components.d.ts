@@ -1,20 +1,20 @@
-import type { Schema, Struct } from "@strapi/strapi";
+import type { Schema, Struct } from '@strapi/strapi';
 
 export interface CatalogLinks extends Struct.ComponentSchema {
-  collectionName: "components_catalog_links";
+  collectionName: 'components_catalog_links';
   info: {
-    displayName: "Links";
+    displayName: 'Links';
   };
   attributes: {
-    SingleLink: Schema.Attribute.Component<"catalog.single-link", true>;
+    SingleLink: Schema.Attribute.Component<'catalog.single-link', true>;
     Title: Schema.Attribute.String;
   };
 }
 
 export interface CatalogSingleLink extends Struct.ComponentSchema {
-  collectionName: "components_catalog_single_links";
+  collectionName: 'components_catalog_single_links';
   info: {
-    displayName: "SingleLink";
+    displayName: 'SingleLink';
   };
   attributes: {
     LinkLabel: Schema.Attribute.String;
@@ -25,23 +25,23 @@ export interface CatalogSingleLink extends Struct.ComponentSchema {
 }
 
 export interface EServiceApiDetailsSection extends Struct.ComponentSchema {
-  collectionName: "components_e_service_api_details_sections";
+  collectionName: 'components_e_service_api_details_sections';
   info: {
-    displayName: "APIDetailsSection";
+    displayName: 'APIDetailsSection';
   };
   attributes: {
-    Delegations: Schema.Attribute.Component<"e-service.delegations", false>;
+    Delegations: Schema.Attribute.Component<'e-service.delegations', false>;
     EServiceState: Schema.Attribute.Component<
-      "e-service.e-service-state",
+      'e-service.e-service-state',
       false
     >;
     LastVersionPublishDate: Schema.Attribute.Component<
-      "e-service.last-version-publish-date",
+      'e-service.last-version-publish-date',
       false
     >;
-    PublishDate: Schema.Attribute.Component<"e-service.publish-date", false>;
+    PublishDate: Schema.Attribute.Component<'e-service.publish-date', false>;
     RequestAcceptancePolicy: Schema.Attribute.Component<
-      "e-service.request-acceptance-policy",
+      'e-service.request-acceptance-policy',
       false
     >;
     Title: Schema.Attribute.String;
@@ -49,22 +49,23 @@ export interface EServiceApiDetailsSection extends Struct.ComponentSchema {
 }
 
 export interface EServiceApiImplement extends Struct.ComponentSchema {
-  collectionName: "components_e_service_api_implements";
+  collectionName: 'components_e_service_api_implements';
   info: {
-    displayName: "APIImplement";
+    displayName: 'APIImplement';
   };
   attributes: {
     LinkLabel: Schema.Attribute.String;
     LinkURL: Schema.Attribute.String;
     MixpanelExternalLinkDescription: Schema.Attribute.String;
     MixpanelExternalLinkId: Schema.Attribute.String;
+    Title: Schema.Attribute.String;
   };
 }
 
 export interface EServiceDelegations extends Struct.ComponentSchema {
-  collectionName: "components_e_service_delegations";
+  collectionName: 'components_e_service_delegations';
   info: {
-    displayName: "Delegations";
+    displayName: 'Delegations';
   };
   attributes: {
     FalseValueLabel: Schema.Attribute.String;
@@ -76,9 +77,9 @@ export interface EServiceDelegations extends Struct.ComponentSchema {
 }
 
 export interface EServiceDescriptionSection extends Struct.ComponentSchema {
-  collectionName: "components_e_service_description_sections";
+  collectionName: 'components_e_service_description_sections';
   info: {
-    displayName: "DescriptionSection";
+    displayName: 'DescriptionSection';
   };
   attributes: {
     Title: Schema.Attribute.String;
@@ -86,9 +87,9 @@ export interface EServiceDescriptionSection extends Struct.ComponentSchema {
 }
 
 export interface EServiceDocumentationSection extends Struct.ComponentSchema {
-  collectionName: "components_e_service_documentation_sections";
+  collectionName: 'components_e_service_documentation_sections';
   info: {
-    displayName: "DocumentationSection";
+    displayName: 'DocumentationSection';
   };
   attributes: {
     Description: Schema.Attribute.String;
@@ -100,9 +101,9 @@ export interface EServiceDocumentationSection extends Struct.ComponentSchema {
 }
 
 export interface EServiceEServiceState extends Struct.ComponentSchema {
-  collectionName: "components_e_service_e_service_states";
+  collectionName: 'components_e_service_e_service_states';
   info: {
-    displayName: "EServiceState";
+    displayName: 'EServiceState';
   };
   attributes: {
     ActiveValueLabel: Schema.Attribute.String;
@@ -114,9 +115,9 @@ export interface EServiceEServiceState extends Struct.ComponentSchema {
 }
 
 export interface EServiceEserviceDetailsField extends Struct.ComponentSchema {
-  collectionName: "components_e_service_eservice_details_fields";
+  collectionName: 'components_e_service_eservice_details_fields';
   info: {
-    displayName: "EserviceDetailsField";
+    displayName: 'EserviceDetailsField';
   };
   attributes: {
     Label: Schema.Attribute.String;
@@ -126,9 +127,9 @@ export interface EServiceEserviceDetailsField extends Struct.ComponentSchema {
 }
 
 export interface EServiceHeader extends Struct.ComponentSchema {
-  collectionName: "components_e_service_headers";
+  collectionName: 'components_e_service_headers';
   info: {
-    displayName: "Header";
+    displayName: 'Header';
   };
   attributes: {
     ProducerLabel: Schema.Attribute.String;
@@ -136,9 +137,9 @@ export interface EServiceHeader extends Struct.ComponentSchema {
 }
 
 export interface EServiceLastVersionPublishDate extends Struct.ComponentSchema {
-  collectionName: "components_e_service_last_version_publish_dates";
+  collectionName: 'components_e_service_last_version_publish_dates';
   info: {
-    displayName: "LastVersionPublishDate";
+    displayName: 'LastVersionPublishDate';
   };
   attributes: {
     Label: Schema.Attribute.String;
@@ -146,9 +147,9 @@ export interface EServiceLastVersionPublishDate extends Struct.ComponentSchema {
 }
 
 export interface EServiceMode extends Struct.ComponentSchema {
-  collectionName: "components_e_service_modes";
+  collectionName: 'components_e_service_modes';
   info: {
-    displayName: "Mode";
+    displayName: 'Mode';
   };
   attributes: {
     DeliverValueLabel: Schema.Attribute.String;
@@ -158,9 +159,9 @@ export interface EServiceMode extends Struct.ComponentSchema {
 }
 
 export interface EServiceOtherProducerApIs extends Struct.ComponentSchema {
-  collectionName: "components_e_service_other_producer_ap_is";
+  collectionName: 'components_e_service_other_producer_ap_is';
   info: {
-    displayName: "OtherProducerAPIs";
+    displayName: 'OtherProducerAPIs';
   };
   attributes: {
     Label: Schema.Attribute.String;
@@ -169,9 +170,9 @@ export interface EServiceOtherProducerApIs extends Struct.ComponentSchema {
 }
 
 export interface EServicePublishDate extends Struct.ComponentSchema {
-  collectionName: "components_e_service_publish_dates";
+  collectionName: 'components_e_service_publish_dates';
   info: {
-    displayName: "PublishDate";
+    displayName: 'PublishDate';
   };
   attributes: {
     Label: Schema.Attribute.String;
@@ -180,9 +181,9 @@ export interface EServicePublishDate extends Struct.ComponentSchema {
 
 export interface EServiceRequestAcceptancePolicy
   extends Struct.ComponentSchema {
-  collectionName: "components_e_service_request_acceptance_policies";
+  collectionName: 'components_e_service_request_acceptance_policies';
   info: {
-    displayName: "RequestAcceptancePolicy";
+    displayName: 'RequestAcceptancePolicy';
   };
   attributes: {
     FalseValueLabel: Schema.Attribute.String;
@@ -194,20 +195,30 @@ export interface EServiceRequestAcceptancePolicy
 }
 
 export interface EServiceRequirementsSection extends Struct.ComponentSchema {
-  collectionName: "components_e_service_requirements_sections";
+  collectionName: 'components_e_service_requirements_sections';
   info: {
-    displayName: "RequirementsSection";
+    displayName: 'RequirementsSection';
   };
   attributes: {
+    CertifiedAttributeDescription: Schema.Attribute.String;
+    CertifiedAttributeLabel: Schema.Attribute.String;
+    CertifiedAttributeTooltip: Schema.Attribute.String;
+    DeclaredAttributeDescription: Schema.Attribute.String;
+    DeclaredAttributeLabel: Schema.Attribute.String;
+    DeclaredAttributeTooltip: Schema.Attribute.String;
     Description: Schema.Attribute.String;
+    NoAttributesLabel: Schema.Attribute.String;
     Title: Schema.Attribute.String;
+    VerifiedAttributeDescription: Schema.Attribute.String;
+    VerifiedAttributeLabel: Schema.Attribute.String;
+    VerifiedAttributeTooltip: Schema.Attribute.String;
   };
 }
 
 export interface EServiceSignalHub extends Struct.ComponentSchema {
-  collectionName: "components_e_service_signal_hubs";
+  collectionName: 'components_e_service_signal_hubs';
   info: {
-    displayName: "SignalHub";
+    displayName: 'SignalHub';
   };
   attributes: {
     FalseValueLabel: Schema.Attribute.String;
@@ -219,23 +230,23 @@ export interface EServiceSignalHub extends Struct.ComponentSchema {
 }
 
 export interface EServiceSpecSection extends Struct.ComponentSchema {
-  collectionName: "components_e_service_spec_sections";
+  collectionName: 'components_e_service_spec_sections';
   info: {
-    displayName: "SpecSection";
+    displayName: 'SpecSection';
   };
   attributes: {
-    Mode: Schema.Attribute.Component<"e-service.mode", false>;
-    SignalHub: Schema.Attribute.Component<"e-service.signal-hub", false>;
-    Technology: Schema.Attribute.Component<"e-service.technology", false>;
+    Mode: Schema.Attribute.Component<'e-service.mode', false>;
+    SignalHub: Schema.Attribute.Component<'e-service.signal-hub', false>;
+    Technology: Schema.Attribute.Component<'e-service.technology', false>;
     Title: Schema.Attribute.String;
-    Version: Schema.Attribute.Component<"e-service.version", false>;
+    Version: Schema.Attribute.Component<'e-service.version', false>;
   };
 }
 
 export interface EServiceTechnology extends Struct.ComponentSchema {
-  collectionName: "components_e_service_technologies";
+  collectionName: 'components_e_service_technologies';
   info: {
-    displayName: "Technology";
+    displayName: 'Technology';
   };
   attributes: {
     Label: Schema.Attribute.String;
@@ -243,9 +254,9 @@ export interface EServiceTechnology extends Struct.ComponentSchema {
 }
 
 export interface EServiceVersion extends Struct.ComponentSchema {
-  collectionName: "components_e_service_versions";
+  collectionName: 'components_e_service_versions';
   info: {
-    displayName: "Version";
+    displayName: 'Version';
   };
   attributes: {
     Label: Schema.Attribute.String;
@@ -254,22 +265,22 @@ export interface EServiceVersion extends Struct.ComponentSchema {
 
 export interface EsempiPraticiArchiveMacrocategories
   extends Struct.ComponentSchema {
-  collectionName: "components_esempi_pratici_archive_macrocategories";
+  collectionName: 'components_esempi_pratici_archive_macrocategories';
   info: {
-    displayName: "Macrocategories";
+    displayName: 'Macrocategories';
   };
   attributes: {
     macrocategorie: Schema.Attribute.Relation<
-      "oneToOne",
-      "api::macrocategory.macrocategory"
+      'oneToOne',
+      'api::macrocategory.macrocategory'
     >;
   };
 }
 
 export interface EsempiPraticiExample extends Struct.ComponentSchema {
-  collectionName: "components_esempi_pratici_examples";
+  collectionName: 'components_esempi_pratici_examples';
   info: {
-    displayName: "Example";
+    displayName: 'Example';
   };
   attributes: {
     Description: Schema.Attribute.Blocks;
@@ -278,20 +289,20 @@ export interface EsempiPraticiExample extends Struct.ComponentSchema {
 }
 
 export interface EsempiPraticiImage extends Struct.ComponentSchema {
-  collectionName: "components_esempi_pratici_images";
+  collectionName: 'components_esempi_pratici_images';
   info: {
-    displayName: "Image";
+    displayName: 'Image';
   };
   attributes: {
     Caption: Schema.Attribute.String;
-    Image: Schema.Attribute.Media<"images" | "files">;
+    Image: Schema.Attribute.Media<'images' | 'files'>;
   };
 }
 
 export interface EsempiPraticiRelatedEservices extends Struct.ComponentSchema {
-  collectionName: "components_esempi_pratici_related_eservices";
+  collectionName: 'components_esempi_pratici_related_eservices';
   info: {
-    displayName: "RelatedEservices";
+    displayName: 'RelatedEservices';
   };
   attributes: {
     EserviceId: Schema.Attribute.String;
@@ -299,9 +310,9 @@ export interface EsempiPraticiRelatedEservices extends Struct.ComponentSchema {
 }
 
 export interface EsempiPraticiSimpleDescription extends Struct.ComponentSchema {
-  collectionName: "components_esempi_pratici_simple_descriptions";
+  collectionName: 'components_esempi_pratici_simple_descriptions';
   info: {
-    displayName: "SimpleDescription";
+    displayName: 'SimpleDescription';
   };
   attributes: {
     Description: Schema.Attribute.Blocks;
@@ -311,9 +322,9 @@ export interface EsempiPraticiSimpleDescription extends Struct.ComponentSchema {
 }
 
 export interface EsempiPraticiTechnicalNotes extends Struct.ComponentSchema {
-  collectionName: "components_esempi_pratici_technical_notes";
+  collectionName: 'components_esempi_pratici_technical_notes';
   info: {
-    displayName: "TechnicalNotes";
+    displayName: 'TechnicalNotes';
   };
   attributes: {
     Description: Schema.Attribute.Blocks;
@@ -322,9 +333,9 @@ export interface EsempiPraticiTechnicalNotes extends Struct.ComponentSchema {
 }
 
 export interface FaqSectionFaqSectionItem extends Struct.ComponentSchema {
-  collectionName: "components_faq_section_faq_section_items";
+  collectionName: 'components_faq_section_faq_section_items';
   info: {
-    displayName: "SectionItem";
+    displayName: 'SectionItem';
   };
   attributes: {
     FAQAnswer: Schema.Attribute.Blocks;
@@ -334,14 +345,14 @@ export interface FaqSectionFaqSectionItem extends Struct.ComponentSchema {
 }
 
 export interface FaqSectionSection extends Struct.ComponentSchema {
-  collectionName: "components_faq_section_sections";
+  collectionName: 'components_faq_section_sections';
   info: {
-    displayName: "Section";
+    displayName: 'Section';
   };
   attributes: {
     FAQSectionId: Schema.Attribute.String;
     FAQSectionItem: Schema.Attribute.Component<
-      "faq-section.faq-section-item",
+      'faq-section.faq-section-item',
       true
     >;
     FAQSectionTitle: Schema.Attribute.String;
@@ -349,9 +360,9 @@ export interface FaqSectionSection extends Struct.ComponentSchema {
 }
 
 export interface GeneralCopyUrl extends Struct.ComponentSchema {
-  collectionName: "components_general_copy_urls";
+  collectionName: 'components_general_copy_urls';
   info: {
-    displayName: "CopyURL";
+    displayName: 'CopyURL';
   };
   attributes: {
     Label: Schema.Attribute.String;
@@ -360,9 +371,9 @@ export interface GeneralCopyUrl extends Struct.ComponentSchema {
 }
 
 export interface GeneralEServiceAccess extends Struct.ComponentSchema {
-  collectionName: "components_general_e_service_accesses";
+  collectionName: 'components_general_e_service_accesses';
   info: {
-    displayName: "EServiceAccess";
+    displayName: 'EServiceAccess';
   };
   attributes: {
     FreeAccessLabel: Schema.Attribute.String;
@@ -373,24 +384,24 @@ export interface GeneralEServiceAccess extends Struct.ComponentSchema {
 }
 
 export interface GeneralFooterLinks extends Struct.ComponentSchema {
-  collectionName: "components_general_footer_links";
+  collectionName: 'components_general_footer_links';
   info: {
-    displayName: "FooterLinks";
+    displayName: 'FooterLinks';
   };
   attributes: {
-    pagines: Schema.Attribute.Relation<"oneToMany", "api::page.page">;
+    pagines: Schema.Attribute.Relation<'oneToMany', 'api::page.page'>;
     RowTitle: Schema.Attribute.String;
   };
 }
 
 export interface GeneralHowTo extends Struct.ComponentSchema {
-  collectionName: "components_general_how_tos";
+  collectionName: 'components_general_how_tos';
   info: {
-    displayName: "HowTo";
+    displayName: 'HowTo';
   };
   attributes: {
     Description: Schema.Attribute.String;
-    Illustration: Schema.Attribute.Media<"images" | "files">;
+    Illustration: Schema.Attribute.Media<'images' | 'files'>;
     IsLinkInternal: Schema.Attribute.Boolean;
     LinkLabel: Schema.Attribute.String;
     LinkURL: Schema.Attribute.String;
@@ -401,20 +412,20 @@ export interface GeneralHowTo extends Struct.ComponentSchema {
 }
 
 export interface GeneralHowToSection extends Struct.ComponentSchema {
-  collectionName: "components_general_how_to_sections";
+  collectionName: 'components_general_how_to_sections';
   info: {
-    displayName: "HowToSection";
+    displayName: 'HowToSection';
   };
   attributes: {
-    HowTo: Schema.Attribute.Component<"general.how-to", true>;
+    HowTo: Schema.Attribute.Component<'general.how-to', true>;
     Title: Schema.Attribute.String;
   };
 }
 
 export interface GeneralWasPageUseful extends Struct.ComponentSchema {
-  collectionName: "components_general_was_page_usefuls";
+  collectionName: 'components_general_was_page_usefuls';
   info: {
-    displayName: "WasPageUseful";
+    displayName: 'WasPageUseful';
   };
   attributes: {
     EmailLabel: Schema.Attribute.String;
@@ -424,9 +435,9 @@ export interface GeneralWasPageUseful extends Struct.ComponentSchema {
 }
 
 export interface HomepageEservices extends Struct.ComponentSchema {
-  collectionName: "components_homepage_eservices";
+  collectionName: 'components_homepage_eservices';
   info: {
-    displayName: "Eservices";
+    displayName: 'Eservices';
   };
   attributes: {
     EServiceId: Schema.Attribute.String;
@@ -434,19 +445,19 @@ export interface HomepageEservices extends Struct.ComponentSchema {
 }
 
 export interface HomepageExamples extends Struct.ComponentSchema {
-  collectionName: "components_homepage_examples";
+  collectionName: 'components_homepage_examples';
   info: {
-    displayName: "Examples";
+    displayName: 'Examples';
   };
   attributes: {
     Description: Schema.Attribute.String;
     esempi_praticis: Schema.Attribute.Relation<
-      "oneToMany",
-      "api::esempio-pratico.esempio-pratico"
+      'oneToMany',
+      'api::esempio-pratico.esempio-pratico'
     >;
     macrocategories: Schema.Attribute.Relation<
-      "oneToMany",
-      "api::macrocategory.macrocategory"
+      'oneToMany',
+      'api::macrocategory.macrocategory'
     >;
     MixpanelGoodPracticeCatalogReferral: Schema.Attribute.String;
     SeeAllExamplesLinkLabel: Schema.Attribute.String;
@@ -457,15 +468,15 @@ export interface HomepageExamples extends Struct.ComponentSchema {
 }
 
 export interface HomepageHero extends Struct.ComponentSchema {
-  collectionName: "components_homepage_heroes";
+  collectionName: 'components_homepage_heroes';
   info: {
-    displayName: "Hero";
+    displayName: 'Hero';
   };
   attributes: {
     APIQuestion: Schema.Attribute.String;
     APITooltipDescription: Schema.Attribute.String;
     APITooltipTitle: Schema.Attribute.String;
-    Illustration: Schema.Attribute.Media<"images" | "files">;
+    Illustration: Schema.Attribute.Media<'images' | 'files'>;
     InputPlaceholderText: Schema.Attribute.String;
     ScrollDownLabel: Schema.Attribute.String;
     SearchButtonLabel: Schema.Attribute.String;
@@ -475,13 +486,13 @@ export interface HomepageHero extends Struct.ComponentSchema {
 }
 
 export interface HomepageHowItWorks extends Struct.ComponentSchema {
-  collectionName: "components_homepage_how_it_works";
+  collectionName: 'components_homepage_how_it_works';
   info: {
-    displayName: "HowItWorks";
+    displayName: 'HowItWorks';
   };
   attributes: {
     HowItWorksItem: Schema.Attribute.Component<
-      "homepage.how-it-works-item",
+      'homepage.how-it-works-item',
       true
     > &
       Schema.Attribute.SetMinMax<
@@ -496,13 +507,13 @@ export interface HomepageHowItWorks extends Struct.ComponentSchema {
 }
 
 export interface HomepageHowItWorksItem extends Struct.ComponentSchema {
-  collectionName: "components_homepage_how_it_works_items";
+  collectionName: 'components_homepage_how_it_works_items';
   info: {
-    displayName: "HowItWorksItem";
+    displayName: 'HowItWorksItem';
   };
   attributes: {
     Description: Schema.Attribute.String;
-    Illustration: Schema.Attribute.Media<"images" | "files">;
+    Illustration: Schema.Attribute.Media<'images' | 'files'>;
     IsLinkInternal: Schema.Attribute.Boolean;
     LinkLabel: Schema.Attribute.String;
     LinkURL: Schema.Attribute.String;
@@ -514,25 +525,25 @@ export interface HomepageHowItWorksItem extends Struct.ComponentSchema {
 }
 
 export interface HomepageMacrocategories extends Struct.ComponentSchema {
-  collectionName: "components_homepage_macrocategories";
+  collectionName: 'components_homepage_macrocategories';
   info: {
-    displayName: "Macrocategories";
+    displayName: 'Macrocategories';
   };
   attributes: {
     macrocategory: Schema.Attribute.Relation<
-      "oneToOne",
-      "api::macrocategory.macrocategory"
+      'oneToOne',
+      'api::macrocategory.macrocategory'
     >;
   };
 }
 
 export interface HomepageShowcaseEservices extends Struct.ComponentSchema {
-  collectionName: "components_homepage_showcase_eservices";
+  collectionName: 'components_homepage_showcase_eservices';
   info: {
-    displayName: "ShowcaseEservices";
+    displayName: 'ShowcaseEservices';
   };
   attributes: {
-    EServices: Schema.Attribute.Component<"homepage.eservices", true>;
+    EServices: Schema.Attribute.Component<'homepage.eservices', true>;
     LinkLabel: Schema.Attribute.String;
     LinkURL: Schema.Attribute.String;
     Title: Schema.Attribute.String;
@@ -540,9 +551,9 @@ export interface HomepageShowcaseEservices extends Struct.ComponentSchema {
 }
 
 export interface InteroperabilityFeatures extends Struct.ComponentSchema {
-  collectionName: "components_interoperability_features";
+  collectionName: 'components_interoperability_features';
   info: {
-    displayName: "Features";
+    displayName: 'Features';
   };
   attributes: {
     Description: Schema.Attribute.String;
@@ -552,14 +563,14 @@ export interface InteroperabilityFeatures extends Struct.ComponentSchema {
 
 export interface InteroperabilityInteroperabilityLevels
   extends Struct.ComponentSchema {
-  collectionName: "components_interoperability_interoperability_levels";
+  collectionName: 'components_interoperability_interoperability_levels';
   info: {
-    displayName: "InteroperabilityLevels";
+    displayName: 'InteroperabilityLevels';
   };
   attributes: {
     Description: Schema.Attribute.Blocks;
     SingleInteroperabilityLevel: Schema.Attribute.Component<
-      "interoperability.single-interoperability-level",
+      'interoperability.single-interoperability-level',
       true
     >;
     Title: Schema.Attribute.String;
@@ -567,9 +578,9 @@ export interface InteroperabilityInteroperabilityLevels
 }
 
 export interface InteroperabilityLegislation extends Struct.ComponentSchema {
-  collectionName: "components_interoperability_legislations";
+  collectionName: 'components_interoperability_legislations';
   info: {
-    displayName: "Legislation";
+    displayName: 'Legislation';
   };
   attributes: {
     LinkLabel: Schema.Attribute.String;
@@ -581,21 +592,21 @@ export interface InteroperabilityLegislation extends Struct.ComponentSchema {
 
 export interface InteroperabilitySingleInteroperabilityLevel
   extends Struct.ComponentSchema {
-  collectionName: "components_interoperability_single_interoperability_levels";
+  collectionName: 'components_interoperability_single_interoperability_levels';
   info: {
-    displayName: "SingleInteroperabilityLevel";
+    displayName: 'SingleInteroperabilityLevel';
   };
   attributes: {
-    Illustration: Schema.Attribute.Media<"images" | "files">;
+    Illustration: Schema.Attribute.Media<'images' | 'files'>;
     Subtitle: Schema.Attribute.String;
     Title: Schema.Attribute.String;
   };
 }
 
 export interface InteroperabilitySingleTool extends Struct.ComponentSchema {
-  collectionName: "components_interoperability_single_tools";
+  collectionName: 'components_interoperability_single_tools';
   info: {
-    displayName: "SingleTool";
+    displayName: 'SingleTool';
   };
   attributes: {
     Description: Schema.Attribute.String;
@@ -608,14 +619,14 @@ export interface InteroperabilitySingleTool extends Struct.ComponentSchema {
 }
 
 export interface InteroperabilityTools extends Struct.ComponentSchema {
-  collectionName: "components_interoperability_tools";
+  collectionName: 'components_interoperability_tools';
   info: {
-    displayName: "Tools";
+    displayName: 'Tools';
   };
   attributes: {
     LinkLabel: Schema.Attribute.String;
     SingleTool: Schema.Attribute.Component<
-      "interoperability.single-tool",
+      'interoperability.single-tool',
       true
     >;
     Subtitle: Schema.Attribute.String;
@@ -625,9 +636,9 @@ export interface InteroperabilityTools extends Struct.ComponentSchema {
 }
 
 export interface MixpanelEventCustomProperties extends Struct.ComponentSchema {
-  collectionName: "components_mixpanel_event_custom_properties";
+  collectionName: 'components_mixpanel_event_custom_properties';
   info: {
-    displayName: "CustomProperties";
+    displayName: 'CustomProperties';
   };
   attributes: {
     CustomPropertyKey: Schema.Attribute.String;
@@ -636,13 +647,13 @@ export interface MixpanelEventCustomProperties extends Struct.ComponentSchema {
 }
 
 export interface MixpanelEventMixpanelEvent extends Struct.ComponentSchema {
-  collectionName: "components_mixpanel_event_mixpanel_events";
+  collectionName: 'components_mixpanel_event_mixpanel_events';
   info: {
-    displayName: "MixpanelEvent";
+    displayName: 'MixpanelEvent';
   };
   attributes: {
     CustomProperty: Schema.Attribute.Component<
-      "mixpanel-event.custom-properties",
+      'mixpanel-event.custom-properties',
       true
     >;
     EventName: Schema.Attribute.String;
@@ -651,14 +662,14 @@ export interface MixpanelEventMixpanelEvent extends Struct.ComponentSchema {
 
 export interface NormativaSectionNormativaSection
   extends Struct.ComponentSchema {
-  collectionName: "components_normativa_section_normativa_sections";
+  collectionName: 'components_normativa_section_normativa_sections';
   info: {
-    displayName: "Section";
+    displayName: 'Section';
   };
   attributes: {
     NormativaId: Schema.Attribute.String;
     NormativaSectionItem: Schema.Attribute.Component<
-      "normativa-section.section-item",
+      'normativa-section.section-item',
       true
     >;
     NormativaSectionTitle: Schema.Attribute.String;
@@ -666,9 +677,9 @@ export interface NormativaSectionNormativaSection
 }
 
 export interface NormativaSectionSectionItem extends Struct.ComponentSchema {
-  collectionName: "components_normativa_section_section_items";
+  collectionName: 'components_normativa_section_section_items';
   info: {
-    displayName: "SectionItem";
+    displayName: 'SectionItem';
   };
   attributes: {
     NormativaSectionItemDescription: Schema.Attribute.Blocks;
@@ -678,73 +689,73 @@ export interface NormativaSectionSectionItem extends Struct.ComponentSchema {
 }
 
 export interface SeoSeo extends Struct.ComponentSchema {
-  collectionName: "components_seo_seos";
+  collectionName: 'components_seo_seos';
   info: {
-    displayName: "Seo";
+    displayName: 'Seo';
   };
   attributes: {
     MetaDescription: Schema.Attribute.String;
     MetaTitle: Schema.Attribute.String;
-    OpenGraphImage: Schema.Attribute.Media<"images" | "files">;
-    TwitterImage: Schema.Attribute.Media<"images" | "files">;
+    OpenGraphImage: Schema.Attribute.Media<'images' | 'files'>;
+    TwitterImage: Schema.Attribute.Media<'images' | 'files'>;
   };
 }
 
-declare module "@strapi/strapi" {
+declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
-      "catalog.links": CatalogLinks;
-      "catalog.single-link": CatalogSingleLink;
-      "e-service.api-details-section": EServiceApiDetailsSection;
-      "e-service.api-implement": EServiceApiImplement;
-      "e-service.delegations": EServiceDelegations;
-      "e-service.description-section": EServiceDescriptionSection;
-      "e-service.documentation-section": EServiceDocumentationSection;
-      "e-service.e-service-state": EServiceEServiceState;
-      "e-service.eservice-details-field": EServiceEserviceDetailsField;
-      "e-service.header": EServiceHeader;
-      "e-service.last-version-publish-date": EServiceLastVersionPublishDate;
-      "e-service.mode": EServiceMode;
-      "e-service.other-producer-ap-is": EServiceOtherProducerApIs;
-      "e-service.publish-date": EServicePublishDate;
-      "e-service.request-acceptance-policy": EServiceRequestAcceptancePolicy;
-      "e-service.requirements-section": EServiceRequirementsSection;
-      "e-service.signal-hub": EServiceSignalHub;
-      "e-service.spec-section": EServiceSpecSection;
-      "e-service.technology": EServiceTechnology;
-      "e-service.version": EServiceVersion;
-      "esempi-pratici-archive.macrocategories": EsempiPraticiArchiveMacrocategories;
-      "esempi-pratici.example": EsempiPraticiExample;
-      "esempi-pratici.image": EsempiPraticiImage;
-      "esempi-pratici.related-eservices": EsempiPraticiRelatedEservices;
-      "esempi-pratici.simple-description": EsempiPraticiSimpleDescription;
-      "esempi-pratici.technical-notes": EsempiPraticiTechnicalNotes;
-      "faq-section.faq-section-item": FaqSectionFaqSectionItem;
-      "faq-section.section": FaqSectionSection;
-      "general.copy-url": GeneralCopyUrl;
-      "general.e-service-access": GeneralEServiceAccess;
-      "general.footer-links": GeneralFooterLinks;
-      "general.how-to": GeneralHowTo;
-      "general.how-to-section": GeneralHowToSection;
-      "general.was-page-useful": GeneralWasPageUseful;
-      "homepage.eservices": HomepageEservices;
-      "homepage.examples": HomepageExamples;
-      "homepage.hero": HomepageHero;
-      "homepage.how-it-works": HomepageHowItWorks;
-      "homepage.how-it-works-item": HomepageHowItWorksItem;
-      "homepage.macrocategories": HomepageMacrocategories;
-      "homepage.showcase-eservices": HomepageShowcaseEservices;
-      "interoperability.features": InteroperabilityFeatures;
-      "interoperability.interoperability-levels": InteroperabilityInteroperabilityLevels;
-      "interoperability.legislation": InteroperabilityLegislation;
-      "interoperability.single-interoperability-level": InteroperabilitySingleInteroperabilityLevel;
-      "interoperability.single-tool": InteroperabilitySingleTool;
-      "interoperability.tools": InteroperabilityTools;
-      "mixpanel-event.custom-properties": MixpanelEventCustomProperties;
-      "mixpanel-event.mixpanel-event": MixpanelEventMixpanelEvent;
-      "normativa-section.normativa-section": NormativaSectionNormativaSection;
-      "normativa-section.section-item": NormativaSectionSectionItem;
-      "seo.seo": SeoSeo;
+      'catalog.links': CatalogLinks;
+      'catalog.single-link': CatalogSingleLink;
+      'e-service.api-details-section': EServiceApiDetailsSection;
+      'e-service.api-implement': EServiceApiImplement;
+      'e-service.delegations': EServiceDelegations;
+      'e-service.description-section': EServiceDescriptionSection;
+      'e-service.documentation-section': EServiceDocumentationSection;
+      'e-service.e-service-state': EServiceEServiceState;
+      'e-service.eservice-details-field': EServiceEserviceDetailsField;
+      'e-service.header': EServiceHeader;
+      'e-service.last-version-publish-date': EServiceLastVersionPublishDate;
+      'e-service.mode': EServiceMode;
+      'e-service.other-producer-ap-is': EServiceOtherProducerApIs;
+      'e-service.publish-date': EServicePublishDate;
+      'e-service.request-acceptance-policy': EServiceRequestAcceptancePolicy;
+      'e-service.requirements-section': EServiceRequirementsSection;
+      'e-service.signal-hub': EServiceSignalHub;
+      'e-service.spec-section': EServiceSpecSection;
+      'e-service.technology': EServiceTechnology;
+      'e-service.version': EServiceVersion;
+      'esempi-pratici-archive.macrocategories': EsempiPraticiArchiveMacrocategories;
+      'esempi-pratici.example': EsempiPraticiExample;
+      'esempi-pratici.image': EsempiPraticiImage;
+      'esempi-pratici.related-eservices': EsempiPraticiRelatedEservices;
+      'esempi-pratici.simple-description': EsempiPraticiSimpleDescription;
+      'esempi-pratici.technical-notes': EsempiPraticiTechnicalNotes;
+      'faq-section.faq-section-item': FaqSectionFaqSectionItem;
+      'faq-section.section': FaqSectionSection;
+      'general.copy-url': GeneralCopyUrl;
+      'general.e-service-access': GeneralEServiceAccess;
+      'general.footer-links': GeneralFooterLinks;
+      'general.how-to': GeneralHowTo;
+      'general.how-to-section': GeneralHowToSection;
+      'general.was-page-useful': GeneralWasPageUseful;
+      'homepage.eservices': HomepageEservices;
+      'homepage.examples': HomepageExamples;
+      'homepage.hero': HomepageHero;
+      'homepage.how-it-works': HomepageHowItWorks;
+      'homepage.how-it-works-item': HomepageHowItWorksItem;
+      'homepage.macrocategories': HomepageMacrocategories;
+      'homepage.showcase-eservices': HomepageShowcaseEservices;
+      'interoperability.features': InteroperabilityFeatures;
+      'interoperability.interoperability-levels': InteroperabilityInteroperabilityLevels;
+      'interoperability.legislation': InteroperabilityLegislation;
+      'interoperability.single-interoperability-level': InteroperabilitySingleInteroperabilityLevel;
+      'interoperability.single-tool': InteroperabilitySingleTool;
+      'interoperability.tools': InteroperabilityTools;
+      'mixpanel-event.custom-properties': MixpanelEventCustomProperties;
+      'mixpanel-event.mixpanel-event': MixpanelEventMixpanelEvent;
+      'normativa-section.normativa-section': NormativaSectionNormativaSection;
+      'normativa-section.section-item': NormativaSectionSectionItem;
+      'seo.seo': SeoSeo;
     }
   }
 }
