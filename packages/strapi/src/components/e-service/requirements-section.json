@@ -10,6 +10,36 @@
     },
     "Description": {
       "type": "string"
+    },
+    "NoAttributesLabel": {
+      "type": "string"
+    },
+    "CertifiedAttributeLabel": {
+      "type": "string"
+    },
+    "CertifiedAttributeTooltip": {
+      "type": "string"
+    },
+    "CertifiedAttributeDescription": {
+      "type": "string"
+    },
+    "VerifiedAttributeLabel": {
+      "type": "string"
+    },
+    "VerifiedAttributeTooltip": {
+      "type": "string"
+    },
+    "VerifiedAttributeDescription": {
+      "type": "string"
+    },
+    "DeclaredAttributeLabel": {
+      "type": "string"
+    },
+    "DeclaredAttributeTooltip": {
+      "type": "string"
+    },
+    "DeclaredAttributeDescription": {
+      "type": "string"
     }
   },
   "config": {}
