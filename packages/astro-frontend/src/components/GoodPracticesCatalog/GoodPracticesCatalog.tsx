@@ -44,9 +44,9 @@ export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
           limit: 50,
           offset: 0,
         }),
-        new Promise((resolve) =>
-          setTimeout(resolve, Math.random() * 800 + 200),
-        ), // Simulate network latency
+        // new Promise((resolve) =>
+        //   setTimeout(resolve, Math.random() * 800 + 200),
+        // ), // Simulate network latency TODO remove
       ]);
       return result;
     },
