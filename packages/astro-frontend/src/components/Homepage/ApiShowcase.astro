@@ -7,13 +7,15 @@ import { Section } from "../shared/Section";
 import type { ShowcaseEservices } from "../../types/pages";
 import { isDevEnvironment } from "../../config/constants";
 import { sqlService } from "../../server/services";
+import type { EServiceAccess } from "../../types/general";
 
 interface Props {
   content: ShowcaseEservices;
+  eserviceAccessContent: EServiceAccess;
   // highlightedEServices: EService[];
 }
 
-const { content } = Astro.props;
+const { content, eserviceAccessContent } = Astro.props;
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 // const t = useHomepageTranslations(currentLocale);
@@ -62,6 +64,7 @@ const highlightedEServices = await highlightedEServicesPromise;
               name={name}
               description={description}
               producerName={tenant_name}
+              strapiContent={eserviceAccessContent}
             />
           </div>
         ))

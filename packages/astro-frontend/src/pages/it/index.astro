@@ -34,12 +34,15 @@ const currentLocale = getLangFromUrl(Astro.url.pathname);
 // const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
 const strapiResponse = await strapiService.getHomepageContent(currentLocale);
+const strapiGeneralResponse =
+  await strapiService.getGeneralContent(currentLocale);
 
-if (!strapiResponse) {
+if (!strapiResponse || !strapiGeneralResponse) {
   throw new Error("Could not fetch content from strapi");
 }
 
 const contents = strapiResponse.data;
+const eserviceAccessContent = strapiGeneralResponse.data.EServiceAccess;
 
 // TODO remove strings and comments
 // leftCard={{
@@ -76,7 +79,10 @@ const contents = strapiResponse.data;
   <HomepageHero content={contents.Hero} />
   <HowItWorks content={contents.HowItWorks} />
   <GoodPractices content={contents.Examples} />
-  <ApiShowcase content={contents.ShowcaseEservices} />
+  <ApiShowcase
+    content={contents.ShowcaseEservices}
+    eserviceAccessContent={eserviceAccessContent}
+  />
   <SuggestionSection />
 </Layout>
 
