@@ -45,6 +45,8 @@ const catalogLocalizedUrl = getLocalizedRoute(
 const catalogUrl = `${catalogLocalizedUrl}?${new URLSearchParams({
   provider: JSON.stringify([[eservice.tenant_name, eservice.producer_id]]),
 }).toString()}`;
+
+// TODO remove comments and strings
 ---
 
 <Layout>
