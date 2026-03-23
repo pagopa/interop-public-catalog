@@ -27,9 +27,17 @@ export const GoodPracticeRelatedEService: React.FC<{
     },
   );
 
+  const { data: strapiContent } = useSWRImmutable(
+    ["strapiGeneralContent", { locale: currentLocale, pLevel: 3 }],
+    async ([_, { locale }]) =>
+      apiService
+        .getGeneralContent(locale)
+        .then((res) => res.data.EServiceAccess),
+  );
+
   const t = useGoodPracticesTranslations(currentLocale);
 
-  if (!eservices) {
+  if (!eservices || !strapiContent) {
     return <GoodPracticeRelatedEServiceSkeleton />;
   }
 
@@ -40,6 +48,7 @@ export const GoodPracticeRelatedEService: React.FC<{
       {displayedEServices.map((eservice) => (
         <div key={eservice.id} className="col-12 col-md-6">
           <EServiceCard
+            strapiContent={strapiContent}
             currentLocale={currentLocale}
             name={eservice.name}
             description={eservice.description}
