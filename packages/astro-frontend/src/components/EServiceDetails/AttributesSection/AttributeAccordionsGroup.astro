@@ -3,51 +3,74 @@ import type { EServiceAttributes } from "pagopa-interop-public-models";
 import { useEServiceDetailsTranslations } from "../../../i18n/eservice-details.i18n.js";
 import { getLangFromUrl } from "../../../i18n/utils.i18n";
 import { PopoverIcon } from "../../shared/PopoverIcon.js";
+import type { RequirementsSection } from "../../../types/pages/eserviceDetails";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const t = useEServiceDetailsTranslations(currentLocale);
+
+// TODO remove comments and strings
 
 interface Props {
   groupIndex: number;
   attributeType: keyof EServiceAttributes;
   attributes: EServiceAttributes[keyof EServiceAttributes][number];
+  strapiContent: RequirementsSection;
 }
 
-const { groupIndex, attributeType, attributes } = Astro.props;
+const { groupIndex, attributeType, attributes, strapiContent } = Astro.props;
 
 function getTitle(attributeType: keyof EServiceAttributes) {
   if (attributeType === "certified") {
-    return t("attributes_section.certified_group.title");
+    return strapiContent.CertifiedAttributeLabel /* t("attributes_section.certified_group.title") */;
   }
 
   if (attributeType === "verified") {
-    return t("attributes_section.verified_group.title");
+    return strapiContent.VerifiedAttributeLabel /* t("attributes_section.verified_group.title") */;
   }
 
   // attributeType === 'declared'
-  return t("attributes_section.declared_group.title");
+  return strapiContent.DeclaredAttributeLabel /* t("attributes_section.declared_group.title") */;
 }
 
 function getTooltip(attributeType: keyof EServiceAttributes) {
   if (attributeType === "certified") {
     return {
-      title: t("attributes_section.certified_group_tooltip.title"),
-      content: t("attributes_section.certified_group_tooltip.content"),
+      title:
+        strapiContent.CertifiedAttributeLabel /* t("attributes_section.certified_group_tooltip.title") */,
+      content:
+        strapiContent.CertifiedAttributeTooltip /* t("attributes_section.certified_group_tooltip.content") */,
     };
   }
 
   if (attributeType === "verified") {
     return {
-      title: t("attributes_section.verified_group_tooltip.title"),
-      content: t("attributes_section.verified_group_tooltip.content"),
+      title:
+        strapiContent.VerifiedAttributeLabel /* t("attributes_section.verified_group_tooltip.title") */,
+      content:
+        strapiContent.VerifiedAttributeTooltip /* t("attributes_section.verified_group_tooltip.content") */,
     };
   }
 
   // attributeType === 'declared'
   return {
-    title: t("attributes_section.declared_group_tooltip.title"),
-    content: t("attributes_section.declared_group_tooltip.content"),
+    title:
+      strapiContent.DeclaredAttributeLabel /* t("attributes_section.declared_group_tooltip.title") */,
+    content:
+      strapiContent.DeclaredAttributeTooltip /* t("attributes_section.declared_group_tooltip.content") */,
   };
+}
+
+function getDescription(attributeType: keyof EServiceAttributes) {
+  if (attributeType === "certified") {
+    return strapiContent.CertifiedAttributeDescription;
+  }
+
+  if (attributeType === "verified") {
+    return strapiContent.VerifiedAttributeDescription;
+  }
+
+  // attributeType === 'declared'
+  return strapiContent.DeclaredAttributeDescription;
 }
 
 const tooltip = getTooltip(attributeType);
@@ -62,7 +85,13 @@ const tooltip = getTooltip(attributeType);
       iconName="it-info-circle"
     />
   </h6>
-  <p>{t("attributes_section.group_description")}</p>
+  <p>
+    {
+      getDescription(
+        attributeType,
+      ) /* t("attributes_section.group_description") */
+    }
+  </p>
   <div class="accordion border-0" id={`accordionGroup${groupIndex}`}>
     {
       attributes.map(({ description, name }, index) => (
