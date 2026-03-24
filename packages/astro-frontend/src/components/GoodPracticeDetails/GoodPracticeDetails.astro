@@ -7,13 +7,15 @@ import { renderRichTextStrapiNodes } from "../../utils/rich-text-strapi-renderer
 import type { StrapiNode } from "pagopa-interop-public-models";
 import { GoodPracticeRelatedEService } from "./GoodPracticeRelatedEService";
 import type { EsempiPratici } from "../../types/collectionTypes";
+import type { EServiceAccess } from "../../types/general";
 
 // TODO remove comments
 interface Props {
   goodPractice: EsempiPratici;
+  strapiContent: EServiceAccess
 }
 
-const { goodPractice } = Astro.props;
+const { goodPractice, strapiContent } = Astro.props;
 
 const goodPracticeBody = goodPractice.EsempiPraticiSection;
 
@@ -124,6 +126,7 @@ const HEADING_CLASS = "h5 mb-3";
         client:visible
         currentLocale={currentLocale}
         eserviceIds={goodPractice.RelatedEservices.map((e) => e.EServiceId)}
+        strapiContent={strapiContent}
       />
 
       <div class="mt-4 text-secondary pt-4">

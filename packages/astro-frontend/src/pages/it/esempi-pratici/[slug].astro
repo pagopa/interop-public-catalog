@@ -85,7 +85,10 @@ const generalContents = generalStrapiResponse.data;
   </PageHero>
 
   <Section className="bg-muted">
-    <GoodPracticeDetails goodPractice={goodPractice} />
+    <GoodPracticeDetails
+      goodPractice={goodPractice}
+      strapiContent={generalContents.EServiceAccess}
+    />
   </Section>
 
   <Section

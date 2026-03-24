@@ -5,11 +5,13 @@ import { apiService } from "../../services/api.services";
 import { useState } from "react";
 import { useGoodPracticesTranslations } from "../../i18n/good-practices.i18n";
 import type { EService } from "pagopa-interop-public-models";
+import type { EServiceAccess } from "../../types/general";
 
 export const GoodPracticeRelatedEService: React.FC<{
   currentLocale: SupportedLanguage;
   eserviceIds: string[];
-}> = ({ currentLocale, eserviceIds }) => {
+  strapiContent: EServiceAccess;
+}> = ({ currentLocale, eserviceIds, strapiContent }) => {
   const [showAll, setShowAll] = useState(false);
 
   const { data: eservices } = useSWRImmutable(
@@ -27,17 +29,9 @@ export const GoodPracticeRelatedEService: React.FC<{
     },
   );
 
-  const { data: strapiContent } = useSWRImmutable(
-    ["strapiGeneralContent", { locale: currentLocale, pLevel: 3 }],
-    async ([_, { locale }]) =>
-      apiService
-        .getGeneralContent(locale)
-        .then((res) => res.data.EServiceAccess),
-  );
-
   const t = useGoodPracticesTranslations(currentLocale);
 
-  if (!eservices || !strapiContent) {
+  if (!eservices) {
     return <GoodPracticeRelatedEServiceSkeleton />;
   }
 
