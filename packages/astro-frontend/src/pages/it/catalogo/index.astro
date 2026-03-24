@@ -25,12 +25,15 @@ const searchParamsInitialState = loadEServiceCatalogSearchParams(
 );
 
 const strapiResponse = await strapiService.getCatalogContent(currentLocale);
+const strapiGeneralResponse =
+  await strapiService.getGeneralContent(currentLocale);
 
-if (!strapiResponse) {
+if (!strapiResponse || !strapiGeneralResponse) {
   throw new Error("Could not fetch content from strapi");
 }
 
 const contents = strapiResponse.data;
+const generalContents = strapiGeneralResponse.data;
 
 // TODO remove strings and comments
 // t("title")
@@ -85,6 +88,7 @@ const contents = strapiResponse.data;
       client:idle
       currentLocale={currentLocale}
       eserviceFilterInitialState={searchParamsInitialState}
+      strapiContent={{ general: generalContents, catalog: contents }}
     />
   </Section>
 

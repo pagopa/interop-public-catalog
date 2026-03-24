@@ -10,12 +10,17 @@ import { EServiceCardSkeleton } from "../shared/EServiceCard";
 import { apiService } from "../../services/api.services";
 import useSWRImmutable from "swr/immutable";
 import type { categoriesMap } from "../../server/config/categories";
+import type { General } from "../../types/general";
+import type { Catalog } from "../../types/pages";
 // import type { RouteKey } from "../../config/routes";
 
 // TODO remove comments and strings
 
-export const EServiceCatalog: React.FC = () => {
-  const { eserviceActiveFilterState, applyFilters, currentLocale } =
+export const EServiceCatalog: React.FC<{
+  strapiGeneralContent: General;
+  strapiCatalogContent: Catalog;
+}> = ({ strapiGeneralContent, strapiCatalogContent }) => {
+  const { eserviceActiveFilterState, applyFilters } =
     useEServiceCatalogContext();
   // const t = useCatalogTranslations(currentLocale);
 
@@ -40,33 +45,8 @@ export const EServiceCatalog: React.FC = () => {
     async ([_, filters]) => apiService.getEServices(filters),
   );
 
-  const {
-    data: strapiGeneralContent,
-    isLoading: isStrapiGeneralContentLoading,
-  } = useSWRImmutable(
-    ["strapiGeneralContent", { locale: currentLocale, pLevel: 3 }],
-    async ([_, { locale }]) =>
-      apiService.getGeneralContent(locale).then((res) => res.data),
-  );
-
-  const {
-    data: strapiCatalogContent,
-    isLoading: isStrapiCatalogContentLoading,
-  } = useSWRImmutable(
-    ["strapiCatalogContent", { locale: currentLocale, pLevel: 3 }],
-    async ([_, { locale }]) =>
-      apiService.getCatalogContent(locale).then((res) => res.data),
-  );
-
   const totalCount = data?.pagination.totalCount ?? 0;
   const eservices = data?.results ?? [];
-
-  if (
-    (!strapiGeneralContent && !isStrapiGeneralContentLoading) ||
-    (!strapiCatalogContent && !isStrapiCatalogContentLoading)
-  ) {
-    throw new Error("Could not fetch content from strapi");
-  }
 
   // const routeKey: RouteKey = "ESERVICE_CATALOG";
 
@@ -76,7 +56,7 @@ export const EServiceCatalog: React.FC = () => {
         <EServiceCatalogFilters handleSubmitRequest={onFiltersApply} />
       </Container>
 
-      {!isLoading && strapiGeneralContent ? (
+      {!isLoading ? (
         <EServiceCatalogItems
           eservices={eservices}
           totalCount={totalCount}
@@ -85,37 +65,36 @@ export const EServiceCatalog: React.FC = () => {
       ) : (
         <EServiceItemsSkeleton />
       )}
-      {strapiCatalogContent && (
-        <Container className="p-3">
-          <div className="primary-bg-c1 pt-3 px-sm-3">
-            <h4 className="p-3">
-              {strapiCatalogContent.Links.Title /* t("finder.title") */}
-            </h4>
-            <div className="p-3">
-              {strapiCatalogContent.Links.SingleLink.map((singleLink) => (
-                <a
-                  // data-mp-external-link-id={`${routeKey}_finder_apiListLink`}
-                  // data-mp-external-link-description="TODO"
-                  data-mp-external-link-id={singleLink.MixpanelExternalLinkId}
-                  data-mp-external-link-description={
-                    singleLink.MixpanelExternalLinkDescription
-                  }
-                  href={singleLink.LinkURL /* links.apiListLink */}
-                  target="_blank"
-                  className="btn btn-outline-primary btn-icon me-1"
-                  rel="noreferrer"
-                >
-                  {singleLink.LinkLabel /* t("finder.api.label") */}
-                  {
-                    <BootstrapItaliaIcon
-                      className="ms-2"
-                      name="it-external-link"
-                      color="primary"
-                    />
-                  }
-                </a>
-              ))}
-              {/* <a
+      <Container className="p-3">
+        <div className="primary-bg-c1 pt-3 px-sm-3">
+          <h4 className="p-3">
+            {strapiCatalogContent.Links.Title /* t("finder.title") */}
+          </h4>
+          <div className="p-3">
+            {strapiCatalogContent.Links.SingleLink.map((singleLink) => (
+              <a
+                // data-mp-external-link-id={`${routeKey}_finder_apiListLink`}
+                // data-mp-external-link-description="TODO"
+                data-mp-external-link-id={singleLink.MixpanelExternalLinkId}
+                data-mp-external-link-description={
+                  singleLink.MixpanelExternalLinkDescription
+                }
+                href={singleLink.LinkURL /* links.apiListLink */}
+                target="_blank"
+                className="btn btn-outline-primary btn-icon me-1"
+                rel="noreferrer"
+              >
+                {singleLink.LinkLabel /* t("finder.api.label") */}
+                {
+                  <BootstrapItaliaIcon
+                    className="ms-2"
+                    name="it-external-link"
+                    color="primary"
+                  />
+                }
+              </a>
+            ))}
+            {/* <a
                 data-mp-external-link-id={`${routeKey}_finder_apiListLink`}
                 data-mp-external-link-description="TODO"
                 href={links.apiListLink}
@@ -132,7 +111,7 @@ export const EServiceCatalog: React.FC = () => {
                   />
                 }
               </a> */}
-              {/* <a
+            {/* <a
                 data-mp-external-link-id={`${routeKey}_finder_providerListLink`}
                 data-mp-external-link-description="TODO"
                 href={links.membersListLink}
@@ -149,10 +128,9 @@ export const EServiceCatalog: React.FC = () => {
                   />
                 }
               </a> */}
-            </div>
           </div>
-        </Container>
-      )}
+        </div>
+      </Container>
     </>
   );
 };
