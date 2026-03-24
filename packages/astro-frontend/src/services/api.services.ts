@@ -8,12 +8,8 @@ import type {
   EServicesQuery,
   GoodPracticeSlugQuery,
 } from "../server/models/api";
-import type { EService, StrapiEntity } from "pagopa-interop-public-models";
-import type { General } from "../types/general";
-import type { EsempiPratici } from "../types/collectionTypes";
+import type { EService } from "pagopa-interop-public-models";
 import type { SupportedLanguage } from "../i18n/types.i18n";
-import type { Catalog } from "../types/pages";
-// import type { SupportedLanguage } from "../i18n/types.i18n";
 // TODO check comments
 
 const apiClient = axios.create({
@@ -41,38 +37,20 @@ export const apiService = {
     });
     return response.data;
   },
-  getGoodPracticeBySlug: async (slug: GoodPracticeSlugQuery) => {
-    const response = await apiClient.get<StrapiEntity<EsempiPratici>>(
-      `/api/esempi-pratici`,
-      {
-        params: { slug: slug, pLevel: 3 },
-      },
-    );
+  getGoodPracticeBySlug: async (
+    slug: GoodPracticeSlugQuery,
+    locale: SupportedLanguage,
+  ) => {
+    const response = await apiClient.get(`/api/good-practices/${slug}`, {
+      params: { locale },
+    });
     return response.data;
   },
   getGoodPractices: async (params: GoodPracticesQuery) => {
     const response = await apiClient.get<GoodPracticesResponse>(
-      `/api/esempi-pratici`,
+      `/api/good-practices`,
       {
-        params: { ...params, pLevel: 3 },
-      },
-    );
-    return response.data;
-  },
-  getGeneralContent: async (locale: SupportedLanguage) => {
-    const response = await apiClient.get<StrapiEntity<General>>(
-      `/api/general-content`,
-      {
-        params: { locale: locale, pLevel: 3 },
-      },
-    );
-    return response.data;
-  },
-  getCatalogContent: async (locale: SupportedLanguage) => {
-    const response = await apiClient.get<StrapiEntity<Catalog>>(
-      `/api/catalog`,
-      {
-        params: { locale: locale, pLevel: 3 },
+        params,
       },
     );
     return response.data;
