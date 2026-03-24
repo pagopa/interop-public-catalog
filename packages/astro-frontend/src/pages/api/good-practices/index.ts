@@ -17,17 +17,12 @@ export const GET: APIRoute = async ({ url, locals }) => {
     locals.logger.info(
       `Fetching good practices. Locale: ${locale}, Macro Category ID: ${macroCategoryId}, Limit: ${limit}, Offset: ${offset}`,
     );
-    const rawData = await strapiService.getGoodPractices(
-      {
-        macroCategoryIds:
-          typeof macroCategoryId !== "undefined"
-            ? [macroCategoryId]
-            : undefined,
-        limit,
-        offset,
-      },
-      locale,
-    );
+    const rawData = await strapiService.getGoodPractices(locale, {
+      macroCategoryIds:
+        typeof macroCategoryId !== "undefined" ? [macroCategoryId] : undefined,
+      limit,
+      offset,
+    });
 
     const data = GoodPracticesResponseSchema.parse({
       results: rawData.data,

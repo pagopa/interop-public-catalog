@@ -7,10 +7,14 @@ import {
 } from "../../../server/models/api.js";
 import {
   emptyErrorMapper,
-  GoodPractice,
+  // GoodPractice,
   notFoundError,
 } from "pagopa-interop-public-models";
 import { makeApiProblem } from "../../../server/models/errors.js";
+import {
+  EsempiPraticiSchema,
+  type EsempiPratici,
+} from "../../../types/collectionTypes.js";
 
 export const GET: APIRoute = async ({ params, url, locals }) => {
   try {
@@ -28,7 +32,9 @@ export const GET: APIRoute = async ({ params, url, locals }) => {
       throw notFoundError(`Good practice with slug '${slug}' not found`);
     }
 
-    const data = GoodPractice.parse(rawData.data satisfies GoodPractice);
+    const data = EsempiPraticiSchema.parse(
+      rawData.data satisfies EsempiPratici,
+    );
 
     return new Response(JSON.stringify(data), {
       headers: { "Content-Type": "application/json" },
