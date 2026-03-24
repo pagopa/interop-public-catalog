@@ -270,7 +270,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<Catalog>> {
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/catalog?locale=${locale}&pLevel`, //single-catalog? TODO check
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/single-catalog?locale=${locale}&pLevel`, //single-catalog? TODO check
         {
           headers: {
             Authorization: `Bearer ${_token}`,
