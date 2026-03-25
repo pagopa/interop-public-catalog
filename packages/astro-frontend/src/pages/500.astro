@@ -13,15 +13,18 @@ const currentLocale = getLangFromUrl(Astro.url.pathname);
 // message: tUi("error.system_unavailable.message"),
 
 const strapiResponse = await strapiService.get500Content(currentLocale);
+const strapiGeneralResponse =
+  await strapiService.getGeneralContent(currentLocale);
 
-if (!strapiResponse) {
+if (!strapiResponse || !strapiGeneralResponse) {
   throw new Error("Could not fetch content from strapi");
 }
 
 const contents = strapiResponse.data;
+const seo = strapiGeneralResponse.data.DefaultSeo;
 ---
 
-<Layout>
+<Layout seo={seo}>
   <ErrorDisplayer
     error={{
       iconSrc: contents.Illustration.url,

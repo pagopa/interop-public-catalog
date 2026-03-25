@@ -1,9 +1,21 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import { Section } from "../../components/shared/Section";
+import { strapiService } from "../../server/services";
+import { getLangFromUrl } from "../../i18n/utils.i18n";
+
+const currentLocale = getLangFromUrl(Astro.url.pathname);
+
+const strapiResponse = await strapiService.getGeneralContent(currentLocale);
+
+if (!strapiResponse) {
+  throw new Error("Could not fetch content from strapi");
+}
+
+const contents = strapiResponse.data;
 ---
 
-<Layout>
+<Layout seo={contents.DefaultSeo}>
   <Section>
     <Fragment
       set:html={`

@@ -26,7 +26,7 @@ const goodPracticesCatalogContent = strapiResponse.data;
 // TODO watch comments and remove strings
 ---
 
-<Layout>
+<Layout seo={goodPracticesCatalogContent.Seo}>
   <PageHero
     title={goodPracticesCatalogContent.Title /* tGoodPractices("catalog.title") */}
     description={goodPracticesCatalogContent.SubTitle /* tGoodPractices("catalog.subtitle") */}

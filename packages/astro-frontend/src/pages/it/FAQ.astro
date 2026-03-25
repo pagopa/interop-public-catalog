@@ -7,23 +7,25 @@ import { strapiService } from "../../server/services";
 import { getLangFromUrl } from "../../i18n/utils.i18n";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
-const faqContent = await strapiService.getFaqContent(currentLocale);
+const strapiResponse = await strapiService.getFaqContent(currentLocale);
 
-if (!faqContent) {
+if (!strapiResponse) {
   throw new Error("Could not fetch content from strapi");
 }
+
+const faqContent = strapiResponse.data;
 ---
 
-<Layout>
+<Layout seo={faqContent.Seo}>
   <PageHero
-    title={faqContent.data.Title}
-    description={faqContent.data.SubTitle}
+    title={faqContent.Title}
+    description={faqContent.SubTitle}
     breadcrumbItems={[{ routeKey: "HOME" }, { routeKey: "FAQ", current: true }]}
   />
 
   <div class="bg-muted pb-5">
     {
-      faqContent.data.FAQSection.map((faqSection) => (
+      faqContent.FAQSection.map((faqSection) => (
         <FAQListSection
           sectionId={faqSection.FAQSectionId}
           title={faqSection.FAQSectionTitle}

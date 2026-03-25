@@ -9,32 +9,21 @@ import Header from "../components/shared/Header/Header.astro";
 import Footer from "../components/shared/Footer.astro";
 import { getLangFromUrl } from "../i18n/utils.i18n";
 import { clientEnvConfig } from "../config/config";
-import type { MetaDataType } from "../server/types/metaData.types";
-import { strapiService } from "../server/services";
-import { getRouteKeyFromCurrentRoutePattern } from "../i18n/utils.i18n";
+// import type { MetaDataType } from "../server/types/metaData.types";
+// import { strapiService } from "../server/services";
+// import { getRouteKeyFromCurrentRoutePattern } from "../i18n/utils.i18n";
 import BackToTopButton from "../components/shared/BackToTopButton.astro";
+import type { Seo } from "../types/seo";
+
+// TODO watch comments and remove
+
+type Props = {
+  seo: Seo;
+};
+
+const { seo } = Astro.props as Props;
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
-
-const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
-
-const { data: generalData } = await strapiService.getSeoMetaData(
-  currentLocale,
-  Astro.url.origin,
-  "DEFAULT",
-);
-
-const { data: pageData } = await strapiService.getSeoMetaData(
-  currentLocale,
-  Astro.url.origin,
-  routeKey ?? "DEFAULT",
-  Astro.params,
-);
-
-const generalMetaData = generalData[0] as MetaDataType;
-const pageMetaData = pageData[0] as MetaDataType;
-
-const metaLocale = pageMetaData.locale ?? generalMetaData.locale;
 ---
 
 <!doctype html>
@@ -62,58 +51,23 @@ const metaLocale = pageMetaData.locale ?? generalMetaData.locale;
     <link rel="sitemap" href="/sitemap.xml" />
     <meta name="generator" content={Astro.generator} />
 
-    <title>{pageMetaData.title ?? generalMetaData.title}</title>
-    <meta
-      name="description"
-      content={pageMetaData.seo.metaDescription ??
-        generalMetaData.seo.metaDescription}
-    />
+    <title>{seo.MetaTitle}</title>
+    <meta name="description" content={seo.MetaDescription} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content={pageMetaData.seo.metaTitle ?? generalMetaData.seo.metaTitle}
-    />
-    <meta
-      name="twitter:description"
-      content={pageMetaData.seo.metaDescription ??
-        generalMetaData.seo.metaDescription}
-    />
-    <meta
-      name="twitter:image"
-      content={pageMetaData.seo.twitterImage?.url ??
-        generalMetaData.seo.twitterImage?.url}
-    />
+    <meta name="twitter:title" content={seo.MetaTitle} />
+    <meta name="twitter:description" content={seo.MetaDescription} />
+    <meta name="twitter:image" content={seo.TwitterImage.url} />
     <meta
       property="og:locale"
-      content={metaLocale === "it" ? "it_IT" : "en_US"}
+      content={currentLocale === "it" ? "it_IT" : "en_US"}
     />
     <meta property="og:type" content="website" />
-    <meta
-      property="og:title"
-      content={pageMetaData.seo.metaTitle ?? generalMetaData.seo.metaTitle}
-    />
-    <meta
-      property="og:description"
-      content={pageMetaData.seo.metaDescription ??
-        generalMetaData.seo.metaDescription}
-    />
-    <meta
-      property="og:url"
-      content={pageMetaData.seo.canonical ?? generalMetaData.seo.canonical}
-    />
-    <meta
-      property="og:site_name"
-      content={pageMetaData.siteName ?? generalMetaData.siteName}
-    />
-    <meta
-      property="og:image"
-      content={pageMetaData.seo.opengraphImage?.url ??
-        generalMetaData.seo.opengraphImage?.url}
-    />
-    <link
-      rel="canonical"
-      href={pageMetaData.seo.canonical ?? generalMetaData.seo.canonical}
-    />
+    <meta property="og:title" content={seo.MetaTitle} />
+    <meta property="og:description" content={seo.MetaDescription} />
+    <meta property="og:url" content={Astro.url.pathname} />
+    <meta property="og:site_name" content={seo.MetaTitle} />
+    <meta property="og:image" content={seo.OpenGraphImage.url} />
+    <link rel="canonical" href={Astro.url.pathname} />
   </head>
   <body>
     <Header />
