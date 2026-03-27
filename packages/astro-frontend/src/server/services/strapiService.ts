@@ -27,6 +27,7 @@ import type { Interoperabilita } from "../../types/pages/interoperabilita.js";
 import type { Normativa } from "../../types/pages/normativa.js";
 import type { EsempiPraticiCatalog } from "../../types/pages/esempiPratici.js";
 import type { EServiceDetails } from "../../types/pages/eserviceDetails.js";
+import qs from "qs";
 
 export function strapiServiceBuilder(_endpoint: string, _token: string) {
   return {
@@ -126,24 +127,24 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     //     ),
     //   ),
 
-    async getSeoMetaData(
-      locale: SupportedLanguage,
-      origin: string,
-      routeKey: RouteKey | "DEFAULT",
-      pageParams?: { eserviceId?: string; pageSlug?: string },
-    ): Promise<StrapiEntityList<MetaDataType>> {
-      return Promise.resolve({
-        data: [getSeoMockData(locale, origin, routeKey, pageParams)],
-        meta: {
-          pagination: {
-            page: 1,
-            pageSize: 1,
-            pageCount: 1,
-            total: 1,
-          },
-        },
-      });
-    },
+    // async getSeoMetaData(
+    //   locale: SupportedLanguage,
+    //   origin: string,
+    //   routeKey: RouteKey | "DEFAULT",
+    //   pageParams?: { eserviceId?: string; pageSlug?: string },
+    // ): Promise<StrapiEntityList<MetaDataType>> {
+    //   return Promise.resolve({
+    //     data: [getSeoMockData(locale, origin, routeKey, pageParams)],
+    //     meta: {
+    //       pagination: {
+    //         page: 1,
+    //         pageSize: 1,
+    //         pageCount: 1,
+    //         total: 1,
+    //       },
+    //     },
+    //   });
+    // },
 
     // async getFaqContent(
     //   locale: SupportedLanguage,
@@ -165,7 +166,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<Error404> | undefined> {
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/error-404?locale=${locale}&pLevel`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/error-404?locale=${locale}&populate=*`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -180,7 +181,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<Error500> | undefined> {
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/error-500?locale=${locale}&pLevel`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/error-500?locale=${locale}&populate=*`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -194,8 +195,25 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     async getFaqContent(
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<Faq> | undefined> {
+      const query = qs.stringify(
+        {
+          fields: ["Title", "Subtitle"],
+          populate: [
+            "FAQSection",
+            "FAQSection.FAQSectionItem",
+            "Seo",
+            "Seo.OpenGraphImage",
+            "Seo.TwitterImage",
+          ],
+          locale: locale,
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        },
+      );
+
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/faq?locale=${locale}&pLevel`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/faq?${query}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -209,8 +227,25 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     async getNormativaContent(
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<Normativa>> {
+      const query = qs.stringify(
+        {
+          fields: ["Title", "Subtitle", "IndexLabel", "LinkLabel"],
+          populate: [
+            "NormativaSection",
+            "NormativaSection.NormativaSectionItem",
+            "Seo",
+            "Seo.OpenGraphImage",
+            "Seo.TwitterImage",
+          ],
+          locale: locale,
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        },
+      );
+
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/normativa?locale=${locale}&pLevel`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/normativa?${query}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -224,8 +259,31 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     async getInteroperabilityContent(
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<Interoperabilita>> {
+      const query = qs.stringify(
+        {
+          fields: ["Title", "Description"],
+          populate: [
+            "Features",
+            "Infographic",
+            "Tools",
+            "Tools.SingleTool",
+            "Legislation",
+            "InteroperabilityLevels",
+            "InteroperabilityLevels.SingleInteroperabilityLevel",
+            "InteroperabilityLevels.SingleInteroperabilityLevel.Illustration",
+            "Seo",
+            "Seo.OpenGraphImage",
+            "Seo.TwitterImage",
+          ],
+          locale: locale,
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        },
+      );
+
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/interoperabilita?locale=${locale}&pLevel`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/interoperabilita?${query}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -239,8 +297,31 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     async getGeneralContent(
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<General>> {
+      const query = qs.stringify(
+        {
+          fields: ["WebsiteTitle", "WebsiteTagline"],
+          populate: [
+            "WasPageUseful",
+            "DefaultSeo",
+            "DefaultSeo.OpenGraphImage",
+            "DefaultSeo.TwitterImage",
+            "HowToSection",
+            "HowToSection.HowTo",
+            "HowToSection.HowTo.Illustration",
+            "FooterLinks",
+            "FooterLinks.pagines",
+            "CopyURL",
+            "EServiceAccess",
+          ],
+          locale: locale,
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        },
+      );
+
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/general?locale=${locale}&pLevel`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/general?${query}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -254,8 +335,34 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     async getHomepageContent(
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<Homepage>> {
+      const query = qs.stringify(
+        {
+          populate: [
+            "Hero",
+            "Hero.Illustration",
+            "HowItWorks",
+            "HowItWorks.HowItWorksItem",
+            "HowItWorks.HowItWorksItem.Illustration",
+            "Examples",
+            "Examples.macrocategories",
+            "Examples.macrocategories.MacrocategoryIllustration",
+            "Examples.esempi_praticis",
+            "Examples.esempi_praticis.macrocategories",
+            "ShowcaseEservices",
+            "ShowcaseEservices.EServices",
+            "Seo",
+            "Seo.OpenGraphImage",
+            "Seo.TwitterImage",
+          ],
+          locale: locale,
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        },
+      );
+
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/homepage?locale=${locale}&pLevel`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/homepage?${query}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -269,8 +376,25 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     async getCatalogContent(
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<Catalog>> {
+      const query = qs.stringify(
+        {
+          fields: ["Title", "Subtitle"],
+          populate: [
+            "Seo",
+            "Seo.OpenGraphImage",
+            "Seo.TwitterImage",
+            "Links",
+            "Links.SingleLink",
+          ],
+          locale: locale,
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        },
+      );
+
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/single-catalog?locale=${locale}&pLevel`, //single-catalog? TODO check
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/single-catalog?${query}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -284,8 +408,25 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     async getGoodPracticesCatalogContent(
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<EsempiPraticiCatalog>> {
+      const query = qs.stringify(
+        {
+          fields: ["Title", "Subtitle"],
+          populate: [
+            "Seo",
+            "Seo.OpenGraphImage",
+            "Seo.TwitterImage",
+            "macrocategories",
+            "macrocategories.MacrocategoryIllustration",
+          ],
+          locale: locale,
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        },
+      );
+
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici-archivio?locale=${locale}&pLevel`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici-archivio?${query}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -299,8 +440,37 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     async getEServiceDetailsContent(
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<EServiceDetails>> {
+      const query = qs.stringify(
+        {
+          fields: ["PageIndexLabel"],
+          populate: [
+            "Header",
+            "DescriptionSection",
+            "APIDetailsSection",
+            "APIDetailsSection.EServiceState",
+            "APIDetailsSection.PublishDate",
+            "APIDetailsSection.LastVersionPublishDate",
+            "APIDetailsSection.Delegations",
+            "APIDetailsSection.RequestAcceptancePolicy",
+            "SpecSection",
+            "SpecSection.Version",
+            "SpecSection.Technology",
+            "SpecSection.Mode",
+            "SpecSection.SignalHub",
+            "RequirementsSection",
+            "DocumentationSection",
+            "Label",
+            "OtherProducerAPIs",
+          ],
+          locale: locale,
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        },
+      );
+
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/scheda-e-service?locale=${locale}&pLevel`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/scheda-e-service?${query}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -324,24 +494,71 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     ): Promise<StrapiEntityList<EsempiPratici>> {
       const { offset, limit, macroCategoryIds } = filters;
 
-      const paginationParams = new URLSearchParams();
-      paginationParams.append("pagination[start]", offset.toString());
-      paginationParams.append("pagination[limit]", limit.toString());
+      const query = qs.stringify(
+        {
+          fields: [
+            "Title",
+            "Slug",
+            "Field",
+            "GoodPracticeTenantDestination",
+            "LastUpdate",
+            "PageIndexLabel",
+          ],
+          populate: [
+            "Seo",
+            "Seo.OpenGraphImage",
+            "Seo.TwitterImage",
+            "macrocategories",
+            "macrocategories.MacrocategoryIllustration",
+            "RelatedEservices",
+          ],
+          locale: locale,
+          pagination: {
+            start: offset,
+            limit: limit,
+          },
+          filters: macroCategoryIds
+            ? {
+                macrocategories: {
+                  MacrocategoryId: {
+                    $in: macroCategoryIds,
+                  },
+                },
+              }
+            : undefined,
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        },
+      );
 
-      const macroCategoryParams = new URLSearchParams();
+      // const paginationParams = new URLSearchParams();
+      // paginationParams.append("pagination[start]", offset.toString());
+      // paginationParams.append("pagination[limit]", limit.toString());
 
-      if (macroCategoryIds) {
-        // Cicliamo l'array per aggiungere ogni ID con la sintassi corretta
-        macroCategoryIds.forEach((id, index) => {
-          macroCategoryParams.append(
-            `filters[macrocategories][MacrocategoryId][$in][${index}]`,
-            id.toString(),
-          );
-        });
-      }
+      // const macroCategoryParams = new URLSearchParams();
+
+      // if (macroCategoryIds) {
+      //   // Cicliamo l'array per aggiungere ogni ID con la sintassi corretta
+      //   macroCategoryIds.forEach((id, index) => {
+      //     macroCategoryParams.append(
+      //       `filters[macrocategories][MacrocategoryId][$in][${index}]`,
+      //       id.toString(),
+      //     );
+      //   });
+      // }
+
+      // const response = await fetch(
+      //   `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici?locale=${locale}&pLevel&${paginationParams.toString()}${macroCategoryParams.toString()}`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${_token}`,
+      //     },
+      //   },
+      // );
 
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici?locale=${locale}&pLevel&${paginationParams.toString()}${macroCategoryParams.toString()}`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici?${query}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -356,8 +573,47 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
       slug: string,
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<EsempiPratici> | undefined> {
+      const query = qs.stringify(
+        {
+          fields: [
+            "Title",
+            "Slug",
+            "Field",
+            "GoodPracticeTenantDestination",
+            "LastUpdate",
+            "PageIndexLabel",
+          ],
+          populate: [
+            "Seo",
+            "Seo.OpenGraphImage",
+            "Seo.TwitterImage",
+            "macrocategories",
+            "macrocategories.MacrocategoryIllustration",
+            "RelatedEservices",
+          ],
+          locale: locale,
+          filters: {
+            Slug: {
+              $eq: slug,
+            },
+          },
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        },
+      );
+
+      // const response = await fetch(
+      //   `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici?locale=${locale}&pLevel&filters[Slug][$eq]=${slug}`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${_token}`,
+      //     },
+      //   },
+      // );
+
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici?locale=${locale}&pLevel&filters[Slug][$eq]=${slug}`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici?${query}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -414,8 +670,18 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     async getRoutes(
       locale: SupportedLanguage,
     ): Promise<StrapiEntityList<Route>> {
+      const query = qs.stringify(
+        {
+          fields: ["PageTitle", "RouteKey", "Slug", "Breadcrumb"],
+          locale: locale,
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        },
+      );
+
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/pages?locale=${locale}&pLevel`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/pages?${query}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
@@ -429,8 +695,19 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     async getMacrocategories(
       locale: SupportedLanguage,
     ): Promise<StrapiEntityList<MacroCategory>> {
+      const query = qs.stringify(
+        {
+          fields: ["MacrocategoryLabel", "MacrocategoryId"],
+          populate: ["MacrocategoryIllustration"],
+          locale: locale,
+        },
+        {
+          encodeValuesOnly: true, // prettify URL
+        },
+      );
+
       const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/macrocategories?locale=${locale}&pLevel`,
+        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/macrocategories?${query}`,
         {
           headers: {
             Authorization: `Bearer ${_token}`,
