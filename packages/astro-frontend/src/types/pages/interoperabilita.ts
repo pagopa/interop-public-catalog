@@ -50,7 +50,7 @@ export const Interoperabilita = z.object({
   Title: z.string(),
   Description: z.string(),
   Features: z.array(FeatureSchema),
-  InfoGraphic: StrapiImageSchema,
+  Infographic: StrapiImageSchema,
   Tools: ToolsSchema,
   Legislation: LegislationSchema,
   InteroperabilityLevels: InteroperabilityLevelsSchema,
