@@ -5,9 +5,9 @@ import type {
 } from "pagopa-interop-public-models";
 import type { SupportedLanguage } from "../../i18n/types.i18n.js";
 // import { getGoodPracticesDataMockByLocale } from "../mocks/good-practices.mocks.js";
-import { getSeoMockData } from "../mocks/meta-data.mocks.js";
-import type { MetaDataType } from "../types/metaData.types.js";
-import type { RouteKey } from "../../config/routes.js";
+// import { getSeoMockData } from "../mocks/meta-data.mocks.js";
+// import type { MetaDataType } from "../types/metaData.types.js";
+// import type { RouteKey } from "../../config/routes.js";
 // import type { FaqContent } from "../types/faq.types.js";
 // import { getFAQContentMockByLocale } from "../mocks/faq.mocks.js";
 // import type { NormativaReferenceContent } from "../types/normativa.types.js";
