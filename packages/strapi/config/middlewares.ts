@@ -1,4 +1,4 @@
-export default [
+export default ({ env }) => [
   "strapi::logger",
   "strapi::errors",
   "strapi::cors",
@@ -21,14 +21,14 @@ export default [
             "data:",
             "blob:",
             "market-assets.strapi.io",
-            "yourBucketName.s3.yourRegion.amazonaws.com",
+            env("CDN_URL"),
           ],
           "media-src": [
             "'self'",
             "data:",
             "blob:",
             "market-assets.strapi.io",
-            "yourBucketName.s3.yourRegion.amazonaws.com",
+            env("CDN_URL"),
           ],
           upgradeInsecureRequests: null,
         },
