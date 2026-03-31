@@ -3,7 +3,7 @@ import type { StrapiImage } from "pagopa-interop-public-models";
 // import { useEcosystemTranslations } from "../../i18n/ecosystem.i18n";
 // import type { SupportedLanguage } from "../../i18n/types.i18n";
 // import { getLangFromUrl } from "../../i18n/utils.i18n";
-import type { Features } from "../../types/pages";
+import type { Feature } from "../../types/pages";
 import PageHero from "../shared/PageHero.astro";
 
 // const currentLocale = getLangFromUrl(Astro.url.pathname);
@@ -12,7 +12,7 @@ import PageHero from "../shared/PageHero.astro";
 interface Props {
   title: string;
   description: string;
-  features: Features[];
+  features: Feature[];
   infographic: StrapiImage;
 }
 
