@@ -658,9 +658,8 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         data: examples,
         meta: {
           pagination: {
-            page: 1,
-            pageSize: examples.length,
-            pageCount: 1,
+            start: 0,
+            limit: examples.length,
             total: examples.length,
           },
         },
