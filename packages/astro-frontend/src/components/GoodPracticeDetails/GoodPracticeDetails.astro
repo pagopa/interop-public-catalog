@@ -12,7 +12,7 @@ import type { EServiceAccess } from "../../types/general";
 // TODO remove comments
 interface Props {
   goodPractice: EsempiPratici;
-  strapiContent: EServiceAccess
+  strapiContent: EServiceAccess;
 }
 
 const { goodPractice, strapiContent } = Astro.props;
@@ -86,13 +86,15 @@ const HEADING_CLASS = "h5 mb-3";
               </figure>
             ))
             .with({ __component: "esempi-pratici.simple-description" }, (c) => (
-              <h2 id={c.SectionId.toString()} class={HEADING_CLASS}>
-                {c.Title}
-              </h2>
-              <p
-                style={`margin-bottom:${MARGIN_BOTTOM}px`}
-                set:html={customRenderRichTextStrapiNodes(c.Description)}
-              />
+              <>
+                <h2 id={c.SectionId.toString()} class={HEADING_CLASS}>
+                  {c.Title}
+                </h2>
+                <p
+                  style={`margin-bottom:${MARGIN_BOTTOM}px`}
+                  set:html={customRenderRichTextStrapiNodes(c.Description)}
+                />
+              </>
             ))
             .with({ __component: "esempi-pratici.example" }, (c) => (
               <div
