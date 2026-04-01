@@ -81,8 +81,8 @@ importers:
         specifier: 8.16.3
         version: 8.16.3
       qs:
-        specifier: 6.14.1
-        version: 6.14.1
+        specifier: 6.14.2
+        version: 6.14.2
       react:
         specifier: ^19.1.1
         version: 19.2.0
@@ -4441,6 +4441,7 @@ packages:
   '@xmldom/xmldom@0.8.11':
     resolution: {integrity: sha512-cQzWCtO6C8TQiYl1ruKNn2U6Ao4o4WBBcbL61yJl84x+j5sOWWFU9X7DpND8XZG3daDppSsigMdfAIl2upQBRw==}
     engines: {node: '>=10.0.0'}
+    deprecated: this version has critical issues, please update to the latest version
 
   '@xstate/fsm@1.6.5':
     resolution: {integrity: sha512-b5o1I6aLNeYlU/3CPlj/Z91ybk1gUsKT+5NAJI+2W4UjvS5KLG28K9v5UvNoFVjHV8PajVZ00RH3vnjyQO7ZAw==}
@@ -8444,8 +8445,8 @@ packages:
     resolution: {integrity: sha512-0wsrzgTz/kAVIeuxSjnpGC56rzYtr6JT/2BwEvMaPhFIoYa1aGO8LbzuU1R0uUYQkLpWBTOj0l/CLAJB64J6nQ==}
     engines: {node: '>=0.6'}
 
-  qs@6.14.1:
-    resolution: {integrity: sha512-4EK3+xJl8Ts67nLYNwqw/dsFVnCf+qR7RgXSK9jEEm9unao3njwMDdmsdvoKBKHzxd7tCYz5e5M+SnMjdtXGQQ==}
+  qs@6.14.2:
+    resolution: {integrity: sha512-V/yCWTTF7VJ9hIh18Ugr2zhJMP01MY7c5kh4J870L7imm6/DIzBsNLTXzMwUA3yZ5b/KBqLx8Kp3uRvd7xSe3Q==}
     engines: {node: '>=0.6'}
 
   queue-microtask@1.2.3:
@@ -17236,7 +17237,7 @@ snapshots:
     dependencies:
       '@hapi/bourne': 3.0.0
       inflation: 2.1.0
-      qs: 6.14.1
+      qs: 6.14.2
       raw-body: 2.5.2
       type-is: 1.6.18
 
@@ -18460,7 +18461,7 @@ snapshots:
       '@paralleldrive/cuid2': 2.2.2
       dezalgo: 1.0.4
       once: 1.4.0
-      qs: 6.14.1
+      qs: 6.14.2
 
   formidable@3.5.4:
     dependencies:
@@ -18726,7 +18727,7 @@ snapshots:
 
   grant@5.4.24:
     dependencies:
-      qs: 6.14.1
+      qs: 6.14.2
       request-compose: 2.1.7
       request-oauth: 1.0.1
     optionalDependencies:
@@ -21046,7 +21047,7 @@ snapshots:
   purest@4.0.2:
     dependencies:
       '@simov/deep-extend': 1.0.0
-      qs: 6.14.1
+      qs: 6.14.2
       request-compose: 2.1.7
       request-multipart: 1.0.0
       request-oauth: 1.0.1
@@ -21055,7 +21056,7 @@ snapshots:
     dependencies:
       side-channel: 1.1.0
 
-  qs@6.14.1:
+  qs@6.14.2:
     dependencies:
       side-channel: 1.1.0
 
@@ -21593,7 +21594,7 @@ snapshots:
   request-oauth@1.0.1:
     dependencies:
       oauth-sign: 0.9.0
-      qs: 6.14.1
+      qs: 6.14.2
       uuid: 8.3.2
 
   require-directory@2.1.1: {}
@@ -22350,7 +22351,7 @@ snapshots:
       formidable: 3.5.4
       methods: 1.1.2
       mime: 2.6.0
-      qs: 6.14.1
+      qs: 6.14.2
     transitivePeerDependencies:
       - supports-color
 
