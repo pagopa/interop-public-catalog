@@ -50,6 +50,16 @@
       },
       "component": "catalog.links",
       "repeatable": false
+    },
+    "HowToSection": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.how-to-section",
+      "repeatable": false
     }
   }
 }
