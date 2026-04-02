@@ -1,5 +1,4 @@
 import { StrapiImageSchema } from "pagopa-interop-public-models";
-import { RouteKeySchema } from "../../config/routes";
 import z from "zod";
 
 export const Error500Schema = z.object({
@@ -7,7 +6,7 @@ export const Error500Schema = z.object({
   Description: z.string(),
   Illustration: StrapiImageSchema,
   LinkLabel: z.string(),
-  LinkURL: RouteKeySchema,
+  LinkURL: z.url(),
 });
 
 export type Error500 = z.infer<typeof Error500Schema>;

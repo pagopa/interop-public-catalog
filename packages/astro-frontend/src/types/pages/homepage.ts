@@ -22,7 +22,7 @@ export const HowItWorksItemSchema = z.object({
   Title: z.string(),
   Description: z.string(),
   LinkLabel: z.string(),
-  LinkURL: z.string(),
+  LinkURL: z.url(),
   IsLinkInternal: z.boolean(),
   Illustration: StrapiImageSchema,
   MixpanelGoodpracticeCatalogReferral: z.optional(z.string()),
@@ -42,7 +42,7 @@ export const EserviceSchema = z.object({
 export const ShowcaseEservicesSchema = z.object({
   Title: z.string(),
   LinkLabel: z.string(),
-  LinkURL: z.string(),
+  LinkURL: z.url(),
   Eservices: z.array(EserviceSchema),
 });
 
@@ -53,7 +53,7 @@ export const ExamplesSchema = z.object({
   SeeAllMacrocategoriesLinkLabel: z.string(),
   esempi_praticis: z.array(EsempiPraticiSchema),
   SeeAllExamplesLinkLabel: z.string(),
-  SeeAllEamplesLinkURL: z.string(),
+  SeeAllEamplesLinkURL: z.url(),
   MixpanelGoodpracticeCatalogReferral: z.string(),
 });
 

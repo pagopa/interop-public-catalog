@@ -14,7 +14,7 @@ export const HowToSchema = z.object({
   Title: z.string(),
   Description: z.string(),
   LinkLabel: z.string(),
-  LinkURL: z.string(),
+  LinkURL: z.url(),
   IsLinkInternal: z.boolean(),
   MixpanelExternalLinkId: z.optional(z.string()),
   MixpanelExternalLinkDescription: z.optional(z.string()),

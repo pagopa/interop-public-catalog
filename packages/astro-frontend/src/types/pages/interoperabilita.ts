@@ -14,7 +14,7 @@ export const SingleToolSchema = z.object({
   Title: z.string(),
   Subtitle: z.string(),
   Description: z.string(),
-  LinkURL: z.string(),
+  LinkURL: z.url(),
   MixpanelExternalLinkId: z.string(),
   MixpanelExternalLinkDescription: z.string(),
 });
@@ -31,7 +31,7 @@ export const LegislationSchema = z.object({
   Title: z.string(),
   Subtitle: z.string(),
   LinkLabel: z.string(),
-  LinkURL: z.string(),
+  LinkURL: z.url(),
 });
 
 export const SingleInteroperabilityLevelSchema = z.object({

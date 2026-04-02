@@ -105,7 +105,7 @@ export const DocumentationSectionSchema = z.object({
 export const APIImplementSchema = z.object({
   Title: z.string(),
   LinkLabel: z.string(),
-  LinkURL: z.string(),
+  LinkURL: z.url(),
   MixpanelExternalLinkId: z.string(),
   MixpanelExternalLinkDescription: z.string(),
 });

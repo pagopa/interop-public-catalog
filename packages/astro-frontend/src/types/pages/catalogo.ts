@@ -3,7 +3,7 @@ import { SeoSchema } from "../seo";
 
 export const SingleLinkSchema = z.object({
   LinkLabel: z.string(),
-  LinkURL: z.string(),
+  LinkURL: z.url(),
   MixpanelExternalLinkId: z.string(),
   MixpanelExternalLinkDescription: z.string(),
 });
