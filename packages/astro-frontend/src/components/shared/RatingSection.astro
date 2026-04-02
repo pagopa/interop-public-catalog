@@ -20,7 +20,7 @@ const contents = strapiResponse.data.WasPageUseful;
 // t("rating.button_label")
 
 // const recipient = "info@pagopa.it";
-// const mailtoURL = `mailto:${recipient}`;
+const mailtoURL = `mailto:${contents.EmailMailTo}`;
 ---
 
 <section class="section bg-dark px-0 px-md-auto py-5">
@@ -28,7 +28,7 @@ const contents = strapiResponse.data.WasPageUseful;
     <div class="container px-3">
       <h4 class="text-white mb-4">{contents.Title}</h4>
 
-      <a class="btn btn-primary" href={contents.EmailMailTo} role="button">
+      <a class="btn btn-primary" href={mailtoURL} role="button">
         {contents.EmailLabel}
         <BootstrapItaliaIcon
           name={"it-mail"}
