@@ -1,9 +1,9 @@
 import { match } from "ts-pattern";
 import type { SupportedLanguage } from "../../i18n/types.i18n";
-import type { GoodPractice, StrapiEntity } from "pagopa-interop-public-models";
+import type { StrapiEntity } from "pagopa-interop-public-models";
 import { RESOURCE_LINKS } from "../../config/constants";
 
-const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
+const goodPracticesDataMockIt: StrapiEntity</* GoodPractice */ any>[] = [
   {
     data: {
       id: 12,
@@ -1401,7 +1401,7 @@ const goodPracticesDataMockIt: StrapiEntity<GoodPractice>[] = [
   },
 ];
 
-const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
+const goodPracticesDataMockEn: StrapiEntity</* GoodPractice */ any>[] = [
   {
     data: {
       id: 12,
@@ -2806,7 +2806,7 @@ const goodPracticesDataMockEn: StrapiEntity<GoodPractice>[] = [
 
 export function getGoodPracticesDataMockByLocale(
   locale: SupportedLanguage,
-): StrapiEntity<GoodPractice>[] {
+): StrapiEntity</* GoodPractice */ any>[] {
   return match(locale)
     .with("en", () => goodPracticesDataMockEn)
     .with("it", () => goodPracticesDataMockIt)
