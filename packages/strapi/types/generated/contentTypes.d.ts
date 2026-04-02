@@ -809,12 +809,6 @@ export interface ApiGeneralGeneral extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
-    HowToSection: Schema.Attribute.Component<'general.how-to-section', false> &
-      Schema.Attribute.SetPluginOptions<{
-        i18n: {
-          localized: true;
-        };
-      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -885,6 +879,12 @@ export interface ApiHomepageHomepage extends Struct.SingleTypeSchema {
           localized: true;
         };
       }>;
+    HowToSection: Schema.Attribute.Component<'general.how-to-section', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
@@ -939,6 +939,12 @@ export interface ApiInteroperabilitaInteroperabilita
         };
       }>;
     Features: Schema.Attribute.Component<'interoperability.features', true> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
+    HowToSection: Schema.Attribute.Component<'general.how-to-section', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1290,6 +1296,12 @@ export interface ApiSingleCatalogSingleCatalog extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    HowToSection: Schema.Attribute.Component<'general.how-to-section', false> &
+      Schema.Attribute.SetPluginOptions<{
+        i18n: {
+          localized: true;
+        };
+      }>;
     Links: Schema.Attribute.Component<'catalog.links', false> &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
