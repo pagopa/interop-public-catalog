@@ -1,7 +1,7 @@
 ---
 import Layout from "../../layouts/Layout.astro";
 import EcosystemToolsSection from "../../components/Ecosystem/EcosystemToolsSection.astro";
-import SuggestionsSection from "../../components/shared/SuggestionSection.astro";
+import SuggestionSection from "../../components/shared/SuggestionSection.astro";
 import RatingSection from "../../components/shared/RatingSection.astro";
 import EcosystemPageHero from "../../components/Ecosystem/EcosystemPageHero.astro";
 import EcosystemLegalReferencesSection from "../../components/Ecosystem/EcosystemLegalReferencesSection.astro";
@@ -69,5 +69,5 @@ const contents = strapiResponse.data;
     interoperabilityLevels={contents.InteroperabilityLevels}
   />
   <RatingSection />
-  <SuggestionsSection />
+  <SuggestionSection />
 </Layout>
