@@ -1,5 +1,4 @@
 import type {
-  // GoodPractice,
   StrapiEntityList,
   StrapiEntity,
 } from "pagopa-interop-public-models";
@@ -31,133 +30,6 @@ import qs from "qs";
 
 export function strapiServiceBuilder(_endpoint: string, _token: string) {
   return {
-    // getGoodPractices: async (
-    //   filters: {
-    //     macroCategoryIds?: number[];
-    //     isFeaturedInHomepage?: boolean;
-    //     limit: number;
-    //     offset: number;
-    //   },
-    //   locale: SupportedLanguage,
-    // ): Promise<StrapiEntityList<GoodPractice>> => {
-    //   const { offset, limit, macroCategoryIds, isFeaturedInHomepage } = filters;
-
-    //   const filteredData = getGoodPracticesDataMockByLocale(locale)
-    //     .filter((g) =>
-    //       macroCategoryIds
-    //         ? g.data.tenantMacrocategories.some((mc) =>
-    //             macroCategoryIds.includes(mc.id),
-    //           ) || g.data.tenantMacrocategories.length === 0
-    //         : true,
-    //     )
-    //     .filter((g) =>
-    //       typeof isFeaturedInHomepage === "boolean"
-    //         ? g.data.isFeaturedInHomepage === isFeaturedInHomepage
-    //         : true,
-    //     );
-
-    //   const paginatedResult = filteredData
-    //     .slice(offset, offset + limit)
-    //     .map((r) => r.data);
-
-    //   const total = filteredData.length;
-    //   const page = Math.floor(offset / limit) + 1;
-    //   const pageCount = Math.ceil(total / limit);
-
-    //   return Promise.resolve({
-    //     data: paginatedResult,
-    //     meta: {
-    //       pagination: {
-    //         page,
-    //         pageSize: limit,
-    //         pageCount,
-    //         total,
-    //       },
-    //     },
-    //   });
-    // },
-
-    // getGoodPracticesExamples: async (
-    //   currentGoodPracticeSlug: string,
-    //   locale: SupportedLanguage,
-    //   numberOfExamples: number = 2,
-    // ): Promise<StrapiEntityList<GoodPractice>> => {
-    //   const allGoodPractices = getGoodPracticesDataMockByLocale(locale);
-    //   const currentGoodPracticeIndex = allGoodPractices.findIndex(
-    //     (g) => g.data.slug === currentGoodPracticeSlug,
-    //   );
-
-    //   const examples: GoodPractice[] = [];
-    //   let offset = 1;
-
-    //   while (
-    //     examples.length < numberOfExamples &&
-    //     offset < allGoodPractices.length
-    //   ) {
-    //     const nextIndex =
-    //       (currentGoodPracticeIndex + offset) % allGoodPractices.length;
-
-    //     if (allGoodPractices[nextIndex].data.slug !== currentGoodPracticeSlug) {
-    //       examples.push(allGoodPractices[nextIndex].data);
-    //     }
-
-    //     offset++;
-    //   }
-
-    //   return Promise.resolve({
-    //     data: examples,
-    //     meta: {
-    //       pagination: {
-    //         page: 1,
-    //         pageSize: examples.length,
-    //         pageCount: 1,
-    //         total: examples.length,
-    //       },
-    //     },
-    //   });
-    // },
-
-    // getGoodPracticeBySlug: async (
-    //   slug: string,
-    //   locale: SupportedLanguage,
-    // ): Promise<StrapiEntity<GoodPractice> | undefined> =>
-    //   Promise.resolve(
-    //     getGoodPracticesDataMockByLocale(locale).find(
-    //       (g) => g.data.slug === slug,
-    //     ),
-    //   ),
-
-    // async getSeoMetaData(
-    //   locale: SupportedLanguage,
-    //   origin: string,
-    //   routeKey: RouteKey | "DEFAULT",
-    //   pageParams?: { eserviceId?: string; pageSlug?: string },
-    // ): Promise<StrapiEntityList<MetaDataType>> {
-    //   return Promise.resolve({
-    //     data: [getSeoMockData(locale, origin, routeKey, pageParams)],
-    //     meta: {
-    //       pagination: {
-    //         page: 1,
-    //         pageSize: 1,
-    //         pageCount: 1,
-    //         total: 1,
-    //       },
-    //     },
-    //   });
-    // },
-
-    // async getFaqContent(
-    //   locale: SupportedLanguage,
-    // ): Promise<StrapiEntity<FaqContent> | undefined> {
-    //   return Promise.resolve(getFAQContentMockByLocale(locale));
-    // },
-
-    // async getNormativaContent(
-    //   locale: SupportedLanguage,
-    // ): Promise<StrapiEntity<NormativaReferenceContent> | undefined> {
-    //   return Promise.resolve(getNormativaDataMockByLocale(locale));
-    // },
-
     /**
      * Methods to fetch static content for pages like 404, 500, catalogo, faq, etc.
      * These methods can be used to fetch the content from Strapi at build time.
@@ -208,7 +80,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           locale: locale,
         },
         {
-          encodeValuesOnly: true, // prettify URL
+          encodeValuesOnly: true,
         },
       );
 
@@ -240,7 +112,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           locale: locale,
         },
         {
-          encodeValuesOnly: true, // prettify URL
+          encodeValuesOnly: true,
         },
       );
 
@@ -278,7 +150,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           locale: locale,
         },
         {
-          encodeValuesOnly: true, // prettify URL
+          encodeValuesOnly: true,
         },
       );
 
@@ -316,7 +188,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           locale: locale,
         },
         {
-          encodeValuesOnly: true, // prettify URL
+          encodeValuesOnly: true,
         },
       );
 
@@ -357,7 +229,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           locale: locale,
         },
         {
-          encodeValuesOnly: true, // prettify URL
+          encodeValuesOnly: true,
         },
       );
 
@@ -389,7 +261,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           locale: locale,
         },
         {
-          encodeValuesOnly: true, // prettify URL
+          encodeValuesOnly: true,
         },
       );
 
@@ -421,7 +293,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           locale: locale,
         },
         {
-          encodeValuesOnly: true, // prettify URL
+          encodeValuesOnly: true,
         },
       );
 
@@ -465,7 +337,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           locale: locale,
         },
         {
-          encodeValuesOnly: true, // prettify URL
+          encodeValuesOnly: true,
         },
       );
 
@@ -528,34 +400,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
             : undefined,
         },
         {
-          encodeValuesOnly: true, // prettify URL
+          encodeValuesOnly: true,
         },
       );
-
-      // const paginationParams = new URLSearchParams();
-      // paginationParams.append("pagination[start]", offset.toString());
-      // paginationParams.append("pagination[limit]", limit.toString());
-
-      // const macroCategoryParams = new URLSearchParams();
-
-      // if (macroCategoryIds) {
-      //   // Cicliamo l'array per aggiungere ogni ID con la sintassi corretta
-      //   macroCategoryIds.forEach((id, index) => {
-      //     macroCategoryParams.append(
-      //       `filters[macrocategories][MacrocategoryId][$in][${index}]`,
-      //       id.toString(),
-      //     );
-      //   });
-      // }
-
-      // const response = await fetch(
-      //   `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici?locale=${locale}&pLevel&${paginationParams.toString()}${macroCategoryParams.toString()}`,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${_token}`,
-      //     },
-      //   },
-      // );
 
       const response = await fetch(
         `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici?${query}`,
@@ -599,18 +446,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           },
         },
         {
-          encodeValuesOnly: true, // prettify URL
+          encodeValuesOnly: true,
         },
       );
-
-      // const response = await fetch(
-      //   `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici?locale=${locale}&pLevel&filters[Slug][$eq]=${slug}`,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${_token}`,
-      //     },
-      //   },
-      // );
 
       const response = await fetch(
         `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici?${query}`,
@@ -675,7 +513,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           locale: locale,
         },
         {
-          encodeValuesOnly: true, // prettify URL
+          encodeValuesOnly: true,
         },
       );
 
@@ -701,7 +539,7 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           locale: locale,
         },
         {
-          encodeValuesOnly: true, // prettify URL
+          encodeValuesOnly: true,
         },
       );
 

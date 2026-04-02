@@ -12,13 +12,11 @@ import type { EServiceAccess } from "../../types/general";
 interface Props {
   content: ShowcaseEservices;
   eserviceAccessContent: EServiceAccess;
-  // highlightedEServices: EService[];
 }
 
 const { content, eserviceAccessContent } = Astro.props;
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
-// const t = useHomepageTranslations(currentLocale);
 
 /**
  * In dev environment we show the first 3 eservices from the catalog
@@ -39,11 +37,6 @@ const highlightedEServicesPromise: Promise<EService[]> = (async () => {
 })();
 
 const highlightedEServices = await highlightedEServicesPromise;
-
-// TODO remove strings and comments
-// t("featured_api.title")
-// t("featured_api.explore_catalog")
-// getLocalizedRoute(currentLocale, "ESERVICE_CATALOG")
 ---
 
 <Section

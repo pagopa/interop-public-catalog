@@ -27,5 +27,4 @@ export const RouteKeySchema = z.enum(
 );
 
 export type RouteKey = z.infer<typeof RouteKeySchema>;
-// export type RouteKey = keyof typeof ROUTES; TODO
 export type Route = (typeof ROUTES)[RouteKey];

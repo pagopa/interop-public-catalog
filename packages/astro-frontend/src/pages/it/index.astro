@@ -5,33 +5,10 @@ import HowItWorks from "../../components/Homepage/HowItWorks.astro";
 import GoodPractices from "../../components/Homepage/GoodPractices.astro";
 import ApiShowcase from "../../components/Homepage/ApiShowcase.astro";
 import SuggestionSection from "../../components/shared/SuggestionSection.astro";
-import {
-  getLangFromUrl,
-  // getRouteKeyFromCurrentRoutePattern,
-} from "../../i18n/utils.i18n";
-// import { useHomepageTranslations } from "../../i18n/homepage.i18n";
-import { /* sqlService,  */ strapiService } from "../../server/services";
-// import { isDevEnvironment, links } from "../../config/constants";
-// import type { EService, GoodPractice } from "pagopa-interop-public-models";
+import { getLangFromUrl } from "../../i18n/utils.i18n";
+import { strapiService } from "../../server/services";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
-// const t = useHomepageTranslations(currentLocale);
-
-// const HIGHLIGHTED_ESERVICE_IDS = [
-//   // Consultazione Attestazione ISEE (INPS)
-//   "843ac013-941a-4afe-8243-e668142e73e6",
-//   // ANIST - Accertamento Frequenze (Ministero dell'istruzione e del merito)
-//   "463cf9fe-9d72-463e-922d-e200ba45fdae",
-//   // C020-servizioAccertamentoResidenza (Ministero dell'Interno)
-//   "8fe27f7f-b559-4c51-90b6-a4d6eae4ae01",
-// ];
-
-// const [highlightedEServices, featuredGoodPractices] = await Promise.all([
-//   highlightedEServicesPromise,
-//   featuredGoodPracticesPromise,
-// ]);
-
-// const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
 const strapiResponse = await strapiService.getHomepageContent(currentLocale);
 const strapiGeneralResponse =
@@ -43,36 +20,6 @@ if (!strapiResponse || !strapiGeneralResponse) {
 
 const contents = strapiResponse.data;
 const eserviceAccessContent = strapiGeneralResponse.data.EServiceAccess;
-
-// TODO remove strings and comments
-// leftCard={{
-//       title: t("suggestion_section.left_card.title"),
-//       description: t("suggestion_section.left_card.description"),
-//       buttonLink: {
-//         href: links.interopPlatformLink,
-//         label: t("suggestion_section.left_card.button_label"),
-//         mixpanelAttributes: {
-//           "data-mp-external-link-id": `${routeKey}_suggestionSection_leftCard_interopPlatformLink`,
-//           "data-mp-external-link-description": "TODO",
-//         },
-//       },
-//       externalLink: true,
-//       imageSrc: "/img/077-network-primary-color.svg",
-//     }}
-//     rightCard={{
-//       title: t("suggestion_section.right_card.title"),
-//       description: t("suggestion_section.right_card.description"),
-//       buttonLink: {
-//         href: links.interopManualLink,
-//         label: t("suggestion_section.right_card.button_label"),
-//         mixpanelAttributes: {
-//           "data-mp-external-link-id": `${routeKey}_suggestionSection_rightCard_interopManualLink`,
-//           "data-mp-external-link-description": "TODO",
-//         },
-//       },
-//       externalLink: true,
-//       imageSrc: "/img/059-data-collection.svg",
-//     }}
 ---
 
 <Layout seo={contents.Seo}>

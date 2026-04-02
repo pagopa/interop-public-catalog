@@ -1,7 +1,4 @@
 ---
-// import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
-// import { useUiTranslations } from "../../i18n/ui.i18n";
-// import type { RouteKey } from "../../config/routes";
 interface Props {
   error: {
     title: string;
@@ -13,11 +10,6 @@ interface Props {
 }
 
 const { error } = Astro.props;
-
-// const currentLocale = getLangFromUrl(Astro.url.pathname);
-// const tUi = useUiTranslations(currentLocale);
-// TODO remove strings
-// tUi("error.back_to_home")
 ---
 
 <section class="section px-0 px-md-auto my-5">

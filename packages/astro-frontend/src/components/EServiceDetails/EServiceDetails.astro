@@ -4,12 +4,8 @@ import AttributeSection from "./AttributesSection/AttributeSection.astro";
 import InformationContainer from "./InformationContainer.astro";
 import type { EService } from "pagopa-interop-public-models";
 import { PopoverIcon } from "../shared/PopoverIcon.js";
-import { useEServiceDetailsTranslations } from "../../i18n/eservice-details.i18n.js";
 import PageIndexNav from "../shared/PageIndexNav/PageIndexNav.astro";
-import {
-  getLangFromUrl,
-  getRouteKeyFromCurrentRoutePattern,
-} from "../../i18n/utils.i18n";
+import { getRouteKeyFromCurrentRoutePattern } from "../../i18n/utils.i18n";
 import { formatData } from "../../utils/utils";
 import { links } from "../../config/constants";
 import type { EServiceDetails } from "../../types/pages/eserviceDetails";
@@ -21,17 +17,12 @@ export interface Props {
 
 const { eservice, strapiContents } = Astro.props;
 
-const currentLocale = getLangFromUrl(Astro.url.pathname);
-const t = useEServiceDetailsTranslations(currentLocale);
-
 const creationDate = formatData(eservice.created_at.toString());
 const creationDateLatestDescriptor = formatData(
   eservice.active_descriptor?.created_at.toString() ?? "",
 );
 
 const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
-
-// TODO watch comments and remove strings
 ---
 
 <section class="section section-muted px-0 px-md-auto py-5">
@@ -43,33 +34,23 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
             title={strapiContents.PageIndexLabel}
             headings={[
               {
-                label:
-                  /* t("description_section.title") */
-                  strapiContents.DescriptionSection.Title,
+                label: strapiContents.DescriptionSection.Title,
                 id: "descrizione",
               },
               {
-                label:
-                  /* t("api_details_section.title") */
-                  strapiContents.APIDetailsSection.Title,
+                label: strapiContents.APIDetailsSection.Title,
                 id: "dettagli-api",
               },
               {
-                label:
-                  /* t("tech_specification_section.title") */
-                  strapiContents.SpecSection.Title,
+                label: strapiContents.SpecSection.Title,
                 id: "specifiche-tecniche",
               },
               {
-                label:
-                  /* t("attributes_section.title") */
-                  strapiContents.RequiremensSection.Title,
+                label: strapiContents.RequiremensSection.Title,
                 id: "requisiti",
               },
               {
-                label:
-                  /* t("documentation_section.title") */
-                  strapiContents.DocumentationSection.Title,
+                label: strapiContents.DocumentationSection.Title,
                 id: "documentazione",
               },
             ]}
@@ -81,7 +62,6 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
         <div class="col-12 col-md-8">
           <div class="mb-default">
             <h4 id="descrizione" class="mb-4">
-              <!-- {t("description_section.title")} -->
               {strapiContents.DescriptionSection.Title}
             </h4>
             <p>{eservice.description}</p>
@@ -89,7 +69,6 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
           <div class="mb-default">
             <h4 id="dettagli-api" class="mb-4">
-              <!-- {t("api_details_section.title")} -->
               {strapiContents.APIDetailsSection.Title}
             </h4>
             <ul class="list-group list-group-horizontal-lg bg-white">
@@ -99,14 +78,13 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
                     class="d-flex flex-row justify-content-between align-items-center"
                   >
                     <h6 class="mb-0">
-                      <!-- {t("api_details_section.api_state_label")} -->
                       {strapiContents.APIDetailsSection.EServiceState.Label}
                     </h6>
                     <PopoverIcon
                       title={strapiContents.APIDetailsSection.EServiceState
-                        .TooltipTitle /* t("stateapi.tooltip.title") */}
+                        .TooltipTitle}
                       content={strapiContents.APIDetailsSection.EServiceState
-                        .TooltipContent /* t("stateapi.tooltip.content") */}
+                        .TooltipContent}
                       iconName="it-info-circle"
                       iconColor="primary"
                       iconSize="sm"
@@ -116,7 +94,6 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
                     {
                       eservice.active_descriptor?.state === "Published" && (
                         <span class="badge bg-success rounded-pill">
-                          {/* {t("api_details_section.api_state_active")} */}
                           {
                             strapiContents.APIDetailsSection.EServiceState
                               .ActiveValueLabel
@@ -127,7 +104,6 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
                     {
                       eservice.active_descriptor?.state === "Suspended" && (
                         <span class="badge bg-danger rounded-pill">
-                          {/* {t("api_details_section.api_state_suspended")} */}
                           {
                             strapiContents.APIDetailsSection.EServiceState
                               .SuspendedValueLabel
@@ -145,7 +121,6 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
               <li class="flex-fill list-group-item bg-transparent border-0 p-3">
                 <div class="py-2 px-3">
                   <h6 class="mb-0">
-                    <!-- {t("api_details_section.creation_date_label")} -->
                     {strapiContents.APIDetailsSection.PublishDate.Label}
                   </h6>
                   <div class="d-flex flex-row align-items-center mt-3">
@@ -165,7 +140,6 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
               <li class="flex-fill list-group-item bg-transparent border-0 p-3">
                 <div class="py-2 px-3">
                   <h6 class="mb-0">
-                    <!-- {t("api_details_section.last_update_date_label")} -->
                     {strapiContents.APIDetailsSection.LateVersionPublishDate}
                   </h6>
                   <div class="d-flex flex-row align-items-center mt-3">
@@ -183,53 +157,43 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
             <ul class="list-group bg-white mt-4 px-3">
               <li class="list-group-item border-0">
                 <InformationContainer
-                  label={/* t("api_details_section.delegation_label") */ strapiContents
-                    .APIDetailsSection.Delegations.Label}
+                  label={strapiContents.APIDetailsSection.Delegations.Label}
                   content={eservice.is_consumer_delegable
-                    ? /* t("available") */ strapiContents.APIDetailsSection
-                        .Delegations.TrueValueLabel
-                    : /* t("not_available") */ strapiContents.APIDetailsSection
-                        .Delegations.FalseValueLabel}
+                    ? strapiContents.APIDetailsSection.Delegations
+                        .TrueValueLabel
+                    : strapiContents.APIDetailsSection.Delegations
+                        .FalseValueLabel}
                   icon={{
                     iconSize: "sm",
                     iconName: "it-info-circle",
                     tooltipTitle:
-                      strapiContents.APIDetailsSection.Delegations
-                        .TooltipTitle /* t(
-                      "api_details_section.delegation_tooltip.title",
-                    ) */,
+                      strapiContents.APIDetailsSection.Delegations.TooltipTitle,
                     tooltipContent:
                       strapiContents.APIDetailsSection.Delegations
-                        .TooltipContent /* t(
-                      "api_details_section.delegation_tooltip.content",
-                    ) */,
+                        .TooltipContent,
                   }}
                 />
               </li>
               <hr class="my-0 border-2" />
               <li class="list-group-item border-0">
                 <InformationContainer
-                  label={/* t("api_details_section.agreements_label") */ strapiContents
-                    .APIDetailsSection.RequestAcceptancePolicy.Label}
+                  label={strapiContents.APIDetailsSection
+                    .RequestAcceptancePolicy.Label}
                   content={eservice.active_descriptor
                     ?.agreement_approval_policy === "Automatic"
-                    ? /* t("available") */ strapiContents.APIDetailsSection
-                        .RequestAcceptancePolicy.TrueValueLabel
-                    : /* t("not_available") */ strapiContents.APIDetailsSection
-                        .RequestAcceptancePolicy.FalseValueLabel}
+                    ? strapiContents.APIDetailsSection.RequestAcceptancePolicy
+                        .TrueValueLabel
+                    : strapiContents.APIDetailsSection.RequestAcceptancePolicy
+                        .FalseValueLabel}
                   icon={{
                     iconSize: "sm",
                     iconName: "it-info-circle",
                     tooltipTitle:
-                      /* t(
-                      "api_details_section.agreements_tooltip.title",
-                    ) */ strapiContents.APIDetailsSection
-                        .RequestAcceptancePolicy.TooltipTitle,
+                      strapiContents.APIDetailsSection.RequestAcceptancePolicy
+                        .TooltipTitle,
                     tooltipContent:
-                      /* t(
-                      "api_details_section.agreements_tooltip.content",
-                    ) */ strapiContents.APIDetailsSection
-                        .RequestAcceptancePolicy.TooltipContent,
+                      strapiContents.APIDetailsSection.RequestAcceptancePolicy
+                        .TooltipContent,
                   }}
                 />
               </li>
@@ -251,56 +215,45 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
           <div class="mb-default">
             <h4 id="specifiche-tecniche" class="mb-4">
-              <!-- {t("tech_specification_section.title")} -->
               {strapiContents.SpecSection.Title}
             </h4>
             <ul class="list-group bg-white mt-4 px-3">
               <li class="list-group-item border-0">
                 <InformationContainer
-                  label={strapiContents.SpecSection.Version
-                    .Label /* t("tech_specification_section.current_version") */}
+                  label={strapiContents.SpecSection.Version.Label}
                   content={eservice.active_descriptor?.version ?? "1"}
                 />
               </li>
               <hr class="my-0 border-2" />
               <li class="list-group-item border-0">
                 <InformationContainer
-                  label={strapiContents.SpecSection.Technology
-                    .Label /* t("tech_specification_section.technology") */}
+                  label={strapiContents.SpecSection.Technology.Label}
                   content={eservice.technology === "Rest" ? "REST" : "SOAP"}
                 />
               </li>
               <hr class="my-0 border-2" />
               <li class="list-group-item border-0">
                 <InformationContainer
-                  label={strapiContents.SpecSection.Mode
-                    .Label /* t("tech_specification_section.delivery_mode") */}
+                  label={strapiContents.SpecSection.Mode.Label}
                   content={eservice.mode === "Deliver"
-                    ? /* t("tech_specification_section.delivery_mode.deliver") */ strapiContents
-                        .SpecSection.Mode.DeliverValueLabel
-                    : /* t("tech_specification_section.delivery_mode.receive") */ strapiContents
-                        .SpecSection.Mode.ReceiveValueLabel}
+                    ? strapiContents.SpecSection.Mode.DeliverValueLabel
+                    : strapiContents.SpecSection.Mode.ReceiveValueLabel}
                 />
               </li>
               <hr class="my-0 border-2" />
               <li class="list-group-item border-0">
                 <InformationContainer
-                  label={strapiContents.SpecSection.SignalHub
-                    .Label /* t("tech_specification_section.signal_hub") */}
+                  label={strapiContents.SpecSection.SignalHub.Label}
                   content={eservice.is_signal_hub_enabled
-                    ? /* t("available") */ strapiContents.SpecSection.SignalHub
-                        .TrueValueLabel
-                    : /* t("not_available") */ strapiContents.SpecSection
-                        .SignalHub.FalseValueLabel}
+                    ? strapiContents.SpecSection.SignalHub.TrueValueLabel
+                    : strapiContents.SpecSection.SignalHub.FalseValueLabel}
                   icon={{
                     iconSize: "sm",
                     iconName: "it-info-circle",
                     tooltipTitle:
-                      strapiContents.SpecSection.SignalHub
-                        .TooltipTitle /* t("signalhub.tooltip.title") */,
+                      strapiContents.SpecSection.SignalHub.TooltipTitle,
                     tooltipContent:
-                      strapiContents.SpecSection.SignalHub
-                        .TooltipContent /* t("signalhub.tooltip.content") */,
+                      strapiContents.SpecSection.SignalHub.TooltipContent,
                   }}
                 />
               </li>
@@ -320,18 +273,12 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
           <div class="mb-default">
             <h4 id="documentazione" class="mb-4">
-              <!-- {t("documentation_section.title")} -->
               {strapiContents.DocumentationSection.Title}
             </h4>
 
             <div class="row px-2 mx-0 bg-white py-2">
               <div class="col-xs-12 col-md-8">
-                <span
-                  >{
-                    strapiContents.DocumentationSection
-                      .Description /* t("documentation_section.access_required") */
-                  }</span
-                >
+                <span>{strapiContents.DocumentationSection.Description}</span>
               </div>
               <div
                 class="col-xs-12 col-md-4 text-xs-start text-md-end mt-2 mt-lg-0"
@@ -344,7 +291,6 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <!-- {t("documentation_section.access_link")} -->
                   {strapiContents.DocumentationSection.LoginLabel}
                   <BootstrapItaliaIcon
                     name="it-external-link"
@@ -359,7 +305,7 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
           <div class="row bg-primary-c0 rounded-3 p-4 p-lg-5">
             <div class="col-xs-12 col-md-8">
               <h4>
-                {t("implementation_section.title") /* TODO title strapi */}
+                {strapiContents.Label.Title}
               </h4>
             </div>
             <div
@@ -368,15 +314,13 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
               <a
                 class="btn btn-primary btn-icon"
                 data-mp-external-link-id={strapiContents.Label
-                  .MixpanelExternalLinkId /* `${routeKey}_documentationSection_authentication_link` */}
+                  .MixpanelExternalLinkId}
                 data-mp-external-link-description={strapiContents.Label
-                  .MixpanelExternalLinkDescription /* "TODO" */}
-                href={/* links.interopPlatformLink */ strapiContents.Label
-                  .LinkURL}
+                  .MixpanelExternalLinkDescription}
+                href={strapiContents.Label.LinkURL}
                 target="_blank"
                 rel="noreferrer"
               >
-                <!-- {t("implementation_section.authentication_link")} -->
                 {strapiContents.Label.LinkLabel}
                 <BootstrapItaliaIcon
                   name="it-external-link"

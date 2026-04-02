@@ -13,9 +13,6 @@ const { title, headings } = Astro.props;
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const tUi = useUiTranslations(currentLocale);
-
-// tUi("page_index_nav.title")
-// TODO remove strings and check what to do with aria-labels
 ---
 
 <nav

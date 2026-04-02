@@ -39,8 +39,6 @@ if (!goodPracticesExamplesStrapiResponse || !generalStrapiResponse) {
 const goodPractice = goodPracticeStrapiResponse.data;
 const goodPracticesExamples = goodPracticesExamplesStrapiResponse.data;
 const generalContents = generalStrapiResponse.data;
-
-// TODO check comments and remove strings
 ---
 
 <Layout seo={goodPractice.Seo}>
@@ -68,11 +66,7 @@ const generalContents = generalStrapiResponse.data;
 
     <div slot="bottom-hero">
       <p>
-        <strong
-          >{
-            goodPractice.GoodPracticeTenantDestination /* tUi("label.for") */
-          }:</strong
-        >
+        <strong>{goodPractice.GoodPracticeTenantDestination}:</strong>
         {
           goodPractice.macrocategories.length === 0
             ? tUi("tenant_macrocategory_.tutti_short")

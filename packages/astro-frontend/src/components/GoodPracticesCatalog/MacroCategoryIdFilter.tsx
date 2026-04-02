@@ -1,10 +1,6 @@
-// import { TENANT_MACROCATEGORIES } from "../../config/constants.js";
-// import type { SupportedLanguage } from "../../i18n/types.i18n.js";
-// import { useUiTranslations } from "../../i18n/ui.i18n.js";
 import type { MacroCategory } from "../../types/collectionTypes.js";
 
 type MacroCategoryIdFilterProps = {
-  // currentLocale: SupportedLanguage;
   onSelectedMacroCategoryIdChange: (macroCategoryId: string | null) => void;
   selectedMacroCategoryId: string | null;
   tenantMacrocategories: MacroCategory[];
@@ -12,18 +8,11 @@ type MacroCategoryIdFilterProps = {
 
 const MAX_WIDTH = 305;
 
-// TODO remove comments and strings
-// TODO watch for macrocategory id what to use
-// tUi(`tenant_macrocategory_.${macrocategory.key}_long`)
-
 export const MacroCategoryIdFilter: React.FC<MacroCategoryIdFilterProps> = ({
-  // currentLocale,
   selectedMacroCategoryId,
   onSelectedMacroCategoryIdChange,
   tenantMacrocategories,
 }) => {
-  // const tUi = useUiTranslations(currentLocale);
-
   return (
     <div style={{ maxWidth: MAX_WIDTH }} className="it-list-wrapper">
       <ul id="category-filters-list" className="it-list border-start">

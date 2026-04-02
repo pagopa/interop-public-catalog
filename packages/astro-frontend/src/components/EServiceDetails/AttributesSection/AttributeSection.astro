@@ -17,24 +17,18 @@ const groups = mapEServiceAttributesToGroups(attributes);
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const t = useEServiceDetailsTranslations(currentLocale);
-
-// TODO remove comments and strings
 ---
 
 <div>
   <h4 id="requisiti" class="mb-4">
     {
-      `${strapiContent.Title /* t("attributes_section.title") */} ${groups.length !== 0 ? `(${groups.length} ${t("attributes_section.title_requirements")})` : ""}`
+      `${strapiContent.Title} ${groups.length !== 0 ? `(${groups.length} ${t("attributes_section.title_requirements")})` : ""}`
     }
   </h4>
   <div class="p-3 bg-white">
     {
       groups.length === 0 && (
-        <p class="mb-0">
-          {
-            strapiContent.NoAttributesLabel /* t("attributes_section.no_attributes") */
-          }
-        </p>
+        <p class="mb-0">{strapiContent.NoAttributesLabel}</p>
       )
     }
     {

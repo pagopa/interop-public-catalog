@@ -6,20 +6,10 @@ import RatingSection from "../../components/shared/RatingSection.astro";
 import EcosystemPageHero from "../../components/Ecosystem/EcosystemPageHero.astro";
 import EcosystemLegalReferencesSection from "../../components/Ecosystem/EcosystemLegalReferencesSection.astro";
 import EcosystemInteroperabilityLevelsSection from "../../components/Ecosystem/EcosystemInteroperabilityLevelsSection.astro";
-// import { useEcosystemTranslations } from "../../i18n/ecosystem.i18n";
-import {
-  getLangFromUrl,
-  // getLocalizedRoute,
-  // getRouteKeyFromCurrentRoutePattern,
-} from "../../i18n/utils.i18n";
-// import { links } from "../../config/constants";
+import { getLangFromUrl } from "../../i18n/utils.i18n";
 import { strapiService } from "../../server/services";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
-// const t = useEcosystemTranslations(currentLocale);
-
-// const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
-
 const strapiResponse =
   await strapiService.getInteroperabilityContent(currentLocale);
 
@@ -28,32 +18,6 @@ if (!strapiResponse) {
 }
 
 const contents = strapiResponse.data;
-
-// TODO remove strings and comments
-// leftCard={{
-//       title: t("suggestion_section.left_card.title"),
-//       description: t("suggestion_section.left_card.description"),
-//       buttonLink: {
-//         href: links.interopDevelopersLink,
-//         label: t("suggestion_section.left_card.button_label"),
-//         mixpanelAttributes: {
-//           "data-mp-external-link-id": `${routeKey}_suggestionSection_leftCard_interopDevelopersLink`,
-//           "data-mp-external-link-description": "TODO",
-//         },
-//       },
-//       externalLink: true,
-//       imageSrc: "/img/065-technical-support.svg",
-//     }}
-//     rightCard={{
-//       title: t("suggestion_section.right_card.title"),
-//       description: t("suggestion_section.right_card.description"),
-//       buttonLink: {
-//         href: getLocalizedRoute(currentLocale, "FAQ"),
-//         label: t("suggestion_section.right_card.button_label"),
-//       },
-//       externalLink: false,
-//       imageSrc: "/img/033-question.svg",
-//     }}
 ---
 
 <Layout seo={contents.Seo}>

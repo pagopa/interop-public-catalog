@@ -1,6 +1,4 @@
 ---
-// import { useHomepageTranslations } from "../../i18n/homepage.i18n";
-// import { useUiTranslations } from "../../i18n/ui.i18n";
 import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
 import type { Hero } from "../../types/pages";
 import { PopoverIcon } from "../shared/PopoverIcon.jsx";
@@ -8,25 +6,11 @@ import HomepageHeroBackground from "./HomepageHeroBackground.astro";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 
-// const t = useHomepageTranslations(currentLocale);
-// const tUi = useUiTranslations(currentLocale);
-
 interface Props {
   content: Hero;
 }
 
 const { content } = Astro.props;
-
-// TODO remove strings and comments
-// t("title")
-// t("subtitle")
-// t("search_placeholder")
-// tUi("actions.search")
-// t("info_link")
-// t("api_info.title")
-// t("api_info.content")
-// t("scroll_hint")
-// "/img/hero-eservice-cards.svg"
 ---
 
 <section id="hero" style="min-height: 560px;" class="it-hero-wrapper">

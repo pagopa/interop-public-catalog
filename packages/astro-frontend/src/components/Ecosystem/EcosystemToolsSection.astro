@@ -1,99 +1,13 @@
 ---
-// import { links } from "../../config/constants";
-// import { useEcosystemTranslations } from "../../i18n/ecosystem.i18n";
-// import {
-//   getLangFromUrl,
-//   getRouteKeyFromCurrentRoutePattern,
-// } from "../../i18n/utils.i18n";
 import type { Tools } from "../../types/pages";
 import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon";
 import { Section } from "../shared/Section";
-
-// const currentLocale = getLangFromUrl(Astro.url.pathname);
-// const t = useEcosystemTranslations(currentLocale);
 
 interface Props {
   toolsSection: Tools;
 }
 
 const { toolsSection } = Astro.props;
-
-// const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
-
-// TODO remove strings and comments
-// t("access_points_section.title")
-// t("access_points_section.subtitle")
-// t("access_points_section.actions.go_to_site")
-// t("access_points_section.what_is_it_for")
-
-// const mixpanelAttributes = [
-//   {
-//     "data-mp-external-link-id": `${routeKey}_accessPointsSection_pagoPa`,
-//     "data-mp-external-link-description": "TODO",
-//   },
-//   {
-//     "data-mp-external-link-id": `${routeKey}_accessPointsSection_euInteroperabilityFramework`,
-//     "data-mp-external-link-description": "TODO",
-//   },
-//   {
-//     "data-mp-external-link-id": `${routeKey}_accessPointsSection_schemaSemantic`,
-//     "data-mp-external-link-description": "TODO",
-//   },
-//   {
-//     "data-mp-external-link-id": `${routeKey}_accessPointsSection_openData`,
-//     "data-mp-external-link-description": "TODO",
-//   },
-// ] as const;
-
-// const tools = toolsSection.SingleTool.map((tool, index) => ({
-//   ...tool,
-//   mixpanelAttributes: {
-//     "data-mp-external-link-id": tool.MixpanelExternalLinkId,
-//   },
-// }));
-
-// const accessPoints = [
-//   {
-//     title: t("access_points_section.access_point_1.title"),
-//     subtitle: t("access_points_section.access_point_1.subtitle"),
-//     description: t("access_points_section.access_point_1.description"),
-//     href: links.interopPlatformLink,
-//     mixpanelAttributes: {
-//       "data-mp-external-link-id": `${routeKey}_accessPointsSection_pagoPa`,
-//       "data-mp-external-link-description": "TODO",
-//     },
-//   },
-//   {
-//     title: t("access_points_section.access_point_2.title"),
-//     subtitle: t("access_points_section.access_point_2.subtitle"),
-//     description: t("access_points_section.access_point_2.description"),
-//     href: links.euInteroperabilityFrameworkLink,
-//     mixpanelAttributes: {
-//       "data-mp-external-link-id": `${routeKey}_accessPointsSection_euInteroperabilityFramework`,
-//       "data-mp-external-link-description": "TODO",
-//     },
-//   },
-//   {
-//     title: t("access_points_section.access_point_3.title"),
-//     subtitle: t("access_points_section.access_point_3.subtitle"),
-//     description: t("access_points_section.access_point_3.description"),
-//     href: links.schemaSemanticLink,
-//     mixpanelAttributes: {
-//       "data-mp-external-link-id": `${routeKey}_accessPointsSection_schemaSemantic`,
-//       "data-mp-external-link-description": "TODO",
-//     },
-//   },
-//   {
-//     title: t("access_points_section.access_point_4.title"),
-//     subtitle: t("access_points_section.access_point_4.subtitle"),
-//     description: t("access_points_section.access_point_4.description"),
-//     href: links.openDataLink,
-//     mixpanelAttributes: {
-//       "data-mp-external-link-id": `${routeKey}_accessPointsSection_openData`,
-//       "data-mp-external-link-description": "TODO",
-//     },
-//   },
-// ] as const;
 ---
 
 <Section className="position-relative pb-0 pb-md-5 pt-5 mb-md-4">

@@ -1,16 +1,10 @@
 import { z } from "zod";
 import { DEFAULT_LANG, LANGUAGES } from "../../i18n/config.i18n";
 import type { SupportedLanguage } from "../../i18n/types.i18n";
-import {
-  CompactTenant,
-  EService,
-  // GoodPractice,
-} from "pagopa-interop-public-models";
+import { CompactTenant, EService } from "pagopa-interop-public-models";
 import { categoriesMap } from "../config/categories";
 import { parseQueryString } from "../../utils/qs.utils";
 import { EsempiPraticiSchema } from "../../types/collectionTypes";
-
-//TODO watch comments
 
 /* --------------------------------- Helpers --------------------------------- */
 function commaSeparatedStringToArray<T extends z.ZodTypeAny>(itemSchema: T) {

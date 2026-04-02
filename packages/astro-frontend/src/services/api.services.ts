@@ -10,7 +10,6 @@ import type {
 } from "../server/models/api";
 import type { EService } from "pagopa-interop-public-models";
 import type { SupportedLanguage } from "../i18n/types.i18n";
-// TODO check comments
 
 const apiClient = axios.create({
   headers: { "Content-Type": "application/json" },

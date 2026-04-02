@@ -7,11 +7,9 @@ import {
 import useSwr from "swr";
 import { MacroCategoryIdFilter } from "./MacroCategoryIdFilter.jsx";
 import { apiService } from "../../services/api.services.js";
-import { /* parseAsInteger,  */ parseAsString, useQueryState } from "nuqs";
+import { parseAsString, useQueryState } from "nuqs";
 import { NuqsAdapter } from "nuqs/adapters/react";
 import type { MacroCategory } from "../../types/collectionTypes.js";
-
-//TODO watch comments
 
 type GoodPracticesCatalogProps = {
   defaultMacroCategoryId: string | null;
@@ -44,9 +42,6 @@ export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
           limit: 50,
           offset: 0,
         }),
-        // new Promise((resolve) =>
-        //   setTimeout(resolve, Math.random() * 800 + 200),
-        // ), // Simulate network latency TODO remove
       ]);
       return result;
     },
@@ -62,7 +57,6 @@ export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
     <div className="row">
       <div className="col-12 col-lg-4 mb-default mb-lg-0">
         <MacroCategoryIdFilter
-          // currentLocale={currentLocale}
           onSelectedMacroCategoryIdChange={handleSelectedMacroCategoryIdChange}
           selectedMacroCategoryId={selectedMacroCategoryId ?? null}
           tenantMacrocategories={tenantMacrocategories}
@@ -104,16 +98,11 @@ export const GoodPracticesCatalog: React.FC<GoodPracticesCatalogProps> = (
 export const GoodPracticesCatalogSkeleton: React.FC<{
   selectedMacroCategoryId: string | null;
   tenantMacrocategories: MacroCategory[];
-  // currentLocale: SupportedLanguage;
-}> = ({
-  selectedMacroCategoryId,
-  tenantMacrocategories /* currentLocale */,
-}) => {
+}> = ({ selectedMacroCategoryId, tenantMacrocategories }) => {
   return (
     <div className="row">
       <div className="col-4 d-none d-lg-block">
         <MacroCategoryIdFilter
-          // currentLocale={currentLocale}
           onSelectedMacroCategoryIdChange={() => {}}
           selectedMacroCategoryId={selectedMacroCategoryId}
           tenantMacrocategories={tenantMacrocategories}

@@ -39,31 +39,3 @@ export const StrapiBodyComponent = z.union([
   BuonaPraticaEsempioConcretoComponent,
   BuonaPraticaNotaTecnicaComponent,
 ]);
-
-export const GoodPractice = z.object({
-  id: z.number(),
-  documentId: z.string(),
-  title: z.string(),
-  slug: z.string(),
-  publishedDate: z.string(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-  publishedAt: z.string(),
-  locale: z.string(),
-  isFeaturedInHomepage: z.boolean(),
-  eserviceId: z.array(
-    z.object({
-      eserviceId: z.string(),
-    }),
-  ),
-  tenantMacrocategories: z.array(
-    z.object({
-      id: z.number(),
-      label: z.string(),
-    }),
-  ),
-  category: z.string(),
-  body: z.array(StrapiBodyComponent),
-});
-
-export type GoodPractice = z.infer<typeof GoodPractice>;

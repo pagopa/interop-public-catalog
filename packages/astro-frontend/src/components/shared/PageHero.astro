@@ -1,6 +1,5 @@
 ---
 import { Section } from "./Section";
-// import { useUiTranslations } from "../../i18n/ui.i18n";
 import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
 import type { RouteKey } from "../../config/routes.js";
 import { strapiService } from "../../server/services";
@@ -16,8 +15,6 @@ const { title, description, breadcrumbItems, marginFromTitle } =
   Astro.props as Props;
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
-// const tUi = useUiTranslations(currentLocale);
-// TODO remove strings and comments
 
 const strapiResponse = await strapiService.getRoutes(currentLocale);
 
@@ -32,9 +29,6 @@ const contents = strapiResponse.data;
   <ol class="breadcrumb">
     {
       breadcrumbItems.map((item, idx) => {
-        // const routeLabel = tUi(
-        //   `breadcrumb_label.${item.routeKey as Exclude<RouteKey, "NOT_FOUND_ERROR" | "SERVER_ERROR">}`,
-        // );
         const routeLabel = contents.find(
           (route) => route.RouteKey === item.routeKey,
         )?.Breadcrumb;

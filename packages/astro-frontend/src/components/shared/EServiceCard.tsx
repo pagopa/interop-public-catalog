@@ -30,8 +30,6 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
 }) => {
   const tUi = useUiTranslations(currentLocale);
 
-  // TODO watch comments
-
   const url = getLocalizedRoute(currentLocale, "ESERVICE_DETAILS", {
     params: { id: eserviceId },
   });
@@ -48,7 +46,6 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
         <div className="shrink-0">
           <EServiceDataAccessChip
             isOpenData={isOpenData}
-            // currentLocale={currentLocale}
             strapiContent={strapiContent}
           />
         </div>

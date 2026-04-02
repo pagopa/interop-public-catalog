@@ -5,11 +5,8 @@ import {
   GoodPracticeCard,
   GoodPracticeCardSkeleton,
 } from "../components/shared/GoodPracticeCard.jsx";
-// import type { GoodPractice } from "pagopa-interop-public-models";
 import type { EsempiPratici } from "../types/collectionTypes.js";
 
-// TODO remove comments
-// TODO fare mock
 const mockedStrapiImage = {
   id: 1,
   documentId: "file_asset_98765",
@@ -75,25 +72,6 @@ const meta = {
   tags: ["autodocs"],
   args: {
     currentLocale: "it" satisfies SupportedLanguage,
-    // goodPractice: {
-    //   id: 12,
-    //   documentId: "zflr58yvojfzixgi4ob4jxfq",
-    //   title: "Mobilità senza barriere con il CUDE interoperabile",
-    //   slug: "mobilita-senza-barriere-con-il-cude-interoperabile",
-    //   publishedDate: "2025-10-17",
-    //   createdAt: "2025-10-16T08:10:56.095Z",
-    //   updatedAt: "2025-10-17T12:40:30.370Z",
-    //   publishedAt: "2025-10-17T12:40:30.381Z",
-    //   locale: "it",
-    //   isFeaturedInHomepage: true,
-    //   category: "Mobilità e Trasporti",
-    //   tenantMacrocategories: [
-    //     {
-    //       id: 2,
-    //       label: "Comuni",
-    //     },
-    //   ],
-    // }
     goodPractice: {
       Title: "Mobilità senza barriere con il CUDE interoperabile",
       Slug: "mobilita-senza-barriere-con-il-cude-interoperabile",

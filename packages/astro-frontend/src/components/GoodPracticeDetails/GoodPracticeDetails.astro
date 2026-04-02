@@ -8,8 +8,6 @@ import type { StrapiNode } from "pagopa-interop-public-models";
 import { GoodPracticeRelatedEService } from "./GoodPracticeRelatedEService";
 import type { EsempiPratici } from "../../types/collectionTypes";
 import type { EServiceAccess } from "../../types/general";
-
-// TODO remove comments
 interface Props {
   goodPractice: EsempiPratici;
   strapiContent: EServiceAccess;
@@ -23,7 +21,7 @@ const currentLocale = getLangFromUrl(Astro.url.pathname);
 const tGoodPractices = useGoodPracticesTranslations(currentLocale);
 
 const sectionTitles = goodPracticeBody
-  .filter((s) => s.__component === "esempi-pratici.simple-description") // check if put the filter or not
+  .filter((s) => s.__component === "esempi-pratici.simple-description")
   .map((s) => ({ label: s.Title, id: s.SectionId.toString() }));
 
 const formatDate = (dateString: string, locale: string) => {
@@ -51,10 +49,6 @@ const HEADING_CLASS = "h5 mb-3";
     <PageIndexNav
       title={goodPractice.PageIndexLabel}
       headings={[
-        // {
-        //   label: tGoodPractices("details.section.apis.description"),
-        //   id: "description",
-        // },
         ...sectionTitles,
         {
           label: tGoodPractices("details.section.apis.heading"),
@@ -67,9 +61,6 @@ const HEADING_CLASS = "h5 mb-3";
   </div>
   <div class="col-12 col-md-9">
     <article>
-      <!-- <h2 id={"description"} class={HEADING_CLASS}>
-        {tGoodPractices("details.section.apis.description")}
-      </h2> -->
       {
         goodPracticeBody.map((c) =>
           match(c)
@@ -100,19 +91,13 @@ const HEADING_CLASS = "h5 mb-3";
               <div
                 style={`background-color:#BFDFFF;padding:${MARGIN_BOTTOM}px;margin-bottom:${MARGIN_BOTTOM}px`}
               >
-                <h3 class="h5 mb-3">
-                  {/* {tGoodPractices("details.section.apis.example")} */}
-                  {c.Title}
-                </h3>
+                <h3 class="h5 mb-3">{c.Title}</h3>
                 <Fragment set:html={renderRichTextStrapiNodes(c.Description)} />
               </div>
             ))
             .with({ __component: "esempi-pratici.technical-notes" }, (c) => (
               <div class="alert alert-primary py-4 mb-4">
-                <h3 class="h5">
-                  {/* {tGoodPractices("details.section.apis.technical_notes")} */}
-                  {c.Title}
-                </h3>
+                <h3 class="h5">{c.Title}</h3>
                 <Fragment set:html={renderRichTextStrapiNodes(c.Description)} />
               </div>
             ))
