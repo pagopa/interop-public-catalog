@@ -33,5 +33,5 @@ const contents = strapiResponse.data;
     interoperabilityLevels={contents.InteroperabilityLevels}
   />
   <RatingSection />
-  <SuggestionSection />
+  <SuggestionSection strapiContents={contents.HowToSection} />
 </Layout>
