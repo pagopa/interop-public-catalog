@@ -1,79 +1,25 @@
 ---
 import { BootstrapItaliaIcon } from "./BootstrapItaliaIcon";
-// import { useUiTranslations } from "../../i18n/ui.i18n";
 import { Section } from "./Section";
-import {
-  getLangFromUrl,
-  // getRouteKeyFromCurrentRoutePattern,
-} from "../../i18n/utils.i18n";
-import { strapiService } from "../../server/services";
+import type { HowToSection } from "../../types/general";
 
-// type SuggestionCard = {
-//   title: string;
-//   description: string;
-//   buttonLink: {
-//     href: string;
-//     label: string;
-// mixpanelAttributes?: {
-//   "data-mp-external-link-id": string;
-//   "data-mp-external-link-description": string;
-// };
-//   };
-//   externalLink: boolean;
-//   imageSrc: string;
-// };
+type Props = {
+  strapiContents: HowToSection;
+};
 
-// type Props = {
-//   leftCard: SuggestionCard;
-//   rightCard: SuggestionCard;
-// };
-
-const currentLocale = getLangFromUrl(Astro.url.pathname);
-// const t = useUiTranslations(currentLocale);
-
-// const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
-
-const strapiResponse = await strapiService.getGeneralContent(currentLocale);
-
-if (!strapiResponse) {
-  throw new Error("Could not fetch content from strapi");
-}
-
-const contents = strapiResponse.data.HowToSection;
-
-// const suggestions = contents.HowTo.map((suggestion, index) => {
-//   const mixpanelAttributes =
-//     index === 0
-//       ? {
-//           "data-mp-external-link-id": `${routeKey}_suggestionSection_leftCard_interopDevelopersLink`,
-//           "data-mp-external-link-description": "TODO",
-//         }
-//       : undefined;
-//   return {
-//     ...suggestion,
-//     mixpanelAttributes: mixpanelAttributes,
-//   };
-// });
-
-// const { leftCard: providedLeftCard, rightCard: providedRightCard } =
-//   Astro.props as Props;
-
-// const suggestions = [providedLeftCard, providedRightCard] as const;
-
-// TODO remove strings and comments
-// t("suggestion_section.title")
+const { strapiContents } = Astro.props as Props;
 ---
 
 <div class="pb-4" id="suggestion-section">
   <Section
     style={{ maxWidth: "1076px" }}
     className="mx-auto"
-    title={contents.Title}
+    title={strapiContents.Title}
     titleClass="text-white"
   >
     <div class="d-flex flex-column flex-lg-row gap-4">
       {
-        contents.HowTo.map((suggestion) => (
+        strapiContents.HowTo.map((suggestion) => (
           <article class="bg-white rounded shadow-sm p-5" style="flex: 1;">
             <img
               style="fill: var(--bs-primary);"
