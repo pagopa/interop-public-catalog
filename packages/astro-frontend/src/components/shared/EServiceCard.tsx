@@ -3,10 +3,12 @@ import { useUiTranslations } from "../../i18n/ui.i18n.js";
 import type { SupportedLanguage } from "../../i18n/types.i18n.js";
 import { EServiceDataAccessChip } from "./EServiceDataAccessChip.jsx";
 import { getLocalizedRoute } from "../../i18n/utils.i18n.js";
+import type { EServiceAccess } from "../../types/general.js";
 
 interface EServiceCardProps {
   eserviceId: string;
   currentLocale: SupportedLanguage;
+  strapiContent: EServiceAccess;
   name: string;
   description: string;
   producerName: string;
@@ -24,6 +26,7 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
   producerName,
   isOpenData,
   eserviceId,
+  strapiContent,
 }) => {
   const tUi = useUiTranslations(currentLocale);
 
@@ -43,7 +46,7 @@ export const EServiceCard: React.FC<EServiceCardProps> = ({
         <div className="shrink-0">
           <EServiceDataAccessChip
             isOpenData={isOpenData}
-            currentLocale={currentLocale}
+            strapiContent={strapiContent}
           />
         </div>
       </header>

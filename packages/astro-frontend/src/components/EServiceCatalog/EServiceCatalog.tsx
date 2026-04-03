@@ -4,18 +4,19 @@ import EServiceCatalogItems from "./EServiceCatalogItems";
 import React from "react";
 import { useEServiceCatalogContext } from "./EServiceCatalogContext";
 import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon";
-import { useCatalogTranslations } from "../../i18n/catalog.i18n";
-import { links } from "../../config/constants";
 import { EServiceCardSkeleton } from "../shared/EServiceCard";
 import { apiService } from "../../services/api.services";
 import useSWRImmutable from "swr/immutable";
 import type { categoriesMap } from "../../server/config/categories";
-import type { RouteKey } from "../../config/routes";
+import type { General } from "../../types/general";
+import type { Catalog } from "../../types/pages";
 
-export const EServiceCatalog: React.FC = () => {
-  const { eserviceActiveFilterState, applyFilters, currentLocale } =
+export const EServiceCatalog: React.FC<{
+  strapiGeneralContent: General;
+  strapiCatalogContent: Catalog;
+}> = ({ strapiGeneralContent, strapiCatalogContent }) => {
+  const { eserviceActiveFilterState, applyFilters } =
     useEServiceCatalogContext();
-  const t = useCatalogTranslations(currentLocale);
 
   const onFiltersApply = () => {
     applyFilters();
@@ -41,8 +42,6 @@ export const EServiceCatalog: React.FC = () => {
   const totalCount = data?.pagination.totalCount ?? 0;
   const eservices = data?.results ?? [];
 
-  const routeKey: RouteKey = "ESERVICE_CATALOG";
-
   return (
     <>
       <Container className="p-3">
@@ -50,48 +49,39 @@ export const EServiceCatalog: React.FC = () => {
       </Container>
 
       {!isLoading ? (
-        <EServiceCatalogItems eservices={eservices} totalCount={totalCount} />
+        <EServiceCatalogItems
+          eservices={eservices}
+          totalCount={totalCount}
+          strapiContent={strapiGeneralContent}
+        />
       ) : (
         <EServiceItemsSkeleton />
       )}
       <Container className="p-3">
         <div className="primary-bg-c1 pt-3 px-sm-3">
-          <h4 className="p-3">{t("finder.title")}</h4>
+          <h4 className="p-3">{strapiCatalogContent.Links.Title}</h4>
           <div className="p-3">
-            <a
-              data-mp-external-link-id={`${routeKey}_finder_apiListLink`}
-              data-mp-external-link-description="TODO"
-              href={links.apiListLink}
-              target="_blank"
-              className="btn btn-outline-primary btn-icon me-1"
-              rel="noreferrer"
-            >
-              {t("finder.api.label")}
-              {
-                <BootstrapItaliaIcon
-                  className="ms-2"
-                  name="it-external-link"
-                  color="primary"
-                />
-              }
-            </a>
-            <a
-              data-mp-external-link-id={`${routeKey}_finder_providerListLink`}
-              data-mp-external-link-description="TODO"
-              href={links.membersListLink}
-              target="_blank"
-              className="btn btn-outline-primary btn-icon mt-1 mt-sm-0"
-              rel="noreferrer"
-            >
-              {t("finder.provider.label")}
-              {
-                <BootstrapItaliaIcon
-                  className="ms-2"
-                  name="it-external-link"
-                  color="primary"
-                />
-              }
-            </a>
+            {strapiCatalogContent.Links.SingleLink.map((singleLink) => (
+              <a
+                data-mp-external-link-id={singleLink.MixpanelExternalLinkId}
+                data-mp-external-link-description={
+                  singleLink.MixpanelExternalLinkDescription
+                }
+                href={singleLink.LinkURL}
+                target="_blank"
+                className="btn btn-outline-primary btn-icon me-1"
+                rel="noreferrer"
+              >
+                {singleLink.LinkLabel}
+                {
+                  <BootstrapItaliaIcon
+                    className="ms-2"
+                    name="it-external-link"
+                    color="primary"
+                  />
+                }
+              </a>
+            ))}
           </div>
         </div>
       </Container>

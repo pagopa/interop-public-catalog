@@ -1,3 +1,4 @@
+import z from "zod";
 import type { SupportedLanguage } from "../i18n/types.i18n.js";
 
 export const ROUTES = {
@@ -21,5 +22,9 @@ export const ROUTES = {
   SERVER_ERROR: { it: "/500", en: "/500" },
 } as const satisfies Record<string, Record<SupportedLanguage, string>>;
 
-export type RouteKey = keyof typeof ROUTES;
+export const RouteKeySchema = z.enum(
+  Object.keys(ROUTES) as [keyof typeof ROUTES, ...(keyof typeof ROUTES)[]],
+);
+
+export type RouteKey = z.infer<typeof RouteKeySchema>;
 export type Route = (typeof ROUTES)[RouteKey];

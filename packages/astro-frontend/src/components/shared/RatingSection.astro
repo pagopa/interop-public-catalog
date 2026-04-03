@@ -1,22 +1,28 @@
 ---
-import { useUiTranslations } from "../../i18n/ui.i18n";
 import { getLangFromUrl } from "../../i18n/utils.i18n";
+import { strapiService } from "../../server/services";
 import { BootstrapItaliaIcon } from "./BootstrapItaliaIcon";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
-const t = useUiTranslations(currentLocale);
 
-const recipient = "info@pagopa.it";
-const mailtoURL = `mailto:${recipient}`;
+const strapiResponse = await strapiService.getGeneralContent(currentLocale);
+
+if (!strapiResponse) {
+  throw new Error("Could not fetch content from strapi");
+}
+
+const contents = strapiResponse.data.WasPageUseful;
+
+const mailtoURL = `mailto:${contents.EmailMailTo}`;
 ---
 
 <section class="section bg-dark px-0 px-md-auto py-5">
   <div class="section-content">
     <div class="container px-3">
-      <h4 class="text-white mb-4">{t("rating.title")}</h4>
+      <h4 class="text-white mb-4">{contents.Title}</h4>
 
       <a class="btn btn-primary" href={mailtoURL} role="button">
-        {t("rating.button_label")}
+        {contents.EmailLabel}
         <BootstrapItaliaIcon
           name={"it-mail"}
           color={"primary"}

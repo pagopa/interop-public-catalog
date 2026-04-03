@@ -1,29 +1,30 @@
 ---
-import { useEcosystemTranslations } from "../../i18n/ecosystem.i18n";
-import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
+import type { Legislation } from "../../types/pages";
 import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon";
 import { Section } from "../shared/Section";
 
-const currentLocale = getLangFromUrl(Astro.url.pathname);
-const t = useEcosystemTranslations(currentLocale);
-const legislationLink = getLocalizedRoute(currentLocale, "LEGISLATION");
+interface Props {
+  legislation: Legislation;
+}
+
+const { legislation } = Astro.props;
 ---
 
 <Section
   className="py-5"
   style={{ backgroundColor: "#EBECED" }}
-  title={t("ecosystem_legal_references.title")}
+  title={legislation.Title}
 >
   <div class="row">
     <p class="col-12 col-md-9 text-secondary">
-      {t("ecosystem_legal_references.subtitle")}
+      {legislation.Subtitle}
     </p>
     <div
       class="col-12 col-md-3 d-flex align-items-start justify-content-md-end mt-2 mt-md-0"
     >
-      <a href={legislationLink}>
+      <a href={legislation.LinkURL}>
         <button class="btn btn-outline-primary btn-icon" type="button">
-          {t("ecosystem_legal_references.button")}
+          {legislation.LinkLabel}
           <BootstrapItaliaIcon
             name="it-arrow-right"
             size="sm"

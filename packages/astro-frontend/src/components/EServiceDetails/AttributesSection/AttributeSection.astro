@@ -4,12 +4,14 @@ import AttributeAccordionsGroup from "./AttributeAccordionsGroup.astro";
 import { mapEServiceAttributesToGroups } from "../../../utils/utils.js";
 import { useEServiceDetailsTranslations } from "../../../i18n/eservice-details.i18n.js";
 import { getLangFromUrl } from "../../../i18n/utils.i18n";
+import type { RequirementsSection } from "../../../types/pages/eserviceDetails";
 
 type Props = {
   attributes: EServiceAttributes;
+  strapiContent: RequirementsSection;
 };
 
-const { attributes } = Astro.props;
+const { attributes, strapiContent } = Astro.props;
 
 const groups = mapEServiceAttributesToGroups(attributes);
 
@@ -20,13 +22,13 @@ const t = useEServiceDetailsTranslations(currentLocale);
 <div>
   <h4 id="requisiti" class="mb-4">
     {
-      `${t("attributes_section.title")} ${groups.length !== 0 ? `(${groups.length} ${t("attributes_section.title_requirements")})` : ""}`
+      `${strapiContent.Title} ${groups.length !== 0 ? `(${groups.length} ${t("attributes_section.title_requirements")})` : ""}`
     }
   </h4>
   <div class="p-3 bg-white">
     {
       groups.length === 0 && (
-        <p class="mb-0">{t("attributes_section.no_attributes")}</p>
+        <p class="mb-0">{strapiContent.NoAttributesLabel}</p>
       )
     }
     {
@@ -46,6 +48,7 @@ const t = useEServiceDetailsTranslations(currentLocale);
                       groupIndex={index}
                       attributeType={attributeType}
                       attributes={attributesGroup}
+                      strapiContent={strapiContent}
                     />
                   </div>
                 </div>

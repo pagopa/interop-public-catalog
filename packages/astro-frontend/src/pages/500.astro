@@ -2,18 +2,30 @@
 import ErrorDisplayer from "../components/shared/ErrorDisplayer.astro";
 import Layout from "../layouts/Layout.astro";
 import { getLangFromUrl } from "../i18n/utils.i18n";
-import { useUiTranslations } from "../i18n/ui.i18n";
+import { strapiService } from "../server/services";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
-const tUi = useUiTranslations(currentLocale);
+
+const strapiResponse = await strapiService.get500Content(currentLocale);
+const strapiGeneralResponse =
+  await strapiService.getGeneralContent(currentLocale);
+
+if (!strapiResponse || !strapiGeneralResponse) {
+  throw new Error("Could not fetch content from strapi");
+}
+
+const contents = strapiResponse.data;
+const seo = strapiGeneralResponse.data.DefaultSeo;
 ---
 
-<Layout>
+<Layout seo={seo}>
   <ErrorDisplayer
     error={{
-      iconSrc: "/img/016-plug.svg",
-      title: tUi("error.system_unavailable.title"),
-      message: tUi("error.system_unavailable.message"),
+      iconSrc: contents.Illustration.url,
+      title: contents.Title,
+      message: contents.Description,
+      linkLabel: contents.LinkLabel,
+      linkURL: contents.LinkURL,
     }}
   />
 </Layout>
