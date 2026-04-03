@@ -5,6 +5,7 @@ import {
   MacroCategorySchema,
 } from "../collectionTypes.js";
 import { StrapiImageSchema } from "pagopa-interop-public-models";
+import { HowToSectionSchema } from "../general.js";
 
 export const HeroSchema = z.object({
   Title: z.string(),
@@ -62,6 +63,7 @@ export const HomepageSchema = z.object({
   HowItWorks: HowItWorksSchema,
   Examples: ExamplesSchema,
   ShowcaseEservices: ShowcaseEservicesSchema,
+  HowToSection: HowToSectionSchema,
   Seo: SeoSchema,
 });
 

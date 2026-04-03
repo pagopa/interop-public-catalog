@@ -13,7 +13,7 @@ import type { SupportedLanguage } from "../../i18n/types.i18n.js";
 // import { getNormativaDataMockByLocale } from "../mocks/normativa.mocks.js";
 import type { Error404 } from "../../types/pages/404.js";
 import type { Error500 } from "../../types/pages/500.js";
-import type { Catalog } from "../../types/pages/catalogo.js";
+import type { Catalog } from "../../types/pages/singleCatalog.js";
 import type {
   EsempiPratici,
   MacroCategory,

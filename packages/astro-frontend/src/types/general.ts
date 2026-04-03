@@ -3,12 +3,6 @@ import { RouteSchema } from "./collectionTypes.js";
 import { SeoSchema } from "./seo.js";
 import { StrapiImageSchema } from "pagopa-interop-public-models";
 
-export const WasPageUsefulSchema = z.object({
-  Title: z.string(),
-  EmailLabel: z.string(),
-  EmailMailTo: z.string(),
-});
-
 export const HowToSchema = z.object({
   Illustration: StrapiImageSchema,
   Title: z.string(),
@@ -23,6 +17,12 @@ export const HowToSchema = z.object({
 export const HowToSectionSchema = z.object({
   Title: z.string(),
   HowTo: z.array(HowToSchema),
+});
+
+export const WasPageUsefulSchema = z.object({
+  Title: z.string(),
+  EmailLabel: z.string(),
+  EmailMailTo: z.string(),
 });
 
 export const FooterLinksSchema = z.object({
@@ -46,7 +46,6 @@ export const GeneralSchema = z.object({
   WebsiteTitle: z.string(),
   WebsiteTagline: z.string(),
   WasPageUseful: WasPageUsefulSchema,
-  HowToSection: HowToSectionSchema,
   DefaultSeo: SeoSchema,
   FooterLinks: z.array(FooterLinksSchema),
   CopyURL: CopyUrlSchema,

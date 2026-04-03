@@ -1,5 +1,6 @@
 import z from "zod";
 import { SeoSchema } from "../seo";
+import { HowToSectionSchema } from "../general";
 
 export const SingleLinkSchema = z.object({
   LinkLabel: z.string(),
@@ -18,6 +19,7 @@ export const CatalogSchema = z.object({
   SubTitle: z.string(),
   Seo: SeoSchema,
   Links: LinksSchema,
+  HowToSection: HowToSectionSchema,
 });
 
 export type SingleLink = z.infer<typeof SingleLinkSchema>;

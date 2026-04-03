@@ -4,6 +4,7 @@ import {
   StrapiNodeSchema,
 } from "pagopa-interop-public-models";
 import { SeoSchema } from "../seo";
+import { HowToSectionSchema } from "../general";
 
 export const FeatureSchema = z.object({
   Title: z.string(),
@@ -54,6 +55,7 @@ export const Interoperabilita = z.object({
   Tools: ToolsSchema,
   Legislation: LegislationSchema,
   InteroperabilityLevels: InteroperabilityLevelsSchema,
+  HowToSection: HowToSectionSchema,
   Seo: SeoSchema,
 });
 
