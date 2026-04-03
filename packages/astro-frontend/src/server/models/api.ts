@@ -1,13 +1,10 @@
 import { z } from "zod";
 import { DEFAULT_LANG, LANGUAGES } from "../../i18n/config.i18n";
 import type { SupportedLanguage } from "../../i18n/types.i18n";
-import {
-  CompactTenant,
-  EService,
-  GoodPractice,
-} from "pagopa-interop-public-models";
+import { CompactTenant, EService } from "pagopa-interop-public-models";
 import { categoriesMap } from "../config/categories";
 import { parseQueryString } from "../../utils/qs.utils";
+import { EsempiPraticiSchema } from "../../types/collectionTypes";
 
 /* --------------------------------- Helpers --------------------------------- */
 function commaSeparatedStringToArray<T extends z.ZodTypeAny>(itemSchema: T) {
@@ -73,16 +70,17 @@ export const PaginationQuerySchema = z.object({
 /* -------------------------- Good Practices Schemas ------------------------- */
 export const GoodPracticesQuerySchema = z
   .object({
-    macroCategoryId: z.coerce.number().positive().optional(),
+    macroCategoryId: z.coerce.string().optional(),
   })
   .and(LocaleQuerySchema)
   .and(PaginationQuerySchema);
 export type GoodPracticesQuery = z.infer<typeof GoodPracticesQuerySchema>;
 
-export const GoodPracticeSlugSchema = z.string().min(1);
-export type GoodPracticeSlug = z.infer<typeof GoodPracticeSlugSchema>;
+export const GoodPracticeSlugSchema = z.string();
+export type GoodPracticeSlugQuery = z.infer<typeof GoodPracticeSlugSchema>;
 
-export const GoodPracticesResponseSchema = PaginatedResultSchema(GoodPractice);
+export const GoodPracticesResponseSchema =
+  PaginatedResultSchema(EsempiPraticiSchema);
 export type GoodPracticesResponse = z.infer<typeof GoodPracticesResponseSchema>;
 
 /* ------------------------------ Tenants Schemas ----------------------------- */

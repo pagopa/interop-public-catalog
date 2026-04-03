@@ -17,16 +17,18 @@ import Pagination from "../shared/Pagination/Pagination.jsx";
 import { useCatalogTranslations } from "../../i18n/catalog.i18n.js";
 import { useEServiceCatalogContext } from "./EServiceCatalogContext.jsx";
 import { EServiceNoItems } from "./EServiceNoItems.jsx";
-import { useUiTranslations } from "../../i18n/ui.i18n.js";
+import type { General } from "../../types/general.js";
 
 type EServiceCatalogItemsProps = {
   eservices: EService[];
   totalCount: number;
+  strapiContent: General;
 };
 
 export const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({
   eservices,
   totalCount,
+  strapiContent,
 }) => {
   const {
     eserviceActiveFilterState,
@@ -37,7 +39,6 @@ export const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({
 
   const rows = chunkEServiceArray(eservices, 3);
   const t = useCatalogTranslations(currentLocale);
-  const tUi = useUiTranslations(currentLocale);
 
   const handleCopyUrl = () => {
     const url = window.location.href;
@@ -68,7 +69,7 @@ export const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({
             onClick={handleCopyUrl}
             role="button"
           >
-            {tUi("actions.copyUrl")}
+            {strapiContent.CopyURL.Label}
             <Icon icon="it-copy" size="sm" color="primary" className="ms-2" />
           </a>
         </div>
@@ -130,6 +131,7 @@ export const EServiceCatalogItems: React.FC<EServiceCatalogItemsProps> = ({
                 name={eservice.name}
                 producerName={eservice.tenant_name}
                 description={eservice.description}
+                strapiContent={strapiContent.EServiceAccess}
               />
             </Col>
           ))}

@@ -4,15 +4,13 @@ import EServiceDetails from "../../../components/EServiceDetails/EServiceDetails
 
 import { getLangFromUrl, getLocalizedRoute } from "../../../i18n/utils.i18n";
 import PageHero from "../../../components/shared/PageHero.astro";
-import { useEServiceDetailsTranslations } from "../../../i18n/eservice-details.i18n.js";
 import RatingSection from "../../../components/shared/RatingSection.astro";
 import { EServiceDataAccessChip } from "../../../components/shared/EServiceDataAccessChip";
-import { sqlService } from "../../../server/services";
+import { sqlService, strapiService } from "../../../server/services";
 import { CopyUrlButton } from "../../../components/shared/CopyUrlButton.jsx";
 import { OtherProducerEServices } from "../../../components/EServiceDetails/OtherProducerEServices";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
-const tEserviceDetails = useEServiceDetailsTranslations(currentLocale);
 
 const eserviceId = Astro.params.id as string;
 
@@ -21,6 +19,19 @@ const eservice = await sqlService.getEService(eserviceId);
 if (!eservice) {
   return Astro.redirect("/404");
 }
+
+const eServiceDetailsStrapiResponse =
+  await strapiService.getEServiceDetailsContent(currentLocale);
+
+const generalStrapiResponse =
+  await strapiService.getGeneralContent(currentLocale);
+
+if (!eServiceDetailsStrapiResponse || !generalStrapiResponse) {
+  throw new Error("Could not fetch content from strapi");
+}
+
+const eserviceDetailsContents = eServiceDetailsStrapiResponse.data;
+const generalContents = generalStrapiResponse.data;
 
 const catalogLocalizedUrl = getLocalizedRoute(
   currentLocale,
@@ -32,7 +43,7 @@ const catalogUrl = `${catalogLocalizedUrl}?${new URLSearchParams({
 }).toString()}`;
 ---
 
-<Layout>
+<Layout seo={generalContents.DefaultSeo}>
   <PageHero
     title={eservice.name}
     marginFromTitle="0"
@@ -56,13 +67,13 @@ const catalogUrl = `${catalogLocalizedUrl}?${new URLSearchParams({
       <div>
         <EServiceDataAccessChip
           isOpenData={false}
-          currentLocale={currentLocale}
+          strapiContent={generalContents.EServiceAccess}
         />
       </div>
-      <CopyUrlButton currentLocale={currentLocale} />
+      <CopyUrlButton strapiContent={generalContents.CopyURL} />
     </div>
     <p slot="bottom-hero">
-      {tEserviceDetails("producer")}:
+      {eserviceDetailsContents.Header.ProducerLabel}:
       <a class="text-decoration-none" href={catalogUrl}>
         <strong>
           <u>{eservice.tenant_name}</u>
@@ -70,8 +81,15 @@ const catalogUrl = `${catalogLocalizedUrl}?${new URLSearchParams({
       </a>
     </p>
   </PageHero>
-  <EServiceDetails eservice={eservice} />
+  <EServiceDetails
+    eservice={eservice}
+    strapiContents={eserviceDetailsContents}
+  />
   <OtherProducerEServices
+    strapiContents={{
+      sectionContents: eserviceDetailsContents.OtherProducerAPIs,
+      generalContents: generalContents.EServiceAccess,
+    }}
     client:visible
     currentEServiceId={eservice.id}
     currentLocale={currentLocale}

@@ -5,11 +5,13 @@ import { apiService } from "../../services/api.services";
 import { useState } from "react";
 import { useGoodPracticesTranslations } from "../../i18n/good-practices.i18n";
 import type { EService } from "pagopa-interop-public-models";
+import type { EServiceAccess } from "../../types/general";
 
 export const GoodPracticeRelatedEService: React.FC<{
   currentLocale: SupportedLanguage;
   eserviceIds: string[];
-}> = ({ currentLocale, eserviceIds }) => {
+  strapiContent: EServiceAccess;
+}> = ({ currentLocale, eserviceIds, strapiContent }) => {
   const [showAll, setShowAll] = useState(false);
 
   const { data: eservices } = useSWRImmutable(
@@ -40,6 +42,7 @@ export const GoodPracticeRelatedEService: React.FC<{
       {displayedEServices.map((eservice) => (
         <div key={eservice.id} className="col-12 col-md-6">
           <EServiceCard
+            strapiContent={strapiContent}
             currentLocale={currentLocale}
             name={eservice.name}
             description={eservice.description}

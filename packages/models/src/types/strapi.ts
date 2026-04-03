@@ -1,16 +1,5 @@
 import { z } from "zod";
 
-export const StrapiArticleSchema = z.object({
-  id: z.number(),
-  documentId: z.string(),
-  title: z.string(),
-  description: z.string(),
-  slug: z.string(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
-  publishedAt: z.string().optional(),
-});
-
 export const StrapiHeadingLevelSchema = z.union([
   z.literal(1),
   z.literal(2),
@@ -170,9 +159,8 @@ export const StrapiEntitySchema = <T extends z.ZodTypeAny>(schema: T) =>
 
 export const StrapiListMetaSchema = z.object({
   pagination: z.object({
-    page: z.number(),
-    pageSize: z.number(),
-    pageCount: z.number(),
+    start: z.number(),
+    limit: z.number(),
     total: z.number(),
   }),
 });
@@ -192,7 +180,6 @@ export type StrapiEntityList<T> = {
   meta: z.infer<typeof StrapiListMetaSchema>;
 };
 
-export type StrapiArticle = z.infer<typeof StrapiArticleSchema>;
 export type StrapiImageFormat = z.infer<typeof StrapiImageFormatSchema>;
 export type StrapiImage = z.infer<typeof StrapiImageSchema>;
 export type StrapiListMeta = z.infer<typeof StrapiListMetaSchema>;

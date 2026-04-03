@@ -6,6 +6,7 @@ import type {
   GoodPracticesQuery,
   TenantsResponse,
   EServicesQuery,
+  GoodPracticeSlugQuery,
 } from "../server/models/api";
 import type { EService } from "pagopa-interop-public-models";
 import type { SupportedLanguage } from "../i18n/types.i18n";
@@ -35,17 +36,18 @@ export const apiService = {
     });
     return response.data;
   },
-  getGoodPracticeBySlug: async (slug: string, locale: SupportedLanguage) => {
+  getGoodPracticeBySlug: async (
+    slug: GoodPracticeSlugQuery,
+    locale: SupportedLanguage,
+  ) => {
     const response = await apiClient.get(`/api/good-practices/${slug}`, {
-      params: {
-        locale,
-      },
+      params: { locale },
     });
     return response.data;
   },
   getGoodPractices: async (params: GoodPracticesQuery) => {
     const response = await apiClient.get<GoodPracticesResponse>(
-      "/api/good-practices",
+      `/api/good-practices`,
       {
         params,
       },

@@ -1,16 +1,12 @@
 ---
 import type { HTMLAttributes } from "astro/types";
-import { getLangFromUrl } from "../../../i18n/utils.i18n";
-import { useUiTranslations } from "../../../i18n/ui.i18n";
 
 interface Props extends HTMLAttributes<"nav"> {
+  title: string;
   headings: { id: string; label: string }[];
 }
 
-const { headings, ...rest } = Astro.props;
-
-const currentLocale = getLangFromUrl(Astro.url.pathname);
-const tUi = useUiTranslations(currentLocale);
+const { title, headings, ...rest } = Astro.props;
 ---
 
 <aside
@@ -18,7 +14,7 @@ const tUi = useUiTranslations(currentLocale);
   {...rest}
 >
   <h2 class="h6 link-list-heading p-0">
-    {tUi("page_index_nav.title")}
+    {title}
   </h2>
   <ul class="link-list mt-4 border-end">
     {

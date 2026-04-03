@@ -3,41 +3,28 @@ import PageHero from "../../components/shared/PageHero.astro";
 import PageIndexNav from "../../components/shared/PageIndexNav/PageIndexNav.astro";
 import { Section } from "../../components/shared/Section";
 import Layout from "../../layouts/Layout.astro";
-import { match } from "ts-pattern";
 import { renderRichTextStrapiNodes } from "../../utils/rich-text-strapi-renderer";
 import { getLangFromUrl } from "../../i18n/utils.i18n";
-import { useUiTranslations } from "../../i18n/ui.i18n";
 import { BootstrapItaliaIcon } from "../../components/shared/BootstrapItaliaIcon";
 import { strapiService } from "../../server/services";
-import type { NormativaReferenceContent } from "../../server/types/normativa.types";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
-const tUi = useUiTranslations(currentLocale);
-
 const strapiResponse = await strapiService.getNormativaContent(currentLocale);
 
 if (!strapiResponse) {
-  throw new Error("Could not fetch Normativa content");
+  throw new Error("Could not fetch content from strapi");
 }
 
 const contents = strapiResponse.data;
-const body = contents.body;
+const body = contents.NormativaSection;
 
-const sectionTitles = body
-  .filter(
-    (
-      s,
-    ): s is NormativaReferenceContent["body"][number] & {
-      __component: "shared.section-title";
-    } =>
-      Boolean(
-        s.__component === "shared.section-title" && s.sectionTitle && s.slug,
-      ),
-  )
-  .map((s) => ({ label: s.sectionTitle, id: s.slug }));
+const sectionTitles = body.map((section) => ({
+  id: section.NormativaId,
+  label: section.NormativaSectionTitle,
+}));
 ---
 
-<Layout>
+<Layout seo={contents.Seo}>
   <PageHero
     breadcrumbItems={[
       {
@@ -48,14 +35,15 @@ const sectionTitles = body
         current: true,
       },
     ]}
-    title={contents.title}
-    description={contents.description}
+    title={contents.Title}
+    description={contents.Subtitle}
   />
 
   <Section className="bg-muted">
     <div class="row">
       <div class="col-12 col-md-3">
         <PageIndexNav
+          title={contents.IndexLabel}
           headings={sectionTitles}
           style="top: 1rem;"
           class="position-sticky"
@@ -64,35 +52,42 @@ const sectionTitles = body
 
       <div class="col-12 col-md-9">
         {
-          body.map((s) =>
-            match(s)
-              .with({ __component: "shared.section-title" }, (c) => (
-                <h2 class="h5 mb-4" id={c.slug}>
-                  {c.sectionTitle}
+          body.map((section) => {
+            return (
+              <>
+                <h2 class="h5 mb-4" id={section.NormativaId}>
+                  {section.NormativaSectionTitle}
                 </h2>
-              ))
-              .with({ __component: "shared.body" }, (c) => (
-                <Fragment set:html={renderRichTextStrapiNodes(c.text)} />
-              ))
-              .with({ __component: "shared.url" }, (c) => (
-                <a
-                  href={c.externalLink}
-                  target="_blank"
-                  class="it-card-link text-primary text-uppercase fw-semibold mb-5 d-inline-block"
-                  rel="noreferrer"
-                >
-                  {tUi("eservice_card.read_more")}
-                  <BootstrapItaliaIcon
-                    aria-hidden="true"
-                    name="it-arrow-right"
-                    size="sm"
-                    color="primary"
-                    padded
-                  />
-                </a>
-              ))
-              .otherwise(() => ""),
-          )
+                {section.NormativaSectionItem.map((item) => {
+                  return (
+                    <>
+                      <h3 class="h6 mb-1">{item.NormativaSectionItemTitle}</h3>
+                      <Fragment
+                        set:html={renderRichTextStrapiNodes(
+                          item.NormativaSectionItemDescription,
+                        )}
+                      />
+                      <a
+                        href={item.NormativaSectionItemLink}
+                        target="_blank"
+                        class="it-card-link text-primary text-uppercase fw-semibold mb-5 d-inline-block"
+                        rel="noreferrer"
+                      >
+                        {contents.LinkLabel}
+                        <BootstrapItaliaIcon
+                          aria-hidden="true"
+                          name="it-arrow-right"
+                          size="sm"
+                          color="primary"
+                          padded
+                        />
+                      </a>
+                    </>
+                  );
+                })}
+              </>
+            );
+          })
         }
       </div>
     </div>

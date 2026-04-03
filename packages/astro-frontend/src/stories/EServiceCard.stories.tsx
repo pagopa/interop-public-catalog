@@ -18,6 +18,12 @@ const meta = {
     producerName: "Dipartimento per la trasformazione digitale",
     eserviceId: "eservice-12345",
     isOpenData: false,
+    strapiContent: {
+      FreeAccessLabel: "Open Data",
+      FreeAccessTooltipLabel: "I dati sono accessibili liberamente",
+      RestrictedAccessLabel: "Accesso riservato",
+      RestrictedAccessTooltipLabel: "I dati sono ad accesso riservato",
+    },
   },
   argTypes: {
     currentLocale: {
