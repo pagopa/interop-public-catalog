@@ -46,8 +46,10 @@ export const MacroCategoryIdFilter: React.FC<MacroCategoryIdFilterProps> = ({
                 <div className="it-thumb">
                   <img
                     role="presentation"
-                    alt={macrocategory.Illustration.alternativeText}
-                    src={macrocategory.Illustration.url}
+                    alt={
+                      macrocategory.MacrocategoryIllustration.alternativeText
+                    }
+                    src={macrocategory.MacrocategoryIllustration.url}
                     width={32}
                     height={32}
                   />

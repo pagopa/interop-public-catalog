@@ -16,7 +16,7 @@ export const RouteSchema = z.object({
 export const MacroCategorySchema = z.object({
   MacroCategoryLabel: z.string(),
   MacroCategoryId: z.string(),
-  Illustration: StrapiImageSchema,
+  MacrocategoryIllustration: StrapiImageSchema,
 });
 
 export const RelatedEserviceSchema = z.object({
