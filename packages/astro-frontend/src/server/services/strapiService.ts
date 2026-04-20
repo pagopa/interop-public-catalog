@@ -3,14 +3,6 @@ import type {
   StrapiEntity,
 } from "pagopa-interop-public-models";
 import type { SupportedLanguage } from "../../i18n/types.i18n.js";
-// import { getGoodPracticesDataMockByLocale } from "../mocks/good-practices.mocks.js";
-// import { getSeoMockData } from "../mocks/meta-data.mocks.js";
-// import type { MetaDataType } from "../types/metaData.types.js";
-// import type { RouteKey } from "../../config/routes.js";
-// import type { FaqContent } from "../types/faq.types.js";
-// import { getFAQContentMockByLocale } from "../mocks/faq.mocks.js";
-// import type { NormativaReferenceContent } from "../types/normativa.types.js";
-// import { getNormativaDataMockByLocale } from "../mocks/normativa.mocks.js";
 import type { Error404 } from "../../types/pages/404.js";
 import type { Error500 } from "../../types/pages/500.js";
 import type { Catalog } from "../../types/pages/singleCatalog.js";
@@ -177,9 +169,6 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
             "DefaultSeo",
             "DefaultSeo.OpenGraphImage",
             "DefaultSeo.TwitterImage",
-            "HowToSection",
-            "HowToSection.HowTo",
-            "HowToSection.HowTo.Illustration",
             "FooterLinks",
             "FooterLinks.pagines",
             "CopyURL",

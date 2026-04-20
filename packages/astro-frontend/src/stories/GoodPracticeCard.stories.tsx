@@ -81,7 +81,7 @@ const meta = {
         {
           MacroCategoryId: "2",
           MacroCategoryLabel: "Comuni",
-          Illustration: mockedStrapiImage,
+          MacrocategoryIllustration: mockedStrapiImage,
         },
       ],
       LastUpdate: "2025-10-17T12:40:30.370Z",
@@ -160,17 +160,17 @@ export const MultipleTargets: Story = {
         {
           MacroCategoryId: "3",
           MacroCategoryLabel: "Regioni e Province Autonome",
-          Illustration: mockedStrapiImage,
+          MacrocategoryIllustration: mockedStrapiImage,
         },
         {
           MacroCategoryId: "5",
           MacroCategoryLabel: "Province e Città metropolitane",
-          Illustration: mockedStrapiImage,
+          MacrocategoryIllustration: mockedStrapiImage,
         },
         {
           MacroCategoryId: "1",
           MacroCategoryLabel: "PA centrali",
-          Illustration: mockedStrapiImage,
+          MacrocategoryIllustration: mockedStrapiImage,
         },
       ],
     },
@@ -221,7 +221,7 @@ export const LongTitle: Story = {
         {
           MacroCategoryId: "3",
           MacroCategoryLabel: "Regioni e Province Autonome",
-          Illustration: mockedStrapiImage,
+          MacrocategoryIllustration: mockedStrapiImage,
         },
       ],
     },
