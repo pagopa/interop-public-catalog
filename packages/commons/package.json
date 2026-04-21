@@ -21,7 +21,7 @@
     "@zodios/core": "10.9.6",
     "axios": "1.13.5",
     "connection-string": "4.4.0",
-    "drizzle-orm": "0.39.3",
+    "drizzle-orm": "0.45.2",
     "pg": "8.16.3",
     "ts-pattern": "5.2.0",
     "winston": "3.16.0",
