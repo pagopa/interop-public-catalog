@@ -446,6 +446,82 @@ describe("Catalog search", () => {
     expect(result.results).toHaveLength(1);
     expect(result.results[0].id).toBe(eservice.id); //throwaway should not be present
   });
+
+  it("keeps all e-services when the selected producer label maps to multiple tenant ids", async () => {
+    const producerName = "Ministero dell'Istruzione e del Merito";
+
+    const { id: primaryTenantId } = await generateTenant(
+      { db, tables: tenantTables.tables },
+      {
+        name: producerName,
+      },
+    );
+
+    const { id: secondaryTenantId } = await generateTenant(
+      { db, tables: tenantTables.tables },
+      {
+        name: producerName,
+      },
+    );
+
+    const eservices = await Promise.all([
+      generateEservice(
+        { db, tables: catalogTables.tables },
+        {
+          producerId: primaryTenantId,
+          name: "ITS - Movimentazioni",
+          description: "Servizio ITS",
+        },
+      ),
+      generateEservice(
+        { db, tables: catalogTables.tables },
+        {
+          producerId: primaryTenantId,
+          name: "ITS - Offerta formativa",
+          description: "Servizio ITS",
+        },
+      ),
+      generateEservice(
+        { db, tables: catalogTables.tables },
+        {
+          producerId: secondaryTenantId,
+          name: "ITS - Frequenza Alunni",
+          description: "Servizio ITS",
+        },
+      ),
+    ]);
+
+    await Promise.all(
+      eservices.map((eservice) =>
+        generateDescriptor(
+          { db, tables: catalogTables.tables },
+          { eserviceId: eservice.id, state: "Published" },
+        ),
+      ),
+    );
+
+    const keywordSearch = await publicModelService.searchCatalog({
+      limit: 10,
+      offset: 0,
+      q: "its",
+    });
+
+    const producerFilterSearch = await publicModelService.searchCatalog({
+      limit: 10,
+      offset: 0,
+      producerIds: [primaryTenantId],
+    });
+
+    expect(keywordSearch.results).toHaveLength(3);
+    expect(producerFilterSearch.results).toHaveLength(3);
+    expect(producerFilterSearch.results.map((result) => result.name)).toEqual(
+      expect.arrayContaining([
+        "ITS - Movimentazioni",
+        "ITS - Offerta formativa",
+        "ITS - Frequenza Alunni",
+      ]),
+    );
+  });
 });
 
 describe("Search Tenants", () => {

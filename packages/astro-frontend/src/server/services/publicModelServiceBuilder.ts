@@ -220,6 +220,7 @@ export async function searchCatalog(
   const conds = [sql`true`];
 
   let categoriesIds: string[];
+  let expandedProducerIds: string[];
   if (categories && categories.length > 0) {
     const categoriesIdsQuery = await db.execute(
       sql`
@@ -233,10 +234,35 @@ export async function searchCatalog(
     );
     categoriesIds = categoriesIdsQuery.rows.map((el) => el.id as string);
   } else if (producerIds && producerIds.length > 0) {
+    const selectedProducerNamesQuery = await db.execute(sql`
+      SELECT DISTINCT public.normalize_text(t.name) AS normalized_name
+      FROM ${sql.identifier(config.tenantSchema)}.tenant t
+      WHERE t.id IN (${sql.join(
+        producerIds.map((id) => sql`${id}`),
+        sql`, `,
+      )})
+    `);
+
+    expandedProducerIds =
+      selectedProducerNamesQuery.rows.length > 0
+        ? (
+            await db.execute(sql`
+              SELECT t.id
+              FROM ${sql.identifier(config.tenantSchema)}.tenant t
+              WHERE public.normalize_text(t.name) IN (${sql.join(
+                selectedProducerNamesQuery.rows.map(
+                  (row) => sql`${row.normalized_name as string}`,
+                ),
+                sql`, `,
+              )})
+            `)
+          ).rows.map((row) => row.id as string)
+        : producerIds;
+
     conds.push(
       sql`
       t.id IN (${sql.join(
-        producerIds.map((id) => sql`${id}`),
+        expandedProducerIds.map((id) => sql`${id}`),
         sql`, `,
       )})`,
     );
