@@ -35,7 +35,7 @@
     "bootstrap-italia": "2.16.2",
     "design-react-kit": "5.8.3",
     "dotenv-flow": "4.1.0",
-    "drizzle-orm": "0.39.3",
+    "drizzle-orm": "0.45.2",
     "mixpanel-browser": "2.71.0",
     "nuqs": "2.7.2",
     "pagopa-interop-public-commons": "workspace:*",
