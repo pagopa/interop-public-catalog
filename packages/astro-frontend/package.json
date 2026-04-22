@@ -19,9 +19,9 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.5",
+    "@astrojs/check": "0.9.8",
     "@astrojs/node": "10.0.0",
-    "@astrojs/react": "^4.4.0",
+    "@astrojs/react": "^5.0.0",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
     "@mui/material": "7.3.4",
@@ -30,7 +30,7 @@
     "@types/react-dom": "^19.1.7",
     "@zodios/core": "10.9.6",
     "accessible-autocomplete": "^3.0.1",
-    "astro": "^5.15.2",
+    "astro": "^6.0.0",
     "axios": "1.13.5",
     "bootstrap-italia": "2.16.2",
     "design-react-kit": "5.8.3",
