@@ -240,12 +240,10 @@ export async function searchCatalog(
     conds.push(sql`
       t.id IN (
         SELECT homonym.id
-        FROM ${sql.identifier(config.tenantSchema)}.tenant homonym
-        WHERE public.normalize_text(homonym.name) IN (
-          SELECT public.normalize_text(selected.name)
-          FROM ${sql.identifier(config.tenantSchema)}.tenant selected
-          WHERE selected.id IN (${producerIdsList})
-        )
+        FROM ${sql.identifier(config.tenantSchema)}.tenant selected
+        JOIN ${sql.identifier(config.tenantSchema)}.tenant homonym
+          ON public.normalize_text(homonym.name) = public.normalize_text(selected.name)
+        WHERE selected.id IN (${producerIdsList})
       )
     `);
   }
