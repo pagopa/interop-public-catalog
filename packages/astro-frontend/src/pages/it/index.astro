@@ -19,10 +19,11 @@ if (!strapiResponse || !strapiGeneralResponse) {
 }
 
 const contents = strapiResponse.data;
-const eserviceAccessContent = strapiGeneralResponse.data.EServiceAccess;
+const generalContents = strapiGeneralResponse.data;
+const eserviceAccessContent = generalContents.EServiceAccess;
 ---
 
-<Layout seo={contents.Seo}>
+<Layout seo={contents.Seo || generalContents.DefaultSeo}>
   <HomepageHero content={contents.Hero} />
   <HowItWorks content={contents.HowItWorks} />
   <GoodPractices content={contents.Examples} />

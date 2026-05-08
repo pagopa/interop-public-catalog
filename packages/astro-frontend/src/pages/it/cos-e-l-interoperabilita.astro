@@ -12,15 +12,18 @@ import { strapiService } from "../../server/services";
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const strapiResponse =
   await strapiService.getInteroperabilityContent(currentLocale);
+const strapiGeneralResponse =
+  await strapiService.getGeneralContent(currentLocale);
 
-if (!strapiResponse) {
+if (!strapiResponse || !strapiGeneralResponse) {
   throw new Error("Could not fetch content from strapi");
 }
 
 const contents = strapiResponse.data;
+const generalContents = strapiGeneralResponse.data;
 ---
 
-<Layout seo={contents.Seo}>
+<Layout seo={contents.Seo || generalContents.DefaultSeo}>
   <EcosystemPageHero
     title={contents.Title}
     description={contents.Description}
