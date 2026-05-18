@@ -22,7 +22,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@aws-sdk/client-cloudfront": "3.922.0",
-    "axios": "1.15.0",
+    "axios": "1.15.2",
     "dotenv-flow": "4.1.0",
     "pagopa-interop-public-models": "workspace:*",
     "pg": "8.16.3",
