@@ -16,9 +16,9 @@ const apiClient = axios.create({
   paramsSerializer: serializeQueryString,
   /**
    * The reason we inject this query parameters in all requests
-   * is that we had a cache issue in production where calls were cached 
+   * is that we had a cache issue in production where calls were cached
    * for one year.
-   * Right now we have users with api requests cached, for one year, with old data. 
+   * Right now we have users with api requests cached, for one year, with old data.
    * This is a workaround to invalidate those caches.
    */
   params: {
