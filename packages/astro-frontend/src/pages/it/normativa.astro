@@ -10,13 +10,17 @@ import { strapiService } from "../../server/services";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const strapiResponse = await strapiService.getNormativaContent(currentLocale);
+const strapiGeneralResponse =
+  await strapiService.getGeneralContent(currentLocale);
 
-if (!strapiResponse) {
+if (!strapiResponse || !strapiGeneralResponse) {
   throw new Error("Could not fetch content from strapi");
 }
 
 const contents = strapiResponse.data;
 const body = contents.NormativaSection;
+
+const generalContents = strapiGeneralResponse.data;
 
 const sectionTitles = body.map((section) => ({
   id: section.NormativaId,
@@ -24,7 +28,7 @@ const sectionTitles = body.map((section) => ({
 }));
 ---
 
-<Layout seo={contents.Seo}>
+<Layout seo={contents.Seo || generalContents.DefaultSeo}>
   <PageHero
     breadcrumbItems={[
       {

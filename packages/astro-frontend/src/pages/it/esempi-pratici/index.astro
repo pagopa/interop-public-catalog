@@ -16,14 +16,18 @@ const { macroCategoryId } = createLoader({ macroCategoryId: parseAsString })(
 const strapiResponse =
   await strapiService.getGoodPracticesCatalogContent(currentLocale);
 
-if (!strapiResponse) {
+const strapiGeneralResponse =
+  await strapiService.getGeneralContent(currentLocale);
+
+if (!strapiResponse || !strapiGeneralResponse) {
   throw new Error("Could not fetch content from strapi");
 }
 
 const goodPracticesCatalogContent = strapiResponse.data;
+const generalContents = strapiGeneralResponse.data;
 ---
 
-<Layout seo={goodPracticesCatalogContent.Seo}>
+<Layout seo={goodPracticesCatalogContent.Seo || generalContents.DefaultSeo}>
   <PageHero
     title={goodPracticesCatalogContent.Title}
     description={goodPracticesCatalogContent.SubTitle}

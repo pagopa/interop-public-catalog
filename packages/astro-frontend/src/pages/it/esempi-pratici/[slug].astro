@@ -25,23 +25,23 @@ const goodPracticeStrapiResponse = await strapiService.getGoodPracticeBySlug(
 
 const goodPracticesExamplesStrapiResponse =
   await strapiService.getGoodPracticesExamples(currentSlug!, currentLocale, 2);
-const generalStrapiResponse =
+const strapiGeneralResponse =
   await strapiService.getGeneralContent(currentLocale);
 
 if (!goodPracticeStrapiResponse) {
   return Astro.redirect("/404");
 }
 
-if (!goodPracticesExamplesStrapiResponse || !generalStrapiResponse) {
+if (!goodPracticesExamplesStrapiResponse || !strapiGeneralResponse) {
   throw new Error("Could not fetch content from strapi");
 }
 
 const goodPractice = goodPracticeStrapiResponse.data;
 const goodPracticesExamples = goodPracticesExamplesStrapiResponse.data;
-const generalContents = generalStrapiResponse.data;
+const generalContents = strapiGeneralResponse.data;
 ---
 
-<Layout seo={goodPractice.Seo}>
+<Layout seo={goodPractice.Seo || generalContents.DefaultSeo}>
   <PageHero
     title={goodPractice.Title}
     breadcrumbItems={[
