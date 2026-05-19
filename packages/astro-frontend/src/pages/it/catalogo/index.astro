@@ -28,7 +28,7 @@ const contents = strapiResponse.data;
 const generalContents = strapiGeneralResponse.data;
 ---
 
-<Layout seo={contents.Seo}>
+<Layout seo={contents.Seo || generalContents.DefaultSeo}>
   <PageHero
     title={contents.Title}
     description={contents.SubTitle}
