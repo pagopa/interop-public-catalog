@@ -14,6 +14,16 @@ import type { SupportedLanguage } from "../i18n/types.i18n";
 const apiClient = axios.create({
   headers: { "Content-Type": "application/json" },
   paramsSerializer: serializeQueryString,
+  /**
+   * The reason we inject this query parameters in all requests
+   * is that we had a cache issue in production where calls were cached 
+   * for one year.
+   * Right now we have users with api requests cached, for one year, with old data. 
+   * This is a workaround to invalidate those caches.
+   */
+  params: {
+    _v: "2",
+  },
 });
 
 export const apiService = {
