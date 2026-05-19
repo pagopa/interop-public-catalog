@@ -16,7 +16,7 @@ const currentLocale = getLangFromUrl(Astro.url.pathname);
 const t = useHomepageTranslations(currentLocale);
 
 function getOrganizationTypeHref(macroCategory: MacroCategory) {
-  const macroCategoryId = macroCategory.MacroCategoryId;
+  const macroCategoryId = macroCategory.MacrocategoryId;
 
   const urlSearchParams = new URLSearchParams({ macroCategoryId }).toString();
   return `${getLocalizedRoute(currentLocale, "GOOD_PRACTICES_CATALOG")}?${urlSearchParams}`;
@@ -64,7 +64,7 @@ function getOrganizationTypeHref(macroCategory: MacroCategory) {
                   class="list-item icon-right gap-2 border-0"
                   data-mp-good-practice-catalog-referral="best-practice-section"
                   data-mp-good-practice-category-id={
-                    macroCategory.MacroCategoryId
+                    macroCategory.MacrocategoryId
                   }
                 >
                   <img
@@ -78,7 +78,7 @@ function getOrganizationTypeHref(macroCategory: MacroCategory) {
                   />
                   <div class="it-right-zone">
                     <span style="font-size:1rem;" class="text">
-                      {macroCategory.MacroCategoryLabel}
+                      {macroCategory.MacrocategoryLabel}
                     </span>
                     <BootstrapItaliaIcon
                       name="it-chevron-right"
