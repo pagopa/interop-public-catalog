@@ -18,19 +18,19 @@ export const MacroCategoryIdFilter: React.FC<MacroCategoryIdFilterProps> = ({
       <ul id="category-filters-list" className="it-list border-start">
         {tenantMacrocategories.map((macrocategory) => {
           const isActive =
-            macrocategory.MacroCategoryId === selectedMacroCategoryId;
+            macrocategory.MacrocategoryId === selectedMacroCategoryId;
           return (
-            <li key={macrocategory.MacroCategoryId}>
+            <li key={macrocategory.MacrocategoryId}>
               <a
                 onClick={onSelectedMacroCategoryIdChange.bind(
                   null,
-                  macrocategory.MacroCategoryId,
+                  macrocategory.MacrocategoryId,
                 )}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
                     e.preventDefault();
                     onSelectedMacroCategoryIdChange(
-                      macrocategory.MacroCategoryId,
+                      macrocategory.MacrocategoryId,
                     );
                   }
                 }}
@@ -56,7 +56,7 @@ export const MacroCategoryIdFilter: React.FC<MacroCategoryIdFilterProps> = ({
                 </div>
                 <div className="it-right-zone text-decoration-none">
                   <span className="text text-decoration-none">
-                    {macrocategory.MacroCategoryLabel}
+                    {macrocategory.MacrocategoryLabel}
                   </span>
                 </div>
               </a>
