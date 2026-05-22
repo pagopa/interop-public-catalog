@@ -23,6 +23,19 @@ app.use((req, res, next) => {
     return next();
   }
   
+  /**
+   * Assets contained in the `public/` directory, such as images, fonts, and JSON files,
+   * are not processed by Astro and their names do not contain the timestamp.
+   * 
+   * !IMPORTANT! 
+   * If we need to update these assets, we have to change their names manually (e.g., by adding a version number or hash) 
+   * to ensure that clients can fetch the updated versions without being served stale content from the cache.
+   */
+  if (/\.(png|svg|ico|woff2?|ttf|eot|otf|json)(\?.*)?$/.test(req.path)) {
+    res.set('Cache-Control', 'public, max-age=31536000, immutable');
+    return next();
+  }
+
   if (req.path.startsWith('/api/')) {
     res.set('Cache-Control', 'public, s-maxage=60, max-age=0');
     return next();
