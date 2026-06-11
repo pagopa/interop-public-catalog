@@ -6,7 +6,7 @@ import {
 } from "../shared/GoodPracticeCard.js";
 import useSwr from "swr";
 import { MacroCategoryIdFilter } from "./MacroCategoryIdFilter.jsx";
-import { apiService } from "../../services/api.services.js";
+import { apiService } from "../../services/api.services";
 import { parseAsString, useQueryState } from "nuqs";
 import { NuqsAdapter } from "nuqs/adapters/react";
 import type { MacroCategory } from "../../types/collectionTypes.js";
@@ -35,15 +35,12 @@ export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
   const { data, isLoading } = useSwr(
     [currentLocale, selectedMacroCategoryId],
     async ([locale, macroCategoryId]) => {
-      const [result] = await Promise.all([
-        apiService.getGoodPractices({
-          locale,
-          macroCategoryId: macroCategoryId ?? undefined,
-          limit: 50,
-          offset: 0,
-        }),
-      ]);
-      return result;
+      return apiService.getGoodPractices({
+        locale,
+        macroCategoryId: macroCategoryId ?? undefined,
+        limit: 50,
+        offset: 0,
+      });
     },
   );
 
@@ -82,16 +79,6 @@ export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
           ))}
       </div>
     </div>
-  );
-};
-
-export const GoodPracticesCatalog: React.FC<GoodPracticesCatalogProps> = (
-  props,
-) => {
-  return (
-    <NuqsAdapter>
-      <GoodPracticesCatalog_ {...props} />
-    </NuqsAdapter>
   );
 };
 
