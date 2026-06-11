@@ -15,7 +15,7 @@ interface Props {
 
 const { goodPractice, strapiContent } = Astro.props;
 
-const goodPracticeBody = goodPractice.EsempiPraticiSection;
+const goodPracticeBody = goodPractice.EsempiPraticiSection ?? [];
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const tGoodPractices = useGoodPracticesTranslations(currentLocale);

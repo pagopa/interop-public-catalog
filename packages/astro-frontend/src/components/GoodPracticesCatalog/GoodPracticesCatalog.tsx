@@ -82,25 +82,12 @@ export const GoodPracticesCatalog_: React.FC<GoodPracticesCatalogProps> = ({
   );
 };
 
-export const GoodPracticesCatalogSkeleton: React.FC<{
-  selectedMacroCategoryId: string | null;
-  tenantMacrocategories: MacroCategory[];
-}> = ({ selectedMacroCategoryId, tenantMacrocategories }) => {
+export const GoodPracticesCatalog: React.FC<GoodPracticesCatalogProps> = (
+  props,
+) => {
   return (
-    <div className="row">
-      <div className="col-4 d-none d-lg-block">
-        <MacroCategoryIdFilter
-          onSelectedMacroCategoryIdChange={() => {}}
-          selectedMacroCategoryId={selectedMacroCategoryId}
-          tenantMacrocategories={tenantMacrocategories}
-        />
-      </div>
-      <div className="col-12 col-lg-8 d-flex flex-column align-items-center gap-4 flex-fill">
-        <GoodPracticeCardSkeleton />
-        <GoodPracticeCardSkeleton />
-        <GoodPracticeCardSkeleton />
-        <GoodPracticeCardSkeleton />
-      </div>
-    </div>
+    <NuqsAdapter>
+      <GoodPracticesCatalog_ {...props} />
+    </NuqsAdapter>
   );
 };

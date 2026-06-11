@@ -430,6 +430,8 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
             "Seo",
             "Seo.OpenGraphImage",
             "Seo.TwitterImage",
+            "EsempiPraticiSection",
+            "EsempiPraticiSection.Image",
             "macrocategories",
             "macrocategories.MacrocategoryIllustration",
             "RelatedEservices",
@@ -455,7 +457,20 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      return response.json();
+      const rawResponse = (await response.json()) as
+        | StrapiEntityList<EsempiPratici>
+        | StrapiEntity<EsempiPratici>;
+
+      // Strapi filtered queries return lists; normalize to a single entity.
+      if (
+        Array.isArray((rawResponse as StrapiEntityList<EsempiPratici>).data)
+      ) {
+        const listResponse = rawResponse as StrapiEntityList<EsempiPratici>;
+        const first = listResponse.data[0];
+        return first ? { data: first } : undefined;
+      }
+
+      return rawResponse as StrapiEntity<EsempiPratici>;
     },
 
     async getGoodPracticesExamples(

@@ -27,9 +27,17 @@ export const GoodPracticeMacroCategorySchema = z.object({
   MacrocategoryIllustration: StrapiImageSchema.optional().nullable(),
 });
 
-export const RelatedEserviceSchema = z.object({
-  EServiceId: z.string(),
-});
+export const RelatedEserviceSchema = z
+  .object({
+    EServiceId: z.string().optional(),
+    EserviceId: z.string().optional(),
+  })
+  .refine(({ EServiceId, EserviceId }) => Boolean(EServiceId || EserviceId), {
+    message: "Missing related e-service id",
+  })
+  .transform(({ EServiceId, EserviceId }) => ({
+    EServiceId: EServiceId ?? EserviceId!,
+  }));
 
 export const EsempiPraticiSimpleDescriptionSchema = z.object({
   __component: z.literal("esempi-pratici.simple-description"),
@@ -61,19 +69,21 @@ export const EsempiPraticiSchema = z.object({
   Slug: z.string(),
   Field: z.string(),
   GoodPracticeTenantDestination: z.string(),
-  macrocategories: z.array(MacroCategorySchema),
+  macrocategories: z.array(GoodPracticeMacroCategorySchema),
   LastUpdate: z.string(),
   PageIndexLabel: z.string(),
   RelatedEservices: z.array(RelatedEserviceSchema),
-  EsempiPraticiSection: z.array(
-    z.union([
-      EsempiPraticiSimpleDescriptionSchema,
-      EsempiPraticiImageSchema,
-      EsempiPraticiTechnicalNotesSchema,
-      EsempiPraticiExampleSchema,
-    ]),
-  ),
-  Seo: SeoSchema,
+  EsempiPraticiSection: z
+    .array(
+      z.union([
+        EsempiPraticiSimpleDescriptionSchema,
+        EsempiPraticiImageSchema,
+        EsempiPraticiTechnicalNotesSchema,
+        EsempiPraticiExampleSchema,
+      ]),
+    )
+    .optional(),
+  Seo: SeoSchema.nullable().optional(),
 });
 
 export type Route = z.infer<typeof RouteSchema>;
