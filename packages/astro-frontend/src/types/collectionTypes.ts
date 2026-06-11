@@ -14,9 +14,17 @@ export const RouteSchema = z.object({
 });
 
 export const MacroCategorySchema = z.object({
+  macrocategorie: z.object({
+    MacrocategoryLabel: z.string(),
+    MacrocategoryId: z.string(),
+    MacrocategoryIllustration: StrapiImageSchema,
+  }),
+});
+
+export const GoodPracticeMacroCategorySchema = z.object({
   MacrocategoryLabel: z.string(),
   MacrocategoryId: z.string(),
-  MacrocategoryIllustration: StrapiImageSchema,
+  MacrocategoryIllustration: StrapiImageSchema.optional().nullable(),
 });
 
 export const RelatedEserviceSchema = z.object({

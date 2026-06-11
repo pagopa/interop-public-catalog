@@ -16,7 +16,8 @@ export const MacroCategoryIdFilter: React.FC<MacroCategoryIdFilterProps> = ({
   return (
     <div style={{ maxWidth: MAX_WIDTH }} className="it-list-wrapper">
       <ul id="category-filters-list" className="it-list border-start">
-        {tenantMacrocategories.map((macrocategory) => {
+        {tenantMacrocategories.map((m) => {
+          const macrocategory = m.macrocategorie;
           const isActive =
             macrocategory.MacrocategoryId === selectedMacroCategoryId;
           return (

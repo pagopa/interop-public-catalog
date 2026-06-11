@@ -21,6 +21,9 @@ function getOrganizationTypeHref(macroCategory: MacroCategory) {
   const urlSearchParams = new URLSearchParams({ macroCategoryId }).toString();
   return `${getLocalizedRoute(currentLocale, "GOOD_PRACTICES_CATALOG")}?${urlSearchParams}`;
 }
+
+const macrocategories = [...content.macrocategories];
+macrocategories[0].MacrocategoryLabel = content.SeeAllMacrocategoriesLinkLabel;
 ---
 
 <section
@@ -57,7 +60,7 @@ function getOrganizationTypeHref(macroCategory: MacroCategory) {
       <div class="it-list-wrapper mt-4">
         <ul class="it-list row">
           {
-            content.macrocategories.map((macroCategory, index) => (
+            macrocategories.map((macroCategory, index) => (
               <li class:list={["col-12 col-md-6 px-2 py-2 position-relative"]}>
                 <a
                   href={getOrganizationTypeHref(macroCategory)}
