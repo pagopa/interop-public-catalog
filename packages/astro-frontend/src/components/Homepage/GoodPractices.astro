@@ -23,7 +23,8 @@ function getOrganizationTypeHref(macroCategory: MacroCategory) {
 }
 
 const macrocategories = [...content.macrocategories];
-macrocategories[0].MacrocategoryLabel = content.SeeAllMacrocategoriesLinkLabel;
+macrocategories[macrocategories.length - 1].MacrocategoryLabel =
+  content.SeeAllMacrocategoriesLinkLabel;
 ---
 
 <section

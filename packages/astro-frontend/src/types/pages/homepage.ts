@@ -9,7 +9,7 @@ import { HowToSectionSchema } from "../general.js";
 
 export const HeroSchema = z.object({
   Title: z.string(),
-  SubTitle: z.string(),
+  Subtitle: z.string(),
   InputPlaceholderText: z.string(),
   SearchButtonLabel: z.string(),
   APIQuestion: z.string(),
