@@ -6,7 +6,7 @@ import { SeoSchema } from "../seo.js";
 export const SectionItemSchema = z.object({
   FAQQuestion: z.string(),
   FAQAnswer: z.array(StrapiNodeSchema),
-  FAQId: z.string(),
+  FaqId: z.string(),
 });
 
 export const SectionSchema = z.object({
