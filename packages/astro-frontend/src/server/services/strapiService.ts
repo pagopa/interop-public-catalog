@@ -460,9 +460,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const rawResponse = (await response.json()) as
+      const rawResponse:
         | StrapiEntityList<EsempiPratici>
-        | StrapiEntity<EsempiPratici>;
+        | StrapiEntity<EsempiPratici> = await response.json();
 
       // Strapi filtered queries return lists; normalize to a single entity.
       if (
