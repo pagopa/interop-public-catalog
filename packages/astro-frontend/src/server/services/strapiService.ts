@@ -135,6 +135,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
             "InteroperabilityLevels",
             "InteroperabilityLevels.SingleInteroperabilityLevel",
             "InteroperabilityLevels.SingleInteroperabilityLevel.Illustration",
+            "HowToSection",
+            "HowToSection.HowTo",
+            "HowToSection.HowTo.Illustration",
             "Seo",
             "Seo.OpenGraphImage",
             "Seo.TwitterImage",
@@ -214,6 +217,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
             "Seo",
             "Seo.OpenGraphImage",
             "Seo.TwitterImage",
+            "HowToSection",
+            "HowToSection.HowTo",
+            "HowToSection.HowTo.Illustration",
           ],
           locale: locale,
         },
@@ -246,6 +252,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
             "Seo.TwitterImage",
             "Links",
             "Links.SingleLink",
+            "HowToSection",
+            "HowToSection.HowTo",
+            "HowToSection.HowTo.Illustration",
           ],
           locale: locale,
         },
@@ -276,8 +285,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
             "Seo",
             "Seo.OpenGraphImage",
             "Seo.TwitterImage",
-            "macrocategories",
-            "macrocategories.MacrocategoryIllustration",
+            "Macrocategories",
+            "Macrocategories.macrocategorie",
+            "Macrocategories.macrocategorie.MacrocategoryIllustration",
           ],
           locale: locale,
         },
@@ -423,6 +433,8 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
             "Seo",
             "Seo.OpenGraphImage",
             "Seo.TwitterImage",
+            "EsempiPraticiSection",
+            "EsempiPraticiSection.Image",
             "macrocategories",
             "macrocategories.MacrocategoryIllustration",
             "RelatedEservices",
@@ -448,7 +460,20 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      return response.json();
+      const rawResponse:
+        | StrapiEntityList<EsempiPratici>
+        | StrapiEntity<EsempiPratici> = await response.json();
+
+      // Strapi filtered queries return lists; normalize to a single entity.
+      if (
+        Array.isArray((rawResponse as StrapiEntityList<EsempiPratici>).data)
+      ) {
+        const listResponse = rawResponse as StrapiEntityList<EsempiPratici>;
+        const first = listResponse.data[0];
+        return first ? { data: first } : undefined;
+      }
+
+      return rawResponse as StrapiEntity<EsempiPratici>;
     },
 
     async getGoodPracticesExamples(

@@ -16,7 +16,7 @@ export const LinksSchema = z.object({
 
 export const CatalogSchema = z.object({
   Title: z.string(),
-  SubTitle: z.string(),
+  Subtitle: z.string(),
   Seo: SeoSchema,
   Links: LinksSchema,
   HowToSection: HowToSectionSchema,

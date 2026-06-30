@@ -4,7 +4,7 @@ import { MacroCategorySchema } from "../collectionTypes";
 
 export const EsempiPraticiCatalogSchema = z.object({
   Title: z.string(),
-  SubTitle: z.string(),
+  Subtitle: z.string(),
   Seo: SeoSchema,
   Macrocategories: z.array(MacroCategorySchema),
 });

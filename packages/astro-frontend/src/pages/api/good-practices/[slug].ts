@@ -11,10 +11,7 @@ import {
   notFoundError,
 } from "pagopa-interop-public-models";
 import { makeApiProblem } from "../../../server/models/errors.js";
-import {
-  EsempiPraticiSchema,
-  type EsempiPratici,
-} from "../../../types/collectionTypes.js";
+import { type EsempiPratici } from "../../../types/collectionTypes.js";
 
 export const GET: APIRoute = async ({ params, url, locals }) => {
   try {
@@ -32,9 +29,7 @@ export const GET: APIRoute = async ({ params, url, locals }) => {
       throw notFoundError(`Good practice with slug '${slug}' not found`);
     }
 
-    const data = EsempiPraticiSchema.parse(
-      rawData.data satisfies EsempiPratici,
-    );
+    const data: EsempiPratici = rawData.data;
 
     return new Response(JSON.stringify(data), {
       headers: { "Content-Type": "application/json" },

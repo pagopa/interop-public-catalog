@@ -5,7 +5,6 @@ import { emptyErrorMapper } from "pagopa-interop-public-models";
 import {
   parseQueryParams,
   type GoodPracticesResponse,
-  GoodPracticesResponseSchema,
   GoodPracticesQuerySchema,
 } from "../../../server/models/api.js";
 
@@ -24,14 +23,14 @@ export const GET: APIRoute = async ({ url, locals }) => {
       offset,
     });
 
-    const data = GoodPracticesResponseSchema.parse({
+    const data: GoodPracticesResponse = {
       results: rawData.data,
       pagination: {
         offset,
         limit,
         totalCount: rawData.meta.pagination.total,
       },
-    } satisfies GoodPracticesResponse);
+    };
 
     return new Response(JSON.stringify(data), {
       headers: { "Content-Type": "application/json" },
