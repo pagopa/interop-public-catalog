@@ -79,8 +79,8 @@ const meta = {
       GoodPracticeTenantDestination: "Comuni",
       macrocategories: [
         {
-          MacroCategoryId: "2",
-          MacroCategoryLabel: "Comuni",
+          MacrocategoryId: "2",
+          MacrocategoryLabel: "Comuni",
           MacrocategoryIllustration: mockedStrapiImage,
         },
       ],
@@ -158,18 +158,18 @@ export const MultipleTargets: Story = {
       Field: "Istruzione",
       macrocategories: [
         {
-          MacroCategoryId: "3",
-          MacroCategoryLabel: "Regioni e Province Autonome",
+          MacrocategoryId: "3",
+          MacrocategoryLabel: "Regioni e Province Autonome",
           MacrocategoryIllustration: mockedStrapiImage,
         },
         {
-          MacroCategoryId: "5",
-          MacroCategoryLabel: "Province e Città metropolitane",
+          MacrocategoryId: "5",
+          MacrocategoryLabel: "Province e Città metropolitane",
           MacrocategoryIllustration: mockedStrapiImage,
         },
         {
-          MacroCategoryId: "1",
-          MacroCategoryLabel: "PA centrali",
+          MacrocategoryId: "1",
+          MacrocategoryLabel: "PA centrali",
           MacrocategoryIllustration: mockedStrapiImage,
         },
       ],
@@ -219,8 +219,8 @@ export const LongTitle: Story = {
       Field: "Welfare",
       macrocategories: [
         {
-          MacroCategoryId: "3",
-          MacroCategoryLabel: "Regioni e Province Autonome",
+          MacrocategoryId: "3",
+          MacrocategoryLabel: "Regioni e Province Autonome",
           MacrocategoryIllustration: mockedStrapiImage,
         },
       ],

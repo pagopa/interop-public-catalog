@@ -2,14 +2,14 @@ import z from "zod";
 import { SeoSchema } from "../seo.js";
 import {
   EsempiPraticiSchema,
-  MacroCategorySchema,
+  HomepageMacroCategorySchema,
 } from "../collectionTypes.js";
 import { StrapiImageSchema } from "pagopa-interop-public-models";
 import { HowToSectionSchema } from "../general.js";
 
 export const HeroSchema = z.object({
   Title: z.string(),
-  SubTitle: z.string(),
+  Subtitle: z.string(),
   InputPlaceholderText: z.string(),
   SearchButtonLabel: z.string(),
   APIQuestion: z.string(),
@@ -50,7 +50,7 @@ export const ShowcaseEservicesSchema = z.object({
 export const ExamplesSchema = z.object({
   Title: z.string(),
   Description: z.string(),
-  macrocategories: z.array(MacroCategorySchema),
+  macrocategories: z.array(HomepageMacroCategorySchema),
   SeeAllMacrocategoriesLinkLabel: z.string(),
   esempi_praticis: z.array(EsempiPraticiSchema),
   SeeAllExamplesLinkLabel: z.string(),

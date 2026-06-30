@@ -90,7 +90,7 @@ export const GoodPracticeCard: React.FC<GoodPracticeCardProps> = ({
           </strong>
           {macrocategories.length === 0
             ? tUi("tenant_macrocategory_.tutti_short")
-            : macrocategories.map((m) => m.MacroCategoryLabel).join(", ")}
+            : macrocategories.map((m) => m.MacrocategoryLabel).join(", ")}
         </div>
         <a
           href={route}
