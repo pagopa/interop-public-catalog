@@ -17,6 +17,8 @@ const projectDir = path.dirname(fileURLToPath(import.meta.url))
 
 const SITE = 'https://api.gov.it'
 
+const buildTimestamp = Date.now();
+
 export default defineConfig({
   output: 'server',
   site: SITE,
@@ -46,7 +48,7 @@ export default defineConfig({
     },
   },
   adapter: node({
-    mode: 'standalone',
+    mode: "middleware",
   }),
   i18n: {
     locales: LOCALES,
@@ -59,5 +61,19 @@ export default defineConfig({
     ssr: {
       noExternal: ['design-react-kit', 'bootstrap-italia'],
     },
+    environments: {
+      client: {
+        build: {
+          rollupOptions: {
+            output: {
+              entryFileNames: `_astro/[name].${buildTimestamp}.js`,
+              chunkFileNames: `_astro/[name].${buildTimestamp}.js`,
+              assetFileNames: `_astro/[name].${buildTimestamp}[extname]`,
+            },
+          },
+        },
+      },
+    },
   },
 })
+
