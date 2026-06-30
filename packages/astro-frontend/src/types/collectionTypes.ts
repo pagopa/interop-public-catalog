@@ -20,6 +20,11 @@ export const MacroCategorySchema = z.object({
     MacrocategoryIllustration: StrapiImageSchema,
   }),
 });
+export const HomepageMacroCategorySchema = z.object({
+  MacrocategoryLabel: z.string(),
+  MacrocategoryId: z.string(),
+  MacrocategoryIllustration: StrapiImageSchema,
+});
 
 export const GoodPracticeMacroCategorySchema = z.object({
   MacrocategoryLabel: z.string(),
@@ -88,6 +93,7 @@ export const EsempiPraticiSchema = z.object({
 
 export type Route = z.infer<typeof RouteSchema>;
 export type MacroCategory = z.infer<typeof MacroCategorySchema>;
+export type HomepageMacroCategory = z.infer<typeof HomepageMacroCategorySchema>;
 export type RelatedEservice = z.infer<typeof RelatedEserviceSchema>;
 export type EsempiPraticiSimpleDescription = z.infer<
   typeof EsempiPraticiSimpleDescriptionSchema

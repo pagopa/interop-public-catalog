@@ -4,7 +4,7 @@ import { getLangFromUrl, getLocalizedRoute } from "../../i18n/utils.i18n";
 import { BootstrapItaliaIcon } from "../shared/BootstrapItaliaIcon";
 import { GoodPracticeCard } from "../shared/GoodPracticeCard";
 import type { Examples } from "../../types/pages";
-import type { MacroCategory } from "../../types/collectionTypes";
+import type { HomepageMacroCategory } from "../../types/collectionTypes";
 
 interface Props {
   content: Examples;
@@ -15,7 +15,7 @@ const { content } = Astro.props;
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const t = useHomepageTranslations(currentLocale);
 
-function getOrganizationTypeHref(macroCategory: MacroCategory) {
+function getOrganizationTypeHref(macroCategory: HomepageMacroCategory) {
   const macroCategoryId = macroCategory.MacrocategoryId;
 
   const urlSearchParams = new URLSearchParams({ macroCategoryId }).toString();
