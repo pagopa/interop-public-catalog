@@ -18,9 +18,77 @@ import type { Interoperabilita } from "../../types/pages/interoperabilita.js";
 import type { Normativa } from "../../types/pages/normativa.js";
 import type { EsempiPraticiCatalog } from "../../types/pages/esempiPratici.js";
 import type { EServiceDetails } from "../../types/pages/eserviceDetails.js";
+import axios, { type InternalAxiosRequestConfig } from "axios";
 import qs from "qs";
+import { logger as makeLogger, type Logger } from "../logger.js";
 
-export function strapiServiceBuilder(_endpoint: string, _token: string) {
+type StrapiServiceOptions = {
+  logger?: Logger;
+};
+
+type GoodPracticeBySlugResponse =
+  | StrapiEntityList<EsempiPratici>
+  | StrapiEntity<EsempiPratici>;
+
+type StrapiRequestConfig = InternalAxiosRequestConfig & {
+  loggerMetadata?: {
+    startedAt: number;
+  };
+};
+
+export function strapiServiceBuilder(
+  endpoint: string,
+  token: string,
+  options?: StrapiServiceOptions,
+) {
+  const serviceLogger = options?.logger ?? makeLogger({});
+  const baseUrl = endpoint.endsWith("/") ? endpoint : `${endpoint}/`;
+  const strapiClient = axios.create({
+    baseURL: baseUrl,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+
+  strapiClient.interceptors.request.use((config) => {
+    const requestConfig = config as StrapiRequestConfig;
+
+    serviceLogger.debug(
+      `Fetching Strapi content URL: ${strapiClient.getUri(config)}`,
+    );
+
+    return requestConfig;
+  });
+
+  strapiClient.interceptors.response.use(
+    (response) => {
+      serviceLogger.debug(
+        `Strapi request completed. Status: ${response.status}, Response: ${JSON.stringify(response.data)}`,
+      );
+
+      return response;
+    },
+    (error: unknown) => {
+      if (axios.isAxiosError(error) && error.response) {
+        serviceLogger.error(
+          `Strapi request failed. Status: ${error.response.status}, Response: ${JSON.stringify(error.response.data)}`,
+        );
+      } else {
+        serviceLogger.error(
+          `Strapi request error. Error: ${error instanceof Error ? error.message : String(error)}`,
+        );
+      }
+
+      return Promise.reject(error);
+    },
+  );
+
+  const fetchFromStrapi = async <T>(path: string): Promise<T> => {
+    const response = await strapiClient.get<T>(path);
+    return response.data;
+  };
+
   return {
     /**
      * Methods to fetch static content for pages like 404, 500, catalogo, faq, etc.
@@ -29,31 +97,17 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
     async get404Content(
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<Error404> | undefined> {
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/error-404?locale=${locale}&populate=*`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntity<Error404> | undefined>(
+        `api/error-404?locale=${locale}&populate=*`,
       );
-
-      return response.json();
     },
 
     async get500Content(
       locale: SupportedLanguage,
     ): Promise<StrapiEntity<Error500> | undefined> {
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/error-500?locale=${locale}&populate=*`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntity<Error500> | undefined>(
+        `api/error-500?locale=${locale}&populate=*`,
       );
-
-      return response.json();
     },
 
     async getFaqContent(
@@ -76,16 +130,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/faq?${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntity<Faq> | undefined>(
+        `api/faq?${query}`,
       );
-
-      return response.json();
     },
 
     async getNormativaContent(
@@ -108,16 +155,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/normativa?${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntity<Normativa>>(
+        `api/normativa?${query}`,
       );
-
-      return response.json();
     },
 
     async getInteroperabilityContent(
@@ -149,16 +189,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/interoperabilita?${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntity<Interoperabilita>>(
+        `api/interoperabilita?${query}`,
       );
-
-      return response.json();
     },
 
     async getGeneralContent(
@@ -184,16 +217,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/general?${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntity<General>>(
+        `api/general?${query}`,
       );
-
-      return response.json();
     },
 
     async getHomepageContent(
@@ -228,16 +254,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/homepage?${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntity<Homepage>>(
+        `api/homepage?${query}`,
       );
-
-      return response.json();
     },
 
     async getCatalogContent(
@@ -263,16 +282,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/single-catalog?${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntity<Catalog>>(
+        `api/single-catalog?${query}`,
       );
-
-      return response.json();
     },
 
     async getGoodPracticesCatalogContent(
@@ -296,16 +308,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici-archivio?${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntity<EsempiPraticiCatalog>>(
+        `api/esempi-pratici-archivio?${query}`,
       );
-
-      return response.json();
     },
 
     async getEServiceDetailsContent(
@@ -340,16 +345,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/scheda-e-service?${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntity<EServiceDetails>>(
+        `api/scheda-e-service?${query}`,
       );
-
-      return response.json();
     },
 
     /**
@@ -390,12 +388,12 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
           },
           filters: macroCategoryIds
             ? {
-                macrocategories: {
-                  MacrocategoryId: {
-                    $in: macroCategoryIds,
-                  },
+              macrocategories: {
+                MacrocategoryId: {
+                  $in: macroCategoryIds,
                 },
-              }
+              },
+            }
             : undefined,
         },
         {
@@ -403,16 +401,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici?${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntityList<EsempiPratici>>(
+        `api/esempi-pratici?${query}`,
       );
-
-      return response.json();
     },
 
     async getGoodPracticeBySlug(
@@ -451,18 +442,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/esempi-pratici?${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      const rawResponse = await fetchFromStrapi<GoodPracticeBySlugResponse>(
+        `api/esempi-pratici?${query}`,
       );
-
-      const rawResponse:
-        | StrapiEntityList<EsempiPratici>
-        | StrapiEntity<EsempiPratici> = await response.json();
 
       // Strapi filtered queries return lists; normalize to a single entity.
       if (
@@ -506,14 +488,19 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         offset++;
       }
 
+      const pagination = {
+        start: 0,
+        limit: examples.length,
+        page: 1,
+        pageSize: examples.length,
+        pageCount: 1,
+        total: examples.length,
+      };
+
       return Promise.resolve({
         data: examples,
         meta: {
-          pagination: {
-            start: 0,
-            limit: examples.length,
-            total: examples.length,
-          },
+          pagination,
         },
       });
     },
@@ -531,16 +518,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/pages?${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntityList<Route>>(
+        `api/pages?${query}`,
       );
-
-      return response.json();
     },
 
     async getMacrocategories(
@@ -557,16 +537,9 @@ export function strapiServiceBuilder(_endpoint: string, _token: string) {
         },
       );
 
-      const response = await fetch(
-        `${_endpoint.endsWith("/") ? _endpoint : _endpoint + "/"}api/macrocategories?${query}`,
-        {
-          headers: {
-            Authorization: `Bearer ${_token}`,
-          },
-        },
+      return await fetchFromStrapi<StrapiEntityList<MacroCategory>>(
+        `api/macrocategories?${query}`,
       );
-
-      return response.json();
     },
   };
 }
