@@ -46,7 +46,7 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
                 id: "specifiche-tecniche",
               },
               {
-                label: strapiContents.RequiremensSection.Title,
+                label: strapiContents.RequirementsSection.Title,
                 id: "requisiti",
               },
               {
@@ -140,7 +140,10 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
               <li class="flex-fill list-group-item bg-transparent border-0 p-3">
                 <div class="py-2 px-3">
                   <h6 class="mb-0">
-                    {strapiContents.APIDetailsSection.LateVersionPublishDate}
+                    {
+                      strapiContents.APIDetailsSection.LastVersionPublishDate
+                        .Label
+                    }
                   </h6>
                   <div class="d-flex flex-row align-items-center mt-3">
                     <BootstrapItaliaIcon
@@ -267,7 +270,7 @@ const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
                 verified: [],
                 declared: [],
               }}
-              strapiContent={strapiContents.RequiremensSection}
+              strapiContent={strapiContents.RequirementsSection}
             />
           </div>
 

@@ -44,7 +44,7 @@ export const APIDetailsSectionSchema = z.object({
   Title: z.string(),
   EServiceState: EServiceStateSchema,
   PublishDate: PublishDateSchema,
-  LateVersionPublishDate: LateVersionPublishDateSchema,
+  LastVersionPublishDate: LateVersionPublishDateSchema,
   Delegations: DelegationsSchema,
   RequestAcceptancePolicy: RequestAcceptancePolicySchema,
 });
@@ -120,7 +120,7 @@ export const EServiceDetailsSchema = z.object({
   DescriptionSection: DescriptionSectionSchema,
   APIDetailsSection: APIDetailsSectionSchema,
   SpecSection: SpecSectionSchema,
-  RequiremensSection: RequirementsSectionSchema,
+  RequirementsSection: RequirementsSectionSchema,
   DocumentationSection: DocumentationSectionSchema,
   PageIndexLabel: z.string(),
   Label: APIImplementSchema,
