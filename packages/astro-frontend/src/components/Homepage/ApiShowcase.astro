@@ -28,7 +28,7 @@ const highlightedEServicesPromise: Promise<EService[]> = (async () => {
   }
 
   const results = await Promise.all(
-    content.Eservices.map((eservice) =>
+    content.EServices.map((eservice) =>
       sqlService.getEService(eservice.EServiceId),
     ),
   );
