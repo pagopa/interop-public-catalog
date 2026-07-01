@@ -30,7 +30,6 @@ type GoodPracticeBySlugResponse =
   | StrapiEntityList<EsempiPratici>
   | StrapiEntity<EsempiPratici>;
 
-
 export function strapiServiceBuilder(
   endpoint: string,
   token: string,
@@ -44,7 +43,6 @@ export function strapiServiceBuilder(
       Authorization: `Bearer ${token}`,
     },
   });
-
 
   strapiClient.interceptors.request.use((config) => {
     serviceLogger.debug(
@@ -381,12 +379,12 @@ export function strapiServiceBuilder(
           },
           filters: macroCategoryIds
             ? {
-              macrocategories: {
-                MacrocategoryId: {
-                  $in: macroCategoryIds,
+                macrocategories: {
+                  MacrocategoryId: {
+                    $in: macroCategoryIds,
+                  },
                 },
-              },
-            }
+              }
             : undefined,
         },
         {
