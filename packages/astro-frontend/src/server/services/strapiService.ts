@@ -18,7 +18,7 @@ import type { Interoperabilita } from "../../types/pages/interoperabilita.js";
 import type { Normativa } from "../../types/pages/normativa.js";
 import type { EsempiPraticiCatalog } from "../../types/pages/esempiPratici.js";
 import type { EServiceDetails } from "../../types/pages/eserviceDetails.js";
-import axios, { type InternalAxiosRequestConfig } from "axios";
+import axios from "axios";
 import qs from "qs";
 import { logger as makeLogger, type Logger } from "../logger.js";
 
@@ -30,11 +30,6 @@ type GoodPracticeBySlugResponse =
   | StrapiEntityList<EsempiPratici>
   | StrapiEntity<EsempiPratici>;
 
-type StrapiRequestConfig = InternalAxiosRequestConfig & {
-  loggerMetadata?: {
-    startedAt: number;
-  };
-};
 
 export function strapiServiceBuilder(
   endpoint: string,
@@ -52,13 +47,11 @@ export function strapiServiceBuilder(
 
 
   strapiClient.interceptors.request.use((config) => {
-    const requestConfig = config as StrapiRequestConfig;
-
     serviceLogger.debug(
       `Fetching Strapi content URL: ${strapiClient.getUri(config)}`,
     );
 
-    return requestConfig;
+    return config;
   });
 
   strapiClient.interceptors.response.use(
