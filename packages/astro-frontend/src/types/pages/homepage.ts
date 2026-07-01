@@ -44,7 +44,7 @@ export const ShowcaseEservicesSchema = z.object({
   Title: z.string(),
   LinkLabel: z.string(),
   LinkURL: z.url(),
-  Eservices: z.array(EserviceSchema),
+  EServices: z.array(EserviceSchema),
 });
 
 export const ExamplesSchema = z.object({
