@@ -233,13 +233,19 @@ export async function searchCatalog(
     );
     categoriesIds = categoriesIdsQuery.rows.map((el) => el.id as string);
   } else if (producerIds && producerIds.length > 0) {
-    conds.push(
-      sql`
-      t.id IN (${sql.join(
-        producerIds.map((id) => sql`${id}`),
-        sql`, `,
-      )})`,
+    const producerIdsList = sql.join(
+      producerIds.map((id) => sql`${id}`),
+      sql`, `,
     );
+    conds.push(sql`
+      t.id IN (
+        SELECT homonym.id
+        FROM ${sql.identifier(config.tenantSchema)}.tenant selected
+        JOIN ${sql.identifier(config.tenantSchema)}.tenant homonym
+          ON public.normalize_text(homonym.name) = public.normalize_text(selected.name)
+        WHERE selected.id IN (${producerIdsList})
+      )
+    `);
   }
 
   const {
