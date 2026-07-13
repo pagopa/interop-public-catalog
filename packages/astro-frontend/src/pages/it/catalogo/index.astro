@@ -2,32 +2,36 @@
 import Layout from "../../../layouts/Layout.astro";
 import SuggestionSection from "../../../components/shared/SuggestionSection.astro";
 import PageHero from "..//../../components/shared/PageHero.astro";
-import { useCatalogTranslations } from "../../../i18n/catalog.i18n";
-import {
-  getLangFromUrl,
-  getRouteKeyFromCurrentRoutePattern,
-} from "../../../i18n/utils.i18n";
+import { getLangFromUrl } from "../../../i18n/utils.i18n";
 
 import { EServiceCatalogApp } from "../../../components/EServiceCatalog/EServiceCatalogApp";
 import RatingSection from "../../../components/shared/RatingSection.astro";
 import { Section } from "../../../components/shared/Section";
-import { links } from "../../../config/constants";
 import { loadEServiceCatalogSearchParams } from "../../../hooks/useEServiceCatalogSearchParams";
+import { strapiService } from "../../../server/services";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
-const t = useCatalogTranslations(currentLocale);
-
-const routeKey = getRouteKeyFromCurrentRoutePattern(Astro.routePattern);
 
 const searchParamsInitialState = loadEServiceCatalogSearchParams(
   Astro.url.search,
 );
+
+const strapiResponse = await strapiService.getCatalogContent(currentLocale);
+const strapiGeneralResponse =
+  await strapiService.getGeneralContent(currentLocale);
+
+if (!strapiResponse || !strapiGeneralResponse) {
+  throw new Error("Could not fetch content from strapi");
+}
+
+const contents = strapiResponse.data;
+const generalContents = strapiGeneralResponse.data;
 ---
 
-<Layout>
+<Layout seo={contents.Seo || generalContents.DefaultSeo}>
   <PageHero
-    title={t("title")}
-    description={t("description")}
+    title={contents.Title}
+    description={contents.Subtitle}
     breadcrumbItems={[
       {
         routeKey: "HOME",
@@ -44,38 +48,10 @@ const searchParamsInitialState = loadEServiceCatalogSearchParams(
       client:idle
       currentLocale={currentLocale}
       eserviceFilterInitialState={searchParamsInitialState}
+      strapiContent={{ general: generalContents, catalog: contents }}
     />
   </Section>
 
   <RatingSection />
-  <SuggestionSection
-    leftCard={{
-      title: t("suggestion_section.left_card.title"),
-      description: t("suggestion_section.left_card.description"),
-      buttonLink: {
-        href: links.interopPlatformLink,
-        label: t("suggestion_section.left_card.button_label"),
-        mixpanelAttributes: {
-          "data-mp-external-link-id": `${routeKey}_suggestionSection_leftCard_interopPlatformLink`,
-          "data-mp-external-link-description": "TODO",
-        },
-      },
-      externalLink: true,
-      imageSrc: "/img/077-network-primary-color.svg",
-    }}
-    rightCard={{
-      title: t("suggestion_section.right_card.title"),
-      description: t("suggestion_section.right_card.description"),
-      buttonLink: {
-        href: links.interopNumbersLink,
-        label: t("suggestion_section.right_card.button_label"),
-        mixpanelAttributes: {
-          "data-mp-external-link-id": `${routeKey}_suggestionSection_rightCard_interopNumbersLink`,
-          "data-mp-external-link-description": "TODO",
-        },
-      },
-      externalLink: true,
-      imageSrc: "/img/080-growth-graph.svg",
-    }}
-  />
+  <SuggestionSection strapiContents={contents.HowToSection} />
 </Layout>

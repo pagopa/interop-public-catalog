@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_esempi_pratici_simple_descriptions",
+  "info": {
+    "displayName": "SimpleDescription"
+  },
+  "options": {},
+  "attributes": {
+    "SectionId": {
+      "type": "string"
+    },
+    "Title": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "blocks"
+    }
+  },
+  "config": {}
+}

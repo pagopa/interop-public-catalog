@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_catalog_single_links",
+  "info": {
+    "displayName": "SingleLink"
+  },
+  "options": {},
+  "attributes": {
+    "LinkLabel": {
+      "type": "string"
+    },
+    "LinkURL": {
+      "type": "string"
+    },
+    "MixpanelExternalLinkId": {
+      "type": "string"
+    },
+    "MixpanelExternalLinkDescription": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

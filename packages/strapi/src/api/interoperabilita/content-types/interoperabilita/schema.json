@@ -1,0 +1,105 @@
+{
+  "kind": "singleType",
+  "collectionName": "interoperabilitas",
+  "info": {
+    "singularName": "interoperabilita",
+    "pluralName": "interoperabilitas",
+    "displayName": "Interoperabilità"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "Description": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "Features": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "interoperability.features",
+      "repeatable": true
+    },
+    "Infographic": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": false,
+      "allowedTypes": ["images", "files"]
+    },
+    "Tools": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "interoperability.tools",
+      "repeatable": false
+    },
+    "Legislation": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "interoperability.legislation",
+      "repeatable": false
+    },
+    "InteroperabilityLevels": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "interoperability.interoperability-levels",
+      "repeatable": false
+    },
+    "HowToSection": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "general.how-to-section",
+      "repeatable": false
+    },
+    "Seo": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "seo.seo",
+      "repeatable": false
+    }
+  }
+}

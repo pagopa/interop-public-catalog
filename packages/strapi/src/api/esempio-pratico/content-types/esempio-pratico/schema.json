@@ -1,0 +1,106 @@
+{
+  "kind": "collectionType",
+  "collectionName": "esempi_pratici",
+  "info": {
+    "singularName": "esempio-pratico",
+    "pluralName": "esempi-pratici",
+    "displayName": "Esempi Pratici"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "Title": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "Slug": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "Field": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "GoodPracticeTenantDestination": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "macrocategories": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::macrocategory.macrocategory"
+    },
+    "LastUpdate": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "PageIndexLabel": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "EsempiPraticiSection": {
+      "type": "dynamiczone",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "components": [
+        "esempi-pratici.simple-description",
+        "esempi-pratici.image",
+        "esempi-pratici.technical-notes",
+        "esempi-pratici.example"
+      ]
+    },
+    "RelatedEservices": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "esempi-pratici.related-eservices",
+      "repeatable": true
+    },
+    "Seo": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "seo.seo",
+      "repeatable": false
+    }
+  }
+}

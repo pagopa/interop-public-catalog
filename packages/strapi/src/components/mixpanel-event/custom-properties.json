@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_mixpanel_event_custom_properties",
+  "info": {
+    "displayName": "CustomProperties"
+  },
+  "options": {},
+  "attributes": {
+    "CustomPropertyKey": {
+      "type": "string"
+    },
+    "CustomPropertyValue": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

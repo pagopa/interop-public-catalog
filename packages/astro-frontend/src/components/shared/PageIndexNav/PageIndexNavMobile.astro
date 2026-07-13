@@ -5,10 +5,11 @@ import { useUiTranslations } from "../../../i18n/ui.i18n";
 import { BootstrapItaliaIcon } from "../BootstrapItaliaIcon";
 
 interface Props extends HTMLAttributes<"nav"> {
+  title: string;
   headings: { id: string; label: string }[];
 }
 
-const { headings } = Astro.props;
+const { title, headings } = Astro.props;
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 const tUi = useUiTranslations(currentLocale);
@@ -31,7 +32,7 @@ const tUi = useUiTranslations(currentLocale);
     data-bs-target="#navbarNav"
   >
     <span class="it-list"></span>
-    {tUi("page_index_nav.title")}
+    {title}
   </button>
   <div class="navbar-collapsable" id="navbarNav" tabindex="-1">
     <div class="close-div visually-hidden">
@@ -47,7 +48,7 @@ const tUi = useUiTranslations(currentLocale);
     <div class="menu-wrapper" tabindex="-1">
       <div class="link-list-wrapper px-3">
         <h2 class="h6 link-list-heading p-0">
-          {tUi("page_index_nav.title")}
+          {title}
         </h2>
         <ul class="link-list mt-4 border-end">
           {

@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_e_service_headers",
+  "info": {
+    "displayName": "Header"
+  },
+  "options": {},
+  "attributes": {
+    "ProducerLabel": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

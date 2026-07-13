@@ -1,0 +1,51 @@
+---
+import type { InteroperabilityLevels } from "../../types/pages";
+import { renderRichTextStrapiNodes } from "../../utils/rich-text-strapi-renderer";
+import { Section } from "../shared/Section";
+
+interface Props {
+  interoperabilityLevels: InteroperabilityLevels;
+}
+
+const { interoperabilityLevels } = Astro.props;
+---
+
+<Section title={interoperabilityLevels.Title}>
+  <div class="row">
+    <div class="col-12 col-lg-8">
+      <Fragment
+        set:html={renderRichTextStrapiNodes(interoperabilityLevels.Description)}
+      />
+    </div>
+
+    <div class="row">
+      {
+        interoperabilityLevels.SingleInteroperabilityLevel.map((level) => (
+          <div class="col-xs-12 col-lg-6 mb-4">
+            <div class="d-flex flex-row gap-3">
+              <div class="p-4">
+                <img
+                  src={level.Illustration.url}
+                  height="48"
+                  width="48"
+                  class="rounded d-block image-xl"
+                  role="presentation"
+                  alt={level.Illustration.alternativeText}
+                />
+              </div>
+              <div>
+                <h3 class="h5">{level.Title}</h3>
+                <p
+                  style="font-size:1rem;line-height:24px;"
+                  class="text-secondary"
+                >
+                  {level.Subtitle}
+                </p>
+              </div>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</Section>

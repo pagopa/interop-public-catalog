@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_catalog_links",
+  "info": {
+    "displayName": "Links"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "SingleLink": {
+      "type": "component",
+      "component": "catalog.single-link",
+      "repeatable": true
+    }
+  },
+  "config": {}
+}

@@ -1,0 +1,107 @@
+{
+  "kind": "singleType",
+  "collectionName": "scheda_e_services",
+  "info": {
+    "singularName": "scheda-e-service",
+    "pluralName": "scheda-e-services",
+    "displayName": "Scheda e-service"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "Header": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "e-service.header",
+      "repeatable": false
+    },
+    "DescriptionSection": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "e-service.description-section",
+      "repeatable": false
+    },
+    "APIDetailsSection": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "e-service.api-details-section",
+      "repeatable": false
+    },
+    "SpecSection": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "e-service.spec-section",
+      "repeatable": false
+    },
+    "RequirementsSection": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "e-service.requirements-section",
+      "repeatable": false
+    },
+    "DocumentationSection": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "e-service.documentation-section",
+      "repeatable": false
+    },
+    "PageIndexLabel": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "Label": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "e-service.api-implement",
+      "repeatable": false
+    },
+    "OtherProducerAPIs": {
+      "type": "component",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "e-service.other-producer-ap-is",
+      "repeatable": false
+    }
+  }
+}

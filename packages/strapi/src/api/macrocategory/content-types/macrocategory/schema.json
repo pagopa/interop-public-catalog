@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "macrocategories",
+  "info": {
+    "singularName": "macrocategory",
+    "pluralName": "macrocategories",
+    "displayName": "Macrocategorie"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "MacrocategoryLabel": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "MacrocategoryId": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "MacrocategoryIllustration": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": false,
+      "allowedTypes": ["images", "files"]
+    }
+  }
+}

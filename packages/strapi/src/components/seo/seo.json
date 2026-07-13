@@ -1,0 +1,26 @@
+{
+  "collectionName": "components_seo_seos",
+  "info": {
+    "displayName": "Seo"
+  },
+  "options": {},
+  "attributes": {
+    "MetaTitle": {
+      "type": "string"
+    },
+    "MetaDescription": {
+      "type": "string"
+    },
+    "OpenGraphImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images", "files"]
+    },
+    "TwitterImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images", "files"]
+    }
+  },
+  "config": {}
+}

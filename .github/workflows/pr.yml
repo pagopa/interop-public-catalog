@@ -11,11 +11,11 @@ jobs:
     name: Check formatting
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Cache turbo setup
-        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4
+        uses: actions/cache@b7e8d49f17405cc70c1c120101943203c98d3a4b
         with:
           path: |
             .turbo
@@ -23,7 +23,7 @@ jobs:
           key: ${{ runner.os }}-turbo-check-formatting-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-turbo-check-formatting
-      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
+      - uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4
         with:
           run_install: true
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
@@ -35,11 +35,11 @@ jobs:
     name: Lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Cache turbo setup
-        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4
+        uses: actions/cache@b7e8d49f17405cc70c1c120101943203c98d3a4b
         with:
           path: |
             .turbo
@@ -50,7 +50,7 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version-file: ./package.json
-      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
+      - uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4
         with:
           run_install: true
       - run: pnpm lint
@@ -59,11 +59,11 @@ jobs:
     name: Check
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Cache turbo setup
-        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4
+        uses: actions/cache@b7e8d49f17405cc70c1c120101943203c98d3a4b
         with:
           path: |
             .turbo
@@ -74,7 +74,7 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version-file: ./package.json
-      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
+      - uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4
         with:
           run_install: true
       - run: pnpm check
@@ -82,11 +82,11 @@ jobs:
     name: Test
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Cache turbo setup
-        uses: actions/cache@638ed79f9dc94c1de1baef91bcab5edaa19451f4
+        uses: actions/cache@b7e8d49f17405cc70c1c120101943203c98d3a4b
         with:
           path: |
             .turbo
@@ -97,7 +97,7 @@ jobs:
       - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4
         with:
           node-version-file: ./package.json
-      - uses: pnpm/action-setup@a7487c7e89a18df4991f7f222e4898a00d66ddda # v4
+      - uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061 # v4
         with:
           run_install: true
       - run: pnpm test
@@ -110,7 +110,7 @@ jobs:
     outputs:
       packages: ${{ steps.set_packages_output.outputs.packages }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
       - name: Find packages
@@ -136,12 +136,12 @@ jobs:
     env:
       DOCKER_BUILD_SUMMARY: "false"
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
         with:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Build Docker image
-        uses: docker/build-push-action@55146d969b0dff1a5c12630229609757af5b1081
+        uses: docker/build-push-action@8c1e8f8e5bf845ba3773a14f3967965548a2341e
         with:
           context: .
           file: packages/${{ matrix.package }}/Dockerfile

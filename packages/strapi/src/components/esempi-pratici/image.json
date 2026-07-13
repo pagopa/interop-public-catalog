@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_esempi_pratici_images",
+  "info": {
+    "displayName": "Image"
+  },
+  "options": {},
+  "attributes": {
+    "Image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images", "files"]
+    },
+    "Caption": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

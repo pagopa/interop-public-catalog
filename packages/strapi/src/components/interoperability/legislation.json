@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_interoperability_legislations",
+  "info": {
+    "displayName": "Legislation"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Subtitle": {
+      "type": "string"
+    },
+    "LinkLabel": {
+      "type": "string"
+    },
+    "LinkURL": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

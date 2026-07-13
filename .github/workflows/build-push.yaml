@@ -10,6 +10,7 @@ on:
       - "packages/**"
       - "!packages/*/scripts/**"
       - ".github/workflows/build-push.yaml"
+      - "pnpm-lock.yaml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -22,7 +23,7 @@ jobs:
     outputs:
       packages: ${{ steps.set_packages_output.outputs.packages }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
       - name: Find packages
         id: set_packages_output
         run: |
@@ -46,7 +47,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Normalize package name
         id: normalize_package_name
@@ -55,7 +56,7 @@ jobs:
           echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
+        uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4
         with:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
@@ -76,7 +77,7 @@ jobs:
       - name: (branch) Docker metadata
         id: meta_branch
         if: ${{ github.ref_type == 'branch' }}
-        uses: docker/metadata-action@c1e51972afc2121e065aed6d45c65596fe445f3f
+        uses: docker/metadata-action@a60f0f62b5c12316066c8db464bfb2faafd7907b
         with:
           images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ env.PACKAGE_NAME }}
           flavor: |
@@ -89,7 +90,7 @@ jobs:
       - name: (tag) Docker metadata
         id: meta_tag
         if: ${{ github.ref_type == 'tag' }}
-        uses: docker/metadata-action@c1e51972afc2121e065aed6d45c65596fe445f3f
+        uses: docker/metadata-action@a60f0f62b5c12316066c8db464bfb2faafd7907b
         with:
           images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ env.PACKAGE_NAME }}
           flavor: |
@@ -101,7 +102,7 @@ jobs:
 
       - name: Build and push Docker image
         id: build_push
-        uses: docker/build-push-action@55146d969b0dff1a5c12630229609757af5b1081
+        uses: docker/build-push-action@8c1e8f8e5bf845ba3773a14f3967965548a2341e
         with:
           context: .
           file: packages/${{ matrix.package }}/Dockerfile
@@ -127,7 +128,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4
+        uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
 
       - name: Normalize package name
         id: normalize_package_name
@@ -136,7 +137,7 @@ jobs:
           echo "PACKAGE_NAME=$PACKAGE_NAME" >> $GITHUB_ENV
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@e3dd6a429d7300a6a4c196c26e071d42e0343502 # v4
+        uses: aws-actions/configure-aws-credentials@7474bc4690e29a8392af63c5b98e7449536d5c3a # v4
         with:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: ${{ secrets.IAM_ROLE_ARN }}
@@ -149,7 +150,7 @@ jobs:
       - name: (tag) Docker metadata
         id: meta_tag
         if: ${{ github.ref_type == 'tag' }}
-        uses: docker/metadata-action@c1e51972afc2121e065aed6d45c65596fe445f3f
+        uses: docker/metadata-action@a60f0f62b5c12316066c8db464bfb2faafd7907b
         with:
           images: ${{ steps.login-ecr.outputs.registry }}/interop-public-catalog-${{ env.PACKAGE_NAME }}
           flavor: |
@@ -161,7 +162,7 @@ jobs:
 
       - name: Build and push Docker image
         id: build_push
-        uses: docker/build-push-action@55146d969b0dff1a5c12630229609757af5b1081
+        uses: docker/build-push-action@8c1e8f8e5bf845ba3773a14f3967965548a2341e
         with:
           context: .
           file: packages/${{ matrix.package }}/Dockerfile

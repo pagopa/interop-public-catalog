@@ -23,22 +23,27 @@ const goodPracticeStrapiResponse = await strapiService.getGoodPracticeBySlug(
   currentLocale,
 );
 
-const goodPracticesExample = await strapiService.getGoodPracticesExamples(
-  currentSlug!,
-  currentLocale,
-  2,
-);
+const goodPracticesExamplesStrapiResponse =
+  await strapiService.getGoodPracticesExamples(currentSlug!, currentLocale, 2);
+const strapiGeneralResponse =
+  await strapiService.getGeneralContent(currentLocale);
 
 if (!goodPracticeStrapiResponse) {
   return Astro.redirect("/404");
 }
 
+if (!goodPracticesExamplesStrapiResponse || !strapiGeneralResponse) {
+  throw new Error("Could not fetch content from strapi");
+}
+
 const goodPractice = goodPracticeStrapiResponse.data;
+const goodPracticesExamples = goodPracticesExamplesStrapiResponse.data;
+const generalContents = strapiGeneralResponse.data;
 ---
 
-<Layout>
+<Layout seo={goodPractice.Seo || generalContents.DefaultSeo}>
   <PageHero
-    title={goodPractice.title}
+    title={goodPractice.Title}
     breadcrumbItems={[
       {
         routeKey: "HOME",
@@ -54,25 +59,30 @@ const goodPractice = goodPracticeStrapiResponse.data;
   >
     <div slot="top-hero">
       <div class="d-flex align-items-center justify-content-between">
-        <Chip label={goodPractice.category} />
-        <CopyUrlButton currentLocale={currentLocale} />
+        <Chip label={goodPractice.Field} />
+        <CopyUrlButton strapiContent={generalContents.CopyURL} />
       </div>
     </div>
 
     <div slot="bottom-hero">
       <p>
-        <strong>{tUi("label.for")}:</strong>
+        <strong>{goodPractice.GoodPracticeTenantDestination}:</strong>
         {
-          goodPractice.tenantMacrocategories.length === 0
+          goodPractice.macrocategories.length === 0
             ? tUi("tenant_macrocategory_.tutti_short")
-            : goodPractice.tenantMacrocategories.map((m) => m.label).join(", ")
+            : goodPractice.macrocategories
+                .map((m) => m.MacrocategoryLabel)
+                .join(", ")
         }
       </p>
     </div>
   </PageHero>
 
   <Section className="bg-muted">
-    <GoodPracticeDetails goodPractice={goodPractice} />
+    <GoodPracticeDetails
+      goodPractice={goodPractice}
+      strapiContent={generalContents.EServiceAccess}
+    />
   </Section>
 
   <Section
@@ -84,7 +94,7 @@ const goodPractice = goodPracticeStrapiResponse.data;
       class="d-flex flex-column flex-md-row justify-content-center gap-4 mt-4"
     >
       {
-        goodPracticesExample.data.map((goodPractice) => (
+        goodPracticesExamples.map((goodPractice) => (
           <GoodPracticeCard
             currentLocale={currentLocale}
             goodPractice={goodPractice}

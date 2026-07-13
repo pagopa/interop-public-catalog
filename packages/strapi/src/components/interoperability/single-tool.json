@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_interoperability_single_tools",
+  "info": {
+    "displayName": "SingleTool"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "Subtitle": {
+      "type": "string"
+    },
+    "Description": {
+      "type": "string"
+    },
+    "LinkURL": {
+      "type": "string"
+    },
+    "MixpanelExternalLinkId": {
+      "type": "string"
+    },
+    "MixpanelExternalLinkDescription": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

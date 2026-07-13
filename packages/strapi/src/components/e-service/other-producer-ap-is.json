@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_e_service_other_producer_ap_is",
+  "info": {
+    "displayName": "OtherProducerAPIs"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    },
+    "LinkLabel": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

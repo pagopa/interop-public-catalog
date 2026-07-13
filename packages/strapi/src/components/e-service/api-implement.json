@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_e_service_api_implements",
+  "info": {
+    "displayName": "APIImplement"
+  },
+  "options": {},
+  "attributes": {
+    "Title": {
+      "type": "string"
+    },
+    "LinkLabel": {
+      "type": "string"
+    },
+    "LinkURL": {
+      "type": "string"
+    },
+    "MixpanelExternalLinkId": {
+      "type": "string"
+    },
+    "MixpanelExternalLinkDescription": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

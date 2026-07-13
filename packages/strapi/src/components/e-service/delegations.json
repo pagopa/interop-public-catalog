@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_e_service_delegations",
+  "info": {
+    "displayName": "Delegations"
+  },
+  "options": {},
+  "attributes": {
+    "Label": {
+      "type": "string"
+    },
+    "TooltipTitle": {
+      "type": "string"
+    },
+    "TooltipContent": {
+      "type": "string"
+    },
+    "TrueValueLabel": {
+      "type": "string"
+    },
+    "FalseValueLabel": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

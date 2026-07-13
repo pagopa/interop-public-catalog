@@ -1,0 +1,13 @@
+{
+  "collectionName": "components_esempi_pratici_related_eservices",
+  "info": {
+    "displayName": "RelatedEservices"
+  },
+  "options": {},
+  "attributes": {
+    "EserviceId": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

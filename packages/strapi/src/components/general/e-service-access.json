@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_general_e_service_accesses",
+  "info": {
+    "displayName": "EServiceAccess"
+  },
+  "options": {},
+  "attributes": {
+    "RestrictedAccessLabel": {
+      "type": "string"
+    },
+    "RestrictedAccessTooltipLabel": {
+      "type": "string"
+    },
+    "FreeAccessLabel": {
+      "type": "string"
+    },
+    "FreeAccessTooltipLabel": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

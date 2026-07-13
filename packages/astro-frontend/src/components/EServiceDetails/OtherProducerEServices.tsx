@@ -1,22 +1,31 @@
 import type { FC } from "react";
 import type { SupportedLanguage } from "../../i18n/types.i18n";
 import { Section } from "../shared/Section";
-import { useEServiceDetailsTranslations } from "../../i18n/eservice-details.i18n";
 import { getLocalizedRoute } from "../../i18n/utils.i18n";
 import useSWRImmutable from "swr/immutable";
 import { apiService } from "../../services/api.services";
 import { EServiceCard, EServiceCardSkeleton } from "../shared/EServiceCard";
+import type { OtherProducerAPIs } from "../../types/pages/eserviceDetails";
+import type { EServiceAccess } from "../../types/general";
 
 const MAX_ESERVICES_DISPLAYED = 3;
 
 export const OtherProducerEServices: FC<{
+  strapiContents: {
+    sectionContents: OtherProducerAPIs;
+    generalContents: EServiceAccess;
+  };
   currentLocale: SupportedLanguage;
   currentEServiceId: string;
   producerId: string;
   producerName: string;
-}> = ({ currentLocale, currentEServiceId, producerId, producerName }) => {
-  const t = useEServiceDetailsTranslations(currentLocale);
-
+}> = ({
+  strapiContents,
+  currentLocale,
+  currentEServiceId,
+  producerId,
+  producerName,
+}) => {
   const { data: eservices } = useSWRImmutable(
     ["producer-id-eservices", producerId],
     async ([_, producerId]) =>
@@ -42,9 +51,9 @@ export const OtherProducerEServices: FC<{
 
   return (
     <Section
-      title={t("featured_api.title")}
+      title={strapiContents.sectionContents.Label}
       sectionLink={{
-        text: t("featured_api.explore_catalog"),
+        text: strapiContents.sectionContents.LinkLabel,
         href: catalogUrl,
       }}
     >
@@ -65,6 +74,7 @@ export const OtherProducerEServices: FC<{
                 name={name}
                 description={description}
                 producerName={tenant_name}
+                strapiContent={strapiContents.generalContents}
               />
             </div>
           ))}

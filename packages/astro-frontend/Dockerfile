@@ -1,7 +1,7 @@
 #default value for compatibility
 ARG NODE_REGISTRY="docker.io"
 
-FROM ${NODE_REGISTRY}/node:20.19.4-slim@sha256:6db5e436948af8f0244488a1f658c2c8e55a3ae51ca2e1686ed042be8f25f70a AS build
+FROM ${NODE_REGISTRY}/node:22.22.2-slim@sha256:f3a68cf41a855d227d1b0ab832bed9749469ef38cf4f58182fb8c893bc462383 AS build
 
 RUN corepack enable
 
@@ -38,10 +38,11 @@ RUN pnpm build && \
   packages/models \
   packages/strapi \
   packages/typescript-config \
-  packages/astro-frontend/dist && \
+  packages/astro-frontend/dist \
+  packages/astro-frontend/run-server.mjs && \
   find /out -exec touch -h --date=@0 {} \;
 
-FROM ${NODE_REGISTRY}/node:20.19.4-slim@sha256:6db5e436948af8f0244488a1f658c2c8e55a3ae51ca2e1686ed042be8f25f70a AS final
+FROM ${NODE_REGISTRY}/node:22.22.2-slim@sha256:f3a68cf41a855d227d1b0ab832bed9749469ef38cf4f58182fb8c893bc462383 AS final
 
 COPY --from=build /out /app
 
@@ -53,4 +54,4 @@ WORKDIR /app/packages/astro-frontend
 
 EXPOSE 8080
 
-CMD ["node", "./dist/server/entry.mjs"]
+CMD ["node", "./run-server.mjs"]

@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_normativa_section_normativa_sections",
+  "info": {
+    "displayName": "Section"
+  },
+  "options": {},
+  "attributes": {
+    "NormativaSectionTitle": {
+      "type": "string"
+    },
+    "NormativaSectionItem": {
+      "type": "component",
+      "component": "normativa-section.section-item",
+      "repeatable": true
+    },
+    "NormativaId": {
+      "type": "string"
+    }
+  },
+  "config": {}
+}

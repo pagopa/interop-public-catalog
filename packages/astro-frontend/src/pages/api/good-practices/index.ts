@@ -5,7 +5,6 @@ import { emptyErrorMapper } from "pagopa-interop-public-models";
 import {
   parseQueryParams,
   type GoodPracticesResponse,
-  GoodPracticesResponseSchema,
   GoodPracticesQuerySchema,
 } from "../../../server/models/api.js";
 
@@ -17,26 +16,21 @@ export const GET: APIRoute = async ({ url, locals }) => {
     locals.logger.info(
       `Fetching good practices. Locale: ${locale}, Macro Category ID: ${macroCategoryId}, Limit: ${limit}, Offset: ${offset}`,
     );
-    const rawData = await strapiService.getGoodPractices(
-      {
-        macroCategoryIds:
-          typeof macroCategoryId !== "undefined"
-            ? [macroCategoryId]
-            : undefined,
-        limit,
-        offset,
-      },
-      locale,
-    );
+    const rawData = await strapiService.getGoodPractices(locale, {
+      macroCategoryIds:
+        typeof macroCategoryId !== "undefined" ? [macroCategoryId] : undefined,
+      limit,
+      offset,
+    });
 
-    const data = GoodPracticesResponseSchema.parse({
+    const data: GoodPracticesResponse = {
       results: rawData.data,
       pagination: {
         offset,
         limit,
         totalCount: rawData.meta.pagination.total,
       },
-    } satisfies GoodPracticesResponse);
+    };
 
     return new Response(JSON.stringify(data), {
       headers: { "Content-Type": "application/json" },
