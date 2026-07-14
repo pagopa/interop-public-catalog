@@ -19,8 +19,8 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
-    "@astrojs/check": "0.9.8",
-    "@astrojs/node": "10.0.5",
+    "@astrojs/check": "0.9.9",
+    "@astrojs/node": "10.1.4",
     "@astrojs/react": "^5.0.0",
     "@emotion/react": "11.14.0",
     "@emotion/styled": "11.14.1",
