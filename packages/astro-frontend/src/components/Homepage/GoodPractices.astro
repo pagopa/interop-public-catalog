@@ -17,9 +17,14 @@ const t = useHomepageTranslations(currentLocale);
 
 function getOrganizationTypeHref(macroCategory: HomepageMacroCategory) {
   const macroCategoryId = macroCategory.MacrocategoryId;
+  const route = getLocalizedRoute(currentLocale, "GOOD_PRACTICES_CATALOG");
+
+  if (!macroCategoryId) {
+    return route;
+  }
 
   const urlSearchParams = new URLSearchParams({ macroCategoryId }).toString();
-  return `${getLocalizedRoute(currentLocale, "GOOD_PRACTICES_CATALOG")}?${urlSearchParams}`;
+  return `${route}?${urlSearchParams}`;
 }
 ---
 

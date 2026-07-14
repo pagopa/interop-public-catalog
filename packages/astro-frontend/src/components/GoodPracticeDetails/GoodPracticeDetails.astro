@@ -112,7 +112,9 @@ const HEADING_CLASS = "h5 mb-3";
       <GoodPracticeRelatedEService
         client:visible
         currentLocale={currentLocale}
-        eserviceIds={goodPractice.RelatedEservices.map((e) => e.EServiceId)}
+        eserviceIds={goodPractice.RelatedEservices.map(
+          (e) => e.EServiceId ?? e.EserviceId!,
+        )}
         strapiContent={strapiContent}
       />
 

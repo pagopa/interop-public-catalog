@@ -32,17 +32,10 @@ export const GoodPracticeMacroCategorySchema = z.object({
   MacrocategoryIllustration: StrapiImageSchema.optional().nullable(),
 });
 
-export const RelatedEserviceSchema = z
-  .object({
-    EServiceId: z.string().optional(),
-    EserviceId: z.string().optional(),
-  })
-  .refine(({ EServiceId, EserviceId }) => Boolean(EServiceId || EserviceId), {
-    message: "Missing related e-service id",
-  })
-  .transform(({ EServiceId, EserviceId }) => ({
-    EServiceId: EServiceId ?? EserviceId!,
-  }));
+export const RelatedEserviceSchema = z.object({
+  EServiceId: z.string().optional(),
+  EserviceId: z.string().optional(),
+});
 
 export const EsempiPraticiSimpleDescriptionSchema = z.object({
   __component: z.literal("esempi-pratici.simple-description"),
