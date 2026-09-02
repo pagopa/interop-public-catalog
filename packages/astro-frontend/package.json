@@ -1,6 +1,6 @@
 {
   "name": "pagopa-interop-public-astro-frontend",
-  "version": "0.0.1",
+  "version": "1.3.2",
   "description": "Public catalog frontend built with Astro",
   "main": "dist",
   "type": "module",
