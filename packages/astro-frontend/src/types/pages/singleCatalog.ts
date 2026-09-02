@@ -3,6 +3,7 @@ import { SeoSchema } from "../seo";
 import { HowToSectionSchema } from "../general";
 
 export const SingleLinkSchema = z.object({
+  id: z.number(),
   LinkLabel: z.string(),
   LinkURL: z.url(),
   MixpanelExternalLinkId: z.string(),
