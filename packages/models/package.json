@@ -23,22 +23,16 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
-    "@protobuf-ts/plugin": "2.9.4",
-    "@protobuf-ts/protoc": "2.9.4",
-    "@protobuf-ts/runtime": "2.9.4",
-    "axios": "1.15.2",
-    "ts-pattern": "5.2.0",
-    "zod": "4.1.12",
-    "zod-validation-error": "3.3.0",
-    "drizzle-orm": "0.45.2"
+    "ts-pattern": "catalog:",
+    "zod": "catalog:",
+    "zod-validation-error": "catalog:",
+    "drizzle-orm": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "20.19.17",
-    "mkdirp": "3.0.1",
+    "@types/node": "catalog:",
     "pagopa-interop-public-eslint-config": "workspace:*",
     "pagopa-interop-public-typescript-config": "workspace:*",
-    "prettier": "3.6.2",
-    "tsc-esm-fix": "2.20.27",
-    "typescript": "5.9.3"
+    "prettier": "catalog:",
+    "typescript": "catalog:"
   }
 }

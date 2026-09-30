@@ -4,6 +4,48 @@ settings:
   autoInstallPeers: false
   excludeLinksFromLockfile: false
 
+catalogs:
+  default:
+    '@types/node':
+      specifier: 20.19.17
+      version: 20.19.17
+    '@types/pg':
+      specifier: 8.15.5
+      version: 8.15.5
+    axios:
+      specifier: 1.15.2
+      version: 1.15.2
+    dotenv-flow:
+      specifier: 4.1.0
+      version: 4.1.0
+    drizzle-orm:
+      specifier: 0.45.2
+      version: 0.45.2
+    pg:
+      specifier: 8.16.3
+      version: 8.16.3
+    prettier:
+      specifier: 3.6.2
+      version: 3.6.2
+    ts-pattern:
+      specifier: 5.2.0
+      version: 5.2.0
+    tsx:
+      specifier: 4.19.1
+      version: 4.19.1
+    typescript:
+      specifier: 5.9.3
+      version: 5.9.3
+    winston:
+      specifier: 3.16.0
+      version: 3.16.0
+    zod:
+      specifier: 4.1.12
+      version: 4.1.12
+    zod-validation-error:
+      specifier: 5.0.0
+      version: 5.0.0
+
 importers:
 
   .:
@@ -33,7 +75,7 @@ importers:
         specifier: 7.3.4
         version: 7.3.4(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react@19.2.0))(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@types/pg':
-        specifier: 8.15.5
+        specifier: 'catalog:'
         version: 8.15.5
       '@types/react':
         specifier: ^19.1.9
@@ -41,9 +83,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.1.7
         version: 19.2.2(@types/react@19.2.2)
-      '@zodios/core':
-        specifier: 10.9.6
-        version: 10.9.6(axios@1.15.2)(zod@4.1.12)
       accessible-autocomplete:
         specifier: ^3.0.1
         version: 3.0.1
@@ -51,7 +90,7 @@ importers:
         specifier: ^6.0.0
         version: 6.1.8(@types/node@20.19.17)(rollup@4.60.1)(terser@5.44.0)(tsx@4.19.1)(typescript@5.9.3)(yaml@2.8.3)
       axios:
-        specifier: 1.15.2
+        specifier: 'catalog:'
         version: 1.15.2
       bootstrap-italia:
         specifier: 2.16.2
@@ -60,10 +99,10 @@ importers:
         specifier: 5.8.3
         version: 5.8.3(@types/react@19.2.2)(bootstrap-italia@2.16.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       dotenv-flow:
-        specifier: 4.1.0
+        specifier: 'catalog:'
         version: 4.1.0
       drizzle-orm:
-        specifier: 0.45.2
+        specifier: 'catalog:'
         version: 0.45.2(@types/pg@8.15.5)(knex@3.0.1(pg@8.16.3))(pg@8.16.3)
       express:
         specifier: 5.2.1
@@ -81,7 +120,7 @@ importers:
         specifier: workspace:*
         version: link:../models
       pg:
-        specifier: 8.16.3
+        specifier: 'catalog:'
         version: 8.16.3
       qs:
         specifier: 6.14.2
@@ -96,27 +135,24 @@ importers:
         specifier: 2.3.6
         version: 2.3.6(react@19.2.0)
       ts-pattern:
-        specifier: 5.2.0
+        specifier: 'catalog:'
         version: 5.2.0
       winston:
-        specifier: 3.16.0
+        specifier: 'catalog:'
         version: 3.16.0
       zod:
-        specifier: 4.1.12
+        specifier: 'catalog:'
         version: 4.1.12
     devDependencies:
       '@storybook/react-vite':
         specifier: 9.1.15
         version: 9.1.15(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.60.1)(storybook@9.1.19(@testing-library/dom@10.1.0)(prettier@3.6.2)(vite@7.3.2(@types/node@20.19.17)(terser@5.44.0)(tsx@4.19.1)(yaml@2.8.3)))(typescript@5.9.3)(vite@7.3.2(@types/node@20.19.17)(terser@5.44.0)(tsx@4.19.1)(yaml@2.8.3))
       '@types/node':
-        specifier: 20.19.17
+        specifier: 'catalog:'
         version: 20.19.17
       '@types/qs':
         specifier: 6.9.15
         version: 6.9.15
-      '@types/supertest':
-        specifier: 6.0.3
-        version: 6.0.3
       pagopa-interop-public-eslint-config:
         specifier: workspace:*
         version: link:../eslint-config
@@ -124,7 +160,7 @@ importers:
         specifier: workspace:*
         version: link:../typescript-config
       prettier:
-        specifier: 3.6.2
+        specifier: 'catalog:'
         version: 3.6.2
       prettier-plugin-astro:
         specifier: 0.14.1
@@ -132,17 +168,11 @@ importers:
       storybook:
         specifier: 9.1.19
         version: 9.1.19(@testing-library/dom@10.1.0)(prettier@3.6.2)(vite@7.3.2(@types/node@20.19.17)(terser@5.44.0)(tsx@4.19.1)(yaml@2.8.3))
-      supertest:
-        specifier: 7.0.0
-        version: 7.0.0
       testcontainers:
         specifier: 11.8.1
         version: 11.8.1
-      tsx:
-        specifier: 4.19.1
-        version: 4.19.1
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       vite:
         specifier: 7.3.2
@@ -153,42 +183,21 @@ importers:
 
   packages/commons:
     dependencies:
-      '@zodios/core':
-        specifier: 10.9.6
-        version: 10.9.6(axios@1.15.2)(zod@4.1.12)
-      axios:
-        specifier: 1.15.2
-        version: 1.15.2
-      connection-string:
-        specifier: 4.4.0
-        version: 4.4.0
       drizzle-orm:
-        specifier: 0.45.2
+        specifier: 'catalog:'
         version: 0.45.2(@types/pg@8.15.5)(knex@3.0.1(pg@8.16.3))(pg@8.16.3)
       pg:
-        specifier: 8.16.3
+        specifier: 'catalog:'
         version: 8.16.3
-      ts-pattern:
-        specifier: 5.2.0
-        version: 5.2.0
-      winston:
-        specifier: 3.16.0
-        version: 3.16.0
-      yaml:
-        specifier: 2.8.3
-        version: 2.8.3
       zod:
-        specifier: 4.1.12
+        specifier: 'catalog:'
         version: 4.1.12
-      zod-validation-error:
-        specifier: 3.3.0
-        version: 3.3.0(zod@4.1.12)
     devDependencies:
       '@types/node':
-        specifier: 20.19.17
+        specifier: 'catalog:'
         version: 20.19.17
       '@types/pg':
-        specifier: 8.15.5
+        specifier: 'catalog:'
         version: 8.15.5
       pagopa-interop-public-eslint-config:
         specifier: workspace:*
@@ -197,10 +206,10 @@ importers:
         specifier: workspace:*
         version: link:../typescript-config
       prettier:
-        specifier: 3.6.2
+        specifier: 'catalog:'
         version: 3.6.2
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/eslint-config:
@@ -230,7 +239,7 @@ importers:
         specifier: 16.5.0
         version: 16.5.0
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
       typescript-eslint:
         specifier: 8.46.3
@@ -238,37 +247,22 @@ importers:
 
   packages/models:
     dependencies:
-      '@protobuf-ts/plugin':
-        specifier: 2.9.4
-        version: 2.9.4
-      '@protobuf-ts/protoc':
-        specifier: 2.9.4
-        version: 2.9.4
-      '@protobuf-ts/runtime':
-        specifier: 2.9.4
-        version: 2.9.4
-      axios:
-        specifier: 1.15.2
-        version: 1.15.2
       drizzle-orm:
-        specifier: 0.45.2
+        specifier: 'catalog:'
         version: 0.45.2(@types/pg@8.15.5)(knex@3.0.1(pg@8.16.3))(pg@8.16.3)
       ts-pattern:
-        specifier: 5.2.0
+        specifier: 'catalog:'
         version: 5.2.0
       zod:
-        specifier: 4.1.12
+        specifier: 'catalog:'
         version: 4.1.12
       zod-validation-error:
-        specifier: 3.3.0
-        version: 3.3.0(zod@4.1.12)
+        specifier: 'catalog:'
+        version: 5.0.0(zod@4.1.12)
     devDependencies:
       '@types/node':
-        specifier: 20.19.17
+        specifier: 'catalog:'
         version: 20.19.17
-      mkdirp:
-        specifier: 3.0.1
-        version: 3.0.1
       pagopa-interop-public-eslint-config:
         specifier: workspace:*
         version: link:../eslint-config
@@ -276,13 +270,10 @@ importers:
         specifier: workspace:*
         version: link:../typescript-config
       prettier:
-        specifier: 3.6.2
+        specifier: 'catalog:'
         version: 3.6.2
-      tsc-esm-fix:
-        specifier: 2.20.27
-        version: 2.20.27
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/public-catalog-updater:
@@ -290,37 +281,22 @@ importers:
       '@aws-sdk/client-cloudfront':
         specifier: 3.922.0
         version: 3.922.0
-      axios:
-        specifier: 1.15.2
-        version: 1.15.2
       dotenv-flow:
-        specifier: 4.1.0
+        specifier: 'catalog:'
         version: 4.1.0
       pagopa-interop-public-models:
         specifier: workspace:*
         version: link:../models
       pg:
-        specifier: 8.16.3
+        specifier: 'catalog:'
         version: 8.16.3
-      ts-pattern:
-        specifier: 5.2.0
-        version: 5.2.0
-      zod:
-        specifier: 4.1.12
-        version: 4.1.12
-      zod-validation-error:
-        specifier: 3.3.0
-        version: 3.3.0(zod@4.1.12)
     devDependencies:
       '@types/node':
-        specifier: 20.19.17
+        specifier: 'catalog:'
         version: 20.19.17
       '@types/pg':
-        specifier: 8.15.5
+        specifier: 'catalog:'
         version: 8.15.5
-      mkdirp:
-        specifier: 3.0.1
-        version: 3.0.1
       pagopa-interop-public-eslint-config:
         specifier: workspace:*
         version: link:../eslint-config
@@ -328,16 +304,13 @@ importers:
         specifier: workspace:*
         version: link:../typescript-config
       prettier:
-        specifier: 3.6.2
+        specifier: 'catalog:'
         version: 3.6.2
-      tsc-esm-fix:
-        specifier: 2.20.27
-        version: 2.20.27
       tsx:
-        specifier: 4.19.1
+        specifier: 'catalog:'
         version: 4.19.1
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
 
   packages/strapi:
@@ -369,15 +342,12 @@ importers:
       styled-components:
         specifier: ^6.0.0
         version: 6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      winston:
-        specifier: 3.16.0
-        version: 3.16.0
     devDependencies:
       '@strapi/typescript-utils':
         specifier: 5.30.0
         version: 5.30.0
       '@types/node':
-        specifier: 20.19.17
+        specifier: 'catalog:'
         version: 20.19.17
       '@types/react':
         specifier: 18.3.26
@@ -392,17 +362,11 @@ importers:
         specifier: workspace:*
         version: link:../typescript-config
       prettier:
-        specifier: 3.6.2
+        specifier: 'catalog:'
         version: 3.6.2
-      tsx:
-        specifier: 4.19.1
-        version: 4.19.1
       typescript:
-        specifier: 5.9.3
+        specifier: 'catalog:'
         version: 5.9.3
-      vitest:
-        specifier: 1.6.1
-        version: 1.6.1(@types/node@20.19.17)(terser@5.44.0)
 
   packages/typescript-config:
     devDependencies:
@@ -2301,26 +2265,6 @@ packages:
   '@popperjs/core@2.11.8':
     resolution: {integrity: sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==}
 
-  '@protobuf-ts/plugin-framework@2.11.0':
-    resolution: {integrity: sha512-D6Mno2i/NcRrDzbTq/2QSXUheXds6Ye+uaBSAHvPy2GAre4vjz1S0B6JTzVbU/B8hI3Msc/zMQSHb5Ak5Iy97g==}
-
-  '@protobuf-ts/plugin@2.9.4':
-    resolution: {integrity: sha512-Db5Laq5T3mc6ERZvhIhkj1rn57/p8gbWiCKxQWbZBBl20wMuqKoHbRw4tuD7FyXi+IkwTToaNVXymv5CY3E8Rw==}
-    hasBin: true
-
-  '@protobuf-ts/protoc@2.9.4':
-    resolution: {integrity: sha512-hQX+nOhFtrA+YdAXsXEDrLoGJqXHpgv4+BueYF0S9hy/Jq0VRTVlJS1Etmf4qlMt/WdigEes5LOd/LDzui4GIQ==}
-    hasBin: true
-
-  '@protobuf-ts/runtime-rpc@2.11.1':
-    resolution: {integrity: sha512-4CqqUmNA+/uMz00+d3CYKgElXO9VrEbucjnBFEjqI4GuDrEQ32MaI3q+9qPBvIGOlL4PmHXrzM32vBPWRhQKWQ==}
-
-  '@protobuf-ts/runtime@2.11.1':
-    resolution: {integrity: sha512-KuDaT1IfHkugM2pyz+FwiY80ejWrkH1pAtOBOZFuR6SXEFTsnb/jiQWQ1rCIrcKx2BtyxnxW6BWwsVSA/Ie+WQ==}
-
-  '@protobuf-ts/runtime@2.9.4':
-    resolution: {integrity: sha512-vHRFWtJJB/SiogWDF0ypoKfRIZ41Kq+G9cEFj6Qm1eQaAhJ1LDFvgZ7Ja4tb3iLOQhz0PaoPnnOijF1qmEqTxg==}
-
   '@protobufjs/aspromise@1.1.2':
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
 
@@ -4084,9 +4028,6 @@ packages:
   '@types/content-disposition@0.5.9':
     resolution: {integrity: sha512-8uYXI3Gw35MhiVYhG3s295oihrxRyytcRHjSjqnqZVDDy/xcGBRny7+Xj1Wgfhv5QzRtN2hB2dVRBUX9XW3UcQ==}
 
-  '@types/cookiejar@2.1.5':
-    resolution: {integrity: sha512-he+DHOWReW0nghN24E1WUqM0efK4kI9oTqDm6XmK8ZPe2djZ90BSNdGnIyCLzCPw7/pogPlGbzI2wHGGmi4O/Q==}
-
   '@types/cookies@0.9.1':
     resolution: {integrity: sha512-E/DPgzifH4sM1UMadJMWd6mO2jOd4g1Ejwzx8/uRCDpJis1IrlyQEcGAYEomtAqRYmD5ORbNXMeI9U0RiVGZbg==}
 
@@ -4191,9 +4132,6 @@ packages:
   '@types/mdast@4.0.4':
     resolution: {integrity: sha512-kGaNbPh1k7AFzgpud/gMdvIm5xuECykRR+JnWKQno9TAXVa6WIVCGTPvYGekIDL4uwCZQSYbUxNBSb1aUo79oA==}
 
-  '@types/methods@1.1.4':
-    resolution: {integrity: sha512-ymXWVrDiCxTBE3+RIrrP533E70eA+9qu7zdWoHuOmGujkYtzf4HQF96b8nwHLqhuf4ykX61IGRIB38CC6/sImQ==}
-
   '@types/mime@1.3.5':
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}
 
@@ -4280,12 +4218,6 @@ packages:
 
   '@types/stylis@4.2.5':
     resolution: {integrity: sha512-1Xve+NMN7FWjY14vLoY5tL3BVEQ/n42YLwaqJIPYhotZ9uBHt87VceMwWQpzmdEt2TNXIorIFG+YeCUUW7RInw==}
-
-  '@types/superagent@8.1.9':
-    resolution: {integrity: sha512-pTVjI73witn+9ILmoJdajHGW2jkSaOzhiFYF1Rd3EQ94kymLqB9PjD9ISg7WaALC7+dCHT0FGe9T2LktLq/3GQ==}
-
-  '@types/supertest@6.0.3':
-    resolution: {integrity: sha512-8WzXq62EXFhJ7QsH3Ocb/iKQ/Ty9ZVWnVzoTKc9tyyFRRF3a74Tk2+TLFgaFFw364Ere+npzHKEJ6ga2LzIL7w==}
 
   '@types/through@0.0.33':
     resolution: {integrity: sha512-HsJ+z3QuETzP3cswwtzt2vEIiHBk/dCcHGhbmG5X3ecnwFD/lPrMpliGXxSCg03L9AhrdwA4Oz/qfspkDW+xGQ==}
@@ -4535,12 +4467,6 @@ packages:
 
   '@xtuc/long@4.2.2':
     resolution: {integrity: sha512-NuHqBY1PB/D8xU6s/thBgOAiAP7HOYDQ32+BFZILJ8ivkUkAHQnWfn6WhL79Owj1qmUnoN/YPhktdIoucipkAQ==}
-
-  '@zodios/core@10.9.6':
-    resolution: {integrity: sha512-aH4rOdb3AcezN7ws8vDgBfGboZMk2JGGzEq/DtW65MhnRxyTGRuLJRWVQ/2KxDgWvV2F5oTkAS+5pnjKbl0n+A==}
-    peerDependencies:
-      axios: ^0.x || ^1.0.0
-      zod: ^3.x
 
   abort-controller@3.0.0:
     resolution: {integrity: sha512-h8lQ8tacZYnR3vNQTgibj+tODHI5/+l06Au2Pcriv/Gmet0eaj4TwWH41sO9wnHDiQsEj19q0drzdWdeAHtweg==}
@@ -5277,9 +5203,6 @@ packages:
     resolution: {integrity: sha512-dnN3ibLeoRf2HNC+OlCiNc5d2zxbLJXOtiZUudNFSXZrNSydxcCsSpRzXwfu7BBWCIfHPw+xTayeBvJCP/D8Ng==}
     engines: {node: '>= 18'}
 
-  component-emitter@1.3.1:
-    resolution: {integrity: sha512-T0+barUSQRTUQASh8bx02dl+DhF54GtIDY13Y3m9oWTklKbb3Wv974meRpeZ3lp1JpLVECWWNHC4vaG2XHXouQ==}
-
   compress-commons@6.0.2:
     resolution: {integrity: sha512-6FqVXeETqWPoGcfzrXb37E50NP0LXT8kAMu5ooZayhWWdgEY4lBEEcbQNXtkuKQsGduxiIcI4gOTsxTmuq/bSg==}
     engines: {node: '>= 14'}
@@ -5308,10 +5231,6 @@ packages:
   configstore@5.0.1:
     resolution: {integrity: sha512-aMKprgk5YhBNyH25hj8wGt2+D52Sw1DRRIzqBwLp2Ya9mFmY8KPvvtvmna8SxVR9JMZ4kzMD68N22vlaRpkeFA==}
     engines: {node: '>=8'}
-
-  connection-string@4.4.0:
-    resolution: {integrity: sha512-D4xsUjSoE8m/B5yMOvCIHY+2ME6FIZhCq0NzBBT57Q8BuL7ArFhBK04osOfReoW4KFr5ztzFwWRdmnv9rCvu2w==}
-    engines: {node: '>=14'}
 
   content-disposition@0.5.4:
     resolution: {integrity: sha512-FveZTNuGw04cxlAiWbzi6zTAL/lhehaWbTtgluJh4/E95DqMwTmha3KZN1aAWA8cFIhHzMZUvLevkw5Rqk+tSQ==}
@@ -5349,9 +5268,6 @@ packages:
   cookie@1.1.1:
     resolution: {integrity: sha512-ei8Aos7ja0weRpFzJnEA9UHJ/7XQmqglbRwnf2ATjcB9Wq874VKH9kfjjirM6UhU2/E5fFYadylyhFldcqSidQ==}
     engines: {node: '>=18'}
-
-  cookiejar@2.1.4:
-    resolution: {integrity: sha512-LDx6oHrK+PhzLKJU9j5S7/Y3jM/mUHvD/DeI1WQmJn652iPC5Y4TBzC9l+5OMOXlyTTA+SmVUPm0HQUwpD5Jqw==}
 
   cookies@0.9.1:
     resolution: {integrity: sha512-TG2hpqe4ELx54QER/S3HQ9SRVnQnGBtKUz5bLQWtYAQ+o6GpgMs6sYUvaiJjVxb+UXwhRhAEP3m7LbsIZ77Hmw==}
@@ -5595,9 +5511,6 @@ packages:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
     engines: {node: '>= 0.8'}
 
-  depseek@0.4.3:
-    resolution: {integrity: sha512-0Ex/Uoz9Y9oipbqvgSc7FoV2q4GTDGORkg8TGgM9Pd3RyvRzrDYScKplWiqHU7WqckbKN5kukqD0opEayu2bXg==}
-
   dequal@2.0.3:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
     engines: {node: '>=6'}
@@ -5653,10 +5566,6 @@ packages:
   diff@8.0.4:
     resolution: {integrity: sha512-DPi0FmjiSU5EvQV0++GFDOJ9ASQUVFh5kD+OzOnYdi7n3Wpm9hWWGfB/O2blfHcMVTL5WkQXSnRiK9makhrcnw==}
     engines: {node: '>=0.3.1'}
-
-  dir-glob@3.0.1:
-    resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
-    engines: {node: '>=8'}
 
   direction@1.0.4:
     resolution: {integrity: sha512-GYqKi1aH7PJXxdhTeZBFrg8vUBeKXi+cNprXsC1kpJcbcVnV9wBsrOu1cQEdG0WeQwlfHiy3XvnKfIrJ2R0NzQ==}
@@ -6331,20 +6240,12 @@ packages:
       typescript: '>3.6.0'
       webpack: ^5.11.0
 
-  form-data@4.0.4:
-    resolution: {integrity: sha512-KrGhL9Q4zjj0kiUt5OO4Mr/A/jlI2jDYs5eHBpYHPcBEVSiipAvn2Ko2HnPe20rmcuuvMHNdZFp+4IlGTMF0Ow==}
-    engines: {node: '>= 6'}
-
   form-data@4.0.5:
     resolution: {integrity: sha512-8RipRLol37bNs2bhoV67fiTEvdTrbMUYcFTiy3+wuuOnUog2QBHCZWXDRijWQfAkhBj2Uf5UnVaiWwA5vdd82w==}
     engines: {node: '>= 6'}
 
   formidable@2.1.5:
     resolution: {integrity: sha512-Oz5Hwvwak/DCaXVVUtPn4oLMLLy1CdclLKO1LFgU7XzDpVMUU5UjlSLpGMocyQNNk8F6IJW9M/YdooSn2MRI+Q==}
-
-  formidable@3.5.4:
-    resolution: {integrity: sha512-YikH+7CUTOtP44ZTnUhR7Ic2UASBPOqmaRkRKxRbywPTe5VxF7RRCck4af9wutiZ/QKM5nME9Bie2fFaPz5Gug==}
-    engines: {node: '>=14.0.0'}
 
   formik@2.4.5:
     resolution: {integrity: sha512-Gxlht0TD3vVdzMDHwkiNZqJ7Mvg77xQNfmBRrNtvzcHZs72TJppSTDKHpImCMJZwcWPBJ8jSQQ95GJzXFf1nAQ==}
@@ -6541,10 +6442,6 @@ packages:
   globalthis@1.0.4:
     resolution: {integrity: sha512-DpLKbNU4WylpxJykQujfCcwYWiV/Jhm50Goo0wrVILAv5jOr9d+H+UR3PhSCD2rCCEIg0uc+G+muBTwD54JhDQ==}
     engines: {node: '>= 0.4'}
-
-  globby@13.2.2:
-    resolution: {integrity: sha512-Y1zNGV+pzQdh7H39l9zgB4PJqjRNqydvdYCDG4HFXM4XuvSaQQlEc91IU1yALL8gUTDomgBAfz3XJdmUS+oo0w==}
-    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   gopd@1.2.0:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
@@ -7640,10 +7537,6 @@ packages:
   memoize-one@6.0.0:
     resolution: {integrity: sha512-rkpe71W0N0c0Xz6QD0eJETuWAJGnJ9afsl1srmwPrI+yBCkge5EycXXbYRyvL29zZVUWQCY7InPRCv3GDXuZNw==}
 
-  meow@12.1.1:
-    resolution: {integrity: sha512-BhXM0Au22RwUneMPwSCnyhTOizdWoIEPU9sp0Aqa1PnDMR5Wv2FGXYDjuzJEIX+Eo2Rb8xuYe5jrnm5QowQFkw==}
-    engines: {node: '>=16.10'}
-
   merge-descriptors@2.0.0:
     resolution: {integrity: sha512-Snk314V5ayFLhp3fkUREub6WtjBfPdCPY1Ln8/8munuLuiYhsABgBVWsozAG+MWMbVEvcdcpbi9R7ww22l9Q3g==}
     engines: {node: '>=18'}
@@ -7766,11 +7659,6 @@ packages:
     resolution: {integrity: sha512-Lbgzdk0h4juoQ9fCKXW4by0UJqj+nOOrI9MJ1sSj4nI8aI2eo1qmvQEie4VD1glsS250n15LsWsYtCugiStS5A==}
     engines: {node: '>=18'}
 
-  mime@2.6.0:
-    resolution: {integrity: sha512-USPkMeET31rOMiarsBNIHZKLGgvKc/LrjofAnBlOttf5ajRvqiRA8QsenbcooctK6d6Ts6aqZXBA+XbkKthiQg==}
-    engines: {node: '>=4.0.0'}
-    hasBin: true
-
   mimic-fn@2.1.0:
     resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}
     engines: {node: '>=6'}
@@ -7858,11 +7746,6 @@ packages:
 
   mkdirp@1.0.4:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
-    engines: {node: '>=10'}
-    hasBin: true
-
-  mkdirp@3.0.1:
-    resolution: {integrity: sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==}
     engines: {node: '>=10'}
     hasBin: true
 
@@ -9359,10 +9242,6 @@ packages:
   sisteransi@1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
 
-  slash@4.0.0:
-    resolution: {integrity: sha512-3dOsAHXXUkQTpOYcoAxLIorMTp4gIQr5IW3iVb7A7lFIp0VHhnynm9izx6TssdrIcVIESAlVjtnO2K8bg+Coew==}
-    engines: {node: '>=12'}
-
   slate-history@0.93.0:
     resolution: {integrity: sha512-Gr1GMGPipRuxIz41jD2/rbvzPj8eyar56TVMyJBvBeIpQSSjNISssvGNDYfJlSWM8eaRqf6DAcxMKzsLCYeX6g==}
     peerDependencies:
@@ -9618,16 +9497,6 @@ packages:
   suf-log@2.5.3:
     resolution: {integrity: sha512-KvC8OPjzdNOe+xQ4XWJV2whQA0aM1kGVczMQ8+dStAO6KfEB140JEVQ9dE76ONZ0/Ylf67ni4tILPJB41U0eow==}
 
-  superagent@9.0.2:
-    resolution: {integrity: sha512-xuW7dzkUpcJq7QnhOsnNUgtYp3xRwpt2F7abdRYIpCsAt0hhUqia0EdxyXZQQpNmGtsCzYHryaKSV3q3GJnq7w==}
-    engines: {node: '>=14.18.0'}
-    deprecated: Please upgrade to superagent v10.2.2+, see release notes at https://github.com/forwardemail/superagent/releases/tag/v10.2.2 - maintenance is supported by Forward Email @ https://forwardemail.net
-
-  supertest@7.0.0:
-    resolution: {integrity: sha512-qlsr7fIC0lSddmA3tzojvzubYxvlGtzumcdHgPwbFWMISQwL22MhM2Y3LNt+6w9Yyx7559VW5ab70dgphm8qQA==}
-    engines: {node: '>=14.18.0'}
-    deprecated: Please upgrade to supertest v7.1.3+, see release notes at https://github.com/forwardemail/supertest/releases/tag/v7.1.3 - maintenance is supported by Forward Email @ https://forwardemail.net
-
   supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
     engines: {node: '>=4'}
@@ -9834,11 +9703,6 @@ packages:
   ts-pattern@5.2.0:
     resolution: {integrity: sha512-aGaSpOlDcns7ZoeG/OMftWyQG1KqPVhgplhJxNCvyIXqWrumM5uIoOSarw/hmmi/T1PnuQ/uD8NaFHvLpHicDg==}
 
-  tsc-esm-fix@2.20.27:
-    resolution: {integrity: sha512-bfoSY29XN4yRvXgfxc4rtKQPe9Xx02BahWSZ3D4GgBXIWSE+TJ/BXGSrpUIBkrsKIUQv2zA3qiwJVFnUV59Xdw==}
-    engines: {node: '>=16.0.0'}
-    hasBin: true
-
   tsconfck@3.1.6:
     resolution: {integrity: sha512-ks6Vjr/jEw0P1gmOVwutM3B7fWxoWBL2KRDb1JfqGVawBmO5UsvmWOQFGHBPl5yxYz4eERr19E6L7NMv+Fej4w==}
     engines: {node: ^18 || >=20}
@@ -9997,11 +9861,6 @@ packages:
     peerDependencies:
       eslint: ^8.57.0 || ^9.0.0
       typescript: '>=4.8.4 <6.0.0'
-
-  typescript@3.9.10:
-    resolution: {integrity: sha512-w6fIxVE/H1PkLKcCPsFqKE7Kv7QUwhU8qQY2MueZXWx5cPZdwFupLgKK3vntcK98BtNHZtAF4LA/yl2a7k8R6Q==}
-    engines: {node: '>=4.2.0'}
-    hasBin: true
 
   typescript@5.4.4:
     resolution: {integrity: sha512-dGE2Vv8cpVvw28v8HCPqyb08EzbBURxDpuhJvTrusShUfGnhHBafDsLdS1EhhxyL6BJQE+2cT3dDPAv+MQ6oLw==}
@@ -10822,11 +10681,11 @@ packages:
     resolution: {integrity: sha512-zK7YHHz4ZXpW89AHXUPbQVGKI7uvkd3hzusTdotCg1UxyaVtg0zFJSTfW/Dq5f7OBBVnq6cZIaC8Ti4hb6dtCA==}
     engines: {node: '>= 14'}
 
-  zod-validation-error@3.3.0:
-    resolution: {integrity: sha512-Syib9oumw1NTqEv4LT0e6U83Td9aVRk9iTXPUQr1otyV1PuXQKOvOwhMNqZIq5hluzHP2pMgnOmHEo7kPdI2mw==}
+  zod-validation-error@5.0.0:
+    resolution: {integrity: sha512-hmk+pkyKq7Q71PiWVSDUc3VfpzpvcRHZ3QPw9yEMVvmtCekaMeOHnbr3WbxfrgEnQTv6haGP4cmv0Ojmihzsxw==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
-      zod: ^3.18.0
+      zod: ^3.25.0 || ^4.0.0
 
   zod@3.25.67:
     resolution: {integrity: sha512-idA2YXwpCdqUSKRCACDE6ItZD9TZzy3OZMtpfLoh6oPR47lipysRrJfjzMqFxQ3uJuUPyUeWe1r9vLH33xO/Qw==}
@@ -13212,29 +13071,6 @@ snapshots:
   '@polka/url@1.0.0-next.29': {}
 
   '@popperjs/core@2.11.8': {}
-
-  '@protobuf-ts/plugin-framework@2.11.0':
-    dependencies:
-      '@protobuf-ts/runtime': 2.11.1
-      typescript: 3.9.10
-
-  '@protobuf-ts/plugin@2.9.4':
-    dependencies:
-      '@protobuf-ts/plugin-framework': 2.11.0
-      '@protobuf-ts/protoc': 2.9.4
-      '@protobuf-ts/runtime': 2.9.4
-      '@protobuf-ts/runtime-rpc': 2.11.1
-      typescript: 3.9.10
-
-  '@protobuf-ts/protoc@2.9.4': {}
-
-  '@protobuf-ts/runtime-rpc@2.11.1':
-    dependencies:
-      '@protobuf-ts/runtime': 2.11.1
-
-  '@protobuf-ts/runtime@2.11.1': {}
-
-  '@protobuf-ts/runtime@2.9.4': {}
 
   '@protobufjs/aspromise@1.1.2': {}
 
@@ -16021,8 +15857,6 @@ snapshots:
 
   '@types/content-disposition@0.5.9': {}
 
-  '@types/cookiejar@2.1.5': {}
-
   '@types/cookies@0.9.1':
     dependencies:
       '@types/connect': 3.4.38
@@ -16163,8 +15997,6 @@ snapshots:
     dependencies:
       '@types/unist': 3.0.3
 
-  '@types/methods@1.1.4': {}
-
   '@types/mime@1.3.5': {}
 
   '@types/ms@2.1.0': {}
@@ -16263,18 +16095,6 @@ snapshots:
       '@types/node': 18.19.130
 
   '@types/stylis@4.2.5': {}
-
-  '@types/superagent@8.1.9':
-    dependencies:
-      '@types/cookiejar': 2.1.5
-      '@types/methods': 1.1.4
-      '@types/node': 20.19.17
-      form-data: 4.0.4
-
-  '@types/supertest@6.0.3':
-    dependencies:
-      '@types/methods': 1.1.4
-      '@types/superagent': 8.1.9
 
   '@types/through@0.0.33':
     dependencies:
@@ -16656,11 +16476,6 @@ snapshots:
   '@xtuc/ieee754@1.2.0': {}
 
   '@xtuc/long@4.2.2': {}
-
-  '@zodios/core@10.9.6(axios@1.15.2)(zod@4.1.12)':
-    dependencies:
-      axios: 1.15.2
-      zod: 4.1.12
 
   abort-controller@3.0.0:
     dependencies:
@@ -17537,8 +17352,6 @@ snapshots:
 
   common-ancestor-path@2.0.0: {}
 
-  component-emitter@1.3.1: {}
-
   compress-commons@6.0.2:
     dependencies:
       crc-32: 1.2.2
@@ -17583,8 +17396,6 @@ snapshots:
       write-file-atomic: 3.0.3
       xdg-basedir: 4.0.0
 
-  connection-string@4.4.0: {}
-
   content-disposition@0.5.4:
     dependencies:
       safe-buffer: 5.2.1
@@ -17606,8 +17417,6 @@ snapshots:
   cookie@0.7.2: {}
 
   cookie@1.1.1: {}
-
-  cookiejar@2.1.4: {}
 
   cookies@0.9.1:
     dependencies:
@@ -17840,8 +17649,6 @@ snapshots:
 
   depd@2.0.0: {}
 
-  depseek@0.4.3: {}
-
   dequal@2.0.3: {}
 
   design-react-kit@5.8.3(@types/react@19.2.2)(bootstrap-italia@2.16.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0):
@@ -17892,10 +17699,6 @@ snapshots:
   diff-sequences@29.6.3: {}
 
   diff@8.0.4: {}
-
-  dir-glob@3.0.1:
-    dependencies:
-      path-type: 4.0.0
 
   direction@1.0.4: {}
 
@@ -18739,14 +18542,6 @@ snapshots:
       typescript: 5.4.4
       webpack: 5.102.1(esbuild@0.27.7)
 
-  form-data@4.0.4:
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      es-set-tostringtag: 2.1.0
-      hasown: 2.0.2
-      mime-types: 2.1.35
-
   form-data@4.0.5:
     dependencies:
       asynckit: 0.4.0
@@ -18761,12 +18556,6 @@ snapshots:
       dezalgo: 1.0.4
       once: 1.4.0
       qs: 6.14.2
-
-  formidable@3.5.4:
-    dependencies:
-      '@paralleldrive/cuid2': 2.2.2
-      dezalgo: 1.0.4
-      once: 1.4.0
 
   formik@2.4.5(@types/react@18.3.26)(react@18.3.1):
     dependencies:
@@ -18997,14 +18786,6 @@ snapshots:
     dependencies:
       define-properties: 1.2.1
       gopd: 1.2.0
-
-  globby@13.2.2:
-    dependencies:
-      dir-glob: 3.0.1
-      fast-glob: 3.3.3
-      ignore: 5.3.2
-      merge2: 1.4.1
-      slash: 4.0.0
 
   gopd@1.2.0: {}
 
@@ -20310,8 +20091,6 @@ snapshots:
 
   memoize-one@6.0.0: {}
 
-  meow@12.1.1: {}
-
   merge-descriptors@2.0.0: {}
 
   merge-stream@2.0.0: {}
@@ -20530,8 +20309,6 @@ snapshots:
     dependencies:
       mime-db: 1.54.0
 
-  mime@2.6.0: {}
-
   mimic-fn@2.1.0: {}
 
   mimic-fn@4.0.0: {}
@@ -20599,8 +20376,6 @@ snapshots:
   mkdirp-classic@0.5.3: {}
 
   mkdirp@1.0.4: {}
-
-  mkdirp@3.0.1: {}
 
   mlly@1.8.0:
     dependencies:
@@ -22435,8 +22210,6 @@ snapshots:
 
   sisteransi@1.0.5: {}
 
-  slash@4.0.0: {}
-
   slate-history@0.93.0(slate@0.94.1):
     dependencies:
       is-plain-object: 5.0.0
@@ -22727,27 +22500,6 @@ snapshots:
     dependencies:
       s.color: 0.0.15
 
-  superagent@9.0.2:
-    dependencies:
-      component-emitter: 1.3.1
-      cookiejar: 2.1.4
-      debug: 4.4.3(supports-color@5.5.0)
-      fast-safe-stringify: 2.1.1
-      form-data: 4.0.4
-      formidable: 3.5.4
-      methods: 1.1.2
-      mime: 2.6.0
-      qs: 6.14.2
-    transitivePeerDependencies:
-      - supports-color
-
-  supertest@7.0.0:
-    dependencies:
-      methods: 1.1.2
-      superagent: 9.0.2
-    transitivePeerDependencies:
-      - supports-color
-
   supports-color@5.5.0:
     dependencies:
       has-flag: 3.0.0
@@ -22964,15 +22716,6 @@ snapshots:
 
   ts-pattern@5.2.0: {}
 
-  tsc-esm-fix@2.20.27:
-    dependencies:
-      depseek: 0.4.3
-      fs-extra: 11.3.2
-      globby: 13.2.2
-      json5: 2.2.3
-      meow: 12.1.1
-      tslib: 2.8.1
-
   tsconfck@3.1.6(typescript@5.9.3):
     optionalDependencies:
       typescript: 5.9.3
@@ -23147,8 +22890,6 @@ snapshots:
       typescript: 5.9.3
     transitivePeerDependencies:
       - supports-color
-
-  typescript@3.9.10: {}
 
   typescript@5.4.4: {}
 
@@ -23940,7 +23681,7 @@ snapshots:
       compress-commons: 6.0.2
       readable-stream: 4.7.0
 
-  zod-validation-error@3.3.0(zod@4.1.12):
+  zod-validation-error@5.0.0(zod@4.1.12):
     dependencies:
       zod: 4.1.12
 

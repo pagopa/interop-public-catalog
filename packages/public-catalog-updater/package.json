@@ -22,23 +22,17 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@aws-sdk/client-cloudfront": "3.922.0",
-    "axios": "1.15.2",
-    "dotenv-flow": "4.1.0",
+    "dotenv-flow": "catalog:",
     "pagopa-interop-public-models": "workspace:*",
-    "pg": "8.16.3",
-    "ts-pattern": "5.2.0",
-    "zod": "4.1.12",
-    "zod-validation-error": "3.3.0"
+    "pg": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "20.19.17",
-    "@types/pg": "8.15.5",
-    "mkdirp": "3.0.1",
+    "@types/node": "catalog:",
+    "@types/pg": "catalog:",
     "pagopa-interop-public-eslint-config": "workspace:*",
     "pagopa-interop-public-typescript-config": "workspace:*",
-    "prettier": "3.6.2",
-    "tsc-esm-fix": "2.20.27",
-    "tsx": "4.19.1",
-    "typescript": "5.9.3"
+    "prettier": "catalog:",
+    "tsx": "catalog:",
+    "typescript": "catalog:"
   }
 }

@@ -18,23 +18,16 @@
   },
   "license": "Apache-2.0",
   "dependencies": {
-    "@zodios/core": "10.9.6",
-    "axios": "1.15.2",
-    "connection-string": "4.4.0",
-    "drizzle-orm": "0.45.2",
-    "pg": "8.16.3",
-    "ts-pattern": "5.2.0",
-    "winston": "3.16.0",
-    "yaml": "2.8.3",
-    "zod": "4.1.12",
-    "zod-validation-error": "3.3.0"
+    "drizzle-orm": "catalog:",
+    "pg": "catalog:",
+    "zod": "catalog:"
   },
   "devDependencies": {
-    "@types/node": "20.19.17",
-    "@types/pg": "8.15.5",
+    "@types/node": "catalog:",
+    "@types/pg": "catalog:",
     "pagopa-interop-public-eslint-config": "workspace:*",
     "pagopa-interop-public-typescript-config": "workspace:*",
-    "prettier": "3.6.2",
-    "typescript": "5.9.3"
+    "prettier": "catalog:",
+    "typescript": "catalog:"
   }
 }
