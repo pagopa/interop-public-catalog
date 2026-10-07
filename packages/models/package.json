@@ -27,10 +27,10 @@
     "@protobuf-ts/protoc": "2.9.4",
     "@protobuf-ts/runtime": "2.9.4",
     "axios": "1.15.2",
+    "drizzle-orm": "0.45.2",
     "ts-pattern": "5.2.0",
     "zod": "4.1.12",
-    "zod-validation-error": "3.3.0",
-    "drizzle-orm": "0.45.2"
+    "zod-validation-error": "5.0.0"
   },
   "devDependencies": {
     "@types/node": "20.19.17",

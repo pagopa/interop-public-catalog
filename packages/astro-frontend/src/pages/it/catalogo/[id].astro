@@ -6,19 +6,21 @@ import { getLangFromUrl, getLocalizedRoute } from "../../../i18n/utils.i18n";
 import PageHero from "../../../components/shared/PageHero.astro";
 import RatingSection from "../../../components/shared/RatingSection.astro";
 import { EServiceDataAccessChip } from "../../../components/shared/EServiceDataAccessChip";
-import { sqlService, strapiService } from "../../../server/services";
+import { strapiService } from "../../../server/services";
 import { CopyUrlButton } from "../../../components/shared/CopyUrlButton.jsx";
 import { OtherProducerEServices } from "../../../components/EServiceDetails/OtherProducerEServices";
+import type { EService } from "pagopa-interop-public-models";
+import { GET as getEService } from "../../api/catalog/[id].ts";
 
 const currentLocale = getLangFromUrl(Astro.url.pathname);
 
-const eserviceId = Astro.params.id as string;
+const eserviceResponse = await getEService(Astro);
 
-const eservice = await sqlService.getEService(eserviceId);
-
-if (!eservice) {
+if (!eserviceResponse.ok) {
   return Astro.redirect("/404");
 }
+
+const eservice = (await eserviceResponse.json()) as EService;
 
 const eServiceDetailsStrapiResponse =
   await strapiService.getEServiceDetailsContent(currentLocale);
