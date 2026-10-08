@@ -27,7 +27,7 @@
     "winston": "3.16.0",
     "yaml": "2.8.3",
     "zod": "4.1.12",
-    "zod-validation-error": "3.3.0"
+    "zod-validation-error": "5.0.0"
   },
   "devDependencies": {
     "@types/node": "20.19.17",
