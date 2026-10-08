@@ -27,8 +27,16 @@ const apiClient = axios.create({
 });
 
 export const apiService = {
-  getEServiceById: async (id: string) => {
-    const response = await apiClient.get<EService>(`/api/catalog/${id}`);
+  /**
+   * `baseURL` is needed when calling this from server-side code (e.g. an
+   * `.astro` page): axios can't resolve a relative URL without
+   * a browser `window.location` to resolve it against, so pass
+   * `Astro.url.origin` in that case. It can be omitted for client-side calls.
+   */
+  getEServiceById: async (id: string, baseURL?: string) => {
+    const response = await apiClient.get<EService>(`/api/catalog/${id}`, {
+      baseURL,
+    });
     return response.data;
   },
   getEServices: async (params: EServicesQuery) => {
